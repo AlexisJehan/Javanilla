@@ -14,4 +14,4 @@ matrix:
       install: . ./install-jdk.sh -F 10 -L GPL
 
 after_success:
-  - mvn clean test jacoco:report coveralls:report
+  - bash <(curl -s https://codecov.io/bash)
