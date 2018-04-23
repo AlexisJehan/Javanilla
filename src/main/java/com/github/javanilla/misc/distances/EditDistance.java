@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2018 Alexis Jehan
@@ -19,3 +20,25 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+package com.github.javanilla.misc.distances;
+
+/**
+ * <p>Interface for edit distance functions that work on {@code CharSequence}s.</p>
+ * @see <a href="https://en.wikipedia.org/wiki/Edit_distance">https://en.wikipedia.org/wiki/Edit_distance</a>
+ * @see <a href="https://en.wikipedia.org/wiki/String_metric">https://en.wikipedia.org/wiki/String_metric</a>
+ * @since 1.0
+ */
+@FunctionalInterface
+public interface EditDistance {
+
+	/**
+	 * <p>Calculate an edit distance between both {@code CharSequence}s.</p>
+	 * @param charSequence1 the first {@code CharSequence}
+	 * @param charSequence2 the second {@code CharSequence}
+	 * @return the calculated edit distance
+	 * @throws NullPointerException if any {@code CharSequence} is {@code null}
+	 * @since 1.0
+	 */
+	double calculate(final CharSequence charSequence1, final CharSequence charSequence2);
+}

@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2018 Alexis Jehan
@@ -19,3 +20,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+/**
+ * <p>New {@link com.github.javanilla.io.lines.LineReader}/{@link com.github.javanilla.io.lines.LineWriter} reader/writer
+ * implementations and decorators for advanced line handling and detection.</p>
+ * @since 1.0
+ */
+package com.github.javanilla.io.lines;

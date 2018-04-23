@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2018 Alexis Jehan
@@ -19,3 +20,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+package com.github.javanilla.util.collection;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * <p>{@link Lists} unit tests.</p>
+ */
+final class ListsTest {
+
+	@Test
+	void testNullToEmpty() {
+		assertThat(Lists.nullToEmpty(null)).isEmpty();
+		assertThat(Lists.nullToEmpty(Collections.emptyList())).isEmpty();
+		assertThat(Lists.nullToEmpty(Collections.singletonList("foo"))).isNotEmpty();
+	}
+
+	@Test
+	void testEmptyToNull() {
+		assertThat(Lists.emptyToNull(null)).isNull();
+		assertThat(Lists.emptyToNull(Collections.emptyList())).isNull();
+		assertThat(Lists.emptyToNull(Collections.singletonList("foo"))).isNotNull();
+	}
+}

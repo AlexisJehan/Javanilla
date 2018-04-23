@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2018 Alexis Jehan
@@ -19,3 +20,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+package com.github.javanilla.io;
+
+import java.util.Objects;
+
+/**
+ * <p>Wraps any {@link Exception} related to serialization thrown while working with {@link Serializables} methods.</p>
+ * <p><b>Note</b>: This class is serializable.</p>
+ * @since 1.0
+ */
+public final class SerializationException extends RuntimeException {
+
+	/**
+	 * <p>Serial version unique ID.</p>
+	 * @since 1.0
+	 */
+	private static final long serialVersionUID = -4609829820181534793L;
+
+	/**
+	 * <p>Constructor with a cause.</p>
+	 * @param cause the cause
+	 * @throws NullPointerException if the cause is {@code null}
+	 * @since 1.0
+	 */
+	SerializationException(final Exception cause) {
+		super(Objects.requireNonNull(cause, "Invalid cause (not null expected)"));
+	}
+}
