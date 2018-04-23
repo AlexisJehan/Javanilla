@@ -1,4 +1,6 @@
 # Javanilla
+[![Build Status](https://travis-ci.org/alexisjehan/javanilla.svg?branch=master)](https://travis-ci.org/alexisjehan/javanilla)
+
 A _Java 10_ lightweight utility library to enhance the Java standard API.
 
 ## Introduction
