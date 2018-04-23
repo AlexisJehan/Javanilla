@@ -1,5 +1,7 @@
 # Javanilla
-[![Build Status](https://travis-ci.org/alexisjehan/javanilla.svg?branch=master)](https://travis-ci.org/alexisjehan/javanilla)
+[![Travis](https://img.shields.io/travis/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla)
+[![Codecov](https://img.shields.io/codecov/c/github/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla)
+[![GitHub license](https://img.shields.io/github/license/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla/blob/master/LICENSE)
 
 A _Java 10_ lightweight utility library to enhance the Java standard API.
 
