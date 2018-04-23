@@ -12,3 +12,6 @@ matrix:
 # Java 10 "OpenJDK"
     - env: JDK='OpenJDK 10' JACOCO='-PenableJaCoCo'
       install: . ./install-jdk.sh -F 10 -L GPL
+
+after_success:
+  - mvn clean test jacoco:report coveralls:report
