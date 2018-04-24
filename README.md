@@ -14,16 +14,16 @@ _Google Guava_ because it is not as much complete or reliable, but Javanilla is 
 could complete them.
 
 ## Getting started
-To include and use Javanilla, you need to add the following dependency into your Maven _pom.xml_:
+To include and use Javanilla, you need to add the following dependency into your _Maven_ _pom.xml_ file:
 ```xml
-<dependencies>
-	<dependency>
-		<groupId>com.github.alexisjehan</groupId>
-		<artifactId>javanilla</artifactId>
-		<version>1.0.0</version>
-	</dependency>
-</dependencies>
+<dependency>
+	<groupId>com.github.alexisjehan</groupId>
+	<artifactId>javanilla</artifactId>
+	<version>1.0.0</version>
+</dependency>
 ```
+
+Also the Javadoc can be accessed [here](http://www.javadoc.io/doc/com.github.alexisjehan/javanilla).
 
 ## Examples
 Here are non-exhaustives examples of how you can use Javanilla.
