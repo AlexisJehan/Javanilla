@@ -1,7 +1,9 @@
 # Javanilla
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla.svg)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla/latest)
+[![Javadoc](http://www.javadoc.io/badge/com.github.alexisjehan/javanilla.svg)](http://www.javadoc.io/doc/com.github.alexisjehan/javanilla)
 [![Travis](https://img.shields.io/travis/alexisjehan/javanilla.svg)](https://travis-ci.org/alexisjehan/javanilla)
 [![Codecov](https://img.shields.io/codecov/c/github/alexisjehan/javanilla.svg)](https://codecov.io/gh/alexisjehan/javanilla)
-[![GitHub license](https://img.shields.io/github/license/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla/blob/master/LICENSE.txt)
 
 A _Java 10_ lightweight utility library to enhance the Java standard API.
 
@@ -10,6 +12,18 @@ A _Java 10_ lightweight utility library to enhance the Java standard API.
 components for commons usages. Its goal is not to replace popular utility libraries such as _Apache Commons_ Lang or
 _Google Guava_ because it is not as much complete or reliable, but Javanilla is composed of some original tools that
 could complete them.
+
+## Getting started
+To include and use Javanilla, you need to add the following dependency into your Maven _pom.xml_:
+```xml
+<dependencies>
+	<dependency>
+		<groupId>com.github.alexisjehan</groupId>
+		<artifactId>javanilla</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+</dependencies>
+```
 
 ## Examples
 Here are non-exhaustives examples of how you can use Javanilla.
