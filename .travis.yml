@@ -1,4 +1,5 @@
 language: java
+sudo: false
 
 # Get latest install-jdk.sh script
 before_install:

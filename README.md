@@ -1,6 +1,6 @@
 # Javanilla
-[![Travis](https://img.shields.io/travis/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla)
-[![Codecov](https://img.shields.io/codecov/c/github/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla)
+[![Travis](https://img.shields.io/travis/alexisjehan/javanilla.svg)](https://travis-ci.org/alexisjehan/javanilla)
+[![Codecov](https://img.shields.io/codecov/c/github/alexisjehan/javanilla.svg)](https://codecov.io/gh/alexisjehan/javanilla)
 [![GitHub license](https://img.shields.io/github/license/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla/blob/master/LICENSE)
 
 A _Java 10_ lightweight utility library to enhance the Java standard API.
@@ -206,4 +206,4 @@ mvn jacoco:report
 ```
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details
