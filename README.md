@@ -1,3 +1,4 @@
+![Javanilla](logo.png)
 # Javanilla
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla.svg)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla/latest)
 [![Javadoc](http://www.javadoc.io/badge/com.github.alexisjehan/javanilla.svg)](http://www.javadoc.io/doc/com.github.alexisjehan/javanilla)
