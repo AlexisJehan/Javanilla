@@ -20,8 +20,15 @@ To include and use Javanilla, you need to add the following dependency into your
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 </dependency>
+```
+
+Or if you are using _Gradle_:
+```xml
+dependencies {
+	compile "com.github.alexisjehan:javanilla:1.1.0"
+}
 ```
 
 Also the Javadoc can be accessed [here](http://www.javadoc.io/doc/com.github.alexisjehan/javanilla).
