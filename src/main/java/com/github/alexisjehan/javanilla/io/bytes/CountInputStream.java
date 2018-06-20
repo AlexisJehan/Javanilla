@@ -31,27 +31,27 @@ import java.io.InputStream;
 
 /**
  * <p>An {@link InputStream} decorator that counts the number of bytes read from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CountInputStream extends FilterInputStream {
 
 	/**
 	 * <p>Number of bytes read.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
 	/**
 	 * <p>Number of bytes read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long markedCount = 0L;
 
 	/**
 	 * <p>Constructor with a delegated {@code InputStream}.</p>
 	 * @param inputStream the delegated {@code InputStream}
-	 * @throws NullPointerException if the delegated {@code InputStream} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @since 1.0.0
 	 */
 	public CountInputStream(final InputStream inputStream) {
 		super(inputStream);
@@ -100,7 +100,7 @@ public final class CountInputStream extends FilterInputStream {
 	/**
 	 * <p>Get the number of bytes read.</p>
 	 * @return the number of bytes read
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public long getCount() {
 		return count;

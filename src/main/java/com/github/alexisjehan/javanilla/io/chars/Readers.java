@@ -31,32 +31,32 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>An utility class that provides {@link Reader} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Readers {
 
 	/**
 	 * <p>A {@link Reader} that wraps multiple ones as a sequence.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private static class SequenceReader extends Reader {
 
 		/**
 		 * <p>{@code Iterator} of wrapped {@code Reader}s.</p>
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private final Iterator<? extends Reader> iterator;
 
 		/**
 		 * <p>Current {@code Reader}.</p>
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private Reader current;
 
 		/**
 		 * <p>Private constructor.</p>
 		 * @param iterable the {@code Reader} iterable
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private SequenceReader(final Iterable<? extends Reader> iterable) {
 			iterator = iterable.iterator();
@@ -66,7 +66,7 @@ public final class Readers {
 		/**
 		 * <p>Close the current {@code Reader} if set then peek a new one.</p>
 		 * @throws IOException might occurs with I/O operations
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private void nextReader() throws IOException {
 			if (null != current) {
@@ -77,7 +77,7 @@ public final class Readers {
 
 		/**
 		 * <p>Set the current {@code Reader} as the next one from the iterator.</p>
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private void peekNextReader() {
 			if (iterator.hasNext()) {
@@ -118,7 +118,7 @@ public final class Readers {
 
 	/**
 	 * <p>An empty {@code Reader} that returns no char.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Reader EMPTY = new Reader() {
 		@Override
@@ -142,7 +142,7 @@ public final class Readers {
 
 	/**
 	 * <p>An endless {@code Reader} that returns random chars.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Reader ENDLESS = new Reader() {
 		@Override
@@ -172,7 +172,7 @@ public final class Readers {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private Readers() {
 		// Not available
@@ -181,11 +181,26 @@ public final class Readers {
 	/**
 	 * <p>Wrap a {@code Reader} replacing {@code null} by an empty {@code Reader}.</p>
 	 * @param reader a {@code Reader} or {@code null}
-	 * @return a non-{@code null} {@code Reader}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code Reader}
+	 * @since 1.0.0
 	 */
 	public static Reader nullToEmpty(final Reader reader) {
-		return null != reader ? reader : EMPTY;
+		return nullToDefault(reader, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code Reader} replacing {@code null} by a default {@code Reader}.</p>
+	 * @param reader a {@code Reader} or {@code null}
+	 * @param defaultReader the default {@code Reader}
+	 * @return the non-{@code null} {@code Reader}
+	 * @throws NullPointerException if the default {@code Reader} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static Reader nullToDefault(final Reader reader, final Reader defaultReader) {
+		if (null == defaultReader) {
+			throw new NullPointerException("Invalid default reader (not null expected)");
+		}
+		return null != reader ? reader : defaultReader;
 	}
 
 	/**
@@ -193,7 +208,7 @@ public final class Readers {
 	 * @param reader the {@code Reader} to wrap
 	 * @return the buffered {@code Reader}
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static BufferedReader buffered(final Reader reader) {
 		if (null == reader) {
@@ -206,11 +221,11 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Reader} with {@link Reader#mark(int)} supported if it was not already.</p>
+	 * <p>Wrap a {@code Reader} so that it supports {@link Reader#mark(int)} if it did not already.</p>
 	 * @param reader the {@code Reader} to wrap
-	 * @return {@code Reader} with mark supported
+	 * @return the {@code Reader} with mark supported
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Reader markSupported(final Reader reader) {
 		if (null == reader) {
@@ -223,11 +238,11 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Reader} whose {@link Reader#close()} method has no effect.</p>
+	 * <p>Wrap a {@code Reader} so that its {@link Reader#close()} method has no effect.</p>
 	 * @param reader the {@code Reader} to wrap
 	 * @return the uncloseable {@code Reader}
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Reader uncloseable(final Reader reader) {
 		if (null == reader) {
@@ -244,12 +259,12 @@ public final class Readers {
 	/**
 	 * <p>Read the {@code Reader} from the current position to the end and return the length.</p>
 	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Could result in an infinite loop if the {@code Reader} does not end.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code Reader} does not end.</p>
 	 * @param reader the {@code Reader} to read
-	 * @return the length
+	 * @return the length from the current position
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static long length(final Reader reader) throws IOException {
 		if (null == reader) {
@@ -262,8 +277,8 @@ public final class Readers {
 	 * <p>Concatenate multiple {@code Reader}s.</p>
 	 * @param readers {@code Reader}s to concatenate
 	 * @return the concatenated {@code Reader}
-	 * @throws NullPointerException if the {@code Reader}s array or any of the {@code Reader}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code Reader}s array or any of the {@code Reader}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static Reader concat(final Reader... readers) {
 		if (null == readers) {
@@ -276,17 +291,19 @@ public final class Readers {
 	 * <p>Concatenate a list of {@code Reader}s.</p>
 	 * @param readers {@code Reader}s to concatenate
 	 * @return the concatenated {@code Reader}
-	 * @throws NullPointerException if the {@code Reader}s list or any of the {@code Reader}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code Reader}s list or any of the {@code Reader}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static Reader concat(final List<Reader> readers) {
 		if (null == readers) {
 			throw new NullPointerException("Invalid readers (not null expected)");
 		}
+		var i = 0;
 		for (final var reader : readers) {
 			if (null == reader) {
-				throw new NullPointerException("Invalid reader (not null expected)");
+				throw new NullPointerException("Invalid reader at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (readers.isEmpty()) {
 			return EMPTY;
@@ -302,9 +319,9 @@ public final class Readers {
 	 * @param separator the {@code char array} sequence to add between each joined {@code Reader}
 	 * @param readers {@code Reader}s to join
 	 * @return the joined {@code Reader}
-	 * @throws NullPointerException if the separator, the {@code Reader}s array or any of the {@code Reader}s is
+	 * @throws NullPointerException whether the separator, the {@code Reader}s array or any of the {@code Reader}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Reader join(final char[] separator, final Reader... readers) {
 		if (null == readers) {
@@ -318,9 +335,9 @@ public final class Readers {
 	 * @param separator the {@code char array} sequence to add between each joined {@code Reader}
 	 * @param readers {@code Reader}s to join
 	 * @return the joined {@code Reader}
-	 * @throws NullPointerException if the separator, the {@code Reader}s list or any of the {@code Reader}s is
+	 * @throws NullPointerException whether the separator, the {@code Reader}s list or any of the {@code Reader}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Reader join(final char[] separator, final List<Reader> readers) {
 		if (null == separator) {
@@ -329,10 +346,12 @@ public final class Readers {
 		if (null == readers) {
 			throw new NullPointerException("Invalid readers (not null expected)");
 		}
+		var i = 0;
 		for (final var reader : readers) {
 			if (null == reader) {
-				throw new NullPointerException("Invalid reader (not null expected)");
+				throw new NullPointerException("Invalid reader at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(readers);
@@ -354,11 +373,21 @@ public final class Readers {
 	}
 
 	/**
+	 * <p>Create a single-{@code char} {@code Reader} using the given {@code char}.</p>
+	 * @param c the {@code char}
+	 * @return the created single-{@code char} {@code Reader}
+	 * @since 1.1.0
+	 */
+	public static Reader singleton(final char c) {
+		return of(c);
+	}
+
+	/**
 	 * <p>Create a {@code Reader} with a {@code char array}.</p>
 	 * @param chars the {@code char array} to convert
 	 * @return the created {@code Reader}
 	 * @throws NullPointerException if the {@code char array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Reader of(final char... chars) {
 		if (null == chars) {
@@ -373,11 +402,12 @@ public final class Readers {
 	/**
 	 * <p>Convert a {@code Reader} to a {@code char array}.</p>
 	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
 	 * @param reader the {@code Reader} to convert
 	 * @return the created {@code char array}
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static char[] toChars(final Reader reader) throws IOException {
 		if (null == reader) {
@@ -394,23 +424,24 @@ public final class Readers {
 	 * @param string the {@code String} to convert
 	 * @return the created {@code Reader}
 	 * @throws NullPointerException if the {@code String} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Reader of(final String string) {
 		if (null == string) {
 			throw new NullPointerException("Invalid string (not null expected)");
 		}
-		return new CharArrayReader(string.toCharArray());
+		return new StringReader(string);
 	}
 
 	/**
 	 * <p>Convert a {@code Reader} to a {@code String}.</p>
 	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
 	 * @param reader the {@code Reader} to convert
 	 * @return the created {@code String}
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static String toString(final Reader reader) throws IOException {
 		if (null == reader) {

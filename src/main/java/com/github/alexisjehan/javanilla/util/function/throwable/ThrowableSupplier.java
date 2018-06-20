@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  * <p>Interface for a {@link Supplier} that may throw a {@link Throwable}.</p>
  * @param <T> the type of results supplied by this supplier
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableSupplier<T, X extends Throwable> {
@@ -40,7 +40,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 * <p>Gets a result.</p>
 	 * @return the result supplied
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	T get() throws X;
 
@@ -52,7 +52,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Supplier}
 	 * @throws NullPointerException if the {@code ThrowableSupplier} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Supplier<T> unchecked(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
 		if (null == throwableSupplier) {
@@ -74,7 +74,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableSupplier}
 	 * @throws NullPointerException if the {@code Supplier} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowableSupplier<T, X> of(final Supplier<? extends T> supplier) {
 		if (null == supplier) {

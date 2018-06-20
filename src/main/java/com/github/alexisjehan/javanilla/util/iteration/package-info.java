@@ -23,6 +23,6 @@ SOFTWARE.
 */
 /**
  * <p>A set of {@link java.util.Iterator}/{@link java.lang.Iterable} tools and decorators.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.iteration;

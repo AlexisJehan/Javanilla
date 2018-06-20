@@ -4,7 +4,7 @@
 
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Javanilla</name>
@@ -69,20 +69,20 @@
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>
-			<version>16.0.1</version>
+			<version>16.0.2</version>
 		</dependency>
 
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.2.0-M1</version>
+			<version>5.2.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.9.1</version>
+			<version>3.10.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -111,17 +111,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.21.0</version>
+				<version>2.22.0</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.junit.platform</groupId>
 						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>1.2.0-RC1</version>
+						<version>1.2.0</version>
 					</dependency>
 					<dependency>
 						<groupId>org.junit.jupiter</groupId>
 						<artifactId>junit-jupiter-engine</artifactId>
-						<version>5.2.0-RC1</version>
+						<version>5.2.0</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -141,10 +141,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.0.1</version>
 				<configuration>
-					<excludePackageNames>**benchmarks**</excludePackageNames>
-					<excludePackageNames>**examples**</excludePackageNames>
+					<excludePackageNames>benchmarks</excludePackageNames>
+					<excludePackageNames>examples</excludePackageNames>
 					<additionalOptions>-html5</additionalOptions>
 				</configuration>
 				<executions>

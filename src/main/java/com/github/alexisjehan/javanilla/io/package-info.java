@@ -23,6 +23,6 @@ SOFTWARE.
 */
 /**
  * <p>Extras {@link java.io} components.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.io;

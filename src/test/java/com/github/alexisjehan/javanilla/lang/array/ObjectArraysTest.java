@@ -47,16 +47,38 @@ final class ObjectArraysTest {
 
 	@Test
 	void testNullToEmpty() {
-		assertThat(ObjectArrays.nullToEmpty(Integer.class, null)).isEmpty();
-		assertThat(ObjectArrays.nullToEmpty(Integer.class, ObjectArrays.empty(Integer.class))).isEmpty();
-		assertThat(ObjectArrays.nullToEmpty(Integer.class, ObjectArrays.of(1))).isNotEmpty();
+		assertThat(ObjectArrays.nullToEmpty(null, Integer.class)).isEmpty();
+		assertThat(ObjectArrays.nullToEmpty(ObjectArrays.empty(Integer.class), Integer.class)).isEmpty();
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(ObjectArrays.nullToDefault(null, ObjectArrays.singleton(1))).containsExactly(1);
+		assertThat(ObjectArrays.nullToDefault(ObjectArrays.empty(Integer.class), ObjectArrays.singleton(1))).isEmpty();
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.nullToDefault(ObjectArrays.empty(Integer.class), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(ObjectArrays.emptyToNull(ObjectArrays.empty(Integer.class))).isNull();
 		assertThat(ObjectArrays.emptyToNull(null)).isNull();
-		assertThat(ObjectArrays.emptyToNull(ObjectArrays.of(1))).isNotNull();
+		assertThat(ObjectArrays.emptyToNull(ObjectArrays.empty(Integer.class))).isNull();
+		assertThat(ObjectArrays.emptyToNull(ObjectArrays.singleton(1))).containsExactly(1);
+	}
+
+	@Test
+	void testEmptyToDefault() {
+		assertThat(ObjectArrays.emptyToDefault(null, ObjectArrays.singleton(1))).isNull();
+		assertThat(ObjectArrays.emptyToDefault(ObjectArrays.empty(Integer.class), ObjectArrays.singleton(1))).containsExactly(1);
+		assertThat(ObjectArrays.emptyToDefault(ObjectArrays.singleton(1), ObjectArrays.singleton(1))).containsExactly(1);
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.emptyToDefault(ObjectArrays.empty(Integer.class), ObjectArrays.empty(Integer.class)));
 	}
 
 	@Test
@@ -120,6 +142,21 @@ final class ObjectArraysTest {
 	}
 
 	@Test
+	void testContainsOnce() {
+		assertThat(ObjectArrays.containsOnce(ObjectArrays.empty(Integer.class), 1)).isFalse();
+		final var array = ObjectArrays.of(1, 2000, 2000, null);
+		assertThat(ObjectArrays.containsOnce(array,    1)).isTrue();
+		assertThat(ObjectArrays.containsOnce(array, 2000)).isFalse();
+		assertThat(ObjectArrays.containsOnce(array, null)).isTrue();
+		assertThat(ObjectArrays.containsOnce(array,    3)).isFalse();
+	}
+
+	@Test
+	void testContainsOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.containsOnce(null, 0));
+	}
+
+	@Test
 	void testContainsOnly() {
 		assertThat(ObjectArrays.containsOnly(ObjectArrays.empty(Integer.class), 1)).isFalse();
 		final var array1 = ObjectArrays.of(1, 1);
@@ -169,6 +206,12 @@ final class ObjectArraysTest {
 	void testContainsAllNull() {
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.containsAll(null, 0));
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.containsAll(ObjectArrays.empty(Integer.class), (Integer[]) null));
+	}
+
+	@Test
+	void testSingleton() {
+		assertThat(ObjectArrays.singleton(1)).containsExactly(1);
+		assertThat(ObjectArrays.singleton(1)).isInstanceOf(Integer[].class);
 	}
 
 	@Test

@@ -32,25 +32,25 @@ import java.util.NoSuchElementException;
 /**
  * <p>An {@link Iterator} decorator that returns elements in batch from the current position.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public final class BatchIterator<E> implements Iterator<List<E>> {
 
 	/**
 	 * <p>Delegated {@code Iterator}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final Iterator<? extends E> iterator;
 
 	/**
 	 * <p>Maximum size of the batch.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final int batchSize;
 
 	/**
 	 * <p>List that contains batch elements.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final List<E> batch;
 
@@ -60,7 +60,7 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	 * @param batchSize the batch size
 	 * @throws NullPointerException if the delegated {@code Iterator} is {@code null}
 	 * @throws IllegalArgumentException if the batch size is lower than {@code 1}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public BatchIterator(final Iterator<? extends E> iterator, final int batchSize) {
 		if (null == iterator) {
@@ -94,7 +94,7 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	/**
 	 * <p>Get the maximum batch size.</p>
 	 * @return the maximum batch size
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public int getBatchSize() {
 		return batchSize;

@@ -226,33 +226,33 @@ abstract class AbstractBagTest {
 	@Test
 	void testMin() {
 		final var bag = newBag();
-		assertThat(bag.min()).isEmpty();
+		assertThat(bag.min().isEmpty()).isTrue();
 		bag.add("foo", 3L);
-		assertThat(bag.min()).hasValue("foo");
+		assertThat(bag.min().get()).isEqualTo("foo");
 		bag.add("bar", 2L);
-		assertThat(bag.min()).hasValue("bar");
+		assertThat(bag.min().get()).isEqualTo("bar");
 		bag.remove("foo", 2L);
-		assertThat(bag.min()).hasValue("foo");
+		assertThat(bag.min().get()).isEqualTo("foo");
 		bag.removeAll("foo");
-		assertThat(bag.min()).hasValue("bar");
+		assertThat(bag.min().get()).isEqualTo("bar");
 		bag.removeAll("bar");
-		assertThat(bag.min()).isEmpty();
+		assertThat(bag.min().isEmpty()).isTrue();
 	}
 
 	@Test
 	void testMax() {
 		final var bag = newBag();
-		assertThat(bag.max()).isEmpty();
+		assertThat(bag.max().isEmpty()).isTrue();
 		bag.add("foo", 2L);
-		assertThat(bag.max()).hasValue("foo");
+		assertThat(bag.max().get()).isEqualTo("foo");
 		bag.add("bar", 3L);
-		assertThat(bag.max()).hasValue("bar");
+		assertThat(bag.max().get()).isEqualTo("bar");
 		bag.remove("bar", 2L);
-		assertThat(bag.max()).hasValue("foo");
+		assertThat(bag.max().get()).isEqualTo("foo");
 		bag.removeAll("foo");
-		assertThat(bag.max()).hasValue("bar");
+		assertThat(bag.max().get()).isEqualTo("bar");
 		bag.removeAll("bar");
-		assertThat(bag.max()).isEmpty();
+		assertThat(bag.max().isEmpty()).isTrue();
 	}
 
 	@Test
@@ -289,5 +289,19 @@ abstract class AbstractBagTest {
 		assertThat(bag.toMap()).contains(Map.entry("bar", 1L));
 		bag.remove("bar");
 		assertThat(bag.toMap()).isEmpty();
+	}
+
+	@Test
+	void testNull() {
+		final var bag = newBag();
+		assertThat(bag.count(null)).isEqualTo(0L);
+		bag.add(null, 5L);
+		assertThat(bag.count(null)).isEqualTo(5L);
+		bag.remove(null, 2L);
+		assertThat(bag.count(null)).isEqualTo(3L);
+		assertThat(bag.min().get()).isNull();
+		assertThat(bag.max().get()).isNull();
+		assertThat(bag.toSet()).containsExactlyInAnyOrder((Object) null);
+		assertThat(bag.toMap()).contains(new AbstractMap.SimpleEntry<>(null, 3L));
 	}
 }

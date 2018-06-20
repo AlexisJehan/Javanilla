@@ -24,16 +24,17 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.lang.array;
 
 import java.lang.reflect.Array;
+import java.util.Objects;
 
 /**
  * <p>An utility class that provides {@code generic array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class ObjectArrays {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private ObjectArrays() {
 		// Not available
@@ -45,7 +46,7 @@ public final class ObjectArrays {
 	 * @param <E> the generic type
 	 * @return An empty {@code generic array}
 	 * @throws NullPointerException if the generic class type is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> E[] empty(final Class<E> type) {
@@ -57,25 +58,60 @@ public final class ObjectArrays {
 
 	/**
 	 * <p>Wrap a {@code generic array} replacing {@code null} by an empty {@code generic array}.</p>
-	 * @param type the generic class type
 	 * @param array a {@code generic array} or {@code null}
+	 * @param type the generic class type
 	 * @param <E> the generic type
-	 * @return a non-{@code null} {@code generic array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code generic array}
+	 * @since 1.0.0
 	 */
-	public static <E> E[] nullToEmpty(final Class<E> type, final E[] array) {
-		return null != array ? array : empty(type);
+	public static <E> E[] nullToEmpty(final E[] array, final Class<E> type) {
+		return nullToDefault(array, empty(type));
+	}
+
+	/**
+	 * <p>Wrap a {@code generic array} replacing {@code null} by a default {@code generic array}.</p>
+	 * @param array a {@code generic array} or {@code null}
+	 * @param defaultArray the default {@code generic array}
+	 * @param <E> the generic type
+	 * @return the non-{@code null} {@code generic array}
+	 * @throws NullPointerException if the default {@code generic array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> E[] nullToDefault(final E[] array, final E[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code generic array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code generic array} or {@code null}
 	 * @param <E> the generic type
-	 * @return a non-empty {@code generic array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code generic array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static <E> E[] emptyToNull(final E[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code generic array} replacing an empty one by a default {@code generic array}.</p>
+	 * @param array a {@code generic array} or {@code null}
+	 * @param defaultArray the default {@code generic array} or {@code null}
+	 * @param <E> the generic type
+	 * @return the non-empty {@code generic array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code generic array} is empty
+	 * @since 1.1.0
+	 */
+	public static <E> E[] emptyToDefault(final E[] array, final E[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -85,7 +121,7 @@ public final class ObjectArrays {
 	 * @param <E> the generic type
 	 * @return the first index of the {@code generic} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code generic array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> int indexOf(final E[] array, final E value) {
 		return indexOf(array, value, 0);
@@ -101,7 +137,7 @@ public final class ObjectArrays {
 	 * @return the first index of the {@code generic} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code generic array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> int indexOf(final E[] array, final E value, final int fromIndex) {
 		if (null == array) {
@@ -111,7 +147,7 @@ public final class ObjectArrays {
 			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (between 0 and " + (array.length - 1) + " expected)");
 		}
 		for (var i = fromIndex; i < array.length; ++i) {
-			if (value == array[i] ||(null != value && value.equals(array[i]))) {
+			if (Objects.equals(value, array[i])) {
 				return i;
 			}
 		}
@@ -125,7 +161,7 @@ public final class ObjectArrays {
 	 * @param <E> the generic type
 	 * @return the last index of the {@code generic} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code generic array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> int lastIndexOf(final E[] array, final E value) {
 		return lastIndexOf(array, value, 0);
@@ -141,7 +177,7 @@ public final class ObjectArrays {
 	 * @return the last index of the {@code generic} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code generic array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> int lastIndexOf(final E[] array, final E value, final int fromIndex) {
 		if (null == array) {
@@ -151,7 +187,7 @@ public final class ObjectArrays {
 			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (between 0 and " + (array.length - 1) + " expected)");
 		}
 		for (var i = array.length - 1; i > fromIndex; --i) {
-			if (value == array[i] || (null != value && value.equals(array[i]))) {
+			if (Objects.equals(value, array[i])) {
 				return i;
 			}
 		}
@@ -159,13 +195,13 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code generic array} contains the given {@code generic} value.</p>
+	 * <p>Tell if the {@code generic array} contains the given {@code generic} value at least once.</p>
 	 * @param array the {@code generic array} to look into
 	 * @param value the {@code generic} value to search or {@code null}
 	 * @param <E> the generic type
 	 * @return {@code true} if the given {@code generic} value is contained by the {@code generic array}
 	 * @throws NullPointerException if the {@code generic array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> boolean contains(final E[] array, final E value) {
 		if (null == array) {
@@ -175,11 +211,40 @@ public final class ObjectArrays {
 			return false;
 		}
 		for (final var element : array) {
-			if (value == element || (null != value && value.equals(element))) {
+			if (Objects.equals(value, element)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * <p>Tell of the {@code generic array} contains the given {@code generic} value only once.</p>
+	 * @param array the {@code generic array} to look into
+	 * @param value the {@code generic} value to search
+	 * @param <E> the generic type
+	 * @return {@code true} if the given {@code generic} value is contained only once by the {@code generic array}
+	 * @throws NullPointerException if the {@code generic array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> boolean containsOnce(final E[] array, final E value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (Objects.equals(value, element)) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
 	}
 
 	/**
@@ -189,7 +254,7 @@ public final class ObjectArrays {
 	 * @param <E> the generic type
 	 * @return {@code true} if the given {@code generic} value is the only value contained by the {@code generic array}
 	 * @throws NullPointerException if the {@code generic array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> boolean containsOnly(final E[] array, final E value) {
 		if (null == array) {
@@ -199,7 +264,7 @@ public final class ObjectArrays {
 			return false;
 		}
 		for (final var element : array) {
-			if (value != element && (null == value || !value.equals(element))) {
+			if (!Objects.equals(value, element)) {
 				return false;
 			}
 		}
@@ -212,8 +277,8 @@ public final class ObjectArrays {
 	 * @param values {@code generic} or {@code null} values to search
 	 * @param <E> the generic type
 	 * @return {@code true} if any of given {@code generic} values is contained by the {@code generic array}
-	 * @throws NullPointerException if the {@code generic array} or {@code generic} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code generic array} or {@code generic} values is {@code null}
+	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	public static <E> boolean containsAny(final E[] array, final E... values) {
@@ -228,7 +293,7 @@ public final class ObjectArrays {
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (value == element || (null != value && value.equals(element))) {
+				if (Objects.equals(value, element)) {
 					return true;
 				}
 			}
@@ -242,8 +307,8 @@ public final class ObjectArrays {
 	 * @param values {@code generic} or {@code null} values to search
 	 * @param <E> the generic type
 	 * @return {@code true} if all of given {@code generic} values are contained by the {@code generic array}
-	 * @throws NullPointerException if the {@code generic array} or {@code generic} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code generic array} or {@code generic} values is {@code null}
+	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	public static <E> boolean containsAll(final E[] array, final E... values) {
@@ -259,7 +324,7 @@ public final class ObjectArrays {
 		for (final var value : values) {
 			var found = false;
 			for (final var element : array) {
-				if (value == element || (null != value && value.equals(element))) {
+				if (Objects.equals(value, element)) {
 					found = true;
 					break;
 				}
@@ -272,12 +337,26 @@ public final class ObjectArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code generic array} using the given {@code generic} value.</p>
+	 * @param value the {@code generic} value
+	 * @param <E> the generic type
+	 * @return the created singleton {@code generic array}
+	 * @since 1.1.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> E[] singleton(final E value) {
+		final var array = (E[]) Array.newInstance(value.getClass(), 1);
+		array[0] = value;
+		return array;
+	}
+
+	/**
 	 * <p>Create a {@code generic array} using given {@code generic} values.</p>
 	 * @param values {@code generic} values
 	 * @param <E> the generic type
 	 * @return the created {@code generic array}
 	 * @throws NullPointerException if {@code generic} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	public static <E> E[] of(final E... values) {

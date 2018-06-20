@@ -36,7 +36,7 @@ import java.util.function.LongConsumer;
  * <p><b>Note</b>: This class is in continuation of {@link PrimitiveIterator}.</p>
  * @param <T> the type of elements returned by the provided PrimitiveIterator
  * @param <C> the type of primitive consumer
- * @since 1.0
+ * @since 1.0.0
  */
 public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
@@ -47,14 +47,14 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 * caller.</p>
 	 * @param action The action to be performed for each element
 	 * @throws NullPointerException if the specified action is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SuppressWarnings("overloads")
 	void forEach(final C action);
 
 	/**
 	 * <p>An {@code Iterable} specialized for {@code int} values.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	interface OfInt extends PrimitiveIterable<Integer, IntConsumer> {
 
@@ -75,7 +75,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
 	 * <p>An {@code Iterable} specialized for {@code long} values.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	interface OfLong extends PrimitiveIterable<Long, LongConsumer> {
 
@@ -96,7 +96,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
 	 * <p>An {@code Iterable} specialized for {@code double} values.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	interface OfDouble extends PrimitiveIterable<Double, DoubleConsumer> {
 

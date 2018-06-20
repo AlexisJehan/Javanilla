@@ -70,8 +70,9 @@ final class SerializablePairTest {
 		assertThat(serializablePair.getFirst()).isNotEqualTo(2);
 		assertThat(serializablePair.getSecond()).isNotEqualTo(1);
 		assertThat(serializablePair).isNotEqualTo(null);
-		assertThat(serializablePair).isNotEqualTo(SerializableTriple.of(1, 2, 3));
+		assertThat(serializablePair).isNotEqualTo(SerializableSingle.of(1));
 		assertThat(serializablePair).isNotEqualTo(SerializablePair.of(1, 3));
+		assertThat(serializablePair).isNotEqualTo(SerializableTriple.of(1, 2, 3));
 		assertThat(serializablePair.hashCode()).isNotEqualTo(SerializablePair.of(1, 3).hashCode());
 		assertThat(serializablePair.toString()).isNotEqualTo(SerializablePair.of(1, 3).toString());
 	}
@@ -87,6 +88,6 @@ final class SerializablePairTest {
 	@Test
 	void testSerializable() {
 		final var serializablePair = new SerializablePair<>(1, 2);
-		Assertions.assertThat(Serializables.<SerializablePair>deserialize(Serializables.serialize(serializablePair))).isEqualTo(serializablePair);
+		assertThat(Serializables.<SerializablePair>deserialize(Serializables.serialize(serializablePair))).isEqualTo(serializablePair);
 	}
 }

@@ -27,21 +27,21 @@ import java.io.IOException;
 
 /**
  * <p>A {@link LineReader} decorator that counts the number of lines read from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CountLineReader extends FilterLineReader {
 
 	/**
 	 * <p>Number of lines read.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
 	/**
 	 * <p>Constructor with a delegated {@code LineReader}.</p>
 	 * @param lineReader the delegated {@code LineReader}
-	 * @throws NullPointerException if the delegated {@code LineReader} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * @since 1.0.0
 	 */
 	public CountLineReader(final LineReader lineReader) {
 		super(lineReader);
@@ -66,7 +66,7 @@ public final class CountLineReader extends FilterLineReader {
 	/**
 	 * <p>Get the number of lines read.</p>
 	 * @return the number of lines read
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public long getCount() {
 		return count;

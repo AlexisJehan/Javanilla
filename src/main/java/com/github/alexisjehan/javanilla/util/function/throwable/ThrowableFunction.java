@@ -32,7 +32,7 @@ import java.util.function.Function;
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableFunction<T, R, X extends Throwable> {
@@ -42,7 +42,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @param t the function argument
 	 * @return the function result
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	R apply(final T t) throws X;
 
@@ -54,7 +54,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @return a composed {@code ThrowableFunction} that first applies the before function and then applies this
 	 * function
 	 * @throws NullPointerException if the before {@code ThrowableFunction} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default <V> ThrowableFunction<V, R, X> compose(final ThrowableFunction<? super V, ? extends T, ? extends X> before) {
 		if (null == before) {
@@ -70,7 +70,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code ThrowableFunction} that first applies this function and then applies the after function
 	 * @throws NullPointerException if the after {@code ThrowableFunction} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default <V> ThrowableFunction<T, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
 		if (null == after) {
@@ -88,7 +88,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Function}
 	 * @throws NullPointerException if the {@code ThrowableFunction} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, R, X extends Throwable> Function<T, R> unchecked(final ThrowableFunction<? super T, ? extends R, ? extends X> throwableFunction) {
 		if (null == throwableFunction) {
@@ -111,7 +111,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableFunction}
 	 * @throws NullPointerException if the {@code Function} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, R, X extends Throwable> ThrowableFunction<T, R, X> of(final Function<? super T, ? extends R> function) {
 		if (null == function) {

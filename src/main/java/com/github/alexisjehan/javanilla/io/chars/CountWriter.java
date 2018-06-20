@@ -29,21 +29,21 @@ import java.io.Writer;
 
 /**
  * <p>A {@link Writer} decorator that counts the number of chars written from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CountWriter extends FilterWriter {
 
 	/**
 	 * <p>Number of chars written.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
 	/**
 	 * <p>Constructor with a delegated {@code Writer}.</p>
 	 * @param writer the delegated {@code Writer}
-	 * @throws NullPointerException if the delegated {@code Writer} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * @since 1.0.0
 	 */
 	public CountWriter(final Writer writer) {
 		super(writer);
@@ -70,7 +70,7 @@ public final class CountWriter extends FilterWriter {
 	/**
 	 * <p>Get the number of chars written.</p>
 	 * @return the number of chars written
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public long getCount() {
 		return count;

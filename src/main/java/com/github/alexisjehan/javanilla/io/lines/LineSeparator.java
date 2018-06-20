@@ -32,13 +32,13 @@ import java.util.stream.IntStream;
 
 /**
  * <p>Enumeration of line separator types used by {@link LineReader} and {@link LineWriter}.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public enum LineSeparator {
 
 	/**
-	 * <p>"Line Feed" char line separator type, used mainly on Linux and MacOS operating systems.</p>
-	 * @since 1.0
+	 * <p>"Line Feed" char line separator type, used mainly on <i>Linux</i> and <i>MacOS</i> operating systems.</p>
+	 * @since 1.0.0
 	 */
 	LF("\n") {
 		@Override
@@ -55,9 +55,9 @@ public enum LineSeparator {
 	},
 
 	/**
-	 * <p>"Carriage Return" followed by "Line Feed" chars line separator type, used mainly on the Windows operating
-	 * system.</p>
-	 * @since 1.0
+	 * <p>"Carriage Return" followed by "Line Feed" chars line separator type, used mainly on the <i>Windows</i>
+	 * operating system.</p>
+	 * @since 1.0.0
 	 */
 	CR_LF("\r\n") {
 		@Override
@@ -83,8 +83,8 @@ public enum LineSeparator {
 	},
 
 	/**
-	 * <p>"Carriage Return" char line separator type, used on old MacOS operating systems.</p>
-	 * @since 1.0
+	 * <p>"Carriage Return" char line separator type, used on old <i>MacOS</i> operating systems.</p>
+	 * @since 1.0.0
 	 */
 	CR("\r") {
 		@Override
@@ -103,7 +103,7 @@ public enum LineSeparator {
 	/**
 	 * <p>"Line Feed" or "Carriage Return" char line separator type on read, system's default line separator
 	 * representation on write.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	DEFAULT(System.lineSeparator()) {
 		@Override
@@ -122,20 +122,20 @@ public enum LineSeparator {
 	/**
 	 * <p>Limit on the characters sample to read while detecting the {@code LineSeparator} type over a
 	 * {@code Reader}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private static final int DETECT_LIMIT = 8000;
 
 	/**
 	 * <p>{@code String} representation of the current {@code LineSeparator} type.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final String string;
 
 	/**
 	 * <p>Enumeration constructor.</p>
 	 * @param string the {@code String} representation
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	LineSeparator(final String string) {
 		this.string = string;
@@ -147,14 +147,14 @@ public enum LineSeparator {
 	 * @param builder the {@code StringBuilder} to wrote the line to
 	 * @return the {@code int} value of the last read {@code char}
 	 * @throws IOException might occurs with I/O operations
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	abstract int read(final Reader reader, final StringBuilder builder) throws IOException;
 
 	/**
 	 * <p>Return the {@code String} representation.</p>
 	 * @return the {@code String} representation
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@Override
 	public String toString() {
@@ -168,7 +168,7 @@ public enum LineSeparator {
 	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Path} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Path file) throws IOException {
 		return detect(file, Charset.defaultCharset());
@@ -182,7 +182,7 @@ public enum LineSeparator {
 	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException whether the {@code Path} or {@code Charset} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Path file, final Charset charset) throws IOException {
 		if (null == file) {
@@ -204,7 +204,7 @@ public enum LineSeparator {
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
 	 * @throws IllegalArgumentException if the {@code Reader} does not support {@link Reader#mark(int)}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Reader reader) throws IOException {
 		if (null == reader) {

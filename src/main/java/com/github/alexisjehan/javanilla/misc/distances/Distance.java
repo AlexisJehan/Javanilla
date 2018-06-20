@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 /**
  * <p>Interface for distance/heuristic/similarity functions that work on {@code double array} vectors.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Similarity_measure">https://en.wikipedia.org/wiki/Similarity_measure</a>
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface Distance {
@@ -38,7 +38,7 @@ public interface Distance {
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param x2 the {@code x} coordinate of the second vector
 	 * @return the calculated distance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default double calculate(final double x1, final double x2) {
 		return calculate(DoubleArrays.of(x1), DoubleArrays.of(x2));
@@ -51,7 +51,7 @@ public interface Distance {
 	 * @param x2 the {@code x} coordinate of the second vector
 	 * @param y2 the {@code y} coordinate of the second vector
 	 * @return the calculated distance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default double calculate(final double x1, final double y1, final double x2, final double y2) {
 		return calculate(DoubleArrays.of(x1, y1), DoubleArrays.of(x2, y2));
@@ -66,7 +66,7 @@ public interface Distance {
 	 * @param y2 the {@code y} coordinate of the second vector
 	 * @param z2 the {@code z} coordinate of the second vector
 	 * @return the calculated distance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default double calculate(final double x1, final double y1, final double z1, final double x2, final double y2, final double z2) {
 		return calculate(DoubleArrays.of(x1, y1, z1), DoubleArrays.of(x2, y2, z2));
@@ -78,8 +78,8 @@ public interface Distance {
 	 * @param vector2 the second vector
 	 * @return the calculated distance
 	 * @throws NullPointerException if any vector is {@code null}
-	 * @throws IllegalArgumentException if vectors' length is different or lower than {@code 1}
-	 * @since 1.0
+	 * @throws IllegalArgumentException if vectors' length is different or equal to {@code 0}
+	 * @since 1.0.0
 	 */
 	double calculate(final double[] vector1, final double[] vector2);
 }

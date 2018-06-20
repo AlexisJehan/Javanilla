@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
@@ -37,44 +38,100 @@ final class SetsTest {
 
 	@Test
 	void testNullToEmptySet() {
-		assertThat(Sets.nullToEmpty((Set<Object>) null)).isEmpty();
+		assertThat(Sets.nullToEmpty((Set<String>) null)).isEmpty();
 		assertThat(Sets.nullToEmpty(Collections.emptySet())).isEmpty();
-		assertThat(Sets.nullToEmpty(Collections.singleton("foo"))).isNotEmpty();
+		assertThat(Sets.nullToEmpty(Collections.singleton("foo"))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToEmptySortedSet() {
-		assertThat(Sets.nullToEmpty((SortedSet<Object>) null)).isEmpty();
+		assertThat(Sets.nullToEmpty((SortedSet<String>) null)).isEmpty();
 		assertThat(Sets.nullToEmpty(Collections.emptySortedSet())).isEmpty();
-		assertThat(Sets.nullToEmpty((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")))).isNotEmpty();
+		assertThat(Sets.nullToEmpty((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToEmptyNavigableSet() {
 		assertThat(Sets.nullToEmpty(null)).isEmpty();
 		assertThat(Sets.nullToEmpty(Collections.emptyNavigableSet())).isEmpty();
-		assertThat(Sets.nullToEmpty(new TreeSet<>(Collections.singleton("foo")))).isNotEmpty();
+		assertThat(Sets.nullToEmpty(new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+	}
+
+	@Test
+	void testNullToDefaultSet() {
+		assertThat(Sets.nullToDefault(null, Collections.singleton("foo"))).containsExactly("foo");
+		assertThat(Sets.nullToDefault(Collections.emptySet(), Collections.singleton("foo"))).isEmpty();
+		assertThat(Sets.nullToDefault(Collections.singleton("foo"), Collections.singleton("foo"))).containsExactly("foo");
+	}
+
+	@Test
+	void testNullToDefaultSortedSet() {
+		assertThat(Sets.nullToDefault((SortedSet<String>) null, new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+		assertThat(Sets.nullToDefault(Collections.emptySortedSet(), new TreeSet<>(Collections.singleton("foo")))).isEmpty();
+		assertThat(Sets.nullToDefault((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+	}
+
+	@Test
+	void testNullToDefaultNavigableSet() {
+		assertThat(Sets.nullToDefault(null, new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+		assertThat(Sets.nullToDefault(Collections.emptyNavigableSet(), new TreeSet<>(Collections.singleton("foo")))).isEmpty();
+		assertThat(Sets.nullToDefault(new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.emptySet(), null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.emptySortedSet(), null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.emptyNavigableSet(), null));
 	}
 
 	@Test
 	void testEmptyToNullSet() {
-		assertThat(Sets.emptyToNull((Set<Object>) null)).isNull();
+		assertThat(Sets.emptyToNull((Set<String>) null)).isNull();
 		assertThat(Sets.emptyToNull(Collections.emptySet())).isNull();
-		assertThat(Sets.emptyToNull(Collections.singleton("foo"))).isNotNull();
+		assertThat(Sets.emptyToNull(Collections.singleton("foo"))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToNullSortedSet() {
-		assertThat(Sets.emptyToNull((SortedSet<Object>) null)).isNull();
+		assertThat(Sets.emptyToNull((SortedSet<String>) null)).isNull();
 		assertThat(Sets.emptyToNull(Collections.emptySortedSet())).isNull();
-		assertThat(Sets.emptyToNull((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")))).isNotNull();
+		assertThat(Sets.emptyToNull((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToNullNavigableSet() {
 		assertThat(Sets.emptyToNull(null)).isNull();
 		assertThat(Sets.emptyToNull(Collections.emptyNavigableSet())).isNull();
-		assertThat(Sets.emptyToNull(new TreeSet<>(Collections.singleton("foo")))).isNotNull();
+		assertThat(Sets.emptyToNull(new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+	}
+
+	@Test
+	void testEmptyToDefaultSet() {
+		assertThat(Sets.emptyToDefault(null, Collections.singleton("foo"))).isNull();
+		assertThat(Sets.emptyToDefault(Collections.emptySet(), Collections.singleton("foo"))).containsExactly("foo");
+		assertThat(Sets.emptyToDefault(Collections.singleton("foo"), Collections.singleton("foo"))).containsExactly("foo");
+	}
+
+	@Test
+	void testEmptyToDefaultSortedSet() {
+		assertThat(Sets.emptyToDefault((SortedSet<String>) null, new TreeSet<>(Collections.singleton("foo")))).isNull();
+		assertThat(Sets.emptyToDefault(Collections.emptySortedSet(), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+		assertThat(Sets.emptyToDefault((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+	}
+
+	@Test
+	void testEmptyToDefaultNavigableSet() {
+		assertThat(Sets.emptyToDefault(null, new TreeSet<>(Collections.singleton("foo")))).isNull();
+		assertThat(Sets.emptyToDefault(Collections.emptyNavigableSet(), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+		assertThat(Sets.emptyToDefault(new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+	}
+
+	@Test
+	void testEmptyToDefaultNull() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.emptySet(), Collections.emptySet()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.emptySortedSet(), Collections.emptySortedSet()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.emptyNavigableSet(), Collections.emptyNavigableSet()));
 	}
 
 	@Test
@@ -86,6 +143,6 @@ final class SetsTest {
 
 	@Test
 	void testOfEntriesOrderedNull() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.ofOrdered((Object[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.ofOrdered((String[]) null));
 	}
 }

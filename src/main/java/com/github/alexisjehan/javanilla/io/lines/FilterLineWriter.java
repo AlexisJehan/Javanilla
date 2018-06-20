@@ -27,21 +27,21 @@ import java.io.IOException;
 
 /**
  * <p>An abstract {@link LineWriter} filter to create decorators.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public abstract class FilterLineWriter extends LineWriter {
 
 	/**
 	 * <p>Delegated {@code LineWriter}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected final LineWriter lineWriter;
 
 	/**
 	 * <p>Constructor with a delegated {@code LineWriter}.</p>
 	 * @param lineWriter the delegated {@code LineWriter}
-	 * @throws NullPointerException if the delegated {@code LineWriter} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
+	 * @since 1.0.0
 	 */
 	protected FilterLineWriter(final LineWriter lineWriter) {
 		if (null == lineWriter) {

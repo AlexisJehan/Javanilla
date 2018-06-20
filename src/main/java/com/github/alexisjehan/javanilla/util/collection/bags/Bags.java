@@ -23,30 +23,33 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.util.NullableOptional;
+
 import java.util.*;
 
 /**
  * <p>An utility class that provides {@link Bags} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Bags {
 
 	/**
 	 * <p>{@code SingletonBag} is an immutable {@code Bag} with only one element with any quantity.</p>
+	 * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
 	 * @param <E> the element type
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private static class SingletonBag<E> implements Bag<E> {
 
 		/**
 		 * <p>The single element of the {@code Bag}.</p>
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private final E element;
 
 		/**
 		 * <p>The element's quantity.</p>
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private final long quantity;
 
@@ -54,7 +57,7 @@ public final class Bags {
 		 * <p>Constructor with an element and its quantity.</p>
 		 * @param element the single element
 		 * @param quantity the element's quantity
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
 		private SingletonBag(final E element, final long quantity) {
 			this.element = element;
@@ -78,12 +81,12 @@ public final class Bags {
 
 		@Override
 		public long count(final E element) {
-			return (null == this.element && this.element == element) || (null != this.element && this.element.equals(element)) ? quantity : 0L;
+			return Objects.equals(this.element, element) ? quantity : 0L;
 		}
 
 		@Override
 		public long distinct() {
-			return 1;
+			return 1L;
 		}
 
 		@Override
@@ -92,13 +95,13 @@ public final class Bags {
 		}
 
 		@Override
-		public Optional<E> min() {
-			return Optional.ofNullable(element);
+		public NullableOptional<E> min() {
+			return NullableOptional.of(element);
 		}
 
 		@Override
-		public Optional<E> max() {
-			return Optional.ofNullable(element);
+		public NullableOptional<E> max() {
+			return NullableOptional.of(element);
 		}
 
 		@Override
@@ -110,11 +113,35 @@ public final class Bags {
 		public Map<E, Long> toMap() {
 			return Collections.singletonMap(element, quantity);
 		}
+
+		@Override
+		@SuppressWarnings("unchecked")
+		public boolean equals(final Object object) {
+			if (this == object) {
+				return true;
+			}
+			if (!(object instanceof Bag)) {
+				return false;
+			}
+			final var other = (Bag) object;
+			return 1L == other.distinct()
+					&& quantity == other.count(element);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(element, quantity);
+		}
+
+		@Override
+		public String toString() {
+			return "{" + element + "=" + quantity + "}";
+		}
 	}
 
 	/**
 	 * <p>An empty immutable {@code Bag}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private static final Bag EMPTY = new Bag() {
 		@Override
@@ -148,13 +175,13 @@ public final class Bags {
 		}
 
 		@Override
-		public Optional min() {
-			return Optional.empty();
+		public NullableOptional min() {
+			return NullableOptional.empty();
 		}
 
 		@Override
-		public Optional max() {
-			return Optional.empty();
+		public NullableOptional max() {
+			return NullableOptional.empty();
 		}
 
 		@Override
@@ -166,11 +193,32 @@ public final class Bags {
 		public Map toMap() {
 			return Collections.emptyMap();
 		}
+
+		@Override
+		public boolean equals(final Object object) {
+			if (this == object) {
+				return true;
+			}
+			if (!(object instanceof Bag)) {
+				return false;
+			}
+			return ((Bag) object).isEmpty();
+		}
+
+		@Override
+		public int hashCode() {
+			return 0;
+		}
+
+		@Override
+		public String toString() {
+			return "{}";
+		}
 	};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private Bags() {
 		// Not available
@@ -180,7 +228,7 @@ public final class Bags {
 	 * <p>Return an empty immutable {@code Bag}.</p>
 	 * @param <E> the element type
 	 * @return An empty immutable {@code Bag}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> Bag<E> empty() {
@@ -191,22 +239,57 @@ public final class Bags {
 	 * <p>Wrap a {@code Bag} replacing {@code null} by an empty {@code Bag}.</p>
 	 * @param bag a {@code Bag} or {@code null}
 	 * @param <E> the element type
-	 * @return a non-{@code null} {@code Bag}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code Bag}
+	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> nullToEmpty(final Bag<E> bag) {
-		return null != bag ? bag : empty();
+		return nullToDefault(bag, empty());
+	}
+
+	/**
+	 * <p>Wrap a {@code Bag} replacing {@code null} by a default {@code Bag}.</p>
+	 * @param bag a {@code Bag} or {@code null}
+	 * @param defaultBag the default {@code Bag}
+	 * @param <E> the element type
+	 * @return the non-{@code null} {@code Bag}
+	 * @throws NullPointerException if the default {@code Bag} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> Bag<E> nullToDefault(final Bag<E> bag, final Bag<E> defaultBag) {
+		if (null == defaultBag) {
+			throw new NullPointerException("Invalid default bag (not null expected)");
+		}
+		return null != bag ? bag : defaultBag;
 	}
 
 	/**
 	 * <p>Wrap a {@code Bag} replacing an empty one by {@code null}.</p>
 	 * @param bag a {@code Bag} or {@code null}
 	 * @param <E> the element type
-	 * @return a non-empty {@code Bag} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code Bag} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> emptyToNull(final Bag<E> bag) {
-		return null != bag && !bag.isEmpty() ? bag : null;
+		return emptyToDefault(bag, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code Bag} replacing an empty one by a default {@code Bag}.</p>
+	 * @param bag a {@code Bag} or {@code null}
+	 * @param defaultBag the default {@code Bag} or {@code null}
+	 * @param <E> the element type
+	 * @return the non-empty {@code Bag} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code Bag} is empty
+	 * @since 1.1.0
+	 */
+	public static <E> Bag<E> emptyToDefault(final Bag<E> bag, final Bag<E> defaultBag) {
+		if (null != defaultBag && defaultBag.isEmpty()) {
+			throw new IllegalArgumentException("Invalid default bag (not empty expected)");
+		}
+		if (null == bag) {
+			return null;
+		}
+		return !bag.isEmpty() ? bag : defaultBag;
 	}
 
 	/**
@@ -215,7 +298,7 @@ public final class Bags {
 	 * @param <E> the element type
 	 * @return an immutable view of the {@code Bag}
 	 * @throws NullPointerException if the {@code Bag} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> unmodifiable(final Bag<E> bag) {
 		if (null == bag) {
@@ -244,7 +327,7 @@ public final class Bags {
 	 * @param element the single element
 	 * @param <E> the element type
 	 * @return the created singleton {@code Bag}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> singleton(final E element) {
 		return singleton(element, 1L);
@@ -257,7 +340,7 @@ public final class Bags {
 	 * @param <E> the element type
 	 * @return the created singleton {@code Bag}
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> singleton(final E element, final long quantity) {
 		if (0L > quantity) {
@@ -270,12 +353,12 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create a {@code Bag} with given elements.</p>
+	 * <p>Create an immutable {@code Bag} with given elements.</p>
 	 * @param elements {@code Bag}'s elements
 	 * @param <E> the element type
-	 * @return the created {@code Bag}
+	 * @return the created immutable {@code Bag}
 	 * @throws NullPointerException if the elements {@code array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	public static <E> Bag<E> of(final E... elements) {

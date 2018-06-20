@@ -34,19 +34,19 @@ import java.util.Objects;
  * @param <S> the type of the second object
  * @see SimpleEntry
  * @see SimpleImmutableEntry
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Pair<F, S> {
 
 	/**
 	 * <p>First object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
 	 * <p>Second object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final S second;
 
@@ -54,7 +54,7 @@ public final class Pair<F, S> {
 	 * <p>Standard constructor.</p>
 	 * @param first the first object or {@code null}
 	 * @param second the second object or {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public Pair(final F first, final S second) {
 		this.first = first;
@@ -64,7 +64,7 @@ public final class Pair<F, S> {
 	/**
 	 * <p>Get the first object of the {@code Pair}.</p>
 	 * @return the first object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public F getFirst() {
 		return first;
@@ -73,6 +73,7 @@ public final class Pair<F, S> {
 	/**
 	 * <p>Get the second object of the {@code Pair}.</p>
 	 * @return the second object
+	 * @since 1.0.0
 	 */
 	public S getSecond() {
 		return second;
@@ -104,7 +105,7 @@ public final class Pair<F, S> {
 	/**
 	 * <p>Converts the current {@code Pair} to a {@code SimpleEntry} which is mutable.</p>
 	 * @return the converted {@code SimpleEntry}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SimpleEntry<F, S> toMutableEntry() {
 		return new SimpleEntry<>(first, second);
@@ -113,7 +114,7 @@ public final class Pair<F, S> {
 	/**
 	 * <p>Converts the current {@code Pair} to a {@code SimpleImmutableEntry}.</p>
 	 * @return the converted {@code SimpleImmutableEntry}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SimpleImmutableEntry<F, S> toImmutableEntry() {
 		return new SimpleImmutableEntry<>(first, second);
@@ -126,7 +127,7 @@ public final class Pair<F, S> {
 	 * @param <F> the type of the first object
 	 * @param <S> the type of the second object
 	 * @return the constructed {@code Pair}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <F, S> Pair<F, S> of(final F first, final S second) {
 		return new Pair<>(first, second);

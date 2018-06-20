@@ -43,6 +43,30 @@ import static org.junit.jupiter.api.Assertions.fail;
 final class ThrowablesTest {
 
 	@Test
+	void testIsChecked() {
+		assertThat(Throwables.isChecked(new Exception())).isTrue();
+		assertThat(Throwables.isChecked(new RuntimeException())).isFalse();
+		assertThat(Throwables.isChecked(new Error())).isFalse();
+	}
+
+	@Test
+	void testIsCheckedNull() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.isChecked(null));
+	}
+
+	@Test
+	void testIsUnchecked() {
+		assertThat(Throwables.isUnchecked(new Exception())).isFalse();
+		assertThat(Throwables.isUnchecked(new RuntimeException())).isTrue();
+		assertThat(Throwables.isUnchecked(new Error())).isFalse();
+	}
+
+	@Test
+	void testIsUncheckedNull() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.isUnchecked(null));
+	}
+
+	@Test
 	void testUncheckRunnable() {
 		try {
 			Throwables.uncheck(() -> {});
@@ -116,21 +140,23 @@ final class ThrowablesTest {
 		final var rootException = new IOException();
 		final var uncheckedIOException = new UncheckedIOException(rootException);
 		final var runtimeException = new RuntimeException(uncheckedIOException);
-		assertThat(Throwables.getRootCause(runtimeException)).isSameAs(rootException);
+		assertThat(Throwables.getRootCause(rootException)).isEmpty();
+		assertThat(Throwables.getRootCause(uncheckedIOException).get()).isSameAs(rootException);
+		assertThat(Throwables.getRootCause(runtimeException).get()).isSameAs(rootException);
 	}
 
 	@Test
 	void testGetRootCauseLoop() {
 		final var rootException = new IOException();
 		final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
-			private static final long serialVersionUID = 1906364748162718410L;
+			private static final long serialVersionUID = -5569787925848456326L;
 
 			@Override
 			public Throwable getCause() {
 				return this;
 			}
 		};
-		assertThat(Throwables.getRootCause(exception)).isNotSameAs(rootException);
+		assertThat(Throwables.getRootCause(exception)).isEmpty();
 	}
 
 	@Test
@@ -150,7 +176,7 @@ final class ThrowablesTest {
 	void testGetCausesLoop() {
 		final var rootException = new IOException();
 		final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
-			private static final long serialVersionUID = 5619462499484288864L;
+			private static final long serialVersionUID = -4148978604443508830L;
 
 			@Override
 			public Throwable getCause() {

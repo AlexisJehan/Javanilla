@@ -23,22 +23,22 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.util.NullableOptional;
+
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 /**
  * <p>An abstract {@link Bag} filter to create decorators.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public abstract class FilterBag<E> implements Bag<E> {
 
 	/**
 	 * <p>Delegated {@code Bag}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected final Bag<E> bag;
 
@@ -46,7 +46,7 @@ public abstract class FilterBag<E> implements Bag<E> {
 	 * <p>Constructor with a delegated {@code Bag}.</p>
 	 * @param bag the delegated {@code Bag}
 	 * @throws NullPointerException if the delegated {@code Bag} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected FilterBag(final Bag<E> bag) {
 		if (null == bag) {
@@ -101,12 +101,12 @@ public abstract class FilterBag<E> implements Bag<E> {
 	}
 
 	@Override
-	public Optional<E> min() {
+	public NullableOptional<E> min() {
 		return bag.min();
 	}
 
 	@Override
-	public Optional<E> max() {
+	public NullableOptional<E> max() {
 		return bag.max();
 	}
 
@@ -137,19 +137,12 @@ public abstract class FilterBag<E> implements Bag<E> {
 
 	@Override
 	public boolean equals(final Object object) {
-		if (this == object) {
-			return true;
-		}
-		if (!(object instanceof FilterBag)) {
-			return false;
-		}
-		final var other = (FilterBag) object;
-		return Objects.equals(bag, other.bag);
+		return bag.equals(object);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bag);
+		return bag.hashCode();
 	}
 
 	@Override

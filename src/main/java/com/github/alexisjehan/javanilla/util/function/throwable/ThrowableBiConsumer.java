@@ -32,7 +32,7 @@ import java.util.function.BiConsumer;
  * @param <T> the type of the first argument to the operation
  * @param <U> the type of the second argument to the operation
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableBiConsumer<T, U, X extends Throwable> {
@@ -42,7 +42,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @param t the first input argument
 	 * @param u the second input argument
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	void accept(final T t, final U u) throws X;
 
@@ -53,7 +53,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @return a composed {@code ThrowableBiConsumer} that performs in sequence this operation followed by the after
 	 * operation
 	 * @throws NullPointerException if the after {@code ThrowableBiConsumer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default ThrowableBiConsumer<T, U, X> andThen(final ThrowableBiConsumer<? super T, ? super U, ? extends X> after) {
 		if (null == after) {
@@ -74,7 +74,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code BiConsumer}
 	 * @throws NullPointerException if the {@code ThrowableBiConsumer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> BiConsumer<T, U> unchecked(final ThrowableBiConsumer<? super T, ? super U, ? extends X> throwableBiConsumer) {
 		if (null == throwableBiConsumer) {
@@ -97,7 +97,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableBiConsumer}
 	 * @throws NullPointerException if the {@code BiConsumer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> ThrowableBiConsumer<T, U, X> of(final BiConsumer<? super T, ? super U> biConsumer) {
 		if (null == biConsumer) {

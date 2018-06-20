@@ -33,25 +33,25 @@ import java.util.Objects;
  * @param <F> the type of the first object
  * @param <S> the type of the second object
  * @see Pair
- * @since 1.0
+ * @since 1.0.0
  */
 public final class SerializablePair<F extends Serializable, S extends Serializable> implements Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -1988776270748355236L;
+	private static final long serialVersionUID = 8271847837522821498L;
 
 	/**
 	 * <p>First object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
 	 * <p>Second object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final S second;
 
@@ -59,7 +59,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	 * <p>Standard constructor.</p>
 	 * @param first the first object or {@code null}
 	 * @param second the second object or {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SerializablePair(final F first, final S second) {
 		this.first = first;
@@ -69,7 +69,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	/**
 	 * <p>Get the first object of the {@code SerializablePair}.</p>
 	 * @return the first object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public F getFirst() {
 		return first;
@@ -78,6 +78,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	/**
 	 * <p>Get the second object of the {@code SerializablePair}.</p>
 	 * @return the second object
+	 * @since 1.0.0
 	 */
 	public S getSecond() {
 		return second;
@@ -109,7 +110,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	/**
 	 * <p>Converts the current {@code SerializablePair} to a {@code Pair}.</p>
 	 * @return the converted {@code Pair}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public Pair<F, S> toPair() {
 		return new Pair<>(first, second);
@@ -122,7 +123,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	 * @param <F> the type of the first object
 	 * @param <S> the type of the second object
 	 * @return the constructed {@code SerializablePair}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <F extends Serializable, S extends Serializable> SerializablePair<F, S> of(final F first, final S second) {
 		return new SerializablePair<>(first, second);

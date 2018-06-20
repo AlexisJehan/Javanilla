@@ -34,28 +34,28 @@ import java.util.Collection;
 
 /**
  * <p>An utility class that provides {@link Writer} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Writers {
 
 	/**
-	 * <p>A composed {@code Writer}.</p>
-	 * @since 1.0
+	 * <p>A composite {@code Writer}.</p>
+	 * @since 1.0.0
 	 */
 	private static class TeeWriter extends Writer {
 
 		/**
-		 * <p>Collection of delegated {@code Writer}s.</p>
-		 * @since 1.0
+		 * <p>Delegated {@code Writer}s.</p>
+		 * @since 1.0.0
 		 */
-		private Collection<Writer> writers;
+		private Iterable<Writer> writers;
 
 		/**
 		 * <p>Private constructor.</p>
 		 * @param writers delegated {@code Writer}s
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
-		private TeeWriter(final Collection<Writer> writers) {
+		private TeeWriter(final Iterable<Writer> writers) {
 			this.writers = writers;
 		}
 
@@ -135,7 +135,7 @@ public final class Writers {
 
 	/**
 	 * <p>A blank {@code Writer} that writes no char.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Writer BLANK = new Writer() {
 		@Override
@@ -156,7 +156,7 @@ public final class Writers {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private Writers() {
 		// Not available
@@ -165,11 +165,26 @@ public final class Writers {
 	/**
 	 * <p>Wrap a {@code Writer} replacing {@code null} by a blank {@code Writer}.</p>
 	 * @param writer a {@code Writer} or {@code null}
-	 * @return a non-{@code null} {@code Writer}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code Writer}
+	 * @since 1.0.0
 	 */
 	public static Writer nullToBlank(final Writer writer) {
 		return null != writer ? writer : BLANK;
+	}
+
+	/**
+	 * <p>Wrap a {@code Writer} replacing {@code null} by a default {@code Writer}.</p>
+	 * @param writer a {@code Writer} or {@code null}
+	 * @param defaultWriter the default {@code Writer}
+	 * @return the non-{@code null} {@code Writer}
+	 * @throws NullPointerException if the default {@code Writer} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static Writer nullToDefault(final Writer writer, final Writer defaultWriter) {
+		if (null == defaultWriter) {
+			throw new NullPointerException("Invalid default writer (not null expected)");
+		}
+		return null != writer ? writer : defaultWriter;
 	}
 
 	/**
@@ -177,7 +192,7 @@ public final class Writers {
 	 * @param writer the {@code Writer} to wrap
 	 * @return the buffered {@code Writer}
 	 * @throws NullPointerException if the {@code Writer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static BufferedWriter buffered(final Writer writer) {
 		if (null == writer) {
@@ -190,11 +205,11 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} whose {@link Writer#close()} method has no effect.</p>
+	 * <p>Wrap a {@code Writer} so that its {@link Writer#close()} method has no effect.</p>
 	 * @param writer the {@code Writer} to wrap
 	 * @return the uncloseable {@code Writer}
 	 * @throws NullPointerException if the {@code Writer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Writer uncloseable(final Writer writer) {
 		if (null == writer) {
@@ -212,8 +227,8 @@ public final class Writers {
 	 * <p>Wrap multiple {@code Writer}s into a single one.</p>
 	 * @param writers {@code Writer}s to wrap
 	 * @return the "tee-ed" {@code Writer}
-	 * @throws NullPointerException if the {@code Writer}s array or any of the {@code Writer}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code Writer}s array or any of the {@code Writer}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static Writer tee(final Writer... writers) {
 		if (null == writers) {
@@ -226,17 +241,19 @@ public final class Writers {
 	 * <p>Wrap a collection of {@code Writer}s into a single one.</p>
 	 * @param writers {@code Writer}s to wrap
 	 * @return the "tee-ed" {@code Writer}
-	 * @throws NullPointerException if the {@code Writer}s collection or any of the {@code Writer}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code Writer}s collection or any of the {@code Writer}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static Writer tee(final Collection<Writer> writers) {
 		if (null == writers) {
 			throw new NullPointerException("Invalid writers (not null expected)");
 		}
+		var i = 0;
 		for (final var writer : writers) {
 			if (null == writer) {
-				throw new NullPointerException("Invalid writer (not null expected)");
+				throw new NullPointerException("Invalid writer at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (writers.isEmpty()) {
 			return BLANK;

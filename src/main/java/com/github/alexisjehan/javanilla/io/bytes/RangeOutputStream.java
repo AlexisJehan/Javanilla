@@ -31,25 +31,25 @@ import java.io.OutputStream;
 
 /**
  * <p>An {@link OutputStream} decorator that writes only bytes within a range from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class RangeOutputStream extends FilterOutputStream {
 
 	/**
 	 * <p>The inclusive index of the first byte to write.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
 	 * <p>The inclusive index of the last byte to write.<p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
 	 * <p>Current index.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long index = 0L;
 
@@ -57,9 +57,9 @@ public final class RangeOutputStream extends FilterOutputStream {
 	 * <p>Constructor with a delegated {@code OutputStream} and a range from {@code 0} to the given inclusive index.</p>
 	 * @param outputStream the delegated {@code OutputStream}
 	 * @param toIndex the inclusive index of the last byte to write
-	 * @throws NullPointerException if the delegated {@code OutputStream} is {@code null}
+	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeOutputStream(final OutputStream outputStream, final long toIndex) {
 		this(outputStream, 0L, toIndex);
@@ -70,9 +70,9 @@ public final class RangeOutputStream extends FilterOutputStream {
 	 * @param outputStream the delegated {@code OutputStream}
 	 * @param fromIndex the inclusive index of the first byte to write
 	 * @param toIndex the inclusive index of the last byte to write
-	 * @throws NullPointerException if the delegated {@code OutputStream} is {@code null}
+	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
 	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeOutputStream(final OutputStream outputStream, final long fromIndex, final long toIndex) {
 		super(outputStream);
@@ -108,8 +108,8 @@ public final class RangeOutputStream extends FilterOutputStream {
 
 	/**
 	 * <p>Get the inclusive index of the first byte to write.</p>
-	 * @return the inclusive index of the first byte to write
-	 * @since 1.0
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
 		return fromIndex;
@@ -117,8 +117,8 @@ public final class RangeOutputStream extends FilterOutputStream {
 
 	/**
 	 * <p>Get the inclusive index of the last byte to write.<p>
-	 * @return the inclusive index of the last byte to write
-	 * @since 1.0
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getToIndex() {
 		return toIndex;

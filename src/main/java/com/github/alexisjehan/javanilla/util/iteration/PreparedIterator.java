@@ -30,19 +30,19 @@ import java.util.NoSuchElementException;
  * <p>An {@code Iterator} whose next element is prepared when the last one is returned. The end is reached when the next
  * element is not valid based on {@link #isValid(Object)}.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public abstract class PreparedIterator<E> implements Iterator<E> {
 
 	/**
 	 * <p>Whether the next element has been initialized or not.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private boolean initialized = false;
 
 	/**
 	 * <p>The prepared next element.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private E next;
 
@@ -59,7 +59,7 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	 * <p>Indicates if the prepared next element is valid, if not there is no more element.</p>
 	 * @param next the prepared next element
 	 * @return whether the next prepared element is valid or not
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected abstract boolean isValid(final E next);
 
@@ -77,7 +77,7 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	 * <p>Return the next element to be returned after the current one.</p>
 	 * <p><b>Note</b>: This method should not be called by the inherited class.</p>
 	 * @return the next element, valid or not
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected abstract E prepareNext();
 }

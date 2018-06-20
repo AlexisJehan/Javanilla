@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code float array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class FloatArrays {
 
 	/**
 	 * <p>An empty {@code float array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final float[] EMPTY = new float[0];
+	public static final float[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private FloatArrays() {
 		// Not available
@@ -49,21 +49,54 @@ public final class FloatArrays {
 	/**
 	 * <p>Wrap a {@code float array} replacing {@code null} by an empty {@code float array}.</p>
 	 * @param array a {@code float array} or {@code null}
-	 * @return a non-{@code null} {@code float array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code float array}
+	 * @since 1.0.0
 	 */
 	public static float[] nullToEmpty(final float[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code float array} replacing {@code null} by a default {@code float array}.</p>
+	 * @param array a {@code float array} or {@code null}
+	 * @param defaultArray the default {@code float array}
+	 * @return the non-{@code null} {@code float array}
+	 * @throws NullPointerException if the default {@code float array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static float[] nullToDefault(final float[] array, final float[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code float array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code float array} or {@code null}
-	 * @return a non-empty {@code float array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code float array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static float[] emptyToNull(final float[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code float array} replacing an empty one by a default {@code float array}.</p>
+	 * @param array a {@code float array} or {@code null}
+	 * @param defaultArray the default {@code float array} or {@code null}
+	 * @return the non-empty {@code float array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code float array} is empty
+	 * @since 1.1.0
+	 */
+	public static float[] emptyToDefault(final float[] array, final float[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -72,7 +105,7 @@ public final class FloatArrays {
 	 * @param value the {@code float} value to search
 	 * @return the first index of the {@code float} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code float array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final float[] array, final float value) {
 		return indexOf(array, value, 0);
@@ -87,7 +120,7 @@ public final class FloatArrays {
 	 * @return the first index of the {@code float} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code float array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final float[] array, final float value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +143,7 @@ public final class FloatArrays {
 	 * @param value the {@code float} value to search
 	 * @return the last index of the {@code float} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code float array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final float[] array, final float value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +158,7 @@ public final class FloatArrays {
 	 * @return the last index of the {@code float} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code float array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final float[] array, final float value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +176,12 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code float array} contains the given {@code float} value.</p>
+	 * <p>Tell if the {@code float array} contains the given {@code float} value at least once.</p>
 	 * @param array the {@code float array} to look into
 	 * @param value the {@code float} value to search
 	 * @return {@code true} if the given {@code float} value is contained by the {@code float array}
 	 * @throws NullPointerException if the {@code float array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final float[] array, final float value) {
 		if (null == array) {
@@ -166,12 +199,40 @@ public final class FloatArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code float array} contains the given {@code float} value only once.</p>
+	 * @param array the {@code float array} to look into
+	 * @param value the {@code float} value to search
+	 * @return {@code true} if the given {@code float} value is contained only once by the {@code float array}
+	 * @throws NullPointerException if the {@code float array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final float[] array, final float value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code float array} contains only the given {@code float} value.</p>
 	 * @param array the {@code float array} to look into
 	 * @param value the {@code float} value to search
 	 * @return {@code true} if the given {@code float} value is the only value contained by the {@code float array}
 	 * @throws NullPointerException if the {@code float array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final float[] array, final float value) {
 		if (null == array) {
@@ -193,8 +254,8 @@ public final class FloatArrays {
 	 * @param array the {@code float array} to look into
 	 * @param values {@code float} values to search
 	 * @return {@code true} if any of given {@code float} values is contained by the {@code float array}
-	 * @throws NullPointerException if the {@code float array} or {@code float} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code float array} or {@code float} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final float[] array, final float... values) {
 		if (null == array) {
@@ -221,8 +282,8 @@ public final class FloatArrays {
 	 * @param array the {@code float array} to look into
 	 * @param values {@code float} values to search
 	 * @return {@code true} if all of given {@code float} values are contained by the {@code float array}
-	 * @throws NullPointerException if the {@code float array} or {@code float} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code float array} or {@code float} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final float[] array, final float... values) {
 		if (null == array) {
@@ -253,8 +314,8 @@ public final class FloatArrays {
 	 * <p>Concatenate multiple {@code float array}s.</p>
 	 * @param arrays {@code float array}s to concatenate
 	 * @return the concatenated {@code float array}
-	 * @throws NullPointerException if the array or any of the {@code float array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code float array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static float[] concat(final float[]... arrays) {
 		if (null == arrays) {
@@ -267,18 +328,20 @@ public final class FloatArrays {
 	 * <p>Concatenate a list of {@code float array}s.</p>
 	 * @param arrays {@code float array}s to concatenate
 	 * @return the concatenated {@code float array}
-	 * @throws NullPointerException if the {@code float array} list or any of the {@code float array}s is
+	 * @throws NullPointerException whether the {@code float array} list or any of the {@code float array}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static float[] concat(final List<float[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -300,8 +363,8 @@ public final class FloatArrays {
 	 * @param separator the {@code float array} sequence to add between each joined {@code float array}
 	 * @param arrays {@code float array}s to join
 	 * @return the joined {@code float array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code float array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code float array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static float[] join(final float[] separator, final float[]... arrays) {
 		if (null == arrays) {
@@ -315,9 +378,9 @@ public final class FloatArrays {
 	 * @param separator the {@code float array} sequence to add between each joined {@code float array}
 	 * @param arrays {@code float array}s to join
 	 * @return the joined {@code float array}
-	 * @throws NullPointerException if the separator, the {@code float array} list or any of the {@code float array}s is
-	 * {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code float array} list or any of the
+	 * {@code float array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static float[] join(final float[] separator, final List<float[]> arrays) {
 		if (null == separator) {
@@ -326,10 +389,12 @@ public final class FloatArrays {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(arrays);
@@ -356,11 +421,21 @@ public final class FloatArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code float array} using the given {@code float} value.</p>
+	 * @param value the {@code float} value
+	 * @return the created singleton {@code float array}
+	 * @since 1.1.0
+	 */
+	public static float[] singleton(final float value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code float array} using given {@code float} values.</p>
 	 * @param values {@code float} values
 	 * @return the created {@code float array}
 	 * @throws NullPointerException if {@code float} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static float[] of(final float... values) {
 		if (null == values) {

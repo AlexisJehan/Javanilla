@@ -70,13 +70,13 @@ final class LimitedBagTest {
 			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("foo", "bar")), 2);
 			assertThat(bag).isEqualTo(otherBag);
 			assertThat(bag).hasSameHashCodeAs(otherBag);
-			assertThat(bag.toString()).isEqualTo(otherBag.toString());
+			assertThat(bag).hasToString(otherBag.toString());
 		}
 		{
 			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("foo", "bar")), 10);
-			assertThat(bag).isNotEqualTo(otherBag);
-			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(bag).isEqualTo(otherBag);
+			assertThat(bag).hasSameHashCodeAs(otherBag);
+			assertThat(bag.toString()).isNotEqualTo(otherBag.toString()); // Distinct representation
 		}
 		{
 			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("foo")), 2);

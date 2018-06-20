@@ -105,6 +105,6 @@ final class MinkowskiDistanceTest {
 	@Test
 	void testSerializable() {
 		final var minkowskiDistance = new MinkowskiDistance(2);
-		Assertions.assertThat(Serializables.<MinkowskiDistance>deserialize(Serializables.serialize(minkowskiDistance))).isEqualTo(minkowskiDistance);
+		assertThat(Serializables.<MinkowskiDistance>deserialize(Serializables.serialize(minkowskiDistance))).isEqualTo(minkowskiDistance);
 	}
 }

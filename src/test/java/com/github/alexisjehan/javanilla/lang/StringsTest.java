@@ -43,14 +43,14 @@ final class StringsTest {
 	void testNullToEmpty() {
 		assertThat(Strings.nullToEmpty(null)).isEmpty();
 		assertThat(Strings.nullToEmpty(Strings.EMPTY)).isEmpty();
-		assertThat(Strings.nullToEmpty("test")).isNotEmpty();
+		assertThat(Strings.nullToEmpty(" ")).isEqualTo(" ");
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Strings.nullToDefault(null, "<null>")).isEqualTo("<null>");
-		assertThat(Strings.nullToDefault(Strings.EMPTY, "<null>")).isEmpty();
-		assertThat(Strings.nullToDefault("test", "<null>")).isNotEqualTo("<null>");
+		assertThat(Strings.nullToDefault(null, "foo")).isEqualTo("foo");
+		assertThat(Strings.nullToDefault(Strings.EMPTY, "foo")).isEmpty();
+		assertThat(Strings.nullToDefault(" ", "foo")).isEqualTo(" ");
 	}
 
 	@Test
@@ -60,32 +60,52 @@ final class StringsTest {
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(Strings.emptyToNull(Strings.EMPTY)).isNull();
 		assertThat(Strings.emptyToNull(null)).isNull();
-		assertThat(Strings.emptyToNull("test")).isNotNull();
+		assertThat(Strings.emptyToNull(Strings.EMPTY)).isNull();
+		assertThat(Strings.emptyToNull(" ")).isEqualTo(" ");
 	}
 
 	@Test
-	void testBlankToEmpty() {
-		assertThat(Strings.blankToEmpty(null)).isEmpty();
-		assertThat(Strings.blankToEmpty(Strings.EMPTY)).isEmpty();
-		assertThat(Strings.blankToEmpty(" ")).isEmpty();
-		assertThat(Strings.blankToEmpty(" \t\n\r")).isEmpty();
-		assertThat(Strings.blankToEmpty(" \t\n\rx")).isNotEmpty();
+	void testEmptyToDefault() {
+		assertThat(Strings.emptyToDefault(null, "foo")).isNull();
+		assertThat(Strings.emptyToDefault(Strings.EMPTY, "foo")).isEqualTo("foo");
+		assertThat(Strings.emptyToDefault(" ", "foo")).isEqualTo(" ");
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.emptyToDefault(Strings.EMPTY, Strings.EMPTY));
 	}
 
 	@Test
 	void testBlankToNull() {
 		assertThat(Strings.blankToNull(null)).isNull();
-		assertThat(Strings.blankToNull(Strings.EMPTY)).isNull();
+		assertThat(Strings.blankToNull(Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToNull(" ")).isNull();
-		assertThat(Strings.blankToNull(" \t\n\r")).isNull();
-		assertThat(Strings.blankToNull(" \t\n\rx")).isNotEmpty();
+	}
+
+	@Test
+	void testBlankToEmpty() {
+		assertThat(Strings.blankToEmpty(null)).isNull();
+		assertThat(Strings.blankToEmpty(Strings.EMPTY)).isEmpty();
+		assertThat(Strings.blankToEmpty(" ")).isEmpty();
+	}
+
+	@Test
+	void testBlankToDefault() {
+		assertThat(Strings.blankToDefault(null, "foo")).isNull();
+		assertThat(Strings.blankToDefault(Strings.EMPTY, "foo")).isEmpty();
+		assertThat(Strings.blankToDefault(" ", "foo")).isEqualTo("foo");
+	}
+
+	@Test
+	void testBlankToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.blankToDefault(Strings.EMPTY, " "));
 	}
 
 	@Test
 	void testIsBlank() {
-		assertThat(Strings.isBlank(Strings.EMPTY)).isTrue();
+		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
 		assertThat(Strings.isBlank(" ")).isTrue();
 		assertThat(Strings.isBlank("x")).isFalse();
 		assertThat(Strings.isBlank(" \t\n\r")).isTrue();
@@ -104,8 +124,7 @@ final class StringsTest {
 		assertThat(Strings.isHex("00!?")).isFalse();
 		assertThat(Strings.isHex("00ff")).isTrue();
 		assertThat(Strings.isHex("FF00")).isTrue();
-		assertThat(Strings.isHex("0xff")).isTrue();
-		assertThat(Strings.isHex("0x")).isFalse();
+		assertThat(Strings.isHex("0xff")).isFalse();
 	}
 
 	@Test
@@ -117,6 +136,7 @@ final class StringsTest {
 	void testIsBase64() {
 		assertThat(Strings.isBase64(Strings.EMPTY)).isFalse();
 		assertThat(Strings.isBase64("Zg")).isFalse();
+		assertThat(Strings.isBase64("Zg=")).isFalse();
 		assertThat(Strings.isBase64("Zg!?")).isFalse();
 		assertThat(Strings.isBase64("Zg|:")).isFalse();
 		assertThat(Strings.isBase64("==Zg")).isFalse();
@@ -134,7 +154,8 @@ final class StringsTest {
 	@Test
 	void testIsBase64Url() {
 		assertThat(Strings.isBase64Url(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isBase64Url("Zg")).isFalse();
+		assertThat(Strings.isBase64Url("Zg")).isTrue();
+		assertThat(Strings.isBase64Url("Zg=")).isFalse();
 		assertThat(Strings.isBase64Url("Zg!?")).isFalse();
 		assertThat(Strings.isBase64Url("Zg|:")).isFalse();
 		assertThat(Strings.isBase64Url("==Zg")).isFalse();
@@ -147,6 +168,46 @@ final class StringsTest {
 	@Test
 	void testIsBase64UrlNull() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64Url(null));
+	}
+
+	@Test
+	void testQuote() {
+		assertThat(Strings.quote(Strings.EMPTY)).isEqualTo("\"\"");
+		assertThat(Strings.quote("foo")).isEqualTo("\"foo\"");
+		assertThat(Strings.quote("f\"oo")).isEqualTo("\"f\\\"oo\"");
+		assertThat(Strings.quote("f\\\"oo")).isEqualTo("\"f\\\\\"oo\"");
+		assertThat(Strings.quote("f\"o\no")).isEqualTo("\"f\\\"o\no\"");
+		assertThat(Strings.quote("f\"o\\\no")).isEqualTo("\"f\\\"o\\\no\"");
+		assertThat(Strings.quote("f\"oo", '"', '"')).isEqualTo("\"f\"\"oo\"");
+	}
+
+	@Test
+	void testQuoteNull() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.quote((Object) null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.quote(null));
+	}
+
+	@Test
+	void testUnquote() {
+		assertThat(Strings.unquote("\"\"")).isEqualTo(Strings.EMPTY);
+		assertThat(Strings.unquote("\"foo\"")).isEqualTo("foo");
+		assertThat(Strings.unquote("\"f\\\"oo\"")).isEqualTo("f\"oo");
+		assertThat(Strings.unquote("\"f\\\\\"oo\"")).isEqualTo("f\\\"oo");
+		assertThat(Strings.unquote("\"f\\\"o\no\"")).isEqualTo("f\"o\no");
+		assertThat(Strings.unquote("\"f\\\"o\\\no\"")).isEqualTo("f\"o\\\no");
+		assertThat(Strings.unquote("\"f\"\"oo\"", '"', '"')).isEqualTo("f\"oo");
+	}
+
+	@Test
+	void testUnquoteNull() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.unquote(null));
+	}
+
+	@Test
+	void testUnquoteInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("f"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("\"foo"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("foo\""));
 	}
 
 	@Test
@@ -454,6 +515,17 @@ final class StringsTest {
 	void testConcatMergeNull() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, "456789"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge("123456", null));
+	}
+
+	@Test
+	void testOf() {
+		assertThat(Strings.of()).isEmpty();
+		assertThat(Strings.of('a', 'b', 'c')).isEqualTo("abc");
+	}
+
+	@Test
+	void testOfNull() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.of(null));
 	}
 
 	@Test

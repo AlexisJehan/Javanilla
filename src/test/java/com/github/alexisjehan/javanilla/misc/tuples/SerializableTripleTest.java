@@ -75,6 +75,7 @@ final class SerializableTripleTest {
 		assertThat(serializableTriple.getSecond()).isNotEqualTo(3);
 		assertThat(serializableTriple.getThird()).isNotEqualTo(1);
 		assertThat(serializableTriple).isNotEqualTo(null);
+		assertThat(serializableTriple).isNotEqualTo(SerializableSingle.of(1));
 		assertThat(serializableTriple).isNotEqualTo(SerializablePair.of(1, 2));
 		assertThat(serializableTriple).isNotEqualTo(SerializableTriple.of(1, 2, 4));
 		assertThat(serializableTriple.hashCode()).isNotEqualTo(SerializableTriple.of(1, 2, 4).hashCode());
@@ -93,6 +94,6 @@ final class SerializableTripleTest {
 	@Test
 	void testSerializable() {
 		final var serializableTriple = new SerializableTriple<>(1, 2, 3);
-		Assertions.assertThat(Serializables.<SerializableTriple>deserialize(Serializables.serialize(serializableTriple))).isEqualTo(serializableTriple);
+		assertThat(Serializables.<SerializableTriple>deserialize(Serializables.serialize(serializableTriple))).isEqualTo(serializableTriple);
 	}
 }

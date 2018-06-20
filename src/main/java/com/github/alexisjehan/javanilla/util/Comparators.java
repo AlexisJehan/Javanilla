@@ -27,7 +27,7 @@ import java.util.Comparator;
 
 /**
  * <p>An utility class that provides {@link Comparator} and {@link Comparable} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Comparators {
 
@@ -35,7 +35,7 @@ public final class Comparators {
 	 * <p>A {@code CharSequence} {@code Comparator} that takes numbers in consideration.</p>
 	 * <p><b>Example</b>: {@code ["example2", "example1", "example11"]} would be sorted like
 	 * {@code ["example1", "example2", "example11"]} and not {@code ["example1", "example11", "example2"]}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Comparator<CharSequence> NUMBER_AWARE = (charSequence1, charSequence2) -> {
 		if (null == charSequence1) {
@@ -92,8 +92,8 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code boolean} array {@code Comparator}.</p>
-	 * @since 1.0
+	 * <p>A {@code boolean array} {@code Comparator}.</p>
+	 * @since 1.0.0
 	 */
 	public static final Comparator<boolean[]> BOOLEAN_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -111,8 +111,8 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A signed {@code byte} array {@code Comparator}.</p>
-	 * @since 1.0
+	 * <p>A signed {@code byte array} {@code Comparator}.</p>
+	 * @since 1.0.0
 	 */
 	public static final Comparator<byte[]> SIGNED_BYTE_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -130,10 +130,10 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A unsigned {@code byte} array {@code Comparator}.</p>
+	 * <p>A unsigned {@code byte array} {@code Comparator}.</p>
 	 * <p><b>Note</b>: {@code byte}s are converted to {@code int}s using {@link Byte#toUnsignedInt(byte)} before being
 	 * compared.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Comparator<byte[]> UNSIGNED_BYTE_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -153,8 +153,8 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code short} array {@code Comparator}.</p>
-	 * @since 1.0
+	 * <p>A {@code short array} {@code Comparator}.</p>
+	 * @since 1.0.0
 	 */
 	public static final Comparator<short[]> SHORT_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -172,8 +172,8 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code int} array {@code Comparator}.</p>
-	 * @since 1.0
+	 * <p>A {@code int array} {@code Comparator}.</p>
+	 * @since 1.0.0
 	 */
 	public static final Comparator<int[]> INT_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -191,8 +191,8 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code long} array {@code Comparator}.</p>
-	 * @since 1.0
+	 * <p>A {@code long array} {@code Comparator}.</p>
+	 * @since 1.0.0
 	 */
 	public static final Comparator<long[]> LONG_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -210,10 +210,10 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code float} array {@code Comparator}.</p>
+	 * <p>A {@code float array} {@code Comparator}.</p>
 	 * <p><b>Note</b>: {@code float}s are converted to {@code int}s using {@link Float#floatToIntBits(float)} before
 	 * being compared.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Comparator<float[]> FLOAT_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -233,10 +233,10 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code double} array {@code Comparator}.</p>
+	 * <p>A {@code double array} {@code Comparator}.</p>
 	 * <p><b>Note</b>: {@code double}s are converted to {@code long}s using {@link Double#doubleToLongBits(double)}
 	 * before being compared.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final Comparator<double[]> DOUBLE_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
@@ -257,18 +257,18 @@ public final class Comparators {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private Comparators() {
 		// Not available
 	}
 
 	/**
-	 * <p>Returns a {@code Comparator} for array of {@code Comparable} comparing elements using
+	 * <p>Create a {@code Comparator} for arrays of {@code Comparable} comparing elements using
 	 * {@link Comparable#compareTo(Object)}.</p>
 	 * @param <T> the type of {@code Comparable} array
 	 * @return the created array {@code Comparator}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <T extends Comparable<T>> Comparator<T[]> array() {
 		return (array1, array2) -> {
@@ -289,11 +289,11 @@ public final class Comparators {
 	}
 
 	/**
-	 * <p>Returns a {@code Comparator} for array comparing elements using the given {@code Comparator}.</p>
+	 * <p>Create a {@code Comparator} for arrays comparing elements using the given {@code Comparator}.</p>
 	 * @param <T> the type of elements in array
 	 * @param comparator custom {@code Comparator} for elements
 	 * @return the created array {@code Comparator}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <T> Comparator<T[]> array(final Comparator<T> comparator) {
 		return (array1, array2) -> {

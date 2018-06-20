@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.util.NullableOptional;
+
 import java.util.*;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.Supplier;
@@ -32,25 +34,25 @@ import java.util.stream.Collectors;
  * <p>A {@link Bag} implementation which uses a {@link Map} to store elements and occurrences.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public final class MapBag<E> implements Bag<E> {
 
 	/**
 	 * <p>The delegated {@code Map}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final Map<E, LongAdder> map;
 
 	/**
 	 * <p>Cached size of the {@code Bag}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long size = 0L;
 
 	/**
 	 * <p>Default constructor, a {@code HashMap} is used.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public MapBag() {
 		this(new HashMap<>());
@@ -60,7 +62,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * <p>Constructor with a custom {@code Map} implementation.</p>
 	 * @param mapSupplier the {@code Supplier} which provides the {@code Map}
 	 * @throws NullPointerException if the {@code Supplier} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public MapBag(final Supplier<? extends Map<E, LongAdder>> mapSupplier) {
 		this(Objects.requireNonNull(mapSupplier, "Invalid map supplier (not null expected)").get());
@@ -70,7 +72,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * <p>Constructor with elements from an existing {@code Collection}, a {@code HashMap} is used.</p>
 	 * @param collection the collection to get elements from
 	 * @throws NullPointerException if the collection is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public MapBag(final Collection<? extends E> collection) {
 		if (null == collection) {
@@ -88,7 +90,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * <p>Private constructor with the given {@code Map}, empty or not.</p>
 	 * @param map the {@code Map} to get elements and occurrences from
 	 * @throws NullPointerException if the {@code Map} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private MapBag(final Map<E, LongAdder> map) {
 		if (null == map) {
@@ -222,17 +224,31 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	@Override
-	public Optional<E> min() {
-		return map.entrySet().stream()
-				.min(Comparator.comparingDouble(e -> e.getValue().longValue()))
-				.map(Map.Entry::getKey);
+	public NullableOptional<E> min() {
+		Map.Entry<E, LongAdder> minEntry = null;
+		for (final var entry : map.entrySet()) {
+			if (null == minEntry || minEntry.getValue().longValue() > entry.getValue().longValue()) {
+				minEntry = entry;
+			}
+		}
+		if (null == minEntry) {
+			return NullableOptional.empty();
+		}
+		return NullableOptional.of(minEntry.getKey());
 	}
 
 	@Override
-	public Optional<E> max() {
-		return map.entrySet().stream()
-				.max(Comparator.comparingDouble(e -> e.getValue().longValue()))
-				.map(Map.Entry::getKey);
+	public NullableOptional<E> max() {
+		Map.Entry<E, LongAdder> maxEntry = null;
+		for (final var entry : map.entrySet()) {
+			if (null == maxEntry || maxEntry.getValue().longValue() < entry.getValue().longValue()) {
+				maxEntry = entry;
+			}
+		}
+		if (null == maxEntry) {
+			return NullableOptional.empty();
+		}
+		return NullableOptional.of(maxEntry.getKey());
 	}
 
 	@Override
@@ -251,22 +267,23 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean equals(final Object object) {
 		if (this == object) {
 			return true;
 		}
-		if (!(object instanceof MapBag)) {
+		if (!(object instanceof Bag)) {
 			return false;
 		}
-		final var other = (MapBag<?>) object;
-		if (size != other.size) {
+		final var other = (Bag) object;
+		if (distinct() != other.distinct() || size() != other.size()) {
 			return false;
 		}
 		for (final var entry : map.entrySet()) {
 			final var element = entry.getKey();
 			final var adder = entry.getValue();
-			final var otherAdder = other.map.get(element);
-			if (null == otherAdder || adder.longValue() != otherAdder.longValue()) {
+			final var otherCount = other.count(element);
+			if (adder.longValue() != otherCount) {
 				return false;
 			}
 		}
@@ -279,7 +296,6 @@ public final class MapBag<E> implements Bag<E> {
 		for (final var entry : map.entrySet()) {
 			h += Objects.hash(entry.getKey(), entry.getValue().longValue());
 		}
-		h += Objects.hash(size);
 		return h;
 	}
 

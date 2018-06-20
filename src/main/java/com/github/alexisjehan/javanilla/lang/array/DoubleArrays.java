@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code double array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class DoubleArrays {
 
 	/**
 	 * <p>An empty {@code double array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final double[] EMPTY = new double[0];
+	public static final double[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private DoubleArrays() {
 		// Not available
@@ -49,21 +49,54 @@ public final class DoubleArrays {
 	/**
 	 * <p>Wrap a {@code double array} replacing {@code null} by an empty {@code double array}.</p>
 	 * @param array a {@code double array} or {@code null}
-	 * @return a non-{@code null} {@code double array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code double array}
+	 * @since 1.0.0
 	 */
 	public static double[] nullToEmpty(final double[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code double array} replacing {@code null} by a default {@code double array}.</p>
+	 * @param array a {@code double array} or {@code null}
+	 * @param defaultArray the default {@code double array}
+	 * @return the non-{@code null} {@code double array}
+	 * @throws NullPointerException if the default {@code double array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static double[] nullToDefault(final double[] array, final double[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code double array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code double array} or {@code null}
-	 * @return a non-empty {@code double array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code double array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static double[] emptyToNull(final double[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code double array} replacing an empty one by a default {@code double array}.</p>
+	 * @param array a {@code double array} or {@code null}
+	 * @param defaultArray the default {@code double array} or {@code null}
+	 * @return the non-empty {@code double array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code double array} is empty
+	 * @since 1.1.0
+	 */
+	public static double[] emptyToDefault(final double[] array, final double[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -72,7 +105,7 @@ public final class DoubleArrays {
 	 * @param value the {@code double} value to search
 	 * @return the first index of the {@code double} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code double array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final double[] array, final double value) {
 		return indexOf(array, value, 0);
@@ -87,7 +120,7 @@ public final class DoubleArrays {
 	 * @return the first index of the {@code double} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code double array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final double[] array, final double value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +143,7 @@ public final class DoubleArrays {
 	 * @param value the {@code double} value to search
 	 * @return the last index of the {@code double} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code double array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final double[] array, final double value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +158,7 @@ public final class DoubleArrays {
 	 * @return the last index of the {@code double} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code double array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final double[] array, final double value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +176,12 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code double array} contains the given {@code double} value.</p>
+	 * <p>Tell if the {@code double array} contains the given {@code double} value at least once.</p>
 	 * @param array the {@code double array} to look into
 	 * @param value the {@code double} value to search
 	 * @return {@code true} if the given {@code double} value is contained by the {@code double array}
 	 * @throws NullPointerException if the {@code double array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final double[] array, final double value) {
 		if (null == array) {
@@ -166,12 +199,40 @@ public final class DoubleArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code double array} contains the given {@code double} value only once.</p>
+	 * @param array the {@code double array} to look into
+	 * @param value the {@code double} value to search
+	 * @return {@code true} if the given {@code double} value is contained only once by the {@code double array}
+	 * @throws NullPointerException if the {@code double array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final double[] array, final double value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code double array} contains only the given {@code double} value.</p>
 	 * @param array the {@code double array} to look into
 	 * @param value the {@code double} value to search
 	 * @return {@code true} if the given {@code double} value is the only value contained by the {@code double array}
 	 * @throws NullPointerException if the {@code double array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final double[] array, final double value) {
 		if (null == array) {
@@ -193,8 +254,8 @@ public final class DoubleArrays {
 	 * @param array the {@code double array} to look into
 	 * @param values {@code double} values to search
 	 * @return {@code true} if any of given {@code double} values is contained by the {@code double array}
-	 * @throws NullPointerException if the {@code double array} or {@code double} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code double array} or {@code double} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final double[] array, final double... values) {
 		if (null == array) {
@@ -221,8 +282,8 @@ public final class DoubleArrays {
 	 * @param array the {@code double array} to look into
 	 * @param values {@code double} values to search
 	 * @return {@code true} if all of given {@code double} values are contained by the {@code double array}
-	 * @throws NullPointerException if the {@code double array} or {@code double} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code double array} or {@code double} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final double[] array, final double... values) {
 		if (null == array) {
@@ -253,8 +314,8 @@ public final class DoubleArrays {
 	 * <p>Concatenate multiple {@code double array}s.</p>
 	 * @param arrays {@code double array}s to concatenate
 	 * @return the concatenated {@code double array}
-	 * @throws NullPointerException if the array or any of the {@code double array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code double array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static double[] concat(final double[]... arrays) {
 		if (null == arrays) {
@@ -267,18 +328,20 @@ public final class DoubleArrays {
 	 * <p>Concatenate a list of {@code double array}s.</p>
 	 * @param arrays {@code double array}s to concatenate
 	 * @return the concatenated {@code double array}
-	 * @throws NullPointerException if the {@code double array} list or any of the {@code double array}s is
+	 * @throws NullPointerException whether the {@code double array} list or any of the {@code double array}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static double[] concat(final List<double[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -300,8 +363,8 @@ public final class DoubleArrays {
 	 * @param separator the {@code double array} sequence to add between each joined {@code double array}
 	 * @param arrays {@code double array}s to join
 	 * @return the joined {@code double array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code double array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code double array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static double[] join(final double[] separator, final double[]... arrays) {
 		if (null == arrays) {
@@ -315,9 +378,9 @@ public final class DoubleArrays {
 	 * @param separator the {@code double array} sequence to add between each joined {@code double array}
 	 * @param arrays {@code double array}s to join
 	 * @return the joined {@code double array}
-	 * @throws NullPointerException if the separator, the {@code double array} list or any of the {@code double array}s
-	 * is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code double array} list or any of the
+	 * {@code double array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static double[] join(final double[] separator, final List<double[]> arrays) {
 		if (null == separator) {
@@ -356,11 +419,21 @@ public final class DoubleArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code double array} using the given {@code double} value.</p>
+	 * @param value the {@code double} value
+	 * @return the created singleton {@code double array}
+	 * @since 1.1.0
+	 */
+	public static double[] singleton(final double value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code double array} using given {@code double} values.</p>
 	 * @param values {@code double} values
 	 * @return the created {@code double array}
 	 * @throws NullPointerException if {@code double} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static double[] of(final double... values) {
 		if (null == values) {

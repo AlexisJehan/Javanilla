@@ -25,14 +25,14 @@ package com.github.alexisjehan.javanilla.misc.distances;
 
 /**
  * <p>Commons {@link EditDistance}s implementations.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public enum EditDistances implements EditDistance {
 
 	/**
 	 * <p>The Longest Common Subsequence (LCS) distance.</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">https://en.wikipedia.org/wiki/Longest_common_subsequence_problem</a>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	LCS {
 		@Override
@@ -52,7 +52,7 @@ public enum EditDistances implements EditDistance {
 	/**
 	 * <p>The Hamming distance.</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Hamming_distance">https://en.wikipedia.org/wiki/Hamming_distance</a>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	HAMMING {
 		@Override
@@ -91,7 +91,7 @@ public enum EditDistances implements EditDistance {
 	 * @param charSequence2 the second {@code CharSequence}
 	 * @param length2 the length of the second {@code CharSequence}
 	 * @return the calculated edit distance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected abstract double calculateImpl(final CharSequence charSequence1, final int length1, final CharSequence charSequence2, final int length2);
 }

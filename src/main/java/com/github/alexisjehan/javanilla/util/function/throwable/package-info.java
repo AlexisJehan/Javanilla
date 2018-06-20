@@ -23,6 +23,6 @@ SOFTWARE.
 */
 /**
  * <p>New {@link java.util.function} interfaces able to throw {@link java.lang.Throwable}s.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.function.throwable;

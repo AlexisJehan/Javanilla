@@ -31,7 +31,7 @@ import java.util.function.Consumer;
  * <p>Interface for a {@link Consumer} that may throw a {@link Throwable}.</p>
  * @param <T> the type of the input to the operation
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableConsumer<T, X extends Throwable> {
@@ -40,7 +40,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * <p>Performs this operation on the given argument.</p>
 	 * @param t the input argument
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	void accept(final T t) throws X;
 
@@ -51,7 +51,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * @return a composed {@code ThrowableConsumer} that performs in sequence this operation followed by the after
 	 * operation
 	 * @throws NullPointerException if the after {@code ThrowableConsumer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default ThrowableConsumer<T, X> andThen(final ThrowableConsumer<? super T, ? extends X> after) {
 		if (null == after) {
@@ -71,7 +71,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Consumer}
 	 * @throws NullPointerException if the {@code ThrowableConsumer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Consumer<T> unchecked(final ThrowableConsumer<? super T, ? extends X> throwableConsumer) {
 		if (null == throwableConsumer) {
@@ -93,7 +93,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableConsumer}
 	 * @throws NullPointerException if the {@code Consumer} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowableConsumer<T, X> of(final Consumer<? super T> consumer) {
 		if (null == consumer) {

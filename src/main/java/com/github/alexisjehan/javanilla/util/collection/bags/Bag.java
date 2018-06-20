@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.util.NullableOptional;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +35,7 @@ import java.util.Set;
  * such as histograms or occurrence vectors.</p>
  * <p><b>Note</b>: {@code Bag} does not extend the {@link Collection} interface for API design reasons.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public interface Bag<E> {
 
@@ -42,7 +44,7 @@ public interface Bag<E> {
 	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to add
 	 * @return {@code true} if the element has been successfully added
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean add(final E element) {
 		return add(element, 1L);
@@ -55,7 +57,7 @@ public interface Bag<E> {
 	 * @param quantity how many instances of the element should be added
 	 * @return {@code true} if the element has been successfully added
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	boolean add(final E element, final long quantity);
 
@@ -64,7 +66,7 @@ public interface Bag<E> {
 	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean remove(final E element) {
 		return remove(element, 1L);
@@ -78,7 +80,7 @@ public interface Bag<E> {
 	 * @param quantity how many instances of the element should be removed
 	 * @return {@code true} if the element has been successfully removed
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	boolean remove(final E element, final long quantity);
 
@@ -87,7 +89,7 @@ public interface Bag<E> {
 	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean removeAll(final E element) {
 		return remove(element, Long.MAX_VALUE);
@@ -95,14 +97,14 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Clear the {@code Bag} by removing all contained elements.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	void clear();
 
 	/**
 	 * <p>Tell if the {@code Bag} is empty in case it contains no element.</p>
 	 * @return {@code true} if the {@code Bag} is empty
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean isEmpty() {
 		return 0L == size();
@@ -113,7 +115,7 @@ public interface Bag<E> {
 	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to test
 	 * @return {@code true} if the {@code Bag} contains the element at least once
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean containsAny(final E element) {
 		return containsAtLeast(element, 1L);
@@ -126,7 +128,7 @@ public interface Bag<E> {
 	 * @param quantity the quantity to check
 	 * @return {@code true} if the {@code Bag} contains the element exactly in the given quantity
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean containsExactly(final E element, final long quantity) {
 		if (0L > quantity) {
@@ -142,7 +144,7 @@ public interface Bag<E> {
 	 * @param quantity the quantity to check
 	 * @return {@code true} if the {@code Bag} contains the element at least in the given quantity
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean containsAtLeast(final E element, final long quantity) {
 		if (0L > quantity) {
@@ -161,7 +163,7 @@ public interface Bag<E> {
 	 * @param quantity the quantity to check
 	 * @return {@code true} if the {@code Bag} contains the element at most in the given quantity
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default boolean containsAtMost(final E element, final long quantity) {
 		if (0L > quantity) {
@@ -175,49 +177,49 @@ public interface Bag<E> {
 	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to count
 	 * @return the actual quantity
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	long count(final E element);
 
 	/**
 	 * <p>Get the number of distinct elements.</p>
 	 * @return the number of distinct elements
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	long distinct();
 
 	/**
 	 * <p>Get the total size of the {@code Bag}.</p>
 	 * @return the total size of the {@code Bag}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	long size();
 
 	/**
-	 * <p>Get an {@code Optional} of the element with the minimum quantity.</p>
-	 * @return an {@code Optional} of the element with the minimum quantity
-	 * @since 1.0
+	 * <p>Get a {@code NullableOptional} of the element with the minimum quantity.</p>
+	 * @return a {@code NullableOptional} of the element with the minimum quantity
+	 * @since 1.0.0
 	 */
-	Optional<E> min();
+	NullableOptional<E> min();
 
 	/**
-	 * <p>Get an {@code Optional} of the element with the maximum quantity.</p>
-	 * @return an {@code Optional} of the element with the maximum quantity
-	 * @since 1.0
+	 * <p>Get a {@code NullableOptional} of the element with the maximum quantity.</p>
+	 * @return a {@code NullableOptional} of the element with the maximum quantity
+	 * @since 1.0.0
 	 */
-	Optional<E> max();
+	NullableOptional<E> max();
 
 	/**
 	 * <p>Create a {@code Set} with distinct elements from the {@code Bag}.</p>
 	 * @return the created {@code Set}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	Set<E> toSet();
 
 	/**
 	 * <p>Create a {@code Map} which associates elements from the {@code Bag} to their quantity.</p>
 	 * @return the created {@code Map}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	Map<E, Long> toMap();
 }

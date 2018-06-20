@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.lang.Throwables;
 /**
  * <p>Interface for a {@link Runnable} that may throw a {@link Throwable}.</p>
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableRunnable<X extends Throwable> {
@@ -36,7 +36,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	/**
 	 * <p>Take any action whatsoever.</p>
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	void run() throws X;
 
@@ -47,7 +47,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Runnable}
 	 * @throws NullPointerException if the {@code ThrowableRunnable} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <X extends Throwable> Runnable unchecked(final ThrowableRunnable<? extends X> throwableRunnable) {
 		if (null == throwableRunnable) {
@@ -68,7 +68,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableRunnable}
 	 * @throws NullPointerException if the {@code Runnable} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <X extends Throwable> ThrowableRunnable<X> of(final Runnable runnable) {
 		if (null == runnable) {

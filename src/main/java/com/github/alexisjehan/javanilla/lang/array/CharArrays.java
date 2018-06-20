@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code char array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CharArrays {
 
 	/**
 	 * <p>An empty {@code char array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final char[] EMPTY = new char[0];
+	public static final char[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private CharArrays() {
 		// Not available
@@ -49,21 +49,54 @@ public final class CharArrays {
 	/**
 	 * <p>Wrap a {@code char array} replacing {@code null} by an empty {@code char array}.</p>
 	 * @param array a {@code char array} or {@code null}
-	 * @return a non-{@code null} {@code char array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code char array}
+	 * @since 1.0.0
 	 */
 	public static char[] nullToEmpty(final char[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code char array} replacing {@code null} by a default {@code char array}.</p>
+	 * @param array a {@code char array} or {@code null}
+	 * @param defaultArray the default {@code char array}
+	 * @return the non-{@code null} {@code char array}
+	 * @throws NullPointerException if the default {@code char array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static char[] nullToDefault(final char[] array, final char[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code char array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code char array} or {@code null}
-	 * @return a non-empty {@code char array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code char array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static char[] emptyToNull(final char[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code char array} replacing an empty one by a default {@code char array}.</p>
+	 * @param array a {@code char array} or {@code null}
+	 * @param defaultArray the default {@code char array} or {@code null}
+	 * @return the non-empty {@code char array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code char array} is empty
+	 * @since 1.1.0
+	 */
+	public static char[] emptyToDefault(final char[] array, final char[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -72,7 +105,7 @@ public final class CharArrays {
 	 * @param value the {@code char} value to search
 	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code char array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final char[] array, final char value) {
 		return indexOf(array, value, 0);
@@ -87,7 +120,7 @@ public final class CharArrays {
 	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code char array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final char[] array, final char value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +143,7 @@ public final class CharArrays {
 	 * @param value the {@code char} value to search
 	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code char array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final char[] array, final char value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +158,7 @@ public final class CharArrays {
 	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code char array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final char[] array, final char value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +176,12 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code char array} contains the given {@code char} value.</p>
+	 * <p>Tell if the {@code char array} contains the given {@code char} value at least once.</p>
 	 * @param array the {@code char array} to look into
 	 * @param value the {@code char} value to search
 	 * @return {@code true} if the given {@code char} value is contained by the {@code char array}
 	 * @throws NullPointerException if the {@code char array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final char[] array, final char value) {
 		if (null == array) {
@@ -166,12 +199,40 @@ public final class CharArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code char array} contains the given {@code char} value only once.</p>
+	 * @param array the {@code char array} to look into
+	 * @param value the {@code char} value to search
+	 * @return {@code true} if the given {@code char} value is contained only once by the {@code char array}
+	 * @throws NullPointerException if the {@code char array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final char[] array, final char value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code char array} contains only the given {@code char} value.</p>
 	 * @param array the {@code char array} to look into
 	 * @param value the {@code char} value to search
 	 * @return {@code true} if the given {@code char} value is the only value contained by the {@code char array}
 	 * @throws NullPointerException if the {@code char array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final char[] array, final char value) {
 		if (null == array) {
@@ -193,8 +254,8 @@ public final class CharArrays {
 	 * @param array the {@code char array} to look into
 	 * @param values {@code char} values to search
 	 * @return {@code true} if any of given {@code char} values is contained by the {@code char array}
-	 * @throws NullPointerException if the {@code char array} or {@code char} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code char array} or {@code char} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final char[] array, final char... values) {
 		if (null == array) {
@@ -221,8 +282,8 @@ public final class CharArrays {
 	 * @param array the {@code char array} to look into
 	 * @param values {@code char} values to search
 	 * @return {@code true} if all of given {@code char} values are contained by the {@code char array}
-	 * @throws NullPointerException if the {@code char array} or {@code char} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code char array} or {@code char} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final char[] array, final char... values) {
 		if (null == array) {
@@ -253,8 +314,8 @@ public final class CharArrays {
 	 * <p>Concatenate multiple {@code char array}s.</p>
 	 * @param arrays {@code char array}s to concatenate
 	 * @return the concatenated {@code char array}
-	 * @throws NullPointerException if the array or any of the {@code char array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code char array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static char[] concat(final char[]... arrays) {
 		if (null == arrays) {
@@ -267,17 +328,20 @@ public final class CharArrays {
 	 * <p>Concatenate a list of {@code char array}s.</p>
 	 * @param arrays {@code char array}s to concatenate
 	 * @return the concatenated {@code char array}
-	 * @throws NullPointerException if the {@code char array} list or any of the {@code char array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code char array} list or any of the {@code char array}s is
+	 * {@code null}
+	 * @since 1.0.0
 	 */
 	public static char[] concat(final List<char[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -299,8 +363,8 @@ public final class CharArrays {
 	 * @param separator the {@code char array} sequence to add between each joined {@code char array}
 	 * @param arrays {@code char array}s to join
 	 * @return the joined {@code char array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code char array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code char array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static char[] join(final char[] separator, final char[]... arrays) {
 		if (null == arrays) {
@@ -314,9 +378,9 @@ public final class CharArrays {
 	 * @param separator the {@code char array} sequence to add between each joined {@code char array}
 	 * @param arrays {@code char array}s to join
 	 * @return the joined {@code char array}
-	 * @throws NullPointerException if the separator, the {@code char array} list or any of the {@code char array}s is
-	 * {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code char array} list or any of the {@code char array}s
+	 * is {@code null}
+	 * @since 1.0.0
 	 */
 	public static char[] join(final char[] separator, final List<char[]> arrays) {
 		if (null == separator) {
@@ -325,10 +389,12 @@ public final class CharArrays {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(arrays);
@@ -355,11 +421,21 @@ public final class CharArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code char array} using the given {@code char} value.</p>
+	 * @param value the {@code char} value
+	 * @return the created singleton {@code char array}
+	 * @since 1.1.0
+	 */
+	public static char[] singleton(final char value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code char array} using given {@code char} values.</p>
 	 * @param values {@code char} values
 	 * @return the created {@code char array}
 	 * @throws NullPointerException if {@code char} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static char[] of(final char... values) {
 		if (null == values) {

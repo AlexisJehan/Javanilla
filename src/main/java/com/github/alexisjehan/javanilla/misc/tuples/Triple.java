@@ -31,25 +31,25 @@ import java.util.Objects;
  * @param <F> the type of the first object
  * @param <S> the type of the second object
  * @param <T> the type of the third object
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Triple<F, S, T> {
 
 	/**
 	 * <p>First object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
 	 * <p>Second object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
 	 * <p>Third object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final T third;
 
@@ -58,7 +58,7 @@ public final class Triple<F, S, T> {
 	 * @param first the first object or {@code null}
 	 * @param second the second object or {@code null}
 	 * @param third the third object or {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public Triple(final F first, final S second, final T third) {
 		this.first = first;
@@ -69,7 +69,7 @@ public final class Triple<F, S, T> {
 	/**
 	 * <p>Get the first object of the {@code Triple}.</p>
 	 * @return the first object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public F getFirst() {
 		return first;
@@ -78,7 +78,7 @@ public final class Triple<F, S, T> {
 	/**
 	 * <p>Get the second object of the {@code Triple}.</p>
 	 * @return the second object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public S getSecond() {
 		return second;
@@ -87,7 +87,7 @@ public final class Triple<F, S, T> {
 	/**
 	 * <p>Get the third object of the {@code Triple}.</p>
 	 * @return the third object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public T getThird() {
 		return third;
@@ -126,7 +126,7 @@ public final class Triple<F, S, T> {
 	 * @param <S> the type of the second object
 	 * @param <T> the type of the third object
 	 * @return the constructed {@code Triple}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <F, S, T> Triple<F, S, T> of(final F first, final S second, final T third) {
 		return new Triple<>(first, second, third);

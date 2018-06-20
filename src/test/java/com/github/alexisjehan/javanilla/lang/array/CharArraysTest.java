@@ -44,14 +44,36 @@ final class CharArraysTest {
 	void testNullToEmpty() {
 		assertThat(CharArrays.nullToEmpty(null)).isEmpty();
 		assertThat(CharArrays.nullToEmpty(CharArrays.EMPTY)).isEmpty();
-		assertThat(CharArrays.nullToEmpty(CharArrays.of((char) 1))).isNotEmpty();
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(CharArrays.nullToDefault(null, CharArrays.singleton((char) 1))).containsExactly((char) 1);
+		assertThat(CharArrays.nullToDefault(CharArrays.EMPTY, CharArrays.singleton((char) 1))).isEmpty();
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.nullToDefault(CharArrays.EMPTY, null));
 	}
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(CharArrays.emptyToNull(CharArrays.EMPTY)).isNull();
 		assertThat(CharArrays.emptyToNull(null)).isNull();
-		assertThat(CharArrays.emptyToNull(CharArrays.of((char) 1))).isNotNull();
+		assertThat(CharArrays.emptyToNull(CharArrays.EMPTY)).isNull();
+		assertThat(CharArrays.emptyToNull(CharArrays.singleton((char) 1))).containsExactly((char) 1);
+	}
+
+	@Test
+	void testEmptyToDefault() {
+		assertThat(CharArrays.emptyToDefault(null, CharArrays.singleton((char) 1))).isNull();
+		assertThat(CharArrays.emptyToDefault(CharArrays.EMPTY, CharArrays.singleton((char) 1))).containsExactly((char) 1);
+		assertThat(CharArrays.emptyToDefault(CharArrays.singleton((char) 1), CharArrays.singleton((char) 1))).containsExactly((char) 1);
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.emptyToDefault(CharArrays.EMPTY, CharArrays.EMPTY));
 	}
 
 	@Test
@@ -112,6 +134,21 @@ final class CharArraysTest {
 	@Test
 	void testContainsNull() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.contains(null, (char) 0));
+	}
+
+	@Test
+	void testContainsOnce() {
+		assertThat(CharArrays.containsOnce(CharArrays.EMPTY, (char) 1)).isFalse();
+		final var array = CharArrays.of((char) 1, (char) 2, (char) 2, (char) 3);
+		assertThat(CharArrays.containsOnce(array, (char) 1)).isTrue();
+		assertThat(CharArrays.containsOnce(array, (char) 2)).isFalse();
+		assertThat(CharArrays.containsOnce(array, (char) 3)).isTrue();
+		assertThat(CharArrays.containsOnce(array, (char) 4)).isFalse();
+	}
+
+	@Test
+	void testContainsOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnce(null, (char) 0));
 	}
 
 	@Test
@@ -216,6 +253,11 @@ final class CharArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.EMPTY, (char[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.EMPTY, (List<char[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.EMPTY, (char[]) null));
+	}
+
+	@Test
+	void testSingleton() {
+		assertThat(CharArrays.singleton((char) 1)).containsExactly((char) 1);
 	}
 
 	@Test

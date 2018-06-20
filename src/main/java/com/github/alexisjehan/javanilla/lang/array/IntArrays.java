@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code int array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class IntArrays {
 
 	/**
 	 * <p>An empty {@code int array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static final int[] EMPTY = new int[0];
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private IntArrays() {
 		// Not available
@@ -49,8 +49,8 @@ public final class IntArrays {
 	/**
 	 * <p>Wrap an {@code int array} replacing {@code null} by an empty {@code int array}.</p>
 	 * @param array an {@code int array} or {@code null}
-	 * @return a non-{@code null} {@code int array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code int array}
+	 * @since 1.0.0
 	 */
 	public static int[] nullToEmpty(final int[] array) {
 		return null != array ? array : EMPTY;
@@ -59,8 +59,8 @@ public final class IntArrays {
 	/**
 	 * <p>Wrap an {@code int array} replacing an empty one by {@code null}.</p>
 	 * @param array an {@code int array} or {@code null}
-	 * @return a non-empty {@code int array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code int array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static int[] emptyToNull(final int[] array) {
 		return null != array && 0 != array.length ? array : null;
@@ -72,7 +72,7 @@ public final class IntArrays {
 	 * @param value the {@code int} value to search
 	 * @return the first index of the {@code int} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code int array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final int[] array, final int value) {
 		return indexOf(array, value, 0);
@@ -87,7 +87,7 @@ public final class IntArrays {
 	 * @return the first index of the {@code int} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code int array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final int[] array, final int value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +110,7 @@ public final class IntArrays {
 	 * @param value the {@code int} value to search
 	 * @return the last index of the {@code int} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code int array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final int[] array, final int value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +125,7 @@ public final class IntArrays {
 	 * @return the last index of the {@code int} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code int array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final int[] array, final int value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +143,12 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code int array} contains the given {@code int} value.</p>
+	 * <p>Tell if the {@code int array} contains the given {@code int} value at least once.</p>
 	 * @param array the {@code int array} to look into
 	 * @param value the {@code int} value to search
 	 * @return {@code true} if the given {@code int} value is contained by the {@code int array}
 	 * @throws NullPointerException if the {@code int array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final int[] array, final int value) {
 		if (null == array) {
@@ -166,12 +166,40 @@ public final class IntArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code int array} contains the given {@code int} value only once.</p>
+	 * @param array the {@code int array} to look into
+	 * @param value the {@code int} value to search
+	 * @return {@code true} if the given {@code int} value is contained only once by the {@code int array}
+	 * @throws NullPointerException if the {@code int array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final int[] array, final int value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code int array} contains only the given {@code int} value.</p>
 	 * @param array the {@code int array} to look into
 	 * @param value the {@code int} value to search
 	 * @return {@code true} if the given {@code int} value is the only value contained by the {@code int array}
 	 * @throws NullPointerException if the {@code int array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final int[] array, final int value) {
 		if (null == array) {
@@ -193,8 +221,8 @@ public final class IntArrays {
 	 * @param array the {@code int array} to look into
 	 * @param values {@code int} values to search
 	 * @return {@code true} if any of given {@code int} values is contained by the {@code int array}
-	 * @throws NullPointerException if the {@code int array} or {@code int} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code int array} or {@code int} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final int[] array, final int... values) {
 		if (null == array) {
@@ -221,8 +249,8 @@ public final class IntArrays {
 	 * @param array the {@code int array} to look into
 	 * @param values {@code int} values to search
 	 * @return {@code true} if all of given {@code int} values are contained by the {@code int array}
-	 * @throws NullPointerException if the {@code int array} or {@code int} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code int array} or {@code int} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final int[] array, final int... values) {
 		if (null == array) {
@@ -253,8 +281,8 @@ public final class IntArrays {
 	 * <p>Concatenate multiple {@code int array}s.</p>
 	 * @param arrays {@code int array}s to concatenate
 	 * @return the concatenated {@code int array}
-	 * @throws NullPointerException if the array or any of the {@code int array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code int array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static int[] concat(final int[]... arrays) {
 		if (null == arrays) {
@@ -267,8 +295,8 @@ public final class IntArrays {
 	 * <p>Concatenate a list of {@code int array}s.</p>
 	 * @param arrays {@code int array}s to concatenate
 	 * @return the concatenated {@code int array}
-	 * @throws NullPointerException if the {@code int array} list or any of the {@code int array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code int array} list or any of the {@code int array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static int[] concat(final List<int[]> arrays) {
 		if (null == arrays) {
@@ -299,8 +327,8 @@ public final class IntArrays {
 	 * @param separator the {@code int array} sequence to add between each joined {@code int array}
 	 * @param arrays {@code int array}s to join
 	 * @return the joined {@code int array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code int array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code int array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static int[] join(final int[] separator, final int[]... arrays) {
 		if (null == arrays) {
@@ -314,9 +342,9 @@ public final class IntArrays {
 	 * @param separator the {@code int array} sequence to add between each joined {@code int array}
 	 * @param arrays {@code int array}s to join
 	 * @return the joined {@code int array}
-	 * @throws NullPointerException if the separator, the {@code int array} list or any of the {@code int array}s is
-	 * {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code int array} list or any of the {@code int array}s
+	 * is {@code null}
+	 * @since 1.0.0
 	 */
 	public static int[] join(final int[] separator, final List<int[]> arrays) {
 		if (null == separator) {
@@ -355,11 +383,21 @@ public final class IntArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code int array} using the given {@code int} value.</p>
+	 * @param value the {@code int} value
+	 * @return the created singleton {@code int array}
+	 * @since 1.1.0
+	 */
+	public static int[] singleton(final int value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code int array} using given {@code int} values.</p>
 	 * @param values {@code int} values
 	 * @return the created {@code int array}
 	 * @throws NullPointerException if {@code int} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int[] of(final int... values) {
 		if (null == values) {

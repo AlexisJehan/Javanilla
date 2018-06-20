@@ -37,28 +37,28 @@ import java.util.Collection;
 
 /**
  * <p>An utility class that provides {@link OutputStream} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class OutputStreams {
 
 	/**
-	 * <p>A composed {@code OutputStream}.</p>
-	 * @since 1.0
+	 * <p>A composite {@code OutputStream}.</p>
+	 * @since 1.0.0
 	 */
 	private static class TeeOutputStream extends OutputStream {
 
 		/**
-		 * <p>Collection of delegated {@code OutputStream}s.</p>
-		 * @since 1.0
+		 * <p>Delegated {@code OutputStream}s.</p>
+		 * @since 1.0.0
 		 */
-		private final Collection<OutputStream> outputStreams;
+		private final Iterable<OutputStream> outputStreams;
 
 		/**
 		 * <p>Private constructor.</p>
 		 * @param outputStreams delegated {@code OutputStream}s
-		 * @since 1.0
+		 * @since 1.0.0
 		 */
-		private TeeOutputStream(final Collection<OutputStream> outputStreams) {
+		private TeeOutputStream(final Iterable<OutputStream> outputStreams) {
 			this.outputStreams = outputStreams;
 		}
 
@@ -99,8 +99,8 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>A blank {@code OutputStream} that writes no byte.</p>
-	 * @since 1.0
+	 * <p>A blank {@code OutputStream} that writes nothing.</p>
+	 * @since 1.0.0
 	 */
 	public static final OutputStream BLANK = new OutputStream() {
 		@Override
@@ -111,7 +111,7 @@ public final class OutputStreams {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private OutputStreams() {
 		// Not available
@@ -120,11 +120,26 @@ public final class OutputStreams {
 	/**
 	 * <p>Wrap an {@code OutputStream} replacing {@code null} by a blank {@code OutputStream}.</p>
 	 * @param outputStream an {@code OutputStream} or {@code null}
-	 * @return a non-{@code null} {@code OutputStream}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code OutputStream}
+	 * @since 1.0.0
 	 */
 	public static OutputStream nullToBlank(final OutputStream outputStream) {
-		return null != outputStream ? outputStream : BLANK;
+		return nullToDefault(outputStream, BLANK);
+	}
+
+	/**
+	 * <p>Wrap an {@code OutputStream} replacing {@code null} by a default {@code OutputStream}.</p>
+	 * @param outputStream an {@code OutputStream} or {@code null}
+	 * @param defaultOutputStream the default {@code OutputStream}
+	 * @return the non-{@code null} {@code OutputStream}
+	 * @throws NullPointerException if the default {@code OutputStream} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static OutputStream nullToDefault(final OutputStream outputStream, final OutputStream defaultOutputStream) {
+		if (null == defaultOutputStream) {
+			throw new NullPointerException("Invalid default output stream (not null expected)");
+		}
+		return null != outputStream ? outputStream : defaultOutputStream;
 	}
 
 	/**
@@ -132,7 +147,7 @@ public final class OutputStreams {
 	 * @param outputStream the {@code OutputStream} to wrap
 	 * @return the buffered {@code OutputStream}
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static BufferedOutputStream buffered(final OutputStream outputStream) {
 		if (null == outputStream) {
@@ -145,11 +160,11 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code OutputStream} whose {@link OutputStream#close()} method has no effect.</p>
+	 * <p>Wrap an {@code OutputStream} so that its {@link OutputStream#close()} method has no effect.</p>
 	 * @param outputStream the {@code OutputStream} to wrap
 	 * @return the uncloseable {@code OutputStream}
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static OutputStream uncloseable(final OutputStream outputStream) {
 		if (null == outputStream) {
@@ -167,9 +182,9 @@ public final class OutputStreams {
 	 * <p>Wrap multiple {@code OutputStream}s into a single one.</p>
 	 * @param outputStreams {@code OutputStream}s to wrap
 	 * @return the "tee-ed" {@code OutputStream}
-	 * @throws NullPointerException if the {@code OutputStream}s array or any of the {@code OutputStream}s is
+	 * @throws NullPointerException whether the {@code OutputStream}s array or any of the {@code OutputStream}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static OutputStream tee(final OutputStream... outputStreams) {
 		if (null == outputStreams) {
@@ -182,18 +197,20 @@ public final class OutputStreams {
 	 * <p>Write a collection of {@code OutputStream}s into a single one.</p>
 	 * @param outputStreams {@code OutputStream}s to wrap
 	 * @return the "tee-ed" {@code OutputStream}
-	 * @throws NullPointerException if the {@code OutputStream}s collection or any of the {@code OutputStream}s is
+	 * @throws NullPointerException whether the {@code OutputStream}s collection or any of the {@code OutputStream}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static OutputStream tee(final Collection<OutputStream> outputStreams) {
 		if (null == outputStreams) {
 			throw new NullPointerException("Invalid output streams (not null expected)");
 		}
+		var i = 0;
 		for (final var outputStream : outputStreams) {
 			if (null == outputStream) {
-				throw new NullPointerException("Invalid output stream (not null expected)");
+				throw new NullPointerException("Invalid output stream at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (outputStreams.isEmpty()) {
 			return BLANK;
@@ -209,7 +226,7 @@ public final class OutputStreams {
 	 * @param outputStream the {@code OutputStream} to convert
 	 * @return the created {@code Writer}
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static Writer toWriter(final OutputStream outputStream) {
 		return toWriter(outputStream, Charset.defaultCharset());
@@ -220,8 +237,8 @@ public final class OutputStreams {
 	 * @param outputStream the {@code OutputStream} to convert
 	 * @param charset the {@code Charset} to use
 	 * @return the created {@code Writer}
-	 * @throws NullPointerException if the {@code OutputStream} or the {@code Charset} are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code OutputStream} or the {@code Charset} is {@code null}
+	 * @since 1.0.0
 	 */
 	public static Writer toWriter(final OutputStream outputStream, final Charset charset) {
 		if (null == outputStream) {

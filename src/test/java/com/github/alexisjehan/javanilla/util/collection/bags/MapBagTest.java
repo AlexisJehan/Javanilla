@@ -77,7 +77,13 @@ final class MapBagTest extends AbstractBagTest {
 			final var otherBag = new MapBag<>(List.of("foo", "bar"));
 			assertThat(bag).isEqualTo(otherBag);
 			assertThat(bag).hasSameHashCodeAs(otherBag);
-			assertThat(bag.toString()).isEqualTo(otherBag.toString());
+			assertThat(bag).hasToString(otherBag.toString());
+		}
+		{
+			final var otherBag = new MapBag<>(List.of("foo", "bar", "bar"));
+			assertThat(bag).isNotEqualTo(otherBag);
+			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
 		}
 		{
 			final var otherBag = new MapBag<>(List.of("foo"));

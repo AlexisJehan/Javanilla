@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 import org.junit.jupiter.api.Test;
 
 import java.util.AbstractMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
@@ -46,28 +47,77 @@ final class BagsTest {
 		assertThat(emptyBag.count(null)).isEqualTo(0L);
 		assertThat(emptyBag.distinct()).isEqualTo(0L);
 		assertThat(emptyBag.size()).isEqualTo(0L);
-		assertThat(emptyBag.min()).isEmpty();
-		assertThat(emptyBag.max()).isEmpty();
+		assertThat(emptyBag.min().isEmpty()).isTrue();
+		assertThat(emptyBag.max().isEmpty()).isTrue();
 		assertThat(emptyBag.toSet()).isEmpty();
 		assertThat(emptyBag.toMap()).isEmpty();
+	}
+
+	@Test
+	void testEmptyEqualsHashCodeToString() {
+		final var bag = Bags.empty();
+		assertThat(bag).isEqualTo(bag);
+		assertThat(bag).isNotEqualTo(1);
+		{
+			final var otherBag = Bags.empty();
+			assertThat(bag).isEqualTo(otherBag);
+			assertThat(bag).hasSameHashCodeAs(otherBag);
+			assertThat(bag).hasToString(otherBag.toString());
+		}
+		{
+			final var otherBag = new MapBag<>();
+			assertThat(bag).isEqualTo(otherBag);
+			assertThat(bag).hasSameHashCodeAs(otherBag);
+			assertThat(bag).hasToString(otherBag.toString());
+		}
+		{
+			final var otherBag = Bags.singleton("foo", 5L);
+			assertThat(bag).isNotEqualTo(otherBag);
+			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
+		}
 	}
 
 	@Test
 	void testNullToEmpty() {
 		assertThat(Bags.nullToEmpty(null).isEmpty()).isTrue();
 		assertThat(Bags.nullToEmpty(Bags.empty()).isEmpty()).isTrue();
-		assertThat(Bags.nullToEmpty(Bags.singleton("foo")).isEmpty()).isFalse();
+		assertThat(Bags.nullToEmpty(Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(Bags.nullToDefault(null, Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
+		assertThat(Bags.nullToDefault(Bags.empty(), Bags.singleton("foo")).isEmpty()).isTrue();
+		assertThat(Bags.nullToDefault(Bags.singleton("foo"), Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> Bags.nullToDefault(Bags.empty(), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Bags.emptyToNull(null)).isNull();
 		assertThat(Bags.emptyToNull(Bags.empty())).isNull();
-		assertThat(Bags.emptyToNull(Bags.singleton("foo"))).isNotNull();
+		assertThat(Bags.emptyToNull(Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
 	}
 
 	@Test
-	void testUnModifiable() {
+	void testEmptyToDefault() {
+		assertThat(Bags.emptyToDefault(null, Bags.singleton("foo"))).isNull();
+		assertThat(Bags.emptyToDefault(Bags.empty(), Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
+		assertThat(Bags.emptyToDefault(Bags.singleton("foo"), Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Bags.emptyToDefault(Bags.empty(), Bags.empty()));
+	}
+
+	@Test
+	void testUnmodifiable() {
 		final var unmodifiableBag = Bags.unmodifiable(Bags.of("foo", "foo", "bar"));
 		assertThat(unmodifiableBag.count("foo")).isEqualTo(2L);
 		assertThat(unmodifiableBag.count("bar")).isEqualTo(1L);
@@ -77,7 +127,7 @@ final class BagsTest {
 	}
 
 	@Test
-	void testUnModifiableNull() {
+	void testUnmodifiableNull() {
 		assertThatNullPointerException().isThrownBy(() -> Bags.unmodifiable(null));
 	}
 
@@ -92,8 +142,8 @@ final class BagsTest {
 		assertThat(singletonBag.count(null)).isEqualTo(0L);
 		assertThat(singletonBag.distinct()).isEqualTo(1L);
 		assertThat(singletonBag.size()).isEqualTo(5L);
-		assertThat(singletonBag.min()).hasValue("foo");
-		assertThat(singletonBag.max()).hasValue("foo");
+		assertThat(singletonBag.min().get()).isEqualTo("foo");
+		assertThat(singletonBag.max().get()).isEqualTo("foo");
 		assertThat(singletonBag.toSet()).containsExactlyInAnyOrder("foo");
 		assertThat(singletonBag.toMap()).containsOnly(Map.entry("foo", 5L));
 	}
@@ -109,8 +159,8 @@ final class BagsTest {
 		assertThat(singletonBag.count(null)).isEqualTo(0L);
 		assertThat(singletonBag.distinct()).isEqualTo(0L);
 		assertThat(singletonBag.size()).isEqualTo(0L);
-		assertThat(singletonBag.min()).isEmpty();
-		assertThat(singletonBag.max()).isEmpty();
+		assertThat(singletonBag.min().isEmpty()).isTrue();
+		assertThat(singletonBag.max().isEmpty()).isTrue();
 		assertThat(singletonBag.toSet()).isEmpty();
 		assertThat(singletonBag.toMap()).isEmpty();
 	}
@@ -126,8 +176,8 @@ final class BagsTest {
 		assertThat(singletonBag.count(null)).isEqualTo(5L);
 		assertThat(singletonBag.distinct()).isEqualTo(1L);
 		assertThat(singletonBag.size()).isEqualTo(5L);
-		assertThat(singletonBag.min()).isEmpty();
-		assertThat(singletonBag.max()).isEmpty();
+		assertThat(singletonBag.min().get()).isNull();
+		assertThat(singletonBag.max().get()).isNull();
 		assertThat(singletonBag.toSet()).containsExactlyInAnyOrder((String) null);
 		assertThat(singletonBag.toMap()).containsOnly(new AbstractMap.SimpleImmutableEntry<>(null, 5L));
 	}
@@ -135,6 +185,37 @@ final class BagsTest {
 	@Test
 	void testSingletonInvalid() {
 		assertThatIllegalArgumentException().isThrownBy(() -> Bags.singleton("foo", -1L));
+	}
+
+	@Test
+	void testSingletonEqualsHashCodeToString() {
+		final var bag = Bags.singleton("foo", 5L);
+		assertThat(bag).isEqualTo(bag);
+		assertThat(bag).isNotEqualTo(1);
+		{
+			final var otherBag = Bags.singleton("foo", 5L);
+			assertThat(bag).isEqualTo(otherBag);
+			assertThat(bag).hasSameHashCodeAs(otherBag);
+			assertThat(bag).hasToString(otherBag.toString());
+		}
+		{
+			final var otherBag = new MapBag<>(List.of("foo", "foo", "foo", "foo", "foo"));
+			assertThat(bag).isEqualTo(otherBag);
+			assertThat(bag).hasSameHashCodeAs(otherBag);
+			assertThat(bag).hasToString(otherBag.toString());
+		}
+		{
+			final var otherBag = Bags.singleton(null, 5L);
+			assertThat(bag).isNotEqualTo(otherBag);
+			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
+		}
+		{
+			final var otherBag = Bags.singleton("foo", 0L);
+			assertThat(bag).isNotEqualTo(otherBag);
+			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
+		}
 	}
 
 	@Test
@@ -148,8 +229,8 @@ final class BagsTest {
 		assertThat(bag.count(null)).isEqualTo(1L);
 		assertThat(bag.distinct()).isEqualTo(3L);
 		assertThat(bag.size()).isEqualTo(6L);
-		assertThat(bag.min()).isEmpty();
-		assertThat(bag.max()).hasValue("foo");
+		assertThat(bag.min().get()).isNull();
+		assertThat(bag.max().get()).isEqualTo("foo");
 		assertThat(bag.toSet()).containsExactlyInAnyOrder("foo", "bar", null);
 		assertThat(bag.toMap()).containsOnly(Map.entry("foo", 3L), Map.entry("bar", 2L), new AbstractMap.SimpleImmutableEntry<>(null, 1L));
 	}

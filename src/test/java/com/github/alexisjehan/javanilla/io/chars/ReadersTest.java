@@ -78,7 +78,19 @@ final class ReadersTest {
 	void testNullToEmpty() {
 		assertThat(Readers.nullToEmpty(null)).isSameAs(Readers.EMPTY);
 		assertThat(Readers.nullToEmpty(Readers.EMPTY)).isSameAs(Readers.EMPTY);
-		assertThat(Readers.nullToEmpty(Readers.ENDLESS)).isNotSameAs(Readers.EMPTY);
+		assertThat(Readers.nullToEmpty(Readers.ENDLESS)).isSameAs(Readers.ENDLESS);
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(Readers.nullToDefault(null, Readers.ENDLESS)).isSameAs(Readers.ENDLESS);
+		assertThat(Readers.nullToDefault(Readers.EMPTY, Readers.ENDLESS)).isSameAs(Readers.EMPTY);
+		assertThat(Readers.nullToDefault(Readers.ENDLESS, Readers.ENDLESS)).isSameAs(Readers.ENDLESS);
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> Readers.nullToDefault(Readers.EMPTY, null));
 	}
 
 	@Test
@@ -269,6 +281,15 @@ final class ReadersTest {
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.EMPTY, (Reader[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.EMPTY, (List<Reader>) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.EMPTY, (Reader) null));
+	}
+
+	@Test
+	void testSingleton() {
+		try {
+			assertThat(Readers.toChars(Readers.singleton((char) 1))).containsExactly((char) 1);
+		} catch (final IOException e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test

@@ -37,7 +37,7 @@ final class SerializablesTest {
 
 	private static class Foo implements Serializable {
 
-		private static final long serialVersionUID = -5423748715161193392L;
+		private static final long serialVersionUID = -4162937710652709737L;
 
 		private final String name;
 		private final int value;
@@ -50,7 +50,7 @@ final class SerializablesTest {
 
 	private static class Bar implements Serializable {
 
-		private static final long serialVersionUID = -6591137996734232567L;
+		private static final long serialVersionUID = 2341804969668383253L;
 
 		@SuppressWarnings("unused")
 		private final Object object;

@@ -28,21 +28,21 @@ import java.util.Objects;
 /**
  * <p>Wraps any {@link Exception} related to serialization thrown while working with {@link Serializables} methods.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class SerializationException extends RuntimeException {
 
 	/**
 	 * <p>Serial version unique ID.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -4609829820181534793L;
+	private static final long serialVersionUID = -7322730015273496724L;
 
 	/**
 	 * <p>Constructor with a cause.</p>
 	 * @param cause the cause
 	 * @throws NullPointerException if the cause is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	SerializationException(final Exception cause) {
 		super(Objects.requireNonNull(cause, "Invalid cause (not null expected)"));

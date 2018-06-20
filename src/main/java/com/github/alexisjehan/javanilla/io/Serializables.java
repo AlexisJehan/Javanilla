@@ -27,13 +27,13 @@ import java.io.*;
 
 /**
  * <p>An utility class to work with {@link Serializable} objects.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Serializables {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private Serializables() {
 		// Not available
@@ -45,7 +45,7 @@ public final class Serializables {
 	 * @param <S> the type of the {@code Serializable} object to serialize
 	 * @return a {@code byte array} that contains the serialized data
 	 * @throws SerializationException might occurs with serialization operations
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <S extends Serializable> byte[] serialize(final S serializable) {
 		final var byteArrayOutputStream = new ByteArrayOutputStream();
@@ -59,8 +59,8 @@ public final class Serializables {
 	 * @param outputStream the {@code OutputStream} to write into
 	 * @param <S> the type of the {@code Serializable} object to serialize
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
-	 * @throws SerializationException might occurs with serialization operations
-	 * @since 1.0
+	 * @throws SerializationException might occurs with serialization or I/O operations
+	 * @since 1.0.0
 	 */
 	public static <S extends Serializable> void serialize(final S serializable, final OutputStream outputStream) {
 		if (null == outputStream) {
@@ -81,7 +81,7 @@ public final class Serializables {
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws SerializationException might occurs with serialization operations
 	 * @throws ClassCastException if the requested type is different with the serialized data type
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <S extends Serializable> S deserialize(final byte[] bytes) {
 		if (null == bytes) {
@@ -96,9 +96,9 @@ public final class Serializables {
 	 * @param <S> the type of the {@code Serializable} object to deserialize
 	 * @return a new {@code Serializable} object from the serialized data
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
-	 * @throws SerializationException might occurs with serialization operations
+	 * @throws SerializationException might occurs with serialization or I/O operations
 	 * @throws ClassCastException if the requested type is different with the serialized data type
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
 	public static <S extends Serializable> S deserialize(final InputStream inputStream) {

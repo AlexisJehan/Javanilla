@@ -45,14 +45,36 @@ final class ByteArraysTest {
 	void testNullToEmpty() {
 		assertThat(ByteArrays.nullToEmpty(null)).isEmpty();
 		assertThat(ByteArrays.nullToEmpty(ByteArrays.EMPTY)).isEmpty();
-		assertThat(ByteArrays.nullToEmpty(ByteArrays.of((byte) 1))).isNotEmpty();
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(ByteArrays.nullToDefault(null, ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+		assertThat(ByteArrays.nullToDefault(ByteArrays.EMPTY, ByteArrays.singleton((byte) 1))).isEmpty();
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.nullToDefault(ByteArrays.EMPTY, null));
 	}
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(ByteArrays.emptyToNull(ByteArrays.EMPTY)).isNull();
 		assertThat(ByteArrays.emptyToNull(null)).isNull();
-		assertThat(ByteArrays.emptyToNull(ByteArrays.of((byte) 1))).isNotNull();
+		assertThat(ByteArrays.emptyToNull(ByteArrays.EMPTY)).isNull();
+		assertThat(ByteArrays.emptyToNull(ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+	}
+
+	@Test
+	void testEmptyToDefault() {
+		assertThat(ByteArrays.emptyToDefault(null, ByteArrays.singleton((byte) 1))).isNull();
+		assertThat(ByteArrays.emptyToDefault(ByteArrays.EMPTY, ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+		assertThat(ByteArrays.emptyToDefault(ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.emptyToDefault(ByteArrays.EMPTY, ByteArrays.EMPTY));
 	}
 
 	@Test
@@ -113,6 +135,21 @@ final class ByteArraysTest {
 	@Test
 	void testContainsNull() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.contains(null, (byte) 0));
+	}
+
+	@Test
+	void testContainsOnce() {
+		assertThat(ByteArrays.containsOnce(ByteArrays.EMPTY, (byte) 1)).isFalse();
+		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.containsOnce(array, (byte) 1)).isTrue();
+		assertThat(ByteArrays.containsOnce(array, (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnce(array, (byte) 3)).isTrue();
+		assertThat(ByteArrays.containsOnce(array, (byte) 4)).isFalse();
+	}
+
+	@Test
+	void testContainsOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnce(null, (byte) 0));
 	}
 
 	@Test
@@ -217,6 +254,11 @@ final class ByteArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.EMPTY, (byte[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.EMPTY, (List<byte[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.EMPTY, (byte[]) null));
+	}
+
+	@Test
+	void testSingleton() {
+		assertThat(ByteArrays.singleton((byte) 1)).containsExactly((byte) 1);
 	}
 
 	@Test
@@ -534,11 +576,10 @@ final class ByteArraysTest {
 
 	@Test
 	void testOfHexString() {
-		assertThat(ByteArrays.ofHexString(    "")).isEqualTo(ByteArrays.EMPTY);
-		assertThat(ByteArrays.ofHexString(  "00")).isEqualTo(ByteArrays.of((byte) 0x00));
-		assertThat(ByteArrays.ofHexString(  "ff")).isEqualTo(ByteArrays.of((byte) 0xff));
-		assertThat(ByteArrays.ofHexString(  "FF")).isEqualTo(ByteArrays.of((byte) 0xff));
-		assertThat(ByteArrays.ofHexString("0xff")).isEqualTo(ByteArrays.of((byte) 0xff));
+		assertThat(ByteArrays.ofHexString(  "")).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofHexString("00")).isEqualTo(ByteArrays.of((byte) 0x00));
+		assertThat(ByteArrays.ofHexString("ff")).isEqualTo(ByteArrays.of((byte) 0xff));
+		assertThat(ByteArrays.ofHexString("FF")).isEqualTo(ByteArrays.of((byte) 0xff));
 	}
 
 	@Test

@@ -29,31 +29,31 @@ import java.io.Reader;
 
 /**
  * <p>An {@link Reader} decorator that reads only chars within a range from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class RangeReader extends FilterReader {
 
 	/**
 	 * <p>The inclusive index of the first char to read.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
 	 * <p>The inclusive index of the last char to read.<p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
 	 * <p>Current index.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long index = 0L;
 
 	/**
 	 * <p>Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long markedIndex = 0L;
 
@@ -61,9 +61,9 @@ public final class RangeReader extends FilterReader {
 	 * <p>Constructor with a delegated {@code Reader} and a range from {@code 0} to the given inclusive index.</p>
 	 * @param reader the delegated {@code Reader}
 	 * @param toIndex the inclusive index of the last char to read
-	 * @throws NullPointerException if the delegated {@code Reader} is {@code null}
+	 * @throws NullPointerException if the {@code Reader} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeReader(final Reader reader, final long toIndex) {
 		this(reader, 0L, toIndex);
@@ -74,9 +74,9 @@ public final class RangeReader extends FilterReader {
 	 * @param reader the delegated {@code Reader}
 	 * @param fromIndex the inclusive index of the first char to read
 	 * @param toIndex the inclusive index of the last char to read
-	 * @throws NullPointerException if the delegated {@code Reader} is {@code null}
+	 * @throws NullPointerException if the {@code Reader} is {@code null}
 	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeReader(final Reader reader, final long fromIndex, final long toIndex) {
 		super(reader);
@@ -140,18 +140,18 @@ public final class RangeReader extends FilterReader {
 	}
 
 	/**
-	 * <p>Get the index of the first char to read.</p>
-	 * @return the inclusive index of the first char to read
-	 * @since 1.0
+	 * <p>Get the inclusive index of the first char to read.</p>
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
 		return fromIndex;
 	}
 
 	/**
-	 * <p>Get the index of the last char to read.<p>
-	 * @return the inclusive index of the last char to read
-	 * @since 1.0
+	 * <p>Get the inclusive index of the last char to read.<p>
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getToIndex() {
 		return toIndex;

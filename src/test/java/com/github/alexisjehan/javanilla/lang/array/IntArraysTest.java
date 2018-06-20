@@ -115,6 +115,21 @@ final class IntArraysTest {
 	}
 
 	@Test
+	void testContainsOnce() {
+		assertThat(IntArrays.containsOnce(IntArrays.EMPTY, 1)).isFalse();
+		final var array = IntArrays.of(1, 2, 2, 3);
+		assertThat(IntArrays.containsOnce(array, 1)).isTrue();
+		assertThat(IntArrays.containsOnce(array, 2)).isFalse();
+		assertThat(IntArrays.containsOnce(array, 3)).isTrue();
+		assertThat(IntArrays.containsOnce(array, 4)).isFalse();
+	}
+
+	@Test
+	void testContainsOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnce(null, 0));
+	}
+
+	@Test
 	void testContainsOnly() {
 		assertThat(IntArrays.containsOnly(IntArrays.EMPTY, 1)).isFalse();
 		final var array1 = IntArrays.of(1, 1);
@@ -216,6 +231,11 @@ final class IntArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.EMPTY, (int[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.EMPTY, (List<int[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.EMPTY, (int[]) null));
+	}
+
+	@Test
+	void testSingleton() {
+		assertThat(IntArrays.singleton(1)).containsExactly(1);
 	}
 
 	@Test

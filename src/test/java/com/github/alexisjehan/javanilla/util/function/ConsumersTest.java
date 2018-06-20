@@ -25,60 +25,23 @@ package com.github.alexisjehan.javanilla.util.function;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
- * <p>{@link Predicates} unit tests.</p>
+ * <p>{@link Consumers} unit tests.</p>
  */
-final class PredicatesTest {
+final class ConsumersTest {
 
 	@Test
-	void testIntAlwaysTrue() {
-		assertThat(Predicates.INT_ALWAYS_TRUE.test(1)).isTrue();
+	void testOnce() {
+		final var onceConsumer = Consumers.once(i -> {});
+		onceConsumer.accept(1);
+		assertThatIllegalStateException().isThrownBy(() -> onceConsumer.accept(1));
 	}
 
 	@Test
-	void testIntAlwaysFalse() {
-		assertThat(Predicates.INT_ALWAYS_FALSE.test(1)).isFalse();
-	}
-
-	@Test
-	void testLongAlwaysTrue() {
-		assertThat(Predicates.LONG_ALWAYS_TRUE.test(1L)).isTrue();
-	}
-
-	@Test
-	void testLongAlwaysFalse() {
-		assertThat(Predicates.LONG_ALWAYS_FALSE.test(1L)).isFalse();
-	}
-
-	@Test
-	void testDoubleAlwaysTrue() {
-		assertThat(Predicates.DOUBLE_ALWAYS_TRUE.test(1.0d)).isTrue();
-	}
-
-	@Test
-	void testDoubleAlwaysFalse() {
-		assertThat(Predicates.DOUBLE_ALWAYS_FALSE.test(1.0d)).isFalse();
-	}
-
-	@Test
-	void testAlwaysTrue() {
-		assertThat(Predicates.alwaysTrue().test(1)).isTrue();
-	}
-
-	@Test
-	void testAlwaysFalse() {
-		assertThat(Predicates.alwaysFalse().test(1)).isFalse();
-	}
-
-	@Test
-	void testBiAlwaysTrue() {
-		assertThat(Predicates.biAlwaysTrue().test(1, 2)).isTrue();
-	}
-
-	@Test
-	void testBiAlwaysFalse() {
-		assertThat(Predicates.biAlwaysFalse().test(1, 2)).isFalse();
+	void testOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> Consumers.once(null));
 	}
 }

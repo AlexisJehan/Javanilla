@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 /**
  * <p>Interface for objects that return a {@link Stream}.</p>
  * @param <E> the type of elements returned by the stream
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface Streamable<E> {
@@ -36,7 +36,7 @@ public interface Streamable<E> {
 	/**
 	 * <p>Returns a stream over elements of type E.</p>
 	 * @return a stream
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	Stream<E> stream();
 }

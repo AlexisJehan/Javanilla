@@ -31,19 +31,19 @@ import java.util.Objects;
  * <p><b>Note</b>: This class is serializable.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Minkowski_distance">https://en.wikipedia.org/wiki/Minkowski_distance</a>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class MinkowskiDistance implements Distance, Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -132037170462552210L;
+	private static final long serialVersionUID = -4275713249812379264L;
 
 	/**
 	 * <p>The order.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final int order;
 
@@ -51,7 +51,7 @@ public final class MinkowskiDistance implements Distance, Serializable {
 	 * <p>Constructor with a custom order.</p>
 	 * @param order the order
 	 * @throws IllegalArgumentException if the order is lower than {@code 1}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public MinkowskiDistance(final int order) {
 		if (1 > order) {
@@ -101,7 +101,7 @@ public final class MinkowskiDistance implements Distance, Serializable {
 	/**
 	 * <p>Get the order.</p>
 	 * @return the order
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public int getOrder() {
 		return order;

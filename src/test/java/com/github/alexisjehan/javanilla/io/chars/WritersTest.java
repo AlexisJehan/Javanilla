@@ -72,6 +72,17 @@ final class WritersTest {
 	}
 
 	@Test
+	void testNullToDefault() {
+		assertThat(Writers.nullToDefault(null, Writers.BLANK)).isSameAs(Writers.BLANK);
+		assertThat(Writers.nullToDefault(Writers.BLANK, Writers.BLANK)).isSameAs(Writers.BLANK);
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> Writers.nullToDefault(Writers.BLANK, null));
+	}
+
+	@Test
 	void testBuffered() {
 		try {
 			try (final var writer = Writers.BLANK) {

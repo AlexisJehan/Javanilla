@@ -44,14 +44,36 @@ final class ShortArraysTest {
 	void testNullToEmpty() {
 		assertThat(ShortArrays.nullToEmpty(null)).isEmpty();
 		assertThat(ShortArrays.nullToEmpty(ShortArrays.EMPTY)).isEmpty();
-		assertThat(ShortArrays.nullToEmpty(ShortArrays.of((short) 1))).isNotEmpty();
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(ShortArrays.nullToDefault(null, ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+		assertThat(ShortArrays.nullToDefault(ShortArrays.EMPTY, ShortArrays.singleton((short) 1))).isEmpty();
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.nullToDefault(ShortArrays.EMPTY, null));
 	}
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(ShortArrays.emptyToNull(ShortArrays.EMPTY)).isNull();
 		assertThat(ShortArrays.emptyToNull(null)).isNull();
-		assertThat(ShortArrays.emptyToNull(ShortArrays.of((short) 1))).isNotNull();
+		assertThat(ShortArrays.emptyToNull(ShortArrays.EMPTY)).isNull();
+		assertThat(ShortArrays.emptyToNull(ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+	}
+
+	@Test
+	void testEmptyToDefault() {
+		assertThat(ShortArrays.emptyToDefault(null, ShortArrays.singleton((short) 1))).isNull();
+		assertThat(ShortArrays.emptyToDefault(ShortArrays.EMPTY, ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+		assertThat(ShortArrays.emptyToDefault(ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.emptyToDefault(ShortArrays.EMPTY, ShortArrays.EMPTY));
 	}
 
 	@Test
@@ -112,6 +134,21 @@ final class ShortArraysTest {
 	@Test
 	void testContainsNull() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.contains(null, (short) 0));
+	}
+
+	@Test
+	void testContainsOnce() {
+		assertThat(ShortArrays.containsOnce(ShortArrays.EMPTY, (short) 1)).isFalse();
+		final var array = ShortArrays.of((short) 1, (short) 2, (short) 2, (short) 3);
+		assertThat(ShortArrays.containsOnce(array, (short) 1)).isTrue();
+		assertThat(ShortArrays.containsOnce(array, (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnce(array, (short) 3)).isTrue();
+		assertThat(ShortArrays.containsOnce(array, (short) 4)).isFalse();
+	}
+
+	@Test
+	void testContainsOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnce(null, (short) 0));
 	}
 
 	@Test
@@ -216,6 +253,11 @@ final class ShortArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.EMPTY, (short[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.EMPTY, (List<short[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.EMPTY, (short[]) null));
+	}
+
+	@Test
+	void testSingleton() {
+		assertThat(ShortArrays.singleton((short) 1)).containsExactly((short) 1);
 	}
 
 	@Test

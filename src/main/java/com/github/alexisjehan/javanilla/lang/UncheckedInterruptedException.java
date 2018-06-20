@@ -28,21 +28,21 @@ import java.util.Objects;
 /**
  * <p>Wraps an {@link InterruptedException} with an unchecked exception.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class UncheckedInterruptedException extends RuntimeException {
 
 	/**
 	 * <p>Serial version unique ID.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -7699608260634186053L;
+	private static final long serialVersionUID = -7331750350490903250L;
 
 	/**
 	 * <p>Constructor with a checked cause.</p>
 	 * @param cause the checked cause
 	 * @throws NullPointerException if the cause is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public UncheckedInterruptedException(final InterruptedException cause) {
 		super(Objects.requireNonNull(cause, "Invalid cause (not null expected)"));

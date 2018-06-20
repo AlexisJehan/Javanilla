@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code short array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class ShortArrays {
 
 	/**
 	 * <p>An empty {@code short array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final short[] EMPTY = new short[0];
+	public static final short[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private ShortArrays() {
 		// Not available
@@ -49,21 +49,54 @@ public final class ShortArrays {
 	/**
 	 * <p>Wrap a {@code short array} replacing {@code null} by an empty {@code short array}.</p>
 	 * @param array a {@code short array} or {@code null}
-	 * @return a non-{@code null} {@code short array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code short array}
+	 * @since 1.0.0
 	 */
 	public static short[] nullToEmpty(final short[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code short array} replacing {@code null} by a default {@code short array}.</p>
+	 * @param array a {@code short array} or {@code null}
+	 * @param defaultArray the default {@code short array}
+	 * @return the non-{@code null} {@code short array}
+	 * @throws NullPointerException if the default {@code short array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static short[] nullToDefault(final short[] array, final short[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code short array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code short array} or {@code null}
-	 * @return a non-empty {@code short array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code short array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static short[] emptyToNull(final short[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code short array} replacing an empty one by a default {@code short array}.</p>
+	 * @param array a {@code short array} or {@code null}
+	 * @param defaultArray the default {@code short array} or {@code null}
+	 * @return the non-empty {@code short array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code short array} is empty
+	 * @since 1.1.0
+	 */
+	public static short[] emptyToDefault(final short[] array, final short[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -72,7 +105,7 @@ public final class ShortArrays {
 	 * @param value the {@code short} value to search
 	 * @return the first index of the {@code short} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code short array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final short[] array, final short value) {
 		return indexOf(array, value, 0);
@@ -87,7 +120,7 @@ public final class ShortArrays {
 	 * @return the first index of the {@code short} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code short array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final short[] array, final short value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +143,7 @@ public final class ShortArrays {
 	 * @param value the {@code short} value to search
 	 * @return the last index of the {@code short} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code short array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final short[] array, final short value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +158,7 @@ public final class ShortArrays {
 	 * @return the last index of the {@code short} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code short array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final short[] array, final short value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +176,12 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code short array} contains the given {@code short} value.</p>
+	 * <p>Tell if the {@code short array} contains the given {@code short} value at least once.</p>
 	 * @param array the {@code short array} to look into
 	 * @param value the {@code short} value to search
 	 * @return {@code true} if the given {@code short} value is contained by the {@code short array}
 	 * @throws NullPointerException if the {@code short array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final short[] array, final short value) {
 		if (null == array) {
@@ -166,12 +199,40 @@ public final class ShortArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code short array} contains the given {@code short} value only once.</p>
+	 * @param array the {@code short array} to look into
+	 * @param value the {@code short} value to search
+	 * @return {@code true} if the given {@code short} value is contained only once by the {@code short array}
+	 * @throws NullPointerException if the {@code short array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final short[] array, final short value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code short array} contains only the given {@code short} value.</p>
 	 * @param array the {@code short array} to look into
 	 * @param value the {@code short} value to search
 	 * @return {@code true} if the given {@code short} value is the only value contained by the {@code short array}
 	 * @throws NullPointerException if the {@code short array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final short[] array, final short value) {
 		if (null == array) {
@@ -194,7 +255,7 @@ public final class ShortArrays {
 	 * @param values {@code short} values to search
 	 * @return {@code true} if any of given {@code short} values is contained by the {@code short array}
 	 * @throws NullPointerException if the {@code short array} or {@code short} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final short[] array, final short... values) {
 		if (null == array) {
@@ -221,8 +282,8 @@ public final class ShortArrays {
 	 * @param array the {@code short array} to look into
 	 * @param values {@code short} values to search
 	 * @return {@code true} if all of given {@code short} values are contained by the {@code short array}
-	 * @throws NullPointerException if the {@code short array} or {@code short} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code short array} or {@code short} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final short[] array, final short... values) {
 		if (null == array) {
@@ -253,8 +314,8 @@ public final class ShortArrays {
 	 * <p>Concatenate multiple {@code short array}s.</p>
 	 * @param arrays {@code short array}s to concatenate
 	 * @return the concatenated {@code short array}
-	 * @throws NullPointerException if the array or any of the {@code short array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code short array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static short[] concat(final short[]... arrays) {
 		if (null == arrays) {
@@ -267,17 +328,20 @@ public final class ShortArrays {
 	 * <p>Concatenate a list of {@code short array}s.</p>
 	 * @param arrays {@code short array}s to concatenate
 	 * @return the concatenated {@code short array}
-	 * @throws NullPointerException if the {@code short array} list or any of the {@code short array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code short array} list or any of the {@code short array}s is
+	 * {@code null}
+	 * @since 1.0.0
 	 */
 	public static short[] concat(final List<short[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -299,8 +363,8 @@ public final class ShortArrays {
 	 * @param separator the {@code short array} sequence to add between each joined {@code short array}
 	 * @param arrays {@code short array}s to join
 	 * @return the joined {@code short array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code short array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code short array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static short[] join(final short[] separator, final short[]... arrays) {
 		if (null == arrays) {
@@ -314,9 +378,9 @@ public final class ShortArrays {
 	 * @param separator the {@code short array} sequence to add between each joined {@code short array}
 	 * @param arrays {@code short array}s to join
 	 * @return the joined {@code short array}
-	 * @throws NullPointerException if the separator, the {@code short array} list or any of the {@code short array}s is
-	 * {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code short array} list or any of the
+	 * {@code short array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static short[] join(final short[] separator, final List<short[]> arrays) {
 		if (null == separator) {
@@ -325,10 +389,12 @@ public final class ShortArrays {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(arrays);
@@ -355,11 +421,21 @@ public final class ShortArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code short array} using the given {@code short} value.</p>
+	 * @param value the {@code short} value
+	 * @return the created singleton {@code short array}
+	 * @since 1.1.0
+	 */
+	public static short[] singleton(final short value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code short array} using given {@code short} values.</p>
 	 * @param values {@code short} values
 	 * @return the created {@code short array}
 	 * @throws NullPointerException if {@code short} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static short[] of(final short... values) {
 		if (null == values) {

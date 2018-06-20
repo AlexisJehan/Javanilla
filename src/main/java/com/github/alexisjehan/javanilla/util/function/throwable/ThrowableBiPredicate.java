@@ -32,7 +32,7 @@ import java.util.function.BiPredicate;
  * @param <T> the type of the first argument to the predicate
  * @param <U> the type of the second argument the predicate
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableBiPredicate<T, U, X extends Throwable> {
@@ -43,7 +43,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @param u the second input argument
 	 * @return {@code true} if the input arguments match the predicate, otherwise {@code false}
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	boolean test(final T t, final U u) throws X;
 
@@ -54,7 +54,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @return a composed {@code ThrowableBiPredicate} that represents the short-circuiting logical AND of this
 	 * predicate and the other predicate
 	 * @throws NullPointerException if the other {@code ThrowableBiPredicate} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default ThrowableBiPredicate<T, U, X> and(final ThrowableBiPredicate<? super T, ? super U, ? extends X> other) {
 		if (null == other) {
@@ -66,7 +66,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	/**
 	 * <p>Returns a {@code ThrowableBiPredicate} that represents the logical negation of this predicate.</p>
 	 * @return a {@code ThrowableBiPredicate} that represents the logical negation of this predicate
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default ThrowableBiPredicate<T, U, X> negate() {
 		return (t, u) -> !test(t, u);
@@ -79,7 +79,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @return a composed {@code ThrowableBiPredicate} that represents the short-circuiting logical OR of this predicate
 	 * and the other predicate
 	 * @throws NullPointerException if the other {@code ThrowableBiPredicate} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default ThrowableBiPredicate<T, U, X> or(final ThrowableBiPredicate<? super T, ? super U, ? extends X> other) {
 		if (null == other) {
@@ -97,7 +97,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code BiPredicate}
 	 * @throws NullPointerException if the {@code ThrowableBiPredicate} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> BiPredicate<T, U> unchecked(final ThrowableBiPredicate<? super T, ? super U, ? extends X> throwableBiPredicate) {
 		if (null == throwableBiPredicate) {
@@ -120,7 +120,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableBiPredicate}
 	 * @throws NullPointerException if the {@code BiPredicate} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> ThrowableBiPredicate<T, U, X> of(final BiPredicate<? super T, ? super U> biPredicate) {
 		if (null == biPredicate) {

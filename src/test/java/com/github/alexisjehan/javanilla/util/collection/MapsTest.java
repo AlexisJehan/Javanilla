@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
@@ -37,44 +38,100 @@ final class MapsTest {
 
 	@Test
 	void testNullToEmptyMap() {
-		assertThat(Maps.nullToEmpty((Map<Object, Object>) null)).isEmpty();
+		assertThat(Maps.nullToEmpty((Map<String, Integer>) null)).isEmpty();
 		assertThat(Maps.nullToEmpty(Collections.emptyMap())).isEmpty();
-		assertThat(Maps.nullToEmpty(Collections.singletonMap("foo", 1))).isNotEmpty();
+		assertThat(Maps.nullToEmpty(Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testNullToEmptySortedMap() {
-		assertThat(Maps.nullToEmpty((SortedMap<Object, Object>) null)).isEmpty();
+		assertThat(Maps.nullToEmpty((SortedMap<String, Integer>) null)).isEmpty();
 		assertThat(Maps.nullToEmpty(Collections.emptySortedMap())).isEmpty();
-		assertThat(Maps.nullToEmpty((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)))).isNotEmpty();
+		assertThat(Maps.nullToEmpty((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testNullToEmptyNavigableMap() {
 		assertThat(Maps.nullToEmpty(null)).isEmpty();
 		assertThat(Maps.nullToEmpty(Collections.emptyNavigableMap())).isEmpty();
-		assertThat(Maps.nullToEmpty(new TreeMap<>(Collections.singletonMap("foo", 1)))).isNotEmpty();
+		assertThat(Maps.nullToEmpty(new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testNullToDefaultMap() {
+		assertThat(Maps.nullToDefault(null, Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToDefault(Collections.emptyMap(), Collections.singletonMap("foo", 1))).isEmpty();
+		assertThat(Maps.nullToDefault(Collections.singletonMap("foo", 1), Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testNullToDefaultSortedMap() {
+		assertThat(Maps.nullToDefault((SortedMap<String, Integer>) null, new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToDefault(Collections.emptySortedMap(), new TreeMap<>(Collections.singletonMap("foo", 1)))).isEmpty();
+		assertThat(Maps.nullToDefault((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)), new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testNullToDefaultNavigableMap() {
+		assertThat(Maps.nullToDefault(null, new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToDefault(Collections.emptyNavigableMap(), new TreeMap<>(Collections.singletonMap("foo", 1)))).isEmpty();
+		assertThat(Maps.nullToDefault(new TreeMap<>(Collections.singletonMap("foo", 1)), new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> Maps.nullToDefault(Collections.emptyMap(), null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.nullToDefault(Collections.emptySortedMap(), null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.nullToDefault(Collections.emptyNavigableMap(), null));
 	}
 
 	@Test
 	void testEmptyToNullMap() {
-		assertThat(Maps.emptyToNull((Map<Object, Object>) null)).isNull();
+		assertThat(Maps.emptyToNull((Map<String, Integer>) null)).isNull();
 		assertThat(Maps.emptyToNull(Collections.emptyMap())).isNull();
-		assertThat(Maps.emptyToNull(Collections.singletonMap("foo", 1))).isNotNull();
+		assertThat(Maps.emptyToNull(Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testEmptyToNullSortedMap() {
-		assertThat(Maps.emptyToNull((SortedMap<Object, Object>) null)).isNull();
+		assertThat(Maps.emptyToNull((SortedMap<String, Integer>) null)).isNull();
 		assertThat(Maps.emptyToNull(Collections.emptySortedMap())).isNull();
-		assertThat(Maps.emptyToNull((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)))).isNotNull();
+		assertThat(Maps.emptyToNull((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testEmptyToNullNavigableMap() {
 		assertThat(Maps.emptyToNull(null)).isNull();
 		assertThat(Maps.emptyToNull(Collections.emptyNavigableMap())).isNull();
-		assertThat(Maps.emptyToNull(new TreeMap<>(Collections.singletonMap("foo", 1)))).isNotNull();
+		assertThat(Maps.emptyToNull(new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testEmptyToDefaultMap() {
+		assertThat(Maps.emptyToDefault(null, Collections.singletonMap("foo", 1))).isNull();
+		assertThat(Maps.emptyToDefault(Collections.emptyMap(), Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.emptyToDefault(Collections.singletonMap("foo", 1), Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testEmptyToDefaultSortedMap() {
+		assertThat(Maps.emptyToDefault((SortedMap<String, Integer>) null, new TreeMap<>(Collections.singletonMap("foo", 1)))).isNull();
+		assertThat(Maps.emptyToDefault(Collections.emptySortedMap(), new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.emptyToDefault((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)), new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testEmptyToDefaultNavigableMap() {
+		assertThat(Maps.emptyToDefault(null, new TreeMap<>(Collections.singletonMap("foo", 1)))).isNull();
+		assertThat(Maps.emptyToDefault(Collections.emptyNavigableMap(), new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.emptyToDefault(new TreeMap<>(Collections.singletonMap("foo", 1)), new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Maps.emptyToDefault(Collections.emptyMap(), Collections.emptyMap()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Maps.emptyToDefault(Collections.emptySortedMap(), Collections.emptySortedMap()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Maps.emptyToDefault(Collections.emptyNavigableMap(), Collections.emptyNavigableMap()));
 	}
 
 	@Test
@@ -86,6 +143,6 @@ final class MapsTest {
 
 	@Test
 	void testOfEntriesOrderedNull() {
-		assertThatNullPointerException().isThrownBy(() -> Maps.ofEntriesOrdered((Map.Entry<Object, Object>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.ofEntriesOrdered((Map.Entry<String, Integer>[]) null));
 	}
 }

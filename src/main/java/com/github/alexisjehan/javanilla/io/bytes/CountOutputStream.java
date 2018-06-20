@@ -31,21 +31,21 @@ import java.io.OutputStream;
 
 /**
  * <p>An {@link OutputStream} decorator that counts the number of bytes written from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CountOutputStream extends FilterOutputStream {
 
 	/**
 	 * <p>Number of bytes written.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
 	/**
 	 * <p>Constructor with a delegated {@code OutputStream}.</p>
 	 * @param outputStream the delegated {@code OutputStream}
-	 * @throws NullPointerException if the delegated {@code OutputStream} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * @since 1.0.0
 	 */
 	public CountOutputStream(final OutputStream outputStream) {
 		super(outputStream);
@@ -69,7 +69,7 @@ public final class CountOutputStream extends FilterOutputStream {
 	/**
 	 * <p>Get the number of bytes written.</p>
 	 * @return the number of bytes written
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public long getCount() {
 		return count;

@@ -29,27 +29,27 @@ import java.io.Reader;
 
 /**
  * <p>A {@link Reader} decorator that counts the number of chars read from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CountReader extends FilterReader {
 
 	/**
 	 * <p>Number of chars read.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
 	/**
 	 * <p>Number of chars read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long markedCount = 0L;
 
 	/**
 	 * <p>Constructor with a delegated {@code Reader}.</p>
 	 * @param reader the delegated {@code Reader}
-	 * @throws NullPointerException if the delegated {@code Reader} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @since 1.0.0
 	 */
 	public CountReader(final Reader reader) {
 		super(reader);
@@ -95,7 +95,7 @@ public final class CountReader extends FilterReader {
 	/**
 	 * <p>Get the number of chars read.</p>
 	 * @return the number of chars read
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public long getCount() {
 		return count;

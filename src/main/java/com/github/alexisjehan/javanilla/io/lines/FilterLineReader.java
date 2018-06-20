@@ -27,21 +27,21 @@ import java.io.IOException;
 
 /**
  * <p>An abstract {@link LineReader} filter to create decorators.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public abstract class FilterLineReader extends LineReader {
 
 	/**
 	 * <p>Delegated {@code LineReader}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	protected final LineReader lineReader;
 
 	/**
 	 * <p>Constructor with a delegated {@code LineReader}.</p>
 	 * @param lineReader the delegated {@code LineReader}
-	 * @throws NullPointerException if the delegated {@code LineReader} is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * @since 1.0.0
 	 */
 	protected FilterLineReader(final LineReader lineReader) {
 		if (null == lineReader) {

@@ -29,25 +29,25 @@ import java.io.Writer;
 
 /**
  * <p>An {@link Writer} decorator that writes only chars within a range from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class RangeWriter extends FilterWriter {
 
 	/**
 	 * <p>The inclusive index of the first char to write.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
 	 * <p>The inclusive index of the last char to write.<p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
 	 * <p>Current index.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long index = 0L;
 
@@ -57,7 +57,7 @@ public final class RangeWriter extends FilterWriter {
 	 * @param toIndex the inclusive index of the last char to write
 	 * @throws NullPointerException if the delegated {@code Writer} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeWriter(final Writer writer, final long toIndex) {
 		this(writer, 0L, toIndex);
@@ -70,7 +70,7 @@ public final class RangeWriter extends FilterWriter {
 	 * @param toIndex the inclusive index of the last char to write
 	 * @throws NullPointerException if the delegated {@code Writer} is {@code null}
 	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeWriter(final Writer writer, final long fromIndex, final long toIndex) {
 		super(writer);
@@ -111,18 +111,18 @@ public final class RangeWriter extends FilterWriter {
 	}
 
 	/**
-	 * <p>Get the index of the first char to write.</p>
-	 * @return the inclusive index of the first char to write
-	 * @since 1.0
+	 * <p>Get the inclusive index of the first char to write.</p>
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
 		return fromIndex;
 	}
 
 	/**
-	 * <p>Get the index of the last char to write.<p>
-	 * @return the inclusive index of the last char to write
-	 * @since 1.0
+	 * <p>Get the inclusive index of the last char to write.<p>
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getToIndex() {
 		return toIndex;

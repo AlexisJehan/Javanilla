@@ -33,7 +33,7 @@ import java.util.function.BiFunction;
  * @param <U> the type of the second argument to the function
  * @param <R> the type of the result of the function
  * @param <X> the type of the {@code Throwable}
- * @since 1.0
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
@@ -44,7 +44,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @param u the second function argument
 	 * @return the function result
 	 * @throws X may throw a {@code Throwable}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	R apply(final T t, final U u) throws X;
 
@@ -56,7 +56,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @return a composed {@code ThrowableBiFunction} that first applies this function and then applies the after
 	 * function
 	 * @throws NullPointerException if the after {@code ThrowableBiFunction} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	default <V> ThrowableBiFunction<T, U, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
 		if (null == after) {
@@ -75,7 +75,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code BiFunction}
 	 * @throws NullPointerException if the {@code ThrowableBiFunction} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, U, R, X extends Throwable> BiFunction<T, U, R> unchecked(final ThrowableBiFunction<? super T, ? super U, ? extends R, ? extends X> throwableBiFunction) {
 		if (null == throwableBiFunction) {
@@ -99,7 +99,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableBiFunction}
 	 * @throws NullPointerException if the {@code BiFunction} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	static <T, U, R, X extends Throwable> ThrowableBiFunction<T, U, R, X> of(final BiFunction<? super T, ? super U, ? extends R> biFunction) {
 		if (null == biFunction) {

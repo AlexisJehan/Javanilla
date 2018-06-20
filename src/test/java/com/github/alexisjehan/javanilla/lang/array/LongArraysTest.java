@@ -44,14 +44,36 @@ final class LongArraysTest {
 	void testNullToEmpty() {
 		assertThat(LongArrays.nullToEmpty(null)).isEmpty();
 		assertThat(LongArrays.nullToEmpty(LongArrays.EMPTY)).isEmpty();
-		assertThat(LongArrays.nullToEmpty(LongArrays.of(1L))).isNotEmpty();
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(LongArrays.nullToDefault(null, LongArrays.singleton(1L))).containsExactly(1L);
+		assertThat(LongArrays.nullToDefault(LongArrays.EMPTY, LongArrays.singleton(1L))).isEmpty();
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.nullToDefault(LongArrays.EMPTY, null));
 	}
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(LongArrays.emptyToNull(LongArrays.EMPTY)).isNull();
 		assertThat(LongArrays.emptyToNull(null)).isNull();
-		assertThat(LongArrays.emptyToNull(LongArrays.of(1L))).isNotNull();
+		assertThat(LongArrays.emptyToNull(LongArrays.EMPTY)).isNull();
+		assertThat(LongArrays.emptyToNull(LongArrays.singleton(1L))).containsExactly(1L);
+	}
+
+	@Test
+	void testEmptyToDefault() {
+		assertThat(LongArrays.emptyToDefault(null, LongArrays.singleton(1L))).isNull();
+		assertThat(LongArrays.emptyToDefault(LongArrays.EMPTY, LongArrays.singleton(1L))).containsExactly(1L);
+		assertThat(LongArrays.emptyToDefault(LongArrays.singleton(1L), LongArrays.singleton(1L))).containsExactly(1L);
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.emptyToDefault(LongArrays.EMPTY, LongArrays.EMPTY));
 	}
 
 	@Test
@@ -112,6 +134,21 @@ final class LongArraysTest {
 	@Test
 	void testContainsNull() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.contains(null, 0L));
+	}
+
+	@Test
+	void testContainsOnce() {
+		assertThat(LongArrays.containsOnce(LongArrays.EMPTY, 1L)).isFalse();
+		final var array = LongArrays.of(1L, 2L, 2L, 3L);
+		assertThat(LongArrays.containsOnce(array, 1L)).isTrue();
+		assertThat(LongArrays.containsOnce(array, 2L)).isFalse();
+		assertThat(LongArrays.containsOnce(array, 3L)).isTrue();
+		assertThat(LongArrays.containsOnce(array, 4L)).isFalse();
+	}
+
+	@Test
+	void testContainsOnceNull() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnce(null, 0L));
 	}
 
 	@Test
@@ -216,6 +253,11 @@ final class LongArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.EMPTY, (long[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.EMPTY, (List<long[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.EMPTY, (long[]) null));
+	}
+
+	@Test
+	void testSingleton() {
+		assertThat(LongArrays.singleton(1L)).containsExactly(1L);
 	}
 
 	@Test

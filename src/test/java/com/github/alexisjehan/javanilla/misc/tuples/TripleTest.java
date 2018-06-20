@@ -73,6 +73,7 @@ final class TripleTest {
 		assertThat(triple.getSecond()).isNotEqualTo(3);
 		assertThat(triple.getThird()).isNotEqualTo(1);
 		assertThat(triple).isNotEqualTo(null);
+		assertThat(triple).isNotEqualTo(Single.of(1));
 		assertThat(triple).isNotEqualTo(Pair.of(1, 2));
 		assertThat(triple).isNotEqualTo(Triple.of(1, 2, 4));
 		assertThat(triple.hashCode()).isNotEqualTo(Triple.of(1, 2, 4).hashCode());

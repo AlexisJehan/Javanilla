@@ -69,8 +69,9 @@ final class PairTest {
 		assertThat(pair.getFirst()).isNotEqualTo(2);
 		assertThat(pair.getSecond()).isNotEqualTo(1);
 		assertThat(pair).isNotEqualTo(null);
-		assertThat(pair).isNotEqualTo(Triple.of(1, 2, 3));
+		assertThat(pair).isNotEqualTo(Single.of(1));
 		assertThat(pair).isNotEqualTo(Pair.of(1, 3));
+		assertThat(pair).isNotEqualTo(Triple.of(1, 2, 3));
 		assertThat(pair.hashCode()).isNotEqualTo(Pair.of(1, 3).hashCode());
 		assertThat(pair.toString()).isNotEqualTo(Pair.of(1, 3).toString());
 	}

@@ -34,31 +34,31 @@ import java.util.Objects;
  * @param <S> the type of the second object
  * @param <T> the type of the third object
  * @see Triple
- * @since 1.0
+ * @since 1.0.0
  */
 public final class SerializableTriple<F extends Serializable, S extends Serializable, T extends Serializable> implements Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -1077118530108515797L;
+	private static final long serialVersionUID = 2388194722678709538L;
 
 	/**
 	 * <p>First object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
 	 * <p>Second object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
 	 * <p>Third object.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final T third;
 
@@ -67,7 +67,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	 * @param first the first object or {@code null}
 	 * @param second the second object or {@code null}
 	 * @param third the third object or {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SerializableTriple(final F first, final S second, final T third) {
 		this.first = first;
@@ -78,7 +78,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	/**
 	 * <p>Get the first object of the {@code SerializableTriple}.</p>
 	 * @return the first object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public F getFirst() {
 		return first;
@@ -87,7 +87,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	/**
 	 * <p>Get the second object of the {@code SerializableTriple}.</p>
 	 * @return the second object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public S getSecond() {
 		return second;
@@ -96,7 +96,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	/**
 	 * <p>Get the third object of the {@code SerializableTriple}.</p>
 	 * @return the third object
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public T getThird() {
 		return third;
@@ -129,7 +129,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	/**
 	 * <p>Converts the current {@code SerializableTriple} to a {@code Triple}.</p>
 	 * @return the converted {@code Triple}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public Triple<F, S, T> toTriple() {
 		return new Triple<>(first, second, third);
@@ -144,7 +144,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	 * @param <S> the type of the second object
 	 * @param <T> the type of the third object
 	 * @return the constructed {@code SerializableTriple}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static <F extends Serializable, S extends Serializable, T extends Serializable> SerializableTriple<F, S, T> of(final F first, final S second, final T third) {
 		return new SerializableTriple<>(first, second, third);

@@ -29,25 +29,25 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code byte array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class ByteArrays {
 
 	/**
 	 * <p>Chars used for hexadecimal {@code String} conversion.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private static final char[] HEX_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
 	 * <p>An empty {@code byte array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final byte[] EMPTY = new byte[0];
+	public static final byte[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private ByteArrays() {
 		// Not available
@@ -56,21 +56,54 @@ public final class ByteArrays {
 	/**
 	 * <p>Wrap a {@code byte array} replacing {@code null} by an empty {@code byte array}.</p>
 	 * @param array a {@code byte array} or {@code null}
-	 * @return a non-{@code null} {@code byte array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code byte array}
+	 * @since 1.0.0
 	 */
 	public static byte[] nullToEmpty(final byte[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code byte array} replacing {@code null} by a default {@code byte array}.</p>
+	 * @param array a {@code byte array} or {@code null}
+	 * @param defaultArray the default {@code byte array}
+	 * @return the non-{@code null} {@code byte array}
+	 * @throws NullPointerException if the default {@code byte array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static byte[] nullToDefault(final byte[] array, final byte[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code byte array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code byte array} or {@code null}
-	 * @return a non-empty {@code byte array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code byte array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static byte[] emptyToNull(final byte[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code byte array} replacing an empty one by a default {@code byte array}.</p>
+	 * @param array a {@code byte array} or {@code null}
+	 * @param defaultArray the default {@code byte array} or {@code null}
+	 * @return the non-empty {@code byte array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code byte array} is empty
+	 * @since 1.1.0
+	 */
+	public static byte[] emptyToDefault(final byte[] array, final byte[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -79,7 +112,7 @@ public final class ByteArrays {
 	 * @param value the {@code byte} value to search
 	 * @return the first index of the {@code byte} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final byte[] array, final byte value) {
 		return indexOf(array, value, 0);
@@ -94,7 +127,7 @@ public final class ByteArrays {
 	 * @return the first index of the {@code byte} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final byte[] array, final byte value, final int fromIndex) {
 		if (null == array) {
@@ -117,7 +150,7 @@ public final class ByteArrays {
 	 * @param value the {@code byte} value to search
 	 * @return the last index of the {@code byte} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final byte[] array, final byte value) {
 		return lastIndexOf(array, value, 0);
@@ -132,7 +165,7 @@ public final class ByteArrays {
 	 * @return the last index of the {@code byte} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final byte[] array, final byte value, final int fromIndex) {
 		if (null == array) {
@@ -150,12 +183,12 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code byte array} contains the given {@code byte} value.</p>
+	 * <p>Tell if the {@code byte array} contains the given {@code byte} value at least once.</p>
 	 * @param array the {@code byte array} to look into
 	 * @param value the {@code byte} value to search
 	 * @return {@code true} if the given {@code byte} value is contained by the {@code byte array}
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final byte[] array, final byte value) {
 		if (null == array) {
@@ -173,12 +206,40 @@ public final class ByteArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code byte array} contains the given {@code byte} value only once.</p>
+	 * @param array the {@code byte array} to look into
+	 * @param value the {@code byte} value to search
+	 * @return {@code true} if the given {@code byte} value is contained only once by the {@code byte array}
+	 * @throws NullPointerException if the {@code byte array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final byte[] array, final byte value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code byte array} contains only the given {@code byte} value.</p>
 	 * @param array the {@code byte array} to look into
 	 * @param value the {@code byte} value to search
 	 * @return {@code true} if the given {@code byte} value is the only value contained by the {@code byte array}
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final byte[] array, final byte value) {
 		if (null == array) {
@@ -200,8 +261,8 @@ public final class ByteArrays {
 	 * @param array the {@code byte array} to look into
 	 * @param values {@code byte} values to search
 	 * @return {@code true} if any of given {@code byte} values is contained by the {@code byte array}
-	 * @throws NullPointerException if the {@code byte array} or {@code byte} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code byte array} or {@code byte} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final byte[] array, final byte... values) {
 		if (null == array) {
@@ -228,8 +289,8 @@ public final class ByteArrays {
 	 * @param array the {@code byte array} to look into
 	 * @param values {@code byte} values to search
 	 * @return {@code true} if all of given {@code byte} values are contained by the {@code byte array}
-	 * @throws NullPointerException if the {@code byte array} or {@code byte} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code byte array} or {@code byte} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final byte[] array, final byte... values) {
 		if (null == array) {
@@ -260,8 +321,8 @@ public final class ByteArrays {
 	 * <p>Concatenate multiple {@code byte array}s.</p>
 	 * @param arrays {@code byte array}s to concatenate
 	 * @return the concatenated {@code byte array}
-	 * @throws NullPointerException if the array or any of the {@code byte array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code byte array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static byte[] concat(final byte[]... arrays) {
 		if (null == arrays) {
@@ -274,17 +335,20 @@ public final class ByteArrays {
 	 * <p>Concatenate a list of {@code byte array}s.</p>
 	 * @param arrays {@code byte array}s to concatenate
 	 * @return the concatenated {@code byte array}
-	 * @throws NullPointerException if the {@code byte array} list or any of the {@code byte array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code byte array} list or any of the {@code byte array}s is
+	 * {@code null}
+	 * @since 1.0.0
 	 */
 	public static byte[] concat(final List<byte[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -306,8 +370,8 @@ public final class ByteArrays {
 	 * @param separator the {@code byte array} sequence to add between each joined {@code byte array}
 	 * @param arrays {@code byte array}s to join
 	 * @return the joined {@code byte array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code byte array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code byte array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static byte[] join(final byte[] separator, final byte[]... arrays) {
 		if (null == arrays) {
@@ -321,9 +385,9 @@ public final class ByteArrays {
 	 * @param separator the {@code byte array} sequence to add between each joined {@code byte array}
 	 * @param arrays {@code byte array}s to join
 	 * @return the joined {@code byte array}
-	 * @throws NullPointerException if the separator, the {@code byte array} list or any of the {@code byte array}s is
-	 * {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code byte array} list or any of the
+	 * {@code byte array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static byte[] join(final byte[] separator, final List<byte[]> arrays) {
 		if (null == separator) {
@@ -332,10 +396,12 @@ public final class ByteArrays {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(arrays);
@@ -362,11 +428,21 @@ public final class ByteArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code byte array} using the given {@code byte} value.</p>
+	 * @param value the {@code byte} value
+	 * @return the created singleton {@code byte array}
+	 * @since 1.1.0
+	 */
+	public static byte[] singleton(final byte value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code byte array} using given {@code byte} values.</p>
 	 * @param values {@code byte} values
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if {@code byte} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] of(final byte... values) {
 		if (null == values) {
@@ -382,10 +458,10 @@ public final class ByteArrays {
 	 * <p>Create a {@code byte array} from a {@code boolean} value.</p>
 	 * @param value the {@code boolean} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofBoolean(final boolean value) {
-		return of(value ? (byte) 1 : (byte) 0);
+		return singleton(value ? (byte) 1 : (byte) 0);
 	}
 
 	/**
@@ -394,7 +470,7 @@ public final class ByteArrays {
 	 * @return the converted {@code boolean} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean toBoolean(final byte[] array) {
 		if (null == array) {
@@ -411,7 +487,7 @@ public final class ByteArrays {
 	 * {@code ByteOrder}.</p>
 	 * @param value the {@code short} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofShort(final short value) {
 		return ofShort(value, ByteOrder.nativeOrder());
@@ -423,16 +499,22 @@ public final class ByteArrays {
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofShort(final short value, final ByteOrder order) {
 		if (null == order) {
 			throw new NullPointerException("Invalid byte order (not null expected)");
 		}
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of((byte) (value >> 8), (byte) value);
+			return of(
+					(byte) (value >> 8),
+					(byte) value
+			);
 		}
-		return of((byte) value, (byte) (value >> 8));
+		return of(
+				(byte) value,
+				(byte) (value >> 8)
+		);
 	}
 
 	/**
@@ -442,7 +524,7 @@ public final class ByteArrays {
 	 * @return the converted {@code short} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static short toShort(final byte[] array) {
 		return toShort(array, ByteOrder.nativeOrder());
@@ -455,7 +537,7 @@ public final class ByteArrays {
 	 * @return the converted {@code short} value
 	 * @throws NullPointerException whether the {@code byte array} or the {@code ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static short toShort(final byte[] array, final ByteOrder order) {
 		if (null == array) {
@@ -484,7 +566,7 @@ public final class ByteArrays {
 	 * {@code ByteOrder}.</p>
 	 * @param value the {@code char} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofChar(final char value) {
 		return ofChar(value, ByteOrder.nativeOrder());
@@ -496,16 +578,22 @@ public final class ByteArrays {
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofChar(final char value, final ByteOrder order) {
 		if (null == order) {
 			throw new NullPointerException("Invalid byte order (not null expected)");
 		}
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of((byte) (value >> 8), (byte) value);
+			return of(
+					(byte) (value >> 8),
+					(byte) value
+			);
 		}
-		return of((byte) value, (byte) (value >> 8));
+		return of(
+				(byte) value,
+				(byte) (value >> 8)
+		);
 	}
 
 	/**
@@ -515,7 +603,7 @@ public final class ByteArrays {
 	 * @return the converted {@code char} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static char toChar(final byte[] array) {
 		return toChar(array, ByteOrder.nativeOrder());
@@ -528,7 +616,7 @@ public final class ByteArrays {
 	 * @return the converted {@code char} value
 	 * @throws NullPointerException whether the {@code byte array} or the {@code ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static char toChar(final byte[] array, final ByteOrder order) {
 		if (null == array) {
@@ -557,7 +645,7 @@ public final class ByteArrays {
 	 * {@code ByteOrder}.</p>
 	 * @param value the {@code int} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofInt(final int value) {
 		return ofInt(value, ByteOrder.nativeOrder());
@@ -569,16 +657,26 @@ public final class ByteArrays {
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofInt(final int value, final ByteOrder order) {
 		if (null == order) {
 			throw new NullPointerException("Invalid byte order (not null expected)");
 		}
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of((byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value);
+			return of(
+					(byte) (value >> 24),
+					(byte) (value >> 16),
+					(byte) (value >> 8),
+					(byte) value
+			);
 		}
-		return of((byte) value, (byte) (value >> 8), (byte) (value >> 16), (byte) (value >> 24));
+		return of(
+				(byte) value,
+				(byte) (value >> 8),
+				(byte) (value >> 16),
+				(byte) (value >> 24)
+		);
 	}
 
 	/**
@@ -588,7 +686,7 @@ public final class ByteArrays {
 	 * @return the converted {@code int} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int toInt(final byte[] array) {
 		return toInt(array, ByteOrder.nativeOrder());
@@ -601,7 +699,7 @@ public final class ByteArrays {
 	 * @return the converted {@code int} value
 	 * @throws NullPointerException whether the {@code byte array} or the {@code ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int toInt(final byte[] array, final ByteOrder order) {
 		if (null == array) {
@@ -630,7 +728,7 @@ public final class ByteArrays {
 	 * {@code ByteOrder}.</p>
 	 * @param value the {@code long} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofLong(final long value) {
 		return ofLong(value, ByteOrder.nativeOrder());
@@ -642,16 +740,34 @@ public final class ByteArrays {
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofLong(final long value, final ByteOrder order) {
 		if (null == order) {
 			throw new NullPointerException("Invalid byte order (not null expected)");
 		}
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of((byte) (value >> 56), (byte) (value >> 48), (byte) (value >> 40), (byte) (value >> 32), (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value);
+			return of(
+					(byte) (value >> 56),
+					(byte) (value >> 48),
+					(byte) (value >> 40),
+					(byte) (value >> 32),
+					(byte) (value >> 24),
+					(byte) (value >> 16),
+					(byte) (value >> 8),
+					(byte) value
+			);
 		}
-		return of((byte) value, (byte) (value >> 8), (byte) (value >> 16), (byte) (value >> 24), (byte) (value >> 32), (byte) (value >> 40), (byte) (value >> 48), (byte) (value >> 56));
+		return of(
+				(byte) value,
+				(byte) (value >> 8),
+				(byte) (value >> 16),
+				(byte) (value >> 24),
+				(byte) (value >> 32),
+				(byte) (value >> 40),
+				(byte) (value >> 48),
+				(byte) (value >> 56)
+		);
 	}
 
 	/**
@@ -661,7 +777,7 @@ public final class ByteArrays {
 	 * @return the converted {@code long} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static long toLong(final byte[] array) {
 		return toLong(array, ByteOrder.nativeOrder());
@@ -674,7 +790,7 @@ public final class ByteArrays {
 	 * @return the converted {@code long} value
 	 * @throws NullPointerException whether the {@code byte array} or the {@code ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static long toLong(final byte[] array, final ByteOrder order) {
 		if (null == array) {
@@ -711,7 +827,7 @@ public final class ByteArrays {
 	 * {@code ByteOrder}.</p>
 	 * @param value the {@code float} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofFloat(final float value) {
 		return ofFloat(value, ByteOrder.nativeOrder());
@@ -723,7 +839,7 @@ public final class ByteArrays {
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofFloat(final float value, final ByteOrder order) {
 		return ofInt(Float.floatToIntBits(value), order);
@@ -736,7 +852,7 @@ public final class ByteArrays {
 	 * @return the converted {@code float} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static float toFloat(final byte[] array) {
 		return toFloat(array, ByteOrder.nativeOrder());
@@ -749,7 +865,7 @@ public final class ByteArrays {
 	 * @return the converted {@code float} value
 	 * @throws NullPointerException whether the {@code byte array} or the {@code ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static float toFloat(final byte[] array, final ByteOrder order) {
 		return Float.intBitsToFloat(toInt(array, order));
@@ -760,7 +876,7 @@ public final class ByteArrays {
 	 * {@code ByteOrder}.</p>
 	 * @param value the {@code double} value
 	 * @return the created {@code byte array}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofDouble(final double value) {
 		return ofDouble(value, ByteOrder.nativeOrder());
@@ -772,7 +888,7 @@ public final class ByteArrays {
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static byte[] ofDouble(final double value, final ByteOrder order) {
 		return ofLong(Double.doubleToLongBits(value), order);
@@ -785,7 +901,7 @@ public final class ByteArrays {
 	 * @return the converted {@code double} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static double toDouble(final byte[] array) {
 		return toDouble(array, ByteOrder.nativeOrder());
@@ -798,7 +914,7 @@ public final class ByteArrays {
 	 * @return the converted {@code double} value
 	 * @throws NullPointerException whether the {@code byte array} or the {@code ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte array} length is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static double toDouble(final byte[] array, final ByteOrder order) {
 		return Double.longBitsToDouble(toLong(array, order));
@@ -806,37 +922,30 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Create a {@code byte array} from a hexadecimal {@code String} value.</p>
-	 * <p><b>Note</b>: If the hexadecimal {@code String} value starts with {@code 0x} it will be stripped.</p>
 	 * <p><b>Note</b>: The hexadecimal {@code String} value case does not matter.</p>
 	 * @param hexString the hexadecimal {@code String} value
 	 * @return the created {@code byte array}
 	 * @throws NullPointerException if the hexadecimal {@code String} is {@code null}
-	 * @throws IllegalArgumentException if the hexadecimal {@code String} value length is not a multiple of 2
-	 * @since 1.0
+	 * @throws IllegalArgumentException if the hexadecimal {@code String} value length is not a multiple of {@code 2}
+	 * @since 1.0.0
 	 */
 	public static byte[] ofHexString(final String hexString) {
 		if (null == hexString) {
 			throw new NullPointerException("Invalid hexadecimal string (not null expected)");
 		}
-		final String input;
-		if (hexString.startsWith("0x") && 2 < hexString.length()) {
-			input = hexString.substring(2).toLowerCase();
-		} else {
-			input = hexString.toLowerCase();
-		}
-		final var length = input.length();
+		final var length = hexString.length();
 		if (0 != length % 2) {
 			throw new IllegalArgumentException("Invalid hex string length: " + length + " (multiple of 2 expected)");
 		}
 		final var output = new byte[length / 2];
 		for(var i = 0; i < length; i += 2) {
-			final var c1 = input.charAt(i);
-			final var i1 = CharArrays.indexOf(HEX_CHARS, c1);
+			final var c1 = hexString.charAt(i);
+			final var i1 = CharArrays.indexOf(HEX_CHARS, Character.toLowerCase(c1));
 			if (-1 == i1) {
 				throw new IllegalArgumentException("Invalid hex char: " + c1);
 			}
-			final var c2 = input.charAt(i + 1);
-			final var i2 = CharArrays.indexOf(HEX_CHARS, c2);
+			final var c2 = hexString.charAt(i + 1);
+			final var i2 = CharArrays.indexOf(HEX_CHARS, Character.toLowerCase(c2));
 			if (-1 == i2) {
 				throw new IllegalArgumentException("Invalid hex char: " + c2);
 			}
@@ -851,7 +960,7 @@ public final class ByteArrays {
 	 * @param array the {@code byte array} to convert
 	 * @return the converted hexadecimal {@code String} value
 	 * @throws NullPointerException if the {@code byte array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static String toHexString(final byte[] array) {
 		if (null == array) {

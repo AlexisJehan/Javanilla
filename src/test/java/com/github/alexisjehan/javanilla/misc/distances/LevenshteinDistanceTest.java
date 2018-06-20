@@ -120,6 +120,6 @@ final class LevenshteinDistanceTest {
 	@Test
 	void testSerializable() {
 		final var levenshteinDistance = new LevenshteinDistance(1.0d, 2.0d, 3.0d);
-		Assertions.assertThat(Serializables.<LevenshteinDistance>deserialize(Serializables.serialize(levenshteinDistance))).isEqualTo(levenshteinDistance);
+		assertThat(Serializables.<LevenshteinDistance>deserialize(Serializables.serialize(levenshteinDistance))).isEqualTo(levenshteinDistance);
 	}
 }

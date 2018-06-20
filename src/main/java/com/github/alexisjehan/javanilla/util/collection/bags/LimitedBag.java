@@ -23,20 +23,18 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
-import java.util.Objects;
-
 /**
  * <p>A {@link Bag} decorator that limits the maximum number of distinct elements contained. If the limit is reached
  * then an element with a minimum occurrence is totally removed.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public final class LimitedBag<E> extends FilterBag<E> {
 
 	/**
 	 * <p>The maximum number of distinct elements to be contained.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final int limit;
 
@@ -44,8 +42,8 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 * <p>Constructor with a delegated {@code Bag} and a limit.</p>
 	 * @param bag the delegated {@code Bag}
 	 * @param limit the maximum number of distinct elements to be contained
-	 * @throws IllegalArgumentException if the limit if lower than 2
-	 * @since 1.0
+	 * @throws IllegalArgumentException if the limit if lower than {@code 2}
+	 * @since 1.0.0
 	 */
 	public LimitedBag(final Bag<E> bag, final int limit) {
 		super(bag);
@@ -66,7 +64,7 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 * @param quantity how many instances of the element should be added
 	 * @return {@code true} if the element has been successfully added
 	 * @throws IllegalArgumentException if the quantity is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@Override
 	public boolean add(final E element, final long quantity) {
@@ -74,24 +72,6 @@ public final class LimitedBag<E> extends FilterBag<E> {
 			bag.remove(bag.min().orElseThrow(AssertionError::new));
 		}
 		return bag.add(element, quantity);
-	}
-
-	@Override
-	public boolean equals(final Object object) {
-		if (this == object) {
-			return true;
-		}
-		if (!(object instanceof LimitedBag)) {
-			return false;
-		}
-		final var other = (LimitedBag) object;
-		return Objects.equals(bag, other.bag)
-				&& Objects.equals(limit, other.limit);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(bag, limit);
 	}
 
 	@Override

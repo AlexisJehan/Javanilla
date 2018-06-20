@@ -28,13 +28,13 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * <p>A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class StandardMessageDigests {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private StandardMessageDigests() {
 		// Not available
@@ -43,7 +43,7 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "MD5" {@code MessageDigest} instance.</p>
 	 * @return a "MD5" {@code MessageDigest} instance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static MessageDigest getMd5Instance() {
 		return getInstance("MD5");
@@ -52,7 +52,7 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "SHA-1" {@code MessageDigest} instance.</p>
 	 * @return a "SHA-1" {@code MessageDigest} instance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static MessageDigest getSha1Instance() {
 		return getInstance("SHA-1");
@@ -61,7 +61,7 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "SHA-256" {@code MessageDigest} instance.</p>
 	 * @return a "SHA-256" {@code MessageDigest} instance
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static MessageDigest getSha256Instance() {
 		return getInstance("SHA-256");
@@ -71,7 +71,7 @@ public final class StandardMessageDigests {
 	 * <p>Get a new {@code MessageDigest} instance without throwing {@code NoSuchAlgorithmException}.</p>
 	 * @param algorithm the {@code MessageDigest} provided algorithm
 	 * @return a {@code MessageDigest} instance of the provided standard algorithm
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private static MessageDigest getInstance(final String algorithm) {
 		try {

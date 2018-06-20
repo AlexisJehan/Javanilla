@@ -28,6 +28,8 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link Lists} unit tests.</p>
@@ -38,13 +40,61 @@ final class ListsTest {
 	void testNullToEmpty() {
 		assertThat(Lists.nullToEmpty(null)).isEmpty();
 		assertThat(Lists.nullToEmpty(Collections.emptyList())).isEmpty();
-		assertThat(Lists.nullToEmpty(Collections.singletonList("foo"))).isNotEmpty();
+		assertThat(Lists.nullToEmpty(Collections.singletonList("foo"))).containsExactly("foo");
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(Lists.nullToDefault(null, Collections.singletonList("foo"))).containsExactly("foo");
+		assertThat(Lists.nullToDefault(Collections.emptyList(), Collections.singletonList("foo"))).isEmpty();
+		assertThat(Lists.nullToDefault(Collections.singletonList("foo"), Collections.singletonList("foo"))).containsExactly("foo");
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.nullToDefault(Collections.emptyList(), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Lists.emptyToNull(null)).isNull();
 		assertThat(Lists.emptyToNull(Collections.emptyList())).isNull();
-		assertThat(Lists.emptyToNull(Collections.singletonList("foo"))).isNotNull();
+		assertThat(Lists.emptyToNull(Collections.singletonList("foo"))).containsExactly("foo");
+	}
+
+	@Test
+	void testEmptyToDefault() {
+		assertThat(Lists.emptyToDefault(null, Collections.singletonList("foo"))).isNull();
+		assertThat(Lists.emptyToDefault(Collections.emptyList(), Collections.singletonList("foo"))).containsExactly("foo");
+		assertThat(Lists.emptyToDefault(Collections.singletonList("foo"), Collections.singletonList("foo"))).containsExactly("foo");
+	}
+
+	@Test
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Lists.emptyToDefault(Collections.emptyList(), Collections.emptyList()));
+	}
+
+	@Test
+	void testGetFirst() {
+		assertThat(Lists.getFirst(Collections.emptyList()).isEmpty()).isTrue();
+		assertThat(Lists.getFirst(Collections.singletonList(null)).get()).isNull();
+		assertThat(Lists.getFirst(List.of(1, 2, 3)).get()).isEqualTo(1);
+	}
+
+	@Test
+	void testGetFirstNull() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.getFirst(null));
+	}
+
+	@Test
+	void testGetLast() {
+		assertThat(Lists.getLast(Collections.emptyList()).isEmpty()).isTrue();
+		assertThat(Lists.getLast(Collections.singletonList(null)).get()).isNull();
+		assertThat(Lists.getLast(List.of(1, 2, 3)).get()).isEqualTo(3);
+	}
+
+	@Test
+	void testGetLastNull() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.getLast(null));
 	}
 }

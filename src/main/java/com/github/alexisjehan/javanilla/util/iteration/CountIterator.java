@@ -30,19 +30,19 @@ import java.util.NoSuchElementException;
  * <p>An {@link Iterator} decorator that counts the number of elements read from the current position.</p>
  * <p><b>Note</b>: A removed element is still considered in the count.</p>
  * @param <E> the element type
- * @since 1.0
+ * @since 1.0.0
  */
 public final class CountIterator<E> implements Iterator<E> {
 
 	/**
 	 * <p>Delegated {@code Iterator}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final Iterator<? extends E> iterator;
 
 	/**
 	 * <p>Number of elements read.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
@@ -50,7 +50,7 @@ public final class CountIterator<E> implements Iterator<E> {
 	 * <p>Constructor with a delegated {@code Iterator}.</p>
 	 * @param iterator the delegated {@code Iterator}
 	 * @throws NullPointerException if the delegated {@code Iterator} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public CountIterator(final Iterator<? extends E> iterator) {
 		if (null == iterator) {
@@ -81,7 +81,7 @@ public final class CountIterator<E> implements Iterator<E> {
 	/**
 	 * <p>Get the number of elements read.</p>
 	 * @return the number of elements read
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public long getCount() {
 		return count;

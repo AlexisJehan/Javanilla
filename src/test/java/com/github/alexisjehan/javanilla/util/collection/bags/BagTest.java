@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.util.NullableOptional;
+
 import java.util.*;
 
 /**
@@ -66,12 +68,12 @@ final class BagTest extends AbstractBagTest {
 			}
 
 			@Override
-			public Optional<E> min() {
+			public NullableOptional<E> min() {
 				return delegate.min();
 			}
 
 			@Override
-			public Optional<E> max() {
+			public NullableOptional<E> max() {
 				return delegate.max();
 			}
 

@@ -23,6 +23,6 @@ SOFTWARE.
 */
 /**
  * <p>A set of {@link java.util.Collection}/{@link java.util.Map} tools and decorators.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.collection;

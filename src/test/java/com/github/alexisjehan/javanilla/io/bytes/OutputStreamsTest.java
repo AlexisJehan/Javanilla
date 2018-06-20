@@ -72,6 +72,17 @@ final class OutputStreamsTest {
 	}
 
 	@Test
+	void testNullToDefault() {
+		assertThat(OutputStreams.nullToDefault(null, OutputStreams.BLANK)).isSameAs(OutputStreams.BLANK);
+		assertThat(OutputStreams.nullToDefault(OutputStreams.BLANK, OutputStreams.BLANK)).isSameAs(OutputStreams.BLANK);
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.nullToDefault(OutputStreams.BLANK, null));
+	}
+
+	@Test
 	void testBuffered() {
 		try {
 			try (final var outputStream = OutputStreams.BLANK) {

@@ -27,13 +27,13 @@ import java.util.*;
 
 /**
  * <p>An utility class that provides {@link Set} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class Sets {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private Sets() {
 		// Not available
@@ -43,76 +43,181 @@ public final class Sets {
 	 * <p>Wrap a {@code Set} replacing {@code null} by an empty {@code Set}.</p>
 	 * @param set a {@code Set} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-{@code null} {@code Set}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code Set}
+	 * @since 1.0.0
 	 */
 	public static <E> Set<E> nullToEmpty(final Set<E> set) {
-		return null != set ? set : Collections.emptySet();
+		return nullToDefault(set, Collections.emptySet());
 	}
 
 	/**
 	 * <p>Wrap a {@code SortedSet} replacing {@code null} by an empty {@code SortedSet}.</p>
 	 * @param sortedSet a {@code SortedSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-{@code null} {@code SortedSet}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code SortedSet}
+	 * @since 1.0.0
 	 */
 	public static <E> SortedSet<E> nullToEmpty(final SortedSet<E> sortedSet) {
-		return null != sortedSet ? sortedSet : Collections.emptySortedSet();
+		return nullToDefault(sortedSet, Collections.emptySortedSet());
 	}
 
 	/**
 	 * <p>Wrap a {@code NavigableSet} replacing {@code null} by an empty {@code NavigableSet}.</p>
 	 * @param navigableSet a {@code NavigableSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-{@code null} {@code NavigableSet}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code NavigableSet}
+	 * @since 1.0.0
 	 */
 	public static <E> NavigableSet<E> nullToEmpty(final NavigableSet<E> navigableSet) {
-		return null != navigableSet ? navigableSet : Collections.emptyNavigableSet();
+		return nullToDefault(navigableSet, Collections.emptyNavigableSet());
+	}
+
+	/**
+	 * <p>Wrap a {@code Set} replacing {@code null} by a default {@code Set}.</p>
+	 * @param set a {@code Set} or {@code null}
+	 * @param defaultSet the default {@code Set}
+	 * @param <E> the type of elements maintained by the set
+	 * @return the non-{@code null} {@code Set}
+	 * @throws NullPointerException if the default {@code Set} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> Set<E> nullToDefault(final Set<E> set, final Set<E> defaultSet) {
+		if (null == defaultSet) {
+			throw new NullPointerException("Invalid default set (not null expected)");
+		}
+		return null != set ? set : defaultSet;
+	}
+
+	/**
+	 * <p>Wrap a {@code SortedSet} replacing {@code null} by a default {@code SortedSet}.</p>
+	 * @param sortedSet a {@code SortedSet} or {@code null}
+	 * @param defaultSortedSet the default {@code SortedSet}
+	 * @param <E> the type of elements maintained by the set
+	 * @return the non-{@code null} {@code SortedSet}
+	 * @throws NullPointerException if the default {@code SortedSet} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> SortedSet<E> nullToDefault(final SortedSet<E> sortedSet, final SortedSet<E> defaultSortedSet) {
+		if (null == defaultSortedSet) {
+			throw new NullPointerException("Invalid default sorted set (not null expected)");
+		}
+		return null != sortedSet ? sortedSet : defaultSortedSet;
+	}
+
+	/**
+	 * <p>Wrap a {@code NavigableSet} replacing {@code null} by a default {@code NavigableSet}.</p>
+	 * @param navigableSet a {@code NavigableSet} or {@code null}
+	 * @param defaultNavigableSet the default {@code NavigableSet}
+	 * @param <E> the type of elements maintained by the set
+	 * @return the non-{@code null} {@code NavigableSet}
+	 * @throws NullPointerException if the default {@code NavigableSet} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> NavigableSet<E> nullToDefault(final NavigableSet<E> navigableSet, final NavigableSet<E> defaultNavigableSet) {
+		if (null == defaultNavigableSet) {
+			throw new NullPointerException("Invalid default navigable set (not null expected)");
+		}
+		return null != navigableSet ? navigableSet : defaultNavigableSet;
 	}
 
 	/**
 	 * <p>Wrap a {@code Set} replacing an empty one by {@code null}.</p>
 	 * @param set a {@code Set} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-empty {@code Set} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code Set} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static <E> Set<E> emptyToNull(final Set<E> set) {
-		return null != set && !set.isEmpty() ? set : null;
+		return emptyToDefault(set, null);
 	}
 
 	/**
 	 * <p>Wrap a {@code SortedSet} replacing an empty one by {@code null}.</p>
 	 * @param sortedSet a {@code SortedSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-empty {@code SortedSet} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code SortedSet} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static <E> SortedSet<E> emptyToNull(final SortedSet<E> sortedSet) {
-		return null != sortedSet && !sortedSet.isEmpty() ? sortedSet : null;
+		return emptyToDefault(sortedSet, null);
 	}
 
 	/**
 	 * <p>Wrap a {@code NavigableSet} replacing an empty one by {@code null}.</p>
 	 * @param navigableSet a {@code NavigableSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-empty {@code NavigableSet} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code NavigableSet} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static <E> NavigableSet<E> emptyToNull(final NavigableSet<E> navigableSet) {
-		return null != navigableSet && !navigableSet.isEmpty() ? navigableSet : null;
+		return emptyToDefault(navigableSet, null);
 	}
 
 	/**
-	 * <p>Create an ordered {@code Set} with an array of elements.</p>
+	 * <p>Wrap a {@code Set} replacing an empty one by a default {@code Set}.</p>
+	 * @param set a {@code Set} or {@code null}
+	 * @param defaultSet the default {@code Set} or {@code null}
+	 * @param <E> the type of elements maintained by the set
+	 * @return the non-empty {@code Set} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code Set} is empty
+	 * @since 1.1.0
+	 */
+	public static <E> Set<E> emptyToDefault(final Set<E> set, final Set<E> defaultSet) {
+		if (null != defaultSet && defaultSet.isEmpty()) {
+			throw new IllegalArgumentException("Invalid default set (not empty expected)");
+		}
+		if (null == set) {
+			return null;
+		}
+		return !set.isEmpty() ? set : defaultSet;
+	}
+
+	/**
+	 * <p>Wrap a {@code SortedSet} replacing an empty one by a default {@code SortedSet}.</p>
+	 * @param sortedSet a {@code SortedSet} or {@code null}
+	 * @param defaultSortedSet the default {@code SortedSet} or {@code null}
+	 * @param <E> the type of elements maintained by the set
+	 * @return the non-empty {@code SortedSet} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code SortedSet} is empty
+	 * @since 1.1.0
+	 */
+	public static <E> SortedSet<E> emptyToDefault(final SortedSet<E> sortedSet, final SortedSet<E> defaultSortedSet) {
+		if (null != defaultSortedSet && defaultSortedSet.isEmpty()) {
+			throw new IllegalArgumentException("Invalid default sorted set (not empty expected)");
+		}
+		if (null == sortedSet) {
+			return null;
+		}
+		return !sortedSet.isEmpty() ? sortedSet : defaultSortedSet;
+	}
+
+	/**
+	 * <p>Wrap a {@code NavigableSet} replacing an empty one by a default {@code NavigableSet}.</p>
+	 * @param navigableSet a {@code NavigableSet} or {@code null}
+	 * @param defaultNavigableSet the default {@code NavigableSet} or {@code null}
+	 * @param <E> the type of elements maintained by the set
+	 * @return the non-empty {@code NavigableSet} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code NavigableSet} is empty
+	 * @since 1.1.0
+	 */
+	public static <E> NavigableSet<E> emptyToDefault(final NavigableSet<E> navigableSet, final NavigableSet<E> defaultNavigableSet) {
+		if (null != defaultNavigableSet && defaultNavigableSet.isEmpty()) {
+			throw new IllegalArgumentException("Invalid default navigable set (not empty expected)");
+		}
+		if (null == navigableSet) {
+			return null;
+		}
+		return !navigableSet.isEmpty() ? navigableSet : defaultNavigableSet;
+	}
+
+	/**
+	 * <p>Create an immutable ordered {@code Set} with an array of elements.</p>
 	 * <p><b>Note</b>: {@code null} value may be restricted depending of the {@code Set} implementation.</p>
 	 * @param elements elements of the {@code Set}
 	 * @param <E> the type of elements maintained by the set
-	 * @return the created ordered {@code Set}
+	 * @return the created immutable ordered {@code Set}
 	 * @throws NullPointerException if the elements array is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	public static <E> Set<E> ofOrdered(final E... elements) {

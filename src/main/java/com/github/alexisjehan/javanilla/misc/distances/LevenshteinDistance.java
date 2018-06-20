@@ -31,37 +31,37 @@ import java.util.Objects;
  * <p><b>Note</b>: This class is serializable.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class LevenshteinDistance implements EditDistance, Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 760842934378384426L;
+	private static final long serialVersionUID = 6341441922043785284L;
 
 	/**
 	 * <p>The insertion cost.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final double insertionCost;
 
 	/**
 	 * <p>The deletion cost.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final double deletionCost;
 
 	/**
 	 * <p>The substitution cost.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final double substitutionCost;
 
 	/**
 	 * <p>Default constructor with each cost at {@code 1}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public LevenshteinDistance() {
 		this(1.0d, 1.0d, 1.0d);
@@ -72,8 +72,8 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	 * @param insertionCost the insertion cost
 	 * @param deletionCost the deletion cost
 	 * @param substitutionCost the substitution cost
-	 * @throws IllegalArgumentException if any cost is lower than or equal to 0
-	 * @since 1.0
+	 * @throws IllegalArgumentException if any cost is lower than or equal to {@code 0}
+	 * @since 1.0.0
 	 */
 	public LevenshteinDistance(final double insertionCost, final double deletionCost, final double substitutionCost) {
 		if (0.0d >= insertionCost) {
@@ -154,7 +154,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	/**
 	 * <p>Get the insertion cost.</p>
 	 * @return the insertion cost
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public double getInsertionCost() {
 		return insertionCost;
@@ -163,7 +163,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	/**
 	 * <p>Get the deletion cost.</p>
 	 * @return the deletion cost
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public double getDeletionCost() {
 		return deletionCost;
@@ -172,7 +172,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	/**
 	 * <p>Get the substitution cost.</p>
 	 * @return the substitution cost
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public double getSubstitutionCost() {
 		return substitutionCost;

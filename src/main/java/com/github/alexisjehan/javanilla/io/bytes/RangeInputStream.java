@@ -31,31 +31,31 @@ import java.io.InputStream;
 
 /**
  * <p>An {@link InputStream} decorator that reads only bytes within a range from the current position.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class RangeInputStream extends FilterInputStream {
 
 	/**
 	 * <p>The inclusive index of the first byte to read.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
 	 * <p>The inclusive index of the last byte to read.<p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
 	 * <p>Current index.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long index = 0L;
 
 	/**
 	 * <p>Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private long markedIndex = 0L;
 
@@ -63,9 +63,9 @@ public final class RangeInputStream extends FilterInputStream {
 	 * <p>Constructor with a delegated {@code InputStream} and a range from {@code 0} to the given inclusive index.</p>
 	 * @param inputStream the delegated {@code InputStream}
 	 * @param toIndex the inclusive index of the last byte to read
-	 * @throws NullPointerException if the delegated {@code InputStream} is {@code null}
+	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index is negative
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeInputStream(final InputStream inputStream, final long toIndex) {
 		this(inputStream, 0L, toIndex);
@@ -76,9 +76,9 @@ public final class RangeInputStream extends FilterInputStream {
 	 * @param inputStream the delegated {@code InputStream}
 	 * @param fromIndex the inclusive index of the first byte to read
 	 * @param toIndex the inclusive index of the last byte to read
-	 * @throws NullPointerException if the delegated {@code InputStream} is {@code null}
+	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public RangeInputStream(final InputStream inputStream, final long fromIndex, final long toIndex) {
 		super(inputStream);
@@ -146,8 +146,8 @@ public final class RangeInputStream extends FilterInputStream {
 
 	/**
 	 * <p>Get the inclusive index of the first byte to read.</p>
-	 * @return the inclusive index of the first byte to read
-	 * @since 1.0
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
 		return fromIndex;
@@ -155,8 +155,8 @@ public final class RangeInputStream extends FilterInputStream {
 
 	/**
 	 * <p>Get the inclusive index of the last byte to read.<p>
-	 * @return the inclusive index of the last byte to read
-	 * @since 1.0
+	 * @return the inclusive index
+	 * @since 1.0.0
 	 */
 	public long getToIndex() {
 		return toIndex;

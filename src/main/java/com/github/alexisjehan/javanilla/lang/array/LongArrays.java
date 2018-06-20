@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code long array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class LongArrays {
 
 	/**
 	 * <p>An empty {@code long array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final long[] EMPTY = new long[0];
+	public static final long[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private LongArrays() {
 		// Not available
@@ -49,21 +49,54 @@ public final class LongArrays {
 	/**
 	 * <p>Wrap a {@code long array} replacing {@code null} by an empty {@code long array}.</p>
 	 * @param array a {@code long array} or {@code null}
-	 * @return a non-{@code null} {@code long array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code long array}
+	 * @since 1.0.0
 	 */
 	public static long[] nullToEmpty(final long[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code long array} replacing {@code null} by a default {@code long array}.</p>
+	 * @param array a {@code long array} or {@code null}
+	 * @param defaultArray the default {@code long array}
+	 * @return the non-{@code null} {@code long array}
+	 * @throws NullPointerException if the default {@code long array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static long[] nullToDefault(final long[] array, final long[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code long array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code long array} or {@code null}
-	 * @return a non-empty {@code long array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code long array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static long[] emptyToNull(final long[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code long array} replacing an empty one by a default {@code long array}.</p>
+	 * @param array a {@code long array} or {@code null}
+	 * @param defaultArray the default {@code long array} or {@code null}
+	 * @return the non-empty {@code long array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code long array} is empty
+	 * @since 1.1.0
+	 */
+	public static long[] emptyToDefault(final long[] array, final long[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -72,7 +105,7 @@ public final class LongArrays {
 	 * @param value the {@code long} value to search
 	 * @return the first index of the {@code long} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code long array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final long[] array, final long value) {
 		return indexOf(array, value, 0);
@@ -87,7 +120,7 @@ public final class LongArrays {
 	 * @return the first index of the {@code long} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code long array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final long[] array, final long value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +143,7 @@ public final class LongArrays {
 	 * @param value the {@code long} value to search
 	 * @return the last index of the {@code long} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code long array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final long[] array, final long value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +158,7 @@ public final class LongArrays {
 	 * @return the last index of the {@code long} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code long array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final long[] array, final long value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +176,12 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code long array} contains the given {@code long} value.</p>
+	 * <p>Tell if the {@code long array} contains the given {@code long} value at least once.</p>
 	 * @param array the {@code long array} to look into
 	 * @param value the {@code long} value to search
 	 * @return {@code true} if the given {@code long} value is contained by the {@code long array}
 	 * @throws NullPointerException if the {@code long array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final long[] array, final long value) {
 		if (null == array) {
@@ -166,12 +199,40 @@ public final class LongArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code long array} contains the given {@code long} value only once.</p>
+	 * @param array the {@code long array} to look into
+	 * @param value the {@code long} value to search
+	 * @return {@code true} if the given {@code long} value is contained only once by the {@code long array}
+	 * @throws NullPointerException if the {@code long array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final long[] array, final long value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code long array} contains only the given {@code long} value.</p>
 	 * @param array the {@code long array} to look into
 	 * @param value the {@code long} value to search
 	 * @return {@code true} if the given {@code long} value is the only value contained by the {@code long array}
 	 * @throws NullPointerException if the {@code long array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final long[] array, final long value) {
 		if (null == array) {
@@ -193,8 +254,8 @@ public final class LongArrays {
 	 * @param array the {@code long array} to look into
 	 * @param values {@code long} values to search
 	 * @return {@code true} if any of given {@code long} values is contained by the {@code long array}
-	 * @throws NullPointerException if the {@code long array} or {@code long} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code long array} or {@code long} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final long[] array, final long... values) {
 		if (null == array) {
@@ -221,8 +282,8 @@ public final class LongArrays {
 	 * @param array the {@code long array} to look into
 	 * @param values {@code long} values to search
 	 * @return {@code true} if all of given {@code long} values are contained by the {@code long array}
-	 * @throws NullPointerException if the {@code long array} or {@code long} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code long array} or {@code long} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final long[] array, final long... values) {
 		if (null == array) {
@@ -253,8 +314,8 @@ public final class LongArrays {
 	 * <p>Concatenate multiple {@code long array}s.</p>
 	 * @param arrays {@code long array}s to concatenate
 	 * @return the concatenated {@code long array}
-	 * @throws NullPointerException if the array or any of the {@code long array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code long array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static long[] concat(final long[]... arrays) {
 		if (null == arrays) {
@@ -267,18 +328,20 @@ public final class LongArrays {
 	 * <p>Concatenate a list of {@code long array}s.</p>
 	 * @param arrays {@code long array}s to concatenate
 	 * @return the concatenated {@code long array}
-	 * @throws NullPointerException if the {@code long array} list or any of the {@code long array}s is
+	 * @throws NullPointerException whether the {@code long array} list or any of the {@code long array}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static long[] concat(final List<long[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -300,8 +363,8 @@ public final class LongArrays {
 	 * @param separator the {@code long array} sequence to add between each joined {@code long array}
 	 * @param arrays {@code long array}s to join
 	 * @return the joined {@code long array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code long array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code long array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static long[] join(final long[] separator, final long[]... arrays) {
 		if (null == arrays) {
@@ -315,9 +378,9 @@ public final class LongArrays {
 	 * @param separator the {@code long array} sequence to add between each joined {@code long array}
 	 * @param arrays {@code long array}s to join
 	 * @return the joined {@code long array}
-	 * @throws NullPointerException if the separator, the {@code long array} list or any of the {@code long array}s is
-	 * {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the {@code long array} list or any of the {@code long array}s
+	 * is {@code null}
+	 * @since 1.0.0
 	 */
 	public static long[] join(final long[] separator, final List<long[]> arrays) {
 		if (null == separator) {
@@ -326,10 +389,12 @@ public final class LongArrays {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(arrays);
@@ -356,11 +421,21 @@ public final class LongArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code long array} using the given {@code long} value.</p>
+	 * @param value the {@code long} value
+	 * @return the created singleton {@code long array}
+	 * @since 1.1.0
+	 */
+	public static long[] singleton(final long value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code long array} using given {@code long} values.</p>
 	 * @param values {@code long} values
 	 * @return the created {@code long array}
 	 * @throws NullPointerException if {@code long} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static long[] of(final long... values) {
 		if (null == values) {

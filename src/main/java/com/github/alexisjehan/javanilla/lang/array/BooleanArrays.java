@@ -28,19 +28,19 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@code boolean array} tools.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 public final class BooleanArrays {
 
 	/**
 	 * <p>An empty {@code boolean array}.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
-	public static final boolean[] EMPTY = new boolean[0];
+	public static final boolean[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	private BooleanArrays() {
 		// Not available
@@ -49,21 +49,54 @@ public final class BooleanArrays {
 	/**
 	 * <p>Wrap a {@code boolean array} replacing {@code null} by an empty {@code boolean array}.</p>
 	 * @param array a {@code boolean array} or {@code null}
-	 * @return a non-{@code null} {@code boolean array}
-	 * @since 1.0
+	 * @return the non-{@code null} {@code boolean array}
+	 * @since 1.0.0
 	 */
 	public static boolean[] nullToEmpty(final boolean[] array) {
-		return null != array ? array : EMPTY;
+		return nullToDefault(array, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code boolean array} replacing {@code null} by a default {@code boolean array}.</p>
+	 * @param array a {@code boolean array} or {@code null}
+	 * @param defaultArray the default {@code boolean array}
+	 * @return the non-{@code null} {@code boolean array}
+	 * @throws NullPointerException if the default {@code boolean array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean[] nullToDefault(final boolean[] array, final boolean[] defaultArray) {
+		if (null == defaultArray) {
+			throw new NullPointerException("Invalid default array (not null expected)");
+		}
+		return null != array ? array : defaultArray;
 	}
 
 	/**
 	 * <p>Wrap a {@code boolean array} replacing an empty one by {@code null}.</p>
 	 * @param array a {@code boolean array} or {@code null}
-	 * @return a non-empty {@code boolean array} or {@code null}
-	 * @since 1.0
+	 * @return the non-empty {@code boolean array} or {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean[] emptyToNull(final boolean[] array) {
-		return null != array && 0 != array.length ? array : null;
+		return emptyToDefault(array, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code boolean array} replacing an empty one by a default {@code boolean array}.</p>
+	 * @param array a {@code boolean array} or {@code null}
+	 * @param defaultArray the default {@code boolean array} or {@code null}
+	 * @return the non-empty {@code boolean array} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code boolean array} is empty
+	 * @since 1.1.0
+	 */
+	public static boolean[] emptyToDefault(final boolean[] array, final boolean[] defaultArray) {
+		if (null != defaultArray && 0 == defaultArray.length) {
+			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		}
+		if (null == array) {
+			return null;
+		}
+		return 0 != array.length ? array : defaultArray;
 	}
 
 	/**
@@ -72,7 +105,7 @@ public final class BooleanArrays {
 	 * @param value the {@code boolean} value to search
 	 * @return the first index of the {@code boolean} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code boolean array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final boolean[] array, final boolean value) {
 		return indexOf(array, value, 0);
@@ -87,7 +120,7 @@ public final class BooleanArrays {
 	 * @return the first index of the {@code boolean} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code boolean array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int indexOf(final boolean[] array, final boolean value, final int fromIndex) {
 		if (null == array) {
@@ -110,7 +143,7 @@ public final class BooleanArrays {
 	 * @param value the {@code boolean} value to search
 	 * @return the last index of the {@code boolean} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code boolean array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final boolean[] array, final boolean value) {
 		return lastIndexOf(array, value, 0);
@@ -125,7 +158,7 @@ public final class BooleanArrays {
 	 * @return the last index of the {@code boolean} value if found, {@code -1} otherwise
 	 * @throws NullPointerException if the {@code boolean array} is {@code null}
 	 * @throws IndexOutOfBoundsException if the index to start from is not valid
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final boolean[] array, final boolean value, final int fromIndex) {
 		if (null == array) {
@@ -143,12 +176,12 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code boolean array} contains the given {@code boolean} value.</p>
+	 * <p>Tell if the {@code boolean array} contains the given {@code boolean} value at least once.</p>
 	 * @param array the {@code boolean array} to look into
 	 * @param value the {@code boolean} value to search
 	 * @return {@code true} if the given {@code boolean} value is contained by the {@code boolean array}
 	 * @throws NullPointerException if the {@code boolean array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean contains(final boolean[] array, final boolean value) {
 		if (null == array) {
@@ -166,12 +199,40 @@ public final class BooleanArrays {
 	}
 
 	/**
+	 * <p>Tell of the {@code boolean array} contains the given {@code boolean} value only once.</p>
+	 * @param array the {@code boolean array} to look into
+	 * @param value the {@code boolean} value to search
+	 * @return {@code true} if the given {@code boolean} value is contained only once by the {@code boolean array}
+	 * @throws NullPointerException if the {@code boolean array} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final boolean[] array, final boolean value) {
+		if (null == array) {
+			throw new NullPointerException("Invalid array (not null expected)");
+		}
+		if (0 == array.length) {
+			return false;
+		}
+		var found = false;
+		for (final var element : array) {
+			if (value == element) {
+				if (!found) {
+					found = true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return found;
+	}
+
+	/**
 	 * <p>Tell if the {@code boolean array} contains only the given {@code boolean} value.</p>
 	 * @param array the {@code boolean array} to look into
 	 * @param value the {@code boolean} value to search
 	 * @return {@code true} if the given {@code boolean} value is the only value contained by the {@code boolean array}
 	 * @throws NullPointerException if the {@code boolean array} is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final boolean[] array, final boolean value) {
 		if (null == array) {
@@ -193,8 +254,8 @@ public final class BooleanArrays {
 	 * @param array the {@code boolean array} to look into
 	 * @param values {@code boolean} values to search
 	 * @return {@code true} if any of given {@code boolean} values is contained by the {@code boolean array}
-	 * @throws NullPointerException if the {@code boolean array} or {@code boolean} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code boolean array} or {@code boolean} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final boolean[] array, final boolean... values) {
 		if (null == array) {
@@ -221,8 +282,8 @@ public final class BooleanArrays {
 	 * @param array the {@code boolean array} to look into
 	 * @param values {@code boolean} values to search
 	 * @return {@code true} if all of given {@code boolean} values are contained by the {@code boolean array}
-	 * @throws NullPointerException if the {@code boolean array} or {@code boolean} values are {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the {@code boolean array} or {@code boolean} values is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final boolean[] array, final boolean... values) {
 		if (null == array) {
@@ -253,8 +314,8 @@ public final class BooleanArrays {
 	 * <p>Concatenate multiple {@code boolean array}s.</p>
 	 * @param arrays {@code boolean array}s to concatenate
 	 * @return the concatenated {@code boolean array}
-	 * @throws NullPointerException if the array or any of the {@code boolean array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the array or any of the {@code boolean array}s is {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean[] concat(final boolean[]... arrays) {
 		if (null == arrays) {
@@ -267,18 +328,20 @@ public final class BooleanArrays {
 	 * <p>Concatenate a list of {@code boolean array}s.</p>
 	 * @param arrays {@code boolean array}s to concatenate
 	 * @return the concatenated {@code boolean array}
-	 * @throws NullPointerException if the {@code boolean array} list or any of the {@code boolean array}s is
+	 * @throws NullPointerException whether the {@code boolean array} list or any of the {@code boolean array}s is
 	 * {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean[] concat(final List<boolean[]> arrays) {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (arrays.isEmpty()) {
 			return EMPTY;
@@ -300,8 +363,9 @@ public final class BooleanArrays {
 	 * @param separator the {@code boolean array} sequence to add between each joined {@code boolean array}
 	 * @param arrays {@code boolean array}s to join
 	 * @return the joined {@code boolean array}
-	 * @throws NullPointerException if the separator, the array or any of the {@code boolean array}s is {@code null}
-	 * @since 1.0
+	 * @throws NullPointerException whether the separator, the array or any of the {@code boolean array}s is
+	 * {@code null}
+	 * @since 1.0.0
 	 */
 	public static boolean[] join(final boolean[] separator, final boolean[]... arrays) {
 		if (null == arrays) {
@@ -315,9 +379,9 @@ public final class BooleanArrays {
 	 * @param separator the {@code boolean array} sequence to add between each joined {@code boolean array}
 	 * @param arrays {@code boolean array}s to join
 	 * @return the joined {@code boolean array}
-	 * @throws NullPointerException if the separator, the {@code boolean array} list or any of the
+	 * @throws NullPointerException whether the separator, the {@code boolean array} list or any of the
 	 * {@code boolean array}s is {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean[] join(final boolean[] separator, final List<boolean[]> arrays) {
 		if (null == separator) {
@@ -326,10 +390,12 @@ public final class BooleanArrays {
 		if (null == arrays) {
 			throw new NullPointerException("Invalid array (not null expected)");
 		}
+		var i = 0;
 		for (final var array : arrays) {
 			if (null == array) {
-				throw new NullPointerException("Invalid array (not null expected)");
+				throw new NullPointerException("Invalid array at index " + i + " (not null expected)");
 			}
+			++i;
 		}
 		if (0 == separator.length) {
 			return concat(arrays);
@@ -356,11 +422,21 @@ public final class BooleanArrays {
 	}
 
 	/**
+	 * <p>Create a singleton {@code boolean array} using the given {@code boolean} value.</p>
+	 * @param value the {@code boolean} value
+	 * @return the created singleton {@code boolean array}
+	 * @since 1.1.0
+	 */
+	public static boolean[] singleton(final boolean value) {
+		return of(value);
+	}
+
+	/**
 	 * <p>Create a {@code boolean array} using given {@code boolean} values.</p>
 	 * @param values {@code boolean} values
 	 * @return the created {@code boolean array}
 	 * @throws NullPointerException if {@code boolean} values are {@code null}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public static boolean[] of(final boolean... values) {
 		if (null == values) {

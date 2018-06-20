@@ -70,7 +70,19 @@ final class InputStreamsTest {
 	void testNullToEmpty() {
 		assertThat(InputStreams.nullToEmpty(null)).isSameAs(InputStreams.EMPTY);
 		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).isSameAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToEmpty(InputStreams.ENDLESS)).isNotSameAs(InputStreams.EMPTY);
+		assertThat(InputStreams.nullToEmpty(InputStreams.ENDLESS)).isSameAs(InputStreams.ENDLESS);
+	}
+
+	@Test
+	void testNullToDefault() {
+		assertThat(InputStreams.nullToDefault(null, InputStreams.ENDLESS)).isSameAs(InputStreams.ENDLESS);
+		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.ENDLESS)).isSameAs(InputStreams.EMPTY);
+		assertThat(InputStreams.nullToDefault(InputStreams.ENDLESS, InputStreams.ENDLESS)).isSameAs(InputStreams.ENDLESS);
+	}
+
+	@Test
+	void testNullToDefaultNull() {
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.nullToDefault(InputStreams.EMPTY, null));
 	}
 
 	@Test
@@ -235,6 +247,15 @@ final class InputStreamsTest {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.EMPTY, (InputStream[]) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.EMPTY, (List<InputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.EMPTY, (InputStream) null));
+	}
+
+	@Test
+	void testSingleton() {
+		try {
+			assertThat(InputStreams.toBytes(InputStreams.singleton((byte) 1))).containsExactly((byte) 1);
+		} catch (final IOException e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test

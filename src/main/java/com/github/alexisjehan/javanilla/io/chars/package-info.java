@@ -23,6 +23,6 @@ SOFTWARE.
 */
 /**
  * <p>A set of {@link java.io.Reader}/{@link java.io.Writer} tools and decorators.</p>
- * @since 1.0
+ * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.io.chars;
