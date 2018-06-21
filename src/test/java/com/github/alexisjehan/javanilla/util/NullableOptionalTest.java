@@ -34,7 +34,7 @@ import java.util.function.Function;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * <p>{@link Comparators} unit tests.</p>
+ * <p>{@link NullableOptional} unit tests.</p>
  */
 final class NullableOptionalTest {
 

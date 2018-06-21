@@ -525,7 +525,7 @@ final class StringsTest {
 
 	@Test
 	void testOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.of(null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.of((char[]) null));
 	}
 
 	@Test
