@@ -1,18 +1,11 @@
 language: java
 sudo: false
 
-# Get latest install-jdk.sh script
-before_install:
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
-
-matrix:
-  include:
-# Java 10 "Oracle JDK" (not yet provided by Travis CI)
-    - env: JDK='Oracle JDK 10'
-      install: . ./install-jdk.sh -F 10 -L BCL
-# Java 10 "OpenJDK"
-    - env: JDK='OpenJDK 10' JACOCO='-PenableJaCoCo'
-      install: . ./install-jdk.sh -F 10 -L GPL
+jdk:
+  - openjdk10
+  - oraclejdk10
+  - openjdk11
+  - oraclejdk11
 
 after_success:
   - mvn jacoco:report && bash <(curl -s https://codecov.io/bash)
