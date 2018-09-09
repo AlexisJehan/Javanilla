@@ -68,7 +68,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableBiFunction} to a {@code BiFunction} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableBiFunction the given {@code ThrowableBiFunction}
+	 * @param throwableBiFunction the {@code ThrowableBiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
 	 * @param <R> the type of the result of the function
@@ -79,7 +79,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 */
 	static <T, U, R, X extends Throwable> BiFunction<T, U, R> unchecked(final ThrowableBiFunction<? super T, ? super U, ? extends R, ? extends X> throwableBiFunction) {
 		if (null == throwableBiFunction) {
-			throw new NullPointerException("Invalid throwable bi function (not null expected)");
+			throw new NullPointerException("Invalid ThrowableBiFunction (not null expected)");
 		}
 		return (t, u) -> {
 			try {
@@ -91,8 +91,8 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiFunction} that throws nothing from the given {@code BiFunction}.</p>
-	 * @param biFunction the given {@code BiFunction}
+	 * <p>Create a {@code ThrowableBiFunction} from the given {@code BiFunction}.</p>
+	 * @param biFunction the {@code BiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
 	 * @param <R> the type of the result of the function
@@ -103,7 +103,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 */
 	static <T, U, R, X extends Throwable> ThrowableBiFunction<T, U, R, X> of(final BiFunction<? super T, ? super U, ? extends R> biFunction) {
 		if (null == biFunction) {
-			throw new NullPointerException("Invalid bi function (not null expected)");
+			throw new NullPointerException("Invalid BiFunction (not null expected)");
 		}
 		return biFunction::apply;
 	}

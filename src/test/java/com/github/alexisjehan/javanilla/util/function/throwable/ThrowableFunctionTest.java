@@ -38,28 +38,16 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableFunctionTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(() -> throwableFunction.apply(1));
-	}
-
-	@Test
-	void testCompose() {
+	void testCompose() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableFunction<Integer, Integer, IOException> throwableFunction1 = t -> {
 			list.add(t);
 			return t;
 		};
-		try {
-			assertThat(throwableFunction1.compose((Integer t) -> {
-				list.add(t + 1);
-				return t;
-			}).apply(1)).isEqualTo(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableFunction1.compose((Integer t) -> {
+			list.add(t + 1);
+			return t;
+		}).apply(1)).isEqualTo(1);
 		assertThat(list).contains(1, 2);
 
 		list.clear();
@@ -71,7 +59,7 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
-	void testComposeNull() {
+	void testComposeInvalid() {
 		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {
 			throw new IOException();
 		};
@@ -79,20 +67,16 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
-	void testAndThen() {
+	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableFunction<Integer, Integer, IOException> throwableFunction1 = t -> {
 			list.add(t);
 			return t;
 		};
-		try {
-			assertThat(throwableFunction1.andThen(t -> {
-				list.add(t + 1);
-				return t;
-			}).apply(1)).isEqualTo(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableFunction1.andThen(t -> {
+			list.add(t + 1);
+			return t;
+		}).apply(1)).isEqualTo(1);
 		assertThat(list).contains(1, 2);
 
 		list.clear();
@@ -104,7 +88,7 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
-	void testAndThenNull() {
+	void testAndThenInvalid() {
 		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {
 			throw new IOException();
 		};
@@ -112,17 +96,13 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableFunction<Integer, Integer, IOException> throwableFunction1 = t -> {
 			list.add(t);
 			return t;
 		};
-		try {
-			assertThat(throwableFunction1.apply(1)).isEqualTo(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableFunction1.apply(1)).isEqualTo(1);
 		assertThat(ThrowableFunction.unchecked(throwableFunction1).apply(1)).isEqualTo(1);
 		assertThat(list).contains(1, 1);
 
@@ -134,7 +114,7 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableFunction.unchecked(null));
 	}
 
@@ -148,7 +128,7 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableFunction.of(null));
 	}
 }

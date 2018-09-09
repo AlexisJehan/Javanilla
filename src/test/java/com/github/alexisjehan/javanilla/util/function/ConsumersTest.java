@@ -25,6 +25,9 @@ package com.github.alexisjehan.javanilla.util.function;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -41,7 +44,26 @@ final class ConsumersTest {
 	}
 
 	@Test
-	void testOnceNull() {
+	void testOnceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Consumers.once(null));
+	}
+
+	@Test
+	void testDistinct() {
+		final var list = new ArrayList<>();
+		final var distinctConsumer = Consumers.distinct(list::add);
+		distinctConsumer.accept(1);
+		assertThat(list).containsExactly(1);
+		distinctConsumer.accept(2);
+		assertThat(list).containsExactly(1, 2);
+		distinctConsumer.accept(2);
+		assertThat(list).containsExactly(1, 2);
+		distinctConsumer.accept(3);
+		assertThat(list).containsExactly(1, 2, 3);
+	}
+
+	@Test
+	void testDistinctInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Consumers.distinct(null));
 	}
 }

@@ -41,11 +41,11 @@ abstract class AbstractBagTest {
 	void testAdd() {
 		final var bag = newBag();
 		assertThat(bag.count("foo")).isEqualTo(0L);
-		assertThat(bag.add("foo")).isTrue();
+		bag.add("foo");
 		assertThat(bag.count("foo")).isEqualTo(1L);
-		assertThat(bag.add("foo", 0L)).isFalse();
+		bag.add("foo", 0L);
 		assertThat(bag.count("foo")).isEqualTo(1L);
-		assertThat(bag.add("foo", 10L)).isTrue();
+		bag.add("foo", 10L);
 		assertThat(bag.count("foo")).isEqualTo(11L);
 	}
 

@@ -23,14 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.io.chars.Readers;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -39,45 +35,36 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountLineReaderTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input-lines.txt")).getFile()).toPath();
-
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountLineReader(null));
 	}
 
 	@Test
-	void testRead() {
-		try (final var countLineReader = new CountLineReader(new LineReader(INPUT))) {
+	void testRead() throws IOException {
+		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of("abc\ndef\nghi")))) {
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
-			assertThat(countLineReader.read()).isNotNull();
+			assertThat(countLineReader.read()).isEqualTo("abc");
 			assertThat(countLineReader.getCount()).isEqualTo(1L);
-			for (var i = 0; i < 10; ++i) {
-				assertThat(countLineReader.read()).isNotNull();
-			}
-			assertThat(countLineReader.getCount()).isEqualTo(11L);
-			while (null != countLineReader.read());
-			assertThat(countLineReader.getCount()).isEqualTo(Files.lines(INPUT).count());
+			assertThat(countLineReader.read()).isEqualTo("def");
+			assertThat(countLineReader.getCount()).isEqualTo(2L);
+			assertThat(countLineReader.read()).isEqualTo("ghi");
+			assertThat(countLineReader.getCount()).isEqualTo(3L);
 			assertThat(countLineReader.read()).isNull();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(countLineReader.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testSkip() {
-		try (final var countLineReader = new CountLineReader(new LineReader(INPUT))) {
+	void testSkip() throws IOException {
+		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of("abc\ndef\nghi")))) {
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
-			countLineReader.skip(10L);
-			assertThat(countLineReader.getCount()).isEqualTo(10L);
-			countLineReader.skip(0L);
-			assertThat(countLineReader.getCount()).isEqualTo(10L);
-			countLineReader.skip(5L);
-			assertThat(countLineReader.getCount()).isEqualTo(15L);
-			countLineReader.skip(1000L);
-			assertThat(countLineReader.read()).isNull();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(countLineReader.skip(0L)).isEqualTo(0L);
+			assertThat(countLineReader.getCount()).isEqualTo(0L);
+			assertThat(countLineReader.skip(2L)).isEqualTo(2L);
+			assertThat(countLineReader.getCount()).isEqualTo(2L);
+			assertThat(countLineReader.skip(2L)).isEqualTo(1L);
+			assertThat(countLineReader.getCount()).isEqualTo(3L);
 		}
 	}
 }

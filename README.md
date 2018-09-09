@@ -10,7 +10,7 @@ A _Java 10_ lightweight utility library to enhance the Java standard API.
 
 ## Introduction
 **Javanilla** has been made to improve the developer experience with Java, in fact it provides lot of easy-to-use
-components for commons usages. Its goal is not to replace popular utility libraries such as _Apache Commons_ Lang or
+components for commons usages. Its goal is not to replace popular utility libraries such as _Apache Commons_ or
 _Google Guava_ because it is not as much complete or reliable, but Javanilla is composed of some original tools that
 could complete them.
 
@@ -20,14 +20,14 @@ To include and use Javanilla, you need to add the following dependency into your
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 </dependency>
 ```
 
 Or if you are using _Gradle_:
 ```xml
 dependencies {
-	compile "com.github.alexisjehan:javanilla:1.1.0"
+	compile "com.github.alexisjehan:javanilla:1.2.0"
 }
 ```
 
@@ -73,6 +73,7 @@ try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignor
 _String_ and _CharSequence_ utility tools:
 ```java
 System.out.println(Strings.blankToEmpty("   ")); // Prints an empty String
+System.out.println(Strings.quote("A quoted String with an escaped \" double quote")); // Prints "A quoted String with an escaped \" double quote"
 final var times = 5;
 System.out.println(Strings.repeat("xX", times)); // Prints "xXxXxXxXxX"
 final var size = 5;
@@ -81,7 +82,8 @@ System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
 System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
 System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
 System.out.println(Strings.isHex(ByteArrays.toHexString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
-System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
+final var withPadding = true;
+System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
 ```
 
 _Throwable_ utility tools:
@@ -95,7 +97,7 @@ try {
 		throw new IOException("A checked Exception inside a lambda");
 	});
 } catch (final UncheckedIOException e) {
-	System.out.println(Throwables.getRootCause(e).getMessage()); // Prints "A checked Exception inside a lambda"
+	System.out.println(Throwables.getRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
 }
 ```
 
@@ -182,14 +184,14 @@ System.out.println(countIterator.getCount()); // Prints 4
 ```
 
 ## Recurrent functions availability
-|                | InputStreams | OutputStreams | Readers  | Writers       | Strings  | XxxArrays  |
+|                | InputStreams | OutputStreams | Readers  | Writers       | Strings  | ???Arrays  |
 | :------------: | :----------: | :-----------: | :------: | :-----------: | :------: | :--------: |
-| EMPTY          | &#x2713;     | _BLANK_       | &#x2713; | _BLANK_       | &#x2713; | &#x2713;   |
-| ENDLESS        | &#x2713;     |               | &#x2713; |               |          |            |
-| nullToEmpty    | &#x2713;     | _nullToBlank_ | &#x2713; | _nullToBlank_ | &#x2713; | &#x2713;   |
+| EMPTY          | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
+| nullToEmpty    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
 | nullToDefault  | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
 | emptyToNull    |              |               |          |               | &#x2713; | &#x2713;   |
 | emptyToDefault |              |               |          |               | &#x2713; | &#x2713;   |
+| isEmpty        |              |               |          |               | &#x2713; | &#x2713;   |
 | buffered       | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |            |
 | uncloseable    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |            |
 | length         | &#x2713;     |               | &#x2713; |               |          |            |
@@ -197,18 +199,20 @@ System.out.println(countIterator.getCount()); // Prints 4
 | join           | &#x2713;     |               | &#x2713; |               |          | &#x2713;   |
 | tee            |              | &#x2713;      |          | &#x2713;      |          |            |
 | singleton      | &#x2713;     |               | &#x2713; |               |          | &#x2713;   |
-| of             | &#x2713;     |               | &#x2713; |               | &#x2713; | &#x2713;   |
+| of             | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
 
 |                | Lists    | Sets        | Maps               | Bags     | Iterables | Iterators |
 | :------------: | :------: | :---------: | :----------------: | :------: | :-------: | :-------: |
-| empty          |          |             |                    | &#x2713; | &#x2713;  | &#x2713;  |
+| empty          |          |             |                    | &#x2713; | &#x2713;  |           |
 | nullToEmpty    | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; | &#x2713;  | &#x2713;  |
 | nullToDefault  | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; | &#x2713;  | &#x2713;  |
-| emptyToNull    | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; | &#x2713;  | &#x2713;  |
-| emptyToDefault | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; | &#x2713;  | &#x2713;  |
+| emptyToNull    | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; |           | &#x2713;  |
+| emptyToDefault | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; |           | &#x2713;  |
 | unmodifiable   |          |             |                    | &#x2713; | &#x2713;  | &#x2713;  |
+| length         |          |             |                    |          | &#x2713;  | &#x2713;  |
 | concat         |          |             |                    |          | &#x2713;  | &#x2713;  |
 | join           |          |             |                    |          | &#x2713;  | &#x2713;  |
+| singleton      |          |             |                    | &#x2713; | &#x2713;  | &#x2713;  |
 | of             |          | _ofOrdered_ | _ofEntriesOrdered_ | &#x2713; | &#x2713;  | &#x2713;  |
 
 ## Maven phases and goals

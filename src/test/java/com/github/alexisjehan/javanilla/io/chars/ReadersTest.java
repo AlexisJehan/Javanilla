@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
 
@@ -30,12 +31,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.lang.invoke.MethodHandles;
+import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -44,295 +45,229 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class ReadersTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testEmpty() {
+	void testEmpty() throws IOException {
+		final var buffer = new char[2];
 		try (final var emptyReader = Readers.EMPTY) {
+			assertThat(emptyReader.read(CharBuffer.wrap(buffer))).isEqualTo(-1);
+			assertThatNullPointerException().isThrownBy(() -> emptyReader.read((CharBuffer) null));
 			assertThat(emptyReader.read()).isEqualTo(-1);
-			final var buffer = new char[2];
+			assertThat(emptyReader.read(CharArrays.EMPTY)).isEqualTo(0);
+			assertThat(emptyReader.read(buffer)).isEqualTo(-1);
+			assertThatNullPointerException().isThrownBy(() -> emptyReader.read((char[]) null));
 			assertThat(emptyReader.read(buffer, 0, 0)).isEqualTo(0);
-			assertThat(emptyReader.read(buffer, 0, 2)).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(emptyReader.read(buffer, 0, 1)).isEqualTo(-1);
+			assertThatNullPointerException().isThrownBy(() -> emptyReader.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, 0, 3));
+			assertThat(emptyReader.skip(1)).isEqualTo(0);
+			assertThat(emptyReader.transferTo(Writers.EMPTY)).isEqualTo(0L);
+			assertThatNullPointerException().isThrownBy(() -> emptyReader.transferTo(null));
 		}
 	}
 
 	@Test
-	void testEndless() {
-		try (final var endlessReader = Readers.ENDLESS) {
-			assertThat(endlessReader.read()).isNotEqualTo(-1);
-			final var buffer = new char[2];
-			assertThat(endlessReader.read(buffer, 0, 0)).isEqualTo(0);
-			assertThat(endlessReader.read(buffer, 0, 2)).isNotEqualTo(-1);
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> endlessReader.read(buffer, -1,  2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> endlessReader.read(buffer,  3,  2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> endlessReader.read(buffer,  0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> endlessReader.read(buffer,  0,  3));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testNullToEmpty() throws IOException {
+		assertThat(Readers.toChars(Readers.nullToEmpty(null))).isEmpty();
+		assertThat(Readers.toChars(Readers.nullToEmpty(Readers.EMPTY))).isEmpty();
+		assertThat(Readers.toChars(Readers.nullToEmpty(Readers.singleton('a')))).containsExactly('a');
 	}
 
 	@Test
-	void testNullToEmpty() {
-		assertThat(Readers.nullToEmpty(null)).isSameAs(Readers.EMPTY);
-		assertThat(Readers.nullToEmpty(Readers.EMPTY)).isSameAs(Readers.EMPTY);
-		assertThat(Readers.nullToEmpty(Readers.ENDLESS)).isSameAs(Readers.ENDLESS);
+	void testNullToDefault() throws IOException {
+		assertThat(Readers.toChars(Readers.nullToDefault(null, Readers.singleton('-')))).containsExactly('-');
+		assertThat(Readers.toChars(Readers.nullToDefault(Readers.EMPTY, Readers.singleton('-')))).isEmpty();
+		assertThat(Readers.toChars(Readers.nullToDefault(Readers.singleton('a'), Readers.singleton('-')))).containsExactly('a');
 	}
 
 	@Test
-	void testNullToDefault() {
-		assertThat(Readers.nullToDefault(null, Readers.ENDLESS)).isSameAs(Readers.ENDLESS);
-		assertThat(Readers.nullToDefault(Readers.EMPTY, Readers.ENDLESS)).isSameAs(Readers.EMPTY);
-		assertThat(Readers.nullToDefault(Readers.ENDLESS, Readers.ENDLESS)).isSameAs(Readers.ENDLESS);
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Readers.nullToDefault(Readers.singleton('a'), null));
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> Readers.nullToDefault(Readers.EMPTY, null));
-	}
-
-	@Test
-	void testBuffered() {
-		try {
-			try (final var reader = Readers.EMPTY) {
-				assertThat(reader).isNotSameAs(Readers.buffered(reader));
-				assertThat(Readers.buffered(reader)).isInstanceOf(BufferedReader.class);
+	void testBuffered() throws IOException {
+		try (final var reader = Readers.EMPTY) {
+			assertThat(reader).isNotInstanceOf(BufferedReader.class);
+			try (final var bufferedReader = Readers.buffered(reader)) {
+				assertThat(reader).isNotSameAs(bufferedReader);
+				assertThat(bufferedReader).isInstanceOf(BufferedReader.class);
 			}
-			try (final var bufferedReader = new BufferedReader(Readers.EMPTY)) {
-				assertThat(bufferedReader).isSameAs(Readers.buffered(bufferedReader));
-				assertThat(Readers.buffered(bufferedReader)).isInstanceOf(BufferedReader.class);
+		}
+		try (final var reader = new BufferedReader(Readers.EMPTY)) {
+			assertThat(reader).isInstanceOf(BufferedReader.class);
+			try (final var bufferedReader = Readers.buffered(reader)) {
+				assertThat(reader).isSameAs(bufferedReader);
+				assertThat(bufferedReader).isInstanceOf(BufferedReader.class);
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testBufferedNull() {
+	void testBufferedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.buffered(null));
 	}
 
 	@Test
-	void testMarkSupported() {
-		try {
-			try (final var reader = Readers.EMPTY) {
-				assertThat(reader).isNotSameAs(Readers.markSupported(reader));
-				assertThat(reader.markSupported()).isFalse();
-				assertThat(Readers.markSupported(reader).markSupported()).isTrue();
+	void testMarkSupported() throws IOException {
+		try (final var reader = Readers.EMPTY) {
+			assertThat(reader.markSupported()).isFalse();
+			try (final var markSupportedReader = Readers.markSupported(reader)) {
+				assertThat(reader).isNotSameAs(markSupportedReader);
+				assertThat(markSupportedReader.markSupported()).isTrue();
 			}
-			try (final var bufferedReader = new BufferedReader(Readers.EMPTY)) {
-				assertThat(bufferedReader).isSameAs(Readers.markSupported(bufferedReader));
-				assertThat(bufferedReader.markSupported()).isTrue();
-				assertThat(Readers.markSupported(bufferedReader).markSupported()).isTrue();
+		}
+		try (final var reader = new BufferedReader(Readers.EMPTY)) {
+			assertThat(reader.markSupported()).isTrue();
+			try (final var markSupportedReader = Readers.markSupported(reader)) {
+				assertThat(reader).isSameAs(markSupportedReader);
+				assertThat(markSupportedReader.markSupported()).isTrue();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testMarkSupportedNull() {
+	void testMarkSupportedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.markSupported(null));
 	}
 
 	@Test
-	void testUncloseable() {
-		try {
-			try (final var closeableReader = Files.newBufferedReader(INPUT)) {
-				assertThat(closeableReader.read()).isNotEqualTo(-1);
-				closeableReader.close();
-				assertThatIOException().isThrownBy(closeableReader::read);
+	void testUncloseable() throws IOException {
+		final var reader = new Reader() {
+			@Override
+			public int read(final char[] buffer, final int offset, final int length) {
+				return -1;
 			}
-			try (final var uncloseableReader = Readers.uncloseable(Files.newBufferedReader(INPUT))) {
-				assertThat(uncloseableReader.read()).isNotEqualTo(-1);
-				uncloseableReader.close();
-				assertThat(uncloseableReader.read()).isNotEqualTo(-1);
+
+			@Override
+			public void close() throws IOException {
+				throw new IOException();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+		};
+		assertThatIOException().isThrownBy(reader::close);
+		{
+			Readers.uncloseable(reader).close();
 		}
 	}
 
 	@Test
-	void testUncloseableNull() {
+	void testUncloseableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.uncloseable(null));
 	}
 
 	@Test
-	void testLength() {
-		try {
-			try (final var emptyReader = Readers.EMPTY) {
-				assertThat(Readers.length(emptyReader)).isEqualTo(0L);
-			}
-			try (final var reader = Files.newBufferedReader(INPUT)) {
-				assertThat(Readers.length(reader)).isEqualTo(INPUT.toFile().length());
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testLength() throws IOException {
+		assertThat(Readers.length(Readers.EMPTY)).isEqualTo(0L);
+		assertThat(Readers.length(Readers.of('a', 'b', 'c'))).isEqualTo(3L);
 	}
 
 	@Test
-	void testLengthNull() {
+	void testLengthInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.length(null));
 	}
 
 	@Test
-	void testConcat() {
-		try (final var concatReader = Readers.concat(Files.newBufferedReader(INPUT), Files.newBufferedReader(INPUT))) {
-			assertThat(Readers.toChars(concatReader)).isEqualTo(CharArrays.concat(new String(Files.readAllBytes(INPUT)).toCharArray(), new String(Files.readAllBytes(INPUT)).toCharArray()));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testConcat() throws IOException {
+		assertThat(Readers.toChars(Readers.concat())).isEmpty();
+		assertThat(Readers.toChars(Readers.concat(Readers.singleton('a')))).containsExactly('a');
+		assertThat(Readers.toChars(Readers.concat(Readers.singleton('a'), Readers.singleton('b')))).containsExactly('a', 'b');
 	}
 
 	@Test
-	void testConcatOne() {
-		try (final var concatReader = Readers.concat(Files.newBufferedReader(INPUT))) {
-			assertThat(Readers.toChars(concatReader)).isEqualTo(new String(Files.readAllBytes(INPUT)).toCharArray());
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConcatNone() {
-		try (final var concatReader = Readers.concat()) {
-			assertThat(Readers.toChars(concatReader)).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConcatSequenceReader() {
-		try (final var concatReader = Readers.concat(Files.newBufferedReader(INPUT), Files.newBufferedReader(INPUT))) {
-			final var buffer = new char[10];
-			assertThat(concatReader.read(buffer, 0, 0)).isEqualTo(0);
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, -1, 10));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 11, 10));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer,  0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer,  0, 11));
-			while (-1 != concatReader.read());
-			assertThat(concatReader.read(buffer, 0, buffer.length)).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConcatSequenceReaderClose() {
-		try {
-			final var concatReader = Readers.concat(Files.newBufferedReader(INPUT), Files.newBufferedReader(INPUT));
-			concatReader.close();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConcatNull() {
+	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.concat((Reader[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.concat((List<Reader>) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.concat((Reader) null));
 	}
 
 	@Test
-	void testJoin() {
-		try (final var joinReader = Readers.join(" - ".toCharArray(), Files.newBufferedReader(INPUT), Files.newBufferedReader(INPUT))) {
-			assertThat(Readers.toChars(joinReader)).isEqualTo(CharArrays.join(" - ".toCharArray(), new String(Files.readAllBytes(INPUT)).toCharArray(), new String(Files.readAllBytes(INPUT)).toCharArray()));
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testConcatSequenceReader() throws IOException {
+		final var buffer = new char[2];
+		try (final var concatReader = Readers.concat(Readers.of('a', 'b', 'c'), Readers.of('d', 'e', 'f'))) {
+			assertThat(concatReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThatNullPointerException().isThrownBy(() -> concatReader.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 0, 3));
+			while (-1 != concatReader.read());
+			assertThat(concatReader.read(buffer, 0, 1)).isEqualTo(-1);
 		}
+		final var concatReader = Readers.concat(Readers.of('a', 'b', 'c'), Readers.of('d', 'e', 'f'));
+		concatReader.close();
 	}
 
 	@Test
-	void testJoinEmptySeparator() {
-		try (final var joinReader = Readers.join(CharArrays.EMPTY, Files.newBufferedReader(INPUT), Files.newBufferedReader(INPUT))) {
-			assertThat(Readers.toChars(joinReader)).isEqualTo(CharArrays.concat(new String(Files.readAllBytes(INPUT)).toCharArray(), new String(Files.readAllBytes(INPUT)).toCharArray()));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testJoin() throws IOException {
+		assertThat(Readers.toChars(Readers.join(CharArrays.EMPTY, Readers.singleton('a'), Readers.singleton('b')))).containsExactly('a', 'b');
+		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-')))).isEmpty();
+		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton('a')))).containsExactly('a');
+		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton('a'), Readers.singleton('b')))).containsExactly('a', '-', 'b');
 	}
 
 	@Test
-	void testJoinOne() {
-		try (final var joinReader = Readers.join(" - ".toCharArray(), Files.newBufferedReader(INPUT))) {
-			assertThat(Readers.toChars(joinReader)).isEqualTo(new String(Files.readAllBytes(INPUT)).toCharArray());
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(null, Readers.singleton('a')));
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (List<Reader>) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader) null));
 	}
 
 	@Test
-	void testJoinNone() {
-		try (final var joinReader = Readers.join(" - ".toCharArray())) {
-			assertThat(Readers.toChars(joinReader)).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testSingleton() throws IOException {
+		assertThat(Readers.toChars(Readers.singleton('a'))).containsExactly('a');
 	}
 
 	@Test
-	void testJoinNull() {
-		assertThatNullPointerException().isThrownBy(() -> Readers.join(null, Readers.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.EMPTY, (Reader[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.EMPTY, (List<Reader>) null));
-		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.EMPTY, (Reader) null));
+	void testOfCharsAndToChars() throws IOException {
+		assertThat(Readers.toChars(Readers.of())).isEmpty();
+		assertThat(Readers.toChars(Readers.of('a', 'b', 'c'))).containsExactly('a', 'b', 'c');
 	}
 
 	@Test
-	void testSingleton() {
-		try {
-			assertThat(Readers.toChars(Readers.singleton((char) 1))).containsExactly((char) 1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testOfCharsAndToChars() {
-		try {
-			assertThat(Readers.toChars(Readers.of(CharArrays.EMPTY))).isEmpty();
-			assertThat(Readers.toChars(Readers.of((char) 0, (char) 255))).containsExactly((char) 0, (char) 255);
-			assertThat(Readers.toChars(Readers.of(new String(Files.readAllBytes(INPUT)).toCharArray()))).isEqualTo(new String(Files.readAllBytes(INPUT)).toCharArray());
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testOfCharsNull() {
+	void testOfCharsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.of((char[]) null));
 	}
 
 	@Test
-	void testToCharsNull() {
+	void testToCharsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.toChars(null));
 	}
 
 	@Test
-	void testOfStringAndToString() {
-		try {
-			assertThat(Readers.toString(Readers.of(""))).isEmpty();
-			assertThat(Readers.toString(Readers.of(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1)))).isEqualTo(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1));
+	void testOfStringAndToString() throws IOException {
+		assertThat(Readers.toString(Readers.of(Strings.EMPTY))).isEmpty();
+		assertThat(Readers.toString(Readers.of(new String("foo".getBytes(), StandardCharsets.ISO_8859_1)))).isEqualTo(new String("foo".getBytes(), StandardCharsets.ISO_8859_1));
 
-			// Not the same charset
-			assertThat(Readers.toString(Readers.of(new String(Files.readAllBytes(INPUT), StandardCharsets.UTF_16)))).isNotEqualTo(new String(Files.readAllBytes(INPUT), StandardCharsets.UTF_8));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		// Not the same charset
+		assertThat(Readers.toString(Readers.of(new String("foo".getBytes(), StandardCharsets.UTF_16)))).isNotEqualTo(new String("foo".getBytes(), StandardCharsets.UTF_8));
 	}
 
 	@Test
-	void testOfStringNull() {
+	void testOfStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.of((String) null));
 	}
 
 	@Test
-	void testToStringNull() {
+	void testToStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.toString(null));
+	}
+
+	@Test
+	void testOfPath() throws IOException {
+		final var path = File.createTempFile(getClass().getName() + ".testOfPath_", ".txt").toPath();
+		Files.write(path, "abc".getBytes());
+		try (final var pathReader = Readers.of(path)) {
+			assertThat(Readers.toChars(pathReader)).containsExactly('a', 'b', 'c');
+		}
+		Files.delete(path);
+	}
+
+	@Test
+	void testOfPathInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Readers.of((Path) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.of(Paths.get(getClass().getName() + ".testOfPathInvalid.txt"), null));
 	}
 }

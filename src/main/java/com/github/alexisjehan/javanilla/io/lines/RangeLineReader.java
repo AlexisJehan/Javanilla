@@ -26,19 +26,19 @@ package com.github.alexisjehan.javanilla.io.lines;
 import java.io.IOException;
 
 /**
- * <p>An {@link LineReader} decorator that reads only lines within a range from the current position.</p>
+ * <p>A {@link LineReader} decorator that reads only lines within a range from the current position.</p>
  * @since 1.0.0
  */
 public final class RangeLineReader extends FilterLineReader {
 
 	/**
-	 * <p>The inclusive index of the first line to read.</p>
+	 * <p>Inclusive index of the first line to read.</p>
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>The inclusive index of the last line to read.<p>
+	 * <p>Inclusive index of the last line to read.<p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -50,11 +50,11 @@ public final class RangeLineReader extends FilterLineReader {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code LineReader} and a range from {@code 0} to the given inclusive index.</p>
-	 * @param lineReader the delegated {@code LineReader}
+	 * <p>Constructor with a {@code LineReader} to decorate and a range from {@code 0} to an inclusive index.</p>
+	 * @param lineReader the {@code LineReader} to decorate
 	 * @param toIndex the inclusive index of the last line to read
 	 * @throws NullPointerException if the {@code LineReader} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is negative
+	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public RangeLineReader(final LineReader lineReader, final long toIndex) {
@@ -62,12 +62,12 @@ public final class RangeLineReader extends FilterLineReader {
 	}
 
 	/**
-	 * <p>Constructor with a delegated {@code LineReader} and a range from an inclusive index to another one.</p>
-	 * @param lineReader the delegated {@code LineReader}
+	 * <p>Constructor with a {@code LineReader} to decorate and a range from an inclusive index to another one.</p>
+	 * @param lineReader the {@code LineReader} to decorate
 	 * @param fromIndex the inclusive index of the first line to read
 	 * @param toIndex the inclusive index of the last line to read
 	 * @throws NullPointerException if the {@code LineReader} is {@code null}
-	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
+	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeLineReader(final LineReader lineReader, final long fromIndex, final long toIndex) {
@@ -99,6 +99,12 @@ public final class RangeLineReader extends FilterLineReader {
 
 	@Override
 	public long skip(final long n) throws IOException {
+		if (fromIndex > index) {
+			index += super.skip(fromIndex - index);
+		}
+		if (toIndex < index) {
+			return 0L;
+		}
 		final var s = super.skip(n);
 		index += s;
 		return s;
@@ -106,7 +112,7 @@ public final class RangeLineReader extends FilterLineReader {
 
 	/**
 	 * <p>Get the inclusive index of the first line to read.</p>
-	 * @return the inclusive index
+	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
@@ -115,7 +121,7 @@ public final class RangeLineReader extends FilterLineReader {
 
 	/**
 	 * <p>Get the inclusive index of the last line to read.<p>
-	 * @return the inclusive index
+	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */
 	public long getToIndex() {

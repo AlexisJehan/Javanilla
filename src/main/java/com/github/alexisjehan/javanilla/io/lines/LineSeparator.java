@@ -32,6 +32,7 @@ import java.util.stream.IntStream;
 
 /**
  * <p>Enumeration of line separator types used by {@link LineReader} and {@link LineWriter}.</p>
+ * <p><b>Note</b>: This class implements its own {@link #toString()} method.</p>
  * @since 1.0.0
  */
 public enum LineSeparator {
@@ -124,7 +125,7 @@ public enum LineSeparator {
 	 * {@code Reader}.</p>
 	 * @since 1.0.0
 	 */
-	private static final int DETECT_LIMIT = 8000;
+	private static final int DETECTION_LIMIT = 8000;
 
 	/**
 	 * <p>{@code String} representation of the current {@code LineSeparator} type.</p>
@@ -144,7 +145,7 @@ public enum LineSeparator {
 	/**
 	 * <p>Read the next line from the given {@code Reader} using the current {@code LineSeparator} strategy.</p>
 	 * @param reader the {@code Reader} to read from
-	 * @param builder the {@code StringBuilder} to wrote the line to
+	 * @param builder the {@code StringBuilder} to write the line to
 	 * @return the {@code int} value of the last read {@code char}
 	 * @throws IOException might occurs with I/O operations
 	 * @since 1.0.0
@@ -177,21 +178,21 @@ public enum LineSeparator {
 	/**
 	 * <p>Attempt to detect the {@code LineSeparator} type of the given file {@code Path} using the given
 	 * {@code Charset} reading a sample.</p>
-	 * @param file the file {@code Path} to analyze
+	 * @param path the {@code Path} to analyze
 	 * @param charset the {@code Charset} of the file
 	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException whether the {@code Path} or {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@code Path} or {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static LineSeparator detect(final Path file, final Charset charset) throws IOException {
-		if (null == file) {
-			throw new NullPointerException("Invalid file (not null expected)");
+	public static LineSeparator detect(final Path path, final Charset charset) throws IOException {
+		if (null == path) {
+			throw new NullPointerException("Invalid Path (not null expected)");
 		}
 		if (null == charset) {
-			throw new NullPointerException("Invalid charset (not null expected)");
+			throw new NullPointerException("Invalid Charset (not null expected)");
 		}
-		try (final var reader = Files.newBufferedReader(file, charset)) {
+		try (final var reader = Files.newBufferedReader(path, charset)) {
 			return detect(reader);
 		}
 	}
@@ -208,12 +209,12 @@ public enum LineSeparator {
 	 */
 	public static LineSeparator detect(final Reader reader) throws IOException {
 		if (null == reader) {
-			throw new NullPointerException("Invalid reader (not null expected)");
+			throw new NullPointerException("Invalid Reader (not null expected)");
 		}
 		if (!reader.markSupported()) {
-			throw new IllegalArgumentException("Invalid reader (mark is not supported)");
+			throw new IllegalArgumentException("Invalid Reader (mark is not supported)");
 		}
-		reader.mark(DETECT_LIMIT);
+		reader.mark(DETECTION_LIMIT);
 		final var counts = new int[3];
 		int c1;
 		int c2;
@@ -231,7 +232,7 @@ public enum LineSeparator {
 					}
 				}
 			}
-			if (DETECT_LIMIT <= ++i) {
+			if (DETECTION_LIMIT <= ++i) {
 				break;
 			}
 		}

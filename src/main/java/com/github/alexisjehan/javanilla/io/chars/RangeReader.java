@@ -26,21 +26,22 @@ package com.github.alexisjehan.javanilla.io.chars;
 import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Objects;
 
 /**
- * <p>An {@link Reader} decorator that reads only chars within a range from the current position.</p>
+ * <p>A {@link Reader} decorator that reads only chars within a range from the current position.</p>
  * @since 1.0.0
  */
 public final class RangeReader extends FilterReader {
 
 	/**
-	 * <p>The inclusive index of the first char to read.</p>
+	 * <p>Inclusive index of the first char to read.</p>
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>The inclusive index of the last char to read.<p>
+	 * <p>Inclusive index of the last char to read.<p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -58,11 +59,11 @@ public final class RangeReader extends FilterReader {
 	private long markedIndex = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code Reader} and a range from {@code 0} to the given inclusive index.</p>
-	 * @param reader the delegated {@code Reader}
+	 * <p>Constructor with a {@code Reader} to decorate and a range from {@code 0} to an inclusive index.</p>
+	 * @param reader the {@code Reader} to decorate
 	 * @param toIndex the inclusive index of the last char to read
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is negative
+	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public RangeReader(final Reader reader, final long toIndex) {
@@ -70,16 +71,16 @@ public final class RangeReader extends FilterReader {
 	}
 
 	/**
-	 * <p>Constructor with a delegated {@code Reader} and a range from an inclusive index to another one.</p>
-	 * @param reader the delegated {@code Reader}
+	 * <p>Constructor with a {@code Reader} to decorate and a range from an inclusive index to another one.</p>
+	 * @param reader the {@code Reader} to decorate
 	 * @param fromIndex the inclusive index of the first char to read
 	 * @param toIndex the inclusive index of the last char to read
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
+	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeReader(final Reader reader, final long fromIndex, final long toIndex) {
-		super(reader);
+		super(Objects.requireNonNull(reader, "Invalid Reader (not null expected)"));
 		if (0L > fromIndex) {
 			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
 		}
@@ -106,14 +107,26 @@ public final class RangeReader extends FilterReader {
 	}
 
 	@Override
-	public int read(final char[] cbuf, final int off, final int len) throws IOException {
+	public int read(final char[] buffer, final int offset, final int length) throws IOException {
+		if (null == buffer) {
+			throw new NullPointerException("Invalid buffer (not null expected)");
+		}
+		if (0 > offset || buffer.length < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
+		}
+		if (0 > length || buffer.length - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
+		}
+		if (0 == length) {
+			return 0;
+		}
 		if (fromIndex > index) {
 			index += in.skip(fromIndex - index);
 		}
 		if (toIndex < index) {
 			return -1;
 		}
-		final var n = in.read(cbuf, off, Math.min(len, (int) (toIndex - index + 1)));
+		final var n = in.read(buffer, offset, Math.min(length, (int) (toIndex - index + 1)));
 		if (-1 != n) {
 			index += n;
 		}
@@ -122,14 +135,20 @@ public final class RangeReader extends FilterReader {
 
 	@Override
 	public long skip(final long n) throws IOException {
+		if (fromIndex > index) {
+			index += in.skip(fromIndex - index);
+		}
+		if (toIndex < index) {
+			return 0L;
+		}
 		final var s = in.skip(n);
 		index += s;
 		return s;
 	}
 
 	@Override
-	public void mark(final int readAheadLimit) throws IOException {
-		in.mark(readAheadLimit);
+	public void mark(final int limit) throws IOException {
+		in.mark(limit);
 		markedIndex = index;
 	}
 
@@ -141,7 +160,7 @@ public final class RangeReader extends FilterReader {
 
 	/**
 	 * <p>Get the inclusive index of the first char to read.</p>
-	 * @return the inclusive index
+	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
@@ -150,7 +169,7 @@ public final class RangeReader extends FilterReader {
 
 	/**
 	 * <p>Get the inclusive index of the last char to read.<p>
-	 * @return the inclusive index
+	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */
 	public long getToIndex() {

@@ -31,21 +31,22 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * <p>A {@link Bag} implementation which uses a {@link Map} to store elements and occurrences.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
+ * <p>A {@link Bag} implementation which uses a {@link Map} to store elements and quantities.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @param <E> the element type
  * @since 1.0.0
  */
 public final class MapBag<E> implements Bag<E> {
 
 	/**
-	 * <p>The delegated {@code Map}.</p>
+	 * <p>Delegated {@code Map}.</p>
 	 * @since 1.0.0
 	 */
 	private final Map<E, LongAdder> map;
 
 	/**
-	 * <p>Cached size of the {@code Bag}.</p>
+	 * <p>Current size of the {@code Bag}.</p>
 	 * @since 1.0.0
 	 */
 	private long size = 0L;
@@ -61,22 +62,22 @@ public final class MapBag<E> implements Bag<E> {
 	/**
 	 * <p>Constructor with a custom {@code Map} implementation.</p>
 	 * @param mapSupplier the {@code Supplier} which provides the {@code Map}
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * @throws NullPointerException if the {@code Map} {@code Supplier} is {@code null}
 	 * @since 1.0.0
 	 */
 	public MapBag(final Supplier<? extends Map<E, LongAdder>> mapSupplier) {
-		this(Objects.requireNonNull(mapSupplier, "Invalid map supplier (not null expected)").get());
+		this(Objects.requireNonNull(mapSupplier, "Invalid Map Supplier (not null expected)").get());
 	}
 
 	/**
 	 * <p>Constructor with elements from an existing {@code Collection}, a {@code HashMap} is used.</p>
-	 * @param collection the collection to get elements from
-	 * @throws NullPointerException if the collection is {@code null}
+	 * @param collection the {@code Collection} to get elements from
+	 * @throws NullPointerException if the {@code Collection} is {@code null}
 	 * @since 1.0.0
 	 */
 	public MapBag(final Collection<? extends E> collection) {
 		if (null == collection) {
-			throw new NullPointerException("Invalid collection (not null expected)");
+			throw new NullPointerException("Invalid Collection (not null expected)");
 		}
 		map = new HashMap<>();
 		if (!collection.isEmpty()) {
@@ -94,7 +95,7 @@ public final class MapBag<E> implements Bag<E> {
 	 */
 	private MapBag(final Map<E, LongAdder> map) {
 		if (null == map) {
-			throw new NullPointerException("Invalid map (not null expected)");
+			throw new NullPointerException("Invalid Map (not null expected)");
 		}
 		this.map = map;
 		if (!map.isEmpty()) {
@@ -112,16 +113,14 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	@Override
-	public boolean add(final E element, final long quantity) {
+	public void add(final E element, final long quantity) {
 		if (0L > quantity) {
 			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
 		}
-		if (0L == quantity) {
-			return false;
+		if (0L != quantity) {
+			map.computeIfAbsent(element, e -> new LongAdder()).add(quantity);
+			size += quantity;
 		}
-		map.computeIfAbsent(element, e -> new LongAdder()).add(quantity);
-		size += quantity;
-		return true;
 	}
 
 	@Override
@@ -129,20 +128,19 @@ public final class MapBag<E> implements Bag<E> {
 		if (0L > quantity) {
 			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
 		}
-		if (0L == quantity) {
-			return false;
-		}
-		final var adder = map.get(element);
-		if (null != adder) {
-			final var count = adder.longValue();
-			if (quantity >= count) {
-				map.remove(element);
-				size -= count;
-			} else {
-				adder.add(-quantity);
-				size -= quantity;
+		if (0L != quantity) {
+			final var adder = map.get(element);
+			if (null != adder) {
+				final var count = adder.longValue();
+				if (quantity >= count) {
+					map.remove(element);
+					size -= count;
+				} else {
+					adder.add(-quantity);
+					size -= quantity;
+				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
@@ -166,7 +164,7 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public boolean isEmpty() {
-		return map.isEmpty();
+		return 0L == size;
 	}
 
 	@Override

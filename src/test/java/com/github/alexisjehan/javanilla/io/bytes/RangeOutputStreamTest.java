@@ -23,14 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
+import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -39,133 +35,111 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class RangeOutputStreamTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
-	@Test
-	void testConstructorNull() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeOutputStream(null, 6L, 20L));
-	}
-
 	@Test
 	void testConstructorInvalid() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeOutputStream(OutputStreams.BLANK, -5L, 20L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeOutputStream(OutputStreams.BLANK, 10L, 5L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeOutputStream(null, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, -1L, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, 1L, 0L));
 	}
 
 	@Test
-	void testWriteRangeOneByOne() {
+	void testWriteByte() throws IOException {
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 6L, 10L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					int b;
-					while (-1 != (b = inputStream.read())) {
-						rangeOutputStream.write(b);
-					}
-				}
-			}
-			assertThat(byteArrayOutputStream.toByteArray()).isEqualTo(Arrays.copyOfRange(Files.readAllBytes(INPUT), 6, 11)); // ipsum
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteRangeBuffered() {
-		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 6L, 10L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					final var buffer = new byte[5];
-					int n;
-					while (-1 != (n = inputStream.read(buffer, 0, buffer.length))) {
-						rangeOutputStream.write(buffer, 0, n);
-					}
-				}
-			}
-			assertThat(byteArrayOutputStream.toByteArray()).isEqualTo(Arrays.copyOfRange(Files.readAllBytes(INPUT), 6, 11)); // ipsum
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteAllOneByOne() {
-		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 2000L)) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(2000L);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					int b;
-					while (-1 != (b = inputStream.read())) {
-						rangeOutputStream.write(b);
-					}
-				}
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(0L);
+				rangeOutputStream.write(1);
+				rangeOutputStream.write(2);
+				rangeOutputStream.write(3);
 			}
-			assertThat(byteArrayOutputStream.toByteArray()).isEqualTo(Files.readAllBytes(INPUT));
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 1);
 		}
-	}
-
-	@Test
-	void testWriteAllBuffered() {
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 2000L)) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 1L, 1L)) {
+				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(1L);
+				rangeOutputStream.write(1);
+				rangeOutputStream.write(2);
+				rangeOutputStream.write(3);
+			}
+			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 2);
+		}
+		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(2000L);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					final var buffer = new byte[5];
-					int n;
-					while (-1 != (n = inputStream.read(buffer, 0, buffer.length))) {
-						rangeOutputStream.write(buffer, 0, n);
-					}
-				}
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
+				rangeOutputStream.write(1);
+				rangeOutputStream.write(2);
+				rangeOutputStream.write(3);
 			}
-			assertThat(byteArrayOutputStream.toByteArray()).isEqualTo(Files.readAllBytes(INPUT));
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 1, (byte) 2, (byte) 3);
 		}
-	}
-
-	@Test
-	void testWriteOutOneByOne() {
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 1000L, 2000L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(2000L);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					int b;
-					while (-1 != (b = inputStream.read())) {
-						rangeOutputStream.write(b);
-					}
-				}
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L, 10L)) {
+				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
+				rangeOutputStream.write(1);
+				rangeOutputStream.write(2);
+				rangeOutputStream.write(3);
 			}
 			assertThat(byteArrayOutputStream.toByteArray()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testWriteOutBuffered() {
+	void testWriteBytes() throws IOException {
+		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 1000L, 2000L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(2000L);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					final var buffer = new byte[5];
-					int n;
-					while (-1 != (n = inputStream.read(buffer, 0, buffer.length))) {
-						rangeOutputStream.write(buffer, 0, n);
-					}
-				}
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L)) {
+				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(0L);
+				rangeOutputStream.write(bytes, 0, 0);
+				rangeOutputStream.write(bytes, 0, 2);
+				rangeOutputStream.write(bytes, 2, 1);
+			}
+			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 1);
+		}
+		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 1L, 1L)) {
+				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(1L);
+				rangeOutputStream.write(bytes, 0, 0);
+				rangeOutputStream.write(bytes, 0, 2);
+				rangeOutputStream.write(bytes, 2, 1);
+			}
+			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 2);
+		}
+		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L)) {
+				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
+				rangeOutputStream.write(bytes, 0, 0);
+				rangeOutputStream.write(bytes, 0, 2);
+				rangeOutputStream.write(bytes, 2, 1);
+			}
+			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 1, (byte) 2, (byte) 3);
+		}
+		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L, 10L)) {
+				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
+				rangeOutputStream.write(bytes, 0, 0);
+				rangeOutputStream.write(bytes, 0, 2);
+				rangeOutputStream.write(bytes, 2, 1);
 			}
 			assertThat(byteArrayOutputStream.toByteArray()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testWriteBytesInvalid() throws IOException {
+		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+		try (final var rangeOutputStream = new RangeOutputStream(OutputStreams.EMPTY, 0L)) {
+			assertThatNullPointerException().isThrownBy(() -> rangeOutputStream.write(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, 0, 4));
 		}
 	}
 }

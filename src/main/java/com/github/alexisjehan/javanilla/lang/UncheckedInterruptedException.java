@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.lang;
 import java.util.Objects;
 
 /**
- * <p>Wraps an {@link InterruptedException} with an unchecked exception.</p>
+ * <p>Wrapped {@link InterruptedException} as an unchecked exception.</p>
  * <p><b>Note</b>: This class is serializable.</p>
  * @since 1.0.0
  */
@@ -36,7 +36,7 @@ public final class UncheckedInterruptedException extends RuntimeException {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -7331750350490903250L;
+	private static final long serialVersionUID = 864825641935117085L;
 
 	/**
 	 * <p>Constructor with a checked cause.</p>

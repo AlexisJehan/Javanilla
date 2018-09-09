@@ -1,0 +1,58 @@
+/*
+MIT License
+
+Copyright (c) 2018 Alexis Jehan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+package examples;
+
+import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
+import com.github.alexisjehan.javanilla.io.bytes.OutputStreams;
+import com.github.alexisjehan.javanilla.io.bytes.RangeOutputStream;
+import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+public final class Example01 {
+
+	public static void main(final String... args) throws IOException {
+		final var optionalInputStream = (InputStream) null;
+		final var fileOutputStream = (OutputStream) null;
+		final var sampleOutputStream = (OutputStream) null;
+
+		// Read from an optional InputStream and then from another one which gives 0x00 and 0xff bytes
+		final var concatInputStream = InputStreams.concat(
+				InputStreams.nullToEmpty(optionalInputStream),
+				InputStreams.of((byte) 0x00, (byte) 0xff)
+		);
+		// Write to both a buffered file OutputStream and a sampling one
+		final var teeOutputStream = OutputStreams.tee(
+				OutputStreams.buffered(fileOutputStream),
+				new RangeOutputStream(sampleOutputStream, 100L) // Write only the 100 firsts bytes
+		);
+		// Wrap the InputStream to be used in a foreach-style loop for a better readability
+		for (final var b : Iterables.wrap(concatInputStream)) {
+			teeOutputStream.write(b);
+		}
+		teeOutputStream.flush();
+	}
+}

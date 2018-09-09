@@ -25,12 +25,7 @@ package com.github.alexisjehan.javanilla.io.chars;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -39,81 +34,85 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountReaderTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountReader(null));
 	}
 
 	@Test
-	void testReadOneByOne() {
-		try (final var countReader = new CountReader(Files.newBufferedReader(INPUT))) {
+	void testReadChar() throws IOException {
+		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
-			assertThat(countReader.read()).isNotEqualTo(-1);
+			assertThat(countReader.read()).isEqualTo('a');
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			for (var i = 0; i < 10; ++i) {
-				assertThat(countReader.read()).isNotEqualTo(-1);
-			}
-			assertThat(countReader.getCount()).isEqualTo(11L);
-			while (-1 != countReader.read());
-			assertThat(countReader.getCount()).isEqualTo(INPUT.toFile().length());
+			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.getCount()).isEqualTo(2L);
+			assertThat(countReader.read()).isEqualTo('c');
+			assertThat(countReader.getCount()).isEqualTo(3L);
 			assertThat(countReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(countReader.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testReadBuffered() {
-		try (final var countReader = new CountReader(Files.newBufferedReader(INPUT))) {
+	void testReadBuffer() throws IOException {
+		final var buffer = new char[2];
+		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
-			final var buffer = new char[10];
-			assertThat(countReader.read(buffer, 0, 10)).isNotEqualTo(-1);
-			assertThat(countReader.getCount()).isEqualTo(10L);
-			assertThat(countReader.read(buffer, 3, 5)).isNotEqualTo(-1);
-			assertThat(countReader.getCount()).isEqualTo(15L);
-			while (-1 != countReader.read(buffer, 0, buffer.length));
-			assertThat(countReader.getCount()).isEqualTo(INPUT.toFile().length());
-			assertThat(countReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(countReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(countReader.getCount()).isEqualTo(0L);
+			assertThat(countReader.read(buffer, 0, 2)).isEqualTo(2);
+			assertThat(countReader.getCount()).isEqualTo(2L);
+			assertThat(countReader.read(buffer, 0, 2)).isEqualTo(1);
+			assertThat(countReader.getCount()).isEqualTo(3L);
+			assertThat(countReader.read(buffer, 0, 2)).isEqualTo(-1);
+			assertThat(countReader.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testSkip() {
-		try (final var countReader = new CountReader(Files.newBufferedReader(INPUT))) {
-			assertThat(countReader.getCount()).isEqualTo(0L);
-			countReader.skip(10L);
-			assertThat(countReader.getCount()).isEqualTo(10L);
-			countReader.skip(0L);
-			assertThat(countReader.getCount()).isEqualTo(10L);
-			countReader.skip(5L);
-			assertThat(countReader.getCount()).isEqualTo(15L);
-			countReader.skip(1000L);
-			assertThat(countReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadBufferInvalid() throws IOException {
+		final var buffer = new char[2];
+		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+			assertThatNullPointerException().isThrownBy(() -> countReader.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, 0, 3));
 		}
 	}
 
 	@Test
-	void testMark() {
-		try (final var countReader = new CountReader(Files.newBufferedReader(INPUT))) {
+	void testSkip() throws IOException {
+		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
-			assertThat(countReader.read()).isNotEqualTo(-1);
+			assertThat(countReader.skip(0L)).isEqualTo(0L);
+			assertThat(countReader.getCount()).isEqualTo(0L);
+			assertThat(countReader.skip(2L)).isEqualTo(2L);
+			assertThat(countReader.getCount()).isEqualTo(2L);
+			assertThat(countReader.skip(2L)).isEqualTo(1L);
+			assertThat(countReader.getCount()).isEqualTo(3L);
+		}
+	}
+
+	@Test
+	void testMarkReset() throws IOException {
+		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+			assertThat(countReader.getCount()).isEqualTo(0L);
+			assertThat(countReader.read()).isEqualTo('a');
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			countReader.mark(10);
+			countReader.mark(2);
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			countReader.skip(10L);
-			assertThat(countReader.getCount()).isEqualTo(11L);
+			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.getCount()).isEqualTo(2L);
 			countReader.reset();
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			assertThat(countReader.read()).isNotEqualTo(-1);
+			assertThat(countReader.read()).isEqualTo('b');
 			assertThat(countReader.getCount()).isEqualTo(2L);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			countReader.reset();
+			assertThat(countReader.getCount()).isEqualTo(1L);
+			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.getCount()).isEqualTo(2L);
 		}
 	}
 }

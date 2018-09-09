@@ -69,7 +69,7 @@ public class LineWriter implements Closeable {
 	private boolean firstLine = true;
 
 	/**
-	 * <p>Packed-private constructor used by {@link FilterLineWriter#FilterLineWriter(LineWriter)}.</p>
+	 * <p>Package-private constructor used by {@link FilterLineWriter#FilterLineWriter(LineWriter)}.</p>
 	 * @since 1.0.0
 	 */
 	LineWriter() {
@@ -157,7 +157,7 @@ public class LineWriter implements Closeable {
 
 	/**
 	 * <p>Constructor with the given {@code Writer} and the default {@code LineSeparator}.</p>
-	 * @param writer the delegated {@code Writer}
+	 * @param writer the {@code Writer} to write to
 	 * @throws NullPointerException if the {@code Writer} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -168,9 +168,9 @@ public class LineWriter implements Closeable {
 	/**
 	 * <p>Constructor with given {@code Writer}, {@code LineSeparator} and the default value for whether or not a
 	 * terminating new line should be appended on close.</p>
-	 * @param writer the delegated {@code Writer}
+	 * @param writer the {@code Writer} to write to
 	 * @param lineSeparator the {@code LineSeparator} type
-	 * @throws NullPointerException whether the {@code Writer} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Writer} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Writer writer, final LineSeparator lineSeparator) {
@@ -180,18 +180,18 @@ public class LineWriter implements Closeable {
 	/**
 	 * <p>Constructor with given {@code Writer}, {@code LineSeparator} and whether or not a terminating new line should
 	 * be appended on close.</p>
-	 * @param writer the delegated {@code Writer}
+	 * @param writer the {@code Writer} to write to
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
-	 * @throws NullPointerException whether the {@code Writer} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Writer} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Writer writer, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) {
 		if (null == writer) {
-			throw new NullPointerException("Invalid writer (not null expected)");
+			throw new NullPointerException("Invalid Writer (not null expected)");
 		}
 		if (null == lineSeparator) {
-			throw new NullPointerException("Invalid line separator (not null expected)");
+			throw new NullPointerException("Invalid LineSeparator (not null expected)");
 		}
 		this.writer = writer;
 		this.lineSeparator = lineSeparator;
@@ -199,10 +199,10 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Writes a {@code String} line.</p>
+	 * <p>Writes a line.</p>
 	 * @param line the {@code String} line to write
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code String} line is {@code null}
+	 * @throws NullPointerException if the line is {@code null}
 	 * @since 1.0.0
 	 */
 	public void write(final String line) throws IOException {

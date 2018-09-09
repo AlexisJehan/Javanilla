@@ -69,14 +69,14 @@ public class LineReader implements Closeable {
 	private boolean lastLine = false;
 
 	/**
-	 * <p>A {@code char} buffer to build the read {@code String} line, filled by
+	 * <p>A {@code StringBuilder} to build the read {@code String} line, filled by
 	 * {@link LineSeparator#read(Reader, StringBuilder)}.</p>
 	 * @since 1.0.0
 	 */
 	private final StringBuilder builder = new StringBuilder(80);
 
 	/**
-	 * <p>Packed-private constructor used by {@link FilterLineReader#FilterLineReader(LineReader)}.</p>
+	 * <p>Package-private constructor used by {@link FilterLineReader#FilterLineReader(LineReader)}.</p>
 	 * @since 1.0.0
 	 */
 	LineReader() {
@@ -165,7 +165,7 @@ public class LineReader implements Closeable {
 	/**
 	 * <p>Constructor with the given {@code Reader}, detecting the {@code LineSeparator}.</p>
 	 * <p><b>Note</b>: The {@code Reader} need to support {@link Reader#mark(int)}.</p>
-	 * @param reader the delegated {@code Reader}
+	 * @param reader the {@code Reader} to read from
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
 	 * @throws IllegalArgumentException if the {@code Reader} does not support {@link Reader#mark(int)}
@@ -178,9 +178,9 @@ public class LineReader implements Closeable {
 	/**
 	 * <p>Constructor with given {@code Reader}, {@code LineSeparator} and the default value for whether or not a
 	 * terminating new line should be ignored.</p>
-	 * @param reader the delegated {@code Reader}
+	 * @param reader the {@code Reader} to read from
 	 * @param lineSeparator the {@code LineSeparator} type
-	 * @throws NullPointerException whether the {@code Reader} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Reader} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineReader(final Reader reader, final LineSeparator lineSeparator) {
@@ -190,18 +190,18 @@ public class LineReader implements Closeable {
 	/**
 	 * <p>Constructor with given {@code Reader}, {@code LineSeparator} and whether or not a terminating new line should
 	 * be ignored.</p>
-	 * @param reader the delegated {@code Reader}
+	 * @param reader the {@code Reader} to read from
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @param ignoreTerminatingNewLine whether or not a terminating new line should be ignored
-	 * @throws NullPointerException whether the {@code Reader} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Reader} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineReader(final Reader reader, final LineSeparator lineSeparator, final boolean ignoreTerminatingNewLine) {
 		if (null == reader) {
-			throw new NullPointerException("Invalid reader (not null expected)");
+			throw new NullPointerException("Invalid Reader (not null expected)");
 		}
 		if (null == lineSeparator) {
-			throw new NullPointerException("Invalid line separator (not null expected)");
+			throw new NullPointerException("Invalid LineSeparator (not null expected)");
 		}
 		this.reader = reader;
 		this.lineSeparator = lineSeparator;
@@ -209,9 +209,9 @@ public class LineReader implements Closeable {
 	}
 
 	/**
-	 * <p>Read a {@code String} line.</p>
+	 * <p>Read a line.</p>
 	 * <p><b>Warning</b>: Can produce a memory overflow if the line is too large.</p>
-	 * @return the read {@code String} line or {@code null} if there is no more line to read
+	 * @return a read {@code String} line or {@code null} if there is no more line to read
 	 * @throws IOException might occurs with I/O operations
 	 * @since 1.0.0
 	 */
@@ -237,11 +237,12 @@ public class LineReader implements Closeable {
 	 * @param n the number of lines to attempt to skip
 	 * @return the effective number of lines skipped
 	 * @throws IOException might occurs with I/O operations
+	 * @throws IllegalArgumentException if the number of lines to skip is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public long skip(final long n) throws IOException {
 		if (0L > n) {
-			throw new IllegalArgumentException("Invalid n: " + n + " (positive expected)");
+			throw new IllegalArgumentException("Invalid number of lines: " + n + " (greater than or equal to 0 expected)");
 		}
 		if (0L == n) {
 			return 0L;
@@ -265,7 +266,7 @@ public class LineReader implements Closeable {
 	 */
 	public long transferTo(final LineWriter lineWriter) throws IOException {
 		if (null == lineWriter) {
-			throw new NullPointerException("Invalid line writer (not null expected)");
+			throw new NullPointerException("Invalid LineWriter (not null expected)");
 		}
 		var l = 0L;
 		String line;

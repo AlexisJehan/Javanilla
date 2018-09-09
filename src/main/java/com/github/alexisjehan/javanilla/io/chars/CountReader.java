@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.io.chars;
 import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Objects;
 
 /**
  * <p>A {@link Reader} decorator that counts the number of chars read from the current position.</p>
@@ -46,13 +47,13 @@ public final class CountReader extends FilterReader {
 	private long markedCount = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code Reader}.</p>
-	 * @param reader the delegated {@code Reader}
+	 * <p>Constructor with a {@code Reader} to decorate.</p>
+	 * @param reader the {@code Reader} to decorate
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountReader(final Reader reader) {
-		super(reader);
+		super(Objects.requireNonNull(reader, "Invalid Reader (not null expected)"));
 	}
 
 	@Override
@@ -65,8 +66,17 @@ public final class CountReader extends FilterReader {
 	}
 
 	@Override
-	public int read(final char[] cbuf, final int off, final int len) throws IOException {
-		final var n = in.read(cbuf, off, len);
+	public int read(final char[] buffer, final int offset, final int length) throws IOException {
+		if (null == buffer) {
+			throw new NullPointerException("Invalid buffer (not null expected)");
+		}
+		if (0 > offset || buffer.length < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
+		}
+		if (0 > length || buffer.length - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
+		}
+		final var n = in.read(buffer, offset, length);
 		if (-1 != n) {
 			count += n;
 		}
@@ -81,8 +91,8 @@ public final class CountReader extends FilterReader {
 	}
 
 	@Override
-	public void mark(int readAheadLimit) throws IOException {
-		in.mark(readAheadLimit);
+	public void mark(final int limit) throws IOException {
+		in.mark(limit);
 		markedCount = count;
 	}
 

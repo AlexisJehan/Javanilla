@@ -38,14 +38,14 @@ public abstract class FilterLineReader extends LineReader {
 	protected final LineReader lineReader;
 
 	/**
-	 * <p>Constructor with a delegated {@code LineReader}.</p>
-	 * @param lineReader the delegated {@code LineReader}
+	 * <p>Constructor with a {@code LineReader} to decorate.</p>
+	 * @param lineReader the {@code LineReader} to decorate
 	 * @throws NullPointerException if the {@code LineReader} is {@code null}
 	 * @since 1.0.0
 	 */
 	protected FilterLineReader(final LineReader lineReader) {
 		if (null == lineReader) {
-			throw new NullPointerException("Invalid line reader (not null expected)");
+			throw new NullPointerException("Invalid LineReader (not null expected)");
 		}
 		this.lineReader = lineReader;
 	}

@@ -35,7 +35,6 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * <p>{@link Throwables} unit tests.</p>
@@ -50,7 +49,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	void testIsCheckedNull() {
+	void testIsCheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.isChecked(null));
 	}
 
@@ -62,34 +61,26 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	void testIsUncheckedNull() {
+	void testIsUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.isUnchecked(null));
 	}
 
 	@Test
-	void testUncheckRunnable() {
-		try {
-			Throwables.uncheck(() -> {});
-		} catch (final UncheckedIOException e) {
-			fail(e.getMessage());
-		}
+	void testUncheckThrowableRunnable() {
+		Throwables.uncheck(() -> {});
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck(() -> {
 			throw new IOException();
 		}));
 	}
 
 	@Test
-	void testUncheckRunnableNull() {
+	void testUncheckThrowableRunnableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableRunnable<?>) null));
 	}
 
 	@Test
-	void testUncheckSupplier() {
-		try {
-			Throwables.uncheck(() -> true);
-		} catch (final UncheckedIOException e) {
-			fail(e.getMessage());
-		}
+	void testUncheckThrowableSupplier() {
+		Throwables.uncheck(() -> true);
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck(() -> {
 			if (1 == 0) {
 				return null;
@@ -99,7 +90,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	void testUncheckSupplierNull() {
+	void testUncheckThrowableSupplierInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<Integer, ?>) null));
 	}
 
@@ -131,63 +122,65 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.unchecked(null));
 	}
 
 	@Test
 	void testGetRootCause() {
-		final var rootException = new IOException();
-		final var uncheckedIOException = new UncheckedIOException(rootException);
-		final var runtimeException = new RuntimeException(uncheckedIOException);
-		assertThat(Throwables.getRootCause(rootException)).isEmpty();
-		assertThat(Throwables.getRootCause(uncheckedIOException).get()).isSameAs(rootException);
-		assertThat(Throwables.getRootCause(runtimeException).get()).isSameAs(rootException);
+		{
+			final var rootException = new IOException();
+			final var uncheckedIOException = new UncheckedIOException(rootException);
+			final var runtimeException = new RuntimeException(uncheckedIOException);
+			assertThat(Throwables.getRootCause(rootException)).isEmpty();
+			assertThat(Throwables.getRootCause(uncheckedIOException)).hasValue(rootException);
+			assertThat(Throwables.getRootCause(runtimeException)).hasValue(rootException);
+		}
+		{
+			// Cycle
+			final var rootException = new IOException();
+			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
+				private static final long serialVersionUID = 4309514616835186744L;
+
+				@Override
+				public Throwable getCause() {
+					return this;
+				}
+			};
+			assertThat(Throwables.getRootCause(exception)).isEmpty();
+		}
 	}
 
 	@Test
-	void testGetRootCauseLoop() {
-		final var rootException = new IOException();
-		final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
-			private static final long serialVersionUID = -5569787925848456326L;
-
-			@Override
-			public Throwable getCause() {
-				return this;
-			}
-		};
-		assertThat(Throwables.getRootCause(exception)).isEmpty();
-	}
-
-	@Test
-	void testGetRootCauseNull() {
+	void testGetRootCauseInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.getRootCause(null));
 	}
 
 	@Test
 	void testGetCauses() {
-		final var rootException = new IOException();
-		final var uncheckedIOException = new UncheckedIOException(rootException);
-		final var runtimeException = new RuntimeException(uncheckedIOException);
-		assertThat(Throwables.getCauses(runtimeException)).containsExactly(uncheckedIOException, rootException);
+		{
+			final var rootException = new IOException();
+			final var uncheckedIOException = new UncheckedIOException(rootException);
+			final var runtimeException = new RuntimeException(uncheckedIOException);
+			assertThat(Throwables.getCauses(runtimeException)).containsExactly(uncheckedIOException, rootException);
+		}
+		{
+			// Cycle
+			final var rootException = new IOException();
+			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
+				private static final long serialVersionUID = -1588285205100189446L;
+
+				@Override
+				public Throwable getCause() {
+					return this;
+				}
+			};
+			assertThat(Throwables.getCauses(exception)).isEmpty();
+		}
 	}
 
 	@Test
-	void testGetCausesLoop() {
-		final var rootException = new IOException();
-		final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
-			private static final long serialVersionUID = -4148978604443508830L;
-
-			@Override
-			public Throwable getCause() {
-				return this;
-			}
-		};
-		assertThat(Throwables.getCauses(exception)).isEmpty();
-	}
-
-	@Test
-	void testGetCausesNull() {
+	void testGetCausesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.getCauses(null));
 	}
 }

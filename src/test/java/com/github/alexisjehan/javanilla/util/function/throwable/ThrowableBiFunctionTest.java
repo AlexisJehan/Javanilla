@@ -39,28 +39,16 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableBiFunctionTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction = (t, u) -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(() -> throwableBiFunction.apply(1, 2.3f));
-	}
-
-	@Test
-	void testAndThen() {
+	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction = (t, u) -> {
 			list.add(Pair.of(t, u));
 			return t + Math.round(u);
 		};
-		try {
-			assertThat(throwableBiFunction.andThen(t -> {
-				list.add(Pair.of(t + 1, 0f));
-				return t;
-			}).apply(1, 2.3f)).isEqualTo(3);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableBiFunction.andThen(t -> {
+			list.add(Pair.of(t + 1, 0f));
+			return t;
+		}).apply(1, 2.3f)).isEqualTo(3);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(4, 0f));
 
 		list.clear();
@@ -72,7 +60,7 @@ final class ThrowableBiFunctionTest {
 	}
 
 	@Test
-	void testAndThenNull() {
+	void testAndThenInvalid() {
 		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction = (t, u) -> {
 			throw new IOException();
 		};
@@ -80,17 +68,13 @@ final class ThrowableBiFunctionTest {
 	}
 
 	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction1 = (t, u) -> {
 			list.add(Pair.of(t, u));
 			return t + Math.round(u);
 		};
-		try {
-			assertThat(throwableBiFunction1.apply(1, 2.3f)).isEqualTo(3);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableBiFunction1.apply(1, 2.3f)).isEqualTo(3);
 		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction1).apply(1, 2.3f)).isEqualTo(3);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(1, 2.3f));
 
@@ -102,7 +86,7 @@ final class ThrowableBiFunctionTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableBiFunction.unchecked(null));
 	}
 
@@ -116,7 +100,7 @@ final class ThrowableBiFunctionTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableBiFunction.of(null));
 	}
 }

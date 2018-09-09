@@ -23,14 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
+import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -39,68 +35,69 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountWriterTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountWriter(null));
 	}
 
 	@Test
-	void testWriteOneByOne() {
-		try (final var countWriter = new CountWriter(Writers.BLANK)) {
-			try (final var reader = Files.newBufferedReader(INPUT)) {
-				assertThat(countWriter.getCount()).isEqualTo(0L);
-				countWriter.write(reader.read());
-				assertThat(countWriter.getCount()).isEqualTo(1L);
-				for (var i = 0; i < 10; ++i) {
-					countWriter.write(reader.read());
-				}
-				assertThat(countWriter.getCount()).isEqualTo(11L);
-				int b;
-				while (-1 != (b = reader.read())) {
-					countWriter.write(b);
-				}
-				assertThat(countWriter.getCount()).isEqualTo(INPUT.toFile().length());
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testWriteChar() throws IOException {
+		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+			assertThat(countWriter.getCount()).isEqualTo(0L);
+			countWriter.write('a');
+			assertThat(countWriter.getCount()).isEqualTo(1L);
+			countWriter.write('b');
+			assertThat(countWriter.getCount()).isEqualTo(2L);
+			countWriter.write('c');
+			assertThat(countWriter.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testWriteBuffered() {
-		try (final var countWriter = new CountWriter(Writers.BLANK)) {
-			try (final var reader = Files.newBufferedReader(INPUT)) {
-				assertThat(countWriter.getCount()).isEqualTo(0L);
-				final var buffer = new char[10];
-				reader.read(buffer, 0, 10);
-				countWriter.write(buffer, 0, 10);
-				assertThat(countWriter.getCount()).isEqualTo(10L);
-				reader.read(buffer, 3, 5);
-				countWriter.write(buffer, 3, 5);
-				assertThat(countWriter.getCount()).isEqualTo(15L);
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testWriteChars() throws IOException {
+		final var chars = CharArrays.of('a', 'b', 'c');
+		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+			assertThat(countWriter.getCount()).isEqualTo(0L);
+			countWriter.write(chars, 0, 0);
+			assertThat(countWriter.getCount()).isEqualTo(0L);
+			countWriter.write(chars, 0, 2);
+			assertThat(countWriter.getCount()).isEqualTo(2L);
 		}
 	}
 
 	@Test
-	void testWriteBufferedString() {
-		try (final var countWriter = new CountWriter(Writers.BLANK)) {
-			try (final var reader = Files.newBufferedReader(INPUT)) {
-				assertThat(countWriter.getCount()).isEqualTo(0L);
-				final var buffer = new char[10];
-				reader.read(buffer, 0, 10);
-				countWriter.write(new String(buffer), 0, 10);
-				assertThat(countWriter.getCount()).isEqualTo(10L);
-				reader.read(buffer, 3, 5);
-				countWriter.write(new String(buffer), 3, 5);
-				assertThat(countWriter.getCount()).isEqualTo(15L);
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testWriteCharsInvalid() throws IOException {
+		final var chars = CharArrays.of('a', 'b', 'c');
+		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+			assertThatNullPointerException().isThrownBy(() -> countWriter.write((char[]) null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, 0, 4));
+		}
+	}
+
+	@Test
+	void testWriteString() throws IOException {
+		final var string = "abc";
+		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+			assertThat(countWriter.getCount()).isEqualTo(0L);
+			countWriter.write(string, 0, 0);
+			assertThat(countWriter.getCount()).isEqualTo(0L);
+			countWriter.write(string, 0, 2);
+			assertThat(countWriter.getCount()).isEqualTo(2L);
+		}
+	}
+
+	@Test
+	void testWriteStringInvalid() throws IOException {
+		final var string = "abc";
+		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+			assertThatNullPointerException().isThrownBy(() -> countWriter.write((String) null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, 0, 4));
 		}
 	}
 }

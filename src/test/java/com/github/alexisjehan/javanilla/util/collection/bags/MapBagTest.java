@@ -62,7 +62,7 @@ final class MapBagTest extends AbstractBagTest {
 	}
 
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new MapBag<>((Supplier<Map<String, LongAdder>>) null));
 		assertThatNullPointerException().isThrownBy(() -> new MapBag<>(() -> null));
 		assertThatNullPointerException().isThrownBy(() -> new MapBag<>((Collection<String>) null));

@@ -23,16 +23,11 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
+import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.CharArrayWriter;
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -41,193 +36,168 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class RangeWriterTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
-	@Test
-	void testConstructorNull() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeWriter(null, 6L, 20L));
-	}
-
 	@Test
 	void testConstructorInvalid() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeWriter(Writers.BLANK, -5L, 20L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeWriter(Writers.BLANK, 10L, 5L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeWriter(null, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeWriter(Writers.EMPTY, -1L, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeWriter(Writers.EMPTY, 1L, 0L));
 	}
 
 	@Test
-	void testWriteRangeOneByOne() {
+	void testWriteChar() throws IOException {
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 6L, 10L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					int c;
-					while (-1 != (c = reader.read())) {
-						rangeWriter.write(c);
-					}
-				}
-			}
-			assertThat(charArrayWriter.toCharArray()).isEqualTo(Arrays.copyOfRange(new String(Files.readAllBytes(INPUT)).toCharArray(), 6, 11)); // ipsum
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteRangeBuffered() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 6L, 10L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					final var buffer = new char[5];
-					int n;
-					while (-1 != (n = reader.read(buffer, 0, buffer.length))) {
-						rangeWriter.write(buffer, 0, n);
-					}
-				}
-			}
-			assertThat(charArrayWriter.toCharArray()).isEqualTo(Arrays.copyOfRange(new String(Files.readAllBytes(INPUT)).toCharArray(), 6, 11)); // ipsum
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteRangeBufferedString() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 6L, 10L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					final var buffer = new char[5];
-					int n;
-					while (-1 != (n = reader.read(buffer, 0, buffer.length))) {
-						rangeWriter.write(new String(buffer), 0, n);
-					}
-				}
-			}
-			assertThat(charArrayWriter.toCharArray()).isEqualTo(Arrays.copyOfRange(new String(Files.readAllBytes(INPUT)).toCharArray(), 6, 11)); // ipsum
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteAllOneByOne() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 2000L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					int c;
-					while (-1 != (c = reader.read())) {
-						rangeWriter.write(c);
-					}
-				}
+				assertThat(rangeWriter.getToIndex()).isEqualTo(0L);
+				rangeWriter.write('a');
+				rangeWriter.write('b');
+				rangeWriter.write('c');
 			}
-			assertThat(charArrayWriter.toCharArray()).isEqualTo(new String(Files.readAllBytes(INPUT)).toCharArray());
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(charArrayWriter.toCharArray()).containsExactly('a');
 		}
-	}
-
-	@Test
-	void testWriteAllBuffered() {
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 2000L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1L, 1L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(1L);
+				rangeWriter.write('a');
+				rangeWriter.write('b');
+				rangeWriter.write('c');
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('b');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					final var buffer = new char[5];
-					int n;
-					while (-1 != (n = reader.read(buffer, 0, buffer.length))) {
-						rangeWriter.write(buffer, 0, n);
-					}
-				}
+				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
+				rangeWriter.write('a');
+				rangeWriter.write('b');
+				rangeWriter.write('c');
 			}
-			assertThat(charArrayWriter.toCharArray()).isEqualTo(new String(Files.readAllBytes(INPUT)).toCharArray());
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(charArrayWriter.toCharArray()).containsExactly('a', 'b', 'c');
 		}
-	}
-
-	@Test
-	void testWriteAllBufferedString() {
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 2000L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					final var buffer = new char[5];
-					int n;
-					while (-1 != (n = reader.read(buffer, 0, buffer.length))) {
-						rangeWriter.write(new String(buffer), 0, n);
-					}
-				}
-			}
-			assertThat(charArrayWriter.toCharArray()).isEqualTo(new String(Files.readAllBytes(INPUT)).toCharArray());
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteOutOneByOne() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1000L, 2000L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					int c;
-					while (-1 != (c = reader.read())) {
-						rangeWriter.write(c);
-					}
-				}
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L, 10L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
+				rangeWriter.write('a');
+				rangeWriter.write('b');
+				rangeWriter.write('c');
 			}
 			assertThat(charArrayWriter.toCharArray()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testWriteOutBuffered() {
+	void testWriteChars() throws IOException {
+		final var chars = CharArrays.of('a', 'b', 'c');
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1000L, 2000L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					final var buffer = new char[5];
-					int n;
-					while (-1 != (n = reader.read(buffer, 0, buffer.length))) {
-						rangeWriter.write(buffer, 0, n);
-					}
-				}
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(0L);
+				rangeWriter.write(chars, 0, 0);
+				rangeWriter.write(chars, 0, 2);
+				rangeWriter.write(chars, 2, 1);
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('a');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1L, 1L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(1L);
+				rangeWriter.write(chars, 0, 0);
+				rangeWriter.write(chars, 0, 2);
+				rangeWriter.write(chars, 2, 1);
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('b');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
+				rangeWriter.write(chars, 0, 0);
+				rangeWriter.write(chars, 0, 2);
+				rangeWriter.write(chars, 2, 1);
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('a', 'b', 'c');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L, 10L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
+				rangeWriter.write(chars, 0, 0);
+				rangeWriter.write(chars, 0, 2);
+				rangeWriter.write(chars, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testWriteOutBufferedString() {
+	void testWriteCharsInvalid() throws IOException {
+		final var chars = CharArrays.of('a', 'b', 'c');
+		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L)) {
+			assertThatNullPointerException().isThrownBy(() -> rangeWriter.write((char[]) null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, 0, 4));
+		}
+	}
+
+	@Test
+	void testWriteString() throws IOException {
+		final var string = "abc";
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1000L, 2000L)) {
-				assertThat(rangeWriter.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					final var buffer = new char[5];
-					int n;
-					while (-1 != (n = reader.read(buffer, 0, buffer.length))) {
-						rangeWriter.write(new String(buffer), 0, n);
-					}
-				}
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(0L);
+				rangeWriter.write(string, 0, 0);
+				rangeWriter.write(string, 0, 2);
+				rangeWriter.write(string, 2, 1);
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('a');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1L, 1L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(1L);
+				rangeWriter.write(string, 0, 0);
+				rangeWriter.write(string, 0, 2);
+				rangeWriter.write(string, 2, 1);
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('b');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
+				rangeWriter.write(string, 0, 0);
+				rangeWriter.write(string, 0, 2);
+				rangeWriter.write(string, 2, 1);
+			}
+			assertThat(charArrayWriter.toCharArray()).containsExactly('a', 'b', 'c');
+		}
+		try (final var charArrayWriter = new CharArrayWriter()) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L, 10L)) {
+				assertThat(rangeWriter.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
+				rangeWriter.write(string, 0, 0);
+				rangeWriter.write(string, 0, 2);
+				rangeWriter.write(string, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	void testWriteStringInvalid() throws IOException {
+		final var string = "abc";
+		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L)) {
+			assertThatNullPointerException().isThrownBy(() -> rangeWriter.write((String) null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, 0, 4));
 		}
 	}
 }

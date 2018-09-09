@@ -26,21 +26,22 @@ package com.github.alexisjehan.javanilla.io.chars;
 import java.io.FilterWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Objects;
 
 /**
- * <p>An {@link Writer} decorator that writes only chars within a range from the current position.</p>
+ * <p>A {@link Writer} decorator that writes only chars within a range from the current position.</p>
  * @since 1.0.0
  */
 public final class RangeWriter extends FilterWriter {
 
 	/**
-	 * <p>The inclusive index of the first char to write.</p>
+	 * <p>Inclusive index of the first char to write.</p>
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>The inclusive index of the last char to write.<p>
+	 * <p>Inclusive index of the last char to write.<p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -52,11 +53,11 @@ public final class RangeWriter extends FilterWriter {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code Writer} and a range from {@code 0} to the given inclusive index.</p>
-	 * @param writer the delegated {@code Writer}
+	 * <p>Constructor with a {@code Writer} to decorate and a range from {@code 0} to an inclusive index.</p>
+	 * @param writer the {@code Writer} to decorate
 	 * @param toIndex the inclusive index of the last char to write
-	 * @throws NullPointerException if the delegated {@code Writer} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is negative
+	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public RangeWriter(final Writer writer, final long toIndex) {
@@ -64,16 +65,16 @@ public final class RangeWriter extends FilterWriter {
 	}
 
 	/**
-	 * <p>Constructor with a delegated {@code Writer} and a range from an inclusive index to another one.</p>
-	 * @param writer the delegated {@code Writer}
+	 * <p>Constructor with a {@code Writer} to decorate and a range from an inclusive index to another one.</p>
+	 * @param writer the {@code Writer} to decorate
 	 * @param fromIndex the inclusive index of the first char to write
 	 * @param toIndex the inclusive index of the last char to write
-	 * @throws NullPointerException if the delegated {@code Writer} is {@code null}
-	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
+	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeWriter(final Writer writer, final long fromIndex, final long toIndex) {
-		super(writer);
+		super(Objects.requireNonNull(writer, "Invalid Writer (not null expected)"));
 		if (0L > fromIndex) {
 			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
 		}
@@ -93,26 +94,46 @@ public final class RangeWriter extends FilterWriter {
 	}
 
 	@Override
-	public void write(final char[] cbuf, final int off, final int len) throws IOException {
-		if (fromIndex <= index + len && toIndex >= index) {
-			final var offset = off + (fromIndex > index ? (int) (fromIndex - index) : 0);
-			out.write(cbuf, offset, Math.min(len, (int) (toIndex - index + 1)) - offset);
+	public void write(final char[] chars, final int offset, final int length) throws IOException {
+		if (null == chars) {
+			throw new NullPointerException("Invalid chars (not null expected)");
 		}
-		index += len;
+		if (0 > offset || chars.length < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + chars.length + " expected)");
+		}
+		if (0 > length || chars.length - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (chars.length - offset) + " expected)");
+		}
+		if (0 == length) {
+			return;
+		}
+		if (fromIndex <= index + length && toIndex >= index) {
+			out.write(chars, offset + (fromIndex > index ? (int) (fromIndex - index) : 0), Math.min(length, toIndex != index ? (int) (toIndex - index) : 1));
+		}
+		index += length;
 	}
 
 	@Override
-	public void write(final String str, final int off, final int len) throws IOException {
-		if (fromIndex <= index + len && toIndex >= index) {
-			final var offset = off + (fromIndex > index ? (int) (fromIndex - index) : 0);
-			out.write(str, offset, Math.min(len, (int) (toIndex - index + 1)) - offset);
+	public void write(final String string, final int offset, final int length) throws IOException {
+		if (null == string) {
+			throw new NullPointerException("Invalid String (not null expected)");
 		}
-		index += len;
+		final var stringLength = string.length();
+		if (0 > offset || stringLength < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + stringLength + " expected)");
+		}
+		if (0 > length || stringLength - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (stringLength - offset) + " expected)");
+		}
+		if (fromIndex <= index + length && toIndex >= index) {
+			out.write(string, offset + (fromIndex > index ? (int) (fromIndex - index) : 0), Math.min(length, toIndex != index ? (int) (toIndex - index) : 1));
+		}
+		index += length;
 	}
 
 	/**
 	 * <p>Get the inclusive index of the first char to write.</p>
-	 * @return the inclusive index
+	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
@@ -121,7 +142,7 @@ public final class RangeWriter extends FilterWriter {
 
 	/**
 	 * <p>Get the inclusive index of the last char to write.<p>
-	 * @return the inclusive index
+	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */
 	public long getToIndex() {

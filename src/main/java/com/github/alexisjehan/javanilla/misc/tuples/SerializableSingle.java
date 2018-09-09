@@ -27,10 +27,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * <p>A {@code SerializableSingle} is an immutable tuple that is composed of an unique {@link Serializable} object.</p>
+ * <p>A {@code SerializableSingle} is an immutable tuple that is composed of an unique {@link Serializable} element.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
- * @param <U> the type of the unique object
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
+ * @param <U> the type of the unique element
  * @see Single
  * @since 1.1.0
  */
@@ -40,17 +41,17 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.1.0
 	 */
-	private static final long serialVersionUID = 4040327707639074966L;
+	private static final long serialVersionUID = -5782603938816673562L;
 
 	/**
-	 * <p>Unique object.</p>
+	 * <p>Unique {@code Serializable} element.</p>
 	 * @since 1.1.0
 	 */
 	private final U unique;
 
 	/**
 	 * <p>Standard constructor.</p>
-	 * @param unique the unique object or {@code null}
+	 * @param unique the unique {@code Serializable} element or {@code null}
 	 * @since 1.1.0
 	 */
 	public SerializableSingle(final U unique) {
@@ -58,8 +59,8 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Get the unique object of the {@code SerializableSingle}.</p>
-	 * @return the unique object
+	 * <p>Get the unique {@code Serializable} element of the {@code SerializableSingle}.</p>
+	 * @return the unique {@code Serializable} element
 	 * @since 1.1.0
 	 */
 	public U getUnique() {
@@ -89,22 +90,22 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
+	 * <p>Vanilla constructor.</p>
+	 * @param unique the unique {@code Serializable} element or {@code null}
+	 * @param <U> the type of the unique serializable element
+	 * @return the constructed {@code SerializableSingle}
+	 * @since 1.1.0
+	 */
+	public static <U extends Serializable> SerializableSingle<U> of(final U unique) {
+		return new SerializableSingle<>(unique);
+	}
+
+	/**
 	 * <p>Converts the current {@code SerializableSingle} to a {@code Single}.</p>
 	 * @return the converted {@code Single}
 	 * @since 1.1.0
 	 */
 	public Single<U> toSingle() {
 		return new Single<>(unique);
-	}
-
-	/**
-	 * <p>Vanilla constructor.</p>
-	 * @param unique the unique object or {@code null}
-	 * @param <U> the type of the unique object
-	 * @return the constructed {@code SerializableSingle}
-	 * @since 1.1.0
-	 */
-	public static <U extends Serializable> SerializableSingle<U> of(final U unique) {
-		return new SerializableSingle<>(unique);
 	}
 }

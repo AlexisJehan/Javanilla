@@ -36,21 +36,9 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableSupplierTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableSupplier<?, IOException> throwableSupplier = () -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(throwableSupplier::get);
-	}
-
-	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final ThrowableSupplier<Integer, IOException> throwableSupplier1 = () -> 1;
-		try {
-			assertThat(throwableSupplier1.get()).isEqualTo(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableSupplier1.get()).isEqualTo(1);
 		assertThat(ThrowableSupplier.unchecked(throwableSupplier1).get()).isEqualTo(1);
 
 		final ThrowableSupplier<?, IOException> throwableSupplier2 = () -> {
@@ -61,7 +49,7 @@ final class ThrowableSupplierTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableSupplier.unchecked(null));
 	}
 
@@ -75,7 +63,7 @@ final class ThrowableSupplierTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableSupplier.of(null));
 	}
 }

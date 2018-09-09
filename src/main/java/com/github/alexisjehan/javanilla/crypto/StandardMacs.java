@@ -21,61 +21,61 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.github.alexisjehan.javanilla.security;
+package com.github.alexisjehan.javanilla.crypto;
 
-import java.security.MessageDigest;
+import javax.crypto.Mac;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.</p>
- * @since 1.0.0
+ * <p>A {@link Mac} factory to get standard instances without throwing checked exceptions.</p>
+ * @since 1.1.0
  */
-public final class StandardMessageDigests {
+public final class StandardMacs {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
-	private StandardMessageDigests() {
+	private StandardMacs() {
 		// Not available
 	}
 
 	/**
-	 * <p>Get a new "MD5" {@code MessageDigest} instance.</p>
-	 * @return a "MD5" {@code MessageDigest} instance
-	 * @since 1.0.0
+	 * <p>Get a new "HmacMD5" {@code Mac} instance.</p>
+	 * @return a "HmacMD5" {@code Mac} instance
+	 * @since 1.1.0
 	 */
-	public static MessageDigest getMd5Instance() {
-		return getInstance("MD5");
+	public static Mac getHmacMd5Instance() {
+		return getInstance("HmacMD5");
 	}
 
 	/**
-	 * <p>Get a new "SHA-1" {@code MessageDigest} instance.</p>
-	 * @return a "SHA-1" {@code MessageDigest} instance
-	 * @since 1.0.0
+	 * <p>Get a new "HmacSHA1" {@code Mac} instance.</p>
+	 * @return a "HmacSHA1" {@code Mac} instance
+	 * @since 1.1.0
 	 */
-	public static MessageDigest getSha1Instance() {
-		return getInstance("SHA-1");
+	public static Mac getHmacSha1Instance() {
+		return getInstance("HmacSHA1");
 	}
 
 	/**
-	 * <p>Get a new "SHA-256" {@code MessageDigest} instance.</p>
-	 * @return a "SHA-256" {@code MessageDigest} instance
-	 * @since 1.0.0
+	 * <p>Get a new "HmacSHA256" {@code Mac} instance.</p>
+	 * @return a "HmacSHA256" {@code Mac} instance
+	 * @since 1.1.0
 	 */
-	public static MessageDigest getSha256Instance() {
-		return getInstance("SHA-256");
+	public static Mac getHmacSha256Instance() {
+		return getInstance("HmacSHA256");
 	}
 
 	/**
-	 * <p>Get a new {@code MessageDigest} instance without throwing {@code NoSuchAlgorithmException}.</p>
-	 * @param algorithm the {@code MessageDigest} provided algorithm
-	 * @return a {@code MessageDigest} instance of the provided standard algorithm
-	 * @since 1.0.0
+	 * <p>Get a new {@code Mac} instance without throwing {@code NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@code Mac} algorithm
+	 * @return a {@code Mac} instance of the provided algorithm
+	 * @since 1.1.0
 	 */
-	private static MessageDigest getInstance(final String algorithm) {
+	private static Mac getInstance(final String algorithm) {
 		try {
-			return MessageDigest.getInstance(algorithm);
+			return Mac.getInstance(algorithm);
 		} catch (final NoSuchAlgorithmException e) {
 			throw new AssertionError(e);
 		}

@@ -37,22 +37,10 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableRunnableTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableRunnable<IOException> throwableRunnable = () -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(throwableRunnable::run);
-	}
-
-	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableRunnable<IOException> throwableRunnable1 = () -> list.add(1);
-		try {
-			throwableRunnable1.run();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		throwableRunnable1.run();
 		ThrowableRunnable.unchecked(throwableRunnable1).run();
 		assertThat(list).contains(1, 1);
 
@@ -64,7 +52,7 @@ final class ThrowableRunnableTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableRunnable.unchecked(null));
 	}
 
@@ -78,7 +66,7 @@ final class ThrowableRunnableTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableRunnable.of(null));
 	}
 }

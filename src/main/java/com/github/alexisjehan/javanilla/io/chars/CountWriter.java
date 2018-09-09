@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.io.chars;
 import java.io.FilterWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Objects;
 
 /**
  * <p>A {@link Writer} decorator that counts the number of chars written from the current position.</p>
@@ -40,13 +41,13 @@ public final class CountWriter extends FilterWriter {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code Writer}.</p>
-	 * @param writer the delegated {@code Writer}
+	 * <p>Constructor with a {@code Writer} to decorate.</p>
+	 * @param writer the {@code Writer} to decorate
 	 * @throws NullPointerException if the {@code Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountWriter(final Writer writer) {
-		super(writer);
+		super(Objects.requireNonNull(writer, "Invalid Writer (not null expected)"));
 	}
 
 	@Override
@@ -56,15 +57,34 @@ public final class CountWriter extends FilterWriter {
 	}
 
 	@Override
-	public void write(final char[] cbuf, final int off, final int len) throws IOException {
-		out.write(cbuf, off, len);
-		count += len;
+	public void write(final char[] chars, final int offset, final int length) throws IOException {
+		if (null == chars) {
+			throw new NullPointerException("Invalid chars (not null expected)");
+		}
+		if (0 > offset || chars.length < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + chars.length + " expected)");
+		}
+		if (0 > length || chars.length - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (chars.length - offset) + " expected)");
+		}
+		out.write(chars, offset, length);
+		count += length;
 	}
 
 	@Override
-	public void write(final String str, final int off, final int len) throws IOException {
-		out.write(str, off, len);
-		count += len;
+	public void write(final String string, final int offset, final int length) throws IOException {
+		if (null == string) {
+			throw new NullPointerException("Invalid String (not null expected)");
+		}
+		final var stringLength = string.length();
+		if (0 > offset || stringLength < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + stringLength + " expected)");
+		}
+		if (0 > length || stringLength - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (stringLength - offset) + " expected)");
+		}
+		out.write(string, offset, length);
+		count += length;
 	}
 
 	/**

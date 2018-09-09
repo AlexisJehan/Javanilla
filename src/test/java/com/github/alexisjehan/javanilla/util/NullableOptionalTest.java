@@ -63,7 +63,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testIfPresentNull() {
+	void testIfPresentInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).ifPresent(null));
 	}
 
@@ -82,7 +82,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testIfPresentOrElseNull() {
+	void testIfPresentOrElseInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).ifPresentOrElse(null, () -> {}));
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).ifPresentOrElse(e -> {}, null));
 	}
@@ -96,7 +96,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testFilterNull() {
+	void testFilterInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).filter(null));
 	}
 
@@ -109,7 +109,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testMapNull() {
+	void testMapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).map(null));
 	}
 
@@ -122,7 +122,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testFlatMapNull() {
+	void testFlatMapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).flatMap(null));
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).flatMap(i -> null));
 	}
@@ -135,7 +135,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testOrNull() {
+	void testOrInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).or(null));
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.empty().or(() -> null).get());
 	}
@@ -159,7 +159,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testOrElseGetNull() {
+	void testOrElseGetInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).orElseGet(null));
 	}
 
@@ -170,7 +170,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testOrElseThrowNull() {
+	void testOrElseThrowInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).orElseThrow(null));
 	}
 
@@ -213,7 +213,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testOfOptionalNull() {
+	void testOfOptionalInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.ofOptional(null));
 	}
 }

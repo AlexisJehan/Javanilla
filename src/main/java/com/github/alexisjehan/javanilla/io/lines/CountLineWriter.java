@@ -38,8 +38,8 @@ public final class CountLineWriter extends FilterLineWriter {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code LineWriter}.</p>
-	 * @param lineWriter the delegated {@code LineWriter}
+	 * <p>Constructor with a {@code LineWriter} to decorate.</p>
+	 * @param lineWriter the {@code LineWriter} to decorate
 	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
 	 * @since 1.0.0
 	 */

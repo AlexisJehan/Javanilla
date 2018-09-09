@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.io;
 import java.io.*;
 
 /**
- * <p>An utility class to work with {@link Serializable} objects.</p>
+ * <p>An utility class that provides {@link Serializable} tools.</p>
  * @since 1.0.0
  */
 public final class Serializables {
@@ -40,31 +40,29 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Serialize the given {@code Serializable} object in a {@code byte array}.</p>
-	 * @param serializable the {@code Serializable} object or {@code null}
-	 * @param <S> the type of the {@code Serializable} object to serialize
-	 * @return a {@code byte array} that contains the serialized data
+	 * <p>Serialize the given {@code Serializable} to a {@code byte} array.</p>
+	 * @param serializable the {@code Serializable} or {@code null}
+	 * @return a {@code byte} array that contains the serialized data
 	 * @throws SerializationException might occurs with serialization operations
 	 * @since 1.0.0
 	 */
-	public static <S extends Serializable> byte[] serialize(final S serializable) {
+	public static byte[] serialize(final Serializable serializable) {
 		final var byteArrayOutputStream = new ByteArrayOutputStream();
 		serialize(serializable, byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	}
 
 	/**
-	 * <p>Serialize the given {@code Serializable} object to an {@code OutputStream}.</p>
+	 * <p>Serialize the given {@code Serializable} to an {@code OutputStream}.</p>
 	 * @param serializable the {@code Serializable} object or {@code null}
 	 * @param outputStream the {@code OutputStream} to write into
-	 * @param <S> the type of the {@code Serializable} object to serialize
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
 	 * @throws SerializationException might occurs with serialization or I/O operations
 	 * @since 1.0.0
 	 */
-	public static <S extends Serializable> void serialize(final S serializable, final OutputStream outputStream) {
+	public static void serialize(final Serializable serializable, final OutputStream outputStream) {
 		if (null == outputStream) {
-			throw new NullPointerException("Invalid output stream (not null expected)");
+			throw new NullPointerException("Invalid OutputStream (not null expected)");
 		}
 		try (final var objectOutputStream = new ObjectOutputStream(outputStream)) {
 			objectOutputStream.writeObject(serializable);
@@ -74,13 +72,13 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Deserialize the given {@code byte array} to a new {@code Serializable} object.</p>
-	 * @param bytes the {@code byte array} that contains the serialized data
-	 * @param <S> the type of the {@code Serializable} object to deserialize
-	 * @return a new {@code Serializable} object from the serialized data
-	 * @throws NullPointerException if the {@code byte array} is {@code null}
+	 * <p>Deserialize from the given {@code byte} array to a new {@code Serializable}.</p>
+	 * @param bytes the {@code byte} array that contains the serialized data
+	 * @param <S> the type of the {@code Serializable}
+	 * @return a new {@code Serializable} from the serialized data
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @throws SerializationException might occurs with serialization operations
-	 * @throws ClassCastException if the requested type is different with the serialized data type
+	 * @throws ClassCastException if the type is different of the serialized data type
 	 * @since 1.0.0
 	 */
 	public static <S extends Serializable> S deserialize(final byte[] bytes) {
@@ -91,19 +89,19 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Deserialize from the given {@code InputStream} to a new {@code Serializable} object.</p>
+	 * <p>Deserialize from the given {@code InputStream} to a new {@code Serializable}.</p>
 	 * @param inputStream the {@code InputStream} to read into
-	 * @param <S> the type of the {@code Serializable} object to deserialize
-	 * @return a new {@code Serializable} object from the serialized data
+	 * @param <S> the type of the {@code Serializable}
+	 * @return a new {@code Serializable} from the serialized data
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @throws SerializationException might occurs with serialization or I/O operations
-	 * @throws ClassCastException if the requested type is different with the serialized data type
+	 * @throws ClassCastException if the type is different of the serialized data type
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
 	public static <S extends Serializable> S deserialize(final InputStream inputStream) {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		try (final var objectInputStream = new ObjectInputStream(inputStream)) {
 			return (S) objectInputStream.readObject();

@@ -38,27 +38,27 @@ final class FilterBagTest extends AbstractBagTest {
 	@Override
 	<E> Bag<E> newBag() {
 		return new FilterBag<>(new MapBag<>()) {
-
+			// Nothing to override
 		};
 	}
 
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new FilterBag<>((Bag<String>) null) {
-
+			// Nothing to override
 		});
 	}
 
 	@Test
 	void testEqualsHashCodeToString() {
 		final var bag = new FilterBag<>(new MapBag<>(List.of("foo", "bar"))) {
-
+			// Nothing to override
 		};
 		assertThat(bag).isEqualTo(bag);
 		assertThat(bag).isNotEqualTo(1);
 		{
 			final var otherBag = new FilterBag<>(new MapBag<>(List.of("foo", "bar"))) {
-
+				// Nothing to override
 			};
 			assertThat(bag).isEqualTo(otherBag);
 			assertThat(bag).hasSameHashCodeAs(otherBag);
@@ -66,7 +66,7 @@ final class FilterBagTest extends AbstractBagTest {
 		}
 		{
 			final var otherBag = new FilterBag<>(new MapBag<>(List.of("foo"))) {
-
+				// Nothing to override
 			};
 			assertThat(bag).isNotEqualTo(otherBag);
 			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
@@ -74,7 +74,7 @@ final class FilterBagTest extends AbstractBagTest {
 		}
 		{
 			final var otherBag = new FilterBag<>(new MapBag<>(List.of("fooo", "bar"))) {
-
+				// Nothing to override
 			};
 			assertThat(bag).isNotEqualTo(otherBag);
 			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
@@ -82,7 +82,7 @@ final class FilterBagTest extends AbstractBagTest {
 		}
 		{
 			final var otherBag = new FilterBag<>(new MapBag<>(List.of("bar", "bar"))) {
-
+				// Nothing to override
 			};
 			assertThat(bag).isNotEqualTo(otherBag);
 			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());

@@ -24,7 +24,6 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.misc.tuples;
 
 import com.github.alexisjehan.javanilla.io.Serializables;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

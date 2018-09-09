@@ -39,10 +39,10 @@ public final class MinkowskiDistance implements Distance, Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -4275713249812379264L;
+	private static final long serialVersionUID = 109646403712305898L;
 
 	/**
-	 * <p>The order.</p>
+	 * <p>Distance order.</p>
 	 * @since 1.0.0
 	 */
 	private final int order;
@@ -69,16 +69,16 @@ public final class MinkowskiDistance implements Distance, Serializable {
 			throw new NullPointerException("Invalid second vector (not null expected)");
 		}
 		if (vector1.length != vector2.length) {
-			throw new IllegalArgumentException("Distinct vectors length: " + vector1.length + " and " + vector2.length + " (same expected)");
+			throw new IllegalArgumentException("Invalid vectors dimension: " + vector1.length + " and " + vector2.length + " (same expected)");
 		}
 		if (1 > vector1.length) {
-			throw new IllegalArgumentException("Invalid vectors dimension: " + vector1.length + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid vector dimension: " + vector1.length + " (greater than or equal to 1 expected)");
 		}
-		var s = 0.0d;
+		var result = 0.0d;
 		for (var i = 0; i < vector1.length; ++i) {
-			s += Math.pow(Math.abs(vector1[i] - vector2[i]), order);
+			result += Math.pow(Math.abs(vector1[i] - vector2[i]), order);
 		}
-		return Math.pow(s, 1d / order);
+		return Math.pow(result, 1.0d / order);
 	}
 
 	@Override

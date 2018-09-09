@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /**
- * <p>A set of {@link java.util.Collection}/{@link java.util.Map} tools and decorators.</p>
+ * <p>A set of {@link java.util.List}/{@link java.util.Set}/{@link java.util.Map} tools.</p>
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.collection;

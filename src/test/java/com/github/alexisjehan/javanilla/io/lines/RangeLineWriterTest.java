@@ -26,14 +26,8 @@ package com.github.alexisjehan.javanilla.io.lines;
 import com.github.alexisjehan.javanilla.io.chars.Writers;
 import org.junit.jupiter.api.Test;
 
-import java.io.CharArrayWriter;
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.io.StringWriter;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -42,127 +36,106 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class RangeLineWriterTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input-lines.txt")).getFile()).toPath();
-
-	@Test
-	void testConstructorNull() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeLineWriter(null, 6L, 20L));
-	}
-
 	@Test
 	void testConstructorInvalid() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeLineWriter(new LineWriter(Writers.BLANK), -5L, 20L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeLineWriter(new LineWriter(Writers.BLANK), 10L, 5L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeLineWriter(null, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeLineWriter(new LineWriter(Writers.EMPTY), -1L, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeLineWriter(new LineWriter(Writers.EMPTY), 1L, 0L));
 	}
 
 	@Test
-	void testWriteRange() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(charArrayWriter), 6L, 10L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					String line;
-					while (null != (line = reader.readLine())) {
-						rangeLineWriter.write(line);
-					}
-				}
-			}
-			assertThat(charArrayWriter.toString()).isEqualTo(Files.lines(INPUT).skip(6).limit(11 - 6).collect(Collectors.joining(System.lineSeparator())));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testWriteAll() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(charArrayWriter), 2000L)) {
+	void testWrite() throws IOException {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 0L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					String line;
-					while (null != (line = reader.readLine())) {
-						rangeLineWriter.write(line);
-					}
-				}
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(0L);
+				rangeLineWriter.write("abc");
+				rangeLineWriter.write("def");
+				rangeLineWriter.write("ghi");
+				rangeLineWriter.flush();
 			}
-			assertThat(charArrayWriter.toString()).isEqualTo(Files.lines(INPUT).collect(Collectors.joining(System.lineSeparator())));
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter).hasToString("abc");
 		}
-	}
-
-	@Test
-	void testWriteOut() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(charArrayWriter), 1000L, 2000L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					String line;
-					while (null != (line = reader.readLine())) {
-						rangeLineWriter.write(line);
-					}
-				}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 1L, 1L)) {
+				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(1L);
+				rangeLineWriter.write("abc");
+				rangeLineWriter.write("def");
+				rangeLineWriter.write("ghi");
+				rangeLineWriter.flush();
 			}
-			assertThat(charArrayWriter.toString()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter).hasToString("def");
 		}
-	}
-
-	@Test
-	void testNewLineRange() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(charArrayWriter), 6L, 10L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(6L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					while (null != reader.readLine()) {
-						rangeLineWriter.newLine();
-					}
-				}
-			}
-			assertThat(charArrayWriter.toString()).isEqualTo(Files.lines(INPUT).skip(6).limit(11 - 6).map(s -> "").collect(Collectors.joining(System.lineSeparator())) + System.lineSeparator());
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testNewLineAll() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(charArrayWriter), 2000L)) {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					while (null != reader.readLine()) {
-						rangeLineWriter.newLine();
-					}
-				}
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
+				rangeLineWriter.write("abc");
+				rangeLineWriter.write("def");
+				rangeLineWriter.write("ghi");
+				rangeLineWriter.flush();
 			}
-			assertThat(charArrayWriter.toString()).isEqualTo(Files.lines(INPUT).map(s -> "").collect(Collectors.joining(System.lineSeparator())) + System.lineSeparator());
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter).hasToString("abc" + System.lineSeparator() + "def" + System.lineSeparator() + "ghi");
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 10L, 10L)) {
+				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
+				rangeLineWriter.write("abc");
+				rangeLineWriter.write("def");
+				rangeLineWriter.write("ghi");
+				rangeLineWriter.flush();
+			}
+			assertThat(stringWriter.toString()).isEmpty();
 		}
 	}
 
 	@Test
-	void testNewLineOut() {
-		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(charArrayWriter), 1000L, 2000L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1000L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(2000L);
-				try (final var reader = Files.newBufferedReader(INPUT)) {
-					while (null != reader.readLine()) {
-						rangeLineWriter.newLine();
-					}
-				}
+	void testNewLine() throws IOException {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 0L)) {
+				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(0L);
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.flush();
 			}
-			assertThat(charArrayWriter.toString()).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter).hasToString(System.lineSeparator());
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 1L, 1L)) {
+				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1L);
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(1L);
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.flush();
+			}
+			assertThat(stringWriter).hasToString(System.lineSeparator());
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 10L)) {
+				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.flush();
+			}
+			assertThat(stringWriter).hasToString(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 10L, 10L)) {
+				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(10L);
+				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.newLine();
+				rangeLineWriter.flush();
+			}
+			assertThat(stringWriter.toString()).isEmpty();
 		}
 	}
 }

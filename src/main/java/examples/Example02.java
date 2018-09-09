@@ -21,8 +21,29 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-/**
- * <p>Extras {@link java.security} and {@link javax.crypto} components.</p>
- * @since 1.0.0
- */
-package com.github.alexisjehan.javanilla.security;
+package examples;
+
+import com.github.alexisjehan.javanilla.io.lines.LineReader;
+import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
+import com.github.alexisjehan.javanilla.io.lines.LineWriter;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
+public final class Example02 {
+
+	public static void main(final String... args) throws IOException {
+		final var unixFilePath = (Path) null;
+		final var windowsFilePath = (Path) null;
+
+		final var ignoreTerminatingNewLine = true;
+		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
+			final var appendTerminatingNewLine = false;
+			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
+				// Transfers all lines from the LineReader to the LineWriter
+				final var transferred = lineReader.transferTo(lineWriter);
+				System.out.println(transferred + " lines transferred");
+			}
+		}
+	}
+}

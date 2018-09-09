@@ -89,7 +89,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowablePredicate} to a {@code Predicate} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwablePredicate the given {@code ThrowablePredicate}
+	 * @param throwablePredicate the {@code ThrowablePredicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Predicate}
@@ -98,7 +98,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 */
 	static <T, X extends Throwable> Predicate<T> unchecked(final ThrowablePredicate<? super T, ? extends X> throwablePredicate) {
 		if (null == throwablePredicate) {
-			throw new NullPointerException("Invalid throwable predicate (not null expected)");
+			throw new NullPointerException("Invalid ThrowablePredicate (not null expected)");
 		}
 		return t -> {
 			try {
@@ -110,8 +110,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowablePredicate} that throws nothing from the given {@code Predicate}.</p>
-	 * @param predicate the given {@code Predicate}
+	 * <p>Create a {@code ThrowablePredicate} from the given {@code Predicate}.</p>
+	 * @param predicate the {@code Predicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowablePredicate}
@@ -120,7 +120,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 */
 	static <T, X extends Throwable> ThrowablePredicate<T, X> of(final Predicate<? super T> predicate) {
 		if (null == predicate) {
-			throw new NullPointerException("Invalid predicate (not null expected)");
+			throw new NullPointerException("Invalid Predicate (not null expected)");
 		}
 		return predicate::test;
 	}

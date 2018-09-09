@@ -1,5 +1,133 @@
 # Changelog
 
+## 1.2.0 _(2018-09-10)_
+
+**crypto**
+- Renamed the _security_ package to _crypto_
+
+**io.bytes**
+- Added _UncheckedInputStream_ and _UncheckedOutputStream_ classes
+
+**io.bytes.InputStreams**
+- Added the _of(Path)_ method
+- Removed the _ENDLESS_ attribute
+
+**io.bytes.OutputStreams**
+- Added the _of(Path)_ method
+- Renamed the _BLANK_ attribute to _EMPTY_
+- Renamed the _nullToBlank()_ method to _nullToEmpty()_
+
+**io.chars**
+- Added _UncheckedReader_ and _UncheckedWriter_ classes
+
+**io.chars.Readers**
+- Added _of(Path)_ and _of(Path, Charset)_ methods
+- Removed the _ENDLESS_ attribute
+
+**io.chars.Writers**
+- Added _of(Path)_ and _of(Path, Charset)_ methods
+- Renamed the _BLANK_ attribute to _EMPTY_
+- Renamed the _nullToBlank()_ method to _nullToEmpty()_
+
+**io.lines**
+- Added _UncheckedLineReader_ and _UncheckedLineWriter_ classes
+
+**lang.Strings**
+- Added _nullToEmpty(String)_, _emptyToNull(String)_, _blankToNull(String)_ and _blankToEmpty(String)_ methods
+- Added the _isEmpty()_ method
+- Added _isBoolean()_, _isShort()_, _isInt()_, _isLong()_, _isFloat()_, _isDouble()_, _isBinary()_, _isOctal()_ and _isDecimal()_ methods
+- Changed _isBase64(CharSequence, boolean)_ and _isBase64Url(CharSequence, boolean)_ methods
+- Added _quote(char)_, _quote(char, char, char)_, _unquoteChar(CharSequence)_ and _unquoteChar(CharSequence, char, char)_  methods
+- Removed _quote(Object)_ and _quote(Object, char, char)_ methods
+
+**lang.array.BooleanArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Boolean[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.ByteArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Byte[])_ and _toBoxed()_ methods
+- Added _ofBinaryString()_ and _toBinaryString()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.CharArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Char[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.DoubleArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Double[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.FloatArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Float[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.IntArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Integer[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.LongArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _of(Long[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.ObjectArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added _concat()_ and _join()_ methods
+- Added the _singleton(Class, Object)_ method
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**lang.array.ShortArrays**
+- Added the _isEmpty()_ method
+- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
+- Added the _singleton(Class, Object)_ method
+- Added _of(Short[])_ and _toBoxed()_ methods
+- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
+
+**misc**
+- Added the _BloomFilter_ class
+
+**misc.trees**
+- Added _TreeNode_ and _LinkedTreeNode_ classes
+
+**util.function.Consumers**
+- Added the _distinct()_ method
+
+**util.function.Suppliers**
+- Renamed _cached()_ methods to _cache()_
+
+**util.iteration**
+- Added the _FilterIterator_ class
+- Added the _IndexedElement_ class
+
+**util.iteration.Iterables**
+- Added _nullToEmpty(PrimitiveIterable)_ methods
+- Added the _index()_ method
+- Added _getFirst()_ and _getLast()_ methods
+- Added the _wrap(Stream)_ method
+
+**util.iteration.Iterators**
+- Added _nullToEmpty(PrimitiveIterator)_ and _emptyToNull(PrimitiveIterator)_ methods
+- Added the _isEmpty()_ method
+- Added the _index()_ method
+- Added _getFirst()_ and _getLast()_ methods
+- Added _removeAll()_ and _removeIf()_ methods
+- Removed the _toEnumeration()_ method
+
+
 ## 1.1.0 _(2018-06-20)_
 
 **io.bytes.InputStreams**

@@ -58,31 +58,15 @@ final class SetsTest {
 	}
 
 	@Test
-	void testNullToDefaultSet() {
-		assertThat(Sets.nullToDefault(null, Collections.singleton("foo"))).containsExactly("foo");
-		assertThat(Sets.nullToDefault(Collections.emptySet(), Collections.singleton("foo"))).isEmpty();
-		assertThat(Sets.nullToDefault(Collections.singleton("foo"), Collections.singleton("foo"))).containsExactly("foo");
+	void testNullToDefault() {
+		assertThat(Sets.nullToDefault(null, Collections.singleton("bar"))).containsExactly("bar");
+		assertThat(Sets.nullToDefault(Collections.emptySet(), Collections.singleton("bar"))).isEmpty();
+		assertThat(Sets.nullToDefault(Collections.singleton("foo"), Collections.singleton("bar"))).containsExactly("foo");
 	}
 
 	@Test
-	void testNullToDefaultSortedSet() {
-		assertThat(Sets.nullToDefault((SortedSet<String>) null, new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-		assertThat(Sets.nullToDefault(Collections.emptySortedSet(), new TreeSet<>(Collections.singleton("foo")))).isEmpty();
-		assertThat(Sets.nullToDefault((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-	}
-
-	@Test
-	void testNullToDefaultNavigableSet() {
-		assertThat(Sets.nullToDefault(null, new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-		assertThat(Sets.nullToDefault(Collections.emptyNavigableSet(), new TreeSet<>(Collections.singleton("foo")))).isEmpty();
-		assertThat(Sets.nullToDefault(new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-	}
-
-	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.emptySet(), null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.emptySortedSet(), null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.emptyNavigableSet(), null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.singleton("foo"), null));
 	}
 
 	@Test
@@ -107,31 +91,15 @@ final class SetsTest {
 	}
 
 	@Test
-	void testEmptyToDefaultSet() {
-		assertThat(Sets.emptyToDefault(null, Collections.singleton("foo"))).isNull();
-		assertThat(Sets.emptyToDefault(Collections.emptySet(), Collections.singleton("foo"))).containsExactly("foo");
-		assertThat(Sets.emptyToDefault(Collections.singleton("foo"), Collections.singleton("foo"))).containsExactly("foo");
+	void testEmptyToDefault() {
+		assertThat(Sets.emptyToDefault(null, Collections.singleton("bar"))).isNull();
+		assertThat(Sets.emptyToDefault(Collections.emptySet(), Collections.singleton("bar"))).containsExactly("bar");
+		assertThat(Sets.emptyToDefault(Collections.singleton("foo"), Collections.singleton("bar"))).containsExactly("foo");
 	}
 
 	@Test
-	void testEmptyToDefaultSortedSet() {
-		assertThat(Sets.emptyToDefault((SortedSet<String>) null, new TreeSet<>(Collections.singleton("foo")))).isNull();
-		assertThat(Sets.emptyToDefault(Collections.emptySortedSet(), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-		assertThat(Sets.emptyToDefault((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-	}
-
-	@Test
-	void testEmptyToDefaultNavigableSet() {
-		assertThat(Sets.emptyToDefault(null, new TreeSet<>(Collections.singleton("foo")))).isNull();
-		assertThat(Sets.emptyToDefault(Collections.emptyNavigableSet(), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-		assertThat(Sets.emptyToDefault(new TreeSet<>(Collections.singleton("foo")), new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
-	}
-
-	@Test
-	void testEmptyToDefaultNull() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.emptySet(), Collections.emptySet()));
-		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.emptySortedSet(), Collections.emptySortedSet()));
-		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.emptyNavigableSet(), Collections.emptyNavigableSet()));
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.singleton("foo"), Collections.emptySet()));
 	}
 
 	@Test
@@ -142,7 +110,7 @@ final class SetsTest {
 	}
 
 	@Test
-	void testOfEntriesOrderedNull() {
+	void testOfEntriesOrderedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Sets.ofOrdered((String[]) null));
 	}
 }

@@ -66,7 +66,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableConsumer} to a {@code Consumer} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableConsumer the given {@code ThrowableConsumer}
+	 * @param throwableConsumer the {@code ThrowableConsumer} to convert
 	 * @param <T> the type of the input to the operation
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Consumer}
@@ -75,7 +75,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 */
 	static <T, X extends Throwable> Consumer<T> unchecked(final ThrowableConsumer<? super T, ? extends X> throwableConsumer) {
 		if (null == throwableConsumer) {
-			throw new NullPointerException("Invalid throwable consumer (not null expected)");
+			throw new NullPointerException("Invalid ThrowableConsumer (not null expected)");
 		}
 		return t -> {
 			try {
@@ -87,8 +87,8 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableConsumer} that throws nothing from the given {@code Consumer}.</p>
-	 * @param consumer the given {@code Consumer}
+	 * <p>Create a {@code ThrowableConsumer} from the given {@code Consumer}.</p>
+	 * @param consumer the {@code Consumer} to convert
 	 * @param <T> the type of the input to the operation
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableConsumer}
@@ -97,7 +97,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 */
 	static <T, X extends Throwable> ThrowableConsumer<T, X> of(final Consumer<? super T> consumer) {
 		if (null == consumer) {
-			throw new NullPointerException("Invalid consumer (not null expected)");
+			throw new NullPointerException("Invalid Consumer (not null expected)");
 		}
 		return consumer::accept;
 	}

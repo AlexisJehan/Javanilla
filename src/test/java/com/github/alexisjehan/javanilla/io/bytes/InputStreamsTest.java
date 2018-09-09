@@ -24,20 +24,18 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.io.bytes;
 
 import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -46,160 +44,143 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class InputStreamsTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testEmpty() {
+	void testEmpty() throws IOException {
+		final var buffer = new byte[2];
 		try (final var emptyInputStream = InputStreams.EMPTY) {
 			assertThat(emptyInputStream.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testEndless() {
-		try (final var endlessInputStream = InputStreams.ENDLESS) {
-			assertThat(endlessInputStream.read()).isNotEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(emptyInputStream.read(ByteArrays.EMPTY)).isEqualTo(0);
+			assertThat(emptyInputStream.read(buffer)).isEqualTo(-1);
+			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.read(null));
+			assertThat(emptyInputStream.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(emptyInputStream.read(buffer, 0, 1)).isEqualTo(-1);
+			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, 0, 3));
+			assertThat(emptyInputStream.readAllBytes()).isEmpty();
+			assertThat(emptyInputStream.readNBytes(buffer, 0, 1)).isEqualTo(0);
+			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.readNBytes(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, 3));
+			assertThat(emptyInputStream.skip(1)).isEqualTo(0);
+			assertThat(emptyInputStream.transferTo(OutputStreams.EMPTY)).isEqualTo(0L);
+			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.transferTo(null));
 		}
 	}
 
 	@Test
 	void testNullToEmpty() {
-		assertThat(InputStreams.nullToEmpty(null)).isSameAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).isSameAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToEmpty(InputStreams.ENDLESS)).isSameAs(InputStreams.ENDLESS);
+		assertThat(InputStreams.nullToEmpty(null)).hasSameContentAs(InputStreams.EMPTY);
+		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).hasSameContentAs(InputStreams.EMPTY);
+		assertThat(InputStreams.nullToEmpty(InputStreams.singleton((byte) 1))).hasSameContentAs(InputStreams.singleton((byte) 1));
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(InputStreams.nullToDefault(null, InputStreams.ENDLESS)).isSameAs(InputStreams.ENDLESS);
-		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.ENDLESS)).isSameAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToDefault(InputStreams.ENDLESS, InputStreams.ENDLESS)).isSameAs(InputStreams.ENDLESS);
+		assertThat(InputStreams.nullToDefault(null, InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.singleton((byte) 0));
+		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.EMPTY);
+		assertThat(InputStreams.nullToDefault(InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.singleton((byte) 1));
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.nullToDefault(InputStreams.EMPTY, null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.nullToDefault(InputStreams.singleton((byte) 1), null));
 	}
 
 	@Test
-	void testBuffered() {
-		try {
-			try (final var inputStream = InputStreams.EMPTY) {
-				assertThat(inputStream).isNotSameAs(InputStreams.buffered(inputStream));
-				assertThat(InputStreams.buffered(inputStream)).isInstanceOf(BufferedInputStream.class);
+	void testBuffered() throws IOException {
+		try (final var inputStream = InputStreams.EMPTY) {
+			assertThat(inputStream).isNotInstanceOf(BufferedInputStream.class);
+			try (final var bufferedInputStream = InputStreams.buffered(inputStream)) {
+				assertThat(inputStream).isNotSameAs(bufferedInputStream);
+				assertThat(bufferedInputStream).isInstanceOf(BufferedInputStream.class);
 			}
-			try (final var bufferedInputStream = new BufferedInputStream(InputStreams.EMPTY)) {
-				assertThat(bufferedInputStream).isSameAs(InputStreams.buffered(bufferedInputStream));
-				assertThat(InputStreams.buffered(bufferedInputStream)).isInstanceOf(BufferedInputStream.class);
+		}
+		try (final var inputStream = new BufferedInputStream(InputStreams.EMPTY)) {
+			assertThat(inputStream).isInstanceOf(BufferedInputStream.class);
+			try (final var bufferedInputStream = InputStreams.buffered(inputStream)) {
+				assertThat(inputStream).isSameAs(bufferedInputStream);
+				assertThat(bufferedInputStream).isInstanceOf(BufferedInputStream.class);
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testBufferedNull() {
+	void testBufferedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.buffered(null));
 	}
 
 	@Test
-	void testMarkSupported() {
-		try {
-			try (final var inputStream = InputStreams.EMPTY) {
-				assertThat(inputStream).isNotSameAs(InputStreams.markSupported(inputStream));
-				assertThat(inputStream.markSupported()).isFalse();
-				assertThat(InputStreams.markSupported(inputStream).markSupported()).isTrue();
+	void testMarkSupported() throws IOException {
+		try (final var inputStream = InputStreams.EMPTY) {
+			assertThat(inputStream.markSupported()).isFalse();
+			try (final var markSupportedInputStream = InputStreams.markSupported(inputStream)) {
+				assertThat(inputStream).isNotSameAs(markSupportedInputStream);
+				assertThat(markSupportedInputStream.markSupported()).isTrue();
 			}
-			try (final var bufferedInputStream = new BufferedInputStream(InputStreams.EMPTY)) {
-				assertThat(bufferedInputStream).isSameAs(InputStreams.markSupported(bufferedInputStream));
-				assertThat(bufferedInputStream.markSupported()).isTrue();
-				assertThat(InputStreams.markSupported(bufferedInputStream).markSupported()).isTrue();
+		}
+		try (final var inputStream = new BufferedInputStream(InputStreams.EMPTY)) {
+			assertThat(inputStream.markSupported()).isTrue();
+			try (final var markSupportedInputStream = InputStreams.markSupported(inputStream)) {
+				assertThat(inputStream).isSameAs(markSupportedInputStream);
+				assertThat(markSupportedInputStream.markSupported()).isTrue();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testMarkSupportedNull() {
+	void testMarkSupportedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.markSupported(null));
 	}
 
 	@Test
-	void testUncloseable() {
-		try {
-			try (final var closeableInputStream = Files.newInputStream(INPUT)) {
-				assertThat(closeableInputStream.read()).isNotEqualTo(-1);
-				closeableInputStream.close();
-				assertThatIOException().isThrownBy(closeableInputStream::read);
+	void testUncloseable() throws IOException {
+		final var inputStream = new InputStream() {
+			@Override
+			public int read() {
+				return -1;
 			}
-			try (final var uncloseableInputStream = InputStreams.uncloseable(Files.newInputStream(INPUT))) {
-				assertThat(uncloseableInputStream.read()).isNotEqualTo(-1);
-				uncloseableInputStream.close();
-				assertThat(uncloseableInputStream.read()).isNotEqualTo(-1);
+
+			@Override
+			public void close() throws IOException {
+				throw new IOException();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+		};
+		assertThatIOException().isThrownBy(inputStream::close);
+		{
+			InputStreams.uncloseable(inputStream).close();
 		}
 	}
 
 	@Test
-	void testUncloseableNull() {
+	void testUncloseableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.uncloseable(null));
 	}
 
 	@Test
-	void testLength() {
-		try {
-			try (final var emptyInputStream = InputStreams.EMPTY) {
-				assertThat(InputStreams.length(emptyInputStream)).isEqualTo(0L);
-			}
-			try (final var inputStream = Files.newInputStream(INPUT)) {
-				assertThat(InputStreams.length(inputStream)).isEqualTo(INPUT.toFile().length());
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testLength() throws IOException {
+		assertThat(InputStreams.length(InputStreams.EMPTY)).isEqualTo(0L);
+		assertThat(InputStreams.length(InputStreams.of((byte) 1, (byte) 2, (byte) 3))).isEqualTo(3L);
 	}
 
 	@Test
-	void testLengthNull() {
+	void testLengthInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.length(null));
 	}
 
 	@Test
 	void testConcat() {
-		try (final var concatInputStream = InputStreams.concat(Files.newInputStream(INPUT), Files.newInputStream(INPUT))) {
-			assertThat(InputStreams.toBytes(concatInputStream)).isEqualTo(ByteArrays.concat(Files.readAllBytes(INPUT), Files.readAllBytes(INPUT)));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(InputStreams.concat()).hasSameContentAs(InputStreams.EMPTY);
+		assertThat(InputStreams.concat(InputStreams.singleton((byte) 1))).hasSameContentAs(InputStreams.singleton((byte) 1));
+		assertThat(InputStreams.concat(InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 2))).hasSameContentAs(InputStreams.of((byte) 1, (byte) 2));
 	}
 
 	@Test
-	void testConcatOne() {
-		try (final var concatInputStream = InputStreams.concat(Files.newInputStream(INPUT))) {
-			assertThat(InputStreams.toBytes(concatInputStream)).isEqualTo(Files.readAllBytes(INPUT));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConcatNone() {
-		try (final var concatInputStream = InputStreams.concat()) {
-			assertThat(InputStreams.toBytes(concatInputStream)).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConcatNull() {
+	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((InputStream[]) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((List<InputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((InputStream) null));
@@ -207,119 +188,89 @@ final class InputStreamsTest {
 
 	@Test
 	void testJoin() {
-		try (final var joinInputStream = InputStreams.join(" - ".getBytes(), Files.newInputStream(INPUT), Files.newInputStream(INPUT))) {
-			assertThat(InputStreams.toBytes(joinInputStream)).isEqualTo(ByteArrays.join(" - ".getBytes(), Files.readAllBytes(INPUT), Files.readAllBytes(INPUT)));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(InputStreams.join(ByteArrays.EMPTY, InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 2))).hasSameContentAs(InputStreams.concat(InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 2)));
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).hasSameContentAs(InputStreams.EMPTY);
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton((byte) 1))).hasSameContentAs(InputStreams.singleton((byte) 1));
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 2))).hasSameContentAs(InputStreams.of((byte) 1, (byte) 0, (byte) 2));
 	}
 
 	@Test
-	void testJoinEmptySeparator() {
-		try (final var joinInputStream = InputStreams.join(ByteArrays.EMPTY, Files.newInputStream(INPUT), Files.newInputStream(INPUT))) {
-			assertThat(InputStreams.toBytes(joinInputStream)).isEqualTo(ByteArrays.concat(Files.readAllBytes(INPUT), Files.readAllBytes(INPUT)));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(null, InputStreams.singleton((byte) 1)));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (InputStream[]) null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (List<InputStream>) null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (InputStream) null));
 	}
 
 	@Test
-	void testJoinOne() {
-		try (final var joinInputStream = InputStreams.join(" - ".getBytes(), Files.newInputStream(INPUT))) {
-			assertThat(InputStreams.toBytes(joinInputStream)).isEqualTo(Files.readAllBytes(INPUT));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testSingleton() throws IOException {
+		assertThat(InputStreams.toBytes(InputStreams.singleton((byte) 1))).containsExactly((byte) 1);
 	}
 
 	@Test
-	void testJoinNone() {
-		try (final var joinInputStream = InputStreams.join(" - ".getBytes())) {
-			assertThat(InputStreams.toBytes(joinInputStream)).isEmpty();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testOfBytesAndToBytes() throws IOException {
+		assertThat(InputStreams.toBytes(InputStreams.of())).isEmpty();
+		assertThat(InputStreams.toBytes(InputStreams.of((byte) 1, (byte) 2, (byte) 3))).containsExactly((byte) 1, (byte) 2, (byte) 3);
 	}
 
 	@Test
-	void testJoinNull() {
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(null, InputStreams.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.EMPTY, (InputStream[]) null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.EMPTY, (List<InputStream>) null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.EMPTY, (InputStream) null));
-	}
-
-	@Test
-	void testSingleton() {
-		try {
-			assertThat(InputStreams.toBytes(InputStreams.singleton((byte) 1))).containsExactly((byte) 1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testOfBytesAndToBytes() {
-		try {
-			assertThat(InputStreams.toBytes(InputStreams.of(ByteArrays.EMPTY))).isEmpty();
-			assertThat(InputStreams.toBytes(InputStreams.of((byte) 0, (byte) 255))).containsExactly((byte) 0, (byte) 255);
-			assertThat(InputStreams.toBytes(InputStreams.of(Files.readAllBytes(INPUT)))).isEqualTo(Files.readAllBytes(INPUT));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testOfBytesNull() {
+	void testOfBytesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.of((byte[]) null));
 	}
 
 	@Test
-	void testToBytesNull() {
+	void testToBytesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.toBytes(null));
 	}
 
 	@Test
-	void testOfStringAndToString() {
-		try {
-			assertThat(InputStreams.toString(InputStreams.of(""))).isEmpty();
-			assertThat(InputStreams.toString(InputStreams.of(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1))).isEqualTo(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1));
+	void testOfStringAndToString() throws IOException {
+		assertThat(InputStreams.toString(InputStreams.of(Strings.EMPTY))).isEmpty();
+		assertThat(InputStreams.toString(InputStreams.of(new String("foo".getBytes(), StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1))).isEqualTo(new String("foo".getBytes(), StandardCharsets.ISO_8859_1));
 
-			// Not the same charset
-			assertThat(InputStreams.toString(InputStreams.of(new String(Files.readAllBytes(INPUT), StandardCharsets.UTF_8), StandardCharsets.UTF_16))).isNotEqualTo(new String(Files.readAllBytes(INPUT), StandardCharsets.UTF_8));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		// Not the same charset
+		assertThat(InputStreams.toString(InputStreams.of(new String("foo".getBytes(), StandardCharsets.UTF_8), StandardCharsets.UTF_16))).isNotEqualTo(new String("foo".getBytes(), StandardCharsets.UTF_8));
 	}
 
 	@Test
-	void testOfStringNull() {
+	void testOfStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.of((String) null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.of("", null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.of("foo", null));
 	}
 
 	@Test
-	void testToStringNull() {
+	void testToStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.toString(null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.toString(InputStreams.EMPTY, null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.toString(InputStreams.singleton((byte) 1), null));
 	}
 
 	@Test
-	void testToReader() {
-		try {
-			Assertions.assertThat(Readers.toString(InputStreams.toReader(InputStreams.of("")))).isEmpty();
-			assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)))).isEqualTo(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1));
+	void testToReader() throws IOException {
+		assertThat(Readers.toString(InputStreams.toReader(InputStreams.EMPTY))).isEmpty();
+		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String("foo".getBytes(), StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)))).isEqualTo(new String("foo".getBytes(), StandardCharsets.ISO_8859_1));
 
-			// Not the same charset
-			assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String(Files.readAllBytes(INPUT), StandardCharsets.UTF_8), StandardCharsets.UTF_16)))).isNotEqualTo(new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		// Not the same charset
+		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String("foo".getBytes(), StandardCharsets.UTF_8), StandardCharsets.UTF_16)))).isNotEqualTo(new String("foo".getBytes(), StandardCharsets.ISO_8859_1));
 	}
 
 	@Test
-	void testToReaderNull() {
+	void testToReaderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.toReader(null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.toReader(InputStreams.EMPTY, null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.toReader(InputStreams.singleton((byte) 1), null));
+	}
+
+	@Test
+	void testOfPath() throws IOException {
+		final var path = File.createTempFile(getClass().getName() + ".testOfPath_", ".txt").toPath();
+		Files.write(path, ByteArrays.of((byte) 1, (byte) 2, (byte) 3));
+		try (final var pathInputStream = InputStreams.of(path)) {
+			assertThat(pathInputStream).hasSameContentAs(InputStreams.of((byte) 1, (byte) 2, (byte) 3));
+		}
+		Files.delete(path);
+	}
+
+	@Test
+	void testOfPathInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.of((Path) null));
 	}
 }

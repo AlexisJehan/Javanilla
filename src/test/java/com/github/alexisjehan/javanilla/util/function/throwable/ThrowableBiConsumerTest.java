@@ -39,22 +39,10 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableBiConsumerTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer = (t, u) -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(() -> throwableBiConsumer.accept(1, 2.3f));
-	}
-
-	@Test
-	void testAndThen() {
+	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer1 = (t, u) -> list.add(Pair.of(t, u));
-		try {
-			throwableBiConsumer1.andThen((t, u) -> list.add(Pair.of(t + 1, u + 1.1f))).accept(1, 2.3f);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		throwableBiConsumer1.andThen((t, u) -> list.add(Pair.of(t + 1, u + 1.1f))).accept(1, 2.3f);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(2, 3.4f));
 
 		list.clear();
@@ -66,7 +54,7 @@ final class ThrowableBiConsumerTest {
 	}
 
 	@Test
-	void testAndThenNull() {
+	void testAndThenInvalid() {
 		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer = (t, u) -> {
 			throw new IOException();
 		};
@@ -74,14 +62,10 @@ final class ThrowableBiConsumerTest {
 	}
 
 	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer1 = (t, u) -> list.add(Pair.of(t, u));
-		try {
-			throwableBiConsumer1.accept(1, 2.3f);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		throwableBiConsumer1.accept(1, 2.3f);
 		ThrowableBiConsumer.unchecked(throwableBiConsumer1).accept(1, 2.3f);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(1, 2.3f));
 
@@ -93,7 +77,7 @@ final class ThrowableBiConsumerTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableBiConsumer.unchecked(null));
 	}
 
@@ -107,7 +91,7 @@ final class ThrowableBiConsumerTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableBiConsumer.of(null));
 	}
 }

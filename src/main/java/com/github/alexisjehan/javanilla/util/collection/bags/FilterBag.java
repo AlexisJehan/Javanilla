@@ -30,7 +30,8 @@ import java.util.Set;
 
 /**
  * <p>An abstract {@link Bag} filter to create decorators.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @param <E> the element type
  * @since 1.0.0
  */
@@ -43,21 +44,21 @@ public abstract class FilterBag<E> implements Bag<E> {
 	protected final Bag<E> bag;
 
 	/**
-	 * <p>Constructor with a delegated {@code Bag}.</p>
-	 * @param bag the delegated {@code Bag}
-	 * @throws NullPointerException if the delegated {@code Bag} is {@code null}
+	 * <p>Constructor with a {@code Bag} to decorate.</p>
+	 * @param bag the {@code Bag} to decorate
+	 * @throws NullPointerException if the {@code Bag} is {@code null}
 	 * @since 1.0.0
 	 */
 	protected FilterBag(final Bag<E> bag) {
 		if (null == bag) {
-			throw new NullPointerException("Invalid bag (not null expected)");
+			throw new NullPointerException("Invalid Bag (not null expected)");
 		}
 		this.bag = bag;
 	}
 
 	@Override
-	public boolean add(final E element, final long quantity) {
-		return bag.add(element, quantity);
+	public void add(final E element, final long quantity) {
+		bag.add(element, quantity);
 	}
 
 	@Override

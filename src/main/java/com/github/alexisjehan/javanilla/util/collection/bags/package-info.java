@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /**
- * <p>New {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} collection interface, implementations, tools
- * and decorators.</p>
+ * <p>New {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} interface, implementations, tools and
+ * decorators.</p>
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.collection.bags;

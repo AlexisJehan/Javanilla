@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.github.alexisjehan.javanilla.security;
+package com.github.alexisjehan.javanilla.crypto;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,42 +30,37 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * <p>{@link StandardMacs} unit tests.</p>
+ * <p>{@link StandardMessageDigests} unit tests.</p>
  */
-final class StandardMacsTest {
+final class StandardMessageDigestsTest {
 
 	@Test
-	void testGetHmacMd5Instance() {
-		assertThat(StandardMacs.getHmacMd5Instance().getAlgorithm()).isEqualTo("HmacMD5");
+	void testGetMd5Instance() {
+		assertThat(StandardMessageDigests.getMd5Instance().getAlgorithm()).isEqualTo("MD5");
 	}
 
 	@Test
-	void testGetHmacSha1Instance() {
-		assertThat(StandardMacs.getHmacSha1Instance().getAlgorithm()).isEqualTo("HmacSHA1");
+	void testGetSha1Instance() {
+		assertThat(StandardMessageDigests.getSha1Instance().getAlgorithm()).isEqualTo("SHA-1");
 	}
 
 	@Test
-	void testGetHmacSha256Instance() {
-		assertThat(StandardMacs.getHmacSha256Instance().getAlgorithm()).isEqualTo("HmacSHA256");
+	void testGetSha256Instance() {
+		assertThat(StandardMessageDigests.getSha256Instance().getAlgorithm()).isEqualTo("SHA-256");
 	}
 
 	@Test
-	void testGetInstanceUnreachable() {
-		try {
-			final var method = StandardMacs.class.getDeclaredMethod("getInstance", String.class);
-			method.setAccessible(true);
-			assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
-				try {
-					method.invoke(null, "xxx");
-				} catch (final InvocationTargetException e) {
-					throw e.getTargetException();
-				}
-			}).withCauseInstanceOf(NoSuchAlgorithmException.class);
-		} catch (final NoSuchMethodException e) {
-			fail(e.getMessage());
-		}
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardMessageDigests.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
+			try {
+				method.invoke(null, "???");
+			} catch (final InvocationTargetException e) {
+				throw e.getTargetException();
+			}
+		}).withCauseInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

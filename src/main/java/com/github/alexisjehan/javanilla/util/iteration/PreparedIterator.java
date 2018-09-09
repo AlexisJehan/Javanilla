@@ -41,7 +41,7 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	private boolean initialized = false;
 
 	/**
-	 * <p>The prepared next element.</p>
+	 * <p>Prepared next element.</p>
 	 * @since 1.0.0
 	 */
 	private E next;
@@ -58,7 +58,7 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	/**
 	 * <p>Indicates if the prepared next element is valid, if not there is no more element.</p>
 	 * @param next the prepared next element
-	 * @return whether the next prepared element is valid or not
+	 * @return {@code true} if the prepared next element is valid
 	 * @since 1.0.0
 	 */
 	protected abstract boolean isValid(final E next);

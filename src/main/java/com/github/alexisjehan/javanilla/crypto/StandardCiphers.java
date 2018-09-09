@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.github.alexisjehan.javanilla.security;
+package com.github.alexisjehan.javanilla.crypto;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -179,8 +179,8 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new {@code Cipher} instance without throwing {@code NoSuchAlgorithmException} or
 	 * {@code NoSuchPaddingException}.</p>
-	 * @param algorithm the {@code Cipher} provided algorithm
-	 * @return a {@code Cipher} instance of the provided standard algorithm
+	 * @param algorithm the {@code Cipher} algorithm
+	 * @return a {@code Cipher} instance of the provided algorithm
 	 * @since 1.0.0
 	 */
 	private static Cipher getInstance(final String algorithm) {

@@ -26,12 +26,7 @@ package com.github.alexisjehan.javanilla.io.lines;
 import com.github.alexisjehan.javanilla.io.chars.Writers;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -40,49 +35,36 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountLineWriterTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input-lines.txt")).getFile()).toPath();
-
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountLineWriter(null));
 	}
 
 	@Test
-	void testWrite() {
-		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.BLANK))) {
-			try (final var lineReader = new LineReader(INPUT)) {
-				assertThat(countLineWriter.getCount()).isEqualTo(0L);
-				countLineWriter.write(lineReader.read());
-				assertThat(countLineWriter.getCount()).isEqualTo(1L);
-				for (var i = 0; i < 10; ++i) {
-					countLineWriter.write(lineReader.read());
-				}
-				assertThat(countLineWriter.getCount()).isEqualTo(11L);
-				String line;
-				while (null != (line = lineReader.read())) {
-					countLineWriter.write(line);
-				}
-				assertThat(countLineWriter.getCount()).isEqualTo(Files.lines(INPUT).count());
-				countLineWriter.flush();
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testWrite() throws IOException {
+		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
+			assertThat(countLineWriter.getCount()).isEqualTo(0L);
+			countLineWriter.write("abc");
+			assertThat(countLineWriter.getCount()).isEqualTo(1L);
+			countLineWriter.write("def");
+			assertThat(countLineWriter.getCount()).isEqualTo(2L);
+			countLineWriter.write("ghi");
+			assertThat(countLineWriter.getCount()).isEqualTo(3L);
+			countLineWriter.flush();
 		}
 	}
 
 	@Test
-	void testNewLine() {
-		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.BLANK))) {
+	void testNewLine() throws IOException {
+		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
 			assertThat(countLineWriter.getCount()).isEqualTo(0L);
 			countLineWriter.newLine();
 			assertThat(countLineWriter.getCount()).isEqualTo(1L);
-			for (var i = 0; i < 10; ++i) {
-				countLineWriter.newLine();
-			}
-			assertThat(countLineWriter.getCount()).isEqualTo(11L);
+			countLineWriter.newLine();
+			assertThat(countLineWriter.getCount()).isEqualTo(2L);
+			countLineWriter.newLine();
+			assertThat(countLineWriter.getCount()).isEqualTo(3L);
 			countLineWriter.flush();
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 }

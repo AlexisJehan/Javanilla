@@ -37,11 +37,11 @@ public enum Distances implements Distance {
 	MANHATTAN {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var d = 0.0d;
+			var result = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
-				d += Math.abs(vector1[i] - vector2[i]);
+				result += Math.abs(vector1[i] - vector2[i]);
 			}
-			return d;
+			return result;
 		}
 	},
 
@@ -69,12 +69,12 @@ public enum Distances implements Distance {
 	SQUARED_EUCLIDEAN {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var d = 0.0d;
+			var result = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
 				final var t = vector1[i] - vector2[i];
-				d += t * t;
+				result += t * t;
 			}
-			return d;
+			return result;
 		}
 	},
 
@@ -86,11 +86,11 @@ public enum Distances implements Distance {
 	CHEBYSHEV {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var d = 0.0d;
+			var result = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
-				d = Math.max(d, Math.abs(vector1[i] - vector2[i]));
+				result = Math.max(result, Math.abs(vector1[i] - vector2[i]));
 			}
-			return d;
+			return result;
 		}
 	},
 
@@ -102,13 +102,13 @@ public enum Distances implements Distance {
 	HAMMING {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var d = 0.0d;
+			var result = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
 				if (0 != Double.compare(vector1[i], vector2[i])) {
-					++d;
+					++result;
 				}
 			}
-			return d;
+			return result;
 		}
 	};
 
@@ -121,16 +121,16 @@ public enum Distances implements Distance {
 			throw new NullPointerException("Invalid second vector (not null expected)");
 		}
 		if (vector1.length != vector2.length) {
-			throw new IllegalArgumentException("Distinct vectors dimension: " + vector1.length + " and " + vector2.length + " (same expected)");
+			throw new IllegalArgumentException("Invalid vectors dimension: " + vector1.length + " and " + vector2.length + " (same expected)");
 		}
 		if (1 > vector1.length) {
-			throw new IllegalArgumentException("Invalid vectors dimension: " + vector1.length + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid vector dimension: " + vector1.length + " (greater than or equal to 1 expected)");
 		}
 		return calculateImpl(vector1, vector2);
 	}
 
 	/**
-	 * <p>Calculate a distance between both {@code double array} vectors which have been validated.</p>
+	 * <p>Calculate a distance between both {@code double} vectors which have been validated.</p>
 	 * @param vector1 the first vector
 	 * @param vector2 the second vector
 	 * @return the calculated distance

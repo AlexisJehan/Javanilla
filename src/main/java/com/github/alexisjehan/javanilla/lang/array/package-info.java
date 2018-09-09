@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /**
- * <p>A set of primitive and generic {@code array} tools.</p>
+ * <p>A set of primitive and generic array tools.</p>
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.lang.array;

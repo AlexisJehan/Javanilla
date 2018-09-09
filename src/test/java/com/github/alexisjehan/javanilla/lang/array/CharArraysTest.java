@@ -44,181 +44,257 @@ final class CharArraysTest {
 	void testNullToEmpty() {
 		assertThat(CharArrays.nullToEmpty(null)).isEmpty();
 		assertThat(CharArrays.nullToEmpty(CharArrays.EMPTY)).isEmpty();
+		assertThat(CharArrays.nullToEmpty(CharArrays.singleton('a'))).containsExactly('a');
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(CharArrays.nullToDefault(null, CharArrays.singleton((char) 1))).containsExactly((char) 1);
-		assertThat(CharArrays.nullToDefault(CharArrays.EMPTY, CharArrays.singleton((char) 1))).isEmpty();
+		assertThat(CharArrays.nullToDefault(null, CharArrays.singleton('-'))).containsExactly('-');
+		assertThat(CharArrays.nullToDefault(CharArrays.EMPTY, CharArrays.singleton('-'))).isEmpty();
+		assertThat(CharArrays.nullToDefault(CharArrays.singleton('a'), CharArrays.singleton('-'))).containsExactly('a');
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.nullToDefault(CharArrays.EMPTY, null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.nullToDefault(CharArrays.singleton('a'), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(CharArrays.emptyToNull(null)).isNull();
 		assertThat(CharArrays.emptyToNull(CharArrays.EMPTY)).isNull();
-		assertThat(CharArrays.emptyToNull(CharArrays.singleton((char) 1))).containsExactly((char) 1);
+		assertThat(CharArrays.emptyToNull(CharArrays.singleton('a'))).containsExactly('a');
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(CharArrays.emptyToDefault(null, CharArrays.singleton((char) 1))).isNull();
-		assertThat(CharArrays.emptyToDefault(CharArrays.EMPTY, CharArrays.singleton((char) 1))).containsExactly((char) 1);
-		assertThat(CharArrays.emptyToDefault(CharArrays.singleton((char) 1), CharArrays.singleton((char) 1))).containsExactly((char) 1);
+		assertThat(CharArrays.emptyToDefault(null, CharArrays.singleton('-'))).isNull();
+		assertThat(CharArrays.emptyToDefault(CharArrays.EMPTY, CharArrays.singleton('-'))).containsExactly('-');
+		assertThat(CharArrays.emptyToDefault(CharArrays.singleton('a'), CharArrays.singleton('-'))).containsExactly('a');
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.emptyToDefault(CharArrays.EMPTY, CharArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.emptyToDefault(CharArrays.singleton('a'), CharArrays.EMPTY));
+	}
+
+	@Test
+	void testIsEmpty() {
+		assertThat(CharArrays.isEmpty(CharArrays.EMPTY)).isTrue();
+		assertThat(CharArrays.isEmpty(CharArrays.singleton('a'))).isFalse();
+	}
+
+	@Test
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.isEmpty(null));
 	}
 
 	@Test
 	void testIndexOf() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.indexOf(array, (char) 1)).isEqualTo(0);
-		assertThat(CharArrays.indexOf(array, (char) 2)).isEqualTo(1);
-		assertThat(CharArrays.indexOf(array, (char) 3)).isEqualTo(2);
-		assertThat(CharArrays.indexOf(array, (char) 1, 1)).isEqualTo(-1);
-		assertThat(CharArrays.indexOf(array, (char) 2, 2)).isEqualTo(-1);
-		assertThat(CharArrays.indexOf(array, (char) 4)).isEqualTo(-1);
+		assertThat(CharArrays.indexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
+		final var array = CharArrays.of('a', 'b', 'a');
+		assertThat(CharArrays.indexOf(array, 'a')).isEqualTo(0);
+		assertThat(CharArrays.indexOf(array, 'b')).isEqualTo(1);
+		assertThat(CharArrays.indexOf(array, 'a', 1)).isEqualTo(2);
+		assertThat(CharArrays.indexOf(array, 'b', 2)).isEqualTo(-1);
 	}
 
 	@Test
-	void testIndexOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.indexOf(null, (char) 0));
-	}
-
-	@Test
-	void testIndexOfInvalidFromIndex() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.indexOf(CharArrays.of((char) 1), (char) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.indexOf(CharArrays.of((char) 1), (char) 1,  1));
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.indexOf(null, 'a'));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.indexOf(CharArrays.singleton('a'), 'a', -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.indexOf(CharArrays.singleton('a'), 'a', 1));
 	}
 
 	@Test
 	void testLastIndexOf() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3, (char) 1);
-		assertThat(CharArrays.lastIndexOf(array, (char) 1)).isEqualTo(3);
-		assertThat(CharArrays.lastIndexOf(array, (char) 2)).isEqualTo(1);
-		assertThat(CharArrays.lastIndexOf(array, (char) 3)).isEqualTo(2);
-		assertThat(CharArrays.lastIndexOf(array, (char) 1, 1)).isEqualTo( 3);
-		assertThat(CharArrays.lastIndexOf(array, (char) 2, 2)).isEqualTo(-1);
-		assertThat(CharArrays.lastIndexOf(array, (char) 3, 3)).isEqualTo(-1);
-		assertThat(CharArrays.lastIndexOf(array, (char) 4)).isEqualTo(-1);
+		assertThat(CharArrays.lastIndexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
+		final var array = CharArrays.of('a', 'b', 'a');
+		assertThat(CharArrays.lastIndexOf(array, 'a')).isEqualTo(2);
+		assertThat(CharArrays.lastIndexOf(array, 'b')).isEqualTo(1);
+		assertThat(CharArrays.lastIndexOf(array, 'a', 1)).isEqualTo(2);
+		assertThat(CharArrays.lastIndexOf(array, 'b', 2)).isEqualTo(-1);
 	}
 
 	@Test
-	void testLastIndexOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.lastIndexOf(null, (char) 0));
-	}
-
-	@Test
-	void testLastIndexOfInvalidFromIndex() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.of((char) 1), (char) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.of((char) 1), (char) 1,  1));
-	}
-
-	@Test
-	void testContains() {
-		assertThat(CharArrays.contains(CharArrays.EMPTY, (char) 1)).isFalse();
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.contains(array, (char) 1)).isTrue();
-		assertThat(CharArrays.contains(array, (char) 2)).isTrue();
-		assertThat(CharArrays.contains(array, (char) 3)).isTrue();
-		assertThat(CharArrays.contains(array, (char) 4)).isFalse();
-	}
-
-	@Test
-	void testContainsNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.contains(null, (char) 0));
-	}
-
-	@Test
-	void testContainsOnce() {
-		assertThat(CharArrays.containsOnce(CharArrays.EMPTY, (char) 1)).isFalse();
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 2, (char) 3);
-		assertThat(CharArrays.containsOnce(array, (char) 1)).isTrue();
-		assertThat(CharArrays.containsOnce(array, (char) 2)).isFalse();
-		assertThat(CharArrays.containsOnce(array, (char) 3)).isTrue();
-		assertThat(CharArrays.containsOnce(array, (char) 4)).isFalse();
-	}
-
-	@Test
-	void testContainsOnceNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnce(null, (char) 0));
-	}
-
-	@Test
-	void testContainsOnly() {
-		assertThat(CharArrays.containsOnly(CharArrays.EMPTY, (char) 1)).isFalse();
-		final var array1 = CharArrays.of((char) 1, (char) 1);
-		assertThat(CharArrays.containsOnly(array1, (char) 1)).isTrue();
-		assertThat(CharArrays.containsOnly(array1, (char) 2)).isFalse();
-		final var array2 = CharArrays.of((char) 1, (char) 2);
-		assertThat(CharArrays.containsOnly(array2, (char) 1)).isFalse();
-		assertThat(CharArrays.containsOnly(array2, (char) 2)).isFalse();
-	}
-
-	@Test
-	void testContainsOnlyNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnly(null, (char) 0));
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.lastIndexOf(null, 'a'));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.singleton('a'), 'a', -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.singleton('a'), 'a', 1));
 	}
 
 	@Test
 	void testContainsAny() {
-		assertThat(CharArrays.containsAny(CharArrays.EMPTY, (char) 1, (char) 2)).isFalse();
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.containsAny(array)).isFalse();
-		assertThat(CharArrays.containsAny(array, (char) 1, (char) 2)).isTrue();
-		assertThat(CharArrays.containsAny(array, (char) 3, (char) 4)).isTrue();
-		assertThat(CharArrays.containsAny(array, (char) 5, (char) 6)).isFalse();
+		assertThat(CharArrays.containsAny(CharArrays.EMPTY, 'a')).isFalse();
+		assertThat(CharArrays.containsAny(CharArrays.singleton('a'), 'a')).isTrue();
+		assertThat(CharArrays.containsAny(CharArrays.singleton('a'), 'b')).isFalse();
+		assertThat(CharArrays.containsAny(CharArrays.singleton('a'), 'a', 'b')).isTrue();
 	}
 
 	@Test
-	void testContainsAnyNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAny(null, (char) 0));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAny(CharArrays.of((char) 1, (char) 2, (char) 3), (char[]) null));
+	void testContainsAnyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAny(null, 'a'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAny(CharArrays.singleton('a'), (char[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.containsAny(CharArrays.singleton('a')));
 	}
 
 	@Test
 	void testContainsAll() {
-		assertThat(CharArrays.containsAll(CharArrays.EMPTY, (char) 1, (char) 2)).isFalse();
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.containsAll(array)).isFalse();
-		assertThat(CharArrays.containsAll(array, (char) 1, (char) 2, (char) 3)).isTrue();
-		assertThat(CharArrays.containsAll(array, (char) 3, (char) 2, (char) 1)).isTrue();
-		assertThat(CharArrays.containsAll(array, (char) 1, (char) 2)).isTrue();
-		assertThat(CharArrays.containsAll(array, (char) 1, (char) 2, (char) 3, (char) 4)).isFalse();
+		assertThat(CharArrays.containsAll(CharArrays.EMPTY, 'a')).isFalse();
+		assertThat(CharArrays.containsAll(CharArrays.singleton('a'), 'a')).isTrue();
+		assertThat(CharArrays.containsAll(CharArrays.singleton('a'), 'b')).isFalse();
+		assertThat(CharArrays.containsAll(CharArrays.singleton('a'), 'a', 'b')).isFalse();
+		assertThat(CharArrays.containsAll(CharArrays.of('a', 'b'), 'a')).isTrue();
+		assertThat(CharArrays.containsAll(CharArrays.of('a', 'b'), 'b')).isTrue();
+		assertThat(CharArrays.containsAll(CharArrays.of('a', 'b'), 'a', 'b')).isTrue();
 	}
 
 	@Test
-	void testContainsAllNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAll(null, (char) 0));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAll(CharArrays.of((char) 1, (char) 2, (char) 3), (char[]) null));
+	void testContainsAllInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAll(null, 'a'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsAll(CharArrays.singleton('a'), (char[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.containsAll(CharArrays.singleton('a')));
+	}
+
+	@Test
+	void testContainsOnce() {
+		assertThat(CharArrays.containsOnce(CharArrays.EMPTY, 'a')).isFalse();
+		assertThat(CharArrays.containsOnce(CharArrays.singleton('a'), 'a')).isTrue();
+		assertThat(CharArrays.containsOnce(CharArrays.singleton('a'), 'b')).isFalse();
+		assertThat(CharArrays.containsOnce(CharArrays.singleton('a'), 'a', 'b')).isFalse();
+		assertThat(CharArrays.containsOnce(CharArrays.of('a', 'a'), 'a')).isFalse();
+		assertThat(CharArrays.containsOnce(CharArrays.of('a', 'a'), 'b')).isFalse();
+		assertThat(CharArrays.containsOnce(CharArrays.of('a', 'a'), 'a', 'b')).isFalse();
+	}
+
+	@Test
+	void testContainsOnceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnce(null, 'a'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnce(CharArrays.singleton('a'), (char[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.containsOnce(CharArrays.singleton('a')));
+	}
+
+	@Test
+	void testContainsOnly() {
+		assertThat(CharArrays.containsOnly(CharArrays.EMPTY, 'a')).isFalse();
+		assertThat(CharArrays.containsOnly(CharArrays.singleton('a'), 'a')).isTrue();
+		assertThat(CharArrays.containsOnly(CharArrays.singleton('a'), 'b')).isFalse();
+		assertThat(CharArrays.containsOnly(CharArrays.singleton('a'), 'a', 'b')).isTrue();
+		assertThat(CharArrays.containsOnly(CharArrays.of('a', 'b'), 'a')).isFalse();
+		assertThat(CharArrays.containsOnly(CharArrays.of('a', 'b'), 'b')).isFalse();
+		assertThat(CharArrays.containsOnly(CharArrays.of('a', 'b'), 'a', 'b')).isTrue();
+	}
+
+	@Test
+	void testContainsOnlyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnly(null, 'a'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.containsOnly(CharArrays.singleton('a'), (char[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.containsOnly(CharArrays.singleton('a')));
+	}
+
+	@Test
+	void testShuffle() {
+		{
+			final var array = CharArrays.singleton('a');
+			CharArrays.shuffle(array);
+			assertThat(array).containsExactly('a');
+		}
+		{
+			final var array = CharArrays.of('a', 'b', 'a', 'b');
+			CharArrays.shuffle(array);
+			assertThat(array).containsExactlyInAnyOrder('a', 'b', 'a', 'b');
+		}
+	}
+
+	@Test
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(null));
+	}
+
+	@Test
+	void testReverse() {
+		{
+			final var array = CharArrays.singleton('a');
+			CharArrays.reverse(array);
+			assertThat(array).containsExactly('a');
+		}
+		{
+			// Even
+			final var array = CharArrays.of('a', 'b', 'a', 'b');
+			CharArrays.reverse(array);
+			assertThat(array).containsExactly('b', 'a', 'b', 'a');
+		}
+		{
+			// Odd
+			final var array = CharArrays.of('a', 'b', 'b');
+			CharArrays.reverse(array);
+			assertThat(array).containsExactly('b', 'b', 'a');
+		}
+	}
+
+	@Test
+	void testReverseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.reverse(null));
+	}
+
+	@Test
+	void testReorder() {
+		{
+			final var array = CharArrays.singleton('a');
+			CharArrays.reorder(array, 0);
+			assertThat(array).containsExactly('a');
+		}
+		{
+			final var array = CharArrays.of('a', 'b', 'a', 'b');
+			CharArrays.reorder(array, 2, 0, 3, 1);
+			assertThat(array).containsExactly('a', 'a', 'b', 'b');
+		}
+	}
+
+	@Test
+	void testReorderInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.reorder(null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.reorder(CharArrays.singleton('a'), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, 0)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(-1, 1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(2, 1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, -1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, 2)));
+	}
+
+	@Test
+	void testSwap() {
+		{
+			final var array = CharArrays.singleton('a');
+			CharArrays.swap(array, 0, 0);
+			assertThat(array).containsExactly('a');
+		}
+		{
+			final var array = CharArrays.of('a', 'b', 'a', 'b');
+			CharArrays.swap(array, 1, 2);
+			assertThat(array).containsExactly('a', 'a', 'b', 'b');
+		}
+	}
+
+	@Test
+	void testSwapInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.swap(null, 0, 0));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), -1, 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 2, 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 0, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 0, 2));
 	}
 
 	@Test
 	void testConcat() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.concat(array, array)).isEqualTo(CharArrays.of((char) 1, (char) 2, (char) 3, (char) 1, (char) 2, (char) 3));
-	}
-
-	@Test
-	void testConcatOne() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.concat(array)).isEqualTo(array);
-	}
-
-	@Test
-	void testConcatNone() {
 		assertThat(CharArrays.concat()).isEmpty();
+		assertThat(CharArrays.concat(CharArrays.singleton('a'))).containsExactly('a');
+		assertThat(CharArrays.concat(CharArrays.singleton('a'), CharArrays.singleton('b'))).containsExactly('a', 'b');
 	}
 
 	@Test
-	void testConcatNull() {
+	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((List<char[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[]) null));
@@ -226,48 +302,51 @@ final class CharArraysTest {
 
 	@Test
 	void testJoin() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.join(CharArrays.of((char) 0), array, array)).isEqualTo(CharArrays.of((char) 1, (char) 2, (char) 3, (char) 0, (char) 1, (char) 2, (char) 3));
+		assertThat(CharArrays.join(CharArrays.EMPTY, CharArrays.singleton('a'), CharArrays.singleton('b'))).containsExactly('a', 'b');
+		assertThat(CharArrays.join(CharArrays.singleton('-'))).isEmpty();
+		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton('a'))).containsExactly('a');
+		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton('a'), CharArrays.singleton('b'))).containsExactly('a', '-', 'b');
 	}
 
 	@Test
-	void testJoinEmptySeparator() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.join(CharArrays.EMPTY, array, array)).isEqualTo(CharArrays.concat(array, array));
-	}
-
-	@Test
-	void testJoinOne() {
-		final var array = CharArrays.of((char) 1, (char) 2, (char) 3);
-		assertThat(CharArrays.join(CharArrays.of((char) 0), array)).isEqualTo(array);
-	}
-
-	@Test
-	void testJoinNone() {
-		assertThat(CharArrays.join(CharArrays.of((char) 0))).isEmpty();
-	}
-
-	@Test
-	void testJoinNull() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(null, CharArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.EMPTY, (char[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.EMPTY, (List<char[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.EMPTY, (char[]) null));
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(null, CharArrays.singleton('a')));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.singleton('-'), (char[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.singleton('-'), (List<char[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.singleton('-'), (char[]) null));
 	}
 
 	@Test
 	void testSingleton() {
-		assertThat(CharArrays.singleton((char) 1)).containsExactly((char) 1);
+		assertThat(CharArrays.singleton('a')).containsExactly('a');
 	}
 
 	@Test
 	void testOf() {
 		assertThat(CharArrays.of()).isEmpty();
-		assertThat(CharArrays.of((char) 1, (char) 2, (char) 3)).containsExactly((char) 1, (char) 2, (char) 3);
+		assertThat(CharArrays.of('a', 'b')).containsExactly('a', 'b');
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.of((char[]) null));
+	}
+
+	@Test
+	void testOfBoxedToBoxed() {
+		assertThat(CharArrays.of(CharArrays.toBoxed(CharArrays.EMPTY))).isEmpty();
+		assertThat(CharArrays.of(CharArrays.toBoxed(CharArrays.of('a', 'b')))).containsExactly('a', 'b');
+		assertThat(CharArrays.toBoxed(CharArrays.singleton('a'))).isInstanceOf(Character[].class);
+		assertThat(CharArrays.of(CharArrays.toBoxed(CharArrays.singleton('a')))).isInstanceOf(char[].class);
+	}
+
+	@Test
+	void testOfBoxedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.of((Character[]) null));
+	}
+
+	@Test
+	void testToBoxedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.toBoxed(null));
 	}
 }

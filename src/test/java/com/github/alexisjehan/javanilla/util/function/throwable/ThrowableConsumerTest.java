@@ -38,22 +38,10 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableConsumerTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableConsumer<Integer, IOException> throwableConsumer = t -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(() -> throwableConsumer.accept(1));
-	}
-
-	@Test
-	void testAndThen() {
+	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableConsumer<Integer, IOException> throwableConsumer1 = list::add;
-		try {
-			throwableConsumer1.andThen(t -> list.add(t + 1)).accept(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		throwableConsumer1.andThen(t -> list.add(t + 1)).accept(1);
 		assertThat(list).contains(1, 2);
 
 		list.clear();
@@ -65,7 +53,7 @@ final class ThrowableConsumerTest {
 	}
 
 	@Test
-	void testAndThenNull() {
+	void testAndThenInvalid() {
 		final ThrowableConsumer<Integer, IOException> throwableConsumer = t -> {
 			throw new IOException();
 		};
@@ -73,14 +61,10 @@ final class ThrowableConsumerTest {
 	}
 
 	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
 		final ThrowableConsumer<Integer, IOException> throwableConsumer1 = list::add;
-		try {
-			throwableConsumer1.accept(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		throwableConsumer1.accept(1);
 		ThrowableConsumer.unchecked(throwableConsumer1).accept(1);
 		assertThat(list).contains(1, 1);
 
@@ -92,7 +76,7 @@ final class ThrowableConsumerTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableConsumer.unchecked(null));
 	}
 
@@ -106,7 +90,7 @@ final class ThrowableConsumerTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableConsumer.of(null));
 	}
 }

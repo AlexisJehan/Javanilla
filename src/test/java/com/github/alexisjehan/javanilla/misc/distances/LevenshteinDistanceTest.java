@@ -24,7 +24,6 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.misc.distances;
 
 import com.github.alexisjehan.javanilla.io.Serializables;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -36,19 +35,19 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class LevenshteinDistanceTest {
 
 	@Test
-	void testConstructorDefault() {
-		final var levenshteinDistance = new LevenshteinDistance();
-		assertThat(levenshteinDistance.getInsertionCost()).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.getDeletionCost()).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.getSubstitutionCost()).isEqualTo(1.0d);
-	}
-
-	@Test
-	void testConstructorCustom() {
-		final var levenshteinDistance = new LevenshteinDistance(1.0d, 2.0d, 3.0d);
-		assertThat(levenshteinDistance.getInsertionCost()).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.getDeletionCost()).isEqualTo(2.0d);
-		assertThat(levenshteinDistance.getSubstitutionCost()).isEqualTo(3.0d);
+	void testConstructor() {
+		{
+			final var levenshteinDistance = new LevenshteinDistance();
+			assertThat(levenshteinDistance.getInsertionCost()).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.getDeletionCost()).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.getSubstitutionCost()).isEqualTo(1.0d);
+		}
+		{
+			final var levenshteinDistance = new LevenshteinDistance(1.0d, 2.0d, 3.0d);
+			assertThat(levenshteinDistance.getInsertionCost()).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.getDeletionCost()).isEqualTo(2.0d);
+			assertThat(levenshteinDistance.getSubstitutionCost()).isEqualTo(3.0d);
+		}
 	}
 
 	@Test
@@ -59,35 +58,35 @@ final class LevenshteinDistanceTest {
 	}
 
 	@Test
-	void testCalculateDefault() {
-		final var levenshteinDistance = new LevenshteinDistance();
-		assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
-		assertThat(levenshteinDistance.calculate("ab", "")).isEqualTo(2.0d);
-		assertThat(levenshteinDistance.calculate("", "ab")).isEqualTo(2.0d);
-		assertThat(levenshteinDistance.calculate("ab", "abc")).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.calculate("ab", "a")).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.calculate("ab", "ac")).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.calculate("foo", "bar")).isEqualTo(3.0d);
-		assertThat(levenshteinDistance.calculate("The quick brown fox jumps over the lazy dog", "The five boxing wizards jump quickly")).isEqualTo(31.0d);
+	void testCalculate() {
+		{
+			final var levenshteinDistance = new LevenshteinDistance();
+			assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
+			assertThat(levenshteinDistance.calculate("ab", "")).isEqualTo(2.0d);
+			assertThat(levenshteinDistance.calculate("", "ab")).isEqualTo(2.0d);
+			assertThat(levenshteinDistance.calculate("ab", "abc")).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.calculate("ab", "a")).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.calculate("ab", "ac")).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.calculate("foo", "bar")).isEqualTo(3.0d);
+			assertThat(levenshteinDistance.calculate("The quick brown fox jumps over the lazy dog", "The five boxing wizards jump quickly")).isEqualTo(31.0d);
+		}
+		{
+			final var levenshteinDistance = new LevenshteinDistance(1.0d, 2.0d, 3.0d);
+			assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
+			assertThat(levenshteinDistance.calculate("ab", "")).isEqualTo(4.0d);
+			assertThat(levenshteinDistance.calculate("", "ab")).isEqualTo(2.0d);
+			assertThat(levenshteinDistance.calculate("ab", "abc")).isEqualTo(1.0d);
+			assertThat(levenshteinDistance.calculate("ab", "a")).isEqualTo(2.0d);
+			assertThat(levenshteinDistance.calculate("ab", "ac")).isEqualTo(3.0d);
+			assertThat(levenshteinDistance.calculate("foo", "bar")).isEqualTo(9.0d);
+			assertThat(levenshteinDistance.calculate("The quick brown fox jumps over the lazy dog", "The five boxing wizards jump quickly")).isEqualTo(68.0d);
+		}
 	}
 
 	@Test
-	void testCalculateCustom() {
-		final var levenshteinDistance = new LevenshteinDistance(1.0d, 2.0d, 3.0d);
-		assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
-		assertThat(levenshteinDistance.calculate("ab", "")).isEqualTo(4.0d);
-		assertThat(levenshteinDistance.calculate("", "ab")).isEqualTo(2.0d);
-		assertThat(levenshteinDistance.calculate("ab", "abc")).isEqualTo(1.0d);
-		assertThat(levenshteinDistance.calculate("ab", "a")).isEqualTo(2.0d);
-		assertThat(levenshteinDistance.calculate("ab", "ac")).isEqualTo(3.0d);
-		assertThat(levenshteinDistance.calculate("foo", "bar")).isEqualTo(9.0d);
-		assertThat(levenshteinDistance.calculate("The quick brown fox jumps over the lazy dog", "The five boxing wizards jump quickly")).isEqualTo(68.0d);
-	}
-
-	@Test
-	void testCalculateNull() {
-		assertThatNullPointerException().isThrownBy(() -> new LevenshteinDistance().calculate(null, "ab"));
-		assertThatNullPointerException().isThrownBy(() -> new LevenshteinDistance().calculate("ab", null));
+	void testCalculateInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> new LevenshteinDistance().calculate(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> new LevenshteinDistance().calculate("foo", null));
 	}
 
 	@Test

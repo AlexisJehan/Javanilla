@@ -25,13 +25,7 @@ package com.github.alexisjehan.javanilla.io.chars;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -40,152 +34,159 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class RangeReaderTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
-	@Test
-	void testConstructorNull() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeReader(null, 6L, 20L));
-	}
-
 	@Test
 	void testConstructorInvalid() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeReader(Readers.EMPTY, -5L, 20L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeReader(Readers.EMPTY, 10L, 5L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeReader(null, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeReader(Readers.singleton('a'), -1L, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeReader(Readers.singleton('a'), 1L, 0L));
 	}
 
 	@Test
-	void testReadRangeOneByOne() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 6L, 10L)) {
-			assertThat(rangeReader.getFromIndex()).isEqualTo(6L);
+	void testReadChar() throws IOException {
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 0L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(0L);
+			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 1L, 1L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(1L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(1L);
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
-			final var chars = new String(Files.readAllBytes(INPUT)).toCharArray();
-			for (var i = 6; i <= 10; ++i) {
-				assertThat(rangeReader.read()).isEqualTo(chars[i]); // i, p, s, u, m
-			}
+			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo('c');
 			assertThat(rangeReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L, 10L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(10L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 	}
 
 	@Test
-	void testReadRangeBuffered() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 6L, 20L)) {
-			assertThat(rangeReader.getFromIndex()).isEqualTo(6L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(20L);
-			final var chars = new String(Files.readAllBytes(INPUT)).toCharArray();
-			final var buffer = new char[6];
-			var offset = 6;
-			while (true) {
-				final var read = rangeReader.read(buffer, 0, buffer.length);
-				if (-1 != read) {
-					// "ipsum ", "dolor ", "sit"
-					assertThat(Arrays.copyOfRange(buffer, 0, read)).isEqualTo(Arrays.copyOfRange(chars, offset, offset += read));
-				} else {
-					break;
-				}
-			}
-			assertThat(rangeReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testReadAllOneByOne() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 2000L)) {
+	void testReadBuffer() throws IOException {
+		final var buffer = new char[2];
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 0L)) {
 			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(2000L);
-			var count = 0L;
-			while (-1 != rangeReader.read()) {
-				++count;
-			}
-			assertThat(count).isEqualTo(INPUT.toFile().length());
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(rangeReader.getToIndex()).isEqualTo(0L);
+			assertThat(rangeReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(1);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(-1);
 		}
-	}
-
-	@Test
-	void testReadAllBuffered() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 2000L)) {
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 1L, 1L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(1L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(1L);
+			assertThat(rangeReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(1);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L)) {
 			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(2000L);
-			final var buffer = new char[6];
-			var count = 0L;
-			int read;
-			while (-1 != (read = rangeReader.read(buffer, 0, buffer.length))) {
-				count += read;
-			}
-			assertThat(count).isEqualTo(INPUT.toFile().length());
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(2);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(1);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L, 10L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(10L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeReader.read(buffer, 0, 2)).isEqualTo(-1);
 		}
 	}
 
 	@Test
-	void testReadOutOneByOne() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 1000L, 2000L)) {
-			assertThat(rangeReader.getFromIndex()).isEqualTo(1000L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(2000L);
-			assertThat(rangeReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadBufferInvalid() throws IOException {
+		final var buffer = new char[2];
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 0L)) {
+			assertThatNullPointerException().isThrownBy(() -> rangeReader.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeReader.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeReader.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeReader.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeReader.read(buffer, 0, 3));
 		}
 	}
 
 	@Test
-	void testReadOutBuffered() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 1000L, 2000L)) {
-			assertThat(rangeReader.getFromIndex()).isEqualTo(1000L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(2000L);
-			final var buffer = new char[6];
-			assertThat(-1).isEqualTo(rangeReader.read(buffer, 0, buffer.length));
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testSkip() throws IOException {
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 0L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(0L);
+			assertThat(rangeReader.skip(1L)).isEqualTo(1L);
+			assertThat(rangeReader.skip(1L)).isEqualTo(0L);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 1L, 1L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(1L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(1L);
+			assertThat(rangeReader.skip(1L)).isEqualTo(1L);
+			assertThat(rangeReader.skip(1L)).isEqualTo(0L);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeReader.skip(1L)).isEqualTo(1L);
+			assertThat(rangeReader.skip(10L)).isEqualTo(2L);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L, 10L)) {
+			assertThat(rangeReader.getFromIndex()).isEqualTo(10L);
+			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeReader.skip(1L)).isEqualTo(0L);
 		}
 	}
 
 	@Test
-	void testSkip() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 6L, 20L)) {
-			assertThat(rangeReader.getFromIndex()).isEqualTo(6L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(20L);
-			final var chars = new String(Files.readAllBytes(INPUT)).toCharArray();
-			assertThat(rangeReader.read()).isEqualTo(chars[6]);
-			rangeReader.skip(5L);
-			assertThat(rangeReader.read()).isEqualTo(chars[12]);
-			rangeReader.skip(0L);
-			assertThat(rangeReader.read()).isEqualTo(chars[13]);
-			rangeReader.skip(5L);
-			assertThat(rangeReader.read()).isEqualTo(chars[19]);
-			rangeReader.skip(1L);
-			assertThat(rangeReader.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testMark() {
-		try (final var rangeReader = new RangeReader(Files.newBufferedReader(INPUT), 6L, 20L)) {
-			assertThat(rangeReader.getFromIndex()).isEqualTo(6L);
-			assertThat(rangeReader.getToIndex()).isEqualTo(20L);
-			final var chars = new String(Files.readAllBytes(INPUT)).toCharArray();
-			assertThat(rangeReader.read()).isEqualTo(chars[6]);
-			rangeReader.mark(10);
-			assertThat(rangeReader.read()).isEqualTo(chars[7]);
-			rangeReader.skip(10L);
-			assertThat(rangeReader.read()).isEqualTo(chars[18]);
-			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo(chars[7]);
-			assertThat(rangeReader.read()).isEqualTo(chars[8]);
-			rangeReader.skip(12L);
+	void testMarkReset() throws IOException {
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 0L)) {
+			rangeReader.mark(2);
+			assertThat(rangeReader.read()).isEqualTo('a');
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo(chars[7]);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 1L, 1L)) {
+			rangeReader.mark(2);
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L)) {
+			assertThat(rangeReader.read()).isEqualTo('a');
+			rangeReader.mark(2);
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(-1);
+		}
+		try (final var rangeReader = new RangeReader(Readers.of('a', 'b', 'c'), 10L, 10L)) {
+			rangeReader.mark(2);
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo(-1);
+			rangeReader.reset();
+			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 	}
 }

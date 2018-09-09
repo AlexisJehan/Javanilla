@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /**
- * <p>Multiple {@link com.github.alexisjehan.javanilla.misc.distances.Distance}s and
- * {@link com.github.alexisjehan.javanilla.misc.distances.EditDistance}s implementations.</p>
+ * <p>New {@link com.github.alexisjehan.javanilla.misc.distances.Distance}s and
+ * {@link com.github.alexisjehan.javanilla.misc.distances.EditDistance}s interfaces and implementations.</p>
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.misc.distances;

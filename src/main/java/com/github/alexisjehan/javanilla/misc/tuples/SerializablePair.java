@@ -27,11 +27,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * <p>A {@code SerializablePair} is an immutable tuple that is composed of two {@link Serializable} objects.</p>
+ * <p>A {@code SerializablePair} is an immutable tuple that is composed of two {@link Serializable} elements.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
- * @param <F> the type of the first object
- * @param <S> the type of the second object
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
+ * @param <F> the type of the first serializable element
+ * @param <S> the type of the second serializable element
  * @see Pair
  * @since 1.0.0
  */
@@ -41,24 +42,24 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 8271847837522821498L;
+	private static final long serialVersionUID = 1220963535555090964L;
 
 	/**
-	 * <p>First object.</p>
+	 * <p>First {@code Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second object.</p>
+	 * <p>Second {@code Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
 	 * <p>Standard constructor.</p>
-	 * @param first the first object or {@code null}
-	 * @param second the second object or {@code null}
+	 * @param first the first {@code Serializable} element or {@code null}
+	 * @param second the second {@code Serializable} element or {@code null}
 	 * @since 1.0.0
 	 */
 	public SerializablePair(final F first, final S second) {
@@ -67,8 +68,8 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Get the first object of the {@code SerializablePair}.</p>
-	 * @return the first object
+	 * <p>Get the first {@code Serializable} element of the {@code SerializablePair}.</p>
+	 * @return the first {@code Serializable} element
 	 * @since 1.0.0
 	 */
 	public F getFirst() {
@@ -76,8 +77,8 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Get the second object of the {@code SerializablePair}.</p>
-	 * @return the second object
+	 * <p>Get the second {@code Serializable} element of the {@code SerializablePair}.</p>
+	 * @return the second {@code Serializable} element
 	 * @since 1.0.0
 	 */
 	public S getSecond() {
@@ -108,24 +109,24 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
+	 * <p>Vanilla constructor.</p>
+	 * @param first the first {@code Serializable} element or {@code null}
+	 * @param second the second {@code Serializable} element or {@code null}
+	 * @param <F> the type of the first serializable element
+	 * @param <S> the type of the second serializable element
+	 * @return the constructed {@code SerializablePair}
+	 * @since 1.0.0
+	 */
+	public static <F extends Serializable, S extends Serializable> SerializablePair<F, S> of(final F first, final S second) {
+		return new SerializablePair<>(first, second);
+	}
+
+	/**
 	 * <p>Converts the current {@code SerializablePair} to a {@code Pair}.</p>
 	 * @return the converted {@code Pair}
 	 * @since 1.0.0
 	 */
 	public Pair<F, S> toPair() {
 		return new Pair<>(first, second);
-	}
-
-	/**
-	 * <p>Vanilla constructor.</p>
-	 * @param first the first object or {@code null}
-	 * @param second the second object or {@code null}
-	 * @param <F> the type of the first object
-	 * @param <S> the type of the second object
-	 * @return the constructed {@code SerializablePair}
-	 * @since 1.0.0
-	 */
-	public static <F extends Serializable, S extends Serializable> SerializablePair<F, S> of(final F first, final S second) {
-		return new SerializablePair<>(first, second);
 	}
 }

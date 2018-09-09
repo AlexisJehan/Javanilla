@@ -82,7 +82,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableFunction} to a {@code Function} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableFunction the given {@code ThrowableFunction}
+	 * @param throwableFunction the {@code ThrowableFunction} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
 	 * @param <X> the type of the {@code Throwable}
@@ -92,7 +92,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 */
 	static <T, R, X extends Throwable> Function<T, R> unchecked(final ThrowableFunction<? super T, ? extends R, ? extends X> throwableFunction) {
 		if (null == throwableFunction) {
-			throw new NullPointerException("Invalid throwable function (not null expected)");
+			throw new NullPointerException("Invalid ThrowableFunction (not null expected)");
 		}
 		return t -> {
 			try {
@@ -104,8 +104,8 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableFunction} that throws nothing from the given {@code Function}.</p>
-	 * @param function the given {@code Function}
+	 * <p>Create a {@code ThrowableFunction} from the given {@code Function}.</p>
+	 * @param function the {@code Function} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
 	 * @param <X> the type of the {@code Throwable}
@@ -115,7 +115,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 */
 	static <T, R, X extends Throwable> ThrowableFunction<T, R, X> of(final Function<? super T, ? extends R> function) {
 		if (null == function) {
-			throw new NullPointerException("Invalid function (not null expected)");
+			throw new NullPointerException("Invalid Function (not null expected)");
 		}
 		return function::apply;
 	}

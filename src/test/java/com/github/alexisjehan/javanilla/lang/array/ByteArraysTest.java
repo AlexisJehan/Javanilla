@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.lang.array;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteOrder;
@@ -45,17 +46,19 @@ final class ByteArraysTest {
 	void testNullToEmpty() {
 		assertThat(ByteArrays.nullToEmpty(null)).isEmpty();
 		assertThat(ByteArrays.nullToEmpty(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.nullToEmpty(ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(ByteArrays.nullToDefault(null, ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
-		assertThat(ByteArrays.nullToDefault(ByteArrays.EMPTY, ByteArrays.singleton((byte) 1))).isEmpty();
+		assertThat(ByteArrays.nullToDefault(null, ByteArrays.singleton((byte) 0))).containsExactly((byte) 0);
+		assertThat(ByteArrays.nullToDefault(ByteArrays.EMPTY, ByteArrays.singleton((byte) 0))).isEmpty();
+		assertThat(ByteArrays.nullToDefault(ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 0))).containsExactly((byte) 1);
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.nullToDefault(ByteArrays.EMPTY, null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.nullToDefault(ByteArrays.singleton((byte) 1), null));
 	}
 
 	@Test
@@ -67,159 +70,233 @@ final class ByteArraysTest {
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(ByteArrays.emptyToDefault(null, ByteArrays.singleton((byte) 1))).isNull();
-		assertThat(ByteArrays.emptyToDefault(ByteArrays.EMPTY, ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
-		assertThat(ByteArrays.emptyToDefault(ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+		assertThat(ByteArrays.emptyToDefault(null, ByteArrays.singleton((byte) 0))).isNull();
+		assertThat(ByteArrays.emptyToDefault(ByteArrays.EMPTY, ByteArrays.singleton((byte) 0))).containsExactly((byte) 0);
+		assertThat(ByteArrays.emptyToDefault(ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 0))).containsExactly((byte) 1);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.emptyToDefault(ByteArrays.EMPTY, ByteArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.emptyToDefault(ByteArrays.singleton((byte) 1), ByteArrays.EMPTY));
+	}
+
+	@Test
+	void testIsEmpty() {
+		assertThat(ByteArrays.isEmpty(ByteArrays.EMPTY)).isTrue();
+		assertThat(ByteArrays.isEmpty(ByteArrays.singleton((byte) 1))).isFalse();
+	}
+
+	@Test
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.isEmpty(null));
 	}
 
 	@Test
 	void testIndexOf() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.indexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
+		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
 		assertThat(ByteArrays.indexOf(array, (byte) 1)).isEqualTo(0);
 		assertThat(ByteArrays.indexOf(array, (byte) 2)).isEqualTo(1);
-		assertThat(ByteArrays.indexOf(array, (byte) 3)).isEqualTo(2);
-		assertThat(ByteArrays.indexOf(array, (byte) 1, 1)).isEqualTo(-1);
+		assertThat(ByteArrays.indexOf(array, (byte) 1, 1)).isEqualTo(2);
 		assertThat(ByteArrays.indexOf(array, (byte) 2, 2)).isEqualTo(-1);
-		assertThat(ByteArrays.indexOf(array, (byte) 4)).isEqualTo(-1);
 	}
 
 	@Test
-	void testIndexOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.indexOf(null, (byte) 0));
-	}
-
-	@Test
-	void testIndexOfInvalidFromIndex() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.indexOf(ByteArrays.of((byte) 1), (byte) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.indexOf(ByteArrays.of((byte) 1), (byte) 1,  1));
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.indexOf(null, (byte) 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.indexOf(ByteArrays.singleton((byte) 1), (byte) 1, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.indexOf(ByteArrays.singleton((byte) 1), (byte) 1, 1));
 	}
 
 	@Test
 	void testLastIndexOf() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3, (byte) 1);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 1)).isEqualTo(3);
+		assertThat(ByteArrays.lastIndexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
+		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
+		assertThat(ByteArrays.lastIndexOf(array, (byte) 1)).isEqualTo(2);
 		assertThat(ByteArrays.lastIndexOf(array, (byte) 2)).isEqualTo(1);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 3)).isEqualTo(2);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 1, 1)).isEqualTo( 3);
+		assertThat(ByteArrays.lastIndexOf(array, (byte) 1, 1)).isEqualTo(2);
 		assertThat(ByteArrays.lastIndexOf(array, (byte) 2, 2)).isEqualTo(-1);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 3, 3)).isEqualTo(-1);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 4)).isEqualTo(-1);
 	}
 
 	@Test
-	void testLastIndexOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.lastIndexOf(null, (byte) 0));
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.lastIndexOf(null, (byte) 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.singleton((byte) 1), (byte) 1, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.singleton((byte) 1), (byte) 1, 1));
 	}
 
 	@Test
-	void testLastIndexOfInvalidFromIndex() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.of((byte) 1), (byte) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.of((byte) 1), (byte) 1,  1));
+	void testContainsAny() {
+		assertThat(ByteArrays.containsAny(ByteArrays.EMPTY, (byte) 1)).isFalse();
+		assertThat(ByteArrays.containsAny(ByteArrays.singleton((byte) 1), (byte) 1)).isTrue();
+		assertThat(ByteArrays.containsAny(ByteArrays.singleton((byte) 1), (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsAny(ByteArrays.singleton((byte) 1), (byte) 1, (byte) 2)).isTrue();
 	}
 
 	@Test
-	void testContains() {
-		assertThat(ByteArrays.contains(ByteArrays.EMPTY, (byte) 1)).isFalse();
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.contains(array, (byte) 1)).isTrue();
-		assertThat(ByteArrays.contains(array, (byte) 2)).isTrue();
-		assertThat(ByteArrays.contains(array, (byte) 3)).isTrue();
-		assertThat(ByteArrays.contains(array, (byte) 4)).isFalse();
+	void testContainsAnyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAny(null, (byte) 1));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAny(ByteArrays.singleton((byte) 1), (byte[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.containsAny(ByteArrays.singleton((byte) 1)));
 	}
 
 	@Test
-	void testContainsNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.contains(null, (byte) 0));
+	void testContainsAll() {
+		assertThat(ByteArrays.containsAll(ByteArrays.EMPTY, (byte) 1)).isFalse();
+		assertThat(ByteArrays.containsAll(ByteArrays.singleton((byte) 1), (byte) 1)).isTrue();
+		assertThat(ByteArrays.containsAll(ByteArrays.singleton((byte) 1), (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsAll(ByteArrays.singleton((byte) 1), (byte) 1, (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsAll(ByteArrays.of((byte) 1, (byte) 2), (byte) 1)).isTrue();
+		assertThat(ByteArrays.containsAll(ByteArrays.of((byte) 1, (byte) 2), (byte) 2)).isTrue();
+		assertThat(ByteArrays.containsAll(ByteArrays.of((byte) 1, (byte) 2), (byte) 1, (byte) 2)).isTrue();
+	}
+
+	@Test
+	void testContainsAllInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAll(null, (byte) 1));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAll(ByteArrays.singleton((byte) 1), (byte[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.containsAll(ByteArrays.singleton((byte) 1)));
 	}
 
 	@Test
 	void testContainsOnce() {
 		assertThat(ByteArrays.containsOnce(ByteArrays.EMPTY, (byte) 1)).isFalse();
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.containsOnce(array, (byte) 1)).isTrue();
-		assertThat(ByteArrays.containsOnce(array, (byte) 2)).isFalse();
-		assertThat(ByteArrays.containsOnce(array, (byte) 3)).isTrue();
-		assertThat(ByteArrays.containsOnce(array, (byte) 4)).isFalse();
+		assertThat(ByteArrays.containsOnce(ByteArrays.singleton((byte) 1), (byte) 1)).isTrue();
+		assertThat(ByteArrays.containsOnce(ByteArrays.singleton((byte) 1), (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnce(ByteArrays.singleton((byte) 1), (byte) 1, (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnce(ByteArrays.of((byte) 1, (byte) 1), (byte) 1)).isFalse();
+		assertThat(ByteArrays.containsOnce(ByteArrays.of((byte) 1, (byte) 1), (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnce(ByteArrays.of((byte) 1, (byte) 1), (byte) 1, (byte) 2)).isFalse();
 	}
 
 	@Test
-	void testContainsOnceNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnce(null, (byte) 0));
+	void testContainsOnceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnce(null, (byte) 1));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnce(ByteArrays.singleton((byte) 1), (byte[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.containsOnce(ByteArrays.singleton((byte) 1)));
 	}
 
 	@Test
 	void testContainsOnly() {
 		assertThat(ByteArrays.containsOnly(ByteArrays.EMPTY, (byte) 1)).isFalse();
-		final var array1 = ByteArrays.of((byte) 1, (byte) 1);
-		assertThat(ByteArrays.containsOnly(array1, (byte) 1)).isTrue();
-		assertThat(ByteArrays.containsOnly(array1, (byte) 2)).isFalse();
-		final var array2 = ByteArrays.of((byte) 1, (byte) 2);
-		assertThat(ByteArrays.containsOnly(array2, (byte) 1)).isFalse();
-		assertThat(ByteArrays.containsOnly(array2, (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnly(ByteArrays.singleton((byte) 1), (byte) 1)).isTrue();
+		assertThat(ByteArrays.containsOnly(ByteArrays.singleton((byte) 1), (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnly(ByteArrays.singleton((byte) 1), (byte) 1, (byte) 2)).isTrue();
+		assertThat(ByteArrays.containsOnly(ByteArrays.of((byte) 1, (byte) 2), (byte) 1)).isFalse();
+		assertThat(ByteArrays.containsOnly(ByteArrays.of((byte) 1, (byte) 2), (byte) 2)).isFalse();
+		assertThat(ByteArrays.containsOnly(ByteArrays.of((byte) 1, (byte) 2), (byte) 1, (byte) 2)).isTrue();
 	}
 
 	@Test
-	void testContainsOnlyNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnly(null, (byte) 0));
+	void testContainsOnlyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnly(null, (byte) 1));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsOnly(ByteArrays.singleton((byte) 1), (byte[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.containsOnly(ByteArrays.singleton((byte) 1)));
 	}
 
 	@Test
-	void testContainsAny() {
-		assertThat(ByteArrays.containsAny(ByteArrays.EMPTY, (byte) 1, (byte) 2)).isFalse();
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.containsAny(array)).isFalse();
-		assertThat(ByteArrays.containsAny(array, (byte) 1, (byte) 2)).isTrue();
-		assertThat(ByteArrays.containsAny(array, (byte) 3, (byte) 4)).isTrue();
-		assertThat(ByteArrays.containsAny(array, (byte) 5, (byte) 6)).isFalse();
+	void testShuffle() {
+		{
+			final var array = ByteArrays.singleton((byte) 1);
+			ByteArrays.shuffle(array);
+			assertThat(array).containsExactly((byte) 1);
+		}
+		{
+			final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1, (byte) 2);
+			ByteArrays.shuffle(array);
+			assertThat(array).containsExactlyInAnyOrder((byte) 1, (byte) 2, (byte) 1, (byte) 2);
+		}
 	}
 
 	@Test
-	void testContainsAnyNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAny(null, (byte) 0));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAny(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte[]) null));
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.shuffle(null));
 	}
 
 	@Test
-	void testContainsAll() {
-		assertThat(ByteArrays.containsAll(ByteArrays.EMPTY, (byte) 1, (byte) 2)).isFalse();
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.containsAll(array)).isFalse();
-		assertThat(ByteArrays.containsAll(array, (byte) 1, (byte) 2, (byte) 3)).isTrue();
-		assertThat(ByteArrays.containsAll(array, (byte) 3, (byte) 2, (byte) 1)).isTrue();
-		assertThat(ByteArrays.containsAll(array, (byte) 1, (byte) 2)).isTrue();
-		assertThat(ByteArrays.containsAll(array, (byte) 1, (byte) 2, (byte) 3, (byte) 4)).isFalse();
+	void testReverse() {
+		{
+			final var array = ByteArrays.singleton((byte) 1);
+			ByteArrays.reverse(array);
+			assertThat(array).containsExactly((byte) 1);
+		}
+		{
+			// Even
+			final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1, (byte) 2);
+			ByteArrays.reverse(array);
+			assertThat(array).containsExactly((byte) 2, (byte) 1, (byte) 2, (byte) 1);
+		}
+		{
+			// Odd
+			final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 2);
+			ByteArrays.reverse(array);
+			assertThat(array).containsExactly((byte) 2, (byte) 2, (byte) 1);
+		}
 	}
 
 	@Test
-	void testContainsAllNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAll(null, (byte) 0));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.containsAll(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte[]) null));
+	void testReverseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.reverse(null));
+	}
+
+	@Test
+	void testReorder() {
+		{
+			final var array = ByteArrays.singleton((byte) 1);
+			ByteArrays.reorder(array, 0);
+			assertThat(array).containsExactly((byte) 1);
+		}
+		{
+			final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1, (byte) 2);
+			ByteArrays.reorder(array, 2, 0, 3, 1);
+			assertThat(array).containsExactly((byte) 1, (byte) 1, (byte) 2, (byte) 2);
+		}
+	}
+
+	@Test
+	void testReorderInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.reorder(null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.singleton((byte) 1), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, 0)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(-1, 1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(2, 1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, -1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, 2)));
+	}
+
+	@Test
+	void testSwap() {
+		{
+			final var array = ByteArrays.singleton((byte) 1);
+			ByteArrays.swap(array, 0, 0);
+			assertThat(array).containsExactly((byte) 1);
+		}
+		{
+			final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1, (byte) 2);
+			ByteArrays.swap(array, 1, 2);
+			assertThat(array).containsExactly((byte) 1, (byte) 1, (byte) 2, (byte) 2);
+		}
+	}
+
+	@Test
+	void testSwapInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.swap(null, 0, 0));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), -1, 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 2, 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 0, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 0, 2));
 	}
 
 	@Test
 	void testConcat() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.concat(array, array)).isEqualTo(ByteArrays.of((byte) 1, (byte) 2, (byte) 3, (byte) 1, (byte) 2, (byte) 3));
-	}
-
-	@Test
-	void testConcatOne() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.concat(array)).isEqualTo(array);
-	}
-
-	@Test
-	void testConcatNone() {
 		assertThat(ByteArrays.concat()).isEmpty();
+		assertThat(ByteArrays.concat(ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+		assertThat(ByteArrays.concat(ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 2))).containsExactly((byte) 1, (byte) 2);
 	}
 
 	@Test
-	void testConcatNull() {
+	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((byte[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((List<byte[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((byte[]) null));
@@ -227,33 +304,18 @@ final class ByteArraysTest {
 
 	@Test
 	void testJoin() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.join(ByteArrays.of((byte) 0), array, array)).isEqualTo(ByteArrays.of((byte) 1, (byte) 2, (byte) 3, (byte) 0, (byte) 1, (byte) 2, (byte) 3));
+		assertThat(ByteArrays.join(ByteArrays.EMPTY, ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 2))).containsExactly((byte) 1, (byte) 2);
+		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0))).isEmpty();
+		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0), ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);
+		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0), ByteArrays.singleton((byte) 1), ByteArrays.singleton((byte) 2))).containsExactly((byte) 1, (byte) 0, (byte) 2);
 	}
 
 	@Test
-	void testJoinEmptySeparator() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.join(ByteArrays.EMPTY, array, array)).isEqualTo(ByteArrays.concat(array, array));
-	}
-
-	@Test
-	void testJoinOne() {
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		assertThat(ByteArrays.join(ByteArrays.of((byte) 0), array)).isEqualTo(array);
-	}
-
-	@Test
-	void testJoinNone() {
-		assertThat(ByteArrays.join(ByteArrays.of((byte) 0))).isEmpty();
-	}
-
-	@Test
-	void testJoinNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(null, ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.EMPTY, (byte[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.EMPTY, (List<byte[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.EMPTY, (byte[]) null));
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(null, ByteArrays.singleton((byte) 1)));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.singleton((byte) 0), (byte[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.singleton((byte) 0), (List<byte[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.singleton((byte) 0), (byte[]) null));
 	}
 
 	@Test
@@ -264,345 +326,360 @@ final class ByteArraysTest {
 	@Test
 	void testOf() {
 		assertThat(ByteArrays.of()).isEmpty();
-		assertThat(ByteArrays.of((byte) 1, (byte) 2, (byte) 3)).containsExactly((byte) 1, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.of((byte) 1, (byte) 2)).containsExactly((byte) 1, (byte) 2);
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((byte[]) null));
 	}
 
 	@Test
-	void testOfBooleanAndToBoolean() {
-		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(false))).isEqualTo(false);
-		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean( true))).isEqualTo( true);
+	void testOfBoxedToBoxed() {
+		assertThat(ByteArrays.of(ByteArrays.toBoxed(ByteArrays.EMPTY))).isEmpty();
+		assertThat(ByteArrays.of(ByteArrays.toBoxed(ByteArrays.of((byte) 1, (byte) 2)))).containsExactly((byte) 1, (byte) 2);
+		assertThat(ByteArrays.toBoxed(ByteArrays.singleton((byte) 1))).isInstanceOf(Byte[].class);
+		assertThat(ByteArrays.of(ByteArrays.toBoxed(ByteArrays.singleton((byte) 1)))).isInstanceOf(byte[].class);
 	}
 
 	@Test
-	void testToBooleanNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toBoolean(null));
+	void testOfBoxedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((Byte[]) null));
+	}
+
+	@Test
+	void testToBoxedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toBoxed(null));
+	}
+
+	@Test
+	void testOfBooleanAndToBoolean() {
+		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(false))).isFalse();
+		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(true))).isTrue();
 	}
 
 	@Test
 	void testToBooleanInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toBoolean(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toBoolean(ByteArrays.EMPTY));
 	}
 
 	@Test
 	void testOfShortAndToShort() {
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0))).isEqualTo((short) 0);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo((short) 0);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) 0);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) 0);
 
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo((short) -5);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) -5);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) -5);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((short) -5);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo((short) -5);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((short) -5);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) -5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo((short) -5);
 
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo((short) 5);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) 5);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) 5);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((short) 5);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo((short) 5);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((short) 5);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo((short) 5);
 
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Short.MIN_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Short.MIN_VALUE);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Short.MIN_VALUE);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MIN_VALUE);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MIN_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MIN_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MIN_VALUE);
 
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Short.MAX_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Short.MAX_VALUE);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Short.MAX_VALUE);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
-		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
 	}
 
 	@Test
-	void testOfShortNull() {
+	void testOfShortInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofShort((short) 0, null));
 	}
 
 	@Test
-	void testToShortNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(ByteArrays.EMPTY, null));
-	}
-
-	@Test
 	void testToShortInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toShort(ByteArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(ByteArrays.ofShort((short) 0), null));
 	}
 
 	@Test
 	void testOfCharAndToChar() {
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE))).isEqualTo(Character.MIN_VALUE);
-		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MIN_VALUE);
+		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MIN_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MIN_VALUE);
 
-		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo((char) 5);
+		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((char) 5);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((char) 5);
-		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((char) 5);
-		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo((char) 5);
+		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((char) 5);
+		assertThat(ByteArrays.toChar(ByteArrays.ofChar((char) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo((char) 5);
 
-		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MAX_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MAX_VALUE);
+		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MAX_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MAX_VALUE);
 	}
 
 	@Test
-	void testOfCharNull() {
+	void testOfCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofChar((char) 0, null));
 	}
 
 	@Test
-	void testToCharNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(ByteArrays.EMPTY, null));
-	}
-
-	@Test
 	void testToCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toChar(ByteArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(ByteArrays.ofChar((char) 0), null));
 	}
 
 	@Test
 	void testOfIntAndToInt() {
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0))).isEqualTo(0);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(0);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0);
 
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(-5);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5);
 
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(5);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(5);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5);
 
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Integer.MIN_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Integer.MIN_VALUE);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Integer.MIN_VALUE);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MIN_VALUE);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MIN_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MIN_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MIN_VALUE);
 
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Integer.MAX_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Integer.MAX_VALUE);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Integer.MAX_VALUE);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
 	}
 
 	@Test
-	void testOfIntNull() {
+	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofInt(0, null));
 	}
 
 	@Test
-	void testToIntNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(ByteArrays.EMPTY, null));
-	}
-
-	@Test
 	void testToIntInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toInt(ByteArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(ByteArrays.ofInt(0), null));
 	}
 
 	@Test
 	void testOfLongAndToLong() {
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L))).isEqualTo(0L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(0L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0L);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0L);
 
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(-5L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5L);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5L);
 
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(5L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5L);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(5L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5L);
 
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Long.MIN_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Long.MIN_VALUE);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Long.MIN_VALUE);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MIN_VALUE);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MIN_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MIN_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MIN_VALUE);
 
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Long.MAX_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Long.MAX_VALUE);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Long.MAX_VALUE);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
 	}
 
 	@Test
-	void testOfLongNull() {
+	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofLong(0L, null));
 	}
 
 	@Test
-	void testToLongNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(ByteArrays.EMPTY, null));
-	}
-
-	@Test
 	void testToLongInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toLong(ByteArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(ByteArrays.ofLong(0L), null));
 	}
 
 	@Test
 	void testOfFloatAndToFloat() {
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f))).isEqualTo(0.0f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(0.0f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0.0f);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0.0f);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5f);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5.5f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5.5f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5.5f);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5.5f);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5.5f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5.5f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5.5f);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MIN_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MIN_VALUE);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.MIN_VALUE);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MIN_VALUE);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MIN_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MIN_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MIN_VALUE);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Float.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.NEGATIVE_INFINITY);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.NEGATIVE_INFINITY);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.NEGATIVE_INFINITY);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.NEGATIVE_INFINITY);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MIN_NORMAL);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MIN_NORMAL);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.MIN_NORMAL);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MIN_NORMAL);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MIN_NORMAL);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MIN_NORMAL);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MIN_NORMAL);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Float.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.POSITIVE_INFINITY);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.POSITIVE_INFINITY);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.POSITIVE_INFINITY);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.POSITIVE_INFINITY);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MAX_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MAX_VALUE);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.MAX_VALUE);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Float.NaN);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.NaN);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.NaN);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.NaN);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.NaN);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.NaN);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.NaN);
 	}
 
 	@Test
-	void testOfFloatNull() {
+	void testOfFloatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofFloat(0.0f, null));
 	}
 
 	@Test
-	void testToFloatNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(ByteArrays.EMPTY, null));
-	}
-
-	@Test
 	void testToFloatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toFloat(ByteArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(ByteArrays.ofFloat(0.0f), null));
 	}
 
 	@Test
 	void testOfDoubleAndToDouble() {
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d))).isEqualTo(0.0d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(0.0d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0.0d);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0.0d);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5d);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5.5d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5.5d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5.5d);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5.5d);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5.5d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5.5d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5.5d);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MIN_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MIN_VALUE);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.MIN_VALUE);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MIN_VALUE);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MIN_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MIN_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MIN_VALUE);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Double.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.NEGATIVE_INFINITY);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.NEGATIVE_INFINITY);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.NEGATIVE_INFINITY);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.NEGATIVE_INFINITY);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MIN_NORMAL);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MIN_NORMAL);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.MIN_NORMAL);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MIN_NORMAL);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MIN_NORMAL);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MIN_NORMAL);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MIN_NORMAL);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.POSITIVE_INFINITY);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.POSITIVE_INFINITY);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.POSITIVE_INFINITY);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.POSITIVE_INFINITY);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MAX_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MAX_VALUE);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.MAX_VALUE);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN,    ByteOrder.BIG_ENDIAN),    ByteOrder.BIG_ENDIAN)).isEqualTo(Double.NaN);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.NaN);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.NaN);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN,    ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.NaN);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN),    ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.NaN);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.NaN);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.NaN);
 	}
 
 	@Test
-	void testOfDoubleNull() {
+	void testOfDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofDouble(0.0d, null));
 	}
 
 	@Test
-	void testToDoubleNull() {
+	void testToDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDouble(null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.EMPTY, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.ofDouble(0.0d), null));
 	}
 
 	@Test
-	void testToDoubleInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.EMPTY));
+	void testOfBinaryString() {
+		assertThat(ByteArrays.ofBinaryString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofBinaryString("00000000")).isEqualTo(ByteArrays.singleton((byte) 0b00000000));
+		assertThat(ByteArrays.ofBinaryString("11111111")).isEqualTo(ByteArrays.singleton((byte) 0b11111111));
+		assertThat(ByteArrays.ofBinaryString("0101010110101010")).isEqualTo(ByteArrays.of((byte) 0b01010101, (byte) 0b10101010));
+	}
+
+	@Test
+	void testOfBinaryStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofBinaryString(null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000?"));
+	}
+
+	@Test
+	void testToBinaryString() {
+		assertThat(ByteArrays.toBinaryString(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.toBinaryString(ByteArrays.singleton((byte) 0b00000000))).isEqualTo("00000000");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.singleton((byte) 0b11111111))).isEqualTo("11111111");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.of((byte) 0b01010101, (byte) 0b10101010))).isEqualTo("0101010110101010");
+	}
+
+	@Test
+	void testToBinaryStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toBinaryString(null));
 	}
 
 	@Test
 	void testOfHexString() {
-		assertThat(ByteArrays.ofHexString(  "")).isEqualTo(ByteArrays.EMPTY);
-		assertThat(ByteArrays.ofHexString("00")).isEqualTo(ByteArrays.of((byte) 0x00));
-		assertThat(ByteArrays.ofHexString("ff")).isEqualTo(ByteArrays.of((byte) 0xff));
-		assertThat(ByteArrays.ofHexString("FF")).isEqualTo(ByteArrays.of((byte) 0xff));
-	}
-
-	@Test
-	void testOfHexStringNull() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofHexString(null));
+		assertThat(ByteArrays.ofHexString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofHexString("00")).isEqualTo(ByteArrays.singleton((byte) 0x00));
+		assertThat(ByteArrays.ofHexString("ff")).isEqualTo(ByteArrays.singleton((byte) 0xff));
+		assertThat(ByteArrays.ofHexString("FF")).isEqualTo(ByteArrays.singleton((byte) 0xff));
+		assertThat(ByteArrays.ofHexString("0ff0")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
 	}
 
 	@Test
 	void testOfHexStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofHexString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexString("0"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexString("0x"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexString("x0"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexString("0?"));
 	}
 
 	@Test
 	void testToHexString() {
 		assertThat(ByteArrays.toHexString(ByteArrays.EMPTY)).isEmpty();
-		assertThat(ByteArrays.toHexString(ByteArrays.of((byte)   0))).isEqualTo("00");
-		assertThat(ByteArrays.toHexString(ByteArrays.of((byte) 255))).isEqualTo("ff");
+		assertThat(ByteArrays.toHexString(ByteArrays.singleton((byte) 0x00))).isEqualTo("00");
+		assertThat(ByteArrays.toHexString(ByteArrays.singleton((byte) 0xff))).isEqualTo("ff");
+		assertThat(ByteArrays.toHexString(ByteArrays.of((byte) 0x0f, (byte) 0xf0))).isEqualTo("0ff0");
 	}
 
 	@Test
-	void testToHexStringNull() {
+	void testToHexStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toHexString(null));
 	}
 }

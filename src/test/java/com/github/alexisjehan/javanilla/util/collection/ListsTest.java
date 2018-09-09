@@ -45,14 +45,14 @@ final class ListsTest {
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Lists.nullToDefault(null, Collections.singletonList("foo"))).containsExactly("foo");
-		assertThat(Lists.nullToDefault(Collections.emptyList(), Collections.singletonList("foo"))).isEmpty();
-		assertThat(Lists.nullToDefault(Collections.singletonList("foo"), Collections.singletonList("foo"))).containsExactly("foo");
+		assertThat(Lists.nullToDefault(null, Collections.singletonList("bar"))).containsExactly("bar");
+		assertThat(Lists.nullToDefault(Collections.emptyList(), Collections.singletonList("bar"))).isEmpty();
+		assertThat(Lists.nullToDefault(Collections.singletonList("foo"), Collections.singletonList("bar"))).containsExactly("foo");
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.nullToDefault(Collections.emptyList(), null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.nullToDefault(Collections.singletonList("foo"), null));
 	}
 
 	@Test
@@ -64,14 +64,14 @@ final class ListsTest {
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Lists.emptyToDefault(null, Collections.singletonList("foo"))).isNull();
-		assertThat(Lists.emptyToDefault(Collections.emptyList(), Collections.singletonList("foo"))).containsExactly("foo");
-		assertThat(Lists.emptyToDefault(Collections.singletonList("foo"), Collections.singletonList("foo"))).containsExactly("foo");
+		assertThat(Lists.emptyToDefault(null, Collections.singletonList("bar"))).isNull();
+		assertThat(Lists.emptyToDefault(Collections.emptyList(), Collections.singletonList("bar"))).containsExactly("bar");
+		assertThat(Lists.emptyToDefault(Collections.singletonList("foo"), Collections.singletonList("bar"))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Lists.emptyToDefault(Collections.emptyList(), Collections.emptyList()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Lists.emptyToDefault(Collections.singletonList("foo"), Collections.emptyList()));
 	}
 
 	@Test
@@ -82,7 +82,7 @@ final class ListsTest {
 	}
 
 	@Test
-	void testGetFirstNull() {
+	void testGetFirstInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Lists.getFirst(null));
 	}
 
@@ -94,7 +94,7 @@ final class ListsTest {
 	}
 
 	@Test
-	void testGetLastNull() {
+	void testGetLastInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Lists.getLast(null));
 	}
 }

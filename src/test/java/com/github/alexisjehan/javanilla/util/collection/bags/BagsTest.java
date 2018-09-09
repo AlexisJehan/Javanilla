@@ -93,7 +93,7 @@ final class BagsTest {
 	}
 
 	@Test
-	void testNullToDefaultNull() {
+	void testNullToDefaultInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Bags.nullToDefault(Bags.empty(), null));
 	}
 
@@ -127,59 +127,59 @@ final class BagsTest {
 	}
 
 	@Test
-	void testUnmodifiableNull() {
+	void testUnmodifiableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Bags.unmodifiable(null));
 	}
 
 	@Test
 	void testSingleton() {
-		final var singletonBag = Bags.singleton("foo", 5L);
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
-		assertThat(singletonBag.count("foo")).isEqualTo(5L);
-		assertThat(singletonBag.count("bar")).isEqualTo(0L);
-		assertThat(singletonBag.count(null)).isEqualTo(0L);
-		assertThat(singletonBag.distinct()).isEqualTo(1L);
-		assertThat(singletonBag.size()).isEqualTo(5L);
-		assertThat(singletonBag.min().get()).isEqualTo("foo");
-		assertThat(singletonBag.max().get()).isEqualTo("foo");
-		assertThat(singletonBag.toSet()).containsExactlyInAnyOrder("foo");
-		assertThat(singletonBag.toMap()).containsOnly(Map.entry("foo", 5L));
-	}
-
-	@Test
-	void testSingletonZero() {
-		final var singletonBag = Bags.singleton("foo", 0L);
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
-		assertThat(singletonBag.count("foo")).isEqualTo(0L);
-		assertThat(singletonBag.count("bar")).isEqualTo(0L);
-		assertThat(singletonBag.count(null)).isEqualTo(0L);
-		assertThat(singletonBag.distinct()).isEqualTo(0L);
-		assertThat(singletonBag.size()).isEqualTo(0L);
-		assertThat(singletonBag.min().isEmpty()).isTrue();
-		assertThat(singletonBag.max().isEmpty()).isTrue();
-		assertThat(singletonBag.toSet()).isEmpty();
-		assertThat(singletonBag.toMap()).isEmpty();
-	}
-
-	@Test
-	void testSingletonNull() {
-		final var singletonBag = Bags.singleton(null, 5L);
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
-		assertThat(singletonBag.count("foo")).isEqualTo(0L);
-		assertThat(singletonBag.count("bar")).isEqualTo(0L);
-		assertThat(singletonBag.count(null)).isEqualTo(5L);
-		assertThat(singletonBag.distinct()).isEqualTo(1L);
-		assertThat(singletonBag.size()).isEqualTo(5L);
-		assertThat(singletonBag.min().get()).isNull();
-		assertThat(singletonBag.max().get()).isNull();
-		assertThat(singletonBag.toSet()).containsExactlyInAnyOrder((String) null);
-		assertThat(singletonBag.toMap()).containsOnly(new AbstractMap.SimpleImmutableEntry<>(null, 5L));
+		{
+			final var singletonBag = Bags.singleton("foo", 5L);
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
+			assertThat(singletonBag.count("foo")).isEqualTo(5L);
+			assertThat(singletonBag.count("bar")).isEqualTo(0L);
+			assertThat(singletonBag.count(null)).isEqualTo(0L);
+			assertThat(singletonBag.distinct()).isEqualTo(1L);
+			assertThat(singletonBag.size()).isEqualTo(5L);
+			assertThat(singletonBag.min().get()).isEqualTo("foo");
+			assertThat(singletonBag.max().get()).isEqualTo("foo");
+			assertThat(singletonBag.toSet()).containsExactlyInAnyOrder("foo");
+			assertThat(singletonBag.toMap()).containsOnly(Map.entry("foo", 5L));
+		}
+		{
+			// Zero
+			final var singletonBag = Bags.singleton("foo", 0L);
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
+			assertThat(singletonBag.count("foo")).isEqualTo(0L);
+			assertThat(singletonBag.count("bar")).isEqualTo(0L);
+			assertThat(singletonBag.count(null)).isEqualTo(0L);
+			assertThat(singletonBag.distinct()).isEqualTo(0L);
+			assertThat(singletonBag.size()).isEqualTo(0L);
+			assertThat(singletonBag.min().isEmpty()).isTrue();
+			assertThat(singletonBag.max().isEmpty()).isTrue();
+			assertThat(singletonBag.toSet()).isEmpty();
+			assertThat(singletonBag.toMap()).isEmpty();
+		}
+		{
+			// Null
+			final var singletonBag = Bags.singleton(null, 5L);
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
+			assertThat(singletonBag.count("foo")).isEqualTo(0L);
+			assertThat(singletonBag.count("bar")).isEqualTo(0L);
+			assertThat(singletonBag.count(null)).isEqualTo(5L);
+			assertThat(singletonBag.distinct()).isEqualTo(1L);
+			assertThat(singletonBag.size()).isEqualTo(5L);
+			assertThat(singletonBag.min().get()).isNull();
+			assertThat(singletonBag.max().get()).isNull();
+			assertThat(singletonBag.toSet()).containsExactlyInAnyOrder((String) null);
+			assertThat(singletonBag.toMap()).containsOnly(new AbstractMap.SimpleImmutableEntry<>(null, 5L));
+		}
 	}
 
 	@Test
@@ -220,6 +220,8 @@ final class BagsTest {
 
 	@Test
 	void testOf() {
+		assertThat(Bags.of().toSet()).isEmpty();
+		assertThat(Bags.of("foo").toSet()).containsExactly("foo");
 		final var bag = Bags.of("foo", "foo", "foo", "bar", "bar", null);
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.add("foo"));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.remove("foo"));
@@ -236,7 +238,7 @@ final class BagsTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Bags.of((Object[]) null));
 	}
 }

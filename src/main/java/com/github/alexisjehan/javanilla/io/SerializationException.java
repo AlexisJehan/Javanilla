@@ -26,7 +26,8 @@ package com.github.alexisjehan.javanilla.io;
 import java.util.Objects;
 
 /**
- * <p>Wraps any {@link Exception} related to serialization thrown while working with {@link Serializables} methods.</p>
+ * <p>A {@link RuntimeException} wrapping any serialization {@link Exception} thrown while working with the
+ * {@link Serializables} utility class.</p>
  * <p><b>Note</b>: This class is serializable.</p>
  * @since 1.0.0
  */
@@ -36,7 +37,7 @@ public final class SerializationException extends RuntimeException {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -7322730015273496724L;
+	private static final long serialVersionUID = -2383288474294867415L;
 
 	/**
 	 * <p>Constructor with a cause.</p>

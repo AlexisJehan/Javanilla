@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- * <p>Wraps a {@link SQLException} with an unchecked exception.</p>
+ * <p>Wrapped {@link SQLException} as an unchecked exception.</p>
  * <p><b>Note</b>: This class is serializable.</p>
  * @since 1.0.0
  */
@@ -37,7 +37,7 @@ public final class UncheckedSQLException extends RuntimeException {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 4304033435969570989L;
+	private static final long serialVersionUID = 1820971183636467050L;
 
 	/**
 	 * <p>Constructor with a checked cause.</p>

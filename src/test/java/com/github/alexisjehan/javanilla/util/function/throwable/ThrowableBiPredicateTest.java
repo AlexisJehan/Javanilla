@@ -36,24 +36,12 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableBiPredicateTest {
 
 	@Test
-	void testSimple() {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate = (t, u) -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate.test(1, 2.3f));
-	}
-
-	@Test
-	void testAnd() {
+	void testAnd() throws IOException {
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 1 == t && 2.3f == u;
-		try {
-			assertThat(throwableBiPredicate1.and((t, u) -> 0 == t && 0.0f == u).test(1, 2.3f)).isFalse();
-			assertThat(throwableBiPredicate1.and((t, u) -> 1 == t && 2.3f == u).test(1, 2.3f)).isTrue();
-			assertThat(throwableBiPredicate1.and((t, u) -> 0 == t && 0.0f == u).test(0, 0.0f)).isFalse();
-			assertThat(throwableBiPredicate1.and((t, u) -> 1 == t && 2.3f == u).test(0, 0.0f)).isFalse();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableBiPredicate1.and((t, u) -> 0 == t && 0.0f == u).test(1, 2.3f)).isFalse();
+		assertThat(throwableBiPredicate1.and((t, u) -> 1 == t && 2.3f == u).test(1, 2.3f)).isTrue();
+		assertThat(throwableBiPredicate1.and((t, u) -> 0 == t && 0.0f == u).test(0, 0.0f)).isFalse();
+		assertThat(throwableBiPredicate1.and((t, u) -> 1 == t && 2.3f == u).test(0, 0.0f)).isFalse();
 
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate2 = (t, u) -> {
 			throw new IOException();
@@ -62,7 +50,7 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
-	void testAndNull() {
+	void testAndInvalid() {
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate = (t, u) -> {
 			throw new IOException();
 		};
@@ -70,27 +58,19 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
-	void testNegate() {
+	void testNegate() throws IOException {
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 1 == t && 2.3f == u;
-		try {
-			assertThat(throwableBiPredicate1.negate().test(1, 2.3f)).isFalse();
-			assertThat(throwableBiPredicate1.negate().negate().test(1, 2.3f)).isTrue();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableBiPredicate1.negate().test(1, 2.3f)).isFalse();
+		assertThat(throwableBiPredicate1.negate().negate().test(1, 2.3f)).isTrue();
 	}
 
 	@Test
-	void testOr() {
+	void testOr() throws IOException {
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 0 == t && 0f == u;
-		try {
-			assertThat(throwableBiPredicate1.or((t, u) -> 0 == t && 0.0f == u).test(1, 2.3f)).isFalse();
-			assertThat(throwableBiPredicate1.or((t, u) -> 1 == t && 2.3f == u).test(1, 2.3f)).isTrue();
-			assertThat(throwableBiPredicate1.or((t, u) -> 0 == t && 0.0f == u).test(0, 0.0f)).isTrue();
-			assertThat(throwableBiPredicate1.or((t, u) -> 1 == t && 2.3f == u).test(0, 0.0f)).isTrue();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableBiPredicate1.or((t, u) -> 0 == t && 0.0f == u).test(1, 2.3f)).isFalse();
+		assertThat(throwableBiPredicate1.or((t, u) -> 1 == t && 2.3f == u).test(1, 2.3f)).isTrue();
+		assertThat(throwableBiPredicate1.or((t, u) -> 0 == t && 0.0f == u).test(0, 0.0f)).isTrue();
+		assertThat(throwableBiPredicate1.or((t, u) -> 1 == t && 2.3f == u).test(0, 0.0f)).isTrue();
 
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate2 = (t, u) -> {
 			throw new IOException();
@@ -99,7 +79,7 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
-	void testOrNull() {
+	void testOrInvalid() {
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate = (t, u) -> {
 			throw new IOException();
 		};
@@ -107,13 +87,9 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 1 == t && 2.3f == u;
-		try {
-			assertThat(throwableBiPredicate1.test(1, 2.3f)).isTrue();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwableBiPredicate1.test(1, 2.3f)).isTrue();
 		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate1).test(1, 2.3f)).isTrue();
 
 		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate2 = (t, u) -> {
@@ -124,7 +100,7 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableBiPredicate.unchecked(null));
 	}
 
@@ -138,7 +114,7 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowableBiPredicate.of(null));
 	}
 }

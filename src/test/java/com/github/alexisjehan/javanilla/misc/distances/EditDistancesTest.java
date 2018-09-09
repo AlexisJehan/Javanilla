@@ -59,8 +59,8 @@ final class EditDistancesTest {
 	}
 
 	@Test
-	void testCalculateNull() {
-		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate(null, "ab"));
-		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate("ab", null));
+	void testCalculateInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate("foo", null));
 	}
 }

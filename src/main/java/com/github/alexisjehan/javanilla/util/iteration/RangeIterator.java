@@ -27,27 +27,21 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@link Iterator} decorator that iterates only over elements within a range from the current position.</p>
+ * <p>An {@link Iterator} decorator that iterates only elements within a range from the current position.</p>
  * <p><b>Note</b>: A removed element is still considered in the index.</p>
  * @param <E> the element type
  * @since 1.0.0
  */
-public class RangeIterator<E> implements Iterator<E> {
+public final class RangeIterator<E> extends FilterIterator<E> {
 
 	/**
-	 * <p>Delegated {@code Iterator}.</p>
-	 * @since 1.0.0
-	 */
-	private final Iterator<? extends E> iterator;
-
-	/**
-	 * <p>The inclusive index of the first element to iterate.</p>
+	 * <p>Inclusive index of the first element to iterate.</p>
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>The inclusive index of the last element to iterate.<p>
+	 * <p>Inclusive index of the last element to iterate.<p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -59,11 +53,11 @@ public class RangeIterator<E> implements Iterator<E> {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code Iterator} and a range from {@code 0} to the given inclusive index.</p>
-	 * @param iterator the delegated {@code Iterator}
+	 * <p>Constructor with an {@code Iterator} to decorate and a range from {@code 0} to an inclusive index.</p>
+	 * @param iterator the {@code Iterator} to decorate
 	 * @param toIndex the inclusive index of the last element to iterate
-	 * @throws NullPointerException if the delegated {@code Iterator} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is negative
+	 * @throws NullPointerException if the {@code Iterator} is {@code null}
+	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public RangeIterator(final Iterator<? extends E> iterator, final long toIndex) {
@@ -71,25 +65,22 @@ public class RangeIterator<E> implements Iterator<E> {
 	}
 
 	/**
-	 * <p>Constructor with a delegated {@code Iterator} and a range from an inclusive index to another one.</p>
-	 * @param iterator the delegated {@code Iterator}
+	 * <p>Constructor with an {@code Iterator} to decorate and a range from an inclusive index to another one.</p>
+	 * @param iterator the {@code Iterator} to decorate
 	 * @param fromIndex the inclusive index of the first element to iterate
 	 * @param toIndex the inclusive index of the last element to iterate
-	 * @throws NullPointerException if the delegated {@code Iterator} is {@code null}
-	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
+	 * @throws NullPointerException if the {@code Iterator} is {@code null}
+	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeIterator(final Iterator<? extends E> iterator, final long fromIndex, final long toIndex) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid iterator (not null expected)");
-		}
+		super(iterator);
 		if (0L > fromIndex) {
 			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
 		}
 		if (fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException("Invalid to index: " + toIndex + " (greater than or equal to the from index expected)");
 		}
-		this.iterator = iterator;
 		this.fromIndex = fromIndex;
 		this.toIndex = toIndex;
 	}
@@ -115,14 +106,9 @@ public class RangeIterator<E> implements Iterator<E> {
 		return iterator.next();
 	}
 
-	@Override
-	public void remove() {
-		iterator.remove();
-	}
-
 	/**
 	 * <p>Get the inclusive index of the first element to iterate.</p>
-	 * @return the inclusive index
+	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
@@ -131,7 +117,7 @@ public class RangeIterator<E> implements Iterator<E> {
 
 	/**
 	 * <p>Get the inclusive index of the last element to iterate.<p>
-	 * @return the inclusive index
+	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */
 	public long getToIndex() {

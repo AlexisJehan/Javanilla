@@ -23,8 +23,6 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.iteration;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
@@ -42,10 +40,10 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
 	 * <p>Performs the given action for each element of the {@code Iterable} until all elements have been processed or
-	 * the action throws an exception. Unless otherwise specified by the implementing class, actions are performed in
-	 * the order of iteration (if an iteration order is specified). Exceptions thrown by the action are relayed to the
-	 * caller.</p>
-	 * @param action The action to be performed for each element
+	 * the action throws an {@code Exception}. Unless otherwise specified by the implementing class, actions are
+	 * performed in the order of iteration (if an iteration order is specified). {@code Exception}s thrown by the action
+	 * are relayed to the caller.</p>
+	 * @param action the action to be performed for each element
 	 * @throws NullPointerException if the specified action is {@code null}
 	 * @since 1.0.0
 	 */
@@ -58,7 +56,6 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 */
 	interface OfInt extends PrimitiveIterable<Integer, IntConsumer> {
 
-		@NotNull
 		@Override
 		PrimitiveIterator.OfInt iterator();
 
@@ -79,7 +76,6 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 */
 	interface OfLong extends PrimitiveIterable<Long, LongConsumer> {
 
-		@NotNull
 		@Override
 		PrimitiveIterator.OfLong iterator();
 
@@ -100,7 +96,6 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 */
 	interface OfDouble extends PrimitiveIterable<Double, DoubleConsumer> {
 
-		@NotNull
 		@Override
 		PrimitiveIterator.OfDouble iterator();
 

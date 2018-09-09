@@ -23,12 +23,13 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
-import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
+import com.github.alexisjehan.javanilla.util.iteration.Iterables;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>An utility class that provides {@link InputStream} tools.</p>
@@ -45,16 +46,65 @@ public final class InputStreams {
 		public int read() {
 			return -1;
 		}
-	};
 
-	/**
-	 * <p>An endless {@code InputStream} that returns random bytes.</p>
-	 * @since 1.0.0
-	 */
-	public static final InputStream ENDLESS = new InputStream() {
 		@Override
-		public int read() {
-			return ThreadLocalRandom.current().nextInt(0, 256); // Range between 0 and 255 included
+		public int read(final byte[] buffer) {
+			if (null == buffer) {
+				throw new NullPointerException("Invalid buffer (not null expected)");
+			}
+			if (0 == buffer.length) {
+				return 0;
+			}
+			return -1;
+		}
+
+		@Override
+		public int read(final byte[] buffer, final int offset, final int length) {
+			if (null == buffer) {
+				throw new NullPointerException("Invalid buffer (not null expected)");
+			}
+			if (0 > offset || buffer.length < offset) {
+				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
+			}
+			if (0 > length || buffer.length - offset < length) {
+				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
+			}
+			if (0 == length) {
+				return 0;
+			}
+			return -1;
+		}
+
+		@Override
+		public byte[] readAllBytes() {
+			return ByteArrays.EMPTY;
+		}
+
+		@Override
+		public int readNBytes(final byte[] buffer, final int offset, final int length) {
+			if (null == buffer) {
+				throw new NullPointerException("Invalid buffer (not null expected)");
+			}
+			if (0 > offset || buffer.length < offset) {
+				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
+			}
+			if (0 > length || buffer.length - offset < length) {
+				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
+			}
+			return 0;
+		}
+
+		@Override
+		public long skip(final long n) {
+			return 0L;
+		}
+
+		@Override
+		public long transferTo(final OutputStream outputStream) {
+			if (null == outputStream) {
+				throw new NullPointerException("Invalid OutputStream (not null expected)");
+			}
+			return 0L;
 		}
 	};
 
@@ -67,9 +117,9 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} replacing {@code null} by an empty {@code InputStream}.</p>
-	 * @param inputStream an {@code InputStream} or {@code null}
-	 * @return the non-{@code null} {@code InputStream}
+	 * <p>Wrap an {@code InputStream} replacing {@code null} by an empty one.</p>
+	 * @param inputStream the {@code InputStream} or {@code null}
+	 * @return a non-{@code null} {@code InputStream}
 	 * @since 1.0.0
 	 */
 	public static InputStream nullToEmpty(final InputStream inputStream) {
@@ -77,30 +127,31 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} replacing {@code null} by a default {@code InputStream}.</p>
-	 * @param inputStream an {@code InputStream} or {@code null}
+	 * <p>Wrap an {@code InputStream} replacing {@code null} by a default one.</p>
+	 * @param inputStream the {@code InputStream} or {@code null}
 	 * @param defaultInputStream the default {@code InputStream}
-	 * @return the non-{@code null} {@code InputStream}
+	 * @param <I> the {@code InputStream} type
+	 * @return a non-{@code null} {@code InputStream}
 	 * @throws NullPointerException if the default {@code InputStream} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static InputStream nullToDefault(final InputStream inputStream, final InputStream defaultInputStream) {
+	public static <I extends InputStream> I nullToDefault(final I inputStream, final I defaultInputStream) {
 		if (null == defaultInputStream) {
-			throw new NullPointerException("Invalid default input stream (not null expected)");
+			throw new NullPointerException("Invalid default InputStream (not null expected)");
 		}
 		return null != inputStream ? inputStream : defaultInputStream;
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} as a {@code BufferedInputStream} if it was not already.</p>
-	 * @param inputStream the {@code InputStream} to wrap
-	 * @return the buffered {@code InputStream}
+	 * <p>Decorate an {@code InputStream} as a {@code BufferedInputStream} if it was not already.</p>
+	 * @param inputStream the {@code InputStream} to decorate
+	 * @return a {@code BufferedInputStream}
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static BufferedInputStream buffered(final InputStream inputStream) {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		if (inputStream instanceof BufferedInputStream) {
 			return (BufferedInputStream) inputStream;
@@ -109,15 +160,15 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} so that it supports {@link InputStream#mark(int)} if it did not already.</p>
-	 * @param inputStream the {@code InputStream} to wrap
-	 * @return the {@code InputStream} with mark supported
+	 * <p>Decorate an {@code InputStream} so that it supports {@link InputStream#mark(int)} if it did not already.</p>
+	 * @param inputStream the {@code InputStream} to decorate
+	 * @return an {@code InputStream} with mark supported
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream markSupported(final InputStream inputStream) {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		if (inputStream.markSupported()) {
 			return inputStream;
@@ -126,15 +177,15 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} so that its {@link InputStream#close()} method has no effect.</p>
-	 * @param inputStream the {@code InputStream} to wrap
-	 * @return the uncloseable {@code InputStream}
+	 * <p>Decorate an {@code InputStream} so that its {@link InputStream#close()} method has no effect.</p>
+	 * @param inputStream the {@code InputStream} to decorate
+	 * @return an uncloseable {@code InputStream}
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream uncloseable(final InputStream inputStream) {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		return new FilterInputStream(inputStream) {
 			@Override
@@ -156,77 +207,74 @@ public final class InputStreams {
 	 */
 	public static long length(final InputStream inputStream) throws IOException {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
-		return inputStream.transferTo(OutputStreams.BLANK);
+		return inputStream.transferTo(OutputStreams.EMPTY);
 	}
 
 	/**
 	 * <p>Concatenate multiple {@code InputStream}s.</p>
-	 * @param inputStreams {@code InputStream}s to concatenate
+	 * @param inputStreams the {@code InputStream} array to concatenate
 	 * @return the concatenated {@code InputStream}
-	 * @throws NullPointerException whether the {@code InputStream}s array or any of the {@code InputStream}s is
-	 * {@code null}
+	 * @throws NullPointerException if the {@code InputStream} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream concat(final InputStream... inputStreams) {
 		if (null == inputStreams) {
-			throw new NullPointerException("Invalid input streams (not null expected)");
+			throw new NullPointerException("Invalid InputStreams (not null expected)");
 		}
 		return concat(Arrays.asList(inputStreams));
 	}
 
 	/**
-	 * <p>Concatenate a list of {@code InputStream}s.</p>
-	 * @param inputStreams {@code InputStream}s to concatenate
+	 * <p>Concatenate multiple {@code InputStream}s.</p>
+	 * @param inputStreams the {@code InputStream} {@code List} to concatenate
 	 * @return the concatenated {@code InputStream}
-	 * @throws NullPointerException whether the {@code InputStream}s list or any of the {@code InputStream}s is
-	 * {@code null}
+	 * @throws NullPointerException if the {@code InputStream} {@code List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream concat(final List<InputStream> inputStreams) {
 		if (null == inputStreams) {
-			throw new NullPointerException("Invalid input streams (not null expected)");
+			throw new NullPointerException("Invalid InputStreams (not null expected)");
 		}
-		var i = 0;
-		for (final var inputStream : inputStreams) {
-			if (null == inputStream) {
-				throw new NullPointerException("Invalid input stream at index " + i + " (not null expected)");
+		for (final var indexedInputStream : Iterables.index(inputStreams)) {
+			if (null == indexedInputStream.getElement()) {
+				throw new NullPointerException("Invalid InputStream at index " + indexedInputStream.getIndex() + " (not null expected)");
 			}
-			++i;
 		}
-		if (inputStreams.isEmpty()) {
+		final var size = inputStreams.size();
+		if (0 == size) {
 			return EMPTY;
 		}
-		if (1 == inputStreams.size()) {
+		if (1 == size) {
 			return inputStreams.get(0);
 		}
 		return new SequenceInputStream(Collections.enumeration(inputStreams));
 	}
 
 	/**
-	 * <p>Join multiple {@code InputStream}s using a {@code byte array} separator.</p>
-	 * @param separator the {@code byte array} sequence to add between each joined {@code InputStream}
-	 * @param inputStreams {@code InputStream}s to join
+	 * <p>Join multiple {@code InputStream}s using a {@code byte} array separator.</p>
+	 * @param separator the {@code byte} array separator
+	 * @param inputStreams the {@code InputStream} array to join
 	 * @return the joined {@code InputStream}
-	 * @throws NullPointerException whether the separator, the {@code InputStream}s array or any of the
-	 * {@code InputStream}s is {@code null}
+	 * @throws NullPointerException if the {@code byte} array separator, the {@code InputStream} array or any of them is
+	 * {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream join(final byte[] separator, final InputStream... inputStreams) {
 		if (null == inputStreams) {
-			throw new NullPointerException("Invalid input streams (not null expected)");
+			throw new NullPointerException("Invalid InputStreams (not null expected)");
 		}
 		return join(separator, Arrays.asList(inputStreams));
 	}
 
 	/**
-	 * <p>Join a list of {@code InputStream}s using a {@code byte array} separator.</p>
-	 * @param separator the {@code byte array} sequence to add between each joined {@code InputStream}
-	 * @param inputStreams {@code InputStream}s to join
+	 * <p>Join multiple {@code InputStream}s using a {@code byte} array separator.</p>
+	 * @param separator the {@code byte} array separator
+	 * @param inputStreams the {@code InputStream} {@code List} to join
 	 * @return the joined {@code InputStream}
-	 * @throws NullPointerException whether the separator, the {@code InputStream}s list or any of the
-	 * {@code InputStream}s is {@code null}
+	 * @throws NullPointerException if the {@code byte} array separator, the {@code InputStream} {@code List} or any of
+	 * them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream join(final byte[] separator, final List<InputStream> inputStreams) {
@@ -234,25 +282,24 @@ public final class InputStreams {
 			throw new NullPointerException("Invalid separator (not null expected)");
 		}
 		if (null == inputStreams) {
-			throw new NullPointerException("Invalid input streams (not null expected)");
+			throw new NullPointerException("Invalid InputStreams (not null expected)");
 		}
-		var i = 0;
-		for (final var inputStream : inputStreams) {
-			if (null == inputStream) {
-				throw new NullPointerException("Invalid input stream at index " + i + " (not null expected)");
+		for (final var indexedInputStream : Iterables.index(inputStreams)) {
+			if (null == indexedInputStream.getElement()) {
+				throw new NullPointerException("Invalid InputStream at index " + indexedInputStream.getIndex() + " (not null expected)");
 			}
-			++i;
 		}
 		if (0 == separator.length) {
 			return concat(inputStreams);
 		}
-		if (inputStreams.isEmpty()) {
+		final var size = inputStreams.size();
+		if (0 == size) {
 			return EMPTY;
 		}
-		if (1 == inputStreams.size()) {
+		if (1 == size) {
 			return inputStreams.get(0);
 		}
-		final var list = new ArrayList<InputStream>();
+		final var list = new ArrayList<InputStream>(2 * size - 1);
 		final var iterator = inputStreams.iterator();
 		list.add(iterator.next());
 		while (iterator.hasNext()) {
@@ -263,9 +310,9 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create a single-{@code byte} {@code InputStream} using the given {@code byte}.</p>
-	 * @param b the {@code byte}
-	 * @return the created single-{@code byte} {@code InputStream}
+	 * <p>Create an {@code InputStream} from a single {@code byte}.</p>
+	 * @param b the {@code byte} to convert
+	 * @return the created {@code InputStream}
 	 * @since 1.1.0
 	 */
 	public static InputStream singleton(final byte b) {
@@ -273,10 +320,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} from a {@code byte array}.</p>
-	 * @param bytes the {@code byte array} to convert
+	 * <p>Create an {@code InputStream} from multiple {@code byte}s.</p>
+	 * @param bytes the {@code byte} array to convert
 	 * @return the created {@code InputStream}
-	 * @throws NullPointerException if the {@code byte array} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream of(final byte... bytes) {
@@ -290,24 +337,24 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code byte array}.</p>
+	 * <p>Convert an {@code InputStream} to a {@code byte} array.</p>
 	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code InputStream} is too large.</p>
 	 * @param inputStream the {@code InputStream} to convert
-	 * @return the created {@code byte array}
+	 * @return the created {@code byte} array
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] toBytes(final InputStream inputStream) throws IOException {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		return inputStream.readAllBytes();
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} with a {@code String} using {@link Charset#defaultCharset()}.</p>
+	 * <p>Create an {@code InputStream} from a {@code String} using {@link Charset#defaultCharset()}.</p>
 	 * @param string the {@code String} to convert
 	 * @return the created {@code InputStream}
 	 * @throws NullPointerException if the {@code String} is {@code null}
@@ -318,21 +365,24 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} with a {@code String} using a custom {@code Charset}.</p>
+	 * <p>Create an {@code InputStream} from a {@code String} using a custom {@code Charset}.</p>
 	 * @param string the {@code String} to convert
 	 * @param charset the {@code Charset} to use
 	 * @return the created {@code InputStream}
-	 * @throws NullPointerException whether the {@code String} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@code String} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream of(final String string, final Charset charset) {
 		if (null == string) {
-			throw new NullPointerException("Invalid string (not null expected)");
+			throw new NullPointerException("Invalid String (not null expected)");
 		}
 		if (null == charset) {
-			throw new NullPointerException("Invalid charset (not null expected)");
+			throw new NullPointerException("Invalid Charset (not null expected)");
 		}
-		return of(string.getBytes(charset));
+		if (0 == string.length()) {
+			return EMPTY;
+		}
+		return new ByteArrayInputStream(string.getBytes(charset));
 	}
 
 	/**
@@ -357,17 +407,17 @@ public final class InputStreams {
 	 * @param charset the {@code Charset} to use
 	 * @return the created {@code String}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException whether the {@code InputStream} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@code InputStream} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String toString(final InputStream inputStream, final Charset charset) throws IOException {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		if (null == charset) {
-			throw new NullPointerException("Invalid charset (not null expected)");
+			throw new NullPointerException("Invalid Charset (not null expected)");
 		}
-		return Readers.toString(toReader(inputStream, charset));
+		return new String(inputStream.readAllBytes(), charset);
 	}
 
 	/**
@@ -386,16 +436,31 @@ public final class InputStreams {
 	 * @param inputStream the {@code InputStream} to convert
 	 * @param charset the {@code Charset} to use
 	 * @return the created {@code Reader}
-	 * @throws NullPointerException whether the {@code InputStream} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@code InputStream} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader toReader(final InputStream inputStream, final Charset charset) {
 		if (null == inputStream) {
-			throw new NullPointerException("Invalid input stream (not null expected)");
+			throw new NullPointerException("Invalid InputStream (not null expected)");
 		}
 		if (null == charset) {
-			throw new NullPointerException("Invalid charset (not null expected)");
+			throw new NullPointerException("Invalid Charset (not null expected)");
 		}
 		return new InputStreamReader(buffered(inputStream), charset);
+	}
+
+	/**
+	 * <p>Create a {@code BufferedInputStream} from a {@code Path}.</p>
+	 * @param path the {@code Path} to convert
+	 * @return the created {@code BufferedInputStream}
+	 * @throws FileNotFoundException if the file of the {@code Path} is not readable
+	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static BufferedInputStream of(final Path path) throws FileNotFoundException {
+		if (null == path) {
+			throw new NullPointerException("Invalid Path (not null expected)");
+		}
+		return new BufferedInputStream(new FileInputStream(path.toFile()));
 	}
 }

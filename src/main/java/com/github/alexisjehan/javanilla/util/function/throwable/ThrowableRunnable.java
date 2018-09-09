@@ -43,7 +43,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableRunnable} to a {@code Runnable} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableRunnable the given {@code ThrowableRunnable}
+	 * @param throwableRunnable the {@code ThrowableRunnable} to convert
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Runnable}
 	 * @throws NullPointerException if the {@code ThrowableRunnable} is {@code null}
@@ -51,7 +51,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	 */
 	static <X extends Throwable> Runnable unchecked(final ThrowableRunnable<? extends X> throwableRunnable) {
 		if (null == throwableRunnable) {
-			throw new NullPointerException("Invalid throwable runnable (not null expected)");
+			throw new NullPointerException("Invalid ThrowableRunnable (not null expected)");
 		}
 		return () -> {
 			try {
@@ -63,8 +63,8 @@ public interface ThrowableRunnable<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableRunnable} that throws nothing from the given {@code Runnable}.</p>
-	 * @param runnable the given {@code Runnable}
+	 * <p>Create a {@code ThrowableRunnable} from the given {@code Runnable}.</p>
+	 * @param runnable the {@code Runnable} to convert
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableRunnable}
 	 * @throws NullPointerException if the {@code Runnable} is {@code null}
@@ -72,7 +72,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	 */
 	static <X extends Throwable> ThrowableRunnable<X> of(final Runnable runnable) {
 		if (null == runnable) {
-			throw new NullPointerException("Invalid runnable (not null expected)");
+			throw new NullPointerException("Invalid Runnable (not null expected)");
 		}
 		return runnable::run;
 	}

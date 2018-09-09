@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.util.iteration;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.*;
 final class CountIteratorTest {
 
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountIterator<>(null));
 	}
 
@@ -45,26 +45,30 @@ final class CountIteratorTest {
 	void testNext() {
 		final var countIterator = new CountIterator<>(Iterators.of(1, 2, 3));
 		assertThat(countIterator.getCount()).isEqualTo(0L);
+		assertThat(countIterator.hasNext()).isTrue();
 		assertThat(countIterator.next()).isEqualTo(1);
 		assertThat(countIterator.getCount()).isEqualTo(1L);
+		assertThat(countIterator.hasNext()).isTrue();
 		assertThat(countIterator.next()).isEqualTo(2);
 		assertThat(countIterator.getCount()).isEqualTo(2L);
+		assertThat(countIterator.hasNext()).isTrue();
 		assertThat(countIterator.next()).isEqualTo(3);
 		assertThat(countIterator.getCount()).isEqualTo(3L);
 		assertThat(countIterator.hasNext()).isFalse();
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(countIterator::next);
+		assertThat(countIterator.getCount()).isEqualTo(3L);
 	}
 
 	@Test
 	void testRemove() {
-		final var list = new ArrayList<>(Arrays.asList(1, 2, 3));
+		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var countIterator = new CountIterator<>(list.iterator());
 		assertThat(countIterator.getCount()).isEqualTo(0L);
 		countIterator.next();
 		assertThat(countIterator.getCount()).isEqualTo(1L);
-		assertThat(list).hasSize(3);
+		assertThat(list).containsExactly(1, 2, 3);
 		countIterator.remove();
 		assertThat(countIterator.getCount()).isEqualTo(1L);
-		assertThat(list).hasSize(2);
+		assertThat(list).containsExactly(2, 3);
 	}
 }

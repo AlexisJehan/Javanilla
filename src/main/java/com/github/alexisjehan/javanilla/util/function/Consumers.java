@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.function;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -40,9 +42,9 @@ public final class Consumers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Consumer} so that it only accepts a value once. If the {@code Consumer} is consumed more than
-	 * once a {@code IllegalStateException} is thrown.</p>
-	 * @param consumer the {@code Consumer} to wrap
+	 * <p>Decorate a {@code Consumer} so that it only accepts a value once. If the {@code Consumer} is consumed more
+	 * than once an {@code IllegalStateException} is thrown.</p>
+	 * @param consumer the {@code Consumer} to decorate
 	 * @param <T> the type of the input to the operation
 	 * @return the {@code Consumer} which accepts a value once
 	 * @throws NullPointerException if the {@code Consumer} is {@code null}
@@ -50,7 +52,7 @@ public final class Consumers {
 	 */
 	public static <T> Consumer<T> once(final Consumer<? super T> consumer) {
 		if (null == consumer) {
-			throw new NullPointerException("Invalid consumer (not null expected)");
+			throw new NullPointerException("Invalid Consumer (not null expected)");
 		}
 		return new Consumer<>() {
 			private boolean isConsumed = false;
@@ -62,6 +64,30 @@ public final class Consumers {
 				}
 				isConsumed = true;
 				consumer.accept(t);
+			}
+		};
+	}
+
+	/**
+	 * <p>Decorate a {@code Consumer} so that it only accepts distinct values.</p>
+	 * @param consumer the {@code Consumer} to decorate
+	 * @param <T> the type of the input to the operation
+	 * @return the {@code Consumer} which accepts distinct values
+	 * @throws NullPointerException if the {@code Consumer} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <T> Consumer<T> distinct(final Consumer<? super T> consumer) {
+		if (null == consumer) {
+			throw new NullPointerException("Invalid Consumer (not null expected)");
+		}
+		return new Consumer<>() {
+			private final Set<T> set = new HashSet<>();
+
+			@Override
+			public void accept(final T t) {
+				if (set.add(t)) {
+					consumer.accept(t);
+				}
 			}
 		};
 	}

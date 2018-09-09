@@ -38,14 +38,14 @@ public abstract class FilterLineWriter extends LineWriter {
 	protected final LineWriter lineWriter;
 
 	/**
-	 * <p>Constructor with a delegated {@code LineWriter}.</p>
-	 * @param lineWriter the delegated {@code LineWriter}
+	 * <p>Constructor with a {@code LineWriter} to decorate.</p>
+	 * @param lineWriter the {@code LineWriter} to decorate
 	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
 	 * @since 1.0.0
 	 */
 	protected FilterLineWriter(final LineWriter lineWriter) {
 		if (null == lineWriter) {
-			throw new NullPointerException("Invalid line writer (not null expected)");
+			throw new NullPointerException("Invalid LineWriter (not null expected)");
 		}
 		this.lineWriter = lineWriter;
 	}

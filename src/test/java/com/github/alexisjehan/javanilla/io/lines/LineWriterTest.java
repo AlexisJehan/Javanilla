@@ -23,8 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import com.github.alexisjehan.javanilla.io.chars.Writers;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -33,194 +32,164 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
-import static org.assertj.core.api.Fail.fail;
 
 /**
  * <p>{@link LineWriter} unit tests.</p>
  */
 final class LineWriterTest {
 
-	private static Path output;
-
-	@BeforeAll
-	static void init() {
-		try {
-			output = File.createTempFile("output_", ".txt").toPath();
-			output.toFile().deleteOnExit();
-		} catch (final IOException e) {
-			Assertions.fail(e.getMessage());
+	@Test
+	void testConstructor() throws IOException {
+		final var path = File.createTempFile(getClass().getName() + ".testConstructor_", ".txt").toPath();
+		try (final var lineWriter = new LineWriter(path)) {
+			lineWriter.write("abc");
+			lineWriter.write("def");
+			lineWriter.flush();
 		}
+		assertThat(new String(Files.readAllBytes(path))).isEqualTo("abc" + System.lineSeparator() + "def");
+		try (final var lineWriter = new LineWriter(path, StandardCharsets.ISO_8859_1)) {
+			lineWriter.write("abc");
+			lineWriter.write("def");
+			lineWriter.flush();
+		}
+		assertThat(new String(Files.readAllBytes(path), StandardCharsets.ISO_8859_1)).isEqualTo("abc" + System.lineSeparator() + "def");
 	}
 
 	@Test
-	void testConstructor() {
-		try {
-			try (final var lineWriter = new LineWriter(output)) {
-				lineWriter.write("line1");
-				lineWriter.write("line2");
-				lineWriter.flush();
-			}
-			assertThat(new String(Files.readAllBytes(output))).isEqualTo("line1" + System.lineSeparator() + "line2");
-			try (final var lineWriter = new LineWriter(output, StandardCharsets.ISO_8859_1)) {
-				lineWriter.write("line1");
-				lineWriter.write("line2");
-				lineWriter.flush();
-			}
-			assertThat(new String(Files.readAllBytes(output), StandardCharsets.ISO_8859_1)).isEqualTo("line1" + System.lineSeparator() + "line2");
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new LineWriter((Writer) null));
-		assertThatNullPointerException().isThrownBy(() -> new LineWriter(new StringWriter(), null));
+		assertThatNullPointerException().isThrownBy(() -> new LineWriter(Writers.EMPTY, null));
 	}
 
 	@Test
-	void testWriteLf() {
-		try {
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.LF)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1\nline2");
+	void testWriteLf() throws IOException {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.LF)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.LF, true)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1\nline2\n");
+			assertThat(stringWriter.toString()).isEqualTo("abc\ndef");
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.LF, true)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter.toString()).isEqualTo("abc\ndef\n");
 		}
 	}
 
 	@Test
-	void testWriteCrLf() {
-		try {
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR_LF)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1\r\nline2");
+	void testWriteCrLf() throws IOException {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR_LF)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR_LF, true)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1\r\nline2\r\n");
+			assertThat(stringWriter.toString()).isEqualTo("abc\r\ndef");
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR_LF, true)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter.toString()).isEqualTo("abc\r\ndef\r\n");
 		}
 	}
 
 	@Test
-	void testWriteCr() {
-		try {
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1\rline2");
+	void testWriteCr() throws IOException {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR, true)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1\rline2\r");
+			assertThat(stringWriter.toString()).isEqualTo("abc\rdef");
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR, true)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter.toString()).isEqualTo("abc\rdef\r");
 		}
 	}
 
 	@Test
-	void testWriteDefault() {
-		try {
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1" + System.lineSeparator() + "line2");
+	void testWriteDefault() throws IOException {
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-			try (final var stringWriter = new StringWriter()) {
-				try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.DEFAULT, true)) {
-					lineWriter.write("line1");
-					lineWriter.write("line2");
-				}
-				assertThat(stringWriter.toString()).isEqualTo("line1" + System.lineSeparator() + "line2" + System.lineSeparator());
+			assertThat(stringWriter.toString()).isEqualTo("abc" + System.lineSeparator() + "def");
+		}
+		try (final var stringWriter = new StringWriter()) {
+			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.DEFAULT, true)) {
+				lineWriter.write("abc");
+				lineWriter.write("def");
+				lineWriter.flush();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(stringWriter.toString()).isEqualTo("abc" + System.lineSeparator() + "def" + System.lineSeparator());
 		}
 	}
 
 	@Test
-	void testWriteNull() {
-		assertThatNullPointerException().isThrownBy(() -> new LineWriter().write("line"));
-		assertThatNullPointerException().isThrownBy(() -> new LineWriter(new StringWriter()).write(null));
+	void testWriteInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> new LineWriter(Writers.EMPTY).write(null));
 	}
 
 	@Test
-	void testNewLineLf() {
+	void testNewLineLf() throws IOException {
 		try (final var stringWriter = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.LF)) {
 				lineWriter.newLine();
+				lineWriter.flush();
 			}
 			assertThat(stringWriter.toString()).isEqualTo("\n");
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testNewLineCrLf() {
+	void testNewLineCrLf() throws IOException {
 		try (final var stringWriter = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR_LF)) {
 				lineWriter.newLine();
+				lineWriter.flush();
 			}
 			assertThat(stringWriter.toString()).isEqualTo("\r\n");
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testNewLineCr() {
+	void testNewLineCr() throws IOException {
 		try (final var stringWriter = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(stringWriter, LineSeparator.CR)) {
 				lineWriter.newLine();
+				lineWriter.flush();
 			}
 			assertThat(stringWriter.toString()).isEqualTo("\r");
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testNewLineDefault() {
+	void testNewLineDefault() throws IOException {
 		try (final var stringWriter = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(stringWriter)) {
 				lineWriter.newLine();
+				lineWriter.flush();
 			}
 			assertThat(stringWriter.toString()).isEqualTo(System.lineSeparator());
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 }

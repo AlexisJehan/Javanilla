@@ -79,14 +79,10 @@ final class DistancesTest {
 	}
 
 	@Test
-	void testCalculateNull() {
-		assertThatNullPointerException().isThrownBy(() -> Distances.MANHATTAN.calculate(null, DoubleArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> Distances.MANHATTAN.calculate(DoubleArrays.EMPTY, null));
-	}
-
-	@Test
 	void testCalculateInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Distances.MANHATTAN.calculate(DoubleArrays.of(1d), DoubleArrays.of(1d, 2d)));
+		assertThatNullPointerException().isThrownBy(() -> Distances.MANHATTAN.calculate(null, DoubleArrays.singleton(1.0d)));
+		assertThatNullPointerException().isThrownBy(() -> Distances.MANHATTAN.calculate(DoubleArrays.singleton(1.0d), null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Distances.MANHATTAN.calculate(DoubleArrays.singleton(1.0d), DoubleArrays.of(1.0d, 2.0d)));
 		assertThatIllegalArgumentException().isThrownBy(() -> Distances.MANHATTAN.calculate(DoubleArrays.EMPTY, DoubleArrays.EMPTY));
 	}
 }

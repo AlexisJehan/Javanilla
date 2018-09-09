@@ -25,7 +25,6 @@ package com.github.alexisjehan.javanilla.util.iteration;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
@@ -36,21 +35,20 @@ import static org.assertj.core.api.Assertions.*;
 final class BatchIteratorTest {
 
 	@Test
-	void testConstructorNull() {
-		assertThatNullPointerException().isThrownBy(() -> new BatchIterator<>(null, 3));
-	}
-
-	@Test
 	void testConstructorInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new BatchIterator<>(Collections.emptyIterator(), 0));
+		assertThatNullPointerException().isThrownBy(() -> new BatchIterator<>(null, 3));
+		assertThatIllegalArgumentException().isThrownBy(() -> new BatchIterator<>(Iterators.singleton(1), 0));
 	}
 
 	@Test
 	void testNext() {
 		final var batchIterator = new BatchIterator<>(Iterators.of(1, 2, 3, 4, 5, 6, 7, 8), 3);
 		assertThat(batchIterator.getBatchSize()).isEqualTo(3);
+		assertThat(batchIterator.hasNext()).isTrue();
 		assertThat(batchIterator.next()).containsExactly(1, 2, 3);
+		assertThat(batchIterator.hasNext()).isTrue();
 		assertThat(batchIterator.next()).containsExactly(4, 5, 6);
+		assertThat(batchIterator.hasNext()).isTrue();
 		assertThat(batchIterator.next()).containsExactly(7, 8);
 		assertThat(batchIterator.hasNext()).isFalse();
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(batchIterator::next);

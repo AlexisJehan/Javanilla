@@ -55,7 +55,7 @@ final class PrimitiveIterableTest {
 	}
 
 	@Test
-	void testOfIntForEachNull() {
+	void testOfIntForEachInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.EMPTY_INT.forEach((IntConsumer) null));
 	}
 
@@ -75,7 +75,7 @@ final class PrimitiveIterableTest {
 	}
 
 	@Test
-	void testOfLongForEachNull() {
+	void testOfLongForEachInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.EMPTY_LONG.forEach((LongConsumer) null));
 	}
 
@@ -95,7 +95,7 @@ final class PrimitiveIterableTest {
 	}
 
 	@Test
-	void testOfDoubleForEachNull() {
+	void testOfDoubleForEachInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.EMPTY_DOUBLE.forEach((DoubleConsumer) null));
 	}
 }

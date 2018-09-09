@@ -36,24 +36,12 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowablePredicateTest {
 
 	@Test
-	void testSimple() {
-		final ThrowablePredicate<Integer, IOException> throwablePredicate = t -> {
-			throw new IOException();
-		};
-		assertThatIOException().isThrownBy(() -> throwablePredicate.test(1));
-	}
-
-	@Test
-	void testAnd() {
+	void testAnd() throws IOException {
 		final ThrowablePredicate<Integer, IOException> throwablePredicate1 = t -> 1 == t;
-		try {
-			assertThat(throwablePredicate1.and(t -> 0 == t).test(1)).isFalse();
-			assertThat(throwablePredicate1.and(t -> 1 == t).test(1)).isTrue();
-			assertThat(throwablePredicate1.and(t -> 0 == t).test(0)).isFalse();
-			assertThat(throwablePredicate1.and(t -> 1 == t).test(0)).isFalse();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwablePredicate1.and(t -> 0 == t).test(1)).isFalse();
+		assertThat(throwablePredicate1.and(t -> 1 == t).test(1)).isTrue();
+		assertThat(throwablePredicate1.and(t -> 0 == t).test(0)).isFalse();
+		assertThat(throwablePredicate1.and(t -> 1 == t).test(0)).isFalse();
 
 		final ThrowablePredicate<Integer, IOException> throwablePredicate2 = t -> {
 			throw new IOException();
@@ -62,7 +50,7 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
-	void testAndNull() {
+	void testAndInvalid() {
 		final ThrowablePredicate<Integer, IOException> throwablePredicate = t -> {
 			throw new IOException();
 		};
@@ -70,27 +58,19 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
-	void testNegate() {
+	void testNegate() throws IOException {
 		final ThrowablePredicate<Integer, IOException> throwablePredicate1 = t -> 1 == t;
-		try {
-			assertThat(throwablePredicate1.negate().test(1)).isFalse();
-			assertThat(throwablePredicate1.negate().negate().test(1)).isTrue();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwablePredicate1.negate().test(1)).isFalse();
+		assertThat(throwablePredicate1.negate().negate().test(1)).isTrue();
 	}
 
 	@Test
-	void testOr() {
+	void testOr() throws IOException {
 		final ThrowablePredicate<Integer, IOException> throwablePredicate1 = t -> 0 == t;
-		try {
-			assertThat(throwablePredicate1.or(t -> 0 == t).test(1)).isFalse();
-			assertThat(throwablePredicate1.or(t -> 1 == t).test(1)).isTrue();
-			assertThat(throwablePredicate1.or(t -> 0 == t).test(0)).isTrue();
-			assertThat(throwablePredicate1.or(t -> 1 == t).test(0)).isTrue();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwablePredicate1.or(t -> 0 == t).test(1)).isFalse();
+		assertThat(throwablePredicate1.or(t -> 1 == t).test(1)).isTrue();
+		assertThat(throwablePredicate1.or(t -> 0 == t).test(0)).isTrue();
+		assertThat(throwablePredicate1.or(t -> 1 == t).test(0)).isTrue();
 
 		final ThrowablePredicate<Integer, IOException> throwablePredicate2 = t -> {
 			throw new IOException();
@@ -99,7 +79,7 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
-	void testOrNull() {
+	void testOrInvalid() {
 		final ThrowablePredicate<Integer, IOException> throwablePredicate = t -> {
 			throw new IOException();
 		};
@@ -107,13 +87,9 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
-	void testUnchecked() {
+	void testUnchecked() throws IOException {
 		final ThrowablePredicate<Integer, IOException> throwablePredicate1 = t -> 1 == t;
-		try {
-			assertThat(throwablePredicate1.test(1)).isTrue();
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+		assertThat(throwablePredicate1.test(1)).isTrue();
 		assertThat(ThrowablePredicate.unchecked(throwablePredicate1).test(1)).isTrue();
 
 		final ThrowablePredicate<Integer, IOException> throwablePredicate2 = t -> {
@@ -124,7 +100,7 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
-	void testUncheckedNull() {
+	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowablePredicate.unchecked(null));
 	}
 
@@ -138,7 +114,7 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ThrowablePredicate.of(null));
 	}
 }

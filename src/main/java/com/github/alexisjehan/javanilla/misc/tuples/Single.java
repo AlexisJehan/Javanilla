@@ -26,22 +26,23 @@ package com.github.alexisjehan.javanilla.misc.tuples;
 import java.util.Objects;
 
 /**
- * <p>A {@code Single} is an immutable tuple that is composed of an unique object.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
- * @param <U> the type of the unique object
+ * <p>A {@code Single} is an immutable tuple that is composed of an unique element.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
+ * @param <U> the type of the unique element
  * @since 1.1.0
  */
 public final class Single<U> {
 
 	/**
-	 * <p>Unique object.</p>
+	 * <p>Unique element.</p>
 	 * @since 1.1.0
 	 */
 	private final U unique;
 
 	/**
 	 * <p>Standard constructor.</p>
-	 * @param unique the unique object or {@code null}
+	 * @param unique the unique element or {@code null}
 	 * @since 1.1.0
 	 */
 	public Single(final U unique) {
@@ -49,8 +50,8 @@ public final class Single<U> {
 	}
 
 	/**
-	 * <p>Get the unique object of the {@code Single}.</p>
-	 * @return the unique object
+	 * <p>Get the unique element of the {@code Single}.</p>
+	 * @return the unique element
 	 * @since 1.1.0
 	 */
 	public U getUnique() {
@@ -81,8 +82,8 @@ public final class Single<U> {
 
 	/**
 	 * <p>Vanilla constructor.</p>
-	 * @param unique the unique object or {@code null}
-	 * @param <U> the type of the unique object
+	 * @param unique the unique element or {@code null}
+	 * @param <U> the type of the unique element
 	 * @return the constructed {@code Single}
 	 * @since 1.1.0
 	 */

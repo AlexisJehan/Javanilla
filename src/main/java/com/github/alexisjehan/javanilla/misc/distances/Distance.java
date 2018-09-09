@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.misc.distances;
 import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 
 /**
- * <p>Interface for distance/heuristic/similarity functions that work on {@code double array} vectors.</p>
+ * <p>Interface for distance/heuristic/similarity functions that work on {@code double} vectors.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Similarity_measure">https://en.wikipedia.org/wiki/Similarity_measure</a>
  * @since 1.0.0
  */
@@ -34,7 +34,7 @@ import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 public interface Distance {
 
 	/**
-	 * <p>Calculate a distance between unidimensional {@code double array} vectors.</p>
+	 * <p>Calculate a distance between unidimensional {@code double} vectors.</p>
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param x2 the {@code x} coordinate of the second vector
 	 * @return the calculated distance
@@ -45,7 +45,7 @@ public interface Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between two-dimensional {@code double array} vectors.</p>
+	 * <p>Calculate a distance between two-dimensional {@code double} vectors.</p>
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param y1 the {@code y} coordinate of the first vector
 	 * @param x2 the {@code x} coordinate of the second vector
@@ -58,7 +58,7 @@ public interface Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between three-dimensional {@code double array} vectors.</p>
+	 * <p>Calculate a distance between three-dimensional {@code double} vectors.</p>
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param y1 the {@code y} coordinate of the first vector
 	 * @param z1 the {@code z} coordinate of the first vector
@@ -73,12 +73,12 @@ public interface Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between both {@code double array} vectors.</p>
+	 * <p>Calculate a distance between both {@code double} vectors.</p>
 	 * @param vector1 the first vector
 	 * @param vector2 the second vector
 	 * @return the calculated distance
-	 * @throws NullPointerException if any vector is {@code null}
-	 * @throws IllegalArgumentException if vectors' length is different or equal to {@code 0}
+	 * @throws NullPointerException if any {@code double} vector is {@code null}
+	 * @throws IllegalArgumentException if any {@code double} vector is empty or if both have different dimensions
 	 * @since 1.0.0
 	 */
 	double calculate(final double[] vector1, final double[] vector2);

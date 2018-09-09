@@ -58,28 +58,28 @@ public enum EditDistances implements EditDistance {
 		@Override
 		protected double calculateImpl(final CharSequence charSequence1, final int length1, final CharSequence charSequence2, final int length2) {
 			if (length1 != length2) {
-				throw new IllegalArgumentException("Distinct char sequences length: " + length1 + " and " + length2 + " (same expected)");
+				throw new IllegalArgumentException("Invalid CharSequence lengths: " + length1 + " and " + length2 + " (same expected)");
 			}
 			if (charSequence1.equals(charSequence2)) {
 				return 0.0d;
 			}
-			var d = 0;
+			var result = 0;
 			for (var i = 0; i < length1; ++i) {
 				if (charSequence1.charAt(i) != charSequence2.charAt(i)) {
-					++d;
+					++result;
 				}
 			}
-			return d;
+			return result;
 		}
 	};
 
 	@Override
 	public final double calculate(final CharSequence charSequence1, final CharSequence charSequence2) {
 		if (null == charSequence1) {
-			throw new NullPointerException("Invalid first char sequence (not null expected)");
+			throw new NullPointerException("Invalid first CharSequence (not null expected)");
 		}
 		if (null == charSequence2) {
-			throw new NullPointerException("Invalid second char sequence (not null expected)");
+			throw new NullPointerException("Invalid second CharSequence (not null expected)");
 		}
 		return calculateImpl(charSequence1, charSequence1.length(), charSequence2, charSequence2.length());
 	}

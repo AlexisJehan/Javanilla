@@ -23,14 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
+import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -39,50 +35,45 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountOutputStreamTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountOutputStream(null));
 	}
 
 	@Test
-	void testWriteOneByOne() {
-		try (final var countOutputStream = new CountOutputStream(OutputStreams.BLANK)) {
-			try (final var inputStream = Files.newInputStream(INPUT)) {
-				assertThat(countOutputStream.getCount()).isEqualTo(0L);
-				countOutputStream.write(inputStream.read());
-				assertThat(countOutputStream.getCount()).isEqualTo(1L);
-				for (var i = 0; i < 10; ++i) {
-					countOutputStream.write(inputStream.read());
-				}
-				assertThat(countOutputStream.getCount()).isEqualTo(11L);
-				int b;
-				while (-1 != (b = inputStream.read())) {
-					countOutputStream.write(b);
-				}
-				assertThat(countOutputStream.getCount()).isEqualTo(INPUT.toFile().length());
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testWriteByte() throws IOException {
+		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
+			assertThat(countOutputStream.getCount()).isEqualTo(0L);
+			countOutputStream.write(1);
+			assertThat(countOutputStream.getCount()).isEqualTo(1L);
+			countOutputStream.write(2);
+			assertThat(countOutputStream.getCount()).isEqualTo(2L);
+			countOutputStream.write(3);
+			assertThat(countOutputStream.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testWriteBuffered() {
-		try (final var countOutputStream = new CountOutputStream(OutputStreams.BLANK)) {
-			try (final var inputStream = Files.newInputStream(INPUT)) {
-				assertThat(countOutputStream.getCount()).isEqualTo(0L);
-				final var buffer = new byte[10];
-				inputStream.read(buffer, 0, 10);
-				countOutputStream.write(buffer, 0, 10);
-				assertThat(countOutputStream.getCount()).isEqualTo(10L);
-				inputStream.read(buffer, 3, 5);
-				countOutputStream.write(buffer, 3, 5);
-				assertThat(countOutputStream.getCount()).isEqualTo(15L);
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testWriteBytes() throws IOException {
+		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
+			assertThat(countOutputStream.getCount()).isEqualTo(0L);
+			countOutputStream.write(bytes, 0, 0);
+			assertThat(countOutputStream.getCount()).isEqualTo(0L);
+			countOutputStream.write(bytes, 0, 2);
+			assertThat(countOutputStream.getCount()).isEqualTo(2L);
+		}
+	}
+
+	@Test
+	void testWriteBytesInvalid() throws IOException {
+		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
+			assertThatNullPointerException().isThrownBy(() -> countOutputStream.write(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, 0, 4));
 		}
 	}
 }

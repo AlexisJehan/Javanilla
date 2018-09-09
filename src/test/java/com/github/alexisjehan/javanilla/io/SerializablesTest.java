@@ -23,7 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io;
 
-import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
+import com.github.alexisjehan.javanilla.misc.tuples.Pair;
+import com.github.alexisjehan.javanilla.misc.tuples.SerializablePair;
+import com.github.alexisjehan.javanilla.misc.tuples.SerializableSingle;
+import com.github.alexisjehan.javanilla.misc.tuples.Single;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -35,84 +38,42 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class SerializablesTest {
 
-	private static class Foo implements Serializable {
-
-		private static final long serialVersionUID = -4162937710652709737L;
-
-		private final String name;
-		private final int value;
-
-		Foo(final String name, final int value) {
-			this.name = name;
-			this.value = value;
-		}
-	}
-
-	private static class Bar implements Serializable {
-
-		private static final long serialVersionUID = 2341804969668383253L;
-
-		@SuppressWarnings("unused")
-		private final Object object;
-
-		Bar(final Object object) {
-			this.object = object;
-		}
+	@Test
+	void testSerializeDeserialize() {
+		assertThat(Serializables.<SerializablePair>deserialize(Serializables.serialize(null))).isNull();
+		final var foo = SerializablePair.of("foo", 1);
+		final var deserializedFoo = Serializables.deserialize(Serializables.serialize(foo));
+		assertThat(deserializedFoo).isNotSameAs(foo);
+		assertThat(deserializedFoo).isEqualTo(foo);
 	}
 
 	@Test
-	void testSerializeDeserializeSimple() {
-		final var foo = new Foo("foo", 1);
-		final var otherFoo = Serializables.<Foo>deserialize(Serializables.serialize(foo));
-
-		// Not the same object instance
-		assertThat(otherFoo).isNotEqualTo(foo);
-
-		// But same type and attributes
-		assertThat(otherFoo.getClass()).isEqualTo(foo.getClass());
-		assertThat(otherFoo.name).isEqualTo(foo.name);
-		assertThat(otherFoo.value).isEqualTo(foo.value);
+	void testSerializeInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(SerializablePair.of("foo", 1), null));
 	}
 
 	@Test
-	void testSerializeDeserializeInvalidType() {
-		assertThatExceptionOfType(ClassCastException.class).isThrownBy(() -> Serializables.<Bar>deserialize(Serializables.serialize(new Foo("foo", 1))));
-	}
-
-	@Test
-	void testSerializeDeserializeNull() {
-		final var bytes = Serializables.<Foo>serialize(null);
-
-		// Not the good class type, but still working for a null value apparently
-		assertThat(Serializables.<Bar>deserialize(bytes)).isNull();
-
-		assertThat(Serializables.<Foo>deserialize(bytes)).isNull();
-	}
-
-	@Test
-	void testSerializeNull() {
-		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(new Foo("foo", 1), null));
-	}
-
-	@Test
-	void testSerializeNotSerializable() {
-		assertThatExceptionOfType(SerializationException.class)
-				.isThrownBy(() -> Serializables.serialize(new Bar(InputStreams.EMPTY)))
-				.withCauseInstanceOf(NotSerializableException.class);
-	}
-
-	@Test
-	void testDeserializeNull() {
+	void testDeserializeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Serializables.deserialize((byte[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Serializables.deserialize((InputStream) null));
 	}
 
 	@Test
-	void testDeserializeCorrupted() {
-		final var bytes = Serializables.serialize(new Foo("foo", 1));
-		bytes[0] = (byte) 1;
+	void testSerializeDeserializeInvalid() {
+		// Serializable containing a non-serializable attribute
 		assertThatExceptionOfType(SerializationException.class)
-				.isThrownBy(() -> Serializables.deserialize(bytes))
+				.isThrownBy(() -> Serializables.serialize(Pair.of(Single.of("foo"), Single.of(1)).toImmutableEntry()))
+				.withCauseInstanceOf(NotSerializableException.class);
+
+		// Different type used for serialization and deserialization
+		assertThatExceptionOfType(ClassCastException.class)
+				.isThrownBy(() -> Serializables.<SerializableSingle>deserialize(Serializables.serialize(SerializablePair.of("foo", 1))));
+
+		// Corrupted
+		final var serialized = Serializables.serialize(SerializablePair.of("foo", 1));
+		serialized[0] = (byte) 1;
+		assertThatExceptionOfType(SerializationException.class)
+				.isThrownBy(() -> Serializables.deserialize(serialized))
 				.withCauseInstanceOf(StreamCorruptedException.class);
 	}
 }

@@ -44,17 +44,19 @@ final class ShortArraysTest {
 	void testNullToEmpty() {
 		assertThat(ShortArrays.nullToEmpty(null)).isEmpty();
 		assertThat(ShortArrays.nullToEmpty(ShortArrays.EMPTY)).isEmpty();
+		assertThat(ShortArrays.nullToEmpty(ShortArrays.singleton((short) 1))).containsExactly((short) 1);
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(ShortArrays.nullToDefault(null, ShortArrays.singleton((short) 1))).containsExactly((short) 1);
-		assertThat(ShortArrays.nullToDefault(ShortArrays.EMPTY, ShortArrays.singleton((short) 1))).isEmpty();
+		assertThat(ShortArrays.nullToDefault(null, ShortArrays.singleton((short) 0))).containsExactly((short) 0);
+		assertThat(ShortArrays.nullToDefault(ShortArrays.EMPTY, ShortArrays.singleton((short) 0))).isEmpty();
+		assertThat(ShortArrays.nullToDefault(ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 0))).containsExactly((short) 1);
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.nullToDefault(ShortArrays.EMPTY, null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.nullToDefault(ShortArrays.singleton((short) 1), null));
 	}
 
 	@Test
@@ -66,159 +68,233 @@ final class ShortArraysTest {
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(ShortArrays.emptyToDefault(null, ShortArrays.singleton((short) 1))).isNull();
-		assertThat(ShortArrays.emptyToDefault(ShortArrays.EMPTY, ShortArrays.singleton((short) 1))).containsExactly((short) 1);
-		assertThat(ShortArrays.emptyToDefault(ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+		assertThat(ShortArrays.emptyToDefault(null, ShortArrays.singleton((short) 0))).isNull();
+		assertThat(ShortArrays.emptyToDefault(ShortArrays.EMPTY, ShortArrays.singleton((short) 0))).containsExactly((short) 0);
+		assertThat(ShortArrays.emptyToDefault(ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 0))).containsExactly((short) 1);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.emptyToDefault(ShortArrays.EMPTY, ShortArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.emptyToDefault(ShortArrays.singleton((short) 1), ShortArrays.EMPTY));
+	}
+
+	@Test
+	void testIsEmpty() {
+		assertThat(ShortArrays.isEmpty(ShortArrays.EMPTY)).isTrue();
+		assertThat(ShortArrays.isEmpty(ShortArrays.singleton((short) 1))).isFalse();
+	}
+
+	@Test
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.isEmpty(null));
 	}
 
 	@Test
 	void testIndexOf() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
+		assertThat(ShortArrays.indexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
+		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
 		assertThat(ShortArrays.indexOf(array, (short) 1)).isEqualTo(0);
 		assertThat(ShortArrays.indexOf(array, (short) 2)).isEqualTo(1);
-		assertThat(ShortArrays.indexOf(array, (short) 3)).isEqualTo(2);
-		assertThat(ShortArrays.indexOf(array, (short) 1, 1)).isEqualTo(-1);
+		assertThat(ShortArrays.indexOf(array, (short) 1, 1)).isEqualTo(2);
 		assertThat(ShortArrays.indexOf(array, (short) 2, 2)).isEqualTo(-1);
-		assertThat(ShortArrays.indexOf(array, (short) 4)).isEqualTo(-1);
 	}
 
 	@Test
-	void testIndexOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.indexOf(null, (short) 0));
-	}
-
-	@Test
-	void testIndexOfInvalidFromIndex() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.indexOf(ShortArrays.of((short) 1), (short) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.indexOf(ShortArrays.of((short) 1), (short) 1,  1));
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.indexOf(null, (short) 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.indexOf(ShortArrays.singleton((short) 1), (short) 1, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.indexOf(ShortArrays.singleton((short) 1), (short) 1, 1));
 	}
 
 	@Test
 	void testLastIndexOf() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3, (short) 1);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 1)).isEqualTo(3);
+		assertThat(ShortArrays.lastIndexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
+		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
+		assertThat(ShortArrays.lastIndexOf(array, (short) 1)).isEqualTo(2);
 		assertThat(ShortArrays.lastIndexOf(array, (short) 2)).isEqualTo(1);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 3)).isEqualTo(2);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 1, 1)).isEqualTo( 3);
+		assertThat(ShortArrays.lastIndexOf(array, (short) 1, 1)).isEqualTo(2);
 		assertThat(ShortArrays.lastIndexOf(array, (short) 2, 2)).isEqualTo(-1);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 3, 3)).isEqualTo(-1);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 4)).isEqualTo(-1);
 	}
 
 	@Test
-	void testLastIndexOfNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.lastIndexOf(null, (short) 0));
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.lastIndexOf(null, (short) 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.singleton((short) 1), (short) 1, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.singleton((short) 1), (short) 1, 1));
 	}
 
 	@Test
-	void testLastIndexOfInvalidFromIndex() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.of((short) 1), (short) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.of((short) 1), (short) 1,  1));
+	void testContainsAny() {
+		assertThat(ShortArrays.containsAny(ShortArrays.EMPTY, (short) 1)).isFalse();
+		assertThat(ShortArrays.containsAny(ShortArrays.singleton((short) 1), (short) 1)).isTrue();
+		assertThat(ShortArrays.containsAny(ShortArrays.singleton((short) 1), (short) 2)).isFalse();
+		assertThat(ShortArrays.containsAny(ShortArrays.singleton((short) 1), (short) 1, (short) 2)).isTrue();
 	}
 
 	@Test
-	void testContains() {
-		assertThat(ShortArrays.contains(ShortArrays.EMPTY, (short) 1)).isFalse();
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.contains(array, (short) 1)).isTrue();
-		assertThat(ShortArrays.contains(array, (short) 2)).isTrue();
-		assertThat(ShortArrays.contains(array, (short) 3)).isTrue();
-		assertThat(ShortArrays.contains(array, (short) 4)).isFalse();
+	void testContainsAnyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAny(null, (short) 1));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAny(ShortArrays.singleton((short) 1), (short[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.containsAny(ShortArrays.singleton((short) 1)));
 	}
 
 	@Test
-	void testContainsNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.contains(null, (short) 0));
+	void testContainsAll() {
+		assertThat(ShortArrays.containsAll(ShortArrays.EMPTY, (short) 1)).isFalse();
+		assertThat(ShortArrays.containsAll(ShortArrays.singleton((short) 1), (short) 1)).isTrue();
+		assertThat(ShortArrays.containsAll(ShortArrays.singleton((short) 1), (short) 2)).isFalse();
+		assertThat(ShortArrays.containsAll(ShortArrays.singleton((short) 1), (short) 1, (short) 2)).isFalse();
+		assertThat(ShortArrays.containsAll(ShortArrays.of((short) 1, (short) 2), (short) 1)).isTrue();
+		assertThat(ShortArrays.containsAll(ShortArrays.of((short) 1, (short) 2), (short) 2)).isTrue();
+		assertThat(ShortArrays.containsAll(ShortArrays.of((short) 1, (short) 2), (short) 1, (short) 2)).isTrue();
+	}
+
+	@Test
+	void testContainsAllInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAll(null, (short) 1));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAll(ShortArrays.singleton((short) 1), (short[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.containsAll(ShortArrays.singleton((short) 1)));
 	}
 
 	@Test
 	void testContainsOnce() {
 		assertThat(ShortArrays.containsOnce(ShortArrays.EMPTY, (short) 1)).isFalse();
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 2, (short) 3);
-		assertThat(ShortArrays.containsOnce(array, (short) 1)).isTrue();
-		assertThat(ShortArrays.containsOnce(array, (short) 2)).isFalse();
-		assertThat(ShortArrays.containsOnce(array, (short) 3)).isTrue();
-		assertThat(ShortArrays.containsOnce(array, (short) 4)).isFalse();
+		assertThat(ShortArrays.containsOnce(ShortArrays.singleton((short) 1), (short) 1)).isTrue();
+		assertThat(ShortArrays.containsOnce(ShortArrays.singleton((short) 1), (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnce(ShortArrays.singleton((short) 1), (short) 1, (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnce(ShortArrays.of((short) 1, (short) 1), (short) 1)).isFalse();
+		assertThat(ShortArrays.containsOnce(ShortArrays.of((short) 1, (short) 1), (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnce(ShortArrays.of((short) 1, (short) 1), (short) 1, (short) 2)).isFalse();
 	}
 
 	@Test
-	void testContainsOnceNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnce(null, (short) 0));
+	void testContainsOnceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnce(null, (short) 1));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnce(ShortArrays.singleton((short) 1), (short[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.containsOnce(ShortArrays.singleton((short) 1)));
 	}
 
 	@Test
 	void testContainsOnly() {
 		assertThat(ShortArrays.containsOnly(ShortArrays.EMPTY, (short) 1)).isFalse();
-		final var array1 = ShortArrays.of((short) 1, (short) 1);
-		assertThat(ShortArrays.containsOnly(array1, (short) 1)).isTrue();
-		assertThat(ShortArrays.containsOnly(array1, (short) 2)).isFalse();
-		final var array2 = ShortArrays.of((short) 1, (short) 2);
-		assertThat(ShortArrays.containsOnly(array2, (short) 1)).isFalse();
-		assertThat(ShortArrays.containsOnly(array2, (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnly(ShortArrays.singleton((short) 1), (short) 1)).isTrue();
+		assertThat(ShortArrays.containsOnly(ShortArrays.singleton((short) 1), (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnly(ShortArrays.singleton((short) 1), (short) 1, (short) 2)).isTrue();
+		assertThat(ShortArrays.containsOnly(ShortArrays.of((short) 1, (short) 2), (short) 1)).isFalse();
+		assertThat(ShortArrays.containsOnly(ShortArrays.of((short) 1, (short) 2), (short) 2)).isFalse();
+		assertThat(ShortArrays.containsOnly(ShortArrays.of((short) 1, (short) 2), (short) 1, (short) 2)).isTrue();
 	}
 
 	@Test
-	void testContainsOnlyNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnly(null, (short) 0));
+	void testContainsOnlyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnly(null, (short) 1));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsOnly(ShortArrays.singleton((short) 1), (short[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.containsOnly(ShortArrays.singleton((short) 1)));
 	}
 
 	@Test
-	void testContainsAny() {
-		assertThat(ShortArrays.containsAny(ShortArrays.EMPTY, (short) 1, (short) 2)).isFalse();
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.containsAny(array)).isFalse();
-		assertThat(ShortArrays.containsAny(array, (short) 1, (short) 2)).isTrue();
-		assertThat(ShortArrays.containsAny(array, (short) 3, (short) 4)).isTrue();
-		assertThat(ShortArrays.containsAny(array, (short) 5, (short) 6)).isFalse();
+	void testShuffle() {
+		{
+			final var array = ShortArrays.singleton((short) 1);
+			ShortArrays.shuffle(array);
+			assertThat(array).containsExactly((short) 1);
+		}
+		{
+			final var array = ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2);
+			ShortArrays.shuffle(array);
+			assertThat(array).containsExactlyInAnyOrder((short) 1, (short) 2, (short) 1, (short) 2);
+		}
 	}
 
 	@Test
-	void testContainsAnyNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAny(null, (short) 0));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAny(ShortArrays.of((short) 1, (short) 2, (short) 3), (short[]) null));
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null));
 	}
 
 	@Test
-	void testContainsAll() {
-		assertThat(ShortArrays.containsAll(ShortArrays.EMPTY, (short) 1, (short) 2)).isFalse();
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.containsAll(array)).isFalse();
-		assertThat(ShortArrays.containsAll(array, (short) 1, (short) 2, (short) 3)).isTrue();
-		assertThat(ShortArrays.containsAll(array, (short) 3, (short) 2, (short) 1)).isTrue();
-		assertThat(ShortArrays.containsAll(array, (short) 1, (short) 2)).isTrue();
-		assertThat(ShortArrays.containsAll(array, (short) 1, (short) 2, (short) 3, (short) 4)).isFalse();
+	void testReverse() {
+		{
+			final var array = ShortArrays.singleton((short) 1);
+			ShortArrays.reverse(array);
+			assertThat(array).containsExactly((short) 1);
+		}
+		{
+			// Even
+			final var array = ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2);
+			ShortArrays.reverse(array);
+			assertThat(array).containsExactly((short) 2, (short) 1, (short) 2, (short) 1);
+		}
+		{
+			// Odd
+			final var array = ShortArrays.of((short) 1, (short) 2, (short) 2);
+			ShortArrays.reverse(array);
+			assertThat(array).containsExactly((short) 2, (short) 2, (short) 1);
+		}
 	}
 
 	@Test
-	void testContainsAllNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAll(null, (short) 0));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.containsAll(ShortArrays.of((short) 1, (short) 2, (short) 3), (short[]) null));
+	void testReverseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.reverse(null));
+	}
+
+	@Test
+	void testReorder() {
+		{
+			final var array = ShortArrays.singleton((short) 1);
+			ShortArrays.reorder(array, 0);
+			assertThat(array).containsExactly((short) 1);
+		}
+		{
+			final var array = ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2);
+			ShortArrays.reorder(array, 2, 0, 3, 1);
+			assertThat(array).containsExactly((short) 1, (short) 1, (short) 2, (short) 2);
+		}
+	}
+
+	@Test
+	void testReorderInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.reorder(null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.singleton((short) 2), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, 0)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(-1, 1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(2, 1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, -1)));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, 2)));
+	}
+
+	@Test
+	void testSwap() {
+		{
+			final var array = ShortArrays.singleton((short) 1);
+			ShortArrays.swap(array, 0, 0);
+			assertThat(array).containsExactly((short) 1);
+		}
+		{
+			final var array = ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2);
+			ShortArrays.swap(array, 1, 2);
+			assertThat(array).containsExactly((short) 1, (short) 1, (short) 2, (short) 2);
+		}
+	}
+
+	@Test
+	void testSwapInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.swap(null, 0, 0));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), -1, 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 2, 1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 0, -1));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 0, 2));
 	}
 
 	@Test
 	void testConcat() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.concat(array, array)).isEqualTo(ShortArrays.of((short) 1, (short) 2, (short) 3, (short) 1, (short) 2, (short) 3));
-	}
-
-	@Test
-	void testConcatOne() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.concat(array)).isEqualTo(array);
-	}
-
-	@Test
-	void testConcatNone() {
 		assertThat(ShortArrays.concat()).isEmpty();
+		assertThat(ShortArrays.concat(ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+		assertThat(ShortArrays.concat(ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 2))).containsExactly((short) 1, (short) 2);
 	}
 
 	@Test
-	void testConcatNull() {
+	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((List<short[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[]) null));
@@ -226,33 +302,18 @@ final class ShortArraysTest {
 
 	@Test
 	void testJoin() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.join(ShortArrays.of((short) 0), array, array)).isEqualTo(ShortArrays.of((short) 1, (short) 2, (short) 3, (short) 0, (short) 1, (short) 2, (short) 3));
+		assertThat(ShortArrays.join(ShortArrays.EMPTY, ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 2))).containsExactly((short) 1, (short) 2);
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0))).isEmpty();
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton((short) 1))).containsExactly((short) 1);
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton((short) 1), ShortArrays.singleton((short) 2))).containsExactly((short) 1, (short) 0, (short) 2);
 	}
 
 	@Test
-	void testJoinEmptySeparator() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.join(ShortArrays.EMPTY, array, array)).isEqualTo(ShortArrays.concat(array, array));
-	}
-
-	@Test
-	void testJoinOne() {
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.join(ShortArrays.of((short) 0), array)).isEqualTo(array);
-	}
-
-	@Test
-	void testJoinNone() {
-		assertThat(ShortArrays.join(ShortArrays.of((short) 0))).isEmpty();
-	}
-
-	@Test
-	void testJoinNull() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(null, ShortArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.EMPTY, (short[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.EMPTY, (List<short[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.EMPTY, (short[]) null));
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(null, ShortArrays.singleton((short) 1)));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.singleton((short) 0), (short[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.singleton((short) 0), (List<short[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.singleton((short) 0), (short[]) null));
 	}
 
 	@Test
@@ -263,11 +324,29 @@ final class ShortArraysTest {
 	@Test
 	void testOf() {
 		assertThat(ShortArrays.of()).isEmpty();
-		assertThat(ShortArrays.of((short) 1, (short) 2, (short) 3)).containsExactly((short) 1, (short) 2, (short) 3);
+		assertThat(ShortArrays.of((short) 1, (short) 2)).containsExactly((short) 1, (short) 2);
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.of((short[]) null));
+	}
+
+	@Test
+	void testOfBoxedToBoxed() {
+		assertThat(ShortArrays.of(ShortArrays.toBoxed(ShortArrays.EMPTY))).isEmpty();
+		assertThat(ShortArrays.of(ShortArrays.toBoxed(ShortArrays.of((short) 1, (short) 2)))).containsExactly((short) 1, (short) 2);
+		assertThat(ShortArrays.toBoxed(ShortArrays.singleton((short) 1))).isInstanceOf(Short[].class);
+		assertThat(ShortArrays.of(ShortArrays.toBoxed(ShortArrays.singleton((short) 1)))).isInstanceOf(short[].class);
+	}
+
+	@Test
+	void testOfBoxedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.of((Short[]) null));
+	}
+
+	@Test
+	void testToBoxedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.toBoxed(null));
 	}
 }

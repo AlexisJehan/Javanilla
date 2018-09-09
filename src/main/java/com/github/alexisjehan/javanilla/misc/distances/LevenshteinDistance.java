@@ -39,22 +39,22 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 6341441922043785284L;
+	private static final long serialVersionUID = -4598809440368030824L;
 
 	/**
-	 * <p>The insertion cost.</p>
+	 * <p>Insertion cost.</p>
 	 * @since 1.0.0
 	 */
 	private final double insertionCost;
 
 	/**
-	 * <p>The deletion cost.</p>
+	 * <p>Deletion cost.</p>
 	 * @since 1.0.0
 	 */
 	private final double deletionCost;
 
 	/**
-	 * <p>The substitution cost.</p>
+	 * <p>Substitution cost.</p>
 	 * @since 1.0.0
 	 */
 	private final double substitutionCost;
@@ -93,10 +93,10 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	@Override
 	public double calculate(final CharSequence charSequence1, final CharSequence charSequence2) {
 		if (null == charSequence1) {
-			throw new NullPointerException("Invalid first char sequence (not null expected)");
+			throw new NullPointerException("Invalid first CharSequence (not null expected)");
 		}
 		if (null == charSequence2) {
-			throw new NullPointerException("Invalid second char sequence (not null expected)");
+			throw new NullPointerException("Invalid second CharSequence (not null expected)");
 		}
 		if (charSequence1.equals(charSequence2)) {
 			return 0.0d;

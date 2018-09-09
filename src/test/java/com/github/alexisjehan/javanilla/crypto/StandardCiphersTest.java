@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.github.alexisjehan.javanilla.security;
+package com.github.alexisjehan.javanilla.crypto;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,6 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * <p>{@link StandardCiphers} unit tests.</p>
@@ -113,19 +112,15 @@ final class StandardCiphersTest {
 	}
 
 	@Test
-	void testGetInstanceUnreachable() {
-		try {
-			final var method = StandardCiphers.class.getDeclaredMethod("getInstance", String.class);
-			method.setAccessible(true);
-			assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
-				try {
-					method.invoke(null, "xxx");
-				} catch (final InvocationTargetException e) {
-					throw e.getTargetException();
-				}
-			}).withCauseInstanceOf(NoSuchAlgorithmException.class);
-		} catch (final NoSuchMethodException e) {
-			fail(e.getMessage());
-		}
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardCiphers.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
+			try {
+				method.invoke(null, "???");
+			} catch (final InvocationTargetException e) {
+				throw e.getTargetException();
+			}
+		}).withCauseInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

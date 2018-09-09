@@ -31,11 +31,12 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>An utility class to work with {@link Throwable}, {@link Exception} and {@link RuntimeException} objects.</p>
+ * <p>An utility class that provides {@link Throwable}, {@link Exception} and {@link RuntimeException} tools.</p>
  * @since 1.0.0
  */
 public final class Throwables {
@@ -50,28 +51,28 @@ public final class Throwables {
 
 	/**
 	 * <p>Tell if a {@code Throwable} is a checked {@code Exception}.</p>
-	 * @param throwable the {@code Throwable}
+	 * @param throwable the {@code Throwable} to test
 	 * @return {@code true} if the {@code Throwable} is a checked {@code Exception}
 	 * @throws NullPointerException if the {@code Throwable} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static boolean isChecked(final Throwable throwable) {
 		if (null == throwable) {
-			throw new NullPointerException("Invalid throwable (not null expected)");
+			throw new NullPointerException("Invalid Throwable (not null expected)");
 		}
 		return throwable instanceof Exception && !isUnchecked(throwable);
 	}
 
 	/**
 	 * <p>Tell if a {@code Throwable} is an unchecked {@code Exception}.</p>
-	 * @param throwable the {@code Throwable}
+	 * @param throwable the {@code Throwable} to test
 	 * @return {@code true} if the {@code Throwable} is an unchecked {@code Exception}
 	 * @throws NullPointerException if the {@code Throwable} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static boolean isUnchecked(final Throwable throwable) {
 		if (null == throwable) {
-			throw new NullPointerException("Invalid throwable (not null expected)");
+			throw new NullPointerException("Invalid Throwable (not null expected)");
 		}
 		return throwable instanceof RuntimeException;
 	}
@@ -85,7 +86,7 @@ public final class Throwables {
 	 */
 	public static void uncheck(final ThrowableRunnable<?> throwableRunnable) {
 		if (null == throwableRunnable) {
-			throw new NullPointerException("Invalid throwable runnable (not null expected)");
+			throw new NullPointerException("Invalid ThrowableRunnable (not null expected)");
 		}
 		ThrowableRunnable.unchecked(throwableRunnable).run();
 	}
@@ -101,7 +102,7 @@ public final class Throwables {
 	 */
 	public static <T> T uncheck(final ThrowableSupplier<T, ?> throwableSupplier) {
 		if (null == throwableSupplier) {
-			throw new NullPointerException("Invalid throwable supplier (not null expected)");
+			throw new NullPointerException("Invalid ThrowableSupplier (not null expected)");
 		}
 		return ThrowableSupplier.unchecked(throwableSupplier).get();
 	}
@@ -109,13 +110,13 @@ public final class Throwables {
 	/**
 	 * <p>Wrap and return a {@code Throwable} as an unchecked {@code Exception} if it was not already.</p>
 	 * @param throwable the {@code Throwable} to wrap
-	 * @return the unchecked {@code Exception}
+	 * @return an unchecked {@code Exception}
 	 * @throws NullPointerException if the {@code Throwable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static RuntimeException unchecked(final Throwable throwable) {
 		if (null == throwable) {
-			throw new NullPointerException("Invalid throwable (not null expected)");
+			throw new NullPointerException("Invalid Throwable (not null expected)");
 		}
 		if (throwable instanceof RuntimeException) {
 			return (RuntimeException) throwable;
@@ -131,15 +132,15 @@ public final class Throwables {
 
 	/**
 	 * <p>Get the root cause of the given {@code Throwable} by calling {@link Throwable#getCause()} recursively.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if {@code Throwable} causes make a cycle.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if {@code Throwable} causes are making a cycle.</p>
 	 * @param throwable the {@code Throwable} to get the root cause from
-	 * @return the {@code Optional} {@code Throwable} root cause
+	 * @return an {@code Optional} {@code Throwable} root cause
 	 * @throws NullPointerException if the {@code Throwable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Optional<Throwable> getRootCause(final Throwable throwable) {
 		if (null == throwable) {
-			throw new NullPointerException("Invalid throwable (not null expected)");
+			throw new NullPointerException("Invalid Throwable (not null expected)");
 		}
 		var cause = throwable;
 		while (cause != cause.getCause() && null != cause.getCause()) {
@@ -149,17 +150,18 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Get the list of causes of the given {@code Throwable} by calling {@link Throwable#getCause()} recursively.</p>
-	 * <p><b>Note</b>: The list is ordered so that the root cause is at the end of the list.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if {@code Throwable} causes make a cycle.</p>
+	 * <p>Get the {@code List} of causes of the given {@code Throwable} by calling {@link Throwable#getCause()}
+	 * recursively.</p>
+	 * <p><b>Note</b>: The {@code List} is ordered so that the root cause is at the end.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if {@code Throwable} causes are making a cycle.</p>
 	 * @param throwable the {@code Throwable} to get causes from
-	 * @return a modifiable {@code List} of {@code Throwable} causes
+	 * @return an unmodifiable {@code List} of {@code Throwable} causes
 	 * @throws NullPointerException if the {@code Throwable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static List<Throwable> getCauses(final Throwable throwable) {
 		if (null == throwable) {
-			throw new NullPointerException("Invalid throwable (not null expected)");
+			throw new NullPointerException("Invalid Throwable (not null expected)");
 		}
 		final var causes = new ArrayList<Throwable>();
 		var cause = throwable;
@@ -167,6 +169,6 @@ public final class Throwables {
 			cause = cause.getCause();
 			causes.add(cause);
 		}
-		return causes;
+		return Collections.unmodifiableList(causes);
 	}
 }

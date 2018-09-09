@@ -38,8 +38,8 @@ public final class CountLineReader extends FilterLineReader {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code LineReader}.</p>
-	 * @param lineReader the delegated {@code LineReader}
+	 * <p>Constructor with a {@code LineReader} to decorate.</p>
+	 * @param lineReader the {@code LineReader} to decorate
 	 * @throws NullPointerException if the {@code LineReader} is {@code null}
 	 * @since 1.0.0
 	 */

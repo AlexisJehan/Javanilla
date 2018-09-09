@@ -28,7 +28,6 @@ import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.io.lines.LineReader;
 import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -45,119 +44,178 @@ final class IteratorsTest {
 
 	@Test
 	void testEmptyInt() {
-		assertThat(Iterators.EMPTY_INT.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(Iterators.EMPTY_INT::nextInt);
-		assertThatIllegalStateException().isThrownBy(Iterators.EMPTY_INT::remove);
+		final var emptyIterator = Iterators.EMPTY_INT;
+		assertThat(emptyIterator.hasNext()).isFalse();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::nextInt);
+		assertThatIllegalStateException().isThrownBy(emptyIterator::remove);
 	}
 
 	@Test
 	void testEmptyLong() {
-		assertThat(Iterators.EMPTY_LONG.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(Iterators.EMPTY_LONG::nextLong);
-		assertThatIllegalStateException().isThrownBy(Iterators.EMPTY_LONG::remove);
+		final var emptyIterator = Iterators.EMPTY_LONG;
+		assertThat(emptyIterator.hasNext()).isFalse();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::nextLong);
+		assertThatIllegalStateException().isThrownBy(emptyIterator::remove);
 	}
 
 	@Test
 	void testEmptyDouble() {
-		assertThat(Iterators.EMPTY_DOUBLE.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(Iterators.EMPTY_DOUBLE::nextDouble);
-		assertThatIllegalStateException().isThrownBy(Iterators.EMPTY_DOUBLE::remove);
+		final var emptyIterator = Iterators.EMPTY_DOUBLE;
+		assertThat(emptyIterator.hasNext()).isFalse();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::nextDouble);
+		assertThatIllegalStateException().isThrownBy(emptyIterator::remove);
+	}
+
+	@Test
+	void testNullToEmptyOfInt() {
+		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfInt) null)).isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_INT)).isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.singletonInt(1))).containsExactly(1);
+	}
+
+	@Test
+	void testNullToEmptyOfLong() {
+		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfLong) null)).isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_LONG)).isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.singletonLong(1L))).containsExactly(1L);
+	}
+
+	@Test
+	void testNullToEmptyOfDouble() {
+		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfDouble) null)).isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_DOUBLE)).isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.singletonDouble(1.0d))).containsExactly(1.0d);
 	}
 
 	@Test
 	void testNullToEmptyIterator() {
-		assertThat(Iterators.nullToEmpty((Iterator<Integer>) null)).isEmpty();
+		assertThat(Iterators.nullToEmpty((Iterator<?>) null)).isEmpty();
 		assertThat(Iterators.nullToEmpty(Collections.emptyIterator())).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.of(1))).containsExactly(1);
+		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).iterator())).containsExactly(1);
 	}
 
 	@Test
 	void testNullToEmptyListIterator() {
-		assertThat(Iterators.nullToEmpty(null)).isEmpty();
+		assertThat(Iterators.nullToEmpty((ListIterator<?>) null)).isEmpty();
 		assertThat(Iterators.nullToEmpty(Collections.emptyListIterator())).isEmpty();
-		assertThat(Iterators.nullToEmpty(List.of(1).listIterator())).containsExactly(1);
+		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).listIterator())).containsExactly(1);
 	}
 
 	@Test
-	void testNullToDefaultIterator() {
-		assertThat(Iterators.nullToDefault(null, Iterators.of(1))).containsExactly(1);
-		assertThat(Iterators.nullToDefault(Collections.emptyIterator(), Iterators.of(1))).isEmpty();
-		assertThat(Iterators.nullToDefault(Iterators.of(1), Iterators.of(1))).containsExactly(1);
+	void testNullToDefault() {
+		assertThat(Iterators.nullToDefault(null, Iterators.singleton(0))).containsExactly(0);
+		assertThat(Iterators.nullToDefault(Collections.emptyIterator(), Iterators.singleton(0))).isEmpty();
+		assertThat(Iterators.nullToDefault(Iterators.singleton(1), Iterators.singleton(0))).containsExactly(1);
 	}
 
 	@Test
-	void testNullToDefaultListIterator() {
-		assertThat(Iterators.nullToDefault(null, List.of(1).listIterator())).containsExactly(1);
-		assertThat(Iterators.nullToDefault(Collections.emptyListIterator(), List.of(1).listIterator())).isEmpty();
-		assertThat(Iterators.nullToDefault(List.of(1).listIterator(), List.of(1).listIterator())).containsExactly(1);
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.nullToDefault(Iterators.singleton(1), null));
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.nullToDefault(Collections.emptyIterator(), null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.nullToDefault(Collections.emptyListIterator(), null));
+	void testEmptyToNullOfInt() {
+		assertThat(Iterators.emptyToNull((PrimitiveIterator.OfInt) null)).isNull();
+		assertThat(Iterators.emptyToNull(Iterators.EMPTY_INT)).isNull();
+		assertThat(Iterators.emptyToNull(Iterators.singletonInt(1))).containsExactly(1);
+	}
+
+	@Test
+	void testEmptyToNullOfLong() {
+		assertThat(Iterators.emptyToNull((PrimitiveIterator.OfLong) null)).isNull();
+		assertThat(Iterators.emptyToNull(Iterators.EMPTY_LONG)).isNull();
+		assertThat(Iterators.emptyToNull(Iterators.singletonLong(1L))).containsExactly(1L);
+	}
+
+	@Test
+	void testEmptyToNullOfDouble() {
+		assertThat(Iterators.emptyToNull((PrimitiveIterator.OfDouble) null)).isNull();
+		assertThat(Iterators.emptyToNull(Iterators.EMPTY_DOUBLE)).isNull();
+		assertThat(Iterators.emptyToNull(Iterators.singletonDouble(1.0d))).containsExactly(1.0d);
 	}
 
 	@Test
 	void testEmptyToNullIterator() {
-		assertThat(Iterators.emptyToNull((Iterator<Integer>) null)).isNull();
+		assertThat(Iterators.emptyToNull((Iterator<?>) null)).isNull();
 		assertThat(Iterators.emptyToNull(Collections.emptyIterator())).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.of(1))).containsExactly(1);
+		assertThat(Iterators.emptyToNull(Collections.singletonList(1).iterator())).containsExactly(1);
 	}
 
 	@Test
 	void testEmptyToNullListIterator() {
-		assertThat(Iterators.emptyToNull(null)).isNull();
+		assertThat(Iterators.emptyToNull((ListIterator<?>) null)).isNull();
 		assertThat(Iterators.emptyToNull(Collections.emptyListIterator())).isNull();
-		assertThat(Iterators.emptyToNull(List.of(1).listIterator())).containsExactly(1);
+		assertThat(Iterators.emptyToNull(Collections.singletonList(1).listIterator())).containsExactly(1);
 	}
 
 	@Test
-	void testEmptyToDefaultIterator() {
-		assertThat(Iterators.emptyToDefault(null, Iterators.of(1))).isNull();
-		assertThat(Iterators.emptyToDefault(Collections.emptyIterator(), Iterators.of(1))).containsExactly(1);
-		assertThat(Iterators.emptyToDefault(Iterators.of(1), Iterators.of(1))).containsExactly(1);
+	void testEmptyToDefault() {
+		assertThat(Iterators.emptyToDefault(null, Iterators.singleton(0))).isNull();
+		assertThat(Iterators.emptyToDefault(Collections.emptyIterator(), Iterators.singleton(0))).containsExactly(0);
+		assertThat(Iterators.emptyToDefault(Iterators.singleton(1), Iterators.singleton(0))).containsExactly(1);
 	}
 
 	@Test
-	void testEmptyToDefaultListIterator() {
-		assertThat(Iterators.emptyToDefault(null, List.of(1).listIterator())).isNull();
-		assertThat(Iterators.emptyToDefault(Collections.emptyListIterator(), List.of(1).listIterator())).containsExactly(1);
-		assertThat(Iterators.emptyToDefault(List.of(1).listIterator(), List.of(1).listIterator())).containsExactly(1);
+	void testEmptyToDefaultInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> Iterators.emptyToDefault(Iterators.singleton(1), Collections.emptyIterator()));
 	}
 
 	@Test
-	void testEmptyToDefaultIteratorInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Iterators.emptyToDefault(Collections.emptyIterator(), Collections.emptyIterator()));
-		assertThatIllegalArgumentException().isThrownBy(() -> Iterators.emptyToDefault(Collections.emptyListIterator(), Collections.emptyListIterator()));
+	void testIsEmpty() {
+		assertThat(Iterators.isEmpty(Collections.emptyIterator())).isTrue();
+		assertThat(Iterators.isEmpty(Iterators.singleton(1))).isFalse();
+	}
+
+	@Test
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.isEmpty(null));
 	}
 
 	@Test
 	void testUnmodifiable() {
 		assertThat(Iterators.unmodifiable(Collections.emptyIterator())).isEmpty();
-		final var list = new ArrayList<>(Arrays.asList(1, null, 2));
+		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var iterator = list.iterator();
 		iterator.next();
 		iterator.remove();
-		assertThat(list).hasSize(2);
+		assertThat(list).containsExactly(2, 3);
 		final var unmodifiableIterator = Iterators.unmodifiable(iterator);
 		while (unmodifiableIterator.hasNext()) {
 			unmodifiableIterator.next();
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(unmodifiableIterator::remove);
 		}
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(unmodifiableIterator::next);
-		assertThat(list).hasSize(2);
+		assertThat(list).containsExactly(2, 3);
 	}
 
 	@Test
-	void testUnmodifiableNull() {
+	void testUnmodifiableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.unmodifiable(null));
+	}
+
+	@Test
+	void testFilter() {
+		assertThat(Iterators.filter(Collections.emptyIterator(), element -> true)).isEmpty();
+		final var list = new ArrayList<>(List.of(1, 2, 3));
+		final var filterIterator = Iterators.filter(list.iterator(), i -> 0 == i % 2);
+		while (filterIterator.hasNext()) {
+			assertThat(filterIterator.next() % 2).isEqualTo(0);
+			filterIterator.remove();
+		}
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(filterIterator::next);
+		assertThat(list).containsExactly(1, 3);
+	}
+
+	@Test
+	void testFilterInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.filter(null, element -> true));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.filter(Iterators.singleton(1), null));
 	}
 
 	@Test
 	void testMap() {
 		assertThat(Iterators.map(Collections.emptyIterator(), Function.identity())).isEmpty();
-		final var list = new ArrayList<>(Arrays.asList(1, 2, 3));
+		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var mapIterator = Iterators.map(list.iterator(), i -> -i);
 		while (mapIterator.hasNext()) {
 			assertThat(mapIterator.next()).isNegative();
@@ -168,159 +226,216 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testMapNull() {
+	void testMapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.map(null, Function.identity()));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.map(Collections.emptyIterator(), null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.map(Iterators.singleton(1), null));
 	}
 
 	@Test
-	void testFilter() {
-		assertThat(Iterators.filter(Collections.emptyIterator(), x -> true)).isEmpty();
-		final var list = new ArrayList<>(Arrays.asList(1, 2, 3));
-		final var filterIterator = Iterators.filter(list.iterator(), i -> 0 == i % 2);
-		while (filterIterator.hasNext()) {
-			assertThat(filterIterator.next() % 2).isEqualTo(0);
-			filterIterator.remove();
+	void testIndex() {
+		assertThat(Iterators.index(Collections.emptyIterator())).isEmpty();
+		final var list = new ArrayList<>(List.of(1, 2, 3));
+		final var indexedIterator = Iterators.index(list.iterator());
+		var index = 0;
+		while (indexedIterator.hasNext()) {
+			final var indexedElement = indexedIterator.next();
+			assertThat(indexedElement.getIndex()).isEqualTo(index);
+			assertThat(indexedElement.getElement()).isEqualTo(list.get(index));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(indexedIterator::remove);
+			++index;
 		}
-		assertThat(filterIterator.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(filterIterator::next);
-		assertThat(list).containsExactly(1, 3);
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(indexedIterator::next);
+		assertThat(list).containsExactly(1, 2, 3);
 	}
 
 	@Test
-	void testFilterNull() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.filter(null, x -> true));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.filter(Collections.emptyIterator(), null));
+	void testIndexInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.index(null));
 	}
 
 	@Test
 	void testUntil() {
-		final var array = ObjectArrays.of(1, 2000, null, 4000);
-		final var untilIterator = Iterators.until(new Supplier<>() {
-			private int i = 0;
+		{
+			final var array = ObjectArrays.of(1, 2000, null, 4000);
+			final var untilIterator = Iterators.until(new Supplier<>() {
+				private int i = 0;
 
-			@Override
-			public Integer get() {
-				return array[i++];
-			}
-		}, 4000);
-		assertThat(untilIterator.next()).isEqualTo(1);
-		assertThat(untilIterator.next()).isEqualTo(2000);
-		assertThat(untilIterator.next()).isNull();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(untilIterator::next);
+				@Override
+				public Integer get() {
+					return array[i++];
+				}
+			}, 4000);
+			assertThat(untilIterator.next()).isEqualTo(1);
+			assertThat(untilIterator.next()).isEqualTo(2000);
+			assertThat(untilIterator.next()).isNull();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(untilIterator::next);
+		}
+		{
+			final var untilIterator = Iterators.until(new Supplier<>() {
+				private int i = 0;
+
+				@Override
+				public Integer get() {
+					return i < 3 ? ++i : null;
+				}
+			}, null);
+			assertThat(untilIterator.next()).isEqualTo(1);
+			assertThat(untilIterator.next()).isEqualTo(2);
+			assertThat(untilIterator.next()).isEqualTo(3);
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(untilIterator::next);
+		}
 	}
 
 	@Test
-	void testUntilNull() {
+	void testUntilInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.until(null, 1));
-		final var untilIterator = Iterators.until(new Supplier<>() {
-			private int i = 0;
-
-			@Override
-			public Integer get() {
-				return i < 3 ? ++i : null;
-			}
-		}, null);
-		assertThat(untilIterator.next()).isEqualTo(1);
-		assertThat(untilIterator.next()).isEqualTo(2);
-		assertThat(untilIterator.next()).isEqualTo(3);
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(untilIterator::next);
 	}
 
 	@Test
 	void testLength() {
 		assertThat(Iterators.length(Collections.emptyIterator())).isEqualTo(0L);
-		final var iterator = Iterators.ofInt(1, 2, 3);
+		assertThat(Iterators.length(Iterators.singleton(1))).isEqualTo(1L);
+		final var iterator = Iterators.of(1, 2, 3);
 		assertThat(Iterators.length(iterator)).isEqualTo(3L);
 		assertThat(Iterators.length(iterator)).isEqualTo(0L);
 	}
 
 	@Test
-	void testLengthNull() {
+	void testLengthInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.length(null));
 	}
 
 	@Test
 	void testTransferTo() {
-		final var iterator = Iterators.ofInt(1, 2, 3);
 		final var list = new ArrayList<>();
+		assertThat(Iterators.transferTo(Collections.singletonList(0).iterator(), list)).isEqualTo(1L);
+		assertThat(list).containsExactly(0);
+		final var iterator = Iterators.of(1, 2, 3);
 		assertThat(Iterators.transferTo(iterator, list)).isEqualTo(3L);
-		assertThat(list).containsExactly(1, 2, 3);
+		assertThat(list).containsExactly(0, 1, 2, 3);
 		assertThat(Iterators.transferTo(iterator, list)).isEqualTo(0L);
-		assertThat(list).containsExactly(1, 2, 3);
+		assertThat(list).containsExactly(0, 1, 2, 3);
 	}
 
 	@Test
-	void testTransferToNull() {
+	void testTransferToInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.transferTo(null, new ArrayList<>()));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.transferTo(Collections.emptyIterator(), null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.transferTo(Iterators.singleton(1), null));
+	}
+
+	@Test
+	void testGetFirst() {
+		assertThat(Iterators.getFirst(Collections.emptyIterator()).isEmpty()).isTrue();
+		assertThat(Iterators.getFirst(Collections.singletonList(0).iterator()).get()).isEqualTo(0);
+		assertThat(Iterators.getFirst(Iterators.singleton(null)).get()).isNull();
+		assertThat(Iterators.getFirst(Iterators.of(1, 2, 3)).get()).isEqualTo(1);
+	}
+
+	@Test
+	void testGetFirstInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.getFirst(null));
+	}
+
+	@Test
+	void testGetLast() {
+		assertThat(Iterators.getLast(Collections.emptyIterator()).isEmpty()).isTrue();
+		assertThat(Iterators.getLast(Collections.singletonList(0).iterator()).get()).isEqualTo(0);
+		assertThat(Iterators.getLast(Iterators.singleton(null)).get()).isNull();
+		assertThat(Iterators.getLast(Iterators.of(1, 2, 3)).get()).isEqualTo(3);
+	}
+
+	@Test
+	void testGetLastInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.getLast(null));
+	}
+
+	@Test
+	void testRemoveAll() {
+		assertThat(Iterators.removeAll(Collections.emptyIterator(), Collections.singleton(1))).isFalse();
+		assertThat(Iterators.removeAll(Iterators.of(1, 2, 3), Collections.emptySet())).isFalse();
+		final var list = new ArrayList<>(List.of(1, 2, 3));
+		Iterators.removeAll(list.iterator(), Collections.singleton(2));
+		assertThat(list).containsExactly(1, 3);
+	}
+
+	@Test
+	void testRemoveAllInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.removeAll(null, Collections.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.removeAll(Iterators.singleton(1), null));
+	}
+
+	@Test
+	void testRemoveIf() {
+		assertThat(Iterators.removeIf(Collections.emptyIterator(), element -> true)).isFalse();
+		assertThat(Iterators.removeIf(Iterators.of(1, 2, 3), element -> false)).isFalse();
+		final var list = new ArrayList<>(List.of(1, 2, 3));
+		Iterators.removeIf(list.iterator(), element -> 2 == element);
+		assertThat(list).containsExactly(1, 3);
+	}
+
+	@Test
+	void testRemoveIfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.removeIf(null, element -> true));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.removeIf(Iterators.singleton(1), null));
 	}
 
 	@Test
 	void testConcat() {
-		assertThat(Iterators.concat(Iterators.of(1, 2, 3), Iterators.of(1L, 2L, 3L))).containsExactly(1, 2, 3, 1L, 2L, 3L);
-	}
-
-	@Test
-	void testConcatOne() {
-		assertThat(Iterators.concat(Iterators.of(1, 2, 3))).containsExactly(1, 2, 3);
-	}
-
-	@Test
-	void testConcatNone() {
 		assertThat(Iterators.concat()).isEmpty();
+		assertThat(Iterators.concat(Iterators.singleton(1))).containsExactly(1);
+		assertThat(Iterators.concat(Iterators.singleton(1), Iterators.singleton(2))).containsExactly(1, 2);
 	}
 
 	@Test
-	void testConcatEmpty() {
-		final var concatIterator = Iterators.concat(Collections.emptyIterator(), Collections.emptyIterator());
-		assertThat(concatIterator).isEmpty();
-		assertThat(concatIterator.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(concatIterator::next);
-	}
-
-	@Test
-	void testConcatNull() {
+	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((Iterator<?>[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((List<Iterator<?>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((Iterator<?>) null));
 	}
 
 	@Test
+	void testConcatSequenceIterator() {
+		final var concatIterator = Iterators.concat(Iterators.of(1, 2, 3), Iterators.of(4, 5, 6));
+		assertThat(concatIterator.next()).isEqualTo(1);
+		while (concatIterator.hasNext()) {
+			concatIterator.next();
+		}
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(concatIterator::next);
+	}
+
+	@Test
 	void testJoin() {
-		assertThat(Iterators.join(ObjectArrays.of(0.0d), Iterators.of(1, 2, 3), Iterators.of(1L, 2L, 3L))).containsExactly(1, 2, 3, 0.0d, 1L, 2L, 3L);
+		assertThat(Iterators.join(ObjectArrays.empty(Integer.class), Iterators.singleton(1), Iterators.singleton(2))).containsExactly(1, 2);
+		assertThat(Iterators.join(ObjectArrays.singleton(0))).isEmpty();
+		assertThat(Iterators.join(ObjectArrays.singleton(0), Iterators.singleton(1))).containsExactly(1);
+		assertThat(Iterators.join(ObjectArrays.singleton(0), Iterators.singleton(1), Iterators.singleton(2))).containsExactly(1, 0, 2);
 	}
 
 	@Test
-	void testJoinEmptySeparator() {
-		assertThat(Iterators.join(ObjectArrays.empty(Integer.class), Iterators.of(1, 2, 3), Iterators.of(1L, 2L, 3L))).containsExactly(1, 2, 3, 1L, 2L, 3L);
-	}
-
-	@Test
-	void testJoinOne() {
-		assertThat(Iterators.join(ObjectArrays.of(0.0d), Iterators.of(1, 2, 3))).containsExactly(1, 2, 3);
-	}
-
-	@Test
-	void testJoinNone() {
-		assertThat(Iterators.join(ObjectArrays.of(0.0d))).isEmpty();
-	}
-
-	@Test
-	void testJoinEmpty() {
-		assertThat(Iterators.join(ObjectArrays.of(0.0d), Collections.emptyIterator(), Collections.emptyIterator())).containsExactly(0.0d);
-	}
-
-	@Test
-	void testJoinNull() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(null, Collections.emptyIterator()));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.empty(Integer.class), (Iterator<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.empty(Integer.class), (List<Iterator<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.empty(Integer.class), (Iterator<?>) null));
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(null, Iterators.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (Iterator<?>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (List<Iterator<?>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (Iterator<?>) null));
 	}
 
 	@Test
 	void testSingletonInt() {
+		assertThat(Iterators.singletonInt(1)).containsExactly(1);
+	}
+
+	@Test
+	void testSingletonLong() {
+		assertThat(Iterators.singletonLong(1L)).containsExactly(1L);
+	}
+
+	@Test
+	void testSingletonDouble() {
+		assertThat(Iterators.singletonDouble(1.0d)).containsExactly(1.0d);
+	}
+
+	@Test
+	void testSingleton() {
 		assertThat(Iterators.singleton(1)).containsExactly(1);
 	}
 
@@ -331,13 +446,8 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfIntNull() {
+	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofInt((int[]) null));
-	}
-
-	@Test
-	void testSingletonLong() {
-		assertThat(Iterators.singleton(1L)).containsExactly(1L);
 	}
 
 	@Test
@@ -347,13 +457,8 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfLongNull() {
+	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofLong((long[]) null));
-	}
-
-	@Test
-	void testSingletonDouble() {
-		assertThat(Iterators.singleton(1.0d)).containsExactly(1.0d);
 	}
 
 	@Test
@@ -363,76 +468,52 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfDoubleNull() {
+	void testOfDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofDouble((double[]) null));
-	}
-
-	@Test
-	void testSingleton() {
-		assertThat(Iterators.singleton((Integer) 1)).containsExactly(1);
 	}
 
 	@Test
 	void testOf() {
 		assertThat(Iterators.of()).isEmpty();
-		assertThat(Iterators.of(1, null, 2)).containsExactly(1, null, 2);
+		assertThat(Iterators.of(1, 2, 3)).containsExactly(1, 2, 3);
 	}
 
 	@Test
-	void testOfNull() {
+	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.of((Integer[]) null));
 	}
 
 	@Test
 	void testToSet() {
 		assertThat(Iterators.toSet(Collections.emptyIterator())).isEmpty();
-		assertThat(Iterators.toSet(Iterators.of(1, null, null, 2))).containsExactlyInAnyOrder(1, null, 2);
+		assertThat(Iterators.toSet(Collections.singleton(1).iterator())).containsExactly(1);
+		assertThat(Iterators.toSet(Iterators.of(1, 2, 2, 3))).containsExactlyInAnyOrder(1, 2, 3);
 	}
 
 	@Test
-	void testToSetNull() {
+	void testToSetInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.toSet(null));
 	}
 
 	@Test
 	void testToList() {
 		assertThat(Iterators.toList(Collections.emptyIterator())).isEmpty();
-		assertThat(Iterators.toList(Iterators.of(1, null, null, 2))).containsExactly(1, null, null, 2);
+		assertThat(Iterators.toList(Collections.singletonList(1).iterator())).containsExactly(1);
+		assertThat(Iterators.toList(Iterators.of(1, 2, 2, 3))).containsExactly(1, 2, 2, 3);
 	}
 
 	@Test
-	void testToListNull() {
+	void testToListInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.toList(null));
 	}
 
 	@Test
-	void testToEnumeration() {
-		assertThat(Iterators.toEnumeration(Collections.emptyIterator()).asIterator()).isEmpty();
-		assertThat(Iterators.toEnumeration(Iterators.of(1, null, 2)).asIterator()).containsExactly(1, null, 2);
-		final var enumeration = Iterators.toEnumeration(Iterators.of(1, null, 2));
-		assertThat(enumeration.hasMoreElements()).isTrue();
-		assertThat(enumeration.nextElement()).isEqualTo(1);
-		assertThat(enumeration.nextElement()).isNull();
-		assertThat(enumeration.nextElement()).isEqualTo(2);
-		assertThat(enumeration.hasMoreElements()).isFalse();
-	}
-
-	@Test
-	void testToEnumerationNull() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.toEnumeration(null));
-	}
-
-	@Test
 	void testOfInputStream() {
-		final var inputStreamIterator = Iterators.of(InputStreams.of((byte) 0, (byte) 255));
+		final var inputStreamIterator = Iterators.of(InputStreams.of((byte) 1, (byte) 2, (byte) 3));
 		while (inputStreamIterator.hasNext()) {
 			assertThat(inputStreamIterator.next()).isNotEqualTo(-1);
 		}
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(inputStreamIterator::next);
-	}
-
-	@Test
-	void testOfInputStreamException() {
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Iterators.of(new InputStream() {
 			@Override
 			public int read() throws IOException {
@@ -442,45 +523,35 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfInputStreamNull() {
+	void testOfInputStreamInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.of((InputStream) null));
 	}
 
 	@Test
-	void testToInputStream() {
-		try {
-			assertThat(Iterators.toInputStream(Collections.emptyIterator()).read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testToInputStream() throws IOException {
+		assertThat(Iterators.toInputStream(Collections.emptyIterator()).read()).isEqualTo(-1);
 		try (final var inputStream = Iterators.toInputStream(Iterators.of(0, 255))) {
 			assertThat(inputStream.read()).isEqualTo(0);
 			assertThat(inputStream.read()).isEqualTo(255);
 			assertThat(inputStream.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testToInputStreamNull() {
+	void testToInputStreamInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.toInputStream(null));
 	}
 
 	@Test
 	void testOfReader() {
-		final var readerIterator = Iterators.of(Readers.of((char) 0, (char) 255));
+		final var readerIterator = Iterators.of(Readers.of('a', 'b', 'c'));
 		while (readerIterator.hasNext()) {
 			assertThat(readerIterator.next()).isNotEqualTo(-1);
 		}
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(readerIterator::next);
-	}
-
-	@Test
-	void testOfReaderException() {
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Iterators.of(new Reader() {
 			@Override
-			public int read(@NotNull final char[] cbuf, final int off, final int len) throws IOException {
+			public int read(final char[] buffer, final int offset, final int length) throws IOException {
 				throw new IOException();
 			}
 
@@ -492,55 +563,46 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfReaderNull() {
+	void testOfReaderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.of((Reader) null));
 	}
 
 	@Test
-	void testToReader() {
-		try {
-			assertThat(Iterators.toReader(Collections.emptyIterator()).read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-		try (final var reader = Iterators.toReader(Iterators.of(0, 255, 0, 255))) {
-			assertThat(reader.read()).isEqualTo(0);
+	void testToReader() throws IOException {
+		assertThat(Iterators.toReader(Collections.emptyIterator()).read()).isEqualTo(-1);
+		try (final var reader = Iterators.toReader(Iterators.of((int) 'a', (int) 'b', (int) 'c', (int) 'd'))) {
+			assertThat(reader.read()).isEqualTo('a');
 			final var buffer = new char[2];
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, -1,  3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer,  3,  3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer,  0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer,  0,  3));
 			assertThat(reader.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(reader.read(buffer, 0, 2)).isEqualTo(2);
-			assertThat(buffer).containsExactly((char) 255, (char) 0);
+			assertThatNullPointerException().isThrownBy(() -> reader.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, 0, 3));
+			assertThat(buffer).containsExactly('b', 'c');
 			assertThat(reader.read(buffer, 0, 2)).isEqualTo(1);
-			assertThat(buffer[0]).isEqualTo((char) 255);
+			assertThat(buffer[0]).isEqualTo('d');
 			assertThat(reader.read()).isEqualTo(-1);
 			assertThat(reader.read(buffer, 0, 1)).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testToReaderNull() {
+	void testToReaderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.toReader(null));
 	}
 
 	@Test
 	void testOfBufferedReader() {
-		final var bufferedReaderIterator = Iterators.of(Readers.buffered(Readers.of((char) 0, (char) 255)));
+		final var bufferedReaderIterator = Iterators.of(Readers.buffered(Readers.of("abc\ndef\nghi")));
 		while (bufferedReaderIterator.hasNext()) {
 			assertThat(bufferedReaderIterator.next()).isNotNull();
 		}
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(bufferedReaderIterator::next);
-	}
-
-	@Test
-	void testOfBufferedReaderException() {
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Iterators.of(Readers.buffered(new Reader() {
 			@Override
-			public int read(@NotNull final char[] cbuf, final int off, final int len) throws IOException {
+			public int read(final char[] buffer, final int offset, final int length) throws IOException {
 				throw new IOException();
 			}
 
@@ -552,24 +614,20 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfBufferedReaderNull() {
+	void testOfBufferedReaderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.of((BufferedReader) null));
 	}
 
 	@Test
 	void testOfLineReader() {
-		final var lineReaderIterator = Iterators.of(new LineReader(Readers.of((char) 0, (char) 255), LineSeparator.DEFAULT));
+		final var lineReaderIterator = Iterators.of(new LineReader(Readers.of("abc\ndef\nghi"), LineSeparator.DEFAULT));
 		while (lineReaderIterator.hasNext()) {
 			assertThat(lineReaderIterator.next()).isNotNull();
 		}
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(lineReaderIterator::next);
-	}
-
-	@Test
-	void testOfLineReaderException() {
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Iterators.of(new LineReader(new Reader() {
 			@Override
-			public int read(@NotNull final char[] cbuf, final int off, final int len) throws IOException {
+			public int read(final char[] buffer, final int offset, final int length) throws IOException {
 				throw new IOException();
 			}
 
@@ -581,7 +639,7 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testOfLineReaderNull() {
+	void testOfLineReaderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.of((LineReader) null));
 	}
 }

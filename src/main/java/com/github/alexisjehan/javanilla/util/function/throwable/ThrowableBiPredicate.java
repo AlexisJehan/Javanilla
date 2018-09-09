@@ -91,7 +91,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableBiPredicate} to a {@code BiPredicate} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableBiPredicate the given {@code ThrowableBiPredicate}
+	 * @param throwableBiPredicate the {@code ThrowableBiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate
 	 * @param <X> the type of the {@code Throwable}
@@ -101,7 +101,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 */
 	static <T, U, X extends Throwable> BiPredicate<T, U> unchecked(final ThrowableBiPredicate<? super T, ? super U, ? extends X> throwableBiPredicate) {
 		if (null == throwableBiPredicate) {
-			throw new NullPointerException("Invalid throwable bi predicate (not null expected)");
+			throw new NullPointerException("Invalid ThrowableBiPredicate (not null expected)");
 		}
 		return (t, u) -> {
 			try {
@@ -113,8 +113,8 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiPredicate} that throws nothing from the given {@code BiPredicate}.</p>
-	 * @param biPredicate the given {@code BiPredicate}
+	 * <p>Create a {@code ThrowableBiPredicate} from the given {@code BiPredicate}.</p>
+	 * @param biPredicate the {@code BiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate
 	 * @param <X> the type of the {@code Throwable}
@@ -124,7 +124,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 */
 	static <T, U, X extends Throwable> ThrowableBiPredicate<T, U, X> of(final BiPredicate<? super T, ? super U> biPredicate) {
 		if (null == biPredicate) {
-			throw new NullPointerException("Invalid bi predicate (not null expected)");
+			throw new NullPointerException("Invalid BiPredicate (not null expected)");
 		}
 		return biPredicate::test;
 	}

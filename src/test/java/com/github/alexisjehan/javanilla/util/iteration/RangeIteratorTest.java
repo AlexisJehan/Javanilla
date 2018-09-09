@@ -37,48 +37,57 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class RangeIteratorTest {
 
 	@Test
-	void testConstructorNull() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeIterator<>(null, 6L, 20L));
-	}
-
-	@Test
 	void testConstructorInvalid() {
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeIterator<>(Collections.emptyIterator(), -5L, 20L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeIterator<>(Collections.emptyIterator(), 10L, 5L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeIterator<>(null, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeIterator<>(Iterators.singleton(1), -1L, 0L));
+		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeIterator<>(Iterators.singleton(1), 1L, 0L));
 	}
 
 	@Test
-	void testNextRange() {
-		final var rangeIterator = new RangeIterator<>(Iterators.of(0, 1, 2, 3, 4, 5), 2L, 4L);
-		assertThat(rangeIterator.getFromIndex()).isEqualTo(2L);
-		assertThat(rangeIterator.getToIndex()).isEqualTo(4L);
-		assertThat(rangeIterator).containsExactly(2, 3, 4);
-		assertThat(rangeIterator.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
-	}
-
-	@Test
-	void testNextAll() {
-		final var rangeIterator = new RangeIterator<>(Iterators.of(0, 1, 2, 3, 4, 5), 2000L);
-		assertThat(rangeIterator.getFromIndex()).isEqualTo(0L);
-		assertThat(rangeIterator.getToIndex()).isEqualTo(2000L);
-		assertThat(rangeIterator).containsExactly(0, 1, 2, 3, 4, 5);
-		assertThat(rangeIterator.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
-	}
-
-	@Test
-	void testNextOut() {
-		final var rangeIterator = new RangeIterator<>(Iterators.of(0, 1, 2, 3, 4, 5), 1000L, 2000L);
-		assertThat(rangeIterator.getFromIndex()).isEqualTo(1000L);
-		assertThat(rangeIterator.getToIndex()).isEqualTo(2000L);
-		assertThat(rangeIterator.hasNext()).isFalse();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+	void testNext() {
+		{
+			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 0L);
+			assertThat(rangeIterator.getFromIndex()).isEqualTo(0L);
+			assertThat(rangeIterator.getToIndex()).isEqualTo(0L);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(1);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		}
+		{
+			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 1L, 1L);
+			assertThat(rangeIterator.getFromIndex()).isEqualTo(1L);
+			assertThat(rangeIterator.getToIndex()).isEqualTo(1L);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(2);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		}
+		{
+			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 10L);
+			assertThat(rangeIterator.getFromIndex()).isEqualTo(0L);
+			assertThat(rangeIterator.getToIndex()).isEqualTo(10L);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(1);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(2);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(3);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		}
+		{
+			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 10L, 10L);
+			assertThat(rangeIterator.getFromIndex()).isEqualTo(10L);
+			assertThat(rangeIterator.getToIndex()).isEqualTo(10L);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		}
 	}
 
 	@Test
 	void testRemove() {
-		final var list = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5));
+		final var list = new ArrayList<>(List.of(0, 1, 2, 3, 4, 5));
 		final var rangeIterator = new RangeIterator<>(list.iterator(), 2L, 4L);
 		while (rangeIterator.hasNext()) {
 			rangeIterator.next();

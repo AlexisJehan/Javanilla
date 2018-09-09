@@ -23,8 +23,6 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.lang;
 
-import java.util.regex.Matcher;
-
 /**
  * <p>An utility class that provides {@link String} and {@link CharSequence} tools.</p>
  * @since 1.0.0
@@ -32,16 +30,28 @@ import java.util.regex.Matcher;
 public final class Strings {
 
 	/**
-	 * <p>The default quote {@code char}.</p>
-	 * @since 1.1.0
+	 * <p>Default {@code char} quote {@code char}.</p>
+	 * @since 1.2.0
 	 */
-	private static final char DEFAULT_QUOTE = '"';
+	private static final char DEFAULT_CHAR_QUOTE = '\'';
 
 	/**
-	 * <p>The default escape {@code char}.</p>
+	 * <p>Default {@code CharSequence} quote {@code char}.</p>
+	 * @since 1.1.0
+	 */
+	private static final char DEFAULT_CHAR_SEQUENCE_QUOTE = '"';
+
+	/**
+	 * <p>Default escape {@code char}.</p>
 	 * @since 1.1.0
 	 */
 	private static final char DEFAULT_ESCAPE = '\\';
+
+	/**
+	 * <p>Default padding {@code char}.</p>
+	 * @since 1.2.0
+	 */
+	private static final char DEFAULT_PADDING = ' ';
 
 	/**
 	 * <p>An empty {@code String}.</p>
@@ -58,108 +68,159 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@code CharSequence} replacing {@code null} by an empty {@code String}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @return the non-{@code null} {@code String}
+	 * <p>Wrap a {@code CharSequence} replacing {@code null} by an empty one.</p>
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @return a non-{@code null} {@code CharSequence}
 	 * @since 1.0.0
 	 */
-	public static String nullToEmpty(final CharSequence charSequence) {
+	public static CharSequence nullToEmpty(final CharSequence charSequence) {
 		return nullToDefault(charSequence, EMPTY);
 	}
 
 	/**
-	 * <p>Wrap a {@code CharSequence} replacing {@code null} by a default {@code String}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @param defaultString the default {@code String}
-	 * @return the non-{@code null} {@code String}
-	 * @throws NullPointerException if the default {@code String} is {@code null}
+	 * <p>Wrap a {@code String} replacing {@code null} by an empty one.</p>
+	 * @param string the {@code String} or {@code null}
+	 * @return a non-{@code null} {@code String}
+	 * @since 1.2.0
+	 */
+	public static String nullToEmpty(final String string) {
+		return nullToDefault(string, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code CharSequence} replacing {@code null} by a default one.</p>
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @param defaultCharSequence the default {@code CharSequence}
+	 * @param <C> the {@code CharSequence} type
+	 * @return a non-{@code null} {@code CharSequence}
+	 * @throws NullPointerException if the default {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String nullToDefault(final CharSequence charSequence, final String defaultString) {
-		if (null == defaultString) {
-			throw new NullPointerException("Invalid default string (not null expected)");
+	public static <C extends CharSequence> C nullToDefault(final C charSequence, final C defaultCharSequence) {
+		if (null == defaultCharSequence) {
+			throw new NullPointerException("Invalid default CharSequence (not null expected)");
 		}
-		return null != charSequence ? charSequence.toString() : defaultString;
+		return null != charSequence ? charSequence : defaultCharSequence;
 	}
 
 	/**
 	 * <p>Wrap a {@code CharSequence} replacing an empty one by {@code null}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @return the non-empty {@code String} or {@code null}
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @return a non-empty {@code CharSequence} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static String emptyToNull(final CharSequence charSequence) {
+	public static CharSequence emptyToNull(final CharSequence charSequence) {
 		return emptyToDefault(charSequence, null);
 	}
 
 	/**
-	 * <p>Wrap a {@code CharSequence} replacing an empty one by a default {@code String}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @param defaultString the default {@code String} or {@code null}
-	 * @return the non-empty {@code String} or {@code null}
-	 * @throws IllegalArgumentException if the default {@code String} is empty
+	 * <p>Wrap a {@code String} replacing an empty one by {@code null}.</p>
+	 * @param string the {@code String} or {@code null}
+	 * @return a non-empty {@code String} or {@code null}
+	 * @since 1.2.0
+	 */
+	public static String emptyToNull(final String string) {
+		return emptyToDefault(string, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code CharSequence} replacing an empty one by a default {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @param defaultCharSequence the default {@code CharSequence} or {@code null}
+	 * @param <C> the {@code CharSequence} type
+	 * @return a non-empty {@code CharSequence} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code CharSequence} is empty
 	 * @since 1.1.0
 	 */
-	public static String emptyToDefault(final CharSequence charSequence, final String defaultString) {
-		if (null != defaultString && defaultString.isEmpty()) {
-			throw new IllegalArgumentException("Invalid default string (not empty expected)");
+	public static <C extends CharSequence> C emptyToDefault(final C charSequence, final C defaultCharSequence) {
+		if (null != defaultCharSequence && isEmpty(defaultCharSequence)) {
+			throw new IllegalArgumentException("Invalid default CharSequence (not empty expected)");
 		}
-		if (null == charSequence) {
-			return null;
-		}
-		return 0 != charSequence.length() ? charSequence.toString() : defaultString;
+		return null == charSequence || !isEmpty(charSequence) ? charSequence : defaultCharSequence;
 	}
 
 	/**
 	 * <p>Wrap a {@code CharSequence} replacing a blank one by {@code null}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @return the non-blank {@code String} or {@code null}
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @return a non-blank {@code CharSequence} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static String blankToNull(final CharSequence charSequence) {
+	public static CharSequence blankToNull(final CharSequence charSequence) {
 		return blankToDefault(charSequence, null);
 	}
 
 	/**
-	 * <p>Wrap a {@code CharSequence} replacing a blank one by an empty {@code String}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @return the non-blank {@code String} or {@code null}
+	 * <p>Wrap a {@code String} replacing a blank one by {@code null}.</p>
+	 * @param string the {@code String} or {@code null}
+	 * @return a non-blank {@code String} or {@code null}
+	 * @since 1.2.0
+	 */
+	public static String blankToNull(final String string) {
+		return blankToDefault(string, null);
+	}
+
+	/**
+	 * <p>Wrap a {@code CharSequence} replacing a blank one by an empty {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @return a non-blank {@code CharSequence} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static String blankToEmpty(final CharSequence charSequence) {
+	public static CharSequence blankToEmpty(final CharSequence charSequence) {
 		return blankToDefault(charSequence, EMPTY);
 	}
 
 	/**
-	 * <p>Wrap a {@code CharSequence} replacing a blank one by a default {@code String}.</p>
-	 * @param charSequence a {@code CharSequence} or {@code null}
-	 * @param defaultString the default {@code String} or {@code null}
-	 * @return the non-blank {@code String} or {@code null}
-	 * @throws IllegalArgumentException if the default {@code String} is blank
+	 * <p>Wrap a {@code String} replacing a blank one by an empty {@code String}.</p>
+	 * @param string the {@code String} or {@code null}
+	 * @return a non-blank {@code String} or {@code null}
+	 * @since 1.2.0
+	 */
+	public static String blankToEmpty(final String string) {
+		return blankToDefault(string, EMPTY);
+	}
+
+	/**
+	 * <p>Wrap a {@code CharSequence} replacing a blank one by a default {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @param defaultCharSequence the default {@code CharSequence} or {@code null}
+	 * @param <C> the {@code CharSequence} type
+	 * @return a non-blank {@code CharSequence} or {@code null}
+	 * @throws IllegalArgumentException if the default {@code CharSequence} is blank
 	 * @since 1.1.0
 	 */
-	public static String blankToDefault(final CharSequence charSequence, final String defaultString) {
-		if (null != defaultString && isBlank(defaultString)) {
-			throw new IllegalArgumentException("Invalid default string: " + quote(defaultString) + " (not blank expected)");
+	public static <C extends CharSequence> C blankToDefault(final C charSequence, final C defaultCharSequence) {
+		if (null != defaultCharSequence && isBlank(defaultCharSequence)) {
+			throw new IllegalArgumentException("Invalid default CharSequence: " + quote(defaultCharSequence) + " (not blank expected)");
 		}
+		return null == charSequence || !isBlank(charSequence) ? charSequence : defaultCharSequence;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is empty.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is empty
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isEmpty(final CharSequence charSequence) {
 		if (null == charSequence) {
-			return null;
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
-		return !isBlank(charSequence) ? charSequence.toString() : defaultString;
+		return 0 == charSequence.length();
 	}
 
 	/**
 	 * <p>Tell if a {@code CharSequence} is blank.</p>
 	 * <p><b>Note</b>: A {@code char} is blank or not based on {@link Character#isWhitespace(char)}.</p>
 	 * <p><b>Note</b>: An empty {@code CharSequence} is not considered as blank.</p>
-	 * @param charSequence the {@code CharSequence}
+	 * @param charSequence the {@code CharSequence} to test
 	 * @return {@code true} if the {@code CharSequence} is blank
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean isBlank(final CharSequence charSequence) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
 		if (0 == length) {
@@ -174,19 +235,210 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@code CharSequence} is in hexadecimal.</p>
-	 * <p><b>Note</b>: The hexadecimal {@code String} value case does not matter.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @return {@code true} if the {@code CharSequence} is in hexadecimal
+	 * <p>Tell if a {@code CharSequence} is a {@code boolean} representation compatible with
+	 * {@link Boolean#toString(boolean)}.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a {@code boolean} representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isBoolean(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		return "true".contentEquals(charSequence) || "false".contentEquals(charSequence);
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a {@code short} representation compatible with
+	 * {@link Short#toString(short)}.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a {@code short} representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isShort(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		try {
+			Short.parseShort(charSequence.toString());
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is an {@code int} representation compatible with
+	 * {@link Integer#toString(int)}.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is an {@code int} representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isInt(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		try {
+			Integer.parseInt(charSequence, 0, charSequence.length(), 10);
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a {@code long} representation compatible with
+	 * {@link Long#toString(long)}.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a {@code long} representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isLong(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		try {
+			Long.parseLong(charSequence, 0, charSequence.length(), 10);
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a {@code float} representation compatible with
+	 * {@link Float#toString(float)}.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a {@code float} representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isFloat(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		try {
+			Float.parseFloat(charSequence.toString());
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a {@code double} representation compatible with
+	 * {@link Double#toString(double)}.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a {@code double} representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isDouble(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		try {
+			Double.parseDouble(charSequence.toString());
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a binary representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a binary representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isBinary(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if ('0' != c && '1' != c) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is an octal representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is an octal representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isOctal(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if ('0' > c || '7' < c) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a decimal representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a decimal representation
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isDecimal(final CharSequence charSequence) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if ('0' > c || '9' < c) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@code CharSequence} is a hexadecimal representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * <p><b>Note</b>: The case does not matter.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @return {@code true} if the {@code CharSequence} is a hexadecimal representation
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean isHex(final CharSequence charSequence) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
-		if (0 == length || 0 != length % 2) {
+		if (0 == length) {
 			return false;
 		}
 		for (var i = 0; i < length; ++i) {
@@ -199,25 +451,27 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@code CharSequence} is in base 64.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @return {@code true} if the {@code CharSequence} is in base 64
+	 * <p>Tell if a {@code CharSequence} is a base 64 representation with or without padding.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @param withPadding {@code true} if the base 64 representation must have padding
+	 * @return {@code true} if the {@code CharSequence} is a base 64 representation
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static boolean isBase64(final CharSequence charSequence) {
+	public static boolean isBase64(final CharSequence charSequence, final boolean withPadding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
-		if (0 == length || 0 != length % 4) {
+		if (0 == length) {
 			return false;
 		}
 		var padding = false;
 		for (var i = 0; i < length; ++i) {
 			final var c = charSequence.charAt(i);
 			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '+' != c && '/' != c) {
-				if ('=' != c || i < length - 2) {
+				if (!withPadding || '=' != c || i < length - 2) {
 					return false;
 				} else if (!padding) {
 					padding = true;
@@ -226,19 +480,21 @@ public final class Strings {
 				return false;
 			}
 		}
-		return true;
+		return !withPadding || 0 == length % 4;
 	}
 
 	/**
-	 * <p>Tell if a {@code CharSequence} is in base 64 for URLs and file names.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @return {@code true} if the {@code CharSequence} is in base 64 for URLs
+	 * <p>Tell if a {@code CharSequence} is a base 64 representation for URLs and filenames with or without padding.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @param withPadding {@code true} if the base 64 representation for URLs and filenames must have padding
+	 * @return {@code true} if the {@code CharSequence} is a base 64 representation for URLs and filenames
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static boolean isBase64Url(final CharSequence charSequence) {
+	public static boolean isBase64Url(final CharSequence charSequence, final boolean withPadding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
 		if (0 == length) {
@@ -248,7 +504,7 @@ public final class Strings {
 		for (var i = 0; i < length; ++i) {
 			final var c = charSequence.charAt(i);
 			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '-' != c && '_' != c) {
-				if ('=' != c || i < length - 2) {
+				if (!withPadding || '=' != c || i < length - 2) {
 					return false;
 				} else if (!padding) {
 					padding = true;
@@ -257,112 +513,187 @@ public final class Strings {
 				return false;
 			}
 		}
-		return !padding || 0 == length % 4;
+		return !withPadding || 0 == length % 4;
 	}
 
 	/**
-	 * <p>Quote an {@code Object} using {@link Object#toString()} and default quote and escape chars.</p>
-	 * @param object the {@code Object} to quote
-	 * @return the quoted {@code Object}
-	 * @throws NullPointerException if the {@code Object} is {@code null}
-	 * @since 1.1.0
+	 * <p>Quote a {@code char} using default quote and escape {@code char}s.</p>
+	 * <p><b>Note</b>: If the {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
+	 * @param c the {@code char} to quote
+	 * @return a quoted {@code String} of the {@code char}
+	 * @since 1.2.0
 	 */
-	public static String quote(final Object object) {
-		return quote(object, DEFAULT_QUOTE, DEFAULT_ESCAPE);
+	public static String quote(final char c) {
+		return quote(c, DEFAULT_CHAR_QUOTE, DEFAULT_ESCAPE);
 	}
 
 	/**
-	 * <p>Quote an {@code Object} using {@link Object#toString()} and custom quote and escape chars.</p>
-	 * @param object the {@code Object} to quote
+	 * <p>Quote a {@code char} using custom quote and escape {@code char}s.</p>
+	 * <p><b>Note</b>: If the {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
+	 * @param c the {@code char} to quote
 	 * @param quote the quote {@code char}
 	 * @param escape the escape {@code char}
-	 * @return the quoted {@code Object}
-	 * @throws NullPointerException if the {@code Object} is {@code null}
-	 * @since 1.1.0
+	 * @return a quoted {@code String} of the {@code char}
+	 * @since 1.2.0
 	 */
-	public static String quote(final Object object, final char quote, final char escape) {
-		if (null == object) {
-			throw new NullPointerException("Invalid string (not null expected)");
+	public static String quote(final char c, final char quote, final char escape) {
+		if (quote == c || escape == c) {
+			return of(quote, escape, c, quote);
 		}
-		return quote(object.toString(), quote, escape);
+		return of(quote, c, quote);
 	}
 
 	/**
-	 * <p>Quote a {@code String} using default quote and escape chars.</p>
-	 * @param string the {@code String} to quote
-	 * @return the quoted {@code String}
-	 * @throws NullPointerException if the {@code String} is {@code null}
+	 * <p>Quote a {@code CharSequence} using default quote and escape {@code char}s.</p>
+	 * <p><b>Note</b>: If any {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
+	 * @param charSequence the {@code CharSequence} to quote
+	 * @return a quoted {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static String quote(final String string) {
-		return quote(string, DEFAULT_QUOTE, DEFAULT_ESCAPE);
+	public static String quote(final CharSequence charSequence) {
+		return quote(charSequence, DEFAULT_CHAR_SEQUENCE_QUOTE, DEFAULT_ESCAPE);
 	}
 
 	/**
-	 * <p>Quote a {@code String} using custom quote and escape chars.</p>
-	 * @param string the {@code String} to quote
+	 * <p>Quote a {@code CharSequence} using custom quote and escape {@code char}s.</p>
+	 * <p><b>Note</b>: If any {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
+	 * @param charSequence the {@code CharSequence} to quote
 	 * @param quote the quote {@code char}
 	 * @param escape the escape {@code char}
-	 * @return the quoted {@code String}
-	 * @throws NullPointerException if the {@code String} is {@code null}
+	 * @return a quoted {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static String quote(final String string, final char quote, final char escape) {
-		if (null == string) {
-			throw new NullPointerException("Invalid string (not null expected)");
+	public static String quote(final CharSequence charSequence, final char quote, final char escape) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
-		return quote + string.replaceAll(Character.toString(quote), Matcher.quoteReplacement(of(escape, quote))) + quote;
+		final var length = charSequence.length();
+		final var builder = new StringBuilder(length + 2);
+		builder.append(quote);
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if (quote == c || escape == c) {
+				builder.append(escape);
+			}
+			builder.append(c);
+		}
+		builder.append(quote);
+		return builder.toString();
 	}
 
 	/**
-	 * <p>Unquote a previously quoted {@code String} using default quote and escape chars.</p>
-	 * @param string the quoted {@code String} to unquote
-	 * @return the unquoted {@code String}
-	 * @throws NullPointerException if the {@code String} is {@code null}
-	 * @throws IllegalArgumentException whether the {@code String} length is lower than {@code 2} or the first or last
-	 * {@code char} is different of the quote {@code char}
-	 * @since 1.1.0
+	 * <p>Unquote a {@code char} using default quote and escape {@code char}s.</p>
+	 * @param charSequence the {@code CharSequence} of the quoted {@code char}
+	 * @return an unquoted {@code char}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the {@code CharSequence} is not a quoted {@code char}
+	 * @since 1.2.0
 	 */
-	public static String unquote(final String string) {
-		return unquote(string, DEFAULT_QUOTE, DEFAULT_ESCAPE);
+	public static char unquoteChar(final CharSequence charSequence) {
+		return unquoteChar(charSequence, DEFAULT_CHAR_QUOTE, DEFAULT_ESCAPE);
 	}
 
 	/**
-	 * <p>Unquote a previously quoted {@code String} using custom quote and escape chars.</p>
-	 * @param string the quoted {@code String} to unquote
+	 * <p>Unquote a {@code char} using custom quote and escape {@code char}s.</p>
+	 * @param charSequence the {@code CharSequence} of the quoted {@code char}
 	 * @param quote the quote {@code char}
 	 * @param escape the escape {@code char}
-	 * @return the unquoted {@code String}
-	 * @throws NullPointerException if the {@code String} is {@code null}
-	 * @throws IllegalArgumentException whether the {@code String} length is lower than {@code 2} or the first or last
-	 * {@code char} is different of the quote {@code char}
+	 * @return an unquoted {@code char}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the {@code CharSequence} is not a quoted {@code char}
+	 * @since 1.2.0
+	 */
+	public static char unquoteChar(final CharSequence charSequence, final char quote, final char escape) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		}
+		final var length = charSequence.length();
+		if (3 != length && 4 != length) {
+			throw new IllegalArgumentException("Invalid CharSequence length: " + length + " (equal to 3 or 4 expected)");
+		}
+		final var firstChar = charSequence.charAt(0);
+		if (quote != firstChar) {
+			throw new IllegalArgumentException("Invalid first char: " + quote(firstChar) + " (equal to " + quote(quote) + " expected)");
+		}
+		final var lastChar = charSequence.charAt(length - 1);
+		if (quote != lastChar) {
+			throw new IllegalArgumentException("Invalid last char: " + quote(lastChar) + " (equal to " + quote(quote) + " expected)");
+		}
+		if (4 == length) {
+			final var escapeChar = charSequence.charAt(1);
+			if (escape != escapeChar) {
+				throw new IllegalArgumentException("Invalid escape char: " + quote(escapeChar) + " (equal to " + quote(escape) + " expected)");
+			}
+			return charSequence.charAt(2);
+		}
+		return charSequence.charAt(1);
+	}
+
+	/**
+	 * <p>Unquote a {@code CharSequence} using default quote and escape {@code char}s.</p>
+	 * @param charSequence the {@code CharSequence} of the quoted {@code CharSequence}
+	 * @return an unquoted {@code String}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the {@code CharSequence} is not a quoted {@code CharSequence}
 	 * @since 1.1.0
 	 */
-	public static String unquote(final String string, final char quote, final char escape) {
-		if (null == string) {
-			throw new NullPointerException("Invalid string (not null expected)");
+	public static String unquote(final CharSequence charSequence) {
+		return unquote(charSequence, DEFAULT_CHAR_SEQUENCE_QUOTE, DEFAULT_ESCAPE);
+	}
+
+	/**
+	 * <p>Unquote a {@code CharSequence} using custom quote and escape {@code char}s.</p>
+	 * @param charSequence the {@code CharSequence} of the quoted {@code CharSequence}
+	 * @param quote the quote {@code char}
+	 * @param escape the escape {@code char}
+	 * @return an unquoted {@code String}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the {@code CharSequence} is not a quoted {@code CharSequence}
+	 * @since 1.1.0
+	 */
+	public static String unquote(final CharSequence charSequence, final char quote, final char escape) {
+		if (null == charSequence) {
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
-		final var length = string.length();
+		final var length = charSequence.length();
 		if (2 > length) {
-			throw new IllegalArgumentException("Invalid string length: " + length + " (greater than or equal to 2 expected)");
+			throw new IllegalArgumentException("Invalid CharSequence length: " + length + " (greater than or equal to 2 expected)");
 		}
-		if (quote != string.charAt(0) || quote != string.charAt(length - 1)) {
-			throw new IllegalArgumentException("Invalid string: " + string + " (first and last chars equal to '" + quote + "' expected)");
+		final var firstChar = charSequence.charAt(0);
+		if (quote != firstChar) {
+			throw new IllegalArgumentException("Invalid first char: " + quote(firstChar) + " (equal to " + quote(quote) + " expected)");
 		}
-		return string.substring(1, length - 1).replaceAll(Matcher.quoteReplacement(of(escape, quote)), Character.toString(quote));
+		final var lastChar = charSequence.charAt(length - 1);
+		if (quote != lastChar) {
+			throw new IllegalArgumentException("Invalid last char: " + quote(lastChar) + " (equal to " + quote(quote) + " expected)");
+		}
+		final var builder = new StringBuilder(length - 2);
+		var isEscaped = false;
+		for (var i = 1; i < length - 1; ++i) {
+			final var c = charSequence.charAt(i);
+			if (!isEscaped && escape == c) {
+				isEscaped = true;
+			} else {
+				builder.append(c);
+				isEscaped = false;
+			}
+		}
+		return builder.toString();
 	}
 
 	/**
-	 * <p>Create a {@code String} by repeating a {@code char}.</p>
+	 * <p>Repeat a {@code char}.</p>
 	 * @param c the {@code char} to repeat
 	 * @param times the number of times to repeat
-	 * @return the result {@code String}
+	 * @return a {@code String} of the repeated {@code char}
 	 * @throws IllegalArgumentException if the number of times is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public static String repeat(final char c, final int times) {
 		if (0 > times) {
-			throw new IllegalArgumentException("Invalid repeat times: " + times + " (greater than or equal to 0 expected)");
+			throw new IllegalArgumentException("Invalid number of times: " + times + " (greater than or equal to 0 expected)");
 		}
 		if (0 == times) {
 			return EMPTY;
@@ -379,20 +710,20 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by repeating a {@code CharSequence}.</p>
+	 * <p>Repeat a {@code CharSequence}.</p>
 	 * @param charSequence the {@code CharSequence} to repeat
 	 * @param times the number of times to repeat
-	 * @return the result {@code String}
+	 * @return a {@code String} of the repeated {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the number of times is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public static String repeat(final CharSequence charSequence, final int times) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (0 > times) {
-			throw new IllegalArgumentException("Invalid repeat times: " + times + " (greater than or equal to 0 expected)");
+			throw new IllegalArgumentException("Invalid number of times: " + times + " (greater than or equal to 0 expected)");
 		}
 		final var length = charSequence.length();
 		if (0 == times || 0 == length) {
@@ -410,35 +741,34 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on the left to fit the given size with spaces.</p>
+	 * <p>Pad a {@code CharSequence} on the left with the default padding {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
-	 * @return the result {@code String}
+	 * @param size the padding size
+	 * @return a left-padded {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padLeft(final CharSequence charSequence, final int size) {
-		return padLeft(charSequence, size, ' ');
+		return padLeft(charSequence, size, DEFAULT_PADDING);
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on the left to fit the given size with the provided
-	 * padding {@code char}.</p>
+	 * <p>Pad a {@code CharSequence} on the left with the given padding {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
+	 * @param size the padding size
 	 * @param padding the padding {@code char}
-	 * @return the result {@code String}
+	 * @return a left-padded {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padLeft(final CharSequence charSequence, final int size, final char padding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (1 > size) {
-			throw new IllegalArgumentException("Invalid pad size: " + size + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
 		}
 		final var length = charSequence.length();
 		if (0 == length) {
@@ -451,25 +781,24 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on the left to fit the given size with the provided
-	 * padding {@code CharSequence}.</p>
+	 * <p>Pad a {@code CharSequence} on the left with the given padding {@code CharSequence}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
+	 * @param size the padding size
 	 * @param padding the padding {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the padding {@code CharSequence} is {@code null}
+	 * @return a left-padded {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padLeft(final CharSequence charSequence, final int size, final CharSequence padding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == padding) {
 			throw new NullPointerException("Invalid padding (not null expected)");
 		}
 		if (1 > size) {
-			throw new IllegalArgumentException("Invalid pad size: " + size + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
 		}
 		final var length = charSequence.length();
 		final var paddingLength = padding.length();
@@ -485,35 +814,34 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on the right to fit the given size with spaces.</p>
+	 * <p>Pad a {@code CharSequence} on the right with the default padding {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
-	 * @return the result {@code String}
+	 * @param size the padding size
+	 * @return a right-padded {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padRight(final CharSequence charSequence, final int size) {
-		return padRight(charSequence, size, ' ');
+		return padRight(charSequence, size, DEFAULT_PADDING);
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on the right to fit the given size with the provided
-	 * padding {@code char}.</p>
+	 * <p>Pad a {@code CharSequence} on the right with the given padding {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
+	 * @param size the padding size
 	 * @param padding the padding {@code char}
-	 * @return the result {@code String}
+	 * @return a right-padded {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padRight(final CharSequence charSequence, final int size, final char padding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (1 > size) {
-			throw new IllegalArgumentException("Invalid pad size: " + size + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
 		}
 		final var length = charSequence.length();
 		if (0 == length) {
@@ -526,25 +854,24 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on the right to fit the given size with the provided
-	 * padding {@code CharSequence}.</p>
+	 * <p>Pad a {@code CharSequence} on the right with the given padding {@code CharSequence}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
+	 * @param size the padding size
 	 * @param padding the padding {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the padding {@code CharSequence} is {@code null}
+	 * @return a right-padded {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padRight(final CharSequence charSequence, final int size, final CharSequence padding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == padding) {
 			throw new NullPointerException("Invalid padding (not null expected)");
 		}
 		if (1 > size) {
-			throw new IllegalArgumentException("Invalid pad size: " + size + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
 		}
 		final var length = charSequence.length();
 		final var paddingLength = padding.length();
@@ -560,35 +887,34 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on both sides to fit the given size with spaces.</p>
+	 * <p>Pad a {@code CharSequence} on both left and right with the default padding {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
-	 * @return the result {@code String}
+	 * @param size the padding size
+	 * @return a left/right-padded {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padBoth(final CharSequence charSequence, final int size) {
-		return padBoth(charSequence, size, ' ');
+		return padBoth(charSequence, size, DEFAULT_PADDING);
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on both sides to fit the given size with the
-	 * provided padding {@code char}.</p>
+	 * <p>Pad a {@code CharSequence} on both left and right with the given padding {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
+	 * @param size the padding size
 	 * @param padding the padding {@code char}
-	 * @return the result {@code String}
+	 * @return a left/right-padded {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padBoth(final CharSequence charSequence, final int size, final char padding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (1 > size) {
-			throw new IllegalArgumentException("Invalid pad size: " + size + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
 		}
 		final var length = charSequence.length();
 		if (0 == length) {
@@ -603,25 +929,24 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@code String} by padding a {@code CharSequence} on both sides to fit the given size with the
-	 * provided padding {@code CharSequence}.</p>
+	 * <p>Pad a {@code CharSequence} on both left and right with the given padding {@code CharSequence}.</p>
 	 * @param charSequence the {@code CharSequence} to pad
-	 * @param size the size to fit
+	 * @param size the padding size
 	 * @param padding the padding {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the padding {@code CharSequence} is {@code null}
+	 * @return a left/right-padded {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public static String padBoth(final CharSequence charSequence, final int size, final CharSequence padding) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == padding) {
 			throw new NullPointerException("Invalid padding (not null expected)");
 		}
 		if (1 > size) {
-			throw new IllegalArgumentException("Invalid pad size: " + size + " (greater than or equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
 		}
 		final var length = charSequence.length();
 		final var paddingLength = padding.length();
@@ -639,18 +964,18 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the first occurrence of the given target {@code char} if found in the {@code CharSequence} by a
-	 * replacement {@code char}.</p>
-	 * @param charSequence the {@code CharSequence}
+	 * <p>Replace the first occurrence of the target {@code char} by a replacement one if found in the
+	 * {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} to replace from
 	 * @param target the target {@code char}
 	 * @param replacement the replacement {@code char}
-	 * @return the result {@code String}
+	 * @return a replaced {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String replaceFirst(final CharSequence charSequence, final char target, final char replacement) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
 		for (var i = 0; i < length; ++i) {
@@ -662,17 +987,18 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the first occurrence of the given target if found in the {@code CharSequence} by a replacement.</p>
-	 * @param charSequence the {@code CharSequence}
+	 * <p>Replace the first occurrence of the target {@code CharSequence} by a replacement one if found in the
+	 * {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} to replace from
 	 * @param target the target {@code CharSequence}
 	 * @param replacement the replacement {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence}, the target or the replacement is {@code null}
+	 * @return a replaced {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence}, the target or the replacement is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String replaceFirst(final CharSequence charSequence, final CharSequence target, final CharSequence replacement) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == target) {
 			throw new NullPointerException("Invalid target (not null expected)");
@@ -700,18 +1026,18 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the last occurrence of the given target {@code char} if found in the {@code CharSequence} by a
-	 * replacement {@code char}.</p>
-	 * @param charSequence the {@code CharSequence}
+	 * <p>Replace the last occurrence of the target {@code char} by a replacement one if found in the
+	 * {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} to replace from
 	 * @param target the target {@code char}
 	 * @param replacement the replacement {@code char}
-	 * @return the result {@code String}
+	 * @return a replaced {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String replaceLast(final CharSequence charSequence, final char target, final char replacement) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
 		for (var i = length - 1; i >= 0; --i) {
@@ -723,17 +1049,18 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the last occurrence of the given target if found in the {@code CharSequence} by a replacement.</p>
-	 * @param charSequence the {@code CharSequence}
+	 * <p>Replace the last occurrence of the target {@code CharSequence} by a replacement one if found in the
+	 * {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} to replace from
 	 * @param target the target {@code CharSequence}
 	 * @param replacement the replacement {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence}, the target or the replacement is {@code null}
+	 * @return a replaced {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence}, the target or the replacement is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String replaceLast(final CharSequence charSequence, final CharSequence target, final CharSequence replacement) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == target) {
 			throw new NullPointerException("Invalid target (not null expected)");
@@ -761,16 +1088,16 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the given leading target {@code char} if the {@code CharSequence} starts with it.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @param target the leading target {@code char}
-	 * @return the result {@code String}
+	 * <p>Remove the target {@code char} if the {@code CharSequence} starts with it.</p>
+	 * @param charSequence the {@code CharSequence} to remove from
+	 * @param target the target {@code char}
+	 * @return a stripped {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String removeStart(final CharSequence charSequence, final char target) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (target == charSequence.charAt(0)) {
 			return charSequence.subSequence(1, charSequence.length()).toString();
@@ -779,16 +1106,16 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the given leading target if the {@code CharSequence} starts with it.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @param target the leading target {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the leading target is {@code null}
+	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} starts with it.</p>
+	 * @param charSequence the {@code CharSequence} to remove from
+	 * @param target the target {@code CharSequence}
+	 * @return a stripped {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String removeStart(final CharSequence charSequence, final CharSequence target) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == target) {
 			throw new NullPointerException("Invalid target (not null expected)");
@@ -807,16 +1134,16 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the given leading target if the {@code CharSequence} starts with it ignoring the case.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @param target the leading target {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the leading target is {@code null}
+	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} starts with it ignoring the case.</p>
+	 * @param charSequence the {@code CharSequence} to remove from
+	 * @param target the target {@code CharSequence}
+	 * @return a stripped {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String removeStartIgnoreCase(final CharSequence charSequence, final CharSequence target) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == target) {
 			throw new NullPointerException("Invalid target (not null expected)");
@@ -835,16 +1162,16 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the given ending target {@code char} if the {@code CharSequence} ends with it.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @param target the ending target {@code char}
-	 * @return the result {@code String}
+	 * <p>Remove the target {@code char} if the {@code CharSequence} ends with it.</p>
+	 * @param charSequence the {@code CharSequence} to remove from
+	 * @param target the target {@code char}
+	 * @return a stripped {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String removeEnd(final CharSequence charSequence, final char target) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
 		if (target == charSequence.charAt(length - 1)) {
@@ -854,16 +1181,16 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the given ending target if the {@code CharSequence} ends with it.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @param target the ending target {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the ending target is {@code null}
+	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} ends with it.</p>
+	 * @param charSequence the {@code CharSequence} to remove from
+	 * @param target the target {@code CharSequence}
+	 * @return a stripped {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String removeEnd(final CharSequence charSequence, final CharSequence target) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == target) {
 			throw new NullPointerException("Invalid target (not null expected)");
@@ -882,16 +1209,16 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the given ending target if the {@code CharSequence} ends with it ignoring the case.</p>
-	 * @param charSequence the {@code CharSequence}
-	 * @param target the ending target {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the {@code CharSequence} or the ending target is {@code null}
+	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} ends with it ignoring the case.</p>
+	 * @param charSequence the {@code CharSequence} to remove from
+	 * @param target the target {@code CharSequence}
+	 * @return a stripped {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String removeEndIgnoreCase(final CharSequence charSequence, final CharSequence target) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		if (null == target) {
 			throw new NullPointerException("Invalid target (not null expected)");
@@ -911,11 +1238,11 @@ public final class Strings {
 
 	/**
 	 * <p>Concatenate two {@code CharSequence}s by merging their commons {@code char}s.</p>
-	 * <p><b>Example</b>: {@code 123456} and {@code 456789} would result in {@code 123456789}.</p>
+	 * <p><b>Example01</b>: {@code 123456} and {@code 456789} would result in {@code 123456789}.</p>
 	 * @param start the start {@code CharSequence}
 	 * @param end the end {@code CharSequence}
-	 * @return the result {@code String}
-	 * @throws NullPointerException whether the start or the end is {@code null}
+	 * @return a merged {@code String} of both {@code CharSequence}s
+	 * @throws NullPointerException if the start or the end is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String concatMerge(final CharSequence start, final CharSequence end) {
@@ -944,14 +1271,14 @@ public final class Strings {
 				}
 			}
 		}
-		return start.toString() + end;
+		return start.toString() + end.toString();
 	}
 
 	/**
-	 * <p>Create a {@code String} with a {@code char array}.</p>
-	 * @param chars the {@code char array} to convert
+	 * <p>Create a {@code String} from multiple {@code char}s.</p>
+	 * @param chars the {@code char} array to convert
 	 * @return the created {@code String}
-	 * @throws NullPointerException if the {@code char array} is {@code null}
+	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @since 1.1.0
 	 */
 	public static String of(final char... chars) {
@@ -961,24 +1288,24 @@ public final class Strings {
 		if (0 == chars.length) {
 			return EMPTY;
 		}
-		return String.valueOf(chars);
+		return new String(chars);
 	}
 
 	/**
 	 * <p>Convert a {@code CharSequence} with a length of {@code 1} to a {@code char}.</p>
 	 * @param charSequence the {@code CharSequence} to convert
-	 * @return the converted char
+	 * @return the converted {@code char}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the {@code CharSequence}'s length is different than {@code 1}
+	 * @throws IllegalArgumentException if the {@code CharSequence} length is not equal to {@code 1}
 	 * @since 1.0.0
 	 */
 	public static char toChar(final CharSequence charSequence) {
 		if (null == charSequence) {
-			throw new NullPointerException("Invalid char sequence (not null expected)");
+			throw new NullPointerException("Invalid CharSequence (not null expected)");
 		}
 		final var length = charSequence.length();
 		if (1 != length) {
-			throw new IllegalArgumentException("Invalid char sequence length: " + length + " (equal to 1 expected)");
+			throw new IllegalArgumentException("Invalid CharSequence length: " + length + " (equal to 1 expected)");
 		}
 		return charSequence.charAt(0);
 	}

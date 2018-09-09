@@ -27,13 +27,13 @@ import com.github.alexisjehan.javanilla.util.NullableOptional;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 /**
- * <p>A {@code Bag} is a collection that associate a quantity to each distinct element. It could be use for structures
- * such as histograms or occurrence vectors.</p>
+ * <p>A {@code Bag} also known as a multiset is a collection that associates a quantity to each distinct element. It
+ * could be use for structures such as histograms or occurrence vectors.</p>
  * <p><b>Note</b>: {@code Bag} does not extend the {@link Collection} interface for API design reasons.</p>
+ * @see <a href="https://en.wikipedia.org/wiki/Multiset">https://en.wikipedia.org/wiki/Multiset</a>
  * @param <E> the element type
  * @since 1.0.0
  */
@@ -41,29 +41,26 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Add the element to the {@code Bag} once.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
-	 * @return {@code true} if the element has been successfully added
 	 * @since 1.0.0
 	 */
-	default boolean add(final E element) {
-		return add(element, 1L);
+	default void add(final E element) {
+		add(element, 1L);
 	}
 
 	/**
 	 * <p>Add the element to the {@code Bag} in the given quantity.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
-	 * @param quantity how many instances of the element should be added
-	 * @return {@code true} if the element has been successfully added
-	 * @throws IllegalArgumentException if the quantity is negative
+	 * @param quantity the quantity of the element to add
+	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
-	boolean add(final E element, final long quantity);
+	void add(final E element, final long quantity);
 
 	/**
 	 * <p>Remove the element from the {@code Bag} once.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
 	 * @since 1.0.0
@@ -75,18 +72,16 @@ public interface Bag<E> {
 	/**
 	 * <p>Remove the element from the {@code Bag} in the given quantity. If the quantity is greater than the actual one
 	 * then the element is totally removed.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to remove
-	 * @param quantity how many instances of the element should be removed
+	 * @param quantity the quantity of the element to remove
 	 * @return {@code true} if the element has been successfully removed
-	 * @throws IllegalArgumentException if the quantity is negative
+	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	boolean remove(final E element, final long quantity);
 
 	/**
 	 * <p>Totally remove the element from the {@code Bag}.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
 	 * @since 1.0.0
@@ -102,7 +97,7 @@ public interface Bag<E> {
 	void clear();
 
 	/**
-	 * <p>Tell if the {@code Bag} is empty in case it contains no element.</p>
+	 * <p>Tell if the {@code Bag} is empty, in case it contains no element.</p>
 	 * @return {@code true} if the {@code Bag} is empty
 	 * @since 1.0.0
 	 */
@@ -112,7 +107,6 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Tell if the {@code Bag} contains the element at least once.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to test
 	 * @return {@code true} if the {@code Bag} contains the element at least once
 	 * @since 1.0.0
@@ -123,11 +117,10 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Tell if the {@code Bag} contains the element exactly in the given quantity.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to test
-	 * @param quantity the quantity to check
+	 * @param quantity the quantity to test
 	 * @return {@code true} if the {@code Bag} contains the element exactly in the given quantity
-	 * @throws IllegalArgumentException if the quantity is negative
+	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	default boolean containsExactly(final E element, final long quantity) {
@@ -139,11 +132,10 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Tell if the {@code Bag} contains the element at least in the given quantity.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to test
-	 * @param quantity the quantity to check
+	 * @param quantity the quantity to test
 	 * @return {@code true} if the {@code Bag} contains the element at least in the given quantity
-	 * @throws IllegalArgumentException if the quantity is negative
+	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	default boolean containsAtLeast(final E element, final long quantity) {
@@ -158,11 +150,10 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Tell if the {@code Bag} contains the element at most in the given quantity.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to test
-	 * @param quantity the quantity to check
+	 * @param quantity the quantity to test
 	 * @return {@code true} if the {@code Bag} contains the element at most in the given quantity
-	 * @throws IllegalArgumentException if the quantity is negative
+	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	default boolean containsAtMost(final E element, final long quantity) {
@@ -174,9 +165,8 @@ public interface Bag<E> {
 
 	/**
 	 * <p>Count the actual quantity of the element.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
 	 * @param element the element to count
-	 * @return the actual quantity
+	 * @return the actual quantity of the element
 	 * @since 1.0.0
 	 */
 	long count(final E element);

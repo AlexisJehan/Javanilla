@@ -26,38 +26,39 @@ package com.github.alexisjehan.javanilla.misc.tuples;
 import java.util.Objects;
 
 /**
- * <p>A {@code Triple} is an immutable tuple that is composed of three objects.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
- * @param <F> the type of the first object
- * @param <S> the type of the second object
- * @param <T> the type of the third object
+ * <p>A {@code Triple} is an immutable tuple that is composed of three elements.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
+ * @param <F> the type of the first element
+ * @param <S> the type of the second element
+ * @param <T> the type of the third element
  * @since 1.0.0
  */
 public final class Triple<F, S, T> {
 
 	/**
-	 * <p>First object.</p>
+	 * <p>First element.</p>
 	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second object.</p>
+	 * <p>Second element.</p>
 	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
-	 * <p>Third object.</p>
+	 * <p>Third element.</p>
 	 * @since 1.0.0
 	 */
 	private final T third;
 
 	/**
 	 * <p>Standard constructor.</p>
-	 * @param first the first object or {@code null}
-	 * @param second the second object or {@code null}
-	 * @param third the third object or {@code null}
+	 * @param first the first element or {@code null}
+	 * @param second the second element or {@code null}
+	 * @param third the third element or {@code null}
 	 * @since 1.0.0
 	 */
 	public Triple(final F first, final S second, final T third) {
@@ -67,8 +68,8 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the first object of the {@code Triple}.</p>
-	 * @return the first object
+	 * <p>Get the first element of the {@code Triple}.</p>
+	 * @return the first element
 	 * @since 1.0.0
 	 */
 	public F getFirst() {
@@ -76,8 +77,8 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the second object of the {@code Triple}.</p>
-	 * @return the second object
+	 * <p>Get the second element of the {@code Triple}.</p>
+	 * @return the second element
 	 * @since 1.0.0
 	 */
 	public S getSecond() {
@@ -85,8 +86,8 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the third object of the {@code Triple}.</p>
-	 * @return the third object
+	 * <p>Get the third element of the {@code Triple}.</p>
+	 * @return the third element
 	 * @since 1.0.0
 	 */
 	public T getThird() {
@@ -119,12 +120,12 @@ public final class Triple<F, S, T> {
 
 	/**
 	 * <p>Vanilla constructor.</p>
-	 * @param first the first object or {@code null}
-	 * @param second the second object or {@code null}
-	 * @param third the third object or {@code null}
-	 * @param <F> the type of the first object
-	 * @param <S> the type of the second object
-	 * @param <T> the type of the third object
+	 * @param first the first element or {@code null}
+	 * @param second the second element or {@code null}
+	 * @param third the third element or {@code null}
+	 * @param <F> the type of the first element
+	 * @param <S> the type of the second element
+	 * @param <T> the type of the third element
 	 * @return the constructed {@code Triple}
 	 * @since 1.0.0
 	 */

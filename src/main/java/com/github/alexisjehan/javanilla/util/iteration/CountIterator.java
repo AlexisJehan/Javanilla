@@ -27,41 +27,27 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@link Iterator} decorator that counts the number of elements read from the current position.</p>
+ * <p>An {@link Iterator} decorator that counts the number of elements iterated from the current position.</p>
  * <p><b>Note</b>: A removed element is still considered in the count.</p>
  * @param <E> the element type
  * @since 1.0.0
  */
-public final class CountIterator<E> implements Iterator<E> {
+public final class CountIterator<E> extends FilterIterator<E> {
 
 	/**
-	 * <p>Delegated {@code Iterator}.</p>
-	 * @since 1.0.0
-	 */
-	private final Iterator<? extends E> iterator;
-
-	/**
-	 * <p>Number of elements read.</p>
+	 * <p>Number of elements iterated.</p>
 	 * @since 1.0.0
 	 */
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code Iterator}.</p>
-	 * @param iterator the delegated {@code Iterator}
-	 * @throws NullPointerException if the delegated {@code Iterator} is {@code null}
+	 * <p>Constructor with an {@code Iterator} to decorate.</p>
+	 * @param iterator the {@code Iterator} to decorate
+	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountIterator(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid iterator (not null expected)");
-		}
-		this.iterator = iterator;
-	}
-
-	@Override
-	public boolean hasNext() {
-		return iterator.hasNext();
+		super(iterator);
 	}
 
 	@Override
@@ -73,14 +59,9 @@ public final class CountIterator<E> implements Iterator<E> {
 		return iterator.next();
 	}
 
-	@Override
-	public void remove() {
-		iterator.remove();
-	}
-
 	/**
-	 * <p>Get the number of elements read.</p>
-	 * @return the number of elements read
+	 * <p>Get the number of elements iterated.</p>
+	 * @return the number of elements iterated
 	 * @since 1.0.0
 	 */
 	public long getCount() {

@@ -25,15 +25,12 @@ package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.lang.Strings;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -42,226 +39,196 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class LineSeparatorTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testReadLf() {
-		try {
-			try (final var reader = new StringReader("")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\nabc")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-			}
-			try (final var reader = new StringReader("abc\n")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-				builder.setLength(0);
-				assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\rabc\n\ndef\r")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("\rabc");
-				builder.setLength(0);
-				assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("def\r");
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadLf() throws IOException {
+		try (final var reader = Readers.EMPTY) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\nabc")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+		}
+		try (final var reader = new StringReader("abc\n")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+			builder.setLength(0);
+			assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\rabc\n\ndef\r")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("\rabc");
+			builder.setLength(0);
+			assertThat(LineSeparator.LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("def\r");
 		}
 	}
 
 	@Test
-	void testReadCrLf() {
-		try {
-			try (final var reader = new StringReader("")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\r\nabc")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-			}
-			try (final var reader = new StringReader("abc\r\n")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-				builder.setLength(0);
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\rabc\r\n\r\ndef\n")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("\rabc");
-				builder.setLength(0);
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("def\n");
-			}
-			try (final var reader = new StringReader("\nabc\r\n\r\ndef\r")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("\nabc");
-				builder.setLength(0);
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("def\r");
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadCrLf() throws IOException {
+		try (final var reader = Readers.EMPTY) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\r\nabc")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+		}
+		try (final var reader = new StringReader("abc\r\n")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+			builder.setLength(0);
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\rabc\r\n\r\ndef\n")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("\rabc");
+			builder.setLength(0);
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("def\n");
+		}
+		try (final var reader = new StringReader("\nabc\r\n\r\ndef\r")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("\nabc");
+			builder.setLength(0);
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.CR_LF.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("def\r");
 		}
 	}
 
 	@Test
-	void testReadCr() {
-		try {
-			try (final var reader = new StringReader("")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\rabc")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-			}
-			try (final var reader = new StringReader("abc\r")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-				builder.setLength(0);
-				assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\nabc\r\rdef\n")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("\nabc");
-				builder.setLength(0);
-				assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("def\n");
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadCr() throws IOException {
+		try (final var reader = Readers.EMPTY) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\rabc")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+		}
+		try (final var reader = new StringReader("abc\r")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+			builder.setLength(0);
+			assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\nabc\r\rdef\n")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("\nabc");
+			builder.setLength(0);
+			assertThat(LineSeparator.CR.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.CR.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("def\n");
 		}
 	}
 
 	@Test
-	void testReadDefault() {
-		try {
-			try (final var reader = new StringReader("")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\rabc")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-			}
-			try (final var reader = new StringReader("abc\n")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-				builder.setLength(0);
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-			try (final var reader = new StringReader("\nabc\r\ndef\r")) {
-				final var builder = new StringBuilder();
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("abc");
-				builder.setLength(0);
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-				builder.setLength(0);
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
-				assertThat(builder.toString()).isEqualTo("def");
-				builder.setLength(0);
-				assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
-				assertThat(builder.toString()).isEmpty();
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadDefault() throws IOException {
+		try (final var reader = Readers.EMPTY) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\rabc")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+		}
+		try (final var reader = new StringReader("abc\n")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+			builder.setLength(0);
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+		}
+		try (final var reader = new StringReader("\nabc\r\ndef\r")) {
+			final var builder = new StringBuilder();
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("abc");
+			builder.setLength(0);
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
+			builder.setLength(0);
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isNotEqualTo(-1);
+			assertThat(builder.toString()).isEqualTo("def");
+			builder.setLength(0);
+			assertThat(LineSeparator.DEFAULT.read(reader, builder)).isEqualTo(-1);
+			assertThat(builder.toString()).isEmpty();
 		}
 	}
 
 	@Test
-	void testDetect() {
-		try {
-			assertThat(LineSeparator.detect(new StringReader(""))).isEqualTo(LineSeparator.DEFAULT);
-			assertThat(LineSeparator.detect(new StringReader("\nabcdef"))).isEqualTo(LineSeparator.LF);
-			assertThat(LineSeparator.detect(new StringReader("abc\r\ndef"))).isEqualTo(LineSeparator.CR_LF);
-			assertThat(LineSeparator.detect(new StringReader("abcdef\r"))).isEqualTo(LineSeparator.CR);
-			assertThat(LineSeparator.detect(new StringReader("abc\ndef\r\nghi\rjkl"))).isEqualTo(LineSeparator.DEFAULT);
-			assertThat(LineSeparator.detect(new StringReader("abc\ndef\r\rghi"))).isEqualTo(LineSeparator.CR);
-			assertThat(LineSeparator.detect(new StringReader(Strings.repeat(' ', 10_000) + "\n"))).isEqualTo(LineSeparator.DEFAULT);
-			assertThat(LineSeparator.detect(Files.newBufferedReader(INPUT))).isEqualTo(LineSeparator.DEFAULT);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
+	void testToString() {
+		assertThat(LineSeparator.LF).hasToString("\n");
+		assertThat(LineSeparator.CR_LF).hasToString("\r\n");
+		assertThat(LineSeparator.CR).hasToString("\r");
+		assertThat(LineSeparator.DEFAULT).hasToString(System.lineSeparator());
 	}
 
 	@Test
-	void testDetectMark() {
-		try {
-			try (final var reader = new StringReader("abcdef")) {
-				assertThat(LineSeparator.detect(reader)).isEqualTo(LineSeparator.DEFAULT);
-				Assertions.assertThat(Readers.toString(reader)).isEqualTo("abcdef");
-			}
-			try (final var reader = new BufferedReader(new InputStreamReader(new FileInputStream(INPUT.toFile())))) {
-				assertThat(LineSeparator.detect(reader)).isEqualTo(LineSeparator.DEFAULT);
-				assertThat(Readers.toString(reader)).isEqualTo(new String(Files.readAllBytes(INPUT)));
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testDetect() throws IOException {
+		assertThat(LineSeparator.detect(new StringReader(Strings.EMPTY))).isEqualTo(LineSeparator.DEFAULT);
+		assertThat(LineSeparator.detect(new StringReader("\nabcdef"))).isEqualTo(LineSeparator.LF);
+		assertThat(LineSeparator.detect(new StringReader("abc\r\ndef"))).isEqualTo(LineSeparator.CR_LF);
+		assertThat(LineSeparator.detect(new StringReader("abcdef\r"))).isEqualTo(LineSeparator.CR);
+		assertThat(LineSeparator.detect(new StringReader("abc\ndef\r\nghi\rjkl"))).isEqualTo(LineSeparator.DEFAULT);
+		assertThat(LineSeparator.detect(new StringReader("abc\ndef\r\rghi"))).isEqualTo(LineSeparator.CR);
+		assertThat(LineSeparator.detect(new StringReader(Strings.repeat(' ', 10_000) + "\n"))).isEqualTo(LineSeparator.DEFAULT);
+		{
+			final var path = File.createTempFile(getClass().getName() + ".testDetectPath_", ".txt").toPath();
+			assertThat(LineSeparator.detect(path)).isEqualTo(LineSeparator.DEFAULT);
+			Files.delete(path);
 		}
-	}
-
-	@Test
-	void testDetectNull() {
-		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Path) null));
-		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(Paths.get("."), null));
-		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Reader) null));
 	}
 
 	@Test
 	void testDetectInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> LineSeparator.detect(new InputStreamReader(new FileInputStream(INPUT.toFile()))));
+		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Path) null));
+		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(Paths.get("testDetectInvalid.txt"), null));
+		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Reader) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> LineSeparator.detect(Readers.EMPTY));
 	}
 }

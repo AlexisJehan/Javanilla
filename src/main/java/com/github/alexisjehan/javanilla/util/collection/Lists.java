@@ -43,10 +43,10 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@code List} replacing {@code null} by an empty {@code List}.</p>
-	 * @param list a {@code List} or {@code null}
+	 * <p>Wrap a {@code List} replacing {@code null} by an empty one.</p>
+	 * @param list the {@code List} or {@code null}
 	 * @param <E> the type of elements in the list
-	 * @return the non-{@code null} {@code List}
+	 * @return a non-{@code null} {@code List}
 	 * @since 1.0.0
 	 */
 	public static <E> List<E> nullToEmpty(final List<E> list) {
@@ -54,26 +54,27 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@code List} replacing {@code null} by a default {@code List}.</p>
-	 * @param list a {@code List} or {@code null}
+	 * <p>Wrap a {@code List} replacing {@code null} by a default one.</p>
+	 * @param list the {@code List} or {@code null}
 	 * @param defaultList the default {@code List}
 	 * @param <E> the type of elements in the list
-	 * @return the non-{@code null} {@code List}
+	 * @param <L> the {@code List} type
+	 * @return a non-{@code null} {@code List}
 	 * @throws NullPointerException if the default {@code List} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <E> List<E> nullToDefault(final List<E> list, final List<E> defaultList) {
+	public static <E, L extends List<? extends E>> L nullToDefault(final L list, final L defaultList) {
 		if (null == defaultList) {
-			throw new NullPointerException("Invalid default list (not null expected)");
+			throw new NullPointerException("Invalid default List (not null expected)");
 		}
 		return null != list ? list : defaultList;
 	}
 
 	/**
 	 * <p>Wrap a {@code List} replacing an empty one by {@code null}.</p>
-	 * @param list a {@code List} or {@code null}
+	 * @param list the {@code List} or {@code null}
 	 * @param <E> the type of elements in the list
-	 * @return the non-empty {@code List} or {@code null}
+	 * @return a non-empty {@code List} or {@code null}
 	 * @since 1.0.0
 	 */
 	public static <E> List<E> emptyToNull(final List<E> list) {
@@ -82,21 +83,19 @@ public final class Lists {
 
 	/**
 	 * <p>Wrap a {@code List} replacing an empty one by a default {@code List}.</p>
-	 * @param list a {@code List} or {@code null}
+	 * @param list the {@code List} or {@code null}
 	 * @param defaultList the default {@code List} or {@code null}
 	 * @param <E> the type of elements in the list
-	 * @return the non-empty {@code List} or {@code null}
+	 * @param <L> the {@code List} type
+	 * @return a non-empty {@code List} or {@code null}
 	 * @throws IllegalArgumentException if the default {@code List} is empty
 	 * @since 1.1.0
 	 */
-	public static <E> List<E> emptyToDefault(final List<E> list, final List<E> defaultList) {
+	public static <E, L extends List<? extends E>> L emptyToDefault(final L list, final L defaultList) {
 		if (null != defaultList && defaultList.isEmpty()) {
-			throw new IllegalArgumentException("Invalid default list (not empty expected)");
+			throw new IllegalArgumentException("Invalid default List (not empty expected)");
 		}
-		if (null == list) {
-			return null;
-		}
-		return !list.isEmpty() ? list : defaultList;
+		return null == list || !list.isEmpty() ? list : defaultList;
 	}
 
 	/**
@@ -109,7 +108,7 @@ public final class Lists {
 	 */
 	public static <E> NullableOptional<E> getFirst(final List<E> list) {
 		if (null == list) {
-			throw new NullPointerException("Invalid list (not null expected)");
+			throw new NullPointerException("Invalid List (not null expected)");
 		}
 		if (list.isEmpty()) {
 			return NullableOptional.empty();
@@ -127,7 +126,7 @@ public final class Lists {
 	 */
 	public static <E> NullableOptional<E> getLast(final List<E> list) {
 		if (null == list) {
-			throw new NullPointerException("Invalid list (not null expected)");
+			throw new NullPointerException("Invalid List (not null expected)");
 		}
 		if (list.isEmpty()) {
 			return NullableOptional.empty();

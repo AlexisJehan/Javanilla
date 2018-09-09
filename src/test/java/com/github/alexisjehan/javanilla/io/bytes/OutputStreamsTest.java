@@ -24,16 +24,12 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.io.bytes;
 
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -42,184 +38,160 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class OutputStreamsTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
-	private static Path output;
-
-	@BeforeAll
-	static void init() {
-		try {
-			output = File.createTempFile("output_", ".txt").toPath();
-			output.toFile().deleteOnExit();
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	@Test
+	void testEmpty() throws IOException {
+		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+		try (final var emptyOutputStream = OutputStreams.EMPTY) {
+			emptyOutputStream.write(1);
+			emptyOutputStream.write(bytes);
+			assertThatNullPointerException().isThrownBy(() -> emptyOutputStream.write(null));
+			emptyOutputStream.write(bytes, 0, 1);
+			assertThatNullPointerException().isThrownBy(() -> emptyOutputStream.write(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, -1, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, 4, 3));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, 0, 4));
 		}
 	}
 
 	@Test
-	void testBlank() {
-		try (final var blankOutputStream = OutputStreams.BLANK) {
-			blankOutputStream.write(1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testNullToBlank() {
-		assertThat(OutputStreams.nullToBlank(null)).isSameAs(OutputStreams.BLANK);
-		assertThat(OutputStreams.nullToBlank(OutputStreams.BLANK)).isSameAs(OutputStreams.BLANK);
+	void testNullToEmpty() {
+		assertThat(OutputStreams.nullToEmpty(null)).isSameAs(OutputStreams.EMPTY);
+		assertThat(OutputStreams.nullToEmpty(OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(OutputStreams.nullToDefault(null, OutputStreams.BLANK)).isSameAs(OutputStreams.BLANK);
-		assertThat(OutputStreams.nullToDefault(OutputStreams.BLANK, OutputStreams.BLANK)).isSameAs(OutputStreams.BLANK);
+		assertThat(OutputStreams.nullToDefault(null, OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
+		assertThat(OutputStreams.nullToDefault(OutputStreams.EMPTY, OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
 	}
 
 	@Test
-	void testNullToDefaultNull() {
-		assertThatNullPointerException().isThrownBy(() -> OutputStreams.nullToDefault(OutputStreams.BLANK, null));
+	void testNullToDefaultInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.nullToDefault(OutputStreams.EMPTY, null));
 	}
 
 	@Test
-	void testBuffered() {
-		try {
-			try (final var outputStream = OutputStreams.BLANK) {
-				assertThat(outputStream).isNotSameAs(OutputStreams.buffered(outputStream));
-				assertThat(OutputStreams.buffered(outputStream)).isInstanceOf(BufferedOutputStream.class);
+	void testBuffered() throws IOException {
+		try (final var outputStream = OutputStreams.EMPTY) {
+			assertThat(outputStream).isNotInstanceOf(BufferedOutputStream.class);
+			try (final var bufferedOutputStream = OutputStreams.buffered(outputStream)) {
+				assertThat(outputStream).isNotSameAs(bufferedOutputStream);
+				assertThat(bufferedOutputStream).isInstanceOf(BufferedOutputStream.class);
 			}
-			try (final var bufferedOutputStream = new BufferedOutputStream(OutputStreams.BLANK)) {
-				assertThat(bufferedOutputStream).isSameAs(OutputStreams.buffered(bufferedOutputStream));
-				assertThat(OutputStreams.buffered(bufferedOutputStream)).isInstanceOf(BufferedOutputStream.class);
+		}
+		try (final var outputStream = new BufferedOutputStream(OutputStreams.EMPTY)) {
+			assertThat(outputStream).isInstanceOf(BufferedOutputStream.class);
+			try (final var bufferedOutputStream = OutputStreams.buffered(outputStream)) {
+				assertThat(outputStream).isSameAs(bufferedOutputStream);
+				assertThat(bufferedOutputStream).isInstanceOf(BufferedOutputStream.class);
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
 		}
 	}
 
 	@Test
-	void testBufferedNull() {
+	void testBufferedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.buffered(null));
 	}
 
 	@Test
-	void testUncloseable() {
-		try {
-			try (final var closeableOutputStream = Files.newOutputStream(output)) {
-				closeableOutputStream.write(1);
-				closeableOutputStream.close();
-				assertThatIOException().isThrownBy(() -> closeableOutputStream.write(1));
+	void testUncloseable() throws IOException {
+		final var outputStream = new OutputStream() {
+			@Override
+			public void write(final int b) {
+				// Do nothing
 			}
-			try (final var uncloseableOutputStream = OutputStreams.uncloseable(Files.newOutputStream(output))) {
-				uncloseableOutputStream.write(1);
-				uncloseableOutputStream.close();
-				uncloseableOutputStream.write(1);
+
+			@Override
+			public void close() throws IOException {
+				throw new IOException();
 			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+		};
+		assertThatIOException().isThrownBy(outputStream::close);
+		{
+			OutputStreams.uncloseable(outputStream).close();
 		}
 	}
 
 	@Test
-	void testUncloseableNull() {
+	void testUncloseableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.uncloseable(null));
 	}
 
 	@Test
-	void testTee() {
-		try {
-			try (final var firstOutputStream = new ByteArrayOutputStream()) {
-				try (final var secondOutputStream = new ByteArrayOutputStream()) {
-					try (final var teeOutputStream = OutputStreams.tee(firstOutputStream, secondOutputStream)) {
-						try (final var inputStream = Files.newInputStream(INPUT)) {
-							inputStream.transferTo(teeOutputStream);
-						}
-					}
-					assertThat(secondOutputStream.toByteArray()).isEqualTo(Files.readAllBytes(INPUT));
+	void testTee() throws IOException {
+		assertThat(OutputStreams.tee()).isSameAs(OutputStreams.EMPTY);
+		assertThat(OutputStreams.tee(OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
+		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+		try (final var fooOutputStream = new ByteArrayOutputStream()) {
+			try (final var barOutputStream = new ByteArrayOutputStream()) {
+				try (final var teeOutputStream = OutputStreams.tee(fooOutputStream, barOutputStream)) {
+					teeOutputStream.write(1);
+					teeOutputStream.write(bytes);
+					assertThatNullPointerException().isThrownBy(() -> teeOutputStream.write(null));
+					teeOutputStream.write(bytes, 0, 1);
+					assertThatNullPointerException().isThrownBy(() -> teeOutputStream.write(null, 0, 2));
+					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, -1, 3));
+					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, 4, 3));
+					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, 0, -1));
+					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, 0, 4));
+					teeOutputStream.flush();
 				}
-				assertThat(firstOutputStream.toByteArray()).isEqualTo(Files.readAllBytes(INPUT));
+				assertThat(barOutputStream.toByteArray()).containsExactly((byte) 1, (byte) 1, (byte) 2, (byte) 3, (byte) 1);
 			}
-			try (final var firstOutputStream = new ByteArrayOutputStream()) {
-				try (final var secondOutputStream = new ByteArrayOutputStream()) {
-					try (final var teeOutputStream = OutputStreams.tee(firstOutputStream, secondOutputStream)) {
-						teeOutputStream.write(0);
-						teeOutputStream.write(ByteArrays.of((byte) 1, (byte) 2));
-						teeOutputStream.flush();
-					}
-					assertThat(firstOutputStream.toByteArray()).isEqualTo(secondOutputStream.toByteArray());
-				}
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(fooOutputStream.toByteArray()).containsExactly((byte) 1, (byte) 1, (byte) 2, (byte) 3, (byte) 1);
 		}
 	}
 
 	@Test
-	void testTeeOne() {
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var teeOutputStream = OutputStreams.tee(outputStream)) {
-				assertThat(teeOutputStream).isSameAs(outputStream);
-				try (final var inputStream = Files.newInputStream(INPUT)) {
-					inputStream.transferTo(teeOutputStream);
-				}
-			}
-			assertThat(outputStream.toByteArray()).isEqualTo(Files.readAllBytes(INPUT));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testTeeNone() {
-		try (final var teeOutputStream = OutputStreams.tee()) {
-			assertThat(teeOutputStream).isSameAs(OutputStreams.BLANK);
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	void testTeeNull() {
+	void testTeeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((OutputStream[]) null));
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((List<OutputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((OutputStream) null));
 	}
 
 	@Test
-	void testToWriter() {
-		try {
-			try (final var outputStream = new ByteArrayOutputStream()) {
-				try (final var writer = OutputStreams.toWriter(outputStream)) {
-					writer.write("");
-				}
-				assertThat(new String(outputStream.toByteArray())).isEmpty();
+	void testToWriter() throws IOException {
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			try (final var writer = OutputStreams.toWriter(outputStream)) {
+				writer.write("foo");
 			}
+			assertThat(new String(outputStream.toByteArray())).isEqualTo("foo");
+		}
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
+				writer.write("foo");
+			}
+			assertThat(new String(outputStream.toByteArray(), StandardCharsets.ISO_8859_1)).isEqualTo("foo");
+		}
 
-			try (final var outputStream = new ByteArrayOutputStream()) {
-				final var input = new String(Files.readAllBytes(INPUT), StandardCharsets.ISO_8859_1);
-				try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
-					writer.write(input);
-				}
-				assertThat(new String(outputStream.toByteArray(), StandardCharsets.ISO_8859_1)).isEqualTo(input);
+		// Not the same charset
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.UTF_16)) {
+				writer.write("foo");
 			}
-
-			// Not the same charset
-			try (final var outputStream = new ByteArrayOutputStream()) {
-				final var input = new String(Files.readAllBytes(INPUT), StandardCharsets.UTF_8);
-				try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.UTF_16)) {
-					writer.write(input);
-				}
-				assertThat(new String(outputStream.toByteArray(), StandardCharsets.ISO_8859_1)).isNotEqualTo(input);
-			}
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(new String(outputStream.toByteArray(), StandardCharsets.UTF_8)).isNotEqualTo("foo");
 		}
 	}
 
 	@Test
-	void testToWriterNull() {
+	void testToWriterInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(null));
-		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(OutputStreams.BLANK, null));
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(OutputStreams.EMPTY, null));
+	}
+
+	@Test
+	void testOf() throws IOException {
+		final var path = File.createTempFile(getClass().getName() + ".testOf_", ".txt").toPath();
+		try (final var pathOutputStream = OutputStreams.of(path)) {
+			pathOutputStream.write(ByteArrays.of((byte) 1, (byte) 2, (byte) 3));
+		}
+		assertThat(path).hasBinaryContent(ByteArrays.of((byte) 1, (byte) 2, (byte) 3));
+		Files.delete(path);
+	}
+
+	@Test
+	void testOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.of(null));
 	}
 }

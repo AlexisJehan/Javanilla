@@ -43,28 +43,29 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	private final Iterator<? extends E> iterator;
 
 	/**
-	 * <p>Maximum size of the batch.</p>
+	 * <p>Size of the batch.</p>
+	 * <p><b>Note</b>: The last one could be smaller.</p>
 	 * @since 1.0.0
 	 */
 	private final int batchSize;
 
 	/**
-	 * <p>List that contains batch elements.</p>
+	 * <p>{@code List} that contains batch elements.</p>
 	 * @since 1.0.0
 	 */
 	private final List<E> batch;
 
 	/**
-	 * <p>Constructor with a delegated {@code Iterator} and a batch size.</p>
-	 * @param iterator the delegated {@code Iterator}
+	 * <p>Constructor with an {@code Iterator} to decorate and a batch size.</p>
+	 * @param iterator the {@code Iterator} to decorate
 	 * @param batchSize the batch size
-	 * @throws NullPointerException if the delegated {@code Iterator} is {@code null}
+	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @throws IllegalArgumentException if the batch size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
 	public BatchIterator(final Iterator<? extends E> iterator, final int batchSize) {
 		if (null == iterator) {
-			throw new NullPointerException("Invalid iterator (not null expected)");
+			throw new NullPointerException("Invalid Iterator (not null expected)");
 		}
 		if (1 > batchSize) {
 			throw new IllegalArgumentException("Invalid batch size: " + batchSize + " (greater than or equal to 1 expected");
@@ -92,8 +93,8 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	}
 
 	/**
-	 * <p>Get the maximum batch size.</p>
-	 * @return the maximum batch size
+	 * <p>Get the batch size.</p>
+	 * @return the batch size
 	 * @since 1.0.0
 	 */
 	public int getBatchSize() {

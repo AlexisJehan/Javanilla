@@ -44,7 +44,7 @@ public final class StringFormatter implements Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 9176793624393116410L;
+	private static final long serialVersionUID = 2030734148661946724L;
 
 	/**
 	 * <p>Byte representation prefixes.</p>
@@ -100,13 +100,13 @@ public final class StringFormatter implements Serializable {
 	static final int DEFAULT_FLOAT_PRECISION = 2;
 
 	/**
-	 * <p>Default value to enable strict precision or not.</p>
+	 * <p>Default value to enable the strict precision or not.</p>
 	 * @since 1.0.0
 	 */
 	static final boolean DEFAULT_STRICT_PRECISION = false;
 
 	/**
-	 * <p>{@code StringFormatter}'s {@code Locale}.</p>
+	 * <p>{@code Locale} instance.</p>
 	 * @since 1.0.0
 	 */
 	private final Locale locale;
@@ -118,7 +118,7 @@ public final class StringFormatter implements Serializable {
 	private final int floatPrecision;
 
 	/**
-	 * <p>Whether to enable strict precision or not.</p>
+	 * <p>Whether to enable the strict precision or not.</p>
 	 * @since 1.0.0
 	 */
 	private final boolean strictPrecision;
@@ -148,7 +148,7 @@ public final class StringFormatter implements Serializable {
 	private final NumberFormat currencyFormatter;
 
 	/**
-	 * <p>{@code Locale}'s delimiter.</p>
+	 * <p>{@code Locale} delimiter.</p>
 	 * @since 1.0.0
 	 */
 	private final String localeDelimiter;
@@ -163,7 +163,7 @@ public final class StringFormatter implements Serializable {
 
 	/**
 	 * <p>Constructor with a custom {@code Locale} and the default float precision.</p>
-	 * @param locale a custom {@code Locale}
+	 * @param locale the custom {@code Locale}
 	 * @throws NullPointerException if the {@code Locale} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -173,10 +173,10 @@ public final class StringFormatter implements Serializable {
 
 	/**
 	 * <p>Constructor with custom {@code Locale} and float precision, and the default strict precision parameter.</p>
-	 * @param locale a custom {@code Locale}
-	 * @param floatPrecision a custom float precision
+	 * @param locale the custom {@code Locale}
+	 * @param floatPrecision the custom float precision
 	 * @throws NullPointerException if the {@code Locale} is {@code null}
-	 * @throws IllegalArgumentException if the float precision is negative
+	 * @throws IllegalArgumentException if the float precision is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public StringFormatter(final Locale locale, final int floatPrecision) {
@@ -185,16 +185,16 @@ public final class StringFormatter implements Serializable {
 
 	/**
 	 * <p>Complete constructor with custom {@code Locale}, float precision and strict precision parameter.</p>
-	 * @param locale a custom {@code Locale}
-	 * @param floatPrecision a custom float precision
-	 * @param strictPrecision a custom strict precision parameter
+	 * @param locale the custom {@code Locale}
+	 * @param floatPrecision the custom float precision
+	 * @param strictPrecision the custom strict precision parameter
 	 * @throws NullPointerException if the {@code Locale} is {@code null}
-	 * @throws IllegalArgumentException if the float precision is negative
+	 * @throws IllegalArgumentException if the float precision is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public StringFormatter(final Locale locale, final int floatPrecision, final boolean strictPrecision) {
 		if (null == locale) {
-			throw new NullPointerException("Invalid locale (not null expected)");
+			throw new NullPointerException("Invalid Locale (not null expected)");
 		}
 		if (0 > floatPrecision) {
 			throw new IllegalArgumentException("Invalid float precision: " + floatPrecision + " (greater than or equal to 0 expected)");
@@ -272,9 +272,11 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a bytes value such as a file size as a pretty {@code String} using the default {@code BytePrefix}.</p>
-	 * @param value the bytes value
-	 * @return the bytes {@code String} representation
+	 * <p>Format a number of bytes value such as a file size as a pretty {@code String} using the default
+	 * {@code BytePrefix}.</p>
+	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * @param value the number of bytes value
+	 * @return the number of bytes {@code String} representation
 	 * @since 1.0.0
 	 */
 	public String formatBytes(final long value) {
@@ -282,17 +284,18 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a bytes value such as a file size as a pretty {@code String} using a custom {@code BytePrefix}.</p>
+	 * <p>Format a number of bytes value such as a file size as a pretty {@code String} using a custom
+	 * {@code BytePrefix}.</p>
 	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
-	 * @param value the bytes value
+	 * @param value the number of bytes value
 	 * @param bytePrefix the {@code BytePrefix} to use
-	 * @return the bytes {@code String} representation
+	 * @return the number of bytes {@code String} representation
 	 * @throws NullPointerException if the {@code BytePrefix} is {@code null}
 	 * @since 1.0.0
 	 */
 	public String formatBytes(final long value, final BytePrefix bytePrefix) {
 		if (null == bytePrefix) {
-			throw new NullPointerException("Invalid byte prefix (not null expected)");
+			throw new NullPointerException("Invalid BytePrefix (not null expected)");
 		}
 		if (bytePrefix.base > Math.abs(value)) {
 			return format((double) value) + localeDelimiter + "B";
@@ -342,7 +345,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Whether strict precision is enabled or not.</p>
+	 * <p>Whether the strict precision is enabled or not.</p>
 	 * @return {@code true} if the strict precision is enabled
 	 * @since 1.0.0
 	 */

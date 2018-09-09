@@ -26,19 +26,19 @@ package com.github.alexisjehan.javanilla.io.lines;
 import java.io.IOException;
 
 /**
- * <p>An {@link LineWriter} decorator that writes only lines within a range from the current position.</p>
+ * <p>A {@link LineWriter} decorator that writes only lines within a range from the current position.</p>
  * @since 1.0.0
  */
 public final class RangeLineWriter extends FilterLineWriter {
 
 	/**
-	 * <p>The inclusive index of the first line to write.</p>
+	 * <p>Inclusive index of the first line to write.</p>
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>The inclusive index of the last line to write.<p>
+	 * <p>Inclusive index of the last line to write.<p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -50,11 +50,11 @@ public final class RangeLineWriter extends FilterLineWriter {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code LineWriter} and a range from {@code 0} to the given inclusive index.</p>
-	 * @param lineWriter the delegated {@code LineWriter}
+	 * <p>Constructor with a {@code LineWriter} to decorate and a range from {@code 0} to an inclusive index.</p>
+	 * @param lineWriter the {@code LineWriter} to decorate
 	 * @param toIndex the inclusive index of the last line to write
 	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is negative
+	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	public RangeLineWriter(final LineWriter lineWriter, final long toIndex) {
@@ -62,12 +62,12 @@ public final class RangeLineWriter extends FilterLineWriter {
 	}
 
 	/**
-	 * <p>Constructor with a delegated {@code LineWriter} and a range from an inclusive index to another one.</p>
-	 * @param lineWriter the delegated {@code LineWriter}
+	 * <p>Constructor with a {@code LineWriter} to decorate and a range from an inclusive index to another one.</p>
+	 * @param lineWriter the {@code LineWriter} to decorate
 	 * @param fromIndex the inclusive index of the first line to write
 	 * @param toIndex the inclusive index of the last line to write
 	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
-	 * @throws IndexOutOfBoundsException whether the starting index is negative or greater than the ending one
+	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeLineWriter(final LineWriter lineWriter, final long fromIndex, final long toIndex) {
@@ -100,7 +100,7 @@ public final class RangeLineWriter extends FilterLineWriter {
 
 	/**
 	 * <p>Get the inclusive index of the first line to write.</p>
-	 * @return the inclusive index
+	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
 	public long getFromIndex() {
@@ -109,7 +109,7 @@ public final class RangeLineWriter extends FilterLineWriter {
 
 	/**
 	 * <p>Get the inclusive index of the last line to write.<p>
-	 * @return the inclusive index
+	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */
 	public long getToIndex() {

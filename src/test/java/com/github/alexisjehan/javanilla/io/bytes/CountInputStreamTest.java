@@ -25,13 +25,7 @@ package com.github.alexisjehan.javanilla.io.bytes;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -40,81 +34,85 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountInputStreamTest {
 
-	private static final Path INPUT = new File(Objects.requireNonNull(MethodHandles.lookup().lookupClass().getClassLoader().getResource("input.txt")).getFile()).toPath();
-
 	@Test
-	void testConstructorNull() {
+	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountInputStream(null));
 	}
 
 	@Test
-	void testReadOneByOne() {
-		try (final var countInputStream = new CountInputStream(Files.newInputStream(INPUT))) {
+	void testReadByte() throws IOException {
+		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			assertThat(countInputStream.read()).isNotEqualTo(-1);
+			assertThat(countInputStream.read()).isEqualTo(1);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			for (var i = 0; i < 10; ++i) {
-				assertThat(countInputStream.read()).isNotEqualTo(-1);
-			}
-			assertThat(countInputStream.getCount()).isEqualTo(11L);
-			while (-1 != countInputStream.read());
-			assertThat(countInputStream.getCount()).isEqualTo(INPUT.toFile().length());
+			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.getCount()).isEqualTo(2L);
+			assertThat(countInputStream.read()).isEqualTo(3);
+			assertThat(countInputStream.getCount()).isEqualTo(3L);
 			assertThat(countInputStream.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(countInputStream.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testReadBuffered() {
-		try (final var countInputStream = new CountInputStream(Files.newInputStream(INPUT))) {
+	void testReadBuffer() throws IOException {
+		final var buffer = new byte[2];
+		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			final var buffer = new byte[10];
-			assertThat(countInputStream.read(buffer, 0, 10)).isNotEqualTo(-1);
-			assertThat(countInputStream.getCount()).isEqualTo(10L);
-			assertThat(countInputStream.read(buffer, 3, 5)).isNotEqualTo(-1);
-			assertThat(countInputStream.getCount()).isEqualTo(15L);
-			while (-1 != countInputStream.read(buffer, 0, buffer.length));
-			assertThat(countInputStream.getCount()).isEqualTo(INPUT.toFile().length());
-			assertThat(countInputStream.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			assertThat(countInputStream.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.read(buffer, 0, 2)).isEqualTo(2);
+			assertThat(countInputStream.getCount()).isEqualTo(2L);
+			assertThat(countInputStream.read(buffer, 0, 2)).isEqualTo(1);
+			assertThat(countInputStream.getCount()).isEqualTo(3L);
+			assertThat(countInputStream.read(buffer, 0, 2)).isEqualTo(-1);
+			assertThat(countInputStream.getCount()).isEqualTo(3L);
 		}
 	}
 
 	@Test
-	void testSkip() {
-		try (final var countInputStream = new CountInputStream(Files.newInputStream(INPUT))) {
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			countInputStream.skip(10L);
-			assertThat(countInputStream.getCount()).isEqualTo(10L);
-			countInputStream.skip(0L);
-			assertThat(countInputStream.getCount()).isEqualTo(10L);
-			countInputStream.skip(5L);
-			assertThat(countInputStream.getCount()).isEqualTo(15L);
-			countInputStream.skip(1000L);
-			assertThat(countInputStream.read()).isEqualTo(-1);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+	void testReadBufferInvalid() throws IOException {
+		final var buffer = new byte[2];
+		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
+			assertThatNullPointerException().isThrownBy(() -> countInputStream.read(null, 0, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, -1, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, 3, 2));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, 0, -1));
+			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, 0, 3));
 		}
 	}
 
 	@Test
-	void testMark() {
-		try (final var countInputStream = new CountInputStream(new BufferedInputStream(Files.newInputStream(INPUT)))) {
+	void testSkip() throws IOException {
+		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			assertThat(countInputStream.read()).isNotEqualTo(-1);
+			assertThat(countInputStream.skip(0L)).isEqualTo(0L);
+			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.skip(2L)).isEqualTo(2L);
+			assertThat(countInputStream.getCount()).isEqualTo(2L);
+			assertThat(countInputStream.skip(2L)).isEqualTo(1L);
+			assertThat(countInputStream.getCount()).isEqualTo(3L);
+		}
+	}
+
+	@Test
+	void testMarkReset() throws IOException {
+		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of((byte) 1, (byte) 2, (byte) 3)))) {
+			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.read()).isEqualTo(1);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			countInputStream.mark(10);
+			countInputStream.mark(2);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			countInputStream.skip(10L);
-			assertThat(countInputStream.getCount()).isEqualTo(11L);
+			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.getCount()).isEqualTo(2L);
 			countInputStream.reset();
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			assertThat(countInputStream.read()).isNotEqualTo(-1);
+			assertThat(countInputStream.read()).isEqualTo(2);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
-		} catch (final IOException e) {
-			fail(e.getMessage());
+			countInputStream.reset();
+			assertThat(countInputStream.getCount()).isEqualTo(1L);
+			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.getCount()).isEqualTo(2L);
 		}
 	}
 }

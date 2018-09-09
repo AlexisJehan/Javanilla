@@ -32,17 +32,17 @@ import java.util.Comparator;
 public final class Comparators {
 
 	/**
-	 * <p>A {@code CharSequence} {@code Comparator} that takes numbers in consideration.</p>
+	 * <p>A {@code CharSequence} {@code Comparator} that takes numbers into consideration.</p>
 	 * <p><b>Example</b>: {@code ["example2", "example1", "example11"]} would be sorted like
 	 * {@code ["example1", "example2", "example11"]} and not {@code ["example1", "example11", "example2"]}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<CharSequence> NUMBER_AWARE = (charSequence1, charSequence2) -> {
 		if (null == charSequence1) {
-			throw new NullPointerException("Invalid first char sequence (not null expected)");
+			throw new NullPointerException("Invalid first CharSequence (not null expected)");
 		}
 		if (null == charSequence2) {
-			throw new NullPointerException("Invalid second char sequence (not null expected)");
+			throw new NullPointerException("Invalid second CharSequence (not null expected)");
 		}
 		final var length1 = charSequence1.length();
 		final var length2 = charSequence2.length();
@@ -92,15 +92,15 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code boolean array} {@code Comparator}.</p>
+	 * <p>A {@code boolean} array {@code Comparator}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<boolean[]> BOOLEAN_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first boolean array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second boolean array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			if (array1[i] != array2[i]) {
@@ -111,15 +111,15 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A signed {@code byte array} {@code Comparator}.</p>
+	 * <p>A signed {@code byte} array {@code Comparator}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<byte[]> SIGNED_BYTE_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first byte array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second byte array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			if (array1[i] != array2[i]) {
@@ -130,17 +130,16 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A unsigned {@code byte array} {@code Comparator}.</p>
-	 * <p><b>Note</b>: {@code byte}s are converted to {@code int}s using {@link Byte#toUnsignedInt(byte)} before being
-	 * compared.</p>
+	 * <p>An unsigned {@code byte} array {@code Comparator}.</p>
+	 * <p><b>Note</b>: {@code byte}s are compared using {@link Byte#toUnsignedInt(byte)}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<byte[]> UNSIGNED_BYTE_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first byte array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second byte array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			final var b1 = Byte.toUnsignedInt(array1[i]);
@@ -153,15 +152,15 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code short array} {@code Comparator}.</p>
+	 * <p>A {@code short} array {@code Comparator}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<short[]> SHORT_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first short array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second short array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			if (array1[i] != array2[i]) {
@@ -172,15 +171,15 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code int array} {@code Comparator}.</p>
+	 * <p>An {@code int} array {@code Comparator}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<int[]> INT_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first int array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second int array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			if (array1[i] != array2[i]) {
@@ -191,15 +190,15 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code long array} {@code Comparator}.</p>
+	 * <p>A {@code long} array {@code Comparator}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<long[]> LONG_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first long array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second long array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			if (array1[i] != array2[i]) {
@@ -210,17 +209,16 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code float array} {@code Comparator}.</p>
-	 * <p><b>Note</b>: {@code float}s are converted to {@code int}s using {@link Float#floatToIntBits(float)} before
-	 * being compared.</p>
+	 * <p>A {@code float} array {@code Comparator}.</p>
+	 * <p><b>Note</b>: {@code float}s are compared using {@link Float#floatToIntBits(float)}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<float[]> FLOAT_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first float array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second float array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			final var f1 = Float.floatToIntBits(array1[i]);
@@ -233,17 +231,16 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>A {@code double array} {@code Comparator}.</p>
-	 * <p><b>Note</b>: {@code double}s are converted to {@code long}s using {@link Double#doubleToLongBits(double)}
-	 * before being compared.</p>
+	 * <p>A {@code double} array {@code Comparator}.</p>
+	 * <p><b>Note</b>: {@code double}s are compared using {@link Double#doubleToLongBits(double)}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<double[]> DOUBLE_ARRAYS = (array1, array2) -> {
 		if (null == array1) {
-			throw new NullPointerException("Invalid first double array (not null expected)");
+			throw new NullPointerException("Invalid first array (not null expected)");
 		}
 		if (null == array2) {
-			throw new NullPointerException("Invalid second double array (not null expected)");
+			throw new NullPointerException("Invalid second array (not null expected)");
 		}
 		for (var i = 0; i < array1.length && i < array2.length; ++i) {
 			final var d1 = Double.doubleToLongBits(array1[i]);
@@ -264,10 +261,9 @@ public final class Comparators {
 	}
 
 	/**
-	 * <p>Create a {@code Comparator} for arrays of {@code Comparable} comparing elements using
-	 * {@link Comparable#compareTo(Object)}.</p>
-	 * @param <T> the type of {@code Comparable} array
-	 * @return the created array {@code Comparator}
+	 * <p>Create a {@code Comparator} for {@code Comparable}s arrays.</p>
+	 * @param <T> the type of {@code Comparable}s in arrays
+	 * @return the created {@code Comparable} arrays {@code Comparator}
 	 * @since 1.0.0
 	 */
 	public static <T extends Comparable<T>> Comparator<T[]> array() {
@@ -289,10 +285,10 @@ public final class Comparators {
 	}
 
 	/**
-	 * <p>Create a {@code Comparator} for arrays comparing elements using the given {@code Comparator}.</p>
-	 * @param <T> the type of elements in array
-	 * @param comparator custom {@code Comparator} for elements
-	 * @return the created array {@code Comparator}
+	 * <p>Create a {@code Comparator} for arrays using the given {@code Comparator} for elements.</p>
+	 * @param comparator the elements {@code Comparator}
+	 * @param <T> the type of elements in arrays
+	 * @return the created arrays {@code Comparator}
 	 * @since 1.0.0
 	 */
 	public static <T> Comparator<T[]> array(final Comparator<T> comparator) {

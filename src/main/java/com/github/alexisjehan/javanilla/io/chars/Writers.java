@@ -23,12 +23,11 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
-import org.jetbrains.annotations.NotNull;
+import com.github.alexisjehan.javanilla.util.iteration.Iterables;
 
-import java.io.BufferedWriter;
-import java.io.FilterWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -39,108 +38,86 @@ import java.util.Collection;
 public final class Writers {
 
 	/**
-	 * <p>A composite {@code Writer}.</p>
+	 * <p>An empty {@code Writer} that writes nothing.</p>
 	 * @since 1.0.0
 	 */
-	private static class TeeWriter extends Writer {
-
-		/**
-		 * <p>Delegated {@code Writer}s.</p>
-		 * @since 1.0.0
-		 */
-		private Iterable<Writer> writers;
-
-		/**
-		 * <p>Private constructor.</p>
-		 * @param writers delegated {@code Writer}s
-		 * @since 1.0.0
-		 */
-		private TeeWriter(final Iterable<Writer> writers) {
-			this.writers = writers;
-		}
-
+	public static final Writer EMPTY = new Writer() {
 		@Override
-		public void write(final int c) throws IOException {
-			for (final var writer : writers) {
-				writer.write(c);
-			}
-		}
-
-		@Override
-		public void write(@NotNull final char[] cbuf) throws IOException {
-			for (final var writer : writers) {
-				writer.write(cbuf);
-			}
-		}
-
-		@Override
-		public void write(@NotNull final char[] cbuf, final int off, final int len) throws IOException {
-			for (final var writer : writers) {
-				writer.write(cbuf, off, len);
-			}
-		}
-
-		@Override
-		public void write(@NotNull final String str) throws IOException {
-			for (final var writer : writers) {
-				writer.write(str);
-			}
-		}
-
-		@Override
-		public void write(@NotNull final String str, final int off, final int len) throws IOException {
-			for (final var writer : writers) {
-				writer.write(str, off, len);
-			}
-		}
-
-		@Override
-		public Writer append(final CharSequence csq) throws IOException {
-			for (final var writer : writers) {
-				writer.append(csq);
-			}
-			return this;
-		}
-
-		@Override
-		public Writer append(final CharSequence csq, final int start, final int end) throws IOException {
-			for (final var writer : writers) {
-				writer.append(csq, start, end);
-			}
-			return this;
-		}
-
-		@Override
-		public Writer append(final char c) throws IOException {
-			for (final var writer : writers) {
-				writer.append(c);
-			}
-			return this;
-		}
-
-		@Override
-		public void flush() throws IOException {
-			for (final var writer : writers) {
-				writer.flush();
-			}
-		}
-
-		@Override
-		public void close() throws IOException {
-			for (final var writer : writers) {
-				writer.close();
-			}
-		}
-	}
-
-	/**
-	 * <p>A blank {@code Writer} that writes no char.</p>
-	 * @since 1.0.0
-	 */
-	public static final Writer BLANK = new Writer() {
-		@Override
-		public void write(@NotNull final char[] cbuf, final int off, final int len) {
+		public void write(final int c) {
 			// Do nothing
+		}
+
+		@Override
+		public void write(final char[] chars) {
+			if (null == chars) {
+				throw new NullPointerException("Invalid chars (not null expected)");
+			}
+			// Do nothing
+		}
+
+		@Override
+		public void write(final char[] chars, final int offset, final int length) {
+			if (null == chars) {
+				throw new NullPointerException("Invalid chars (not null expected)");
+			}
+			if (0 > offset || chars.length < offset) {
+				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + chars.length + " expected)");
+			}
+			if (0 > length || chars.length - offset < length) {
+				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (chars.length - offset) + " expected)");
+			}
+			// Do nothing
+		}
+
+		@Override
+		public void write(final String string) {
+			if (null == string) {
+				throw new NullPointerException("Invalid String (not null expected)");
+			}
+			// Do nothing
+		}
+
+		@Override
+		public void write(final String string, final int offset, final int length) {
+			if (null == string) {
+				throw new NullPointerException("Invalid String (not null expected)");
+			}
+			final var stringLength = string.length();
+			if (0 > offset || stringLength < offset) {
+				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + stringLength + " expected)");
+			}
+			if (0 > length || stringLength - offset < length) {
+				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (stringLength - offset) + " expected)");
+			}
+			// Do nothing
+		}
+
+		@Override
+		public Writer append(final CharSequence charSequence) {
+			if (null == charSequence) {
+				throw new NullPointerException("Invalid CharSequence (not null expected)");
+			}
+			return this;
+		}
+
+		@Override
+		public Writer append(final CharSequence charSequence, final int start, final int end) {
+			if (null == charSequence) {
+				throw new NullPointerException("Invalid CharSequence (not null expected)");
+			}
+			final var length = charSequence.length();
+			if (0 > start) {
+				throw new IndexOutOfBoundsException("Invalid start: " + start + " (greater than 0 expected)");
+			}
+			if (start > end || length < end) {
+				throw new IndexOutOfBoundsException("Invalid end: " + end + " (between " + start + " and " + length + " expected)");
+			}
+			return this;
+		}
+
+		@Override
+		public Writer append(final char c) {
+			return this;
 		}
 
 		@Override
@@ -163,40 +140,41 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} replacing {@code null} by a blank {@code Writer}.</p>
-	 * @param writer a {@code Writer} or {@code null}
-	 * @return the non-{@code null} {@code Writer}
+	 * <p>Wrap a {@code Writer} replacing {@code null} by an empty one.</p>
+	 * @param writer the {@code Writer} or {@code null}
+	 * @return a non-{@code null} {@code Writer}
 	 * @since 1.0.0
 	 */
-	public static Writer nullToBlank(final Writer writer) {
-		return null != writer ? writer : BLANK;
+	public static Writer nullToEmpty(final Writer writer) {
+		return nullToDefault(writer, EMPTY);
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} replacing {@code null} by a default {@code Writer}.</p>
-	 * @param writer a {@code Writer} or {@code null}
+	 * <p>Wrap a {@code Writer} replacing {@code null} by a default one.</p>
+	 * @param writer the {@code Writer} or {@code null}
 	 * @param defaultWriter the default {@code Writer}
-	 * @return the non-{@code null} {@code Writer}
+	 * @param <W> the {@code Writer} type
+	 * @return a non-{@code null} {@code Writer}
 	 * @throws NullPointerException if the default {@code Writer} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static Writer nullToDefault(final Writer writer, final Writer defaultWriter) {
+	public static <W extends Writer> W nullToDefault(final W writer, final W defaultWriter) {
 		if (null == defaultWriter) {
-			throw new NullPointerException("Invalid default writer (not null expected)");
+			throw new NullPointerException("Invalid default Writer (not null expected)");
 		}
 		return null != writer ? writer : defaultWriter;
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} as a {@code BufferedWriter} if it was not already.</p>
-	 * @param writer the {@code Writer} to wrap
-	 * @return the buffered {@code Writer}
+	 * <p>Decorate a {@code Writer} as a {@code BufferedWriter} if it was not already.</p>
+	 * @param writer the {@code Writer} to decorate
+	 * @return a {@code BufferedWriter}
 	 * @throws NullPointerException if the {@code Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static BufferedWriter buffered(final Writer writer) {
 		if (null == writer) {
-			throw new NullPointerException("Invalid writer (not null expected)");
+			throw new NullPointerException("Invalid Writer (not null expected)");
 		}
 		if (writer instanceof BufferedWriter) {
 			return (BufferedWriter) writer;
@@ -205,15 +183,15 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} so that its {@link Writer#close()} method has no effect.</p>
-	 * @param writer the {@code Writer} to wrap
-	 * @return the uncloseable {@code Writer}
+	 * <p>Decorate a {@code Writer} so that its {@link Writer#close()} method has no effect.</p>
+	 * @param writer the {@code Writer} to decorate
+	 * @return an uncloseable {@code Writer}
 	 * @throws NullPointerException if the {@code Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer uncloseable(final Writer writer) {
 		if (null == writer) {
-			throw new NullPointerException("Invalid writer (not null expected)");
+			throw new NullPointerException("Invalid Writer (not null expected)");
 		}
 		return new FilterWriter(writer) {
 			@Override
@@ -225,42 +203,183 @@ public final class Writers {
 
 	/**
 	 * <p>Wrap multiple {@code Writer}s into a single one.</p>
-	 * @param writers {@code Writer}s to wrap
+	 * @param writers the {@code Writer} array to wrap
 	 * @return the "tee-ed" {@code Writer}
-	 * @throws NullPointerException whether the {@code Writer}s array or any of the {@code Writer}s is {@code null}
+	 * @throws NullPointerException if the {@code Writer} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer tee(final Writer... writers) {
 		if (null == writers) {
-			throw new NullPointerException("Invalid writers (not null expected)");
+			throw new NullPointerException("Invalid Writers (not null expected)");
 		}
 		return tee(Arrays.asList(writers));
 	}
 
 	/**
-	 * <p>Wrap a collection of {@code Writer}s into a single one.</p>
-	 * @param writers {@code Writer}s to wrap
+	 * <p>Wrap multiple {@code Writer}s into a single one.</p>
+	 * @param writers the {@code Writer} {@code Collection} to wrap
 	 * @return the "tee-ed" {@code Writer}
-	 * @throws NullPointerException whether the {@code Writer}s collection or any of the {@code Writer}s is {@code null}
+	 * @throws NullPointerException if the {@code Writer} {@code Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer tee(final Collection<Writer> writers) {
 		if (null == writers) {
-			throw new NullPointerException("Invalid writers (not null expected)");
+			throw new NullPointerException("Invalid Writers (not null expected)");
 		}
-		var i = 0;
-		for (final var writer : writers) {
-			if (null == writer) {
-				throw new NullPointerException("Invalid writer at index " + i + " (not null expected)");
+		for (final var indexedWriter : Iterables.index(writers)) {
+			if (null == indexedWriter.getElement()) {
+				throw new NullPointerException("Invalid Writer at index " + indexedWriter.getIndex() + " (not null expected)");
 			}
-			++i;
 		}
-		if (writers.isEmpty()) {
-			return BLANK;
+		final var size = writers.size();
+		if (0 == size) {
+			return EMPTY;
 		}
-		if (1 == writers.size()) {
+		if (1 == size) {
 			return writers.iterator().next();
 		}
-		return new TeeWriter(writers);
+		return new Writer() {
+			@Override
+			public void write(final int c) throws IOException {
+				for (final var writer : writers) {
+					writer.write(c);
+				}
+			}
+
+			@Override
+			public void write(final char[] chars) throws IOException {
+				if (null == chars) {
+					throw new NullPointerException("Invalid chars (not null expected)");
+				}
+				for (final var writer : writers) {
+					writer.write(chars);
+				}
+			}
+
+			@Override
+			public void write(final char[] chars, final int offset, final int length) throws IOException {
+				if (null == chars) {
+					throw new NullPointerException("Invalid chars (not null expected)");
+				}
+				if (0 > offset || chars.length < offset) {
+					throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + chars.length + " expected)");
+				}
+				if (0 > length || chars.length - offset < length) {
+					throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (chars.length - offset) + " expected)");
+				}
+				for (final var writer : writers) {
+					writer.write(chars, offset, length);
+				}
+			}
+
+			@Override
+			public void write(final String string) throws IOException {
+				if (null == string) {
+					throw new NullPointerException("Invalid String (not null expected)");
+				}
+				for (final var writer : writers) {
+					writer.write(string);
+				}
+			}
+
+			@Override
+			public void write(final String string, final int offset, final int length) throws IOException {
+				if (null == string) {
+					throw new NullPointerException("Invalid String (not null expected)");
+				}
+				final var stringLength = string.length();
+				if (0 > offset || stringLength < offset) {
+					throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + stringLength + " expected)");
+				}
+				if (0 > length || stringLength - offset < length) {
+					throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (stringLength - offset) + " expected)");
+				}
+				for (final var writer : writers) {
+					writer.write(string, offset, length);
+				}
+			}
+
+			@Override
+			public Writer append(final CharSequence charSequence) throws IOException {
+				if (null == charSequence) {
+					throw new NullPointerException("Invalid CharSequence (not null expected)");
+				}
+				for (final var writer : writers) {
+					writer.append(charSequence);
+				}
+				return this;
+			}
+
+			@Override
+			public Writer append(final CharSequence charSequence, final int start, final int end) throws IOException {
+				if (null == charSequence) {
+					throw new NullPointerException("Invalid CharSequence (not null expected)");
+				}
+				final var length = charSequence.length();
+				if (0 > start) {
+					throw new IndexOutOfBoundsException("Invalid start: " + start + " (greater than 0 expected)");
+				}
+				if (start > end || length < end) {
+					throw new IndexOutOfBoundsException("Invalid end: " + end + " (between " + start + " and " + length + " expected)");
+				}
+				for (final var writer : writers) {
+					writer.append(charSequence, start, end);
+				}
+				return this;
+			}
+
+			@Override
+			public Writer append(final char c) throws IOException {
+				for (final var writer : writers) {
+					writer.append(c);
+				}
+				return this;
+			}
+
+			@Override
+			public void flush() throws IOException {
+				for (final var writer : writers) {
+					writer.flush();
+				}
+			}
+
+			@Override
+			public void close() throws IOException {
+				for (final var writer : writers) {
+					writer.close();
+				}
+			}
+		};
+	}
+
+	/**
+	 * <p>Create a {@code BufferedWriter} from a {@code Path} using {@link Charset#defaultCharset()}.</p>
+	 * @param path the {@code Path} to convert
+	 * @return the created {@code BufferedWriter}
+	 * @throws FileNotFoundException if the file of the {@code Path} is not writable
+	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static BufferedWriter of(final Path path) throws FileNotFoundException {
+		return of(path, Charset.defaultCharset());
+	}
+
+	/**
+	 * <p>Create a {@code BufferedWriter} from a {@code Path} using a custom {@code Charset}.</p>
+	 * @param path the {@code Path} to convert
+	 * @param charset the {@code Charset} to use
+	 * @return the created {@code BufferedWriter}
+	 * @throws FileNotFoundException if the file of the {@code Path} is not writable
+	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static BufferedWriter of(final Path path, final Charset charset) throws FileNotFoundException {
+		if (null == path) {
+			throw new NullPointerException("Invalid Path (not null expected)");
+		}
+		if (null == charset) {
+			throw new NullPointerException("Invalid Charset (not null expected)");
+		}
+		return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path.toFile()), charset));
 	}
 }

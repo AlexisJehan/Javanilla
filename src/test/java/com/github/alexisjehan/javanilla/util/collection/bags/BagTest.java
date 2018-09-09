@@ -38,8 +38,8 @@ final class BagTest extends AbstractBagTest {
 			private final Bag<E> delegate = new MapBag<>();
 
 			@Override
-			public boolean add(final E element, final long quantity) {
-				return delegate.add(element, quantity);
+			public void add(final E element, final long quantity) {
+				delegate.add(element, quantity);
 			}
 
 			@Override
@@ -85,6 +85,21 @@ final class BagTest extends AbstractBagTest {
 			@Override
 			public Map<E, Long> toMap() {
 				return delegate.toMap();
+			}
+
+			@Override
+			public boolean equals(final Object object) {
+				return delegate.equals(object);
+			}
+
+			@Override
+			public int hashCode() {
+				return delegate.hashCode();
+			}
+
+			@Override
+			public String toString() {
+				return delegate.toString();
 			}
 		};
 	}

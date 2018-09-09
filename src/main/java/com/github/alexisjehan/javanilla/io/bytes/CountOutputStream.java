@@ -23,11 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 /**
  * <p>An {@link OutputStream} decorator that counts the number of bytes written from the current position.</p>
@@ -42,16 +41,13 @@ public final class CountOutputStream extends FilterOutputStream {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a delegated {@code OutputStream}.</p>
-	 * @param outputStream the delegated {@code OutputStream}
+	 * <p>Constructor with an {@code OutputStream} to decorate.</p>
+	 * @param outputStream the {@code OutputStream} to decorate
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountOutputStream(final OutputStream outputStream) {
-		super(outputStream);
-		if (null == out) {
-			throw new NullPointerException("Invalid output stream (not null expected)");
-		}
+		super(Objects.requireNonNull(outputStream, "Invalid OutputStream (not null expected)"));
 	}
 
 	@Override
@@ -61,9 +57,18 @@ public final class CountOutputStream extends FilterOutputStream {
 	}
 
 	@Override
-	public void write(@NotNull final byte[] b, final int off, final int len) throws IOException {
-		out.write(b, off, len);
-		count += len;
+	public void write(final byte[] bytes, final int offset, final int length) throws IOException {
+		if (null == bytes) {
+			throw new NullPointerException("Invalid bytes (not null expected)");
+		}
+		if (0 > offset || bytes.length < offset) {
+			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + bytes.length + " expected)");
+		}
+		if (0 > length || bytes.length - offset < length) {
+			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (bytes.length - offset) + " expected)");
+		}
+		out.write(bytes, offset, length);
+		count += length;
 	}
 
 	/**

@@ -68,7 +68,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableBiConsumer} to a {@code BiConsumer} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableBiConsumer the given {@code ThrowableBiConsumer}
+	 * @param throwableBiConsumer the {@code ThrowableBiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
 	 * @param <X> the type of the {@code Throwable}
@@ -78,7 +78,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 */
 	static <T, U, X extends Throwable> BiConsumer<T, U> unchecked(final ThrowableBiConsumer<? super T, ? super U, ? extends X> throwableBiConsumer) {
 		if (null == throwableBiConsumer) {
-			throw new NullPointerException("Invalid throwable bi consumer (not null expected)");
+			throw new NullPointerException("Invalid ThrowableBiConsumer (not null expected)");
 		}
 		return (t, u) -> {
 			try {
@@ -90,8 +90,8 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiConsumer} that throws nothing from the given {@code BiConsumer}.</p>
-	 * @param biConsumer the given {@code BiConsumer}
+	 * <p>Create a {@code ThrowableBiConsumer} from the given {@code BiConsumer}.</p>
+	 * @param biConsumer the {@code BiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
 	 * @param <X> the type of the {@code Throwable}
@@ -101,7 +101,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 */
 	static <T, U, X extends Throwable> ThrowableBiConsumer<T, U, X> of(final BiConsumer<? super T, ? super U> biConsumer) {
 		if (null == biConsumer) {
-			throw new NullPointerException("Invalid bi consumer (not null expected)");
+			throw new NullPointerException("Invalid BiConsumer (not null expected)");
 		}
 		return biConsumer::accept;
 	}

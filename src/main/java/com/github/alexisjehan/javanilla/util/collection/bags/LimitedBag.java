@@ -26,21 +26,22 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 /**
  * <p>A {@link Bag} decorator that limits the maximum number of distinct elements contained. If the limit is reached
  * then an element with a minimum occurrence is totally removed.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @param <E> the element type
  * @since 1.0.0
  */
 public final class LimitedBag<E> extends FilterBag<E> {
 
 	/**
-	 * <p>The maximum number of distinct elements to be contained.</p>
+	 * <p>Maximum number of distinct elements to be contained.</p>
 	 * @since 1.0.0
 	 */
 	private final int limit;
 
 	/**
-	 * <p>Constructor with a delegated {@code Bag} and a limit.</p>
-	 * @param bag the delegated {@code Bag}
+	 * <p>Constructor with a {@code Bag} to decorate and a limit.</p>
+	 * @param bag the {@code Bag} to decorate
 	 * @param limit the maximum number of distinct elements to be contained
 	 * @throws IllegalArgumentException if the limit if lower than {@code 2}
 	 * @since 1.0.0
@@ -59,19 +60,18 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	/**
 	 * <p>Add the element to the {@code Bag} in the given quantity.</p>
 	 * <p><b>Note</b>: If the limit is reached then an element with a minimum occurrence is totally removed.</p>
-	 * <p><b>Note</b>: {@code null} value may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
-	 * @param quantity how many instances of the element should be added
-	 * @return {@code true} if the element has been successfully added
-	 * @throws IllegalArgumentException if the quantity is negative
+	 * @param quantity the quantity of the element to add
+	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
 	@Override
-	public boolean add(final E element, final long quantity) {
+	public void add(final E element, final long quantity) {
 		if (!bag.containsAny(element) && limit <= bag.distinct()) {
 			bag.remove(bag.min().orElseThrow(AssertionError::new));
 		}
-		return bag.add(element, quantity);
+		bag.add(element, quantity);
 	}
 
 	@Override

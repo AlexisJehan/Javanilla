@@ -36,8 +36,9 @@ import java.util.stream.Stream;
 
 /**
  * <p>A class based on {@link Optional} but which accepts nullable values. Empty and {@code null} are distinct, this is
- * useful for example to return optional values when {@code null} is allowed such as a "get" method for a
- * collection.</p>
+ * useful for example to return optional values when {@code null} is allowed such a "get" method for a collection.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @param <T> the type of the value
  * @since 1.1.0
  */
@@ -50,7 +51,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	private static final NullableOptional EMPTY = new NullableOptional();
 
 	/**
-	 * <p>The nullable value or {@code null} if not present.</p>
+	 * <p>Nullable value or {@code null} if not present.</p>
 	 * @since 1.1.0
 	 */
 	private final T value;
@@ -71,7 +72,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Private constructor for a present instance with the given nullable value.</p>
+	 * <p>Private constructor for an instance with the given nullable value.</p>
 	 * @param value the nullable value
 	 * @since 1.1.0
 	 */
@@ -131,7 +132,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * action.</p>
 	 * @param action the action to be performed, if a value is present
 	 * @param emptyAction the empty-based action to be performed, if no value is present
-	 * @throws NullPointerException whether the action or the empty-based action is {@code null}
+	 * @throws NullPointerException if the action or the empty-based action is {@code null}
 	 * @since 1.1.0
 	 */
 	public void ifPresentOrElse(final Consumer<? super T> action, final Runnable emptyAction) {
@@ -149,31 +150,31 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, and the value matches the given predicate, returns a {@code NullableOptional}
-	 * describing the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * @param predicate the predicate to apply to a value, if present
+	 * <p>If a value is present, and the value matches the given filter {@code Predicate}, returns a
+	 * {@code NullableOptional} describing the value, otherwise returns an empty {@code NullableOptional}.</p>
+	 * @param filter the filter {@code Predicate} to apply to a value, if present
 	 * @return a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is present
-	 * and the value matches the given predicate, otherwise an empty {@code NullableOptional}
-	 * @throws NullPointerException if the {@code Predicate} is {@code null}
+	 * and the value matches the given filter {@code Predicate}, otherwise an empty {@code NullableOptional}
+	 * @throws NullPointerException if the filter {@code Predicate} is {@code null}
 	 * @since 1.1.0
 	 */
-	public NullableOptional<T> filter(final Predicate<? super T> predicate) {
-		if (null == predicate) {
-			throw new NullPointerException("Invalid predicate (not null expected)");
+	public NullableOptional<T> filter(final Predicate<? super T> filter) {
+		if (null == filter) {
+			throw new NullPointerException("Invalid filter (not null expected)");
 		}
 		if (isEmpty()) {
 			return this;
 		}
-		return predicate.test(value) ? this : empty();
+		return filter.test(value) ? this : empty();
 	}
 
 	/**
-	 * <p>If a value is present, returns a {@code NullableOptional} describing the result of applying the given mapping
-	 * function to the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * @param mapper the mapping function to apply to a value, if present
-	 * @param <U> the type of the value returned from the mapping function
-	 * @return a {@code NullableOptional} describing the result of applying a mapping function to the value of this
-	 * {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
+	 * <p>If a value is present, returns a {@code NullableOptional} describing the result of applying the given mapper
+	 * {@code Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
+	 * @param mapper the mapper {@code Function} to apply to a value, if present
+	 * @param <U> the type of the value returned from the mapper {@code Function}
+	 * @return a {@code NullableOptional} describing the result of applying a mapper {@code Function} to the value of
+	 * this {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
 	 * @throws NullPointerException if the mapper {@code Function} is {@code null}
 	 * @since 1.1.0
 	 */
@@ -188,14 +189,14 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the result of applying the given {@code NullableOptional}-bearing mapping
-	 * function to the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * <p>This method is similar to {@link #map(Function)}, but the mapping function is one whose result is already a
-	 * {@code NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an additional
+	 * <p>If a value is present, returns the result of applying the given {@code NullableOptional}-bearing mapper
+	 * {@code Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
+	 * <p>This method is similar to {@link #map(Function)}, but the mapper {@code Function} is one whose result is
+	 * already a {@code NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an additional
 	 * {@code NullableOptional}.
-	 * @param mapper the mapping function to apply to a value, if present
-	 * @param <U> the type of value of the {@code NullableOptional} returned by the mapping function
-	 * @return the result of applying an {@code NullableOptional}-bearing mapping function to the value of this
+	 * @param mapper the mapper {@code Function} to apply to a value, if present
+	 * @param <U> the type of value of the {@code NullableOptional} returned by the mapper {@code Function}
+	 * @return the result of applying an {@code NullableOptional}-bearing mapper {@code Function} to the value of this
 	 * {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
 	 * @throws NullPointerException if the mapper {@code Function} is {@code null}
 	 * @since 1.1.0
@@ -208,27 +209,27 @@ public final class NullableOptional<T> implements Streamable<T> {
 		if (isEmpty()) {
 			return empty();
 		}
-		return Objects.requireNonNull((NullableOptional<U>) mapper.apply(value), "Invalid nullable optional (not null expected)");
+		return Objects.requireNonNull((NullableOptional<U>) mapper.apply(value), "Invalid NullableOptional (not null expected)");
 	}
 
 	/**
 	 * <p>If a value is present, returns a {@code NullableOptional} describing the value, otherwise returns an
-	 * {@code NullableOptional} produced by the supplying function.</p>
-	 * @param supplier the supplying function that produces an {@code NullableOptional} to be returned
+	 * {@code NullableOptional} produced by the {@code Supplier}.</p>
+	 * @param supplier the {@code Supplier} that produces an {@code NullableOptional} to be returned
 	 * @return returns a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is
-	 * present, otherwise a {@code NullableOptional} produced by the supplying function
+	 * present, otherwise a {@code NullableOptional} produced by the {@code Supplier}
 	 * @throws NullPointerException if the {@code Supplier} is {@code null}
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
 	public NullableOptional<T> or(final Supplier<? extends NullableOptional<? extends T>> supplier) {
 		if (null == supplier) {
-			throw new NullPointerException("Invalid supplier (not null expected)");
+			throw new NullPointerException("Invalid Supplier (not null expected)");
 		}
 		if (isPresent()) {
 			return this;
 		}
-		return Objects.requireNonNull((NullableOptional<T>) supplier.get(), "Invalid nullable optional (not null expected)");
+		return Objects.requireNonNull((NullableOptional<T>) supplier.get(), "Invalid NullableOptional (not null expected)");
 	}
 
 	/**
@@ -246,7 +247,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>f a value is present, returns the value, otherwise returns the given other value.</p>
+	 * <p>If a value is present, returns the value, otherwise returns the given other value.</p>
 	 * @param other the value to be returned, if no value is present or {@code null}
 	 * @return the value, if present, otherwise the given other value
 	 * @since 1.1.0
@@ -256,37 +257,37 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise returns the result produced by the supplying function.</p>
-	 * @param supplier the supplying function that produces a value to be returned
-	 * @return the value, if present, otherwise the result produced by the supplying function
+	 * <p>If a value is present, returns the value, otherwise returns the result produced by the {@code Supplier}.</p>
+	 * @param supplier the {@code Supplier} that produces a value to be returned
+	 * @return the value, if present, otherwise the result produced by the {@code Supplier}
 	 * @throws NullPointerException if the {@code Supplier} is {@code null}
 	 * @since 1.1.0
 	 */
 	public T orElseGet(final Supplier<? extends T> supplier) {
 		if (null == supplier) {
-			throw new NullPointerException("Invalid supplier (not null expected)");
+			throw new NullPointerException("Invalid Supplier (not null expected)");
 		}
 		return isPresent() ? value : supplier.get();
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise throws an exception produced by the exception supplying
-	 * function.</p>
-	 * @param exceptionSupplier the supplying function that produces an exception to be thrown
-	 * @param <X> type of the exception to be thrown
+	 * <p>If a value is present, returns the value, otherwise throws a {@code Throwable} produced by the
+	 * {@code Supplier}.</p>
+	 * @param throwableSupplier the {@code Supplier} that produces a {@code Throwable} to be thrown
+	 * @param <X> type of the {@code Throwable} to be thrown
 	 * @return the value, if present
 	 * @throws X if no value is present
-	 * @throws NullPointerException if the exception {@code Supplier} is {@code null}
+	 * @throws NullPointerException if the {@code Throwable} {@code Supplier} is {@code null}
 	 * @since 1.1.0
 	 */
-	public <X extends Throwable> T orElseThrow(final Supplier<? extends X> exceptionSupplier) throws X {
-		if (null == exceptionSupplier) {
-			throw new NullPointerException("Invalid exception supplier (not null expected)");
+	public <X extends Throwable> T orElseThrow(final Supplier<? extends X> throwableSupplier) throws X {
+		if (null == throwableSupplier) {
+			throw new NullPointerException("Invalid Throwable Supplier (not null expected)");
 		}
 		if (isPresent()) {
 			return value;
 		}
-		throw exceptionSupplier.get();
+		throw throwableSupplier.get();
 	}
 
 	@Override
@@ -355,7 +356,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	public static <T> NullableOptional<T> ofOptional(final Optional<T> optional) {
 		if (null == optional) {
-			throw new NullPointerException("Invalid optional (not null expected)");
+			throw new NullPointerException("Invalid Optional (not null expected)");
 		}
 		return optional.map(NullableOptional::of).orElseGet(NullableOptional::empty);
 	}

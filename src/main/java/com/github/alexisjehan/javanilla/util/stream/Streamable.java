@@ -27,15 +27,15 @@ import java.util.stream.Stream;
 
 /**
  * <p>Interface for objects that return a {@link Stream}.</p>
- * @param <E> the type of elements returned by the stream
+ * @param <E> the type of elements returned by the {@code Stream}
  * @since 1.0.0
  */
 @FunctionalInterface
 public interface Streamable<E> {
 
 	/**
-	 * <p>Returns a stream over elements of type E.</p>
-	 * @return a stream
+	 * <p>Returns a {@code Stream} of elements.</p>
+	 * @return a {@code Stream}
 	 * @since 1.0.0
 	 */
 	Stream<E> stream();

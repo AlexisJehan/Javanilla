@@ -47,7 +47,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	/**
 	 * <p>Converts the given {@code ThrowableSupplier} to a {@code Supplier} that may throw an unchecked
 	 * {@code Throwable}.</p>
-	 * @param throwableSupplier the given {@code ThrowableSupplier}
+	 * @param throwableSupplier the {@code ThrowableSupplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the converted {@code Supplier}
@@ -56,7 +56,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 */
 	static <T, X extends Throwable> Supplier<T> unchecked(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
 		if (null == throwableSupplier) {
-			throw new NullPointerException("Invalid throwable supplier (not null expected)");
+			throw new NullPointerException("Invalid ThrowableSupplier (not null expected)");
 		}
 		return () -> {
 			try {
@@ -68,8 +68,8 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableSupplier} that throws nothing from the given {@code Supplier}.</p>
-	 * @param supplier the given {@code Supplier}
+	 * <p>Create a {@code ThrowableSupplier} from the given {@code Supplier}.</p>
+	 * @param supplier the {@code Supplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@code Throwable}
 	 * @return the created {@code ThrowableSupplier}
@@ -78,7 +78,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 */
 	static <T, X extends Throwable> ThrowableSupplier<T, X> of(final Supplier<? extends T> supplier) {
 		if (null == supplier) {
-			throw new NullPointerException("Invalid supplier (not null expected)");
+			throw new NullPointerException("Invalid Supplier (not null expected)");
 		}
 		return supplier::get;
 	}

@@ -48,13 +48,13 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testOnceNull() {
+	void testOnceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Suppliers.once(null));
 	}
 
 	@Test
-	void testCached() {
-		final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+	void testCache() {
+		final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 			private int i = 0;
 
 			@Override
@@ -67,14 +67,14 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testCachedNull() {
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(null));
+	void testCacheInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(null));
 	}
 
 	@Test
-	void testCachedDuration() {
+	void testCacheDuration() {
 		{
-			final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 				private int i = 0;
 
 				@Override
@@ -87,7 +87,7 @@ final class SuppliersTest {
 			assertThat(cachedSupplier.get()).isEqualTo(3);
 		}
 		{
-			final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 				private int i = 0;
 
 				@Override
@@ -124,21 +124,17 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testCachedDurationNull() {
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(null, Duration.ofMillis(1L)));
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(() -> 1, (Duration) null));
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(() -> 1, Duration.ofMillis(1L), null));
+	void testCacheDurationInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(null, Duration.ofMillis(1L)));
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(() -> 1, (Duration) null));
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(() -> 1, Duration.ofMillis(1L), null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Suppliers.cache(() -> 1, Duration.ofMinutes(-1L)));
 	}
 
 	@Test
-	void testCachedDurationInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Suppliers.cached(() -> 1, Duration.ofMinutes(-1L)));
-	}
-
-	@Test
-	void testCachedTimes() {
+	void testCacheTimes() {
 		{
-			final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 				private int i = 0;
 
 				@Override
@@ -151,7 +147,7 @@ final class SuppliersTest {
 			assertThat(cachedSupplier.get()).isEqualTo(3);
 		}
 		{
-			final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 				private int i = 0;
 
 				@Override
@@ -170,19 +166,15 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testCachedTimesNull() {
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(null, 1));
+	void testCacheTimesInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(null, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Suppliers.cache(() -> 1, -1));
 	}
 
 	@Test
-	void testCachedTimesInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Suppliers.cached(() -> 1, -1));
-	}
-
-	@Test
-	void testCachedRefresh() {
+	void testCacheBooleanSupplier() {
 		{
-			final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 				private int i = 0;
 
 				@Override
@@ -195,7 +187,7 @@ final class SuppliersTest {
 			assertThat(cachedSupplier.get()).isEqualTo(3);
 		}
 		{
-			final var cachedSupplier = Suppliers.cached(new Supplier<>() {
+			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
 				private int i = 0;
 
 				@Override
@@ -210,8 +202,8 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testCachedRefreshNull() {
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(null, () -> true));
-		assertThatNullPointerException().isThrownBy(() -> Suppliers.cached(() -> 1, (BooleanSupplier) null));
+	void testCacheBooleanSupplierInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(null, () -> true));
+		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(() -> 1, (BooleanSupplier) null));
 	}
 }
