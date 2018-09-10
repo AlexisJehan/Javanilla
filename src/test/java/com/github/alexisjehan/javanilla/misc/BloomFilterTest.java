@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
- * <p>{@link StringFormatter} unit tests.</p>
+ * <p>{@link BloomFilter} unit tests.</p>
  */
 final class BloomFilterTest {
 

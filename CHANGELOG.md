@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0 _(2018-09-10)_
+## 1.2.0 _(2018-09-09)_
 
 **crypto**
 - Renamed the _security_ package to _crypto_
@@ -259,3 +259,8 @@
 - Added the _filter()_ method
 - Added the _length()_ method
 - Added multiple _singleton()_ method implementations
+
+
+## 1.0.0 _(2018-04-24)_
+
+First release
