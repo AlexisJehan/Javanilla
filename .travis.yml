@@ -1,8 +1,7 @@
 language: java
-sudo: true
+install: mvn install
 
 jdk:
-#- oraclejdk10
 - oraclejdk11
 - openjdk10
 - openjdk11
