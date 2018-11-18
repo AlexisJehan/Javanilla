@@ -1,8 +1,8 @@
 language: java
-sudo: false
+sudo: true
 
 jdk:
-- oraclejdk10
+#- oraclejdk10
 - oraclejdk11
 - openjdk10
 - openjdk11
