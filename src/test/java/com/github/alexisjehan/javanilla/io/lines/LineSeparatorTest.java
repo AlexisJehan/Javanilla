@@ -26,13 +26,19 @@ package com.github.alexisjehan.javanilla.io.lines;
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link LineSeparator} unit tests.</p>
@@ -209,7 +215,8 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	void testDetect() throws IOException {
+	@ExtendWith(TempDirectory.class)
+	void testDetect(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
 		assertThat(LineSeparator.detect(new StringReader(Strings.EMPTY))).isEqualTo(LineSeparator.DEFAULT);
 		assertThat(LineSeparator.detect(new StringReader("\nabcdef"))).isEqualTo(LineSeparator.LF);
 		assertThat(LineSeparator.detect(new StringReader("abc\r\ndef"))).isEqualTo(LineSeparator.CR_LF);
@@ -217,17 +224,15 @@ final class LineSeparatorTest {
 		assertThat(LineSeparator.detect(new StringReader("abc\ndef\r\nghi\rjkl"))).isEqualTo(LineSeparator.DEFAULT);
 		assertThat(LineSeparator.detect(new StringReader("abc\ndef\r\rghi"))).isEqualTo(LineSeparator.CR);
 		assertThat(LineSeparator.detect(new StringReader(Strings.repeat(' ', 10_000) + "\n"))).isEqualTo(LineSeparator.DEFAULT);
-		{
-			final var path = File.createTempFile(getClass().getName() + ".testDetectPath_", ".txt").toPath();
-			assertThat(LineSeparator.detect(path)).isEqualTo(LineSeparator.DEFAULT);
-			Files.delete(path);
-		}
+		final var path = tmpDirectory.resolve("testDetect");
+		Files.createFile(path);
+		assertThat(LineSeparator.detect(path)).isEqualTo(LineSeparator.DEFAULT);
 	}
 
 	@Test
 	void testDetectInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Path) null));
-		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(Paths.get("testDetectInvalid.txt"), null));
+		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(Paths.get("testDetectInvalid"), null));
 		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Reader) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> LineSeparator.detect(Readers.EMPTY));
 	}

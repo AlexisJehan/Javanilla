@@ -23,7 +23,15 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io;
 
-import java.io.*;
+import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 
 /**
  * <p>An utility class that provides {@link Serializable} tools.</p>
@@ -48,22 +56,20 @@ public final class Serializables {
 	 */
 	public static byte[] serialize(final Serializable serializable) {
 		final var byteArrayOutputStream = new ByteArrayOutputStream();
-		serialize(serializable, byteArrayOutputStream);
+		serialize(byteArrayOutputStream, serializable);
 		return byteArrayOutputStream.toByteArray();
 	}
 
 	/**
 	 * <p>Serialize the given {@code Serializable} to an {@code OutputStream}.</p>
-	 * @param serializable the {@code Serializable} object or {@code null}
 	 * @param outputStream the {@code OutputStream} to write into
+	 * @param serializable the {@code Serializable} or {@code null}
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
 	 * @throws SerializationException might occurs with serialization or I/O operations
 	 * @since 1.0.0
 	 */
-	public static void serialize(final Serializable serializable, final OutputStream outputStream) {
-		if (null == outputStream) {
-			throw new NullPointerException("Invalid OutputStream (not null expected)");
-		}
+	public static void serialize(final OutputStream outputStream, final Serializable serializable) {
+		Ensure.notNull("outputStream", outputStream);
 		try (final var objectOutputStream = new ObjectOutputStream(outputStream)) {
 			objectOutputStream.writeObject(serializable);
 		} catch (final Exception e) {
@@ -78,14 +84,11 @@ public final class Serializables {
 	 * @return a new {@code Serializable} from the serialized data
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @throws SerializationException might occurs with serialization operations
-	 * @throws ClassCastException if the type is different of the serialized data type
 	 * @since 1.0.0
 	 */
 	public static <S extends Serializable> S deserialize(final byte[] bytes) {
-		if (null == bytes) {
-			throw new NullPointerException("Invalid bytes (not null expected)");
-		}
-		return deserialize(new ByteArrayInputStream(bytes));
+		Ensure.notNull("bytes", bytes);
+		return deserialize(InputStreams.of(bytes));
 	}
 
 	/**
@@ -95,14 +98,11 @@ public final class Serializables {
 	 * @return a new {@code Serializable} from the serialized data
 	 * @throws NullPointerException if the {@code InputStream} is {@code null}
 	 * @throws SerializationException might occurs with serialization or I/O operations
-	 * @throws ClassCastException if the type is different of the serialized data type
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
 	public static <S extends Serializable> S deserialize(final InputStream inputStream) {
-		if (null == inputStream) {
-			throw new NullPointerException("Invalid InputStream (not null expected)");
-		}
+		Ensure.notNull("inputStream", inputStream);
 		try (final var objectInputStream = new ObjectInputStream(inputStream)) {
 			return (S) objectInputStream.readObject();
 		} catch (final Exception e) {

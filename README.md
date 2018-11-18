@@ -20,14 +20,14 @@ To include and use Javanilla, you need to add the following dependency into your
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 </dependency>
 ```
 
 Or if you are using _Gradle_:
 ```xml
 dependencies {
-	compile "com.github.alexisjehan:javanilla:1.2.0"
+	compile "com.github.alexisjehan:javanilla:1.3.0"
 }
 ```
 
@@ -47,11 +47,11 @@ final var concatInputStream = InputStreams.concat(
 // Write to both a buffered file OutputStream and a sampling one
 final var teeOutputStream = OutputStreams.tee(
 		OutputStreams.buffered(fileOutputStream),
-		new RangeOutputStream(sampleOutputStream, 100L) // Write only the 100 firsts bytes
+		new RangeOutputStream(sampleOutputStream, 0L, 100L) // Write only the 100 firsts bytes
 );
 // Wrap the InputStream to be used in a foreach-style loop for a better readability
-for (final var b : Iterables.wrap(concatInputStream)) {
-	teeOutputStream.write(b);
+for (final var i : Iterables.wrap(concatInputStream)) {
+	teeOutputStream.write(i);
 }
 teeOutputStream.flush();
 ```
@@ -81,7 +81,7 @@ System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
 System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
 System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
 System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
-System.out.println(Strings.isHex(ByteArrays.toHexString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
+System.out.println(Strings.isHexadecimal(ByteArrays.toHexString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
 final var withPadding = true;
 System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
 ```
@@ -97,7 +97,7 @@ try {
 		throw new IOException("A checked Exception inside a lambda");
 	});
 } catch (final UncheckedIOException e) {
-	System.out.println(Throwables.getRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
+	System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
 }
 ```
 
@@ -139,22 +139,14 @@ System.out.println(Distances.MANHATTAN.calculate(0.0d, 0.0d, 1.0d, 1.0d)); // Pr
 final var order = 1;
 System.out.println(new MinkowskiDistance(order).calculate(0.0d, 1.0d, 2.0d, 3.0d)); // Prints 4
 System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
-System.out.println(new LevenshteinDistance().calculate("append", "apple")); // Prints 3
+System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
 ```
 
 ### Util examples
-New _Comparator_ implementations:
+New _Comparator_ implementation:
 ```java
 System.out.println("foo10".compareTo("foo2")); // Prints -1
 System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
-System.out.println(Comparators.DOUBLE_ARRAYS.compare(
-		DoubleArrays.of(0.0d, 1.0d, 2.0d),
-		DoubleArrays.of(0.0d, 1.0d)
-)); // Prints 1
-System.out.println(Comparators.<String>array().compare(
-		ObjectArrays.of("foo", "bar2"),
-		ObjectArrays.of("foo", "bar1")
-)); // Prints 1
 ```
 
 New _Bag_ collection type:
@@ -201,19 +193,20 @@ System.out.println(countIterator.getCount()); // Prints 4
 | singleton      | &#x2713;     |               | &#x2713; |               |          | &#x2713;   |
 | of             | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
 
-|                | Lists    | Sets        | Maps               | Bags     | Iterables | Iterators |
-| :------------: | :------: | :---------: | :----------------: | :------: | :-------: | :-------: |
-| empty          |          |             |                    | &#x2713; | &#x2713;  |           |
-| nullToEmpty    | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; | &#x2713;  | &#x2713;  |
-| nullToDefault  | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; | &#x2713;  | &#x2713;  |
-| emptyToNull    | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; |           | &#x2713;  |
-| emptyToDefault | &#x2713; | &#x2713;    | &#x2713;           | &#x2713; |           | &#x2713;  |
-| unmodifiable   |          |             |                    | &#x2713; | &#x2713;  | &#x2713;  |
-| length         |          |             |                    |          | &#x2713;  | &#x2713;  |
-| concat         |          |             |                    |          | &#x2713;  | &#x2713;  |
-| join           |          |             |                    |          | &#x2713;  | &#x2713;  |
-| singleton      |          |             |                    | &#x2713; | &#x2713;  | &#x2713;  |
-| of             |          | _ofOrdered_ | _ofEntriesOrdered_ | &#x2713; | &#x2713;  | &#x2713;  |
+|                | Lists    | Sets        | Maps        | Bags     | Iterables | Iterators |
+| :------------: | :------: | :---------: | :---------: | :------: | :-------: | :-------: |
+| empty          |          |             |             | &#x2713; | &#x2713;  |           |
+| nullToEmpty    | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; | &#x2713;  | &#x2713;  |
+| nullToDefault  | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; | &#x2713;  | &#x2713;  |
+| emptyToNull    | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; |           | &#x2713;  |
+| emptyToDefault | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; |           | &#x2713;  |
+| isEmpty        |          |             |             |          |           | &#x2713;  |
+| unmodifiable   |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
+| length         |          |             |             |          | &#x2713;  | &#x2713;  |
+| concat         | &#x2713; |             |             |          | &#x2713;  | &#x2713;  |
+| join           | &#x2713; |             |             |          | &#x2713;  | &#x2713;  |
+| singleton      |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
+| of             |          | _ofOrdered_ | _ofOrdered_ | &#x2713; | &#x2713;  | &#x2713;  |
 
 ## Maven phases and goals
 Compile, test and install the JAR in the local Maven repository:

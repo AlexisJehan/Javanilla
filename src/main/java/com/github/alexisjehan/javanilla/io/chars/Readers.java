@@ -23,13 +23,24 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.CharArrayReader;
+import java.io.CharArrayWriter;
+import java.io.FilterReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * <p>An utility class that provides {@link Reader} tools.</p>
@@ -91,15 +102,9 @@ public final class Readers {
 
 		@Override
 		public int read(final char[] buffer, final int offset, final int length) throws IOException {
-			if (null == buffer) {
-				throw new NullPointerException("Invalid buffer (not null expected)");
-			}
-			if (0 > offset || buffer.length < offset) {
-				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
-			}
-			if (0 > length || buffer.length - offset < length) {
-				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
-			}
+			Ensure.notNull("buffer", buffer);
+			Ensure.between("offset", offset, 0, buffer.length);
+			Ensure.between("length", length, 0, buffer.length - offset);
 			if (null == current) {
 				return -1;
 			}
@@ -107,9 +112,9 @@ public final class Readers {
 				return 0;
 			}
 			do {
-				final var n = current.read(buffer, offset, length);
-				if (0 < n) {
-					return n;
+				final var total = current.read(buffer, offset, length);
+				if (0 < total) {
+					return total;
 				}
 				nextReader();
 			} while (null != current);
@@ -130,10 +135,8 @@ public final class Readers {
 	 */
 	public static final Reader EMPTY = new Reader() {
 		@Override
-		public int read(final CharBuffer charBuffer) {
-			if (null == charBuffer) {
-				throw new NullPointerException("Invalid CharBuffer (not null expected)");
-			}
+		public int read(final CharBuffer buffer) {
+			Ensure.notNull("buffer", buffer);
 			return -1;
 		}
 
@@ -144,9 +147,7 @@ public final class Readers {
 
 		@Override
 		public int read(final char[] buffer) {
-			if (null == buffer) {
-				throw new NullPointerException("Invalid buffer (not null expected)");
-			}
+			Ensure.notNull("buffer", buffer);
 			if (0 == buffer.length) {
 				return 0;
 			}
@@ -155,15 +156,9 @@ public final class Readers {
 
 		@Override
 		public int read(final char[] buffer, final int offset, final int length) {
-			if (null == buffer) {
-				throw new NullPointerException("Invalid buffer (not null expected)");
-			}
-			if (0 > offset || buffer.length < offset) {
-				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
-			}
-			if (0 > length || buffer.length - offset < length) {
-				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
-			}
+			Ensure.notNull("buffer", buffer);
+			Ensure.between("offset", offset, 0, buffer.length);
+			Ensure.between("length", length, 0, buffer.length - offset);
 			if (0 == length) {
 				return 0;
 			}
@@ -171,7 +166,7 @@ public final class Readers {
 		}
 
 		@Override
-		public long skip(final long n) {
+		public long skip(final long number) {
 			return 0L;
 		}
 
@@ -182,9 +177,7 @@ public final class Readers {
 
 		@Override
 		public long transferTo(final Writer writer) {
-			if (null == writer) {
-				throw new NullPointerException("Invalid Writer (not null expected)");
-			}
+			Ensure.notNull("writer", writer);
 			return 0L;
 		}
 	};
@@ -217,9 +210,7 @@ public final class Readers {
 	 * @since 1.1.0
 	 */
 	public static <R extends Reader> R nullToDefault(final R reader, final R defaultReader) {
-		if (null == defaultReader) {
-			throw new NullPointerException("Invalid default Reader (not null expected)");
-		}
+		Ensure.notNull("defaultReader", defaultReader);
 		return null != reader ? reader : defaultReader;
 	}
 
@@ -231,9 +222,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static BufferedReader buffered(final Reader reader) {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
 		if (reader instanceof BufferedReader) {
 			return (BufferedReader) reader;
 		}
@@ -248,9 +237,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader markSupported(final Reader reader) {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
 		if (reader.markSupported()) {
 			return reader;
 		}
@@ -265,9 +252,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader uncloseable(final Reader reader) {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
 		return new FilterReader(reader) {
 			@Override
 			public void close() {
@@ -287,9 +272,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static long length(final Reader reader) throws IOException {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
 		return reader.transferTo(Writers.EMPTY);
 	}
 
@@ -301,10 +284,8 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader concat(final Reader... readers) {
-		if (null == readers) {
-			throw new NullPointerException("Invalid Readers (not null expected)");
-		}
-		return concat(Arrays.asList(readers));
+		Ensure.notNullAndNotNullElements("readers", readers);
+		return concat(List.of(readers));
 	}
 
 	/**
@@ -315,14 +296,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader concat(final List<Reader> readers) {
-		if (null == readers) {
-			throw new NullPointerException("Invalid Readers (not null expected)");
-		}
-		for (final var indexedReader : Iterables.index(readers)) {
-			if (null == indexedReader.getElement()) {
-				throw new NullPointerException("Invalid Reader at index " + indexedReader.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNullAndNotNullElements("readers", readers);
 		final var size = readers.size();
 		if (0 == size) {
 			return EMPTY;
@@ -343,10 +317,8 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader join(final char[] separator, final Reader... readers) {
-		if (null == readers) {
-			throw new NullPointerException("Invalid Readers (not null expected)");
-		}
-		return join(separator, Arrays.asList(readers));
+		Ensure.notNullAndNotNullElements("readers", readers);
+		return join(separator, List.of(readers));
 	}
 
 	/**
@@ -359,17 +331,8 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader join(final char[] separator, final List<Reader> readers) {
-		if (null == separator) {
-			throw new NullPointerException("Invalid separator (not null expected)");
-		}
-		if (null == readers) {
-			throw new NullPointerException("Invalid Readers (not null expected)");
-		}
-		for (final var indexedReader : Iterables.index(readers)) {
-			if (null == indexedReader.getElement()) {
-				throw new NullPointerException("Invalid Reader at index " + indexedReader.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("readers", readers);
 		if (0 == separator.length) {
 			return concat(readers);
 		}
@@ -408,9 +371,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader of(final char... chars) {
-		if (null == chars) {
-			throw new NullPointerException("Invalid chars (not null expected)");
-		}
+		Ensure.notNull("chars", chars);
 		if (0 == chars.length) {
 			return EMPTY;
 		}
@@ -428,9 +389,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static char[] toChars(final Reader reader) throws IOException {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
 		try (final var writer = new CharArrayWriter()) {
 			reader.transferTo(writer);
 			return writer.toCharArray();
@@ -445,8 +404,9 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static Reader of(final String string) {
-		if (null == string) {
-			throw new NullPointerException("Invalid String (not null expected)");
+		Ensure.notNull("string", string);
+		if (string.isEmpty()) {
+			return EMPTY;
 		}
 		return new StringReader(string);
 	}
@@ -462,9 +422,7 @@ public final class Readers {
 	 * @since 1.0.0
 	 */
 	public static String toString(final Reader reader) throws IOException {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
 		try (final var writer = new StringWriter()) {
 			reader.transferTo(writer);
 			return writer.toString();
@@ -475,11 +433,11 @@ public final class Readers {
 	 * <p>Create a {@code BufferedReader} from a {@code Path} using {@link Charset#defaultCharset()}.</p>
 	 * @param path the {@code Path} to convert
 	 * @return the created {@code BufferedReader}
-	 * @throws FileNotFoundException if the file of the {@code Path} is not readable
+	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Path} is {@code null}
 	 * @since 1.2.0
 	 */
-	public static BufferedReader of(final Path path) throws FileNotFoundException {
+	public static BufferedReader of(final Path path) throws IOException {
 		return of(path, Charset.defaultCharset());
 	}
 
@@ -488,17 +446,13 @@ public final class Readers {
 	 * @param path the {@code Path} to convert
 	 * @param charset the {@code Charset} to use
 	 * @return the created {@code BufferedReader}
-	 * @throws FileNotFoundException if the file of the {@code Path} is not readable
+	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
 	 * @since 1.2.0
 	 */
-	public static BufferedReader of(final Path path, final Charset charset) throws FileNotFoundException {
-		if (null == path) {
-			throw new NullPointerException("Invalid Path (not null expected)");
-		}
-		if (null == charset) {
-			throw new NullPointerException("Invalid Charset (not null expected)");
-		}
-		return new BufferedReader(new InputStreamReader(new FileInputStream(path.toFile()), charset));
+	public static BufferedReader of(final Path path, final Charset charset) throws IOException {
+		Ensure.notNull("path", path);
+		Ensure.notNull("charset", charset);
+		return Files.newBufferedReader(path, charset);
 	}
 }

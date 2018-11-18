@@ -25,7 +25,8 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>{@link Bag} unit tests.</p>

@@ -23,16 +23,21 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
+import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link CountReader} unit tests.</p>
  */
 final class CountReaderTest {
+
+	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
 
 	@Test
 	void testConstructorInvalid() {
@@ -41,7 +46,7 @@ final class CountReaderTest {
 
 	@Test
 	void testReadChar() throws IOException {
-		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
 			assertThat(countReader.read()).isEqualTo('a');
 			assertThat(countReader.getCount()).isEqualTo(1L);
@@ -57,7 +62,7 @@ final class CountReaderTest {
 	@Test
 	void testReadBuffer() throws IOException {
 		final var buffer = new char[2];
-		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
 			assertThat(countReader.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(countReader.getCount()).isEqualTo(0L);
@@ -73,19 +78,20 @@ final class CountReaderTest {
 	@Test
 	void testReadBufferInvalid() throws IOException {
 		final var buffer = new char[2];
-		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThatNullPointerException().isThrownBy(() -> countReader.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countReader.read(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countReader.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> countReader.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> countReader.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> countReader.read(buffer, 0, 3));
 		}
 	}
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
+			assertThat(countReader.skip(-1L)).isEqualTo(0L);
 			assertThat(countReader.skip(0L)).isEqualTo(0L);
 			assertThat(countReader.getCount()).isEqualTo(0L);
 			assertThat(countReader.skip(2L)).isEqualTo(2L);
@@ -97,7 +103,7 @@ final class CountReaderTest {
 
 	@Test
 	void testMarkReset() throws IOException {
-		try (final var countReader = new CountReader(Readers.of('a', 'b', 'c'))) {
+		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
 			assertThat(countReader.read()).isEqualTo('a');
 			assertThat(countReader.getCount()).isEqualTo(1L);

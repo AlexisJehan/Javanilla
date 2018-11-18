@@ -23,7 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.tuples;
 
-import java.util.Objects;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
  * <p>A {@code Single} is an immutable tuple that is composed of an unique element.</p>
@@ -49,15 +50,6 @@ public final class Single<U> {
 		this.unique = unique;
 	}
 
-	/**
-	 * <p>Get the unique element of the {@code Single}.</p>
-	 * @return the unique element
-	 * @since 1.1.0
-	 */
-	public U getUnique() {
-		return unique;
-	}
-
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -67,17 +59,26 @@ public final class Single<U> {
 			return false;
 		}
 		final var other = (Single) object;
-		return Objects.equals(unique, other.unique);
+		return Equals.equals(unique, other.unique);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(unique);
+		return HashCode.hashCode(unique);
 	}
 
 	@Override
 	public String toString() {
 		return "[" + unique + "]";
+	}
+
+	/**
+	 * <p>Get the unique element of the {@code Single}.</p>
+	 * @return the unique element
+	 * @since 1.1.0
+	 */
+	public U getUnique() {
+		return unique;
 	}
 
 	/**

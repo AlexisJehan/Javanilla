@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.BiConsumer;
 
@@ -56,12 +57,10 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default ThrowableBiConsumer<T, U, X> andThen(final ThrowableBiConsumer<? super T, ? super U, ? extends X> after) {
-		if (null == after) {
-			throw new NullPointerException("Invalid after (not null expected)");
-		}
-		return (l, r) -> {
-			accept(l, r);
-			after.accept(l, r);
+		Ensure.notNull("after", after);
+		return (t, u) -> {
+			accept(t, u);
+			after.accept(t, u);
 		};
 	}
 
@@ -77,9 +76,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> BiConsumer<T, U> unchecked(final ThrowableBiConsumer<? super T, ? super U, ? extends X> throwableBiConsumer) {
-		if (null == throwableBiConsumer) {
-			throw new NullPointerException("Invalid ThrowableBiConsumer (not null expected)");
-		}
+		Ensure.notNull("throwableBiConsumer", throwableBiConsumer);
 		return (t, u) -> {
 			try {
 				throwableBiConsumer.accept(t, u);
@@ -100,9 +97,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> ThrowableBiConsumer<T, U, X> of(final BiConsumer<? super T, ? super U> biConsumer) {
-		if (null == biConsumer) {
-			throw new NullPointerException("Invalid BiConsumer (not null expected)");
-		}
+		Ensure.notNull("biConsumer", biConsumer);
 		return biConsumer::accept;
 	}
 }

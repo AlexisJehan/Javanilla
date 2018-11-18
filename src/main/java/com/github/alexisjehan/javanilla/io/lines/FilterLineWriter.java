@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.IOException;
 
 /**
@@ -44,9 +46,7 @@ public abstract class FilterLineWriter extends LineWriter {
 	 * @since 1.0.0
 	 */
 	protected FilterLineWriter(final LineWriter lineWriter) {
-		if (null == lineWriter) {
-			throw new NullPointerException("Invalid LineWriter (not null expected)");
-		}
+		Ensure.notNull("lineWriter", lineWriter);
 		this.lineWriter = lineWriter;
 	}
 

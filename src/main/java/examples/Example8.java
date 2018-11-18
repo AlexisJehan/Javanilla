@@ -23,27 +23,16 @@ SOFTWARE.
 */
 package examples;
 
-import com.github.alexisjehan.javanilla.io.lines.LineReader;
-import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
-import com.github.alexisjehan.javanilla.io.lines.LineWriter;
+import com.github.alexisjehan.javanilla.util.Comparators;
 
-import java.io.IOException;
-import java.nio.file.Path;
+public final class Example8 {
 
-public final class Example02 {
+	private Example8() {
+		// Not available
+	}
 
-	public static void main(final String... args) throws IOException {
-		final var unixFilePath = (Path) null;
-		final var windowsFilePath = (Path) null;
-
-		final var ignoreTerminatingNewLine = true;
-		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
-			final var appendTerminatingNewLine = false;
-			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
-				// Transfers all lines from the LineReader to the LineWriter
-				final var transferred = lineReader.transferTo(lineWriter);
-				System.out.println(transferred + " lines transferred");
-			}
-		}
+	public static void main(final String... args) {
+		System.out.println("foo10".compareTo("foo2")); // Prints -1
+		System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
 	}
 }

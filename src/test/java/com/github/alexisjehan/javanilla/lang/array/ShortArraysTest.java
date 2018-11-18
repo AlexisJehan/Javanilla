@@ -90,40 +90,6 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	void testIndexOf() {
-		assertThat(ShortArrays.indexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
-		assertThat(ShortArrays.indexOf(array, (short) 1)).isEqualTo(0);
-		assertThat(ShortArrays.indexOf(array, (short) 2)).isEqualTo(1);
-		assertThat(ShortArrays.indexOf(array, (short) 1, 1)).isEqualTo(2);
-		assertThat(ShortArrays.indexOf(array, (short) 2, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.indexOf(null, (short) 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.indexOf(ShortArrays.singleton((short) 1), (short) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.indexOf(ShortArrays.singleton((short) 1), (short) 1, 1));
-	}
-
-	@Test
-	void testLastIndexOf() {
-		assertThat(ShortArrays.lastIndexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
-		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 1)).isEqualTo(2);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 2)).isEqualTo(1);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 1, 1)).isEqualTo(2);
-		assertThat(ShortArrays.lastIndexOf(array, (short) 2, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testLastIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.lastIndexOf(null, (short) 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.singleton((short) 1), (short) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.singleton((short) 1), (short) 1, 1));
-	}
-
-	@Test
 	void testContainsAny() {
 		assertThat(ShortArrays.containsAny(ShortArrays.EMPTY, (short) 1)).isFalse();
 		assertThat(ShortArrays.containsAny(ShortArrays.singleton((short) 1), (short) 1)).isTrue();
@@ -193,6 +159,53 @@ final class ShortArraysTest {
 	}
 
 	@Test
+	void testIndexOf() {
+		assertThat(ShortArrays.indexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
+		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
+		assertThat(ShortArrays.indexOf(array, (short) 1)).isEqualTo(0);
+		assertThat(ShortArrays.indexOf(array, (short) 2)).isEqualTo(1);
+		assertThat(ShortArrays.indexOf(array, (short) 1, 1)).isEqualTo(2);
+		assertThat(ShortArrays.indexOf(array, (short) 2, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.indexOf(null, (short) 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.indexOf(ShortArrays.singleton((short) 1), (short) 1, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.indexOf(ShortArrays.singleton((short) 1), (short) 1, 1));
+	}
+
+	@Test
+	void testLastIndexOf() {
+		assertThat(ShortArrays.lastIndexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
+		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
+		assertThat(ShortArrays.lastIndexOf(array, (short) 1)).isEqualTo(2);
+		assertThat(ShortArrays.lastIndexOf(array, (short) 2)).isEqualTo(1);
+		assertThat(ShortArrays.lastIndexOf(array, (short) 1, 1)).isEqualTo(2);
+		assertThat(ShortArrays.lastIndexOf(array, (short) 2, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.lastIndexOf(null, (short) 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.singleton((short) 1), (short) 1, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.lastIndexOf(ShortArrays.singleton((short) 1), (short) 1, 1));
+	}
+
+	@Test
+	void testFrequency() {
+		assertThat(ShortArrays.frequency(ShortArrays.EMPTY, (short) 1)).isEqualTo(0);
+		final var array = ShortArrays.of((short) 1, (short) 2, (short) 1);
+		assertThat(ShortArrays.frequency(array, (short) 1)).isEqualTo(2);
+		assertThat(ShortArrays.frequency(array, (short) 2)).isEqualTo(1);
+	}
+
+	@Test
+	void testFrequencyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.frequency(null, (short) 1));
+	}
+
+	@Test
 	void testShuffle() {
 		{
 			final var array = ShortArrays.singleton((short) 1);
@@ -257,10 +270,10 @@ final class ShortArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.singleton((short) 2), (int[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.singleton(0)));
 		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, 0)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(-1, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(2, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, -1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, 2)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.reorder(ShortArrays.of((short) 1, (short) 2), IntArrays.of(0, 2)));
 	}
 
 	@Test
@@ -280,10 +293,10 @@ final class ShortArraysTest {
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.swap(null, 0, 0));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), -1, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 2, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 0, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.swap(ShortArrays.of((short) 1, (short) 2), 0, 2));
 	}
 
 	@Test

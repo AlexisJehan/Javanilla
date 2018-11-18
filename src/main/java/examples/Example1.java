@@ -32,7 +32,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public final class Example01 {
+public final class Example1 {
+
+	private Example1() {
+		// Not available
+	}
 
 	public static void main(final String... args) throws IOException {
 		final var optionalInputStream = (InputStream) null;
@@ -47,11 +51,11 @@ public final class Example01 {
 		// Write to both a buffered file OutputStream and a sampling one
 		final var teeOutputStream = OutputStreams.tee(
 				OutputStreams.buffered(fileOutputStream),
-				new RangeOutputStream(sampleOutputStream, 100L) // Write only the 100 firsts bytes
+				new RangeOutputStream(sampleOutputStream, 0L, 100L) // Write only the 100 firsts bytes
 		);
 		// Wrap the InputStream to be used in a foreach-style loop for a better readability
-		for (final var b : Iterables.wrap(concatInputStream)) {
-			teeOutputStream.write(b);
+		for (final var i : Iterables.wrap(concatInputStream)) {
+			teeOutputStream.write(i);
 		}
 		teeOutputStream.flush();
 	}

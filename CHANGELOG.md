@@ -1,5 +1,95 @@
 # Changelog
 
+## 1.3.0 _(2018-11-18)_
+
+**io.bytes**
+- Removed _UncheckedInputStream_ and _UncheckedOutputStream_ classes
+
+**io.chars**
+- Removed _UncheckedReader_ and _UncheckedWriter_ classes
+
+**io.lines**
+- Removed _UncheckedLineReader_ and _UncheckedLineWriter_ classes
+
+**lang.Strings**
+- Added _containsIgnoreCase()_, _startsWithIgnoreCase()_ and _endsWithIgnoreCase()_ methods
+- Added the _frequency()_ method
+- Renamed the _isHex()_ method to _isHexadecimal()_
+
+**lang.array.BooleanArrays**
+- Added the _frequency()_ method
+
+**lang.array.ByteArrays**
+- Added the _frequency()_ method
+
+**lang.array.CharArrays**
+- Added the _frequency()_ method
+
+**lang.array.DoubleArrays**
+- Added the _frequency()_ method
+
+**lang.array.FloatArrays**
+- Added the _frequency()_ method
+
+**lang.array.IntArrays**
+- Added the _frequency()_ method
+
+**lang.array.LongArrays**
+- Added the _frequency()_ method
+
+**lang.array.ObjectArrays**
+- Added the _frequency()_ method
+
+**lang.array.ShortArrays**
+- Added the _frequency()_ method
+
+**misc.BloomFilter**
+- Renamed the _calculateOptionalNumberOfHashFunctions()_ method to _calculateOptimalNumberOfHashFunctions()_
+
+**misc.StringFormatter**
+- Added the _DEFAULT_ attribute
+- Added the _toString()_ method
+
+**misc.distances.LevenshteinDistance**
+- Added the _DEFAULT_ attribute
+
+**misc.quality**
+- Added _Ensure_, _Equals_, _HashCode_ and _ToString_ classes
+
+**misc.trees.TreeNode**
+- Renamed the _parent()_ method to _optionalParent()_
+
+**misc.tuples.Pair**
+- Removed _toMutableEntry()_ and _toImmutableEntry()_ methods
+
+**util.Comparators**
+- Added the _normalize()_ method
+- Removed _ARRAYS_ attributes
+- Removed _array()_ methods
+
+**util.collection.Lists**
+- Renamed the _getFirst()_ method to _getOptionalFirst()_
+- Renamed the _getLast()_ method to _getOptionalLast()_
+- Added _concat()_ and _join()_ methods
+
+**util.collection.Maps**
+- Renamed the _ofEntriesOrdered()_ method to _ofOrdered()_
+
+**util.collection.Sets**
+- Added _union()_ and _intersect()_ methods
+
+**util.function**
+- Added the _Functions_ class
+
+**util.iteration.Iterables**
+- Renamed the _getFirst()_ method to _getOptionalFirst()_
+- Renamed the _getLast()_ method to _getOptionalLast()_
+
+**util.iteration.Iterables**
+- Renamed the _getFirst()_ method to _getOptionalFirst()_
+- Renamed the _getLast()_ method to _getOptionalLast()_
+
+
 ## 1.2.0 _(2018-09-09)_
 
 **crypto**

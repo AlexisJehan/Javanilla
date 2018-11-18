@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.Function;
 
@@ -57,9 +58,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableFunction<V, R, X> compose(final ThrowableFunction<? super V, ? extends T, ? extends X> before) {
-		if (null == before) {
-			throw new NullPointerException("Invalid before (not null expected)");
-		}
+		Ensure.notNull("before", before);
 		return v -> apply(before.apply(v));
 	}
 
@@ -73,9 +72,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableFunction<T, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
-		if (null == after) {
-			throw new NullPointerException("Invalid after (not null expected)");
-		}
+		Ensure.notNull("after", after);
 		return t -> after.apply(apply(t));
 	}
 
@@ -91,9 +88,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, R, X extends Throwable> Function<T, R> unchecked(final ThrowableFunction<? super T, ? extends R, ? extends X> throwableFunction) {
-		if (null == throwableFunction) {
-			throw new NullPointerException("Invalid ThrowableFunction (not null expected)");
-		}
+		Ensure.notNull("throwableFunction", throwableFunction);
 		return t -> {
 			try {
 				return throwableFunction.apply(t);
@@ -114,9 +109,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, R, X extends Throwable> ThrowableFunction<T, R, X> of(final Function<? super T, ? extends R> function) {
-		if (null == function) {
-			throw new NullPointerException("Invalid Function (not null expected)");
-		}
+		Ensure.notNull("function", function);
 		return function::apply;
 	}
 }

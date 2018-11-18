@@ -23,13 +23,19 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * <p>An utility class that provides {@link OutputStream} tools.</p>
@@ -43,30 +49,20 @@ public final class OutputStreams {
 	 */
 	public static final OutputStream EMPTY = new OutputStream() {
 		@Override
-		public void write(final int b) {
+		public void write(final int i) {
 			// Do nothing
 		}
 
 		@Override
 		public void write(final byte[] bytes) {
-			if (null == bytes) {
-				throw new NullPointerException("Invalid bytes (not null expected)");
-			}
-			// Do nothing
+			Ensure.notNull("bytes", bytes);
 		}
 
 		@Override
 		public void write(final byte[] bytes, final int offset, final int length) {
-			if (null == bytes) {
-				throw new NullPointerException("Invalid bytes (not null expected)");
-			}
-			if (0 > offset || bytes.length < offset) {
-				throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + bytes.length + " expected)");
-			}
-			if (0 > length || bytes.length - offset < length) {
-				throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (bytes.length - offset) + " expected)");
-			}
-			// Do nothing
+			Ensure.notNull("bytes", bytes);
+			Ensure.between("offset", offset, 0, bytes.length);
+			Ensure.between("length", length, 0, bytes.length - offset);
 		}
 	};
 
@@ -98,9 +94,7 @@ public final class OutputStreams {
 	 * @since 1.1.0
 	 */
 	public static <O extends OutputStream> O nullToDefault(final O outputStream, final O defaultOutputStream) {
-		if (null == defaultOutputStream) {
-			throw new NullPointerException("Invalid default OutputStream (not null expected)");
-		}
+		Ensure.notNull("defaultOutputStream", defaultOutputStream);
 		return null != outputStream ? outputStream : defaultOutputStream;
 	}
 
@@ -112,9 +106,7 @@ public final class OutputStreams {
 	 * @since 1.0.0
 	 */
 	public static BufferedOutputStream buffered(final OutputStream outputStream) {
-		if (null == outputStream) {
-			throw new NullPointerException("Invalid OutputStream (not null expected)");
-		}
+		Ensure.notNull("outputStream", outputStream);
 		if (outputStream instanceof BufferedOutputStream) {
 			return (BufferedOutputStream) outputStream;
 		}
@@ -129,9 +121,7 @@ public final class OutputStreams {
 	 * @since 1.0.0
 	 */
 	public static OutputStream uncloseable(final OutputStream outputStream) {
-		if (null == outputStream) {
-			throw new NullPointerException("Invalid OutputStream (not null expected)");
-		}
+		Ensure.notNull("outputStream", outputStream);
 		return new FilterOutputStream(outputStream) {
 			@Override
 			public void close() {
@@ -148,10 +138,8 @@ public final class OutputStreams {
 	 * @since 1.0.0
 	 */
 	public static OutputStream tee(final OutputStream... outputStreams) {
-		if (null == outputStreams) {
-			throw new NullPointerException("Invalid OutputStreams (not null expected)");
-		}
-		return tee(Arrays.asList(outputStreams));
+		Ensure.notNullAndNotNullElements("outputStreams", outputStreams);
+		return tee(Set.of(outputStreams));
 	}
 
 	/**
@@ -162,14 +150,7 @@ public final class OutputStreams {
 	 * @since 1.0.0
 	 */
 	public static OutputStream tee(final Collection<OutputStream> outputStreams) {
-		if (null == outputStreams) {
-			throw new NullPointerException("Invalid OutputStreams (not null expected)");
-		}
-		for (final var indexedOutputStream : Iterables.index(outputStreams)) {
-			if (null == indexedOutputStream.getElement()) {
-				throw new NullPointerException("Invalid OutputStream at index " + indexedOutputStream.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNullAndNotNullElements("outputStreams", outputStreams);
 		final var size = outputStreams.size();
 		if (0 == size) {
 			return EMPTY;
@@ -179,35 +160,31 @@ public final class OutputStreams {
 		}
 		return new OutputStream() {
 			@Override
-			public void write(final int b) throws IOException {
+			public void write(final int i) throws IOException {
 				for (final var outputStream : outputStreams) {
-					outputStream.write(b);
+					outputStream.write(i);
 				}
 			}
 
 			@Override
 			public void write(final byte[] bytes) throws IOException {
-				if (null == bytes) {
-					throw new NullPointerException("Invalid bytes (not null expected)");
-				}
-				for (final var outputStream : outputStreams) {
-					outputStream.write(bytes);
+				Ensure.notNull("bytes", bytes);
+				if (0 < bytes.length) {
+					for (final var outputStream : outputStreams) {
+						outputStream.write(bytes);
+					}
 				}
 			}
 
 			@Override
 			public void write(final byte[] bytes, final int offset, final int length) throws IOException {
-				if (null == bytes) {
-					throw new NullPointerException("Invalid bytes (not null expected)");
-				}
-				if (0 > offset || bytes.length < offset) {
-					throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + bytes.length + " expected)");
-				}
-				if (0 > length || bytes.length - offset < length) {
-					throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (bytes.length - offset) + " expected)");
-				}
-				for (final var outputStream : outputStreams) {
-					outputStream.write(bytes, offset, length);
+				Ensure.notNull("bytes", bytes);
+				Ensure.between("offset", offset, 0, bytes.length);
+				Ensure.between("length", length, 0, bytes.length - offset);
+				if (0 < length) {
+					for (final var outputStream : outputStreams) {
+						outputStream.write(bytes, offset, length);
+					}
 				}
 			}
 
@@ -247,12 +224,8 @@ public final class OutputStreams {
 	 * @since 1.0.0
 	 */
 	public static Writer toWriter(final OutputStream outputStream, final Charset charset) {
-		if (null == outputStream) {
-			throw new NullPointerException("Invalid OutputStream (not null expected)");
-		}
-		if (null == charset) {
-			throw new NullPointerException("Invalid Charset (not null expected)");
-		}
+		Ensure.notNull("outputStream", outputStream);
+		Ensure.notNull("charset", charset);
 		return new OutputStreamWriter(buffered(outputStream), charset);
 	}
 
@@ -261,14 +234,12 @@ public final class OutputStreams {
 	 * <p><b>Warning</b>: If the file of the {@code Path} already exists its content is erased.</p>
 	 * @param path the {@code Path} to convert
 	 * @return the created {@code BufferedOutputStream}
-	 * @throws FileNotFoundException if the file of the {@code Path} is not writable
+	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Path} is {@code null}
 	 * @since 1.2.0
 	 */
-	public static BufferedOutputStream of(final Path path) throws FileNotFoundException {
-		if (null == path) {
-			throw new NullPointerException("Invalid Path (not null expected)");
-		}
-		return new BufferedOutputStream(new FileOutputStream(path.toFile()));
+	public static BufferedOutputStream of(final Path path) throws IOException {
+		Ensure.notNull("path", path);
+		return new BufferedOutputStream(Files.newOutputStream(path));
 	}
 }

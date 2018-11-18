@@ -46,10 +46,10 @@ final class ThrowableBiFunctionTest {
 			return t + Math.round(u);
 		};
 		assertThat(throwableBiFunction.andThen(t -> {
-			list.add(Pair.of(t + 1, 0f));
+			list.add(Pair.of(t + 1, 0.0f));
 			return t;
 		}).apply(1, 2.3f)).isEqualTo(3);
-		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(4, 0f));
+		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(4, 0.0f));
 
 		list.clear();
 		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {

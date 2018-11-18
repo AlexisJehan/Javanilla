@@ -23,51 +23,67 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
-import java.io.*;
-import java.nio.file.Files;
+import java.io.BufferedWriter;
+import java.io.CharArrayWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIOException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link Writers} unit tests.</p>
  */
 final class WritersTest {
 
+	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
+	private static final String STRING = "abc";
+
 	@Test
 	void testEmpty() throws IOException {
-		final var chars = CharArrays.of('a', 'b', 'c');
-		final var string = "abc";
 		try (final var emptyWriter = Writers.EMPTY) {
 			emptyWriter.write('a');
-			emptyWriter.write(chars);
+			emptyWriter.write(CharArrays.EMPTY);
+			emptyWriter.write(CHARS);
 			assertThatNullPointerException().isThrownBy(() -> emptyWriter.write((char[]) null));
-			emptyWriter.write(chars, 0, 1);
+			emptyWriter.write(CHARS, 0, 0);
+			emptyWriter.write(CHARS, 0, 1);
 			assertThatNullPointerException().isThrownBy(() -> emptyWriter.write((char[]) null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(chars, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(chars, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(chars, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(chars, 0, 4));
-			emptyWriter.write(string);
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(CHARS, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(CHARS, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(CHARS, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(CHARS, 0, 4));
+			emptyWriter.write(Strings.EMPTY);
+			emptyWriter.write(STRING);
 			assertThatNullPointerException().isThrownBy(() -> emptyWriter.write((String) null));
-			emptyWriter.write(string, 0, 1);
+			emptyWriter.write(STRING, 0, 0);
+			emptyWriter.write(STRING, 0, 1);
 			assertThatNullPointerException().isThrownBy(() -> emptyWriter.write((String) null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(string, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(string, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(string, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.write(string, 0, 4));
-			assertThat(emptyWriter.append(string)).isSameAs(emptyWriter);
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(STRING, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(STRING, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(STRING, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.write(STRING, 0, 4));
+			assertThat(emptyWriter.append(Strings.EMPTY)).isSameAs(emptyWriter);
+			assertThat(emptyWriter.append(STRING)).isSameAs(emptyWriter);
 			assertThatNullPointerException().isThrownBy(() -> emptyWriter.append(null));
-			assertThat(emptyWriter.append(string, 0, 1)).isSameAs(emptyWriter);
+			assertThat(emptyWriter.append(STRING, 0, 0)).isSameAs(emptyWriter);
+			assertThat(emptyWriter.append(STRING, 0, 1)).isSameAs(emptyWriter);
 			assertThatNullPointerException().isThrownBy(() -> emptyWriter.append(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.append(string, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.append(string, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.append(string, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyWriter.append(string, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.append(STRING, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.append(STRING, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.append(STRING, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyWriter.append(STRING, 0, 4));
 			assertThat(emptyWriter.append('a')).isSameAs(emptyWriter);
 			emptyWriter.flush();
 		}
@@ -132,9 +148,7 @@ final class WritersTest {
 			}
 		};
 		assertThatIOException().isThrownBy(writer::close);
-		{
-			Writers.uncloseable(writer).close();
-		}
+		Writers.uncloseable(writer).close();
 	}
 
 	@Test
@@ -146,36 +160,40 @@ final class WritersTest {
 	void testTee() throws IOException {
 		assertThat(Writers.tee()).isSameAs(Writers.EMPTY);
 		assertThat(Writers.tee(Writers.EMPTY)).isSameAs(Writers.EMPTY);
-		final var chars = CharArrays.of('a', 'b', 'c');
-		final var string = "abc";
 		try (final var fooWriter = new CharArrayWriter()) {
 			try (final var barWriter = new CharArrayWriter()) {
 				try (final var teeWriter = Writers.tee(fooWriter, barWriter)) {
 					teeWriter.write('a');
-					teeWriter.write(chars);
+					teeWriter.write(CharArrays.EMPTY);
+					teeWriter.write(CHARS);
 					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((char[]) null));
-					teeWriter.write(chars, 0, 1);
+					teeWriter.write(CHARS, 0, 0);
+					teeWriter.write(CHARS, 0, 1);
 					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((char[]) null, 0, 2));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(chars, -1, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(chars, 4, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(chars, 0, -1));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(chars, 0, 4));
-					teeWriter.write("abc");
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, 0, 4));
+					teeWriter.write(Strings.EMPTY);
+					teeWriter.write(STRING);
 					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((String) null));
-					teeWriter.write("abc", 0, 1);
+					teeWriter.write(STRING, 0, 0);
+					teeWriter.write(STRING, 0, 1);
 					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((String) null, 0, 2));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(string, -1, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(string, 4, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(string, 0, -1));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.write(string, 0, 4));
-					assertThat(teeWriter.append("abc")).isSameAs(teeWriter);
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(STRING, -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(STRING, 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(STRING, 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(STRING, 0, 4));
+					assertThat(teeWriter.append(Strings.EMPTY)).isSameAs(teeWriter);
+					assertThat(teeWriter.append(STRING)).isSameAs(teeWriter);
 					assertThatNullPointerException().isThrownBy(() -> teeWriter.append(null));
-					assertThat(teeWriter.append("abc", 0, 1)).isSameAs(teeWriter);
+					assertThat(teeWriter.append(STRING, 0, 0)).isSameAs(teeWriter);
+					assertThat(teeWriter.append(STRING, 0, 1)).isSameAs(teeWriter);
 					assertThatNullPointerException().isThrownBy(() -> teeWriter.append(null, 0, 2));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.append(string, -1, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.append(string, 4, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.append(string, 0, -1));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeWriter.append(string, 0, 4));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(STRING, -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(STRING, 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(STRING, 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(STRING, 0, 4));
 					assertThat(teeWriter.append('a')).isSameAs(teeWriter);
 					teeWriter.flush();
 				}
@@ -193,13 +211,13 @@ final class WritersTest {
 	}
 
 	@Test
-	void testOf() throws IOException {
-		final var path = File.createTempFile(getClass().getName() + ".testOf_", ".txt").toPath();
+	@ExtendWith(TempDirectory.class)
+	void testOf(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testOf");
 		try (final var pathWriter = Writers.of(path)) {
-			pathWriter.write(CharArrays.of('a', 'b', 'c'));
+			pathWriter.write(CHARS);
 		}
-		assertThat(path).hasContent("abc");
-		Files.delete(path);
+		assertThat(path).hasContent(STRING);
 	}
 
 	@Test

@@ -57,10 +57,13 @@ public final class CountLineReader extends FilterLineReader {
 	}
 
 	@Override
-	public long skip(final long n) throws IOException {
-		final var s = super.skip(n);
-		count += s;
-		return s;
+	public long skip(final long number) throws IOException {
+		if (0L >= number) {
+			return 0L;
+		}
+		final var actual = super.skip(number);
+		count += actual;
+		return actual;
 	}
 
 	/**

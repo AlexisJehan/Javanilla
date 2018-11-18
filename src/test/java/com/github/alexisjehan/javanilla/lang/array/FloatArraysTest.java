@@ -90,40 +90,6 @@ final class FloatArraysTest {
 	}
 
 	@Test
-	void testIndexOf() {
-		assertThat(FloatArrays.indexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
-		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
-		assertThat(FloatArrays.indexOf(array, 1.0f)).isEqualTo(0);
-		assertThat(FloatArrays.indexOf(array, 2.0f)).isEqualTo(1);
-		assertThat(FloatArrays.indexOf(array, 1.0f, 1)).isEqualTo(2);
-		assertThat(FloatArrays.indexOf(array, 2.0f, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.indexOf(null, 1.0f));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.indexOf(FloatArrays.singleton(1.0f), 1.0f, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.indexOf(FloatArrays.singleton(1.0f), 1.0f, 1));
-	}
-
-	@Test
-	void testLastIndexOf() {
-		assertThat(FloatArrays.lastIndexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
-		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
-		assertThat(FloatArrays.lastIndexOf(array, 1.0f)).isEqualTo(2);
-		assertThat(FloatArrays.lastIndexOf(array, 2.0f)).isEqualTo(1);
-		assertThat(FloatArrays.lastIndexOf(array, 1.0f, 1)).isEqualTo(2);
-		assertThat(FloatArrays.lastIndexOf(array, 2.0f, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testLastIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.lastIndexOf(null, 1.0f));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.singleton(1.0f), 1.0f, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.singleton(1.0f), 1.0f, 1));
-	}
-
-	@Test
 	void testContainsAny() {
 		assertThat(FloatArrays.containsAny(FloatArrays.EMPTY, 1.0f)).isFalse();
 		assertThat(FloatArrays.containsAny(FloatArrays.singleton(1.0f), 1.0f)).isTrue();
@@ -193,6 +159,53 @@ final class FloatArraysTest {
 	}
 
 	@Test
+	void testIndexOf() {
+		assertThat(FloatArrays.indexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
+		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
+		assertThat(FloatArrays.indexOf(array, 1.0f)).isEqualTo(0);
+		assertThat(FloatArrays.indexOf(array, 2.0f)).isEqualTo(1);
+		assertThat(FloatArrays.indexOf(array, 1.0f, 1)).isEqualTo(2);
+		assertThat(FloatArrays.indexOf(array, 2.0f, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.indexOf(null, 1.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.indexOf(FloatArrays.singleton(1.0f), 1.0f, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.indexOf(FloatArrays.singleton(1.0f), 1.0f, 1));
+	}
+
+	@Test
+	void testLastIndexOf() {
+		assertThat(FloatArrays.lastIndexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
+		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
+		assertThat(FloatArrays.lastIndexOf(array, 1.0f)).isEqualTo(2);
+		assertThat(FloatArrays.lastIndexOf(array, 2.0f)).isEqualTo(1);
+		assertThat(FloatArrays.lastIndexOf(array, 1.0f, 1)).isEqualTo(2);
+		assertThat(FloatArrays.lastIndexOf(array, 2.0f, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.lastIndexOf(null, 1.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.singleton(1.0f), 1.0f, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.singleton(1.0f), 1.0f, 1));
+	}
+
+	@Test
+	void testFrequency() {
+		assertThat(FloatArrays.frequency(FloatArrays.EMPTY, 1.0f)).isEqualTo(0);
+		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
+		assertThat(FloatArrays.frequency(array, 1.0f)).isEqualTo(2);
+		assertThat(FloatArrays.frequency(array, 2.0f)).isEqualTo(1);
+	}
+
+	@Test
+	void testFrequencyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.frequency(null, 1.0f));
+	}
+
+	@Test
 	void testShuffle() {
 		{
 			final var array = FloatArrays.singleton(1.0f);
@@ -257,10 +270,10 @@ final class FloatArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.singleton(1.0f), (int[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.singleton(0)));
 		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, 0)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(-1, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(2, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, -1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, 2)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, 2)));
 	}
 
 	@Test
@@ -280,10 +293,10 @@ final class FloatArraysTest {
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.swap(null, 0, 0));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), -1, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 2, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 0, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 0, 2));
 	}
 
 	@Test

@@ -23,9 +23,15 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * <p>An utility class that provides {@link Bag} tools.</p>
@@ -131,7 +137,10 @@ public final class Bags {
 
 		@Override
 		public int hashCode() {
-			return Objects.hash(element, quantity);
+			return HashCode.of(
+					HashCode.hashCode(element),
+					HashCode.hashCode(quantity)
+			);
 		}
 
 		@Override
@@ -251,27 +260,24 @@ public final class Bags {
 	 * <p>Wrap a {@code Bag} replacing {@code null} by a default one.</p>
 	 * @param bag the {@code Bag} or {@code null}
 	 * @param defaultBag the default {@code Bag}
-	 * @param <E> the element type
 	 * @param <B> the {@code Bag} type
 	 * @return a non-{@code null} {@code Bag}
 	 * @throws NullPointerException if the default {@code Bag} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <E, B extends Bag<? extends E>> B nullToDefault(final B bag, final B defaultBag) {
-		if (null == defaultBag) {
-			throw new NullPointerException("Invalid default Bag (not null expected)");
-		}
+	public static <B extends Bag> B nullToDefault(final B bag, final B defaultBag) {
+		Ensure.notNull("defaultBag", defaultBag);
 		return null != bag ? bag : defaultBag;
 	}
 
 	/**
 	 * <p>Wrap a {@code Bag} replacing an empty one by {@code null}.</p>
 	 * @param bag the {@code Bag} or {@code null}
-	 * @param <E> the element type
+	 * @param <B> the {@code Bag} type
 	 * @return a non-empty {@code Bag} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <E> Bag<E> emptyToNull(final Bag<E> bag) {
+	public static <B extends Bag> B emptyToNull(final B bag) {
 		return emptyToDefault(bag, null);
 	}
 
@@ -279,15 +285,14 @@ public final class Bags {
 	 * <p>Wrap a {@code Bag} replacing an empty one by a default {@code Bag}.</p>
 	 * @param bag the {@code Bag} or {@code null}
 	 * @param defaultBag the default {@code Bag} or {@code null}
-	 * @param <E> the element type
 	 * @param <B> the {@code Bag} type
 	 * @return a non-empty {@code Bag} or {@code null}
 	 * @throws IllegalArgumentException if the default {@code Bag} is empty
 	 * @since 1.1.0
 	 */
-	public static <E, B extends Bag<? extends E>> B emptyToDefault(final B bag, final B defaultBag) {
-		if (null != defaultBag && defaultBag.isEmpty()) {
-			throw new IllegalArgumentException("Invalid default Bag (not empty expected)");
+	public static <B extends Bag> B emptyToDefault(final B bag, final B defaultBag) {
+		if (null != defaultBag) {
+			Ensure.notNullAndNotEmpty("defaultBag", defaultBag);
 		}
 		return null == bag || !bag.isEmpty() ? bag : defaultBag;
 	}
@@ -301,9 +306,7 @@ public final class Bags {
 	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> unmodifiable(final Bag<E> bag) {
-		if (null == bag) {
-			throw new NullPointerException("Invalid Bag (not null expected)");
-		}
+		Ensure.notNull("bag", bag);
 		return new FilterBag<>(bag) {
 			@Override
 			public void add(final E element, final long quantity) {
@@ -343,9 +346,7 @@ public final class Bags {
 	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> singleton(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		if (0 == quantity) {
 			return empty();
 		}
@@ -362,9 +363,7 @@ public final class Bags {
 	 */
 	@SafeVarargs
 	public static <E> Bag<E> of(final E... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return empty();
 		}

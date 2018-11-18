@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -53,34 +55,18 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with an {@code Iterator} to decorate and a range from {@code 0} to an inclusive index.</p>
-	 * @param iterator the {@code Iterator} to decorate
-	 * @param toIndex the inclusive index of the last element to iterate
-	 * @throws NullPointerException if the {@code Iterator} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
-	 * @since 1.0.0
-	 */
-	public RangeIterator(final Iterator<? extends E> iterator, final long toIndex) {
-		this(iterator, 0L, toIndex);
-	}
-
-	/**
 	 * <p>Constructor with an {@code Iterator} to decorate and a range from an inclusive index to another one.</p>
 	 * @param iterator the {@code Iterator} to decorate
 	 * @param fromIndex the inclusive index of the first element to iterate
 	 * @param toIndex the inclusive index of the last element to iterate
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
-	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
+	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeIterator(final Iterator<? extends E> iterator, final long fromIndex, final long toIndex) {
 		super(iterator);
-		if (0L > fromIndex) {
-			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
-		}
-		if (fromIndex > toIndex) {
-			throw new IndexOutOfBoundsException("Invalid to index: " + toIndex + " (greater than or equal to the from index expected)");
-		}
+		Ensure.greaterThanOrEqualTo("fromIndex", fromIndex, 0L);
+		Ensure.greaterThanOrEqualTo("toIndex", toIndex, fromIndex);
 		this.fromIndex = fromIndex;
 		this.toIndex = toIndex;
 	}

@@ -23,24 +23,22 @@ SOFTWARE.
 */
 package examples;
 
-import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.distances.Distances;
+import com.github.alexisjehan.javanilla.misc.distances.EditDistances;
+import com.github.alexisjehan.javanilla.misc.distances.LevenshteinDistance;
+import com.github.alexisjehan.javanilla.misc.distances.MinkowskiDistance;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+public final class Example7 {
 
-public final class Example04 {
+	private Example7() {
+		// Not available
+	}
 
 	public static void main(final String... args) {
-		// Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
-		Throwables.uncheck(() -> Thread.sleep(5_000L));
-
-		// Handle checked Exceptions in lambda converting them automatically to unchecked ones
-		try {
-			Throwables.uncheck(() -> {
-				throw new IOException("A checked Exception inside a lambda");
-			});
-		} catch (final UncheckedIOException e) {
-			System.out.println(Throwables.getRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
-		}
+		System.out.println(Distances.MANHATTAN.calculate(0.0d, 0.0d, 1.0d, 1.0d)); // Prints 2
+		final var order = 1;
+		System.out.println(new MinkowskiDistance(order).calculate(0.0d, 1.0d, 2.0d, 3.0d)); // Prints 4
+		System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
+		System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
 	}
 }

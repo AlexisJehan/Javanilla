@@ -23,28 +23,28 @@ SOFTWARE.
 */
 package examples;
 
-import com.github.alexisjehan.javanilla.lang.array.*;
+import com.github.alexisjehan.javanilla.lang.Throwables;
 
-import java.nio.ByteOrder;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 
-public final class Example05 {
+public final class Example4 {
+
+	private Example4() {
+		// Not available
+	}
 
 	public static void main(final String... args) {
-		IntArrays.of(1, 2, 3); // Similar to new int[] {1, 2, 3};
-		ObjectArrays.of("foo", "bar"); // Similar to new String[] {"foo", "bar"};
-		LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)); // 1, 2, 3, 4, 5, 6
-		final var separator = CharArrays.of(' ');
-		CharArrays.join(separator, CharArrays.of('f', 'o', 'o'), CharArrays.of('b', 'a', 'r')); // 'f', 'o', 'o', ' ', 'b', 'a', 'r'
-		FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
-		FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True
-		DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2.0d); // 1
-		ByteArrays.toHexString(
-				ByteArrays.concat(
-						ByteArrays.of((byte) 0x00, (byte) 0xff),
-						ByteArrays.ofDouble(3.14d, ByteOrder.BIG_ENDIAN),
-						ByteArrays.ofHexString("0xff"),
-						"foo".getBytes()
-				)
-		); // 00ff40091eb851eb851fff666f6f
+		// Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
+		Throwables.uncheck(() -> Thread.sleep(5_000L));
+
+		// Handle checked Exceptions in lambda converting them automatically to unchecked ones
+		try {
+			Throwables.uncheck(() -> {
+				throw new IOException("A checked Exception inside a lambda");
+			});
+		} catch (final UncheckedIOException e) {
+			System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
+		}
 	}
 }

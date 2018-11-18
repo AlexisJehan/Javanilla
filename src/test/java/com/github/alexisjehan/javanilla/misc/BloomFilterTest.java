@@ -165,30 +165,30 @@ final class BloomFilterTest {
 	}
 
 	@Test
-	void testCalculateOptionalLength() {
-		assertThat(BloomFilter.calculateOptionalLength(0, 1.0d)).isEqualTo(0.0d);
-		assertThat(BloomFilter.calculateOptionalLength(1, 1.0d)).isEqualTo(0.0d);
-		assertThat(BloomFilter.calculateOptionalLength(100, 0.0d)).isEqualTo(Double.POSITIVE_INFINITY);
-		assertThat(BloomFilter.calculateOptionalLength(100, 0.5d)).isBetween(0.0d, Double.POSITIVE_INFINITY);
-		assertThat(BloomFilter.calculateOptionalLength(100, 1.0d)).isEqualTo(0.0d);
+	void testCalculateOptimalLength() {
+		assertThat(BloomFilter.calculateOptimalLength(0, 1.0d)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateOptimalLength(1, 1.0d)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateOptimalLength(100, 0.0d)).isEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(BloomFilter.calculateOptimalLength(100, 0.5d)).isBetween(0.0d, Double.POSITIVE_INFINITY);
+		assertThat(BloomFilter.calculateOptimalLength(100, 1.0d)).isEqualTo(0.0d);
 	}
 
 	@Test
-	void testCalculateOptionalLengthInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptionalLength(-1, 0.5d));
-		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptionalLength(100, -0.1d));
-		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptionalLength(100, 1.1d));
+	void testCalculateOptimalLengthInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptimalLength(-1, 0.5d));
+		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptimalLength(100, -0.1d));
+		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptimalLength(100, 1.1d));
 	}
 
 	@Test
-	void testCalculateOptionalNumberOfHashFunctions() {
-		assertThat(BloomFilter.calculateOptionalNumberOfHashFunctions(10, 0)).isEqualTo(0.0d);
-		assertThat(BloomFilter.calculateOptionalNumberOfHashFunctions(10, 1)).isGreaterThan(0.0d);
+	void testCalculateOptimalNumberOfHashFunctions() {
+		assertThat(BloomFilter.calculateOptimalNumberOfHashFunctions(10, 0)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateOptimalNumberOfHashFunctions(10, 1)).isGreaterThan(0.0d);
 	}
 
 	@Test
-	void testCalculateOptionalNumberOfHashFunctionsInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptionalNumberOfHashFunctions(0, 100));
-		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptionalNumberOfHashFunctions(10, -1));
+	void testCalculateOptimalNumberOfHashFunctionsInvalid() {
+		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptimalNumberOfHashFunctions(0, 100));
+		assertThatIllegalArgumentException().isThrownBy(() -> BloomFilter.calculateOptimalNumberOfHashFunctions(10, -1));
 	}
 }

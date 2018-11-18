@@ -24,27 +24,26 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.misc;
 
 import com.github.alexisjehan.javanilla.lang.Strings;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+import com.github.alexisjehan.javanilla.misc.quality.ToString;
+import com.github.alexisjehan.javanilla.misc.tuples.Pair;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * <p>An immutable formatter to pretty display values of several types as {@code String}s.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @since 1.0.0
  */
 public final class StringFormatter implements Serializable {
-
-	/**
-	 * <p>Serial version unique ID.</p>
-	 * @since 1.0.0
-	 */
-	private static final long serialVersionUID = 2030734148661946724L;
 
 	/**
 	 * <p>Byte representation prefixes.</p>
@@ -82,6 +81,12 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
+	 * <p>Serial version unique ID.</p>
+	 * @since 1.0.0
+	 */
+	private static final long serialVersionUID = 2030734148661946724L;
+
+	/**
 	 * <p>Units suffixes.</p>
 	 * @since 1.0.0
 	 */
@@ -104,6 +109,12 @@ public final class StringFormatter implements Serializable {
 	 * @since 1.0.0
 	 */
 	static final boolean DEFAULT_STRICT_PRECISION = false;
+
+	/**
+	 * <p>{@code StringFormatter} instance with default parameters.</p>
+	 * @since 1.3.0
+	 */
+	public static final StringFormatter DEFAULT = new StringFormatter(Locale.getDefault());
 
 	/**
 	 * <p>{@code Locale} instance.</p>
@@ -154,14 +165,6 @@ public final class StringFormatter implements Serializable {
 	private final String localeDelimiter;
 
 	/**
-	 * <p>Default constructor using default parameters.</p>
-	 * @since 1.0.0
-	 */
-	public StringFormatter() {
-		this(Locale.getDefault());
-	}
-
-	/**
 	 * <p>Constructor with a custom {@code Locale} and the default float precision.</p>
 	 * @param locale the custom {@code Locale}
 	 * @throws NullPointerException if the {@code Locale} is {@code null}
@@ -193,12 +196,8 @@ public final class StringFormatter implements Serializable {
 	 * @since 1.0.0
 	 */
 	public StringFormatter(final Locale locale, final int floatPrecision, final boolean strictPrecision) {
-		if (null == locale) {
-			throw new NullPointerException("Invalid Locale (not null expected)");
-		}
-		if (0 > floatPrecision) {
-			throw new IllegalArgumentException("Invalid float precision: " + floatPrecision + " (greater than or equal to 0 expected)");
-		}
+		Ensure.notNull("locale", locale);
+		Ensure.greaterThanOrEqualTo("floatPrecision", floatPrecision, 0);
 		this.locale = locale;
 		this.floatPrecision = floatPrecision;
 		this.strictPrecision = strictPrecision;
@@ -265,9 +264,7 @@ public final class StringFormatter implements Serializable {
 	 * @since 1.0.0
 	 */
 	public String formatPercent(final double progression, final double total) {
-		if (0 > progression || total < progression) {
-			throw new IllegalArgumentException("Invalid progression: " + progression + " (between 0 and " + total + " expected)");
-		}
+		Ensure.between("progression", progression, 0.0d, total);
 		return percentFormatter.format(progression / total);
 	}
 
@@ -294,9 +291,7 @@ public final class StringFormatter implements Serializable {
 	 * @since 1.0.0
 	 */
 	public String formatBytes(final long value, final BytePrefix bytePrefix) {
-		if (null == bytePrefix) {
-			throw new NullPointerException("Invalid BytePrefix (not null expected)");
-		}
+		Ensure.notNull("bytePrefix", bytePrefix);
 		if (bytePrefix.base > Math.abs(value)) {
 			return format((double) value) + localeDelimiter + "B";
 		}
@@ -316,14 +311,28 @@ public final class StringFormatter implements Serializable {
 			return false;
 		}
 		final var other = (StringFormatter) object;
-		return Objects.equals(locale, other.locale)
-				&& Objects.equals(floatPrecision, other.floatPrecision)
-				&& Objects.equals(strictPrecision, other.strictPrecision);
+		return Equals.equals(locale, other.locale)
+				&& Equals.equals(floatPrecision, other.floatPrecision)
+				&& Equals.equals(strictPrecision, other.strictPrecision);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(locale, floatPrecision, strictPrecision);
+		return HashCode.of(
+				HashCode.hashCode(locale),
+				HashCode.hashCode(floatPrecision),
+				HashCode.hashCode(strictPrecision)
+		);
+	}
+
+	@Override
+	public String toString() {
+		return ToString.of(
+				this,
+				Pair.of("locale", ToString.toString(locale)),
+				Pair.of("floatPrecision", ToString.toString(floatPrecision)),
+				Pair.of("strictPrecision", ToString.toString(strictPrecision))
+		);
 	}
 
 	/**

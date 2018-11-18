@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.IOException;
 
 /**
@@ -50,34 +52,18 @@ public final class RangeLineWriter extends FilterLineWriter {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a {@code LineWriter} to decorate and a range from {@code 0} to an inclusive index.</p>
-	 * @param lineWriter the {@code LineWriter} to decorate
-	 * @param toIndex the inclusive index of the last line to write
-	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
-	 * @since 1.0.0
-	 */
-	public RangeLineWriter(final LineWriter lineWriter, final long toIndex) {
-		this(lineWriter, 0L, toIndex);
-	}
-
-	/**
 	 * <p>Constructor with a {@code LineWriter} to decorate and a range from an inclusive index to another one.</p>
 	 * @param lineWriter the {@code LineWriter} to decorate
 	 * @param fromIndex the inclusive index of the first line to write
 	 * @param toIndex the inclusive index of the last line to write
 	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
-	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
+	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeLineWriter(final LineWriter lineWriter, final long fromIndex, final long toIndex) {
 		super(lineWriter);
-		if (0L > fromIndex) {
-			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
-		}
-		if (fromIndex > toIndex) {
-			throw new IndexOutOfBoundsException("Invalid to index: " + toIndex + " (greater than or equal to the from index expected)");
-		}
+		Ensure.greaterThanOrEqualTo("fromIndex", fromIndex, 0L);
+		Ensure.greaterThanOrEqualTo("toIndex", toIndex, fromIndex);
 		this.fromIndex = fromIndex;
 		this.toIndex = toIndex;
 	}

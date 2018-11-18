@@ -25,12 +25,20 @@ package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link LineReader} unit tests.</p>
@@ -38,8 +46,9 @@ import static org.assertj.core.api.Assertions.*;
 final class LineReaderTest {
 
 	@Test
-	void testConstructor() throws IOException {
-		final var path = File.createTempFile(getClass().getName() + ".testConstructor_", ".txt").toPath();
+	@ExtendWith(TempDirectory.class)
+	void testConstructor(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testConstructor");
 		Files.write(path, "abc\ndef".getBytes());
 		try (final var lineReader = new LineReader(path)) {
 			assertThat(lineReader.read()).isEqualTo("abc");
@@ -52,7 +61,6 @@ final class LineReaderTest {
 			assertThat(lineReader.read()).isEqualTo("def");
 			assertThat(lineReader.read()).isNull();
 		}
-		Files.delete(path);
 	}
 
 	@Test

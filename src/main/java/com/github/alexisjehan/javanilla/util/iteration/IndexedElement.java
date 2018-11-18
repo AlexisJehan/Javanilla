@@ -23,8 +23,12 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+import com.github.alexisjehan.javanilla.misc.quality.ToString;
+import com.github.alexisjehan.javanilla.misc.tuples.Pair;
+
 import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * <p>An element from an {@code Iterator} returned by {@link Iterables#index(Iterable)} or
@@ -68,18 +72,25 @@ public final class IndexedElement<E> {
 			return false;
 		}
 		final var other = (IndexedElement) object;
-		return Objects.equals(index, other.index)
-				&& Objects.equals(element, other.element);
+		return Equals.equals(index, other.index)
+				&& Equals.equals(element, other.element);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(index, element);
+		return HashCode.of(
+				HashCode.hashCode(index),
+				HashCode.hashCode(element)
+		);
 	}
 
 	@Override
 	public String toString() {
-		return index + ":" + element;
+		return ToString.of(
+				this,
+				Pair.of("index", ToString.toString(index)),
+				Pair.of("element", ToString.toString(element))
+		);
 	}
 
 	/**

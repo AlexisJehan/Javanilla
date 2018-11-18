@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.BiFunction;
 
@@ -59,9 +60,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableBiFunction<T, U, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
-		if (null == after) {
-			throw new NullPointerException("Invalid after (not null expected)");
-		}
+		Ensure.notNull("after", after);
 		return (t, u) -> after.apply(apply(t, u));
 	}
 
@@ -78,9 +77,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, U, R, X extends Throwable> BiFunction<T, U, R> unchecked(final ThrowableBiFunction<? super T, ? super U, ? extends R, ? extends X> throwableBiFunction) {
-		if (null == throwableBiFunction) {
-			throw new NullPointerException("Invalid ThrowableBiFunction (not null expected)");
-		}
+		Ensure.notNull("throwableBiFunction", throwableBiFunction);
 		return (t, u) -> {
 			try {
 				return throwableBiFunction.apply(t, u);
@@ -102,9 +99,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, U, R, X extends Throwable> ThrowableBiFunction<T, U, R, X> of(final BiFunction<? super T, ? super U, ? extends R> biFunction) {
-		if (null == biFunction) {
-			throw new NullPointerException("Invalid BiFunction (not null expected)");
-		}
+		Ensure.notNull("biFunction", biFunction);
 		return biFunction::apply;
 	}
 }

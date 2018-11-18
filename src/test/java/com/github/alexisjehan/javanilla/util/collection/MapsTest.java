@@ -70,24 +70,10 @@ final class MapsTest {
 	}
 
 	@Test
-	void testEmptyToNullMap() {
+	void testEmptyToNull() {
 		assertThat(Maps.emptyToNull((Map<String, Integer>) null)).isNull();
 		assertThat(Maps.emptyToNull(Collections.emptyMap())).isNull();
 		assertThat(Maps.emptyToNull(Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
-	}
-
-	@Test
-	void testEmptyToNullSortedMap() {
-		assertThat(Maps.emptyToNull((SortedMap<String, Integer>) null)).isNull();
-		assertThat(Maps.emptyToNull(Collections.emptySortedMap())).isNull();
-		assertThat(Maps.emptyToNull((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
-	}
-
-	@Test
-	void testEmptyToNullNavigableMap() {
-		assertThat(Maps.emptyToNull(null)).isNull();
-		assertThat(Maps.emptyToNull(Collections.emptyNavigableMap())).isNull();
-		assertThat(Maps.emptyToNull(new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
@@ -117,14 +103,14 @@ final class MapsTest {
 	}
 
 	@Test
-	void testOfEntriesOrdered() {
-		assertThat(Maps.ofEntriesOrdered()).isEmpty();
-		assertThat(Maps.ofEntriesOrdered(Map.entry("foo", 1))).containsExactly(Map.entry("foo", 1));
-		assertThat(Maps.ofEntriesOrdered(Map.entry("foo", 1), Map.entry("bar", 2))).containsExactly(Map.entry("foo", 1), Map.entry("bar", 2));
+	void testOfOrdered() {
+		assertThat(Maps.ofOrdered()).isEmpty();
+		assertThat(Maps.ofOrdered(Map.entry("foo", 1))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.ofOrdered(Map.entry("foo", 1), Map.entry("bar", 2))).containsExactly(Map.entry("foo", 1), Map.entry("bar", 2));
 	}
 
 	@Test
-	void testOfEntriesOrderedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Maps.ofEntriesOrdered((Map.Entry<String, Integer>[]) null));
+	void testOfOrderedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Maps.ofOrdered((Map.Entry<String, Integer>[]) null));
 	}
 }

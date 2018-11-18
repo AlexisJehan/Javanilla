@@ -25,7 +25,11 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.Supplier;
 
@@ -48,7 +52,7 @@ final class MapBagTest extends AbstractBagTest {
 		adder1.add(10);
 		final var adder2 = new LongAdder();
 		adder2.add(-10);
-		final var bag = new MapBag<>(() -> new HashMap<>(Map.of("foo", adder1, "bar", adder2)));
+		final var bag = new MapBag<>(() -> new HashMap<>(Map.ofEntries(Map.entry("foo", adder1), Map.entry("bar", adder2))));
 		assertThat(bag.count("foo")).isEqualTo(10);
 		assertThat(bag.count("bar")).isEqualTo(0);
 	}
@@ -58,7 +62,7 @@ final class MapBagTest extends AbstractBagTest {
 		final var bag = new MapBag<>(List.of("foo", "foo", "bar"));
 		assertThat(bag.count("foo")).isEqualTo(2);
 		assertThat(bag.count("bar")).isEqualTo(1);
-		assertThat(new MapBag<>(Collections.emptySet()).isEmpty()).isTrue();
+		assertThat(new MapBag<>(Set.of()).isEmpty()).isTrue();
 	}
 
 	@Test

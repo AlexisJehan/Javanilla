@@ -23,22 +23,20 @@ SOFTWARE.
 */
 package examples;
 
-import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
-import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
-import com.github.alexisjehan.javanilla.util.Comparators;
+import com.github.alexisjehan.javanilla.util.collection.bags.MapBag;
 
-public final class Example08 {
+public final class Example9 {
+
+	private Example9() {
+		// Not available
+	}
 
 	public static void main(final String... args) {
-		System.out.println("foo10".compareTo("foo2")); // Prints -1
-		System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
-		System.out.println(Comparators.DOUBLE_ARRAYS.compare(
-				DoubleArrays.of(0.0d, 1.0d, 2.0d),
-				DoubleArrays.of(0.0d, 1.0d)
-		)); // Prints 1
-		System.out.println(Comparators.<String>array().compare(
-				ObjectArrays.of("foo", "bar2"),
-				ObjectArrays.of("foo", "bar1")
-		)); // Prints 1
+		final var bag = new MapBag<String>();
+		bag.add("foo");
+		bag.add("bar", 5L);
+		System.out.println(bag.count("foo")); // Prints 1
+		System.out.println(bag.distinct()); // Prints 2
+		System.out.println(bag.size()); // Prints 6
 	}
 }

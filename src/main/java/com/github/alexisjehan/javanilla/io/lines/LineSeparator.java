@@ -23,10 +23,12 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.IntStream;
 
@@ -44,14 +46,14 @@ public enum LineSeparator {
 	LF("\n") {
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
-			int c;
-			while (-1 != (c = reader.read())) {
-				if ('\n' == c) {
+			int i;
+			while (-1 != (i = reader.read())) {
+				if ('\n' == i) {
 					break;
 				}
-				builder.append((char) c);
+				builder.append((char) i);
 			}
-			return c;
+			return i;
 		}
 	},
 
@@ -63,23 +65,23 @@ public enum LineSeparator {
 	CR_LF("\r\n") {
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
-			int c1;
-			int c2;
-			while (-1 != (c1 = reader.read())) {
-				if ('\r' == c1) {
-					if ('\n' == (c2 = reader.read())) {
-						return c2;
+			int i1;
+			int i2;
+			while (-1 != (i1 = reader.read())) {
+				if ('\r' == i1) {
+					if ('\n' == (i2 = reader.read())) {
+						return i2;
 					}
-					builder.append((char) c1);
-					if (-1 == c2) {
-						return c2;
+					builder.append((char) i1);
+					if (-1 == i2) {
+						return i2;
 					}
-					builder.append((char) c2);
+					builder.append((char) i2);
 				} else {
-					builder.append((char) c1);
+					builder.append((char) i1);
 				}
 			}
-			return c1;
+			return i1;
 		}
 	},
 
@@ -90,14 +92,14 @@ public enum LineSeparator {
 	CR("\r") {
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
-			int c;
-			while (-1 != (c = reader.read())) {
-				if ('\r' == c) {
+			int i;
+			while (-1 != (i = reader.read())) {
+				if ('\r' == i) {
 					break;
 				}
-				builder.append((char) c);
+				builder.append((char) i);
 			}
-			return c;
+			return i;
 		}
 	},
 
@@ -109,14 +111,14 @@ public enum LineSeparator {
 	DEFAULT(System.lineSeparator()) {
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
-			int c;
-			while (-1 != (c = reader.read())) {
-				if ('\n' == c || '\r' == c) {
+			int i;
+			while (-1 != (i = reader.read())) {
+				if ('\n' == i || '\r' == i) {
 					break;
 				}
-				builder.append((char) c);
+				builder.append((char) i);
 			}
-			return c;
+			return i;
 		}
 	};
 
@@ -163,36 +165,32 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given file {@code Path} using a default
-	 * {@code Charset} reading a sample.</p>
-	 * @param file the file {@code Path} to analyze
+	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@code Path} using a default {@code Charset}
+	 * reading a sample.</p>
+	 * @param path the {@code Path} of the file to analyze
 	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the {@code Path} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static LineSeparator detect(final Path file) throws IOException {
-		return detect(file, Charset.defaultCharset());
+	public static LineSeparator detect(final Path path) throws IOException {
+		return detect(path, Charset.defaultCharset());
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given file {@code Path} using the given
-	 * {@code Charset} reading a sample.</p>
-	 * @param path the {@code Path} to analyze
-	 * @param charset the {@code Charset} of the file
+	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@code Path} using the given {@code Charset}
+	 * reading a sample.</p>
+	 * @param path the {@code Path} of the file to analyze
+	 * @param charset the {@code Charset} to use
 	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Path path, final Charset charset) throws IOException {
-		if (null == path) {
-			throw new NullPointerException("Invalid Path (not null expected)");
-		}
-		if (null == charset) {
-			throw new NullPointerException("Invalid Charset (not null expected)");
-		}
-		try (final var reader = Files.newBufferedReader(path, charset)) {
+		Ensure.notNull("path", path);
+		Ensure.notNull("charset", charset);
+		try (final var reader = Readers.of(path, charset)) {
 			return detect(reader);
 		}
 	}
@@ -208,26 +206,21 @@ public enum LineSeparator {
 	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Reader reader) throws IOException {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
-		if (!reader.markSupported()) {
-			throw new IllegalArgumentException("Invalid Reader (mark is not supported)");
-		}
+		Ensure.notNullAndMarkSupported("reader", reader);
 		reader.mark(DETECTION_LIMIT);
 		final var counts = new int[3];
-		int c1;
-		int c2;
+		int i1;
+		int i2;
 		var i = 0;
-		while (-1 != (c1 = reader.read())) {
-			if ('\n' == c1) {
+		while (-1 != (i1 = reader.read())) {
+			if ('\n' == i1) {
 				++counts[LF.ordinal()];
-			} else if ('\r' == c1) {
-				if ('\n' == (c2 = reader.read())) {
+			} else if ('\r' == i1) {
+				if ('\n' == (i2 = reader.read())) {
 					++counts[CR_LF.ordinal()];
 				} else {
 					++counts[CR.ordinal()];
-					if ('\r' == c2) {
+					if ('\r' == i2) {
 						++counts[CR.ordinal()];
 					}
 				}

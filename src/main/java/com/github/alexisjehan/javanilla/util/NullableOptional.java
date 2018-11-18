@@ -23,6 +23,9 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import com.github.alexisjehan.javanilla.util.stream.Streamable;
 
 import java.util.NoSuchElementException;
@@ -119,9 +122,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public void ifPresent(final Consumer<? super T> action) {
-		if (null == action) {
-			throw new NullPointerException("Invalid action (not null expected)");
-		}
+		Ensure.notNull("action", action);
 		if (isPresent()) {
 			action.accept(value);
 		}
@@ -136,12 +137,8 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public void ifPresentOrElse(final Consumer<? super T> action, final Runnable emptyAction) {
-		if (null == action) {
-			throw new NullPointerException("Invalid action (not null expected)");
-		}
-		if (null == emptyAction) {
-			throw new NullPointerException("Invalid empty action (not null expected)");
-		}
+		Ensure.notNull("action", action);
+		Ensure.notNull("emptyAction", emptyAction);
 		if (isPresent()) {
 			action.accept(value);
 		} else {
@@ -159,9 +156,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public NullableOptional<T> filter(final Predicate<? super T> filter) {
-		if (null == filter) {
-			throw new NullPointerException("Invalid filter (not null expected)");
-		}
+		Ensure.notNull("filter", filter);
 		if (isEmpty()) {
 			return this;
 		}
@@ -179,13 +174,11 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public <U> NullableOptional<U> map(final Function<? super T, ? extends U> mapper) {
-		if (null == mapper) {
-			throw new NullPointerException("Invalid mapper (not null expected)");
-		}
+		Ensure.notNull("mapper", mapper);
 		if (isEmpty()) {
 			return empty();
 		}
-		return NullableOptional.of(mapper.apply(value));
+		return of(mapper.apply(value));
 	}
 
 	/**
@@ -203,13 +196,11 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public <U> NullableOptional<U> flatMap(final Function<? super T, ? extends NullableOptional<? extends U>> mapper) {
-		if (null == mapper) {
-			throw new NullPointerException("Invalid mapper (not null expected)");
-		}
+		Ensure.notNull("mapper", mapper);
 		if (isEmpty()) {
 			return empty();
 		}
-		return Objects.requireNonNull((NullableOptional<U>) mapper.apply(value), "Invalid NullableOptional (not null expected)");
+		return Objects.requireNonNull((NullableOptional<U>) mapper.apply(value));
 	}
 
 	/**
@@ -223,13 +214,11 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public NullableOptional<T> or(final Supplier<? extends NullableOptional<? extends T>> supplier) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
 		if (isPresent()) {
 			return this;
 		}
-		return Objects.requireNonNull((NullableOptional<T>) supplier.get(), "Invalid NullableOptional (not null expected)");
+		return Objects.requireNonNull((NullableOptional<T>) supplier.get());
 	}
 
 	/**
@@ -264,9 +253,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public T orElseGet(final Supplier<? extends T> supplier) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
 		return isPresent() ? value : supplier.get();
 	}
 
@@ -281,9 +268,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public <X extends Throwable> T orElseThrow(final Supplier<? extends X> throwableSupplier) throws X {
-		if (null == throwableSupplier) {
-			throw new NullPointerException("Invalid Throwable Supplier (not null expected)");
-		}
+		Ensure.notNull("throwableSupplier", throwableSupplier);
 		if (isPresent()) {
 			return value;
 		}
@@ -299,20 +284,25 @@ public final class NullableOptional<T> implements Streamable<T> {
 			return false;
 		}
 		final var other = (NullableOptional) object;
-		return Objects.equals(value, other.value)
-				&& Objects.equals(isEmpty, other.isEmpty);
+		return Equals.equals(value, other.value)
+				&& Equals.equals(isEmpty, other.isEmpty);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(value, isEmpty);
+		return HashCode.of(
+				HashCode.hashCode(value),
+				HashCode.hashCode(isEmpty)
+		);
 	}
 
 	@Override
 	public String toString() {
-		return isPresent()
-				? "NullableOptional[" + value + "]"
-				: "NullableOptional.empty";
+		return getClass().getSimpleName() + (
+				isPresent()
+						? "[" + value + "]"
+						: ".empty"
+		);
 	}
 
 	/**
@@ -355,9 +345,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public static <T> NullableOptional<T> ofOptional(final Optional<T> optional) {
-		if (null == optional) {
-			throw new NullPointerException("Invalid Optional (not null expected)");
-		}
+		Ensure.notNull("optional", optional);
 		return optional.map(NullableOptional::of).orElseGet(NullableOptional::empty);
 	}
 }

@@ -24,13 +24,19 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.iteration;
 
 import com.github.alexisjehan.javanilla.io.lines.LineReader;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 import com.github.alexisjehan.javanilla.util.collection.Lists;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.PrimitiveIterator;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -123,16 +129,13 @@ public final class Iterables {
 	 * <p>Wrap an {@code Iterable} replacing {@code null} by a default one.</p>
 	 * @param iterable the {@code Iterable} or {@code null}
 	 * @param defaultIterable the default {@code Iterable}
-	 * @param <E> the element type
 	 * @param <I> the {@code Iterable} type
 	 * @return a non-{@code null} {@code Iterable}
 	 * @throws NullPointerException if the default {@code Iterable} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <E, I extends Iterable<? extends E>> I nullToDefault(final I iterable, final I defaultIterable) {
-		if (null == defaultIterable) {
-			throw new NullPointerException("Invalid default Iterable (not null expected)");
-		}
+	public static <I extends Iterable> I nullToDefault(final I iterable, final I defaultIterable) {
+		Ensure.notNull("defaultIterable", defaultIterable);
 		return null != iterable ? iterable : defaultIterable;
 	}
 
@@ -146,9 +149,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static <E> Iterable<E> unmodifiable(final Iterable<? extends E> iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
 		return () -> Iterators.unmodifiable(iterable.iterator());
 	}
 
@@ -163,12 +164,8 @@ public final class Iterables {
 	 * @since 1.1.0
 	 */
 	public static <E> Iterable<E> filter(final Iterable<? extends E> iterable, final Predicate<? super E> filter) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
-		if (null == filter) {
-			throw new NullPointerException("Invalid filter (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
+		Ensure.notNull("filter", filter);
 		return () -> Iterators.filter(iterable.iterator(), filter);
 	}
 
@@ -184,12 +181,8 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static <I, O> Iterable<O> map(final Iterable<? extends I> iterable, final Function<? super I, ? extends O> mapper) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
-		if (null == mapper) {
-			throw new NullPointerException("Invalid mapper (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
+		Ensure.notNull("mapper", mapper);
 		return () -> Iterators.map(iterable.iterator(), mapper);
 	}
 
@@ -203,9 +196,7 @@ public final class Iterables {
 	 * @since 1.2.0
 	 */
 	public static <E> Iterable<IndexedElement<E>> index(final Iterable<? extends E> iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
 		return () -> Iterators.index(iterable.iterator());
 	}
 
@@ -218,9 +209,7 @@ public final class Iterables {
 	 * @since 1.1.0
 	 */
 	public static long length(final Iterable iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof Collection) {
 			return ((Collection) iterable).size();
 		}
@@ -239,12 +228,8 @@ public final class Iterables {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> long transferTo(final Iterable<? extends E> iterable, final Collection<? super E> collection) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
-		if (null == collection) {
-			throw new NullPointerException("Invalid Collection (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
+		Ensure.notNull("collection", collection);
 		if (iterable instanceof Collection) {
 			final var iterableCollection = (Collection<? extends E>) iterable;
 			collection.addAll(iterableCollection);
@@ -254,7 +239,7 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Optionally return the first element of an {@code Iterable}.</p>
+	 * <p>Optionally get the first element of an {@code Iterable}.</p>
 	 * @param iterable the {@code Iterable} to get the first element from
 	 * @param <E> the element type
 	 * @return a {@code NullableOptional} containing the first element if the {@code Iterable} is not empty
@@ -262,18 +247,16 @@ public final class Iterables {
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> NullableOptional<E> getFirst(final Iterable<? extends E> iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+	public static <E> NullableOptional<E> getOptionalFirst(final Iterable<? extends E> iterable) {
+		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
-			return Lists.getFirst((List<E>) iterable);
+			return Lists.getOptionalFirst((List<E>) iterable);
 		}
-		return Iterators.getFirst(iterable.iterator());
+		return Iterators.getOptionalFirst(iterable.iterator());
 	}
 
 	/**
-	 * <p>Optionally return the last element of an {@code Iterable}.</p>
+	 * <p>Optionally get the last element of an {@code Iterable}.</p>
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code Iterable} does not end.</p>
 	 * @param iterable the {@code Iterable} to get the last element from
 	 * @param <E> the element type
@@ -282,14 +265,12 @@ public final class Iterables {
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> NullableOptional<E> getLast(final Iterable<? extends E> iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+	public static <E> NullableOptional<E> getOptionalLast(final Iterable<? extends E> iterable) {
+		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
-			return Lists.getLast((List<E>) iterable);
+			return Lists.getOptionalLast((List<E>) iterable);
 		}
-		return Iterators.getLast(iterable.iterator());
+		return Iterators.getOptionalLast(iterable.iterator());
 	}
 
 	/**
@@ -302,10 +283,8 @@ public final class Iterables {
 	 */
 	@SafeVarargs
 	public static <E> Iterable<E> concat(final Iterable<? extends E>... iterables) {
-		if (null == iterables) {
-			throw new NullPointerException("Invalid Iterables (not null expected)");
-		}
-		return concat(Arrays.asList(iterables));
+		Ensure.notNullAndNotNullElements("iterables", iterables);
+		return concat(List.of(iterables));
 	}
 
 	/**
@@ -318,14 +297,7 @@ public final class Iterables {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> Iterable<E> concat(final List<Iterable<? extends E>> iterables) {
-		if (null == iterables) {
-			throw new NullPointerException("Invalid Iterables (not null expected)");
-		}
-		for (final var indexedIterable : index(iterables)) {
-			if (null == indexedIterable.getElement()) {
-				throw new NullPointerException("Invalid Iterable at index " + indexedIterable.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNullAndNotNullElements("iterables", iterables);
 		final var size = iterables.size();
 		if (0 == size) {
 			return empty();
@@ -348,10 +320,8 @@ public final class Iterables {
 	 */
 	@SafeVarargs
 	public static <E> Iterable<E> join(final E[] separator, final Iterable<? extends E>... iterables) {
-		if (null == iterables) {
-			throw new NullPointerException("Invalid Iterables (not null expected)");
-		}
-		return join(separator, Arrays.asList(iterables));
+		Ensure.notNullAndNotNullElements("iterables", iterables);
+		return join(separator, List.of(iterables));
 	}
 
 	/**
@@ -366,17 +336,8 @@ public final class Iterables {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> Iterable<E> join(final E[] separator, final List<Iterable<? extends E>> iterables) {
-		if (null == separator) {
-			throw new NullPointerException("Invalid separator (not null expected)");
-		}
-		if (null == iterables) {
-			throw new NullPointerException("Invalid Iterables (not null expected)");
-		}
-		for (final var indexedIterable : index(iterables)) {
-			if (null == indexedIterable.getElement()) {
-				throw new NullPointerException("Invalid Iterable at index " + indexedIterable.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNull("iterables", iterables);
+		Ensure.notNullAndNotNullElements("iterables", iterables);
 		if (0 == separator.length) {
 			return concat(iterables);
 		}
@@ -439,9 +400,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfInt ofInt(final int... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_INT;
 		}
@@ -456,9 +415,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfLong ofLong(final long... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_LONG;
 		}
@@ -473,9 +430,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfDouble ofDouble(final double... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_DOUBLE;
 		}
@@ -492,9 +447,7 @@ public final class Iterables {
 	 */
 	@SafeVarargs
 	public static <E> Iterable<E> of(final E... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return empty();
 		}
@@ -511,9 +464,7 @@ public final class Iterables {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> Set<E> toSet(final Iterable<? extends E> iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof Set) {
 			return (Set<E>) iterable;
 		}
@@ -530,9 +481,7 @@ public final class Iterables {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> List<E> toList(final Iterable<? extends E> iterable) {
-		if (null == iterable) {
-			throw new NullPointerException("Invalid Iterable (not null expected)");
-		}
+		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
 			return (List<E>) iterable;
 		}
@@ -601,9 +550,7 @@ public final class Iterables {
 	 * @since 1.2.0
 	 */
 	public static <E> Iterable<E> wrap(final Stream<? extends E> stream) {
-		if (null == stream) {
-			throw new NullPointerException("Invalid Stream (not null expected)");
-		}
+		Ensure.notNull("stream", stream);
 		return wrap(stream.iterator());
 	}
 
@@ -618,9 +565,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfInt wrap(final PrimitiveIterator.OfInt iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid PrimitiveIterator.OfInt (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		return new PrimitiveIterable.OfInt() {
 			private boolean obtained = false;
 
@@ -646,9 +591,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfLong wrap(final PrimitiveIterator.OfLong iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid PrimitiveIterator.OfLong (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		return new PrimitiveIterable.OfLong() {
 			private boolean obtained = false;
 
@@ -674,9 +617,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfDouble wrap(final PrimitiveIterator.OfDouble iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid PrimitiveIterator.OfDouble (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		return new PrimitiveIterable.OfDouble() {
 			private boolean obtained = false;
 
@@ -701,9 +642,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	public static <E> Iterable<E> wrap(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		return new Iterable<>() {
 			private boolean obtained = false;
 

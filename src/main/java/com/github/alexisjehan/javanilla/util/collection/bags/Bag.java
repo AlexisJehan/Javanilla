@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
 import java.util.Collection;
@@ -124,9 +125,7 @@ public interface Bag<E> {
 	 * @since 1.0.0
 	 */
 	default boolean containsExactly(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		return quantity == count(element);
 	}
 
@@ -139,9 +138,7 @@ public interface Bag<E> {
 	 * @since 1.0.0
 	 */
 	default boolean containsAtLeast(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		if (0L == quantity) {
 			return true;
 		}
@@ -157,9 +154,7 @@ public interface Bag<E> {
 	 * @since 1.0.0
 	 */
 	default boolean containsAtMost(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		return quantity >= count(element);
 	}
 

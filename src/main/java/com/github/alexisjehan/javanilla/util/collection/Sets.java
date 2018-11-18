@@ -23,7 +23,15 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection;
 
-import java.util.*;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.NavigableSet;
+import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * <p>An utility class that provides {@link Set} tools.</p>
@@ -76,90 +84,141 @@ public final class Sets {
 	 * <p>Wrap a {@code Set} replacing {@code null} by a default one.</p>
 	 * @param set the {@code Set} or {@code null}
 	 * @param defaultSet the default {@code Set}
-	 * @param <E> the type of elements maintained by the set
 	 * @param <S> the {@code Set} type
 	 * @return a non-{@code null} {@code Set}
 	 * @throws NullPointerException if the default {@code Set} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <E, S extends Set<? extends E>> S nullToDefault(final S set, final S defaultSet) {
-		if (null == defaultSet) {
-			throw new NullPointerException("Invalid default Set (not null expected)");
-		}
+	public static <S extends Set> S nullToDefault(final S set, final S defaultSet) {
+		Ensure.notNull("defaultSet", defaultSet);
 		return null != set ? set : defaultSet;
 	}
 
 	/**
 	 * <p>Wrap a {@code Set} replacing an empty one by {@code null}.</p>
 	 * @param set the {@code Set} or {@code null}
-	 * @param <E> the type of elements maintained by the set
+	 * @param <S> the {@code Set} type
 	 * @return a non-empty {@code Set} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <E> Set<E> emptyToNull(final Set<E> set) {
+	public static <S extends Set> S emptyToNull(final S set) {
 		return emptyToDefault(set, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code SortedSet} replacing an empty one by {@code null}.</p>
-	 * @param sortedSet the {@code SortedSet} or {@code null}
-	 * @param <E> the type of elements maintained by the set
-	 * @return a non-empty {@code SortedSet} or {@code null}
-	 * @since 1.0.0
-	 */
-	public static <E> SortedSet<E> emptyToNull(final SortedSet<E> sortedSet) {
-		return emptyToDefault(sortedSet, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code NavigableSet} replacing an empty one by {@code null}.</p>
-	 * @param navigableSet the {@code NavigableSet} or {@code null}
-	 * @param <E> the type of elements maintained by the set
-	 * @return a non-empty {@code NavigableSet} or {@code null}
-	 * @since 1.0.0
-	 */
-	public static <E> NavigableSet<E> emptyToNull(final NavigableSet<E> navigableSet) {
-		return emptyToDefault(navigableSet, null);
 	}
 
 	/**
 	 * <p>Wrap a {@code Set} replacing an empty one by a default {@code Set}.</p>
 	 * @param set the {@code Set} or {@code null}
 	 * @param defaultSet the default {@code Set} or {@code null}
-	 * @param <E> the type of elements maintained by the set
 	 * @param <S> the {@code Set} type
 	 * @return a non-empty {@code Set} or {@code null}
 	 * @throws IllegalArgumentException if the default {@code Set} is empty
 	 * @since 1.1.0
 	 */
-	public static <E, S extends Set<? extends E>> S emptyToDefault(final S set, final S defaultSet) {
-		if (null != defaultSet && defaultSet.isEmpty()) {
-			throw new IllegalArgumentException("Invalid default Set (not empty expected)");
+	public static <S extends Set> S emptyToDefault(final S set, final S defaultSet) {
+		if (null != defaultSet) {
+			Ensure.notNullAndNotEmpty("defaultSet", defaultSet);
 		}
 		return null == set || !set.isEmpty() ? set : defaultSet;
 	}
 
 	/**
-	 * <p>Create an immutable ordered {@code Set} from multiple elements.</p>
+	 * <p>Union multiple {@code Set}s.</p>
+	 * @param sets the {@code Set} array to union
+	 * @param <E> the type of elements maintained by the set
+	 * @return the union {@code Set}
+	 * @throws NullPointerException if the {@code Set} array or any of them is {@code null}
+	 * @since 1.3.0
+	 */
+	@SafeVarargs
+	public static <E> Set<E> union(final Set<? extends E>... sets) {
+		Ensure.notNullAndNotNullElements("sets", sets);
+		return union(Set.of(sets));
+	}
+
+	/**
+	 * <p>Union multiple {@code Set}s.</p>
+	 * @param sets the {@code Set} {@code Collection} to union
+	 * @param <E> the type of elements maintained by the set
+	 * @return the union {@code Set}
+	 * @throws NullPointerException if the {@code Set} {@code Collection} or any of them is {@code null}
+	 * @since 1.3.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> Set<E> union(final Collection<Set<? extends E>> sets) {
+		Ensure.notNullAndNotNullElements("sets", sets);
+		final var size = sets.size();
+		if (0 == size) {
+			return Set.of();
+		}
+		if (1 == size) {
+			return (Set<E>) sets.iterator().next();
+		}
+		final var result = new HashSet<E>();
+		for (final var set : sets) {
+			result.addAll(set);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Intersect multiple {@code Set}s.</p>
+	 * @param sets the {@code Set} array to intersect
+	 * @param <E> the type of elements maintained by the set
+	 * @return the intersect {@code Set}
+	 * @throws NullPointerException if the {@code Set} array or any of them is {@code null}
+	 * @since 1.3.0
+	 */
+	@SafeVarargs
+	public static <E> Set<E> intersect(final Set<? extends E>... sets) {
+		Ensure.notNullAndNotNullElements("sets", sets);
+		return intersect(Set.of(sets));
+	}
+
+	/**
+	 * <p>Intersect multiple {@code Set}s.</p>
+	 * @param sets the {@code Set} {@code Collection} to concatenate
+	 * @param <E> the type of elements maintained by the set
+	 * @return the intersect {@code Set}
+	 * @throws NullPointerException if the {@code Set} {@code Collection} or any of them is {@code null}
+	 * @since 1.3.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> Set<E> intersect(final Collection<Set<? extends E>> sets) {
+		Ensure.notNullAndNotNullElements("sets", sets);
+		final var size = sets.size();
+		if (0 == size) {
+			return Set.of();
+		}
+		if (1 == size) {
+			return (Set<E>) sets.iterator().next();
+		}
+		final var iterator = sets.iterator();
+		final var set = new HashSet<E>(iterator.next());
+		while (iterator.hasNext()) {
+			set.retainAll(iterator.next());
+		}
+		return set;
+	}
+
+	/**
+	 * <p>Create an ordered {@code Set} from multiple elements.</p>
 	 * @param elements the elements array to convert
 	 * @param <E> the type of elements maintained by the set
-	 * @return the created immutable ordered {@code Set}
+	 * @return the created ordered {@code Set}
 	 * @throws NullPointerException if the elements array is {@code null}
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	public static <E> Set<E> ofOrdered(final E... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
-			return Collections.emptySet();
+			return Set.of();
 		}
 		if (1 == elements.length) {
-			return Collections.singleton(elements[0]);
+			return Set.of(elements[0]);
 		}
 		final var set = new LinkedHashSet<E>(elements.length);
 		Collections.addAll(set, elements);
-		return Collections.unmodifiableSet(set);
+		return set;
 	}
 }

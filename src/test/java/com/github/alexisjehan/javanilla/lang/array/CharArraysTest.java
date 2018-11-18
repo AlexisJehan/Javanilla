@@ -90,40 +90,6 @@ final class CharArraysTest {
 	}
 
 	@Test
-	void testIndexOf() {
-		assertThat(CharArrays.indexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
-		final var array = CharArrays.of('a', 'b', 'a');
-		assertThat(CharArrays.indexOf(array, 'a')).isEqualTo(0);
-		assertThat(CharArrays.indexOf(array, 'b')).isEqualTo(1);
-		assertThat(CharArrays.indexOf(array, 'a', 1)).isEqualTo(2);
-		assertThat(CharArrays.indexOf(array, 'b', 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.indexOf(null, 'a'));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.indexOf(CharArrays.singleton('a'), 'a', -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.indexOf(CharArrays.singleton('a'), 'a', 1));
-	}
-
-	@Test
-	void testLastIndexOf() {
-		assertThat(CharArrays.lastIndexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
-		final var array = CharArrays.of('a', 'b', 'a');
-		assertThat(CharArrays.lastIndexOf(array, 'a')).isEqualTo(2);
-		assertThat(CharArrays.lastIndexOf(array, 'b')).isEqualTo(1);
-		assertThat(CharArrays.lastIndexOf(array, 'a', 1)).isEqualTo(2);
-		assertThat(CharArrays.lastIndexOf(array, 'b', 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testLastIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.lastIndexOf(null, 'a'));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.singleton('a'), 'a', -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.singleton('a'), 'a', 1));
-	}
-
-	@Test
 	void testContainsAny() {
 		assertThat(CharArrays.containsAny(CharArrays.EMPTY, 'a')).isFalse();
 		assertThat(CharArrays.containsAny(CharArrays.singleton('a'), 'a')).isTrue();
@@ -193,6 +159,53 @@ final class CharArraysTest {
 	}
 
 	@Test
+	void testIndexOf() {
+		assertThat(CharArrays.indexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
+		final var array = CharArrays.of('a', 'b', 'a');
+		assertThat(CharArrays.indexOf(array, 'a')).isEqualTo(0);
+		assertThat(CharArrays.indexOf(array, 'b')).isEqualTo(1);
+		assertThat(CharArrays.indexOf(array, 'a', 1)).isEqualTo(2);
+		assertThat(CharArrays.indexOf(array, 'b', 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.indexOf(null, 'a'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.indexOf(CharArrays.singleton('a'), 'a', -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.indexOf(CharArrays.singleton('a'), 'a', 1));
+	}
+
+	@Test
+	void testLastIndexOf() {
+		assertThat(CharArrays.lastIndexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
+		final var array = CharArrays.of('a', 'b', 'a');
+		assertThat(CharArrays.lastIndexOf(array, 'a')).isEqualTo(2);
+		assertThat(CharArrays.lastIndexOf(array, 'b')).isEqualTo(1);
+		assertThat(CharArrays.lastIndexOf(array, 'a', 1)).isEqualTo(2);
+		assertThat(CharArrays.lastIndexOf(array, 'b', 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.lastIndexOf(null, 'a'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.singleton('a'), 'a', -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.lastIndexOf(CharArrays.singleton('a'), 'a', 1));
+	}
+
+	@Test
+	void testFrequency() {
+		assertThat(CharArrays.frequency(CharArrays.EMPTY, 'a')).isEqualTo(0);
+		final var array = CharArrays.of('a', 'b', 'a');
+		assertThat(CharArrays.frequency(array, 'a')).isEqualTo(2);
+		assertThat(CharArrays.frequency(array, 'b')).isEqualTo(1);
+	}
+
+	@Test
+	void testFrequencyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.frequency(null, 'a'));
+	}
+
+	@Test
 	void testShuffle() {
 		{
 			final var array = CharArrays.singleton('a');
@@ -257,10 +270,10 @@ final class CharArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.reorder(CharArrays.singleton('a'), (int[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.singleton(0)));
 		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, 0)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(-1, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(2, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, -1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, 2)));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.reorder(CharArrays.of('a', 'b'), IntArrays.of(0, 2)));
 	}
 
 	@Test
@@ -280,10 +293,10 @@ final class CharArraysTest {
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.swap(null, 0, 0));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), -1, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 2, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 0, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.swap(CharArrays.of('a', 'b'), 0, 2));
 	}
 
 	@Test

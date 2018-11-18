@@ -23,7 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io;
 
-import java.util.Objects;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>A {@link RuntimeException} wrapping any serialization {@link Exception} thrown while working with the
@@ -46,6 +46,6 @@ public final class SerializationException extends RuntimeException {
 	 * @since 1.0.0
 	 */
 	SerializationException(final Exception cause) {
-		super(Objects.requireNonNull(cause, "Invalid cause (not null expected)"));
+		super(Ensure.notNull("cause", cause));
 	}
 }

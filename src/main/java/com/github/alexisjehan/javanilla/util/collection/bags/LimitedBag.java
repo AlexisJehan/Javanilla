@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 /**
  * <p>A {@link Bag} decorator that limits the maximum number of distinct elements contained. If the limit is reached
  * then an element with a minimum occurrence is totally removed.</p>
@@ -48,9 +50,7 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 */
 	public LimitedBag(final Bag<E> bag, final int limit) {
 		super(bag);
-		if (2 > limit) {
-			throw new IllegalArgumentException("Invalid limit: " + limit + " (greater than or equal to 2 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("limit", limit, 2L);
 		this.limit = limit;
 		while (limit < bag.distinct()) {
 			bag.remove(bag.min().orElseThrow(AssertionError::new));

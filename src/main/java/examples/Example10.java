@@ -30,6 +30,10 @@ import com.github.alexisjehan.javanilla.util.iteration.Iterators;
 
 public final class Example10 {
 
+	private Example10() {
+		// Not available
+	}
+
 	public static void main(final String... args) {
 		// Iterator to iterate over groups of integers
 		final var batchIterator = new BatchIterator<>(

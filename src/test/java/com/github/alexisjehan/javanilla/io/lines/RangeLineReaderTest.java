@@ -35,28 +35,30 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class RangeLineReaderTest {
 
+	private static final String STRING = "abc\ndef\nghi";
+
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeLineReader(null, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeLineReader(new LineReader(Readers.buffered(Readers.singleton('a'))), -1L, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeLineReader(new LineReader(Readers.buffered(Readers.singleton('a'))), 1L, 0L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeLineReader(null, 0L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeLineReader(new LineReader(Readers.of(STRING)), -1L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeLineReader(new LineReader(Readers.of(STRING)), 1L, 0L));
 	}
 
 	@Test
 	void testRead() throws IOException {
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 0L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 0L, 0L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(0L);
 			assertThat(rangeLineReader.read()).isEqualTo("abc");
 			assertThat(rangeLineReader.read()).isNull();
 		}
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 1L, 1L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 1L, 1L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(1L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(1L);
 			assertThat(rangeLineReader.read()).isEqualTo("def");
 			assertThat(rangeLineReader.read()).isNull();
 		}
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 10L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 0L, 10L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(10L);
 			assertThat(rangeLineReader.read()).isEqualTo("abc");
@@ -64,7 +66,7 @@ final class RangeLineReaderTest {
 			assertThat(rangeLineReader.read()).isEqualTo("ghi");
 			assertThat(rangeLineReader.read()).isNull();
 		}
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 10L, 10L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 10L, 10L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(10L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(10L);
 			assertThat(rangeLineReader.read()).isNull();
@@ -73,27 +75,35 @@ final class RangeLineReaderTest {
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 0L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 0L, 0L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(0L);
+			assertThat(rangeLineReader.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeLineReader.skip(0L)).isEqualTo(0L);
 			assertThat(rangeLineReader.skip(1L)).isEqualTo(1L);
 			assertThat(rangeLineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 1L, 1L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 1L, 1L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(1L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(1L);
+			assertThat(rangeLineReader.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeLineReader.skip(0L)).isEqualTo(0L);
 			assertThat(rangeLineReader.skip(1L)).isEqualTo(1L);
 			assertThat(rangeLineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 10L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 0L, 10L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeLineReader.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeLineReader.skip(0L)).isEqualTo(0L);
 			assertThat(rangeLineReader.skip(1L)).isEqualTo(1L);
 			assertThat(rangeLineReader.skip(10L)).isEqualTo(2L);
 		}
-		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of("abc\ndef\nghi")), 10L, 10L)) {
+		try (final var rangeLineReader = new RangeLineReader(new LineReader(Readers.of(STRING)), 10L, 10L)) {
 			assertThat(rangeLineReader.getFromIndex()).isEqualTo(10L);
 			assertThat(rangeLineReader.getToIndex()).isEqualTo(10L);
+			assertThat(rangeLineReader.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeLineReader.skip(0L)).isEqualTo(0L);
 			assertThat(rangeLineReader.skip(1L)).isEqualTo(0L);
 		}
 	}

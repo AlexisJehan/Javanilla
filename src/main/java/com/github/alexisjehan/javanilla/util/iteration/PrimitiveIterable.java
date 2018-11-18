@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.util.PrimitiveIterator;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
@@ -54,6 +56,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 * <p>An {@code Iterable} specialized for {@code int} values.</p>
 	 * @since 1.0.0
 	 */
+	@FunctionalInterface
 	interface OfInt extends PrimitiveIterable<Integer, IntConsumer> {
 
 		@Override
@@ -61,9 +64,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 		@Override
 		default void forEach(final IntConsumer action) {
-			if (null == action) {
-				throw new NullPointerException("Invalid action (not null expected)");
-			}
+			Ensure.notNull("action", action);
 			for (final var t : this) {
 				action.accept(t);
 			}
@@ -74,6 +75,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 * <p>An {@code Iterable} specialized for {@code long} values.</p>
 	 * @since 1.0.0
 	 */
+	@FunctionalInterface
 	interface OfLong extends PrimitiveIterable<Long, LongConsumer> {
 
 		@Override
@@ -81,9 +83,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 		@Override
 		default void forEach(final LongConsumer action) {
-			if (null == action) {
-				throw new NullPointerException("Invalid action (not null expected)");
-			}
+			Ensure.notNull("action", action);
 			for (final var t : this) {
 				action.accept(t);
 			}
@@ -94,6 +94,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 * <p>An {@code Iterable} specialized for {@code double} values.</p>
 	 * @since 1.0.0
 	 */
+	@FunctionalInterface
 	interface OfDouble extends PrimitiveIterable<Double, DoubleConsumer> {
 
 		@Override
@@ -101,9 +102,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 		@Override
 		default void forEach(final DoubleConsumer action) {
-			if (null == action) {
-				throw new NullPointerException("Invalid action (not null expected)");
-			}
+			Ensure.notNull("action", action);
 			for (final var t : this) {
 				action.accept(t);
 			}

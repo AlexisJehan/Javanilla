@@ -26,9 +26,10 @@ package com.github.alexisjehan.javanilla.io.chars;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.CharBuffer;
@@ -38,12 +39,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIOException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link Readers} unit tests.</p>
  */
 final class ReadersTest {
+
+	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
 
 	@Test
 	void testEmpty() throws IOException {
@@ -58,10 +64,10 @@ final class ReadersTest {
 			assertThat(emptyReader.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(emptyReader.read(buffer, 0, 1)).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyReader.read(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, 0, 3));
 			assertThat(emptyReader.skip(1)).isEqualTo(0);
 			assertThat(emptyReader.transferTo(Writers.EMPTY)).isEqualTo(0L);
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.transferTo(null));
@@ -147,9 +153,7 @@ final class ReadersTest {
 			}
 		};
 		assertThatIOException().isThrownBy(reader::close);
-		{
-			Readers.uncloseable(reader).close();
-		}
+		Readers.uncloseable(reader).close();
 	}
 
 	@Test
@@ -160,7 +164,7 @@ final class ReadersTest {
 	@Test
 	void testLength() throws IOException {
 		assertThat(Readers.length(Readers.EMPTY)).isEqualTo(0L);
-		assertThat(Readers.length(Readers.of('a', 'b', 'c'))).isEqualTo(3L);
+		assertThat(Readers.length(Readers.of(CHARS))).isEqualTo(CHARS.length);
 	}
 
 	@Test
@@ -188,11 +192,13 @@ final class ReadersTest {
 		try (final var concatReader = Readers.concat(Readers.of('a', 'b', 'c'), Readers.of('d', 'e', 'f'))) {
 			assertThat(concatReader.read(buffer, 0, 0)).isEqualTo(0);
 			assertThatNullPointerException().isThrownBy(() -> concatReader.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> concatReader.read(buffer, 0, 3));
-			while (-1 != concatReader.read());
+			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 0, 3));
+			while (-1 != concatReader.read()) {
+				// Nothing to do
+			}
 			assertThat(concatReader.read(buffer, 0, 1)).isEqualTo(-1);
 		}
 		final var concatReader = Readers.concat(Readers.of('a', 'b', 'c'), Readers.of('d', 'e', 'f'));
@@ -223,7 +229,7 @@ final class ReadersTest {
 	@Test
 	void testOfCharsAndToChars() throws IOException {
 		assertThat(Readers.toChars(Readers.of())).isEmpty();
-		assertThat(Readers.toChars(Readers.of('a', 'b', 'c'))).containsExactly('a', 'b', 'c');
+		assertThat(Readers.toChars(Readers.of(CHARS))).containsExactly(CHARS);
 	}
 
 	@Test
@@ -256,13 +262,13 @@ final class ReadersTest {
 	}
 
 	@Test
-	void testOfPath() throws IOException {
-		final var path = File.createTempFile(getClass().getName() + ".testOfPath_", ".txt").toPath();
-		Files.write(path, "abc".getBytes());
+	@ExtendWith(TempDirectory.class)
+	void testOfPath(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testOfPath");
+		Files.write(path, new String(CHARS).getBytes());
 		try (final var pathReader = Readers.of(path)) {
-			assertThat(Readers.toChars(pathReader)).containsExactly('a', 'b', 'c');
+			assertThat(Readers.toChars(pathReader)).containsExactly(CHARS);
 		}
-		Files.delete(path);
 	}
 
 	@Test

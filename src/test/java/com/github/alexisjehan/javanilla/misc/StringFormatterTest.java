@@ -36,8 +36,8 @@ import static org.assertj.core.api.Assertions.*;
 final class StringFormatterTest {
 
 	@Test
-	void testDefaultConstructor() {
-		final var stringFormatter = new StringFormatter();
+	void testDefault() {
+		final var stringFormatter = StringFormatter.DEFAULT;
 		assertThat(stringFormatter.getLocale()).isSameAs(Locale.getDefault());
 		assertThat(stringFormatter.getFloatPrecision()).isEqualTo(StringFormatter.DEFAULT_FLOAT_PRECISION);
 		assertThat(stringFormatter.hasStrictPrecision()).isEqualTo(StringFormatter.DEFAULT_STRICT_PRECISION);
@@ -98,8 +98,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.US);
 		assertThat(stringFormatter.format(0.0d)).isEqualTo("0");
 		assertThat(stringFormatter.format(-0.0d)).isEqualTo("-0");
-		assertThat(stringFormatter.format(10d)).isEqualTo("10");
-		assertThat(stringFormatter.format(-10d)).isEqualTo("-10");
+		assertThat(stringFormatter.format(10.0d)).isEqualTo("10");
+		assertThat(stringFormatter.format(-10.0d)).isEqualTo("-10");
 		assertThat(stringFormatter.format(10.014d)).isEqualTo("10.01");
 		assertThat(stringFormatter.format(10.015d)).isEqualTo("10.02");
 		assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1,234,567,890.12");
@@ -110,8 +110,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.FRANCE);
 		assertThat(stringFormatter.format(0.0d)).isEqualTo("0");
 		assertThat(stringFormatter.format(-0.0d)).isEqualTo("-0");
-		assertThat(stringFormatter.format(10d)).isEqualTo("10");
-		assertThat(stringFormatter.format(-10d)).isEqualTo("-10");
+		assertThat(stringFormatter.format(10.0d)).isEqualTo("10");
+		assertThat(stringFormatter.format(-10.0d)).isEqualTo("-10");
 		assertThat(stringFormatter.format(10.014d)).isEqualTo("10,01");
 		assertThat(stringFormatter.format(10.015d)).isEqualTo("10,02");
 		assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12");
@@ -122,8 +122,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.US, 5);
 		assertThat(stringFormatter.format(0.0d)).isEqualTo("0");
 		assertThat(stringFormatter.format(-0.0d)).isEqualTo("-0");
-		assertThat(stringFormatter.format(10d)).isEqualTo("10");
-		assertThat(stringFormatter.format(-10d)).isEqualTo("-10");
+		assertThat(stringFormatter.format(10.0d)).isEqualTo("10");
+		assertThat(stringFormatter.format(-10.0d)).isEqualTo("-10");
 		assertThat(stringFormatter.format(10.014d)).isEqualTo("10.014");
 		assertThat(stringFormatter.format(10.015d)).isEqualTo("10.015");
 		assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1,234,567,890.12346");
@@ -134,8 +134,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.US, StringFormatter.DEFAULT_FLOAT_PRECISION, true);
 		assertThat(stringFormatter.format(0.0d)).isEqualTo("0.00");
 		assertThat(stringFormatter.format(-0.0d)).isEqualTo("-0.00");
-		assertThat(stringFormatter.format(10d)).isEqualTo("10.00");
-		assertThat(stringFormatter.format(-10d)).isEqualTo("-10.00");
+		assertThat(stringFormatter.format(10.0d)).isEqualTo("10.00");
+		assertThat(stringFormatter.format(-10.0d)).isEqualTo("-10.00");
 		assertThat(stringFormatter.format(10.014d)).isEqualTo("10.01");
 		assertThat(stringFormatter.format(10.015d)).isEqualTo("10.02");
 		assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1,234,567,890.12");
@@ -146,8 +146,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.US);
 		assertThat(stringFormatter.formatCurrency(0.0d)).isEqualTo("$0");
 		assertThat(stringFormatter.formatCurrency(-0.0d)).isEqualTo("-$0");
-		assertThat(stringFormatter.formatCurrency(10d)).isEqualTo("$10");
-		assertThat(stringFormatter.formatCurrency(-10d)).isEqualTo("-$10");
+		assertThat(stringFormatter.formatCurrency(10.0d)).isEqualTo("$10");
+		assertThat(stringFormatter.formatCurrency(-10.0d)).isEqualTo("-$10");
 		assertThat(stringFormatter.formatCurrency(10.014d)).isEqualTo("$10.01");
 		assertThat(stringFormatter.formatCurrency(10.015d)).isEqualTo("$10.02");
 		assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-$1,234,567,890.12");
@@ -158,8 +158,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.FRANCE);
 		assertThat(stringFormatter.formatCurrency(0.0d)).isEqualTo("0\u00a0€");
 		assertThat(stringFormatter.formatCurrency(-0.0d)).isEqualTo("-0\u00a0€");
-		assertThat(stringFormatter.formatCurrency(10d)).isEqualTo("10\u00a0€");
-		assertThat(stringFormatter.formatCurrency(-10d)).isEqualTo("-10\u00a0€");
+		assertThat(stringFormatter.formatCurrency(10.0d)).isEqualTo("10\u00a0€");
+		assertThat(stringFormatter.formatCurrency(-10.0d)).isEqualTo("-10\u00a0€");
 		assertThat(stringFormatter.formatCurrency(10.014d)).isEqualTo("10,01\u00a0€");
 		assertThat(stringFormatter.formatCurrency(10.015d)).isEqualTo("10,02\u00a0€");
 		assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12\u00a0€");
@@ -170,8 +170,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.US, 5);
 		assertThat(stringFormatter.formatCurrency(0.0d)).isEqualTo("$0");
 		assertThat(stringFormatter.formatCurrency(-0.0d)).isEqualTo("-$0");
-		assertThat(stringFormatter.formatCurrency(10d)).isEqualTo("$10");
-		assertThat(stringFormatter.formatCurrency(-10d)).isEqualTo("-$10");
+		assertThat(stringFormatter.formatCurrency(10.0d)).isEqualTo("$10");
+		assertThat(stringFormatter.formatCurrency(-10.0d)).isEqualTo("-$10");
 		assertThat(stringFormatter.formatCurrency(10.014d)).isEqualTo("$10.014");
 		assertThat(stringFormatter.formatCurrency(10.015d)).isEqualTo("$10.015");
 		assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-$1,234,567,890.12346");
@@ -182,8 +182,8 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.US, StringFormatter.DEFAULT_FLOAT_PRECISION, true);
 		assertThat(stringFormatter.formatCurrency(0.0d)).isEqualTo("$0.00");
 		assertThat(stringFormatter.formatCurrency(-0.0d)).isEqualTo("-$0.00");
-		assertThat(stringFormatter.formatCurrency(10d)).isEqualTo("$10.00");
-		assertThat(stringFormatter.formatCurrency(-10d)).isEqualTo("-$10.00");
+		assertThat(stringFormatter.formatCurrency(10.0d)).isEqualTo("$10.00");
+		assertThat(stringFormatter.formatCurrency(-10.0d)).isEqualTo("-$10.00");
 		assertThat(stringFormatter.formatCurrency(10.014d)).isEqualTo("$10.01");
 		assertThat(stringFormatter.formatCurrency(10.015d)).isEqualTo("$10.02");
 		assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-$1,234,567,890.12");
@@ -193,49 +193,49 @@ final class StringFormatterTest {
 	void testFormatPercent() {
 		final var stringFormatter = new StringFormatter(Locale.US);
 		assertThat(stringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0%");
-		assertThat(stringFormatter.formatPercent(1d, 10d)).isEqualTo("10%");
-		assertThat(stringFormatter.formatPercent(1d, 3d)).isEqualTo("33.33%");
-		assertThat(stringFormatter.formatPercent(2d, 3d)).isEqualTo("66.67%");
-		assertThat(stringFormatter.formatPercent(9.99d, 10d)).isEqualTo("99.9%");
-		assertThat(stringFormatter.formatPercent(10d, 10d)).isEqualTo("100%");
+		assertThat(stringFormatter.formatPercent(1.0d, 10.0d)).isEqualTo("10%");
+		assertThat(stringFormatter.formatPercent(1.0d, 3.0d)).isEqualTo("33.33%");
+		assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66.67%");
+		assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99.9%");
+		assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100%");
 	}
 
 	@Test
 	void testFormatPercentLocale() {
 		final var stringFormatter = new StringFormatter(Locale.FRANCE);
 		assertThat(stringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0\u00a0%");
-		assertThat(stringFormatter.formatPercent(1d, 10d)).isEqualTo("10\u00a0%");
-		assertThat(stringFormatter.formatPercent(1d, 3d)).isEqualTo("33,33\u00a0%");
-		assertThat(stringFormatter.formatPercent(2d, 3d)).isEqualTo("66,67\u00a0%");
-		assertThat(stringFormatter.formatPercent(9.99d, 10d)).isEqualTo("99,9\u00a0%");
-		assertThat(stringFormatter.formatPercent(10d, 10d)).isEqualTo("100\u00a0%");
+		assertThat(stringFormatter.formatPercent(1.0d, 10.0d)).isEqualTo("10\u00a0%");
+		assertThat(stringFormatter.formatPercent(1.0d, 3.0d)).isEqualTo("33,33\u00a0%");
+		assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66,67\u00a0%");
+		assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99,9\u00a0%");
+		assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100\u00a0%");
 	}
 
 	@Test
 	void testFormatPercentFloatPrecision() {
 		final var stringFormatter = new StringFormatter(Locale.US, 5);
 		assertThat(stringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0%");
-		assertThat(stringFormatter.formatPercent(1d, 10d)).isEqualTo("10%");
-		assertThat(stringFormatter.formatPercent(1d, 3d)).isEqualTo("33.33333%");
-		assertThat(stringFormatter.formatPercent(2d, 3d)).isEqualTo("66.66667%");
-		assertThat(stringFormatter.formatPercent(9.99d, 10d)).isEqualTo("99.9%");
-		assertThat(stringFormatter.formatPercent(10d, 10d)).isEqualTo("100%");
+		assertThat(stringFormatter.formatPercent(1.0d, 10.0d)).isEqualTo("10%");
+		assertThat(stringFormatter.formatPercent(1.0d, 3.0d)).isEqualTo("33.33333%");
+		assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66.66667%");
+		assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99.9%");
+		assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100%");
 	}
 
 	@Test
 	void testFormatPercentStrictPrecision() {
 		final var stringFormatter = new StringFormatter(Locale.US, StringFormatter.DEFAULT_FLOAT_PRECISION, true);
 		assertThat(stringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0.00%");
-		assertThat(stringFormatter.formatPercent(1d, 10d)).isEqualTo("10.00%");
-		assertThat(stringFormatter.formatPercent(1d, 3d)).isEqualTo("33.33%");
-		assertThat(stringFormatter.formatPercent(2d, 3d)).isEqualTo("66.67%");
-		assertThat(stringFormatter.formatPercent(9.99d, 10d)).isEqualTo("99.90%");
-		assertThat(stringFormatter.formatPercent(10d, 10d)).isEqualTo("100.00%");
+		assertThat(stringFormatter.formatPercent(1.0d, 10.0d)).isEqualTo("10.00%");
+		assertThat(stringFormatter.formatPercent(1.0d, 3.0d)).isEqualTo("33.33%");
+		assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66.67%");
+		assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99.90%");
+		assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100.00%");
 	}
 
 	@Test
 	void testFormatPercentInvalid() {
-		final var stringFormatter = new StringFormatter();
+		final var stringFormatter = StringFormatter.DEFAULT;
 		assertThatIllegalArgumentException().isThrownBy(() -> stringFormatter.formatPercent(-1, 10));
 		assertThatIllegalArgumentException().isThrownBy(() -> stringFormatter.formatPercent(11, 10));
 	}
@@ -326,34 +326,38 @@ final class StringFormatterTest {
 
 	@Test
 	void testFormatBytesInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new StringFormatter().formatBytes(0L, null));
+		assertThatNullPointerException().isThrownBy(() -> StringFormatter.DEFAULT.formatBytes(0L, null));
 	}
 
 	@Test
-	void testEqualsHashCode() {
-		final var stringFormatter = new StringFormatter();
+	void testEqualsHashCodeToString() {
+		final var stringFormatter = StringFormatter.DEFAULT;
 		assertThat(stringFormatter).isEqualTo(stringFormatter);
 		assertThat(stringFormatter).isNotEqualTo(1);
 		{
-			final var otherStringFormatter = new StringFormatter();
+			final var otherStringFormatter = new StringFormatter(Locale.getDefault());
 			assertThat(stringFormatter).isEqualTo(otherStringFormatter);
 			assertThat(stringFormatter).hasSameHashCodeAs(otherStringFormatter);
+			assertThat(stringFormatter).hasToString(otherStringFormatter.toString());
 		}
 		{
 			// Locale.FRENCH instead of Locale.FRANCE to work correctly with the default Locale
 			final var otherStringFormatter = new StringFormatter(Locale.FRENCH);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
 			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
+			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
 		}
 		{
 			final var otherStringFormatter = new StringFormatter(Locale.getDefault(), 5);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
 			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
+			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
 		}
 		{
 			final var otherStringFormatter = new StringFormatter(Locale.getDefault(), StringFormatter.DEFAULT_FLOAT_PRECISION, true);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
 			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
+			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
 		}
 	}
 

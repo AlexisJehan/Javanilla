@@ -23,16 +23,31 @@ SOFTWARE.
 */
 package examples;
 
-import com.github.alexisjehan.javanilla.util.collection.bags.MapBag;
+import com.github.alexisjehan.javanilla.io.lines.LineReader;
+import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
+import com.github.alexisjehan.javanilla.io.lines.LineWriter;
 
-public final class Example09 {
+import java.io.IOException;
+import java.nio.file.Path;
 
-	public static void main(final String... args) {
-		final var bag = new MapBag<String>();
-		bag.add("foo");
-		bag.add("bar", 5L);
-		System.out.println(bag.count("foo")); // Prints 1
-		System.out.println(bag.distinct()); // Prints 2
-		System.out.println(bag.size()); // Prints 6
+public final class Example2 {
+
+	private Example2() {
+		// Not available
+	}
+
+	public static void main(final String... args) throws IOException {
+		final var unixFilePath = (Path) null;
+		final var windowsFilePath = (Path) null;
+
+		final var ignoreTerminatingNewLine = true;
+		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
+			final var appendTerminatingNewLine = false;
+			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
+				// Transfers all lines from the LineReader to the LineWriter
+				final var transferred = lineReader.transferTo(lineWriter);
+				System.out.println(transferred + " lines transferred");
+			}
+		}
 	}
 }

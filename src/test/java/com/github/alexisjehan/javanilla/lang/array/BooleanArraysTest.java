@@ -90,40 +90,6 @@ final class BooleanArraysTest {
 	}
 
 	@Test
-	void testIndexOf() {
-		assertThat(BooleanArrays.indexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
-		final var array = BooleanArrays.of(true, false, true);
-		assertThat(BooleanArrays.indexOf(array, true)).isEqualTo(0);
-		assertThat(BooleanArrays.indexOf(array, false)).isEqualTo(1);
-		assertThat(BooleanArrays.indexOf(array, true, 1)).isEqualTo(2);
-		assertThat(BooleanArrays.indexOf(array, false, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.indexOf(null, true));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.singleton(true), true, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.singleton(true), true, 1));
-	}
-
-	@Test
-	void testLastIndexOf() {
-		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
-		final var array = BooleanArrays.of(true, false, true);
-		assertThat(BooleanArrays.lastIndexOf(array, true)).isEqualTo(2);
-		assertThat(BooleanArrays.lastIndexOf(array, false)).isEqualTo(1);
-		assertThat(BooleanArrays.lastIndexOf(array, true, 1)).isEqualTo(2);
-		assertThat(BooleanArrays.lastIndexOf(array, false, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testLastIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.lastIndexOf(null, true));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.singleton(true), true, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.singleton(true), true, 1));
-	}
-
-	@Test
 	void testContainsAny() {
 		assertThat(BooleanArrays.containsAny(BooleanArrays.EMPTY, true)).isFalse();
 		assertThat(BooleanArrays.containsAny(BooleanArrays.singleton(true), true)).isTrue();
@@ -193,6 +159,53 @@ final class BooleanArraysTest {
 	}
 
 	@Test
+	void testIndexOf() {
+		assertThat(BooleanArrays.indexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
+		final var array = BooleanArrays.of(true, false, true);
+		assertThat(BooleanArrays.indexOf(array, true)).isEqualTo(0);
+		assertThat(BooleanArrays.indexOf(array, false)).isEqualTo(1);
+		assertThat(BooleanArrays.indexOf(array, true, 1)).isEqualTo(2);
+		assertThat(BooleanArrays.indexOf(array, false, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.indexOf(null, true));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.singleton(true), true, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.singleton(true), true, 1));
+	}
+
+	@Test
+	void testLastIndexOf() {
+		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
+		final var array = BooleanArrays.of(true, false, true);
+		assertThat(BooleanArrays.lastIndexOf(array, true)).isEqualTo(2);
+		assertThat(BooleanArrays.lastIndexOf(array, false)).isEqualTo(1);
+		assertThat(BooleanArrays.lastIndexOf(array, true, 1)).isEqualTo(2);
+		assertThat(BooleanArrays.lastIndexOf(array, false, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.lastIndexOf(null, true));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.singleton(true), true, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.singleton(true), true, 1));
+	}
+
+	@Test
+	void testFrequency() {
+		assertThat(BooleanArrays.frequency(BooleanArrays.EMPTY, true)).isEqualTo(0);
+		final var array = BooleanArrays.of(true, false, true);
+		assertThat(BooleanArrays.frequency(array, true)).isEqualTo(2);
+		assertThat(BooleanArrays.frequency(array, false)).isEqualTo(1);
+	}
+
+	@Test
+	void testFrequencyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.frequency(null, true));
+	}
+
+	@Test
 	void testShuffle() {
 		{
 			final var array = BooleanArrays.singleton(true);
@@ -257,10 +270,10 @@ final class BooleanArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.singleton(true), (int[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.singleton(0)));
 		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, 0)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(-1, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(2, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, -1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, 2)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, 2)));
 	}
 
 	@Test
@@ -280,10 +293,10 @@ final class BooleanArraysTest {
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.swap(null, 0, 0));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), -1, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 2, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 0, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 0, 2));
 	}
 
 	@Test

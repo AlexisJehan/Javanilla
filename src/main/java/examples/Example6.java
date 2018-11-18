@@ -23,25 +23,23 @@ SOFTWARE.
 */
 package examples;
 
-import com.github.alexisjehan.javanilla.lang.Strings;
-import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
+import com.github.alexisjehan.javanilla.misc.StringFormatter;
 
-import java.util.Base64;
+import java.util.Locale;
 
-public final class Example03 {
+public final class Example6 {
+
+	private Example6() {
+		// Not available
+	}
 
 	public static void main(final String... args) {
-		System.out.println(Strings.blankToEmpty("   ")); // Prints an empty String
-		System.out.println(Strings.quote("A quoted String with an escaped \" double quote")); // Prints "A quoted String with an escaped \" double quote"
-		final var times = 5;
-		System.out.println(Strings.repeat("xX", times)); // Prints "xXxXxXxXxX"
-		final var size = 5;
-		System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
-		System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
-		System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
-		System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
-		System.out.println(Strings.isHex(ByteArrays.toHexString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
-		final var withPadding = true;
-		System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
+		final var floatPrecision = 3; // Up to 3 digits after the floating point
+		final var stringFormatter = new StringFormatter(Locale.US, floatPrecision);
+		System.out.println(stringFormatter.format(1_234_567L)); // Prints 1,234,567
+		System.out.println(stringFormatter.formatPercent(1.0d, 3.0d)); // Prints 33.333%
+		System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
+		System.out.println(stringFormatter.formatBytes(1_300_000L)); // Prints 1.24MiB
+		System.out.println(stringFormatter.formatBytes(1_300_000L, StringFormatter.BytePrefix.SI)); // Prints 1.3MB
 	}
 }

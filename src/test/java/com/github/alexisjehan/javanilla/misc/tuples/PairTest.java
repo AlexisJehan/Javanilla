@@ -26,7 +26,6 @@ package com.github.alexisjehan.javanilla.misc.tuples;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * <p>{@link Pair} unit tests.</p>
@@ -74,27 +73,5 @@ final class PairTest {
 		assertThat(pair).isNotEqualTo(Triple.of(1, 2, 3));
 		assertThat(pair.hashCode()).isNotEqualTo(Pair.of(1, 3).hashCode());
 		assertThat(pair.toString()).isNotEqualTo(Pair.of(1, 3).toString());
-	}
-
-	@Test
-	void testToMutableEntry() {
-		final var pair = new Pair<>(1, 2);
-		final var entry = pair.toMutableEntry();
-		assertThat(entry.getKey()).isEqualTo(pair.getFirst());
-		assertThat(entry.getValue()).isEqualTo(pair.getSecond());
-		entry.setValue(3);
-		assertThat(entry.getKey()).isEqualTo(pair.getFirst());
-		assertThat(entry.getValue()).isNotEqualTo(pair.getSecond());
-	}
-
-	@Test
-	void testToImmutableEntry() {
-		final var pair = new Pair<>(1, 2);
-		final var entry = pair.toImmutableEntry();
-		assertThat(entry.getKey()).isEqualTo(pair.getFirst());
-		assertThat(entry.getValue()).isEqualTo(pair.getSecond());
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> entry.setValue(3));
-		assertThat(entry.getKey()).isEqualTo(pair.getFirst());
-		assertThat(entry.getValue()).isEqualTo(pair.getSecond());
 	}
 }

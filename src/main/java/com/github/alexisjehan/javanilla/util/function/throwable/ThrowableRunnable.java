@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>Interface for a {@link Runnable} that may throw a {@link Throwable}.</p>
@@ -50,9 +51,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <X extends Throwable> Runnable unchecked(final ThrowableRunnable<? extends X> throwableRunnable) {
-		if (null == throwableRunnable) {
-			throw new NullPointerException("Invalid ThrowableRunnable (not null expected)");
-		}
+		Ensure.notNull("throwableRunnable", throwableRunnable);
 		return () -> {
 			try {
 				throwableRunnable.run();
@@ -71,9 +70,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <X extends Throwable> ThrowableRunnable<X> of(final Runnable runnable) {
-		if (null == runnable) {
-			throw new NullPointerException("Invalid Runnable (not null expected)");
-		}
+		Ensure.notNull("runnable", runnable);
 		return runnable::run;
 	}
 }

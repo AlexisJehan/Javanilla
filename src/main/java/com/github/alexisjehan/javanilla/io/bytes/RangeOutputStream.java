@@ -23,10 +23,11 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Objects;
 
 /**
  * <p>An {@link OutputStream} decorator that writes only bytes within a range from the current position.</p>
@@ -53,57 +54,35 @@ public final class RangeOutputStream extends FilterOutputStream {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with an {@code OutputStream} to decorate and a range from {@code 0} to an inclusive index.</p>
-	 * @param outputStream the {@code OutputStream} to decorate
-	 * @param toIndex the inclusive index of the last byte to write
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
-	 * @since 1.0.0
-	 */
-	public RangeOutputStream(final OutputStream outputStream, final long toIndex) {
-		this(outputStream, 0L, toIndex);
-	}
-
-	/**
 	 * <p>Constructor with an {@code OutputStream} to decorate and a range from an inclusive index to another one.</p>
 	 * @param outputStream the {@code OutputStream} to decorate
 	 * @param fromIndex the inclusive index of the first byte to write
 	 * @param toIndex the inclusive index of the last byte to write
 	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
-	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
+	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeOutputStream(final OutputStream outputStream, final long fromIndex, final long toIndex) {
-		super(Objects.requireNonNull(outputStream, "Invalid OutputStream (not null expected)"));
-		if (0L > fromIndex) {
-			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
-		}
-		if (fromIndex > toIndex) {
-			throw new IndexOutOfBoundsException("Invalid to index: " + toIndex + " (greater than or equal to the from index expected)");
-		}
+		super(Ensure.notNull("outputStream", outputStream));
+		Ensure.greaterThanOrEqualTo("fromIndex", fromIndex, 0L);
+		Ensure.greaterThanOrEqualTo("toIndex", toIndex, fromIndex);
 		this.fromIndex = fromIndex;
 		this.toIndex = toIndex;
 	}
 
 	@Override
-	public void write(final int b) throws IOException {
+	public void write(final int i) throws IOException {
 		if (fromIndex <= index && toIndex >= index) {
-			out.write(b);
+			out.write(i);
 		}
 		++index;
 	}
 
 	@Override
 	public void write(final byte[] bytes, final int offset, final int length) throws IOException {
-		if (null == bytes) {
-			throw new NullPointerException("Invalid bytes (not null expected)");
-		}
-		if (0 > offset || bytes.length < offset) {
-			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + bytes.length + " expected)");
-		}
-		if (0 > length || bytes.length - offset < length) {
-			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (bytes.length - offset) + " expected)");
-		}
+		Ensure.notNull("bytes", bytes);
+		Ensure.between("offset", offset, 0, bytes.length);
+		Ensure.between("length", length, 0, bytes.length - offset);
 		if (0 == length) {
 			return;
 		}

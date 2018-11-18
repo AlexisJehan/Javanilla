@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.IOException;
 
 /**
@@ -50,34 +52,18 @@ public final class RangeLineReader extends FilterLineReader {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a {@code LineReader} to decorate and a range from {@code 0} to an inclusive index.</p>
-	 * @param lineReader the {@code LineReader} to decorate
-	 * @param toIndex the inclusive index of the last line to read
-	 * @throws NullPointerException if the {@code LineReader} is {@code null}
-	 * @throws IndexOutOfBoundsException if the index is lower than {@code 0}
-	 * @since 1.0.0
-	 */
-	public RangeLineReader(final LineReader lineReader, final long toIndex) {
-		this(lineReader, 0L, toIndex);
-	}
-
-	/**
 	 * <p>Constructor with a {@code LineReader} to decorate and a range from an inclusive index to another one.</p>
 	 * @param lineReader the {@code LineReader} to decorate
 	 * @param fromIndex the inclusive index of the first line to read
 	 * @param toIndex the inclusive index of the last line to read
 	 * @throws NullPointerException if the {@code LineReader} is {@code null}
-	 * @throws IndexOutOfBoundsException if the starting index is lower than {@code 0} or greater than the ending one
+	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
 	public RangeLineReader(final LineReader lineReader, final long fromIndex, final long toIndex) {
 		super(lineReader);
-		if (0L > fromIndex) {
-			throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (greater than or equal to 0 expected)");
-		}
-		if (fromIndex > toIndex) {
-			throw new IndexOutOfBoundsException("Invalid to index: " + toIndex + " (greater than or equal to the from index expected)");
-		}
+		Ensure.greaterThanOrEqualTo("fromIndex", fromIndex, 0L);
+		Ensure.greaterThanOrEqualTo("toIndex", toIndex, fromIndex);
 		this.fromIndex = fromIndex;
 		this.toIndex = toIndex;
 	}
@@ -98,16 +84,16 @@ public final class RangeLineReader extends FilterLineReader {
 	}
 
 	@Override
-	public long skip(final long n) throws IOException {
+	public long skip(final long number) throws IOException {
+		if (0L >= number || toIndex < index) {
+			return 0L;
+		}
 		if (fromIndex > index) {
 			index += super.skip(fromIndex - index);
 		}
-		if (toIndex < index) {
-			return 0L;
-		}
-		final var s = super.skip(n);
-		index += s;
-		return s;
+		final var actual = super.skip(number);
+		index += actual;
+		return actual;
 	}
 
 	/**

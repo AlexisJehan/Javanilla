@@ -23,7 +23,9 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.lang.array;
 
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.ToString;
 
 import java.util.Arrays;
 import java.util.List;
@@ -68,9 +70,7 @@ public final class CharArrays {
 	 * @since 1.1.0
 	 */
 	public static char[] nullToDefault(final char[] array, final char[] defaultArray) {
-		if (null == defaultArray) {
-			throw new NullPointerException("Invalid default array (not null expected)");
-		}
+		Ensure.notNull("defaultArray", defaultArray);
 		return null != array ? array : defaultArray;
 	}
 
@@ -93,10 +93,10 @@ public final class CharArrays {
 	 * @since 1.1.0
 	 */
 	public static char[] emptyToDefault(final char[] array, final char[] defaultArray) {
-		if (null != defaultArray && 0 == defaultArray.length) {
-			throw new IllegalArgumentException("Invalid default array (not empty expected)");
+		if (null != defaultArray) {
+			Ensure.notNullAndNotEmpty("defaultArray", defaultArray);
 		}
-		return null == array || 0 != array.length ? array : defaultArray;
+		return null == array || !isEmpty(array) ? array : defaultArray;
 	}
 
 	/**
@@ -107,88 +107,8 @@ public final class CharArrays {
 	 * @since 1.2.0
 	 */
 	public static boolean isEmpty(final char[] array) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
+		Ensure.notNull("array", array);
 		return 0 == array.length;
-	}
-
-	/**
-	 * <p>Get the first index of the {@code char} value in the {@code char} array.</p>
-	 * @param array the {@code char} array to lookup
-	 * @param value the {@code char} value to search
-	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code char} array is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int indexOf(final char[] array, final char value) {
-		return indexOf(array, value, 0);
-	}
-
-	/**
-	 * <p>Get the first index of the {@code char} value in the {@code char} array starting from the given index.</p>
-	 * @param array the {@code char} array to lookup
-	 * @param value the {@code char} value to search
-	 * @param fromIndex the starting index
-	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code char} array is {@code null}
-	 * @throws IndexOutOfBoundsException if the starting index is not valid
-	 * @since 1.0.0
-	 */
-	public static int indexOf(final char[] array, final char value, final int fromIndex) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (0 < array.length) {
-			if (0 > fromIndex || array.length - 1 < fromIndex) {
-				throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (between 0 and " + (array.length - 1) + " expected)");
-			}
-			for (var i = fromIndex; i < array.length; ++i) {
-				if (value == array[i]) {
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
-
-	/**
-	 * <p>Get the last index of the {@code char} value in the {@code char} array.</p>
-	 * @param array the {@code char} array to lookup
-	 * @param value the {@code char} value to search
-	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code char} array is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int lastIndexOf(final char[] array, final char value) {
-		return lastIndexOf(array, value, 0);
-	}
-
-	/**
-	 * <p>Get the last index of the {@code char} value in the {@code char} array starting from the given index.</p>
-	 * @param array the {@code char} array to lookup
-	 * @param value the {@code char} value to search
-	 * @param fromIndex the starting index
-	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code char} array is {@code null}
-	 * @throws IndexOutOfBoundsException if the starting index is not valid
-	 * @since 1.0.0
-	 */
-	public static int lastIndexOf(final char[] array, final char value, final int fromIndex) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (0 < array.length) {
-			if (0 > fromIndex || array.length - 1 < fromIndex) {
-				throw new IndexOutOfBoundsException("Invalid from index: " + fromIndex + " (between 0 and " + (array.length - 1) + " expected)");
-			}
-			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (value == array[i]) {
-					return i;
-				}
-			}
-		}
-		return -1;
 	}
 
 	/**
@@ -201,21 +121,14 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final char[] array, final char... values) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (null == values) {
-			throw new NullPointerException("Invalid values (not null expected)");
-		}
-		if (0 == values.length) {
-			throw new IllegalArgumentException("Invalid values (not empty expected)");
-		}
-		if (0 == array.length) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
 			return false;
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					return true;
 				}
 			}
@@ -233,22 +146,15 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final char[] array, final char... values) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (null == values) {
-			throw new NullPointerException("Invalid values (not null expected)");
-		}
-		if (0 == values.length) {
-			throw new IllegalArgumentException("Invalid values (not empty expected)");
-		}
-		if (0 == array.length) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
 			return false;
 		}
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					contained = true;
 					break;
 				}
@@ -270,22 +176,15 @@ public final class CharArrays {
 	 * @since 1.1.0
 	 */
 	public static boolean containsOnce(final char[] array, final char... values) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (null == values) {
-			throw new NullPointerException("Invalid values (not null expected)");
-		}
-		if (0 == values.length) {
-			throw new IllegalArgumentException("Invalid values (not empty expected)");
-		}
-		if (0 == array.length) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
 			return false;
 		}
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					if (contained) {
 						return false;
 					}
@@ -309,22 +208,15 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final char[] array, final char... values) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (null == values) {
-			throw new NullPointerException("Invalid values (not null expected)");
-		}
-		if (0 == values.length) {
-			throw new IllegalArgumentException("Invalid values (not empty expected)");
-		}
-		if (0 == array.length) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
 			return false;
 		}
 		for (final var element : array) {
 			var contained = false;
 			for (final var value : values) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					contained = true;
 					break;
 				}
@@ -337,6 +229,98 @@ public final class CharArrays {
 	}
 
 	/**
+	 * <p>Get the first index of the {@code char} value in the {@code char} array.</p>
+	 * @param array the {@code char} array to iterate
+	 * @param value the {@code char} value to search
+	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int indexOf(final char[] array, final char value) {
+		return indexOf(array, value, 0);
+	}
+
+	/**
+	 * <p>Get the first index of the {@code char} value in the {@code char} array starting from the given index.</p>
+	 * @param array the {@code char} array to iterate
+	 * @param value the {@code char} value to search
+	 * @param fromIndex the starting index
+	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @throws IllegalArgumentException if the starting index is not valid
+	 * @since 1.0.0
+	 */
+	public static int indexOf(final char[] array, final char value, final int fromIndex) {
+		Ensure.notNull("array", array);
+		if (!isEmpty(array)) {
+			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
+			for (var i = fromIndex; i < array.length; ++i) {
+				if (Equals.equals(value, array[i])) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * <p>Get the last index of the {@code char} value in the {@code char} array.</p>
+	 * @param array the {@code char} array to iterate
+	 * @param value the {@code char} value to search
+	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int lastIndexOf(final char[] array, final char value) {
+		return lastIndexOf(array, value, 0);
+	}
+
+	/**
+	 * <p>Get the last index of the {@code char} value in the {@code char} array starting from the given index.</p>
+	 * @param array the {@code char} array to iterate
+	 * @param value the {@code char} value to search
+	 * @param fromIndex the starting index
+	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @throws IllegalArgumentException if the starting index is not valid
+	 * @since 1.0.0
+	 */
+	public static int lastIndexOf(final char[] array, final char value, final int fromIndex) {
+		Ensure.notNull("array", array);
+		if (!isEmpty(array)) {
+			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
+			for (var i = array.length - 1; i > fromIndex; --i) {
+				if (Equals.equals(value, array[i])) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * <p>Calculate the number of occurrences of the {@code char} value in the {@code char} array.</p>
+	 * @param array the {@code char} array to iterate
+	 * @param value the {@code char} value of the frequency to calculate
+	 * @return the frequency of the {@code char} value
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @since 1.3.0
+	 */
+	public static int frequency(final char[] array, final char value) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
+			return 0;
+		}
+		var frequency = 0;
+		for (final var element : array) {
+			if (Equals.equals(value, element)) {
+				++frequency;
+			}
+		}
+		return frequency;
+	}
+
+	/**
 	 * <p>Shuffle values in the given {@code char} array using the Fisher-Yates algorithm.</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code char} array to shuffle
@@ -344,9 +328,7 @@ public final class CharArrays {
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final char[] array) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
+		Ensure.notNull("array", array);
 		if (1 < array.length) {
 			final var random = ThreadLocalRandom.current();
 			for (var i = 0; i < array.length; ++i) {
@@ -362,9 +344,7 @@ public final class CharArrays {
 	 * @since 1.2.0
 	 */
 	public static void reverse(final char[] array) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
+		Ensure.notNull("array", array);
 		if (1 < array.length) {
 			for (var i = 0; i < array.length / 2; ++i) {
 				swap(array, i, array.length - i - 1);
@@ -377,30 +357,21 @@ public final class CharArrays {
 	 * @param array the {@code char} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code char} array or the indexes array is {@code null}
-	 * @throws IllegalArgumentException if {@code char} array and indexes array lengths are not the same or if
-	 * indexes are not distinct
-	 * @throws IndexOutOfBoundsException if any index is not valid
+	 * @throws IllegalArgumentException if {@code char} array is empty, if the {@code char} array length is not equal to
+	 * the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final char[] array, final int... indexes) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (null == indexes) {
-			throw new NullPointerException("Invalid indexes (not null expected)");
-		}
-		if (array.length != indexes.length) {
-			throw new IllegalArgumentException("Invalid array and indexes lengths: " + array.length + " and " + indexes.length + " (same expected)");
-		}
-		if (array.length != Arrays.stream(indexes).distinct().count()) {
-			throw new IllegalArgumentException("Invalid indexes (distinct expected)");
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.notNull("indexes", indexes);
+		Ensure.equalTo("indexes length", indexes.length, array.length);
+		if (indexes.length != Arrays.stream(indexes).distinct().count()) {
+			throw new IllegalArgumentException("Invalid indexes: " + ToString.toString(indexes) + " (distinct expected)");
 		}
 		if (1 < array.length) {
 			for (var i = 0; i < array.length; ++i) {
 				var j = indexes[i];
-				if (0 > j || array.length - 1 < j) {
-					throw new IndexOutOfBoundsException("Invalid index: " + j + " (between 0 and " + (array.length - 1) + " expected)");
-				}
+				Ensure.between("index", j, 0, array.length - 1);
 				while (j < i) {
 					j = indexes[j];
 				}
@@ -415,19 +386,13 @@ public final class CharArrays {
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
 	 * @throws NullPointerException if the {@code char} array is {@code null}
-	 * @throws IndexOutOfBoundsException if any index is not valid
+	 * @throws IllegalArgumentException if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void swap(final char[] array, final int index1, final int index2) {
-		if (null == array) {
-			throw new NullPointerException("Invalid array (not null expected)");
-		}
-		if (0 > index1 || array.length - 1 < index1) {
-			throw new IndexOutOfBoundsException("Invalid first index: " + index1 + " (between 0 and " + (array.length - 1) + " expected)");
-		}
-		if (0 > index2 || array.length - 1 < index2) {
-			throw new IndexOutOfBoundsException("Invalid second index: " + index2 + " (between 0 and " + (array.length - 1) + " expected)");
-		}
+		Ensure.notNull("array", array);
+		Ensure.between("index1", index1, 0, array.length - 1);
+		Ensure.between("index2", index2, 0, array.length - 1);
 		if (index1 != index2) {
 			final var value = array[index1];
 			array[index1] = array[index2];
@@ -443,10 +408,8 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static char[] concat(final char[]... arrays) {
-		if (null == arrays) {
-			throw new NullPointerException("Invalid arrays (not null expected)");
-		}
-		return concat(Arrays.asList(arrays));
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return concat(List.of(arrays));
 	}
 
 	/**
@@ -457,14 +420,7 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static char[] concat(final List<char[]> arrays) {
-		if (null == arrays) {
-			throw new NullPointerException("Invalid arrays (not null expected)");
-		}
-		for (final var indexedArray : Iterables.index(arrays)) {
-			if (null == indexedArray.getElement()) {
-				throw new NullPointerException("Invalid array at index " + indexedArray.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNullAndNotNullElements("arrays", arrays);
 		final var size = arrays.size();
 		if (0 == size) {
 			return EMPTY;
@@ -491,10 +447,8 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static char[] join(final char[] separator, final char[]... arrays) {
-		if (null == arrays) {
-			throw new NullPointerException("Invalid arrays (not null expected)");
-		}
-		return join(separator, Arrays.asList(arrays));
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(separator, List.of(arrays));
 	}
 
 	/**
@@ -507,18 +461,9 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static char[] join(final char[] separator, final List<char[]> arrays) {
-		if (null == separator) {
-			throw new NullPointerException("Invalid separator (not null expected)");
-		}
-		if (null == arrays) {
-			throw new NullPointerException("Invalid arrays (not null expected)");
-		}
-		for (final var indexedArray : Iterables.index(arrays)) {
-			if (null == indexedArray.getElement()) {
-				throw new NullPointerException("Invalid array at index " + indexedArray.getIndex() + " (not null expected)");
-			}
-		}
-		if (0 == separator.length) {
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		if (isEmpty(separator)) {
 			return concat(arrays);
 		}
 		final var size = arrays.size();
@@ -561,10 +506,8 @@ public final class CharArrays {
 	 * @since 1.0.0
 	 */
 	public static char[] of(final char... chars) {
-		if (null == chars) {
-			throw new NullPointerException("Invalid chars (not null expected)");
-		}
-		if (0 == chars.length) {
+		Ensure.notNull("chars", chars);
+		if (isEmpty(chars)) {
 			return EMPTY;
 		}
 		return chars;
@@ -578,10 +521,8 @@ public final class CharArrays {
 	 * @since 1.2.0
 	 */
 	public static char[] of(final Character[] boxedCharacters) {
-		if (null == boxedCharacters) {
-			throw new NullPointerException("Invalid Characters (not null expected)");
-		}
-		if (0 == boxedCharacters.length) {
+		Ensure.notNull("boxedCharacters", boxedCharacters);
+		if (ObjectArrays.isEmpty(boxedCharacters)) {
 			return EMPTY;
 		}
 		final var chars = new char[boxedCharacters.length];
@@ -599,8 +540,9 @@ public final class CharArrays {
 	 * @since 1.2.0
 	 */
 	public static Character[] toBoxed(final char[] chars) {
-		if (null == chars) {
-			throw new NullPointerException("Invalid chars (not null expected)");
+		Ensure.notNull("chars", chars);
+		if (isEmpty(chars)) {
+			return ObjectArrays.empty(Character.class);
 		}
 		final var boxedCharacters = new Character[chars.length];
 		for (var i = 0; i < boxedCharacters.length; ++i) {

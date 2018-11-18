@@ -37,7 +37,7 @@ final class LevenshteinDistanceTest {
 	@Test
 	void testConstructor() {
 		{
-			final var levenshteinDistance = new LevenshteinDistance();
+			final var levenshteinDistance = LevenshteinDistance.DEFAULT;
 			assertThat(levenshteinDistance.getInsertionCost()).isEqualTo(1.0d);
 			assertThat(levenshteinDistance.getDeletionCost()).isEqualTo(1.0d);
 			assertThat(levenshteinDistance.getSubstitutionCost()).isEqualTo(1.0d);
@@ -60,7 +60,7 @@ final class LevenshteinDistanceTest {
 	@Test
 	void testCalculate() {
 		{
-			final var levenshteinDistance = new LevenshteinDistance();
+			final var levenshteinDistance = LevenshteinDistance.DEFAULT;
 			assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
 			assertThat(levenshteinDistance.calculate("ab", "")).isEqualTo(2.0d);
 			assertThat(levenshteinDistance.calculate("", "ab")).isEqualTo(2.0d);
@@ -85,34 +85,38 @@ final class LevenshteinDistanceTest {
 
 	@Test
 	void testCalculateInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new LevenshteinDistance().calculate(null, "foo"));
-		assertThatNullPointerException().isThrownBy(() -> new LevenshteinDistance().calculate("foo", null));
+		assertThatNullPointerException().isThrownBy(() -> LevenshteinDistance.DEFAULT.calculate(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> LevenshteinDistance.DEFAULT.calculate("foo", null));
 	}
 
 	@Test
-	void testEqualsHashCode() {
-		final var levenshteinDistance = new LevenshteinDistance();
+	void testEqualsHashCodeToString() {
+		final var levenshteinDistance = LevenshteinDistance.DEFAULT;
 		assertThat(levenshteinDistance).isEqualTo(levenshteinDistance);
 		assertThat(levenshteinDistance).isNotEqualTo(1);
 		{
-			final var otherLevenshteinDistance = new LevenshteinDistance();
+			final var otherLevenshteinDistance = new LevenshteinDistance(1.0d, 1.0d, 1.0d);
 			assertThat(otherLevenshteinDistance).isEqualTo(levenshteinDistance);
 			assertThat(otherLevenshteinDistance).hasSameHashCodeAs(levenshteinDistance);
+			assertThat(otherLevenshteinDistance).hasToString(levenshteinDistance.toString());
 		}
 		{
 			final var otherLevenshteinDistance = new LevenshteinDistance(2.0d, 1.0d, 1.0d);
 			assertThat(otherLevenshteinDistance).isNotEqualTo(levenshteinDistance);
 			assertThat(otherLevenshteinDistance.hashCode()).isNotEqualTo(levenshteinDistance.hashCode());
+			assertThat(otherLevenshteinDistance.toString()).isNotEqualTo(levenshteinDistance.toString());
 		}
 		{
 			final var otherLevenshteinDistance = new LevenshteinDistance(1.0d, 2.0d, 1.0d);
 			assertThat(otherLevenshteinDistance).isNotEqualTo(levenshteinDistance);
 			assertThat(otherLevenshteinDistance.hashCode()).isNotEqualTo(levenshteinDistance.hashCode());
+			assertThat(otherLevenshteinDistance.toString()).isNotEqualTo(levenshteinDistance.toString());
 		}
 		{
 			final var otherLevenshteinDistance = new LevenshteinDistance(1.0d, 1.0d, 2.0d);
 			assertThat(otherLevenshteinDistance).isNotEqualTo(levenshteinDistance);
 			assertThat(otherLevenshteinDistance.hashCode()).isNotEqualTo(levenshteinDistance.hashCode());
+			assertThat(otherLevenshteinDistance.toString()).isNotEqualTo(levenshteinDistance.toString());
 		}
 	}
 

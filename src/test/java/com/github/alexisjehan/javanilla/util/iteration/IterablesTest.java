@@ -34,11 +34,19 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.PrimitiveIterator;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link Iterables} unit tests.</p>
@@ -257,35 +265,35 @@ final class IterablesTest {
 	}
 
 	@Test
-	void testGetFirst() {
-		assertThat(Iterables.getFirst(Iterables.empty()).isEmpty()).isTrue();
-		assertThat(Iterables.getFirst(Collections.singletonList(0)).get()).isEqualTo(0);
-		assertThat(Iterables.getFirst(Iterables.singleton(null)).get()).isNull();
+	void testGetOptionalFirst() {
+		assertThat(Iterables.getOptionalFirst(Iterables.empty()).isEmpty()).isTrue();
+		assertThat(Iterables.getOptionalFirst(Collections.singletonList(0)).get()).isEqualTo(0);
+		assertThat(Iterables.getOptionalFirst(Iterables.singleton(null)).get()).isNull();
 		final var iterable = Iterables.of(1, 2, 3);
 		for (var i = 0; i < 2; ++i) {
-			assertThat(Iterables.getFirst(iterable).get()).isEqualTo(1);
+			assertThat(Iterables.getOptionalFirst(iterable).get()).isEqualTo(1);
 		}
 	}
 
 	@Test
-	void testGetFirstInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterables.getFirst(null));
+	void testGetOptionalFirstInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterables.getOptionalFirst(null));
 	}
 
 	@Test
-	void testGetLast() {
-		assertThat(Iterables.getLast(Iterables.empty()).isEmpty()).isTrue();
-		assertThat(Iterables.getLast(Collections.singletonList(0)).get()).isEqualTo(0);
-		assertThat(Iterables.getLast(Iterables.singleton(null)).get()).isNull();
+	void testGetOptionalLast() {
+		assertThat(Iterables.getOptionalLast(Iterables.empty()).isEmpty()).isTrue();
+		assertThat(Iterables.getOptionalLast(Collections.singletonList(0)).get()).isEqualTo(0);
+		assertThat(Iterables.getOptionalLast(Iterables.singleton(null)).get()).isNull();
 		final var iterable = Iterables.of(1, 2, 3);
 		for (var i = 0; i < 2; ++i) {
-			assertThat(Iterables.getLast(iterable).get()).isEqualTo(3);
+			assertThat(Iterables.getOptionalLast(iterable).get()).isEqualTo(3);
 		}
 	}
 
 	@Test
-	void testGetLastInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterables.getLast(null));
+	void testGetOptionalLastInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterables.getOptionalLast(null));
 	}
 
 	@Test

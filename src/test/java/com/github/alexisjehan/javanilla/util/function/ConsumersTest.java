@@ -38,7 +38,7 @@ final class ConsumersTest {
 
 	@Test
 	void testOnce() {
-		final var onceConsumer = Consumers.once(i -> {});
+		final var onceConsumer = Consumers.<Integer>once(i -> {});
 		onceConsumer.accept(1);
 		assertThatIllegalStateException().isThrownBy(() -> onceConsumer.accept(1));
 	}

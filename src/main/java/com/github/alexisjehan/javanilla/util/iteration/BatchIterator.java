@@ -23,8 +23,9 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -64,12 +65,8 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	 * @since 1.0.0
 	 */
 	public BatchIterator(final Iterator<? extends E> iterator, final int batchSize) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
-		if (1 > batchSize) {
-			throw new IllegalArgumentException("Invalid batch size: " + batchSize + " (greater than or equal to 1 expected");
-		}
+		Ensure.notNull("iterator", iterator);
+		Ensure.greaterThanOrEqualTo("batchSize", batchSize, 1);
 		this.iterator = iterator;
 		this.batchSize = batchSize;
 		batch = new ArrayList<>(batchSize);
@@ -89,7 +86,7 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 		for (var i = 0; i < batchSize && iterator.hasNext(); ++i) {
 			batch.add(iterator.next());
 		}
-		return Collections.unmodifiableList(batch);
+		return List.copyOf(batch);
 	}
 
 	/**

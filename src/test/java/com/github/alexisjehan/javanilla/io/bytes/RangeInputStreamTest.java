@@ -23,39 +23,44 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
+import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link RangeInputStream} unit tests.</p>
  */
 final class RangeInputStreamTest {
 
+	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeInputStream(null, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeInputStream(InputStreams.singleton((byte) 1), -1L, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeInputStream(InputStreams.singleton((byte) 1), 1L, 0L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeInputStream(null, 0L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeInputStream(InputStreams.of(BYTES), -1L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeInputStream(InputStreams.of(BYTES), 1L, 0L));
 	}
 
 	@Test
 	void testReadByte() throws IOException {
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 0L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 0L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.read()).isEqualTo(1);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 1L, 1L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 1L, 1L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(1L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(1L);
 			assertThat(rangeInputStream.read()).isEqualTo(2);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 10L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.read()).isEqualTo(1);
@@ -63,7 +68,7 @@ final class RangeInputStreamTest {
 			assertThat(rangeInputStream.read()).isEqualTo(3);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L, 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 10L, 10L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
@@ -73,21 +78,21 @@ final class RangeInputStreamTest {
 	@Test
 	void testReadBuffer() throws IOException {
 		final var buffer = new byte[2];
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 0L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 0L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(1);
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 1L, 1L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 1L, 1L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(1L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(1L);
 			assertThat(rangeInputStream.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(1);
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 10L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.read(buffer, 0, 0)).isEqualTo(0);
@@ -95,7 +100,7 @@ final class RangeInputStreamTest {
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(1);
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L, 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 10L, 10L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.read(buffer, 0, 2)).isEqualTo(-1);
@@ -105,45 +110,53 @@ final class RangeInputStreamTest {
 	@Test
 	void testReadBufferInvalid() throws IOException {
 		final var buffer = new byte[2];
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 0L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeInputStream.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeInputStream.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeInputStream.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeInputStream.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeInputStream.read(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeInputStream.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeInputStream.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeInputStream.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeInputStream.read(buffer, 0, 3));
 		}
 	}
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 0L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 0L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(0L);
+			assertThat(rangeInputStream.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeInputStream.skip(0L)).isEqualTo(0L);
 			assertThat(rangeInputStream.skip(1L)).isEqualTo(1L);
 			assertThat(rangeInputStream.skip(1L)).isEqualTo(0L);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 1L, 1L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 1L, 1L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(1L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(1L);
+			assertThat(rangeInputStream.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeInputStream.skip(0L)).isEqualTo(0L);
 			assertThat(rangeInputStream.skip(1L)).isEqualTo(1L);
 			assertThat(rangeInputStream.skip(1L)).isEqualTo(0L);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 10L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(10L);
+			assertThat(rangeInputStream.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeInputStream.skip(0L)).isEqualTo(0L);
 			assertThat(rangeInputStream.skip(1L)).isEqualTo(1L);
 			assertThat(rangeInputStream.skip(10L)).isEqualTo(2L);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L, 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 10L, 10L)) {
 			assertThat(rangeInputStream.getFromIndex()).isEqualTo(10L);
 			assertThat(rangeInputStream.getToIndex()).isEqualTo(10L);
+			assertThat(rangeInputStream.skip(-1L)).isEqualTo(0L);
+			assertThat(rangeInputStream.skip(0L)).isEqualTo(0L);
 			assertThat(rangeInputStream.skip(1L)).isEqualTo(0L);
 		}
 	}
 
 	@Test
 	void testMarkReset() throws IOException {
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 0L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 0L)) {
 			rangeInputStream.mark(2);
 			assertThat(rangeInputStream.read()).isEqualTo(1);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
@@ -154,7 +167,7 @@ final class RangeInputStreamTest {
 			assertThat(rangeInputStream.read()).isEqualTo(1);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 1L, 1L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 1L, 1L)) {
 			rangeInputStream.mark(2);
 			assertThat(rangeInputStream.read()).isEqualTo(2);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
@@ -165,7 +178,7 @@ final class RangeInputStreamTest {
 			assertThat(rangeInputStream.read()).isEqualTo(2);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 10L)) {
 			assertThat(rangeInputStream.read()).isEqualTo(1);
 			rangeInputStream.mark(2);
 			assertThat(rangeInputStream.read()).isEqualTo(2);
@@ -180,7 +193,7 @@ final class RangeInputStreamTest {
 			assertThat(rangeInputStream.read()).isEqualTo(3);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 		}
-		try (final var rangeInputStream = new RangeInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3), 10L, 10L)) {
+		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 10L, 10L)) {
 			rangeInputStream.mark(2);
 			assertThat(rangeInputStream.read()).isEqualTo(-1);
 			rangeInputStream.reset();

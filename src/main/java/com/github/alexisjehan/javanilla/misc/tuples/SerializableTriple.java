@@ -23,8 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.tuples;
 
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <p>A {@code SerializableTriple} is an immutable tuple that is composed of three {@link Serializable} elements.</p>
@@ -76,6 +78,43 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 		this.third = third;
 	}
 
+	@Override
+	public boolean equals(final Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (!(object instanceof SerializableTriple)) {
+			return false;
+		}
+		final var other = (SerializableTriple) object;
+		return Equals.equals(first, other.first)
+				&& Equals.equals(second, other.second)
+				&& Equals.equals(third, other.third);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCode.of(
+				HashCode.hashCode(first),
+				HashCode.hashCode(second),
+				HashCode.hashCode(third)
+		);
+	}
+
+	@Override
+	public String toString() {
+		return "[" + first + ", " + second + ", " + third + "]";
+	}
+
+	/**
+	 * <p>Converts the current {@code SerializableTriple} to a {@code Triple}.</p>
+	 * @return the converted {@code Triple}
+	 * @since 1.0.0
+	 */
+	public Triple<F, S, T> toTriple() {
+		return new Triple<>(first, second, third);
+	}
+
 	/**
 	 * <p>Get the first {@code Serializable} element of the {@code SerializableTriple}.</p>
 	 * @return the first {@code Serializable} element
@@ -103,30 +142,6 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 		return third;
 	}
 
-	@Override
-	public boolean equals(final Object object) {
-		if (this == object) {
-			return true;
-		}
-		if (!(object instanceof SerializableTriple)) {
-			return false;
-		}
-		final var other = (SerializableTriple) object;
-		return Objects.equals(first, other.first)
-				&& Objects.equals(second, other.second)
-				&& Objects.equals(third, other.third);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(first, second, third);
-	}
-
-	@Override
-	public String toString() {
-		return "[" + first + ", " + second + ", " + third + "]";
-	}
-
 	/**
 	 * <p>Vanilla constructor.</p>
 	 * @param first the first {@code Serializable} element or {@code null}
@@ -140,14 +155,5 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	 */
 	public static <F extends Serializable, S extends Serializable, T extends Serializable> SerializableTriple<F, S, T> of(final F first, final S second, final T third) {
 		return new SerializableTriple<>(first, second, third);
-	}
-
-	/**
-	 * <p>Converts the current {@code SerializableTriple} to a {@code Triple}.</p>
-	 * @return the converted {@code Triple}
-	 * @since 1.0.0
-	 */
-	public Triple<F, S, T> toTriple() {
-		return new Triple<>(first, second, third);
 	}
 }

@@ -90,40 +90,6 @@ final class LongArraysTest {
 	}
 
 	@Test
-	void testIndexOf() {
-		assertThat(LongArrays.indexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
-		final var array = LongArrays.of(1L, 2L, 1L);
-		assertThat(LongArrays.indexOf(array, 1L)).isEqualTo(0);
-		assertThat(LongArrays.indexOf(array, 2L)).isEqualTo(1);
-		assertThat(LongArrays.indexOf(array, 1L, 1)).isEqualTo(2);
-		assertThat(LongArrays.indexOf(array, 2L, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.indexOf(null, 1L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.indexOf(LongArrays.singleton(1L), 1L, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.indexOf(LongArrays.singleton(1L), 1L, 1));
-	}
-
-	@Test
-	void testLastIndexOf() {
-		assertThat(LongArrays.lastIndexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
-		final var array = LongArrays.of(1L, 2L, 1L);
-		assertThat(LongArrays.lastIndexOf(array, 1L)).isEqualTo(2);
-		assertThat(LongArrays.lastIndexOf(array, 2L)).isEqualTo(1);
-		assertThat(LongArrays.lastIndexOf(array, 1L, 1)).isEqualTo(2);
-		assertThat(LongArrays.lastIndexOf(array, 2L, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testLastIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.lastIndexOf(null, 1L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.singleton(1L), 1L, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.singleton(1L), 1L, 1));
-	}
-
-	@Test
 	void testContainsAny() {
 		assertThat(LongArrays.containsAny(LongArrays.EMPTY, 1L)).isFalse();
 		assertThat(LongArrays.containsAny(LongArrays.singleton(1L), 1L)).isTrue();
@@ -193,6 +159,53 @@ final class LongArraysTest {
 	}
 
 	@Test
+	void testIndexOf() {
+		assertThat(LongArrays.indexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
+		final var array = LongArrays.of(1L, 2L, 1L);
+		assertThat(LongArrays.indexOf(array, 1L)).isEqualTo(0);
+		assertThat(LongArrays.indexOf(array, 2L)).isEqualTo(1);
+		assertThat(LongArrays.indexOf(array, 1L, 1)).isEqualTo(2);
+		assertThat(LongArrays.indexOf(array, 2L, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.indexOf(null, 1L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.indexOf(LongArrays.singleton(1L), 1L, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.indexOf(LongArrays.singleton(1L), 1L, 1));
+	}
+
+	@Test
+	void testLastIndexOf() {
+		assertThat(LongArrays.lastIndexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
+		final var array = LongArrays.of(1L, 2L, 1L);
+		assertThat(LongArrays.lastIndexOf(array, 1L)).isEqualTo(2);
+		assertThat(LongArrays.lastIndexOf(array, 2L)).isEqualTo(1);
+		assertThat(LongArrays.lastIndexOf(array, 1L, 1)).isEqualTo(2);
+		assertThat(LongArrays.lastIndexOf(array, 2L, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.lastIndexOf(null, 1L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.singleton(1L), 1L, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.singleton(1L), 1L, 1));
+	}
+
+	@Test
+	void testFrequency() {
+		assertThat(LongArrays.frequency(LongArrays.EMPTY, 1L)).isEqualTo(0);
+		final var array = LongArrays.of(1L, 2L, 1L);
+		assertThat(LongArrays.frequency(array, 1L)).isEqualTo(2);
+		assertThat(LongArrays.frequency(array, 2L)).isEqualTo(1);
+	}
+
+	@Test
+	void testFrequencyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.frequency(null, 1L));
+	}
+
+	@Test
 	void testShuffle() {
 		{
 			final var array = LongArrays.singleton(1L);
@@ -257,10 +270,10 @@ final class LongArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.reorder(LongArrays.singleton(1L), (int[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.singleton(0)));
 		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, 0)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(-1, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(2, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, -1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, 2)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, 2)));
 	}
 
 	@Test
@@ -280,10 +293,10 @@ final class LongArraysTest {
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.swap(null, 0, 0));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), -1, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 2, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 0, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 0, 2));
 	}
 
 	@Test

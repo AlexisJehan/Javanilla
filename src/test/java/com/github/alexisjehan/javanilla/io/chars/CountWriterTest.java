@@ -35,6 +35,9 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountWriterTest {
 
+	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
+	private static final String STRING = "abc";
+
 	@Test
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountWriter(null));
@@ -55,49 +58,45 @@ final class CountWriterTest {
 
 	@Test
 	void testWriteChars() throws IOException {
-		final var chars = CharArrays.of('a', 'b', 'c');
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write(chars, 0, 0);
+			countWriter.write(CHARS, 0, 0);
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write(chars, 0, 2);
+			countWriter.write(CHARS, 0, 2);
 			assertThat(countWriter.getCount()).isEqualTo(2L);
 		}
 	}
 
 	@Test
 	void testWriteCharsInvalid() throws IOException {
-		final var chars = CharArrays.of('a', 'b', 'c');
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((char[]) null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(chars, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(CHARS, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(CHARS, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(CHARS, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(CHARS, 0, 4));
 		}
 	}
 
 	@Test
 	void testWriteString() throws IOException {
-		final var string = "abc";
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write(string, 0, 0);
+			countWriter.write(STRING, 0, 0);
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write(string, 0, 2);
+			countWriter.write(STRING, 0, 2);
 			assertThat(countWriter.getCount()).isEqualTo(2L);
 		}
 	}
 
 	@Test
 	void testWriteStringInvalid() throws IOException {
-		final var string = "abc";
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((String) null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countWriter.write(string, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, 0, 4));
 		}
 	}
 }

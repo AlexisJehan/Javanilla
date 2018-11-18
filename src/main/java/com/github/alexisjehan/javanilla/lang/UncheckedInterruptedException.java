@@ -23,7 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.lang;
 
-import java.util.Objects;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>Wrapped {@link InterruptedException} as an unchecked exception.</p>
@@ -45,7 +45,7 @@ public final class UncheckedInterruptedException extends RuntimeException {
 	 * @since 1.0.0
 	 */
 	public UncheckedInterruptedException(final InterruptedException cause) {
-		super(Objects.requireNonNull(cause, "Invalid cause (not null expected)"));
+		super(Ensure.notNull("cause", cause));
 	}
 
 	@Override

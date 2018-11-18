@@ -25,13 +25,15 @@ package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Writers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
@@ -42,8 +44,9 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class LineWriterTest {
 
 	@Test
-	void testConstructor() throws IOException {
-		final var path = File.createTempFile(getClass().getName() + ".testConstructor_", ".txt").toPath();
+	@ExtendWith(TempDirectory.class)
+	void testConstructor(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testConstructor");
 		try (final var lineWriter = new LineWriter(path)) {
 			lineWriter.write("abc");
 			lineWriter.write("def");

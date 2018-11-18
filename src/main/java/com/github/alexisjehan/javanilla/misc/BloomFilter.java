@@ -24,11 +24,10 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.misc;
 
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.Arrays;
 import java.util.BitSet;
-import java.util.Objects;
 import java.util.function.IntUnaryOperator;
 import java.util.function.ToIntFunction;
 import java.util.zip.Checksum;
@@ -72,12 +71,7 @@ public final class BloomFilter<E> {
 	public BloomFilter(final int length, final Checksum... hashFunctions) {
 		this(
 				length,
-				Arrays.stream(Objects.requireNonNull(hashFunctions, "Invalid hash functions (not null expected)"))
-						.peek(hashFunction -> {
-							if (null == hashFunction) {
-								throw new NullPointerException("Invalid hash function (not null expected)");
-							}
-						})
+				Arrays.stream(Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions))
 						.map(hashFunction -> (IntUnaryOperator) value -> {
 							hashFunction.reset();
 							hashFunction.update(ByteArrays.ofInt(value));
@@ -101,12 +95,7 @@ public final class BloomFilter<E> {
 	public BloomFilter(final int length, final IntUnaryOperator... hashFunctions) {
 		this(
 				length,
-				Arrays.stream(Objects.requireNonNull(hashFunctions, "Invalid hash functions (not null expected)"))
-						.peek(hashFunction -> {
-							if (null == hashFunction) {
-								throw new NullPointerException("Invalid hash function (not null expected)");
-							}
-						})
+				Arrays.stream(Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions))
 						.map(hashFunction -> (ToIntFunction<E>) value -> hashFunction.applyAsInt(value.hashCode()))
 						.toArray(ToIntFunction[]::new)
 		);
@@ -123,20 +112,9 @@ public final class BloomFilter<E> {
 	 */
 	@SafeVarargs
 	public BloomFilter(final int length, final ToIntFunction<E>... hashFunctions) {
-		if (1 > length) {
-			throw new IllegalArgumentException("Invalid length: " + length + " (greater than or equal to 1 expected)");
-		}
-		if (null == hashFunctions) {
-			throw new NullPointerException("Invalid hash functions (not null expected)");
-		}
-		if (0 == hashFunctions.length) {
-			throw new IllegalArgumentException("Invalid hash functions (not empty expected)");
-		}
-		for (final var indexedHashFunction : Iterables.index(Arrays.asList(hashFunctions))) {
-			if (null == indexedHashFunction.getElement()) {
-				throw new NullPointerException("Invalid hash function at index " + indexedHashFunction.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.greaterThanOrEqualTo("length", length, 1);
+		Ensure.notNullAndNotEmpty("hashFunctions", hashFunctions);
+		Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions);
 		this.length = length;
 		this.hashFunctions = hashFunctions;
 		bits = new BitSet(length);
@@ -206,15 +184,9 @@ public final class BloomFilter<E> {
 	 * @since 1.2.0
 	 */
 	public static double calculateFalsePositiveRate(final int m, final int k, final int n) {
-		if (1 > m) {
-			throw new IllegalArgumentException("Invalid length (m): " + m + " (greater than or equal to 1 expected)");
-		}
-		if (1 > k) {
-			throw new IllegalArgumentException("Invalid number of hash functions (k): " + k + " (greater than or equal to 1 expected)");
-		}
-		if (0 > n) {
-			throw new IllegalArgumentException("Invalid expected number of elements (n): " + n + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("m", m, 1);
+		Ensure.greaterThanOrEqualTo("k", k, 1);
+		Ensure.greaterThanOrEqualTo("n", n, 0);
 		return Math.pow(1.0d - Math.exp(-k * n / (double) m), k);
 	}
 
@@ -227,13 +199,9 @@ public final class BloomFilter<E> {
 	 * valid
 	 * @since 1.2.0
 	 */
-	public static double calculateOptionalLength(final int n, final double p) {
-		if (0 > n) {
-			throw new IllegalArgumentException("Invalid expected number of elements (n): " + n + " (greater than or equal to 0 expected)");
-		}
-		if (0.0d > p || 1.0d < p) {
-			throw new IllegalArgumentException("Invalid acceptable false positive rate (p): " + p + " (between 0 and 1 expected)");
-		}
+	public static double calculateOptimalLength(final int n, final double p) {
+		Ensure.greaterThanOrEqualTo("n", n, 0);
+		Ensure.between("p", p, 0.0d, 1.0d);
 		return Math.abs(-n * Math.log(p) / Math.pow(Math.log(2.0d), 2.0d));
 	}
 
@@ -245,13 +213,9 @@ public final class BloomFilter<E> {
 	 * @throws IllegalArgumentException if the length or the expected number of elements is not valid
 	 * @since 1.2.0
 	 */
-	public static double calculateOptionalNumberOfHashFunctions(final int m, final int n) {
-		if (1 > m) {
-			throw new IllegalArgumentException("Invalid length (m): " + m + " (greater than or equal to 1 expected)");
-		}
-		if (0 > n) {
-			throw new IllegalArgumentException("Invalid expected number of elements (n): " + n + " (greater than or equal to 0 expected)");
-		}
+	public static double calculateOptimalNumberOfHashFunctions(final int m, final int n) {
+		Ensure.greaterThanOrEqualTo("m", m, 1);
+		Ensure.greaterThanOrEqualTo("n", n, 0);
 		if (0 == n) {
 			return 0.0d;
 		}

@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.distances;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 /**
  * <p>Commons {@link EditDistance}s implementations.</p>
  * @since 1.0.0
@@ -57,30 +59,24 @@ public enum EditDistances implements EditDistance {
 	HAMMING {
 		@Override
 		protected double calculateImpl(final CharSequence charSequence1, final int length1, final CharSequence charSequence2, final int length2) {
-			if (length1 != length2) {
-				throw new IllegalArgumentException("Invalid CharSequence lengths: " + length1 + " and " + length2 + " (same expected)");
-			}
+			Ensure.equalTo("length2", length2, length1);
 			if (charSequence1.equals(charSequence2)) {
 				return 0.0d;
 			}
-			var result = 0;
+			var editDistance = 0.0d;
 			for (var i = 0; i < length1; ++i) {
 				if (charSequence1.charAt(i) != charSequence2.charAt(i)) {
-					++result;
+					++editDistance;
 				}
 			}
-			return result;
+			return editDistance;
 		}
 	};
 
 	@Override
 	public final double calculate(final CharSequence charSequence1, final CharSequence charSequence2) {
-		if (null == charSequence1) {
-			throw new NullPointerException("Invalid first CharSequence (not null expected)");
-		}
-		if (null == charSequence2) {
-			throw new NullPointerException("Invalid second CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence1", charSequence1);
+		Ensure.notNull("charSequence2", charSequence2);
 		return calculateImpl(charSequence1, charSequence1.length(), charSequence2, charSequence2.length());
 	}
 

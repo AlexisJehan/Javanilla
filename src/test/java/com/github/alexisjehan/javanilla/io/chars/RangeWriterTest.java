@@ -36,17 +36,20 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class RangeWriterTest {
 
+	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
+	private static final String STRING = "abc";
+
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeWriter(null, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeWriter(Writers.EMPTY, -1L, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeWriter(Writers.EMPTY, 1L, 0L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeWriter(null, 0L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeWriter(Writers.EMPTY, -1L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeWriter(Writers.EMPTY, 1L, 0L));
 	}
 
 	@Test
 	void testWriteChar() throws IOException {
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L, 0L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(0L);
 				rangeWriter.write('a');
@@ -66,7 +69,7 @@ final class RangeWriterTest {
 			assertThat(charArrayWriter.toCharArray()).containsExactly('b');
 		}
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L, 10L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
 				rangeWriter.write('a');
@@ -89,14 +92,13 @@ final class RangeWriterTest {
 
 	@Test
 	void testWriteChars() throws IOException {
-		final var chars = CharArrays.of('a', 'b', 'c');
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L, 0L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(0L);
-				rangeWriter.write(chars, 0, 0);
-				rangeWriter.write(chars, 0, 2);
-				rangeWriter.write(chars, 2, 1);
+				rangeWriter.write(CHARS, 0, 0);
+				rangeWriter.write(CHARS, 0, 2);
+				rangeWriter.write(CHARS, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).containsExactly('a');
 		}
@@ -104,19 +106,19 @@ final class RangeWriterTest {
 			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1L, 1L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(1L);
-				rangeWriter.write(chars, 0, 0);
-				rangeWriter.write(chars, 0, 2);
-				rangeWriter.write(chars, 2, 1);
+				rangeWriter.write(CHARS, 0, 0);
+				rangeWriter.write(CHARS, 0, 2);
+				rangeWriter.write(CHARS, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).containsExactly('b');
 		}
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L, 10L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				rangeWriter.write(chars, 0, 0);
-				rangeWriter.write(chars, 0, 2);
-				rangeWriter.write(chars, 2, 1);
+				rangeWriter.write(CHARS, 0, 0);
+				rangeWriter.write(CHARS, 0, 2);
+				rangeWriter.write(CHARS, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).containsExactly('a', 'b', 'c');
 		}
@@ -124,9 +126,9 @@ final class RangeWriterTest {
 			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L, 10L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				rangeWriter.write(chars, 0, 0);
-				rangeWriter.write(chars, 0, 2);
-				rangeWriter.write(chars, 2, 1);
+				rangeWriter.write(CHARS, 0, 0);
+				rangeWriter.write(CHARS, 0, 2);
+				rangeWriter.write(CHARS, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).isEmpty();
 		}
@@ -134,26 +136,24 @@ final class RangeWriterTest {
 
 	@Test
 	void testWriteCharsInvalid() throws IOException {
-		final var chars = CharArrays.of('a', 'b', 'c');
-		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L)) {
+		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeWriter.write((char[]) null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(chars, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(CHARS, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(CHARS, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(CHARS, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(CHARS, 0, 4));
 		}
 	}
 
 	@Test
 	void testWriteString() throws IOException {
-		final var string = "abc";
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L, 0L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(0L);
-				rangeWriter.write(string, 0, 0);
-				rangeWriter.write(string, 0, 2);
-				rangeWriter.write(string, 2, 1);
+				rangeWriter.write(STRING, 0, 0);
+				rangeWriter.write(STRING, 0, 2);
+				rangeWriter.write(STRING, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).containsExactly('a');
 		}
@@ -161,19 +161,19 @@ final class RangeWriterTest {
 			try (final var rangeWriter = new RangeWriter(charArrayWriter, 1L, 1L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(1L);
-				rangeWriter.write(string, 0, 0);
-				rangeWriter.write(string, 0, 2);
-				rangeWriter.write(string, 2, 1);
+				rangeWriter.write(STRING, 0, 0);
+				rangeWriter.write(STRING, 0, 2);
+				rangeWriter.write(STRING, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).containsExactly('b');
 		}
 		try (final var charArrayWriter = new CharArrayWriter()) {
-			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L)) {
+			try (final var rangeWriter = new RangeWriter(charArrayWriter, 0L, 10L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				rangeWriter.write(string, 0, 0);
-				rangeWriter.write(string, 0, 2);
-				rangeWriter.write(string, 2, 1);
+				rangeWriter.write(STRING, 0, 0);
+				rangeWriter.write(STRING, 0, 2);
+				rangeWriter.write(STRING, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).containsExactly('a', 'b', 'c');
 		}
@@ -181,9 +181,9 @@ final class RangeWriterTest {
 			try (final var rangeWriter = new RangeWriter(charArrayWriter, 10L, 10L)) {
 				assertThat(rangeWriter.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeWriter.getToIndex()).isEqualTo(10L);
-				rangeWriter.write(string, 0, 0);
-				rangeWriter.write(string, 0, 2);
-				rangeWriter.write(string, 2, 1);
+				rangeWriter.write(STRING, 0, 0);
+				rangeWriter.write(STRING, 0, 2);
+				rangeWriter.write(STRING, 2, 1);
 			}
 			assertThat(charArrayWriter.toCharArray()).isEmpty();
 		}
@@ -191,13 +191,12 @@ final class RangeWriterTest {
 
 	@Test
 	void testWriteStringInvalid() throws IOException {
-		final var string = "abc";
-		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L)) {
+		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeWriter.write((String) null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeWriter.write(string, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(STRING, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(STRING, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(STRING, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeWriter.write(STRING, 0, 4));
 		}
 	}
 }

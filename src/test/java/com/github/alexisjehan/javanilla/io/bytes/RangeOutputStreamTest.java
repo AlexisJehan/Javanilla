@@ -26,26 +26,31 @@ package com.github.alexisjehan.javanilla.io.bytes;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link RangeOutputStream} unit tests.</p>
  */
 final class RangeOutputStreamTest {
 
+	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeOutputStream(null, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, -1L, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, 1L, 0L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeOutputStream(null, 0L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, -1L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, 1L, 0L));
 	}
 
 	@Test
 	void testWriteByte() throws IOException {
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L)) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L, 0L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(0L);
 				rangeOutputStream.write(1);
@@ -65,7 +70,7 @@ final class RangeOutputStreamTest {
 			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 2);
 		}
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L)) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(1);
@@ -88,14 +93,13 @@ final class RangeOutputStreamTest {
 
 	@Test
 	void testWriteBytes() throws IOException {
-		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L)) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L, 0L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(0L);
-				rangeOutputStream.write(bytes, 0, 0);
-				rangeOutputStream.write(bytes, 0, 2);
-				rangeOutputStream.write(bytes, 2, 1);
+				rangeOutputStream.write(BYTES, 0, 0);
+				rangeOutputStream.write(BYTES, 0, 2);
+				rangeOutputStream.write(BYTES, 2, 1);
 			}
 			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 1);
 		}
@@ -103,19 +107,19 @@ final class RangeOutputStreamTest {
 			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 1L, 1L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(1L);
-				rangeOutputStream.write(bytes, 0, 0);
-				rangeOutputStream.write(bytes, 0, 2);
-				rangeOutputStream.write(bytes, 2, 1);
+				rangeOutputStream.write(BYTES, 0, 0);
+				rangeOutputStream.write(BYTES, 0, 2);
+				rangeOutputStream.write(BYTES, 2, 1);
 			}
 			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 2);
 		}
 		try (final var byteArrayOutputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L)) {
+			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 0L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
-				rangeOutputStream.write(bytes, 0, 0);
-				rangeOutputStream.write(bytes, 0, 2);
-				rangeOutputStream.write(bytes, 2, 1);
+				rangeOutputStream.write(BYTES, 0, 0);
+				rangeOutputStream.write(BYTES, 0, 2);
+				rangeOutputStream.write(BYTES, 2, 1);
 			}
 			assertThat(byteArrayOutputStream.toByteArray()).containsExactly((byte) 1, (byte) 2, (byte) 3);
 		}
@@ -123,9 +127,9 @@ final class RangeOutputStreamTest {
 			try (final var rangeOutputStream = new RangeOutputStream(byteArrayOutputStream, 10L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
-				rangeOutputStream.write(bytes, 0, 0);
-				rangeOutputStream.write(bytes, 0, 2);
-				rangeOutputStream.write(bytes, 2, 1);
+				rangeOutputStream.write(BYTES, 0, 0);
+				rangeOutputStream.write(BYTES, 0, 2);
+				rangeOutputStream.write(BYTES, 2, 1);
 			}
 			assertThat(byteArrayOutputStream.toByteArray()).isEmpty();
 		}
@@ -133,13 +137,12 @@ final class RangeOutputStreamTest {
 
 	@Test
 	void testWriteBytesInvalid() throws IOException {
-		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
-		try (final var rangeOutputStream = new RangeOutputStream(OutputStreams.EMPTY, 0L)) {
+		try (final var rangeOutputStream = new RangeOutputStream(OutputStreams.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeOutputStream.write(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> rangeOutputStream.write(bytes, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeOutputStream.write(BYTES, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeOutputStream.write(BYTES, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeOutputStream.write(BYTES, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> rangeOutputStream.write(BYTES, 0, 4));
 		}
 	}
 }

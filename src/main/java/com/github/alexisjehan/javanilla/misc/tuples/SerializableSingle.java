@@ -23,8 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.tuples;
 
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <p>A {@code SerializableSingle} is an immutable tuple that is composed of an unique {@link Serializable} element.</p>
@@ -58,15 +60,6 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 		this.unique = unique;
 	}
 
-	/**
-	 * <p>Get the unique {@code Serializable} element of the {@code SerializableSingle}.</p>
-	 * @return the unique {@code Serializable} element
-	 * @since 1.1.0
-	 */
-	public U getUnique() {
-		return unique;
-	}
-
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -76,17 +69,35 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 			return false;
 		}
 		final var other = (SerializableSingle) object;
-		return Objects.equals(unique, other.unique);
+		return Equals.equals(unique, other.unique);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(unique);
+		return HashCode.hashCode(unique);
 	}
 
 	@Override
 	public String toString() {
 		return "[" + unique + "]";
+	}
+
+	/**
+	 * <p>Converts the current {@code SerializableSingle} to a {@code Single}.</p>
+	 * @return the converted {@code Single}
+	 * @since 1.1.0
+	 */
+	public Single<U> toSingle() {
+		return new Single<>(unique);
+	}
+
+	/**
+	 * <p>Get the unique {@code Serializable} element of the {@code SerializableSingle}.</p>
+	 * @return the unique {@code Serializable} element
+	 * @since 1.1.0
+	 */
+	public U getUnique() {
+		return unique;
 	}
 
 	/**
@@ -98,14 +109,5 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	 */
 	public static <U extends Serializable> SerializableSingle<U> of(final U unique) {
 		return new SerializableSingle<>(unique);
-	}
-
-	/**
-	 * <p>Converts the current {@code SerializableSingle} to a {@code Single}.</p>
-	 * @return the converted {@code Single}
-	 * @since 1.1.0
-	 */
-	public Single<U> toSingle() {
-		return new Single<>(unique);
 	}
 }

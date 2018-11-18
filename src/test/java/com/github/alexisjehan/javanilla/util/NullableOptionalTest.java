@@ -102,7 +102,7 @@ final class NullableOptionalTest {
 
 	@Test
 	void testMap() {
-		final Function<Object, Integer> mapper = i -> null == i ? 1 : null;
+		final Function<Object, Integer> mapper = object -> null == object ? 1 : null;
 		assertThat(NullableOptional.of(null).map(mapper).get()).isEqualTo(1);
 		assertThat(NullableOptional.of(1).map(mapper).get()).isNull();
 		assertThat(NullableOptional.empty().map(mapper).isEmpty()).isTrue();
@@ -115,7 +115,7 @@ final class NullableOptionalTest {
 
 	@Test
 	void testFlatMap() {
-		final Function<Object, NullableOptional<Integer>> mapper = i -> null == i ? NullableOptional.of(1) : NullableOptional.empty();
+		final Function<Object, NullableOptional<Integer>> mapper = object -> null == object ? NullableOptional.of(1) : NullableOptional.empty();
 		assertThat(NullableOptional.of(null).flatMap(mapper).get()).isEqualTo(1);
 		assertThat(NullableOptional.of(1).flatMap(mapper).isEmpty()).isTrue();
 		assertThat(NullableOptional.empty().flatMap(mapper).isEmpty()).isTrue();
@@ -124,7 +124,7 @@ final class NullableOptionalTest {
 	@Test
 	void testFlatMapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).flatMap(null));
-		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).flatMap(i -> null));
+		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).flatMap(object -> null));
 	}
 
 	@Test

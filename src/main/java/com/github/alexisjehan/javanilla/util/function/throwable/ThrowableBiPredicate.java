@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.BiPredicate;
 
@@ -57,9 +58,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default ThrowableBiPredicate<T, U, X> and(final ThrowableBiPredicate<? super T, ? super U, ? extends X> other) {
-		if (null == other) {
-			throw new NullPointerException("Invalid other (not null expected)");
-		}
+		Ensure.notNull("other", other);
 		return (t, u) -> test(t, u) && other.test(t, u);
 	}
 
@@ -82,9 +81,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default ThrowableBiPredicate<T, U, X> or(final ThrowableBiPredicate<? super T, ? super U, ? extends X> other) {
-		if (null == other) {
-			throw new NullPointerException("Invalid other (not null expected)");
-		}
+		Ensure.notNull("other", other);
 		return (t, u) -> test(t, u) || other.test(t, u);
 	}
 
@@ -100,9 +97,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> BiPredicate<T, U> unchecked(final ThrowableBiPredicate<? super T, ? super U, ? extends X> throwableBiPredicate) {
-		if (null == throwableBiPredicate) {
-			throw new NullPointerException("Invalid ThrowableBiPredicate (not null expected)");
-		}
+		Ensure.notNull("throwableBiPredicate", throwableBiPredicate);
 		return (t, u) -> {
 			try {
 				return throwableBiPredicate.test(t, u);
@@ -123,9 +118,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> ThrowableBiPredicate<T, U, X> of(final BiPredicate<? super T, ? super U> biPredicate) {
-		if (null == biPredicate) {
-			throw new NullPointerException("Invalid BiPredicate (not null expected)");
-		}
+		Ensure.notNull("biPredicate", biPredicate);
 		return biPredicate::test;
 	}
 }

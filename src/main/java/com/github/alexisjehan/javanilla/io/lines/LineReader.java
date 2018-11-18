@@ -23,12 +23,14 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -87,79 +89,83 @@ public class LineReader implements Closeable {
 
 	/**
 	 * <p>Constructor with the given {@code Path}, detecting the {@code LineSeparator}.</p>
-	 * @param file the {@code Path} of the file to read from
+	 * @param path the {@code Path} of the file to read from
 	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Path} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineReader(final Path file) throws IOException {
-		this(file, LineSeparator.detect(file));
+	public LineReader(final Path path) throws IOException {
+		this(path, LineSeparator.detect(path));
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code LineSeparator} and the default value for whether or not a
 	 * terminating new line should be ignored.</p>
-	 * @param file the {@code Path} of the file to read from
+	 * @param path the {@code Path} of the file to read from
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineReader(final Path file, final LineSeparator lineSeparator) throws IOException {
-		this(file, lineSeparator, DEFAULT_IGNORE_TERMINATING_NEW_LINE);
+	public LineReader(final Path path, final LineSeparator lineSeparator) throws IOException {
+		this(path, lineSeparator, DEFAULT_IGNORE_TERMINATING_NEW_LINE);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code LineSeparator} and whether or not a terminating new line should be
 	 * ignored.</p>
-	 * @param file the {@code Path} of the file to read from
+	 * @param path the {@code Path} of the file to read from
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @param ignoreTerminatingNewLine whether or not a terminating new line should be ignored
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineReader(final Path file, final LineSeparator lineSeparator, final boolean ignoreTerminatingNewLine) throws IOException {
-		this(Files.newBufferedReader(file), lineSeparator, ignoreTerminatingNewLine);
+	public LineReader(final Path path, final LineSeparator lineSeparator, final boolean ignoreTerminatingNewLine) throws IOException {
+		this(Readers.of(path), lineSeparator, ignoreTerminatingNewLine);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path} and {@code Charset}, detecting the {@code LineSeparator}.</p>
-	 * @param file the {@code Path} of the file to read from
+	 * @param path the {@code Path} of the file to read from
 	 * @param charset the {@code Charset} to use
 	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineReader(final Path file, final Charset charset) throws IOException {
-		this(file, charset, LineSeparator.detect(file, charset));
+	public LineReader(final Path path, final Charset charset) throws IOException {
+		this(path, charset, LineSeparator.detect(path, charset));
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code Charset}, {@code LineSeparator} and the default value for whether
 	 * or not a terminating new line should be ignored.</p>
-	 * @param file the {@code Path} of the file to read from
+	 * @param path the {@code Path} of the file to read from
 	 * @param charset the {@code Charset} to use
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path}, the {@code Charset} or the {@code LineSeparator} is
+	 * {@code null}
 	 * @since 1.0.0
 	 */
-	public LineReader(final Path file, final Charset charset, final LineSeparator lineSeparator) throws IOException {
-		this(file, charset, lineSeparator, DEFAULT_IGNORE_TERMINATING_NEW_LINE);
+	public LineReader(final Path path, final Charset charset, final LineSeparator lineSeparator) throws IOException {
+		this(path, charset, lineSeparator, DEFAULT_IGNORE_TERMINATING_NEW_LINE);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code Charset}, {@code LineSeparator} and whether or not a terminating
 	 * new line should be ignored.</p>
-	 * @param file the {@code Path} of the file to read from
+	 * @param path the {@code Path} of the file to read from
 	 * @param charset the {@code Charset} to use
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @param ignoreTerminatingNewLine whether or not a terminating new line should be ignored
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path}, the {@code Charset} or the {@code LineSeparator} is
+	 * {@code null}
 	 * @since 1.0.0
 	 */
-	public LineReader(final Path file, final Charset charset, final LineSeparator lineSeparator, final boolean ignoreTerminatingNewLine) throws IOException {
-		this(Files.newBufferedReader(file, charset), lineSeparator, ignoreTerminatingNewLine);
+	public LineReader(final Path path, final Charset charset, final LineSeparator lineSeparator, final boolean ignoreTerminatingNewLine) throws IOException {
+		this(Readers.of(path, charset), lineSeparator, ignoreTerminatingNewLine);
 	}
 
 	/**
@@ -197,12 +203,8 @@ public class LineReader implements Closeable {
 	 * @since 1.0.0
 	 */
 	public LineReader(final Reader reader, final LineSeparator lineSeparator, final boolean ignoreTerminatingNewLine) {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
-		if (null == lineSeparator) {
-			throw new NullPointerException("Invalid LineSeparator (not null expected)");
-		}
+		Ensure.notNull("reader", reader);
+		Ensure.notNull("lineSeparator", lineSeparator);
 		this.reader = reader;
 		this.lineSeparator = lineSeparator;
 		this.ignoreTerminatingNewLine = ignoreTerminatingNewLine;
@@ -217,14 +219,14 @@ public class LineReader implements Closeable {
 	 */
 	public String read() throws IOException {
 		builder.setLength(0);
-		final var c = lineSeparator.read(reader, builder);
+		final var last = lineSeparator.read(reader, builder);
 		if (ignoreTerminatingNewLine) {
-			return -1 != c || 0 < builder.length() ? builder.toString() : null;
+			return -1 != last || 0 < builder.length() ? builder.toString() : null;
 		}
 		if (lastLine) {
 			return null;
 		}
-		if (-1 == c) {
+		if (-1 == last) {
 			lastLine = true;
 		}
 		return builder.toString();
@@ -234,24 +236,22 @@ public class LineReader implements Closeable {
 	 * <p>Skip the given number of lines.</p>
 	 * <p><b>Note</b>: {@link #read()} is used under the hood.</p>
 	 * <p><b>Warning</b>: Can produce a memory overflow if any line is too large.</p>
-	 * @param n the number of lines to attempt to skip
-	 * @return the effective number of lines skipped
+	 * @param number the number of lines to attempt to skip
+	 * @return the actual number of lines skipped
 	 * @throws IOException might occurs with I/O operations
-	 * @throws IllegalArgumentException if the number of lines to skip is lower than {@code 0}
+	 * @throws IllegalArgumentException if the number is lower than {@code 0}
 	 * @since 1.0.0
 	 */
-	public long skip(final long n) throws IOException {
-		if (0L > n) {
-			throw new IllegalArgumentException("Invalid number of lines: " + n + " (greater than or equal to 0 expected)");
-		}
-		if (0L == n) {
+	public long skip(final long number) throws IOException {
+		Ensure.greaterThanOrEqualTo("number", number, 0L);
+		if (0L == number) {
 			return 0L;
 		}
-		var s = 0L;
-		while (n > s && null != read()) {
-			++s;
+		var actual = 0L;
+		while (number > actual && null != read()) {
+			++actual;
 		}
-		return s;
+		return actual;
 	}
 
 	/**
@@ -265,16 +265,14 @@ public class LineReader implements Closeable {
 	 * @since 1.0.0
 	 */
 	public long transferTo(final LineWriter lineWriter) throws IOException {
-		if (null == lineWriter) {
-			throw new NullPointerException("Invalid LineWriter (not null expected)");
-		}
-		var l = 0L;
+		Ensure.notNull("lineWriter", lineWriter);
+		var number = 0L;
 		String line;
 		while (null != (line = read())) {
 			lineWriter.write(line);
-			++l;
+			++number;
 		}
-		return l;
+		return number;
 	}
 
 	@Override

@@ -23,9 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.tuples;
 
-import java.util.AbstractMap.SimpleEntry;
-import java.util.AbstractMap.SimpleImmutableEntry;
-import java.util.Objects;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
  * <p>A {@code Pair} is an immutable tuple that is composed of two elements.</p>
@@ -33,8 +32,6 @@ import java.util.Objects;
  * methods.</p>
  * @param <F> the type of the first element
  * @param <S> the type of the second element
- * @see SimpleEntry
- * @see SimpleImmutableEntry
  * @since 1.0.0
  */
 public final class Pair<F, S> {
@@ -89,13 +86,16 @@ public final class Pair<F, S> {
 			return false;
 		}
 		final var other = (Pair) object;
-		return Objects.equals(first, other.first)
-				&& Objects.equals(second, other.second);
+		return Equals.equals(first, other.first)
+				&& Equals.equals(second, other.second);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(first, second);
+		return HashCode.of(
+				HashCode.hashCode(first),
+				HashCode.hashCode(second)
+		);
 	}
 
 	@Override
@@ -114,23 +114,5 @@ public final class Pair<F, S> {
 	 */
 	public static <F, S> Pair<F, S> of(final F first, final S second) {
 		return new Pair<>(first, second);
-	}
-
-	/**
-	 * <p>Converts the current {@code Pair} to a {@code SimpleEntry} which is mutable.</p>
-	 * @return the converted {@code SimpleEntry}
-	 * @since 1.0.0
-	 */
-	public SimpleEntry<F, S> toMutableEntry() {
-		return new SimpleEntry<>(first, second);
-	}
-
-	/**
-	 * <p>Converts the current {@code Pair} to a {@code SimpleImmutableEntry}.</p>
-	 * @return the converted {@code SimpleImmutableEntry}
-	 * @since 1.0.0
-	 */
-	public SimpleImmutableEntry<F, S> toImmutableEntry() {
-		return new SimpleImmutableEntry<>(first, second);
 	}
 }

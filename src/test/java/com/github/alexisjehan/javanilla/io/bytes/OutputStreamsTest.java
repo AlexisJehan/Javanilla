@@ -25,32 +25,41 @@ package com.github.alexisjehan.javanilla.io.bytes;
 
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIOException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link OutputStreams} unit tests.</p>
  */
 final class OutputStreamsTest {
 
+	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+
 	@Test
 	void testEmpty() throws IOException {
-		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 		try (final var emptyOutputStream = OutputStreams.EMPTY) {
 			emptyOutputStream.write(1);
-			emptyOutputStream.write(bytes);
+			emptyOutputStream.write(BYTES);
 			assertThatNullPointerException().isThrownBy(() -> emptyOutputStream.write(null));
-			emptyOutputStream.write(bytes, 0, 1);
+			emptyOutputStream.write(BYTES, 0, 1);
 			assertThatNullPointerException().isThrownBy(() -> emptyOutputStream.write(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyOutputStream.write(bytes, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyOutputStream.write(BYTES, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyOutputStream.write(BYTES, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyOutputStream.write(BYTES, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyOutputStream.write(BYTES, 0, 4));
 		}
 	}
 
@@ -98,7 +107,7 @@ final class OutputStreamsTest {
 	void testUncloseable() throws IOException {
 		final var outputStream = new OutputStream() {
 			@Override
-			public void write(final int b) {
+			public void write(final int i) {
 				// Do nothing
 			}
 
@@ -108,9 +117,7 @@ final class OutputStreamsTest {
 			}
 		};
 		assertThatIOException().isThrownBy(outputStream::close);
-		{
-			OutputStreams.uncloseable(outputStream).close();
-		}
+		OutputStreams.uncloseable(outputStream).close();
 	}
 
 	@Test
@@ -122,19 +129,20 @@ final class OutputStreamsTest {
 	void testTee() throws IOException {
 		assertThat(OutputStreams.tee()).isSameAs(OutputStreams.EMPTY);
 		assertThat(OutputStreams.tee(OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
-		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 		try (final var fooOutputStream = new ByteArrayOutputStream()) {
 			try (final var barOutputStream = new ByteArrayOutputStream()) {
 				try (final var teeOutputStream = OutputStreams.tee(fooOutputStream, barOutputStream)) {
 					teeOutputStream.write(1);
-					teeOutputStream.write(bytes);
+					teeOutputStream.write(ByteArrays.EMPTY);
+					teeOutputStream.write(BYTES);
 					assertThatNullPointerException().isThrownBy(() -> teeOutputStream.write(null));
-					teeOutputStream.write(bytes, 0, 1);
+					teeOutputStream.write(BYTES, 0, 0);
+					teeOutputStream.write(BYTES, 0, 1);
 					assertThatNullPointerException().isThrownBy(() -> teeOutputStream.write(null, 0, 2));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, -1, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, 4, 3));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, 0, -1));
-					assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> teeOutputStream.write(bytes, 0, 4));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, 0, 4));
 					teeOutputStream.flush();
 				}
 				assertThat(barOutputStream.toByteArray()).containsExactly((byte) 1, (byte) 1, (byte) 2, (byte) 3, (byte) 1);
@@ -181,13 +189,13 @@ final class OutputStreamsTest {
 	}
 
 	@Test
-	void testOf() throws IOException {
-		final var path = File.createTempFile(getClass().getName() + ".testOf_", ".txt").toPath();
+	@ExtendWith(TempDirectory.class)
+	void testOf(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testOf");
 		try (final var pathOutputStream = OutputStreams.of(path)) {
-			pathOutputStream.write(ByteArrays.of((byte) 1, (byte) 2, (byte) 3));
+			pathOutputStream.write(BYTES);
 		}
-		assertThat(path).hasBinaryContent(ByteArrays.of((byte) 1, (byte) 2, (byte) 3));
-		Files.delete(path);
+		assertThat(path).hasBinaryContent(BYTES);
 	}
 
 	@Test

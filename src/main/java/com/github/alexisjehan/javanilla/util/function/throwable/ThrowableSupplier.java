@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.Supplier;
 
@@ -55,9 +56,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Supplier<T> unchecked(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
-		if (null == throwableSupplier) {
-			throw new NullPointerException("Invalid ThrowableSupplier (not null expected)");
-		}
+		Ensure.notNull("throwableSupplier", throwableSupplier);
 		return () -> {
 			try {
 				return throwableSupplier.get();
@@ -77,9 +76,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowableSupplier<T, X> of(final Supplier<? extends T> supplier) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
 		return supplier::get;
 	}
 }

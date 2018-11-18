@@ -23,9 +23,13 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection;
 
+import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -57,7 +61,7 @@ final class ListsTest {
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(Lists.emptyToNull(null)).isNull();
+		assertThat(Lists.emptyToNull((List<?>) null)).isNull();
 		assertThat(Lists.emptyToNull(Collections.emptyList())).isNull();
 		assertThat(Lists.emptyToNull(Collections.singletonList("foo"))).containsExactly("foo");
 	}
@@ -75,26 +79,58 @@ final class ListsTest {
 	}
 
 	@Test
-	void testGetFirst() {
-		assertThat(Lists.getFirst(Collections.emptyList()).isEmpty()).isTrue();
-		assertThat(Lists.getFirst(Collections.singletonList(null)).get()).isNull();
-		assertThat(Lists.getFirst(List.of(1, 2, 3)).get()).isEqualTo(1);
+	void testGetOptionalFirst() {
+		assertThat(Lists.getOptionalFirst(Collections.emptyList()).isEmpty()).isTrue();
+		assertThat(Lists.getOptionalFirst(Collections.singletonList(null)).get()).isNull();
+		assertThat(Lists.getOptionalFirst(new LinkedList<>(List.of(1, 2, 3))).get()).isEqualTo(1);
+		assertThat(Lists.getOptionalFirst(new ArrayList<>(List.of(1, 2, 3))).get()).isEqualTo(1);
 	}
 
 	@Test
-	void testGetFirstInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.getFirst(null));
+	void testGetOptionalFirstInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.getOptionalFirst(null));
 	}
 
 	@Test
-	void testGetLast() {
-		assertThat(Lists.getLast(Collections.emptyList()).isEmpty()).isTrue();
-		assertThat(Lists.getLast(Collections.singletonList(null)).get()).isNull();
-		assertThat(Lists.getLast(List.of(1, 2, 3)).get()).isEqualTo(3);
+	void testGetOptionalLast() {
+		assertThat(Lists.getOptionalLast(Collections.emptyList()).isEmpty()).isTrue();
+		assertThat(Lists.getOptionalLast(Collections.singletonList(null)).get()).isNull();
+		assertThat(Lists.getOptionalLast(new LinkedList<>(List.of(1, 2, 3))).get()).isEqualTo(3);
+		assertThat(Lists.getOptionalLast(new ArrayList<>(List.of(1, 2, 3))).get()).isEqualTo(3);
 	}
 
 	@Test
-	void testGetLastInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.getLast(null));
+	void testGetOptionalLastInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.getOptionalLast(null));
+	}
+
+	@Test
+	void testConcat() {
+		assertThat(Lists.concat()).isEmpty();
+		assertThat(Lists.concat(List.of(1))).containsExactly(1);
+		assertThat(Lists.concat(List.of(1), List.of(2))).containsExactly(1, 2);
+	}
+
+	@Test
+	void testConcatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<?>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<List<?>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<?>) null));
+	}
+
+	@Test
+	void testJoin() {
+		assertThat(Lists.join(ObjectArrays.empty(Integer.class), List.of(1), List.of(2))).containsExactly(1, 2);
+		assertThat(Lists.join(ObjectArrays.singleton(0))).isEmpty();
+		assertThat(Lists.join(ObjectArrays.singleton(0), List.of(1))).containsExactly(1);
+		assertThat(Lists.join(ObjectArrays.singleton(0), List.of(1), List.of(2))).containsExactly(1, 0, 2);
+	}
+
+	@Test
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(null, List.of(1)));
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<?>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<List<?>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<?>) null));
 	}
 }

@@ -23,13 +23,19 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.distances;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+import com.github.alexisjehan.javanilla.misc.quality.ToString;
+import com.github.alexisjehan.javanilla.misc.tuples.Pair;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <p>The Levenshtein {@link EditDistance} implementation.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a>
  * @since 1.0.0
  */
@@ -40,6 +46,12 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	 * @since 1.0.0
 	 */
 	private static final long serialVersionUID = -4598809440368030824L;
+
+	/**
+	 * <p>{@code LevenshteinDistance} instance with default parameters.</p>
+	 * @since 1.3.0
+	 */
+	public static final LevenshteinDistance DEFAULT = new LevenshteinDistance(1.0d, 1.0d, 1.0d);
 
 	/**
 	 * <p>Insertion cost.</p>
@@ -60,14 +72,6 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	private final double substitutionCost;
 
 	/**
-	 * <p>Default constructor with each cost at {@code 1}.</p>
-	 * @since 1.0.0
-	 */
-	public LevenshteinDistance() {
-		this(1.0d, 1.0d, 1.0d);
-	}
-
-	/**
 	 * <p>Constructor with customs costs.</p>
 	 * @param insertionCost the insertion cost
 	 * @param deletionCost the deletion cost
@@ -76,15 +80,9 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	 * @since 1.0.0
 	 */
 	public LevenshteinDistance(final double insertionCost, final double deletionCost, final double substitutionCost) {
-		if (0.0d >= insertionCost) {
-			throw new IllegalArgumentException("Invalid insertion cost: " + insertionCost + " (greater than 0 expected)");
-		}
-		if (0.0d >= deletionCost) {
-			throw new IllegalArgumentException("Invalid deletion cost: " + deletionCost + " (greater than 0 expected)");
-		}
-		if (0.0d >= substitutionCost) {
-			throw new IllegalArgumentException("Invalid substitution cost: " + substitutionCost + " (greater 0 expected)");
-		}
+		Ensure.greaterThan("insertionCost", insertionCost, 0.0d);
+		Ensure.greaterThan("deletionCost", deletionCost, 0.0d);
+		Ensure.greaterThan("substitutionCost", substitutionCost, 0.0d);
 		this.insertionCost = insertionCost;
 		this.deletionCost = deletionCost;
 		this.substitutionCost = substitutionCost;
@@ -92,12 +90,8 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 
 	@Override
 	public double calculate(final CharSequence charSequence1, final CharSequence charSequence2) {
-		if (null == charSequence1) {
-			throw new NullPointerException("Invalid first CharSequence (not null expected)");
-		}
-		if (null == charSequence2) {
-			throw new NullPointerException("Invalid second CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence1", charSequence1);
+		Ensure.notNull("charSequence2", charSequence2);
 		if (charSequence1.equals(charSequence2)) {
 			return 0.0d;
 		}
@@ -141,14 +135,28 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 			return false;
 		}
 		final var other = (LevenshteinDistance) object;
-		return Objects.equals(insertionCost, other.insertionCost)
-				&& Objects.equals(deletionCost, other.deletionCost)
-				&& Objects.equals(substitutionCost, other.substitutionCost);
+		return Equals.equals(insertionCost, other.insertionCost)
+				&& Equals.equals(deletionCost, other.deletionCost)
+				&& Equals.equals(substitutionCost, other.substitutionCost);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(insertionCost, deletionCost, substitutionCost);
+		return HashCode.of(
+				HashCode.hashCode(insertionCost),
+				HashCode.hashCode(deletionCost),
+				HashCode.hashCode(substitutionCost)
+		);
+	}
+
+	@Override
+	public String toString() {
+		return ToString.of(
+				this,
+				Pair.of("insertionCost", ToString.toString(insertionCost)),
+				Pair.of("deletionCost", ToString.toString(deletionCost)),
+				Pair.of("substitutionCost", ToString.toString(substitutionCost))
+		);
 	}
 
 	/**

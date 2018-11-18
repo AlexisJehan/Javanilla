@@ -161,7 +161,7 @@ abstract class AbstractTreeNodeTest {
 	}
 
 	@Test
-	void testParent() {
+	void testOptionalParent() {
 		final var fooNode = newTreeNode("foo");
 		final var foo1Node = fooNode.extend("foo1");
 		final var foo2Node = fooNode.extend("foo2");
@@ -171,15 +171,15 @@ abstract class AbstractTreeNodeTest {
 		final var foo21Node = foo2Node.extend("foo21");
 		final var foo111Node = foo11Node.extend("foo111");
 		final var barNode = newTreeNode("bar");
-		assertThat(fooNode.parent()).isEmpty();
-		assertThat(foo1Node.parent()).hasValue(fooNode);
-		assertThat(foo2Node.parent()).hasValue(fooNode);
-		assertThat(foo3Node.parent()).hasValue(fooNode);
-		assertThat(foo11Node.parent()).hasValue(foo1Node);
-		assertThat(foo12Node.parent()).hasValue(foo1Node);
-		assertThat(foo21Node.parent()).hasValue(foo2Node);
-		assertThat(foo111Node.parent()).hasValue(foo11Node);
-		assertThat(barNode.parent()).isEmpty();
+		assertThat(fooNode.optionalParent()).isEmpty();
+		assertThat(foo1Node.optionalParent()).hasValue(fooNode);
+		assertThat(foo2Node.optionalParent()).hasValue(fooNode);
+		assertThat(foo3Node.optionalParent()).hasValue(fooNode);
+		assertThat(foo11Node.optionalParent()).hasValue(foo1Node);
+		assertThat(foo12Node.optionalParent()).hasValue(foo1Node);
+		assertThat(foo21Node.optionalParent()).hasValue(foo2Node);
+		assertThat(foo111Node.optionalParent()).hasValue(foo11Node);
+		assertThat(barNode.optionalParent()).isEmpty();
 	}
 
 	@Test

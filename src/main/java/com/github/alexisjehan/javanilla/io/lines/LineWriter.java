@@ -23,12 +23,14 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.io.chars.Writers;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -80,79 +82,83 @@ public class LineWriter implements Closeable {
 
 	/**
 	 * <p>Constructor with the given {@code Path} and the default {@code LineSeparator}.</p>
-	 * @param file the {@code Path} of the file to write to
+	 * @param path the {@code Path} of the file to write to
 	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Path} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineWriter(final Path file) throws IOException {
-		this(file, LineSeparator.DEFAULT);
+	public LineWriter(final Path path) throws IOException {
+		this(path, LineSeparator.DEFAULT);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code LineSeparator} and the default value for whether or not a
 	 * terminating new line should be appended on close.</p>
-	 * @param file the {@code Path} of the file to write to
+	 * @param path the {@code Path} of the file to write to
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineWriter(final Path file, final LineSeparator lineSeparator) throws IOException {
-		this(file, lineSeparator, DEFAULT_APPEND_TERMINATING_NEW_LINE);
+	public LineWriter(final Path path, final LineSeparator lineSeparator) throws IOException {
+		this(path, lineSeparator, DEFAULT_APPEND_TERMINATING_NEW_LINE);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code LineSeparator} and whether or not a terminating new line should be
 	 * appended on close.</p>
-	 * @param file the {@code Path} of the file to write to
+	 * @param path the {@code Path} of the file to write to
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path} or the {@code LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineWriter(final Path file, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) throws IOException {
-		this(Files.newBufferedWriter(file), lineSeparator, appendTerminatingNewLine);
+	public LineWriter(final Path path, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) throws IOException {
+		this(Writers.of(path), lineSeparator, appendTerminatingNewLine);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code Charset} and the default {@code LineSeparator}.</p>
-	 * @param file the {@code Path} of the file to write to
+	 * @param path the {@code Path} of the file to write to
 	 * @param charset the {@code Charset} to use
 	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
-	public LineWriter(final Path file, final Charset charset) throws IOException {
-		this(file, charset, LineSeparator.DEFAULT);
+	public LineWriter(final Path path, final Charset charset) throws IOException {
+		this(path, charset, LineSeparator.DEFAULT);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code Charset}, {@code LineSeparator} and the default value for whether
 	 * or not a terminating new line should be appended on close.</p>
-	 * @param file the {@code Path} of the file to write to
+	 * @param path the {@code Path} of the file to write to
 	 * @param charset the {@code Charset} to use
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path}, the {@code Charset} or the {@code LineSeparator} is
+	 * {@code null}
 	 * @since 1.0.0
 	 */
-	public LineWriter(final Path file, final Charset charset, final LineSeparator lineSeparator) throws IOException {
-		this(file, charset, lineSeparator, DEFAULT_APPEND_TERMINATING_NEW_LINE);
+	public LineWriter(final Path path, final Charset charset, final LineSeparator lineSeparator) throws IOException {
+		this(path, charset, lineSeparator, DEFAULT_APPEND_TERMINATING_NEW_LINE);
 	}
 
 	/**
 	 * <p>Constructor with given {@code Path}, {@code Charset}, {@code LineSeparator} and whether or not a terminating
 	 * new line should be appended on close.</p>
-	 * @param file the {@code Path} of the file to write to
+	 * @param path the {@code Path} of the file to write to
 	 * @param charset the {@code Charset} to use
 	 * @param lineSeparator the {@code LineSeparator} type
 	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@code Path}, the {@code Charset} or the {@code LineSeparator} is
+	 * {@code null}
 	 * @since 1.0.0
 	 */
-	public LineWriter(final Path file, final Charset charset, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) throws IOException {
-		this(Files.newBufferedWriter(file, charset), lineSeparator, appendTerminatingNewLine);
+	public LineWriter(final Path path, final Charset charset, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) throws IOException {
+		this(Writers.of(path, charset), lineSeparator, appendTerminatingNewLine);
 	}
 
 	/**
@@ -187,12 +193,8 @@ public class LineWriter implements Closeable {
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Writer writer, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) {
-		if (null == writer) {
-			throw new NullPointerException("Invalid Writer (not null expected)");
-		}
-		if (null == lineSeparator) {
-			throw new NullPointerException("Invalid LineSeparator (not null expected)");
-		}
+		Ensure.notNull("writer", writer);
+		Ensure.notNull("lineSeparator", lineSeparator);
 		this.writer = writer;
 		this.lineSeparator = lineSeparator;
 		this.appendTerminatingNewLine = appendTerminatingNewLine;
@@ -206,9 +208,7 @@ public class LineWriter implements Closeable {
 	 * @since 1.0.0
 	 */
 	public void write(final String line) throws IOException {
-		if (null == line) {
-			throw new NullPointerException("Invalid line (not null expected)");
-		}
+		Ensure.notNull("line", line);
 		if (!firstLine) {
 			newLine();
 		} else {

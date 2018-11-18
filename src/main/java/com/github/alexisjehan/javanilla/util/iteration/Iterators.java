@@ -24,11 +24,9 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.iteration;
 
 import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
-import com.github.alexisjehan.javanilla.io.bytes.UncheckedInputStream;
 import com.github.alexisjehan.javanilla.io.chars.Readers;
-import com.github.alexisjehan.javanilla.io.chars.UncheckedReader;
 import com.github.alexisjehan.javanilla.io.lines.LineReader;
-import com.github.alexisjehan.javanilla.io.lines.UncheckedLineReader;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.misc.tuples.Single;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableSupplier;
@@ -36,7 +34,18 @@ import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableSupplie
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.PrimitiveIterator;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -244,77 +253,33 @@ public final class Iterators {
 	 * @since 1.1.0
 	 */
 	public static <I extends Iterator> I nullToDefault(final I iterator, final I defaultIterator) {
-		if (null == defaultIterator) {
-			throw new NullPointerException("Invalid default Iterator (not null expected)");
-		}
+		Ensure.notNull("defaultIterator", defaultIterator);
 		return null != iterator ? iterator : defaultIterator;
-	}
-
-	/**
-	 * <p>Wrap a {@code PrimitiveIterator.OfInt} replacing an empty one by {@code null}.</p>
-	 * @param primitiveIterator the {@code PrimitiveIterator.OfInt} or {@code null}
-	 * @return a non-empty {@code PrimitiveIterator.OfInt} or {@code null}
-	 * @since 1.2.0
-	 */
-	public static PrimitiveIterator.OfInt emptyToNull(final PrimitiveIterator.OfInt primitiveIterator) {
-		return emptyToDefault(primitiveIterator, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code PrimitiveIterator.OfLong} replacing an empty one by {@code null}.</p>
-	 * @param primitiveIterator the {@code PrimitiveIterator.OfLong} or {@code null}
-	 * @return a non-empty {@code PrimitiveIterator.OfLong} or {@code null}
-	 * @since 1.2.0
-	 */
-	public static PrimitiveIterator.OfLong emptyToNull(final PrimitiveIterator.OfLong primitiveIterator) {
-		return emptyToDefault(primitiveIterator, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code PrimitiveIterator.OfDouble} replacing an empty one by {@code null}.</p>
-	 * @param primitiveIterator the {@code PrimitiveIterator.OfDouble} or {@code null}
-	 * @return a non-empty {@code PrimitiveIterator.OfDouble} or {@code null}
-	 * @since 1.2.0
-	 */
-	public static PrimitiveIterator.OfDouble emptyToNull(final PrimitiveIterator.OfDouble primitiveIterator) {
-		return emptyToDefault(primitiveIterator, null);
 	}
 
 	/**
 	 * <p>Wrap an {@code Iterator} replacing an empty one by {@code null}.</p>
 	 * @param iterator the {@code Iterator} or {@code null}
-	 * @param <E> the element type
+	 * @param <I> the {@code Iterator} type
 	 * @return a non-empty {@code Iterator} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <E> Iterator<E> emptyToNull(final Iterator<E> iterator) {
+	public static <I extends Iterator> I emptyToNull(final I iterator) {
 		return emptyToDefault(iterator, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code ListIterator} replacing an empty one by {@code null}.</p>
-	 * @param listIterator the {@code ListIterator} or {@code null}
-	 * @param <E> the element type
-	 * @return a non-empty {@code ListIterator} or {@code null}
-	 * @since 1.0.0
-	 */
-	public static <E> ListIterator<E> emptyToNull(final ListIterator<E> listIterator) {
-		return emptyToDefault(listIterator, null);
 	}
 
 	/**
 	 * <p>Wrap an {@code Iterator} replacing an empty one by a default one.</p>
 	 * @param iterator the {@code Iterator} or {@code null}
 	 * @param defaultIterator the default {@code Iterator} or {@code null}
-	 * @param <E> the element type
 	 * @param <I> the {@code Iterator} type
 	 * @return a non-empty {@code Iterator} or {@code null}
 	 * @throws IllegalArgumentException if the default {@code Iterator} is empty
 	 * @since 1.1.0
 	 */
-	public static <E, I extends Iterator<? extends E>> I emptyToDefault(final I iterator, final I defaultIterator) {
-		if (null != defaultIterator && !defaultIterator.hasNext()) {
-			throw new IllegalArgumentException("Invalid default Iterator (not empty expected)");
+	public static <I extends Iterator> I emptyToDefault(final I iterator, final I defaultIterator) {
+		if (null != defaultIterator) {
+			Ensure.notNullAndNotEmpty("defaultIterator", defaultIterator);
 		}
 		return null == iterator || iterator.hasNext() ? iterator : defaultIterator;
 	}
@@ -327,9 +292,7 @@ public final class Iterators {
 	 * @since 1.2.0
 	 */
 	public static boolean isEmpty(final Iterator iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		return !iterator.hasNext();
 	}
 
@@ -342,9 +305,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static <E> Iterator<E> unmodifiable(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return Collections.emptyIterator();
 		}
@@ -366,12 +327,8 @@ public final class Iterators {
 	 * @since 1.1.0
 	 */
 	public static <E> Iterator<E> filter(final Iterator<? extends E> iterator, final Predicate<? super E> filter) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
-		if (null == filter) {
-			throw new NullPointerException("Invalid filter (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("filter", filter);
 		if (!iterator.hasNext()) {
 			return Collections.emptyIterator();
 		}
@@ -425,12 +382,8 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static <I, O> Iterator<O> map(final Iterator<? extends I> iterator, final Function<? super I, ? extends O> mapper) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
-		if (null == mapper) {
-			throw new NullPointerException("Invalid mapper (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("mapper", mapper);
 		if (!iterator.hasNext()) {
 			return Collections.emptyIterator();
 		}
@@ -465,9 +418,7 @@ public final class Iterators {
 	 * @since 1.2.0
 	 */
 	public static <E> Iterator<IndexedElement<E>> index(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return Collections.emptyIterator();
 		}
@@ -500,9 +451,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static <E> Iterator<E> until(final Supplier<? extends E> supplier, final E excludedElement) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
 		return new PreparedIterator<>() {
 			@Override
 			protected boolean isValid(final E next) {
@@ -525,15 +474,13 @@ public final class Iterators {
 	 * @since 1.1.0
 	 */
 	public static long length(final Iterator iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
-		var n = 0L;
+		Ensure.notNull("iterator", iterator);
+		var length = 0L;
 		while (iterator.hasNext()) {
 			iterator.next();
-			++n;
+			++length;
 		}
-		return n;
+		return length;
 	}
 
 	/**
@@ -547,32 +494,26 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static <E> long transferTo(final Iterator<? extends E> iterator, final Collection<? super E> collection) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
-		if (null == collection) {
-			throw new NullPointerException("Invalid Collection (not null expected)");
-		}
-		var n = 0L;
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("collection", collection);
+		var transferred = 0L;
 		while (iterator.hasNext()) {
 			collection.add(iterator.next());
-			++n;
+			++transferred;
 		}
-		return n;
+		return transferred;
 	}
 
 	/**
-	 * <p>Optionally return the first element of an {@code Iterator} from the current position.</p>
+	 * <p>Optionally get the first element of an {@code Iterator} from the current position.</p>
 	 * @param iterator the {@code Iterator} to get the first element from
 	 * @param <E> the element type
 	 * @return a {@code NullableOptional} containing the first element if the {@code Iterator} is not empty
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.2.0
 	 */
-	public static <E> NullableOptional<E> getFirst(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+	public static <E> NullableOptional<E> getOptionalFirst(final Iterator<? extends E> iterator) {
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return NullableOptional.empty();
 		}
@@ -580,7 +521,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Optionally return the last element of an {@code Iterator} from the current position.</p>
+	 * <p>Optionally get the last element of an {@code Iterator} from the current position.</p>
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code Iterator} does not end.</p>
 	 * @param iterator the {@code Iterator} to get the last element from
 	 * @param <E> the element type
@@ -588,10 +529,8 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.2.0
 	 */
-	public static <E> NullableOptional<E> getLast(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+	public static <E> NullableOptional<E> getOptionalLast(final Iterator<? extends E> iterator) {
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return NullableOptional.empty();
 		}
@@ -613,9 +552,8 @@ public final class Iterators {
 	 * @since 1.2.0
 	 */
 	public static <E> boolean removeAll(final Iterator<? extends E> iterator, final Collection<? super E> collection) {
-		if (null == collection) {
-			throw new NullPointerException("Invalid Collection (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("collection", collection);
 		if (collection.isEmpty()) {
 			return false;
 		}
@@ -633,12 +571,8 @@ public final class Iterators {
 	 * @since 1.2.0
 	 */
 	public static <E> boolean removeIf(final Iterator<? extends E> iterator, final Predicate<? super E> filter) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
-		if (null == filter) {
-			throw new NullPointerException("Invalid filter (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("filter", filter);
 		if (!iterator.hasNext()) {
 			return false;
 		}
@@ -662,10 +596,8 @@ public final class Iterators {
 	 */
 	@SafeVarargs
 	public static <E> Iterator<E> concat(final Iterator<? extends E>... iterators) {
-		if (null == iterators) {
-			throw new NullPointerException("Invalid Iterators (not null expected)");
-		}
-		return concat(Arrays.asList(iterators));
+		Ensure.notNullAndNotNullElements("iterators", iterators);
+		return concat(List.of(iterators));
 	}
 
 	/**
@@ -678,14 +610,7 @@ public final class Iterators {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> Iterator<E> concat(final List<Iterator<? extends E>> iterators) {
-		if (null == iterators) {
-			throw new NullPointerException("Invalid Iterators (not null expected)");
-		}
-		for (final var indexedIterator : Iterables.index(iterators)) {
-			if (null == indexedIterator.getElement()) {
-				throw new NullPointerException("Invalid Iterator at index " + indexedIterator.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNullAndNotNullElements("iterators", iterators);
 		final var size = iterators.size();
 		if (0 == size) {
 			return Collections.emptyIterator();
@@ -708,10 +633,8 @@ public final class Iterators {
 	 */
 	@SafeVarargs
 	public static <E> Iterator<E> join(final E[] separator, final Iterator<? extends E>... iterators) {
-		if (null == iterators) {
-			throw new NullPointerException("Invalid Iterators (not null expected)");
-		}
-		return join(separator, Arrays.asList(iterators));
+		Ensure.notNullAndNotNullElements("iterators", iterators);
+		return join(separator, List.of(iterators));
 	}
 
 	/**
@@ -726,17 +649,8 @@ public final class Iterators {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> Iterator<E> join(final E[] separator, final List<Iterator<? extends E>> iterators) {
-		if (null == separator) {
-			throw new NullPointerException("Invalid separator (not null expected)");
-		}
-		if (null == iterators) {
-			throw new NullPointerException("Invalid Iterators (not null expected)");
-		}
-		for (final var indexedIterator : Iterables.index(iterators)) {
-			if (null == indexedIterator.getElement()) {
-				throw new NullPointerException("Invalid Iterator at index " + indexedIterator.getIndex() + " (not null expected)");
-			}
-		}
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("iterators", iterators);
 		if (0 == separator.length) {
 			return concat(iterators);
 		}
@@ -806,9 +720,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterator.OfInt ofInt(final int... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_INT;
 		}
@@ -823,9 +735,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterator.OfLong ofLong(final long... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_LONG;
 		}
@@ -840,9 +750,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterator.OfDouble ofDouble(final double... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_DOUBLE;
 		}
@@ -859,9 +767,7 @@ public final class Iterators {
 	 */
 	@SafeVarargs
 	public static <E> Iterator<E> of(final E... elements) {
-		if (null == elements) {
-			throw new NullPointerException("Invalid elements (not null expected)");
-		}
+		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return Collections.emptyIterator();
 		}
@@ -877,9 +783,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static <E> Set<E> toSet(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return Collections.emptySet();
 		}
@@ -897,9 +801,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static <E> List<E> toList(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return Collections.emptyList();
 		}
@@ -917,10 +819,8 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static Iterator<Integer> of(final InputStream inputStream) {
-		if (null == inputStream) {
-			throw new NullPointerException("Invalid InputStream (not null expected)");
-		}
-		return until(new UncheckedInputStream(inputStream)::read, -1);
+		Ensure.notNull("inputStream", inputStream);
+		return until(ThrowableSupplier.unchecked(inputStream::read), -1);
 	}
 
 	/**
@@ -931,9 +831,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static InputStream toInputStream(final Iterator<Integer> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return InputStreams.EMPTY;
 		}
@@ -957,10 +855,8 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static Iterator<Integer> of(final Reader reader) {
-		if (null == reader) {
-			throw new NullPointerException("Invalid Reader (not null expected)");
-		}
-		return until(new UncheckedReader(reader)::read, -1);
+		Ensure.notNull("reader", reader);
+		return until(ThrowableSupplier.unchecked(reader::read), -1);
 	}
 
 	/**
@@ -971,9 +867,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static Reader toReader(final Iterator<Integer> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
 			return Readers.EMPTY;
 		}
@@ -988,15 +882,9 @@ public final class Iterators {
 
 			@Override
 			public int read(final char[] buffer, final int offset, final int length) {
-				if (null == buffer) {
-					throw new NullPointerException("Invalid buffer (not null expected)");
-				}
-				if (0 > offset || buffer.length < offset) {
-					throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
-				}
-				if (0 > length || buffer.length - offset < length) {
-					throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
-				}
+				Ensure.notNull("buffer", buffer);
+				Ensure.between("offset", offset, 0, buffer.length);
+				Ensure.between("length", length, 0, buffer.length - offset);
 				if (0 == length) {
 					return 0;
 				}
@@ -1026,9 +914,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static Iterator<String> of(final BufferedReader bufferedReader) {
-		if (null == bufferedReader) {
-			throw new NullPointerException("Invalid BufferedReader (not null expected)");
-		}
+		Ensure.notNull("bufferedReader", bufferedReader);
 		return until(ThrowableSupplier.unchecked(bufferedReader::readLine), null);
 	}
 
@@ -1041,9 +927,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	public static Iterator<String> of(final LineReader lineReader) {
-		if (null == lineReader) {
-			throw new NullPointerException("Invalid LineReader (not null expected)");
-		}
-		return until(new UncheckedLineReader(lineReader)::read, null);
+		Ensure.notNull("lineReader", lineReader);
+		return until(ThrowableSupplier.unchecked(lineReader::read), null);
 	}
 }

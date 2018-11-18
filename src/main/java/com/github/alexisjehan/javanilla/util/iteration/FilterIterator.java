@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -45,9 +47,7 @@ public abstract class FilterIterator<E> implements Iterator<E> {
 	 * @since 1.2.0
 	 */
 	protected FilterIterator(final Iterator<? extends E> iterator) {
-		if (null == iterator) {
-			throw new NullPointerException("Invalid Iterator (not null expected)");
-		}
+		Ensure.notNull("iterator", iterator);
 		this.iterator = iterator;
 	}
 

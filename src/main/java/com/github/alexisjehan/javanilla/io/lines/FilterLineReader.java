@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.lines;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.IOException;
 
 /**
@@ -44,9 +46,7 @@ public abstract class FilterLineReader extends LineReader {
 	 * @since 1.0.0
 	 */
 	protected FilterLineReader(final LineReader lineReader) {
-		if (null == lineReader) {
-			throw new NullPointerException("Invalid LineReader (not null expected)");
-		}
+		Ensure.notNull("lineReader", lineReader);
 		this.lineReader = lineReader;
 	}
 
@@ -56,8 +56,8 @@ public abstract class FilterLineReader extends LineReader {
 	}
 
 	@Override
-	public long skip(final long n) throws IOException {
-		return lineReader.skip(n);
+	public long skip(final long number) throws IOException {
+		return lineReader.skip(number);
 	}
 
 	@Override

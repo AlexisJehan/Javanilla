@@ -35,6 +35,8 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountOutputStreamTest {
 
+	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
+
 	@Test
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountOutputStream(null));
@@ -55,25 +57,23 @@ final class CountOutputStreamTest {
 
 	@Test
 	void testWriteBytes() throws IOException {
-		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isEqualTo(0L);
-			countOutputStream.write(bytes, 0, 0);
+			countOutputStream.write(BYTES, 0, 0);
 			assertThat(countOutputStream.getCount()).isEqualTo(0L);
-			countOutputStream.write(bytes, 0, 2);
+			countOutputStream.write(BYTES, 0, 2);
 			assertThat(countOutputStream.getCount()).isEqualTo(2L);
 		}
 	}
 
 	@Test
 	void testWriteBytesInvalid() throws IOException {
-		final var bytes = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countOutputStream.write(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, -1, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, 4, 3));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countOutputStream.write(bytes, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> countOutputStream.write(BYTES, -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countOutputStream.write(BYTES, 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countOutputStream.write(BYTES, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> countOutputStream.write(BYTES, 0, 4));
 		}
 	}
 }

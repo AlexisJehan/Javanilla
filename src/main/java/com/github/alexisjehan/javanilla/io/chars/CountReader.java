@@ -23,10 +23,11 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.chars;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Objects;
 
 /**
  * <p>A {@link Reader} decorator that counts the number of chars read from the current position.</p>
@@ -53,41 +54,41 @@ public final class CountReader extends FilterReader {
 	 * @since 1.0.0
 	 */
 	public CountReader(final Reader reader) {
-		super(Objects.requireNonNull(reader, "Invalid Reader (not null expected)"));
+		super(Ensure.notNull("reader", reader));
 	}
 
 	@Override
 	public int read() throws IOException {
-		final var c = in.read();
-		if (-1 != c) {
+		final var next = in.read();
+		if (-1 != next) {
 			++count;
 		}
-		return c;
+		return next;
 	}
 
 	@Override
 	public int read(final char[] buffer, final int offset, final int length) throws IOException {
-		if (null == buffer) {
-			throw new NullPointerException("Invalid buffer (not null expected)");
+		Ensure.notNull("buffer", buffer);
+		Ensure.between("offset", offset, 0, buffer.length);
+		Ensure.between("length", length, 0, buffer.length - offset);
+		if (0 == length) {
+			return 0;
 		}
-		if (0 > offset || buffer.length < offset) {
-			throw new IndexOutOfBoundsException("Invalid offset: " + offset + " (between 0 and " + buffer.length + " expected)");
+		final var total = in.read(buffer, offset, length);
+		if (-1 != total) {
+			count += total;
 		}
-		if (0 > length || buffer.length - offset < length) {
-			throw new IndexOutOfBoundsException("Invalid length: " + length + " (between 0 and " + (buffer.length - offset) + " expected)");
-		}
-		final var n = in.read(buffer, offset, length);
-		if (-1 != n) {
-			count += n;
-		}
-		return n;
+		return total;
 	}
 
 	@Override
-	public long skip(final long n) throws IOException {
-		final var s = in.skip(n);
-		count += s;
-		return s;
+	public long skip(final long number) throws IOException {
+		if (0L >= number) {
+			return 0L;
+		}
+		final var actual = in.skip(number);
+		count += actual;
+		return actual;
 	}
 
 	@Override

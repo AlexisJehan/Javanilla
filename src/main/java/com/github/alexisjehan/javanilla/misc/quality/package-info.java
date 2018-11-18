@@ -21,21 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package examples;
-
-import com.github.alexisjehan.javanilla.misc.StringFormatter;
-
-import java.util.Locale;
-
-public final class Example06 {
-
-	public static void main(final String... args) {
-		final var floatPrecision = 3; // Up to 3 digits after the floating point
-		final var stringFormatter = new StringFormatter(Locale.US, floatPrecision);
-		System.out.println(stringFormatter.format(1_234_567L)); // Prints 1,234,567
-		System.out.println(stringFormatter.formatPercent(1.0d, 3.0d)); // Prints 33.333%
-		System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
-		System.out.println(stringFormatter.formatBytes(1_300_000L)); // Prints 1.24MiB
-		System.out.println(stringFormatter.formatBytes(1_300_000L, StringFormatter.BytePrefix.SI)); // Prints 1.3MB
-	}
-}
+/**
+ * <p>New quality tools for arguments validation and custom {@link java.lang.Object#equals(java.lang.Object)},
+ * {@link java.lang.Object#hashCode()} and {@link java.lang.Object#toString()} implementations.</p>
+ * @since 1.3.0
+ */
+package com.github.alexisjehan.javanilla.misc.quality;

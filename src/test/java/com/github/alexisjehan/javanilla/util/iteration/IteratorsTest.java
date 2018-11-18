@@ -30,12 +30,26 @@ import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+import java.util.PrimitiveIterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link Iterators} unit tests.</p>
@@ -114,38 +128,10 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testEmptyToNullOfInt() {
-		assertThat(Iterators.emptyToNull((PrimitiveIterator.OfInt) null)).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.EMPTY_INT)).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.singletonInt(1))).containsExactly(1);
-	}
-
-	@Test
-	void testEmptyToNullOfLong() {
-		assertThat(Iterators.emptyToNull((PrimitiveIterator.OfLong) null)).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.EMPTY_LONG)).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.singletonLong(1L))).containsExactly(1L);
-	}
-
-	@Test
-	void testEmptyToNullOfDouble() {
-		assertThat(Iterators.emptyToNull((PrimitiveIterator.OfDouble) null)).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.EMPTY_DOUBLE)).isNull();
-		assertThat(Iterators.emptyToNull(Iterators.singletonDouble(1.0d))).containsExactly(1.0d);
-	}
-
-	@Test
-	void testEmptyToNullIterator() {
+	void testEmptyToNull() {
 		assertThat(Iterators.emptyToNull((Iterator<?>) null)).isNull();
 		assertThat(Iterators.emptyToNull(Collections.emptyIterator())).isNull();
 		assertThat(Iterators.emptyToNull(Collections.singletonList(1).iterator())).containsExactly(1);
-	}
-
-	@Test
-	void testEmptyToNullListIterator() {
-		assertThat(Iterators.emptyToNull((ListIterator<?>) null)).isNull();
-		assertThat(Iterators.emptyToNull(Collections.emptyListIterator())).isNull();
-		assertThat(Iterators.emptyToNull(Collections.singletonList(1).listIterator())).containsExactly(1);
 	}
 
 	@Test
@@ -324,29 +310,29 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testGetFirst() {
-		assertThat(Iterators.getFirst(Collections.emptyIterator()).isEmpty()).isTrue();
-		assertThat(Iterators.getFirst(Collections.singletonList(0).iterator()).get()).isEqualTo(0);
-		assertThat(Iterators.getFirst(Iterators.singleton(null)).get()).isNull();
-		assertThat(Iterators.getFirst(Iterators.of(1, 2, 3)).get()).isEqualTo(1);
+	void testGetOptionalFirst() {
+		assertThat(Iterators.getOptionalFirst(Collections.emptyIterator()).isEmpty()).isTrue();
+		assertThat(Iterators.getOptionalFirst(Collections.singletonList(0).iterator()).get()).isEqualTo(0);
+		assertThat(Iterators.getOptionalFirst(Iterators.singleton(null)).get()).isNull();
+		assertThat(Iterators.getOptionalFirst(Iterators.of(1, 2, 3)).get()).isEqualTo(1);
 	}
 
 	@Test
-	void testGetFirstInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.getFirst(null));
+	void testGetOptionalFirstInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.getOptionalFirst(null));
 	}
 
 	@Test
-	void testGetLast() {
-		assertThat(Iterators.getLast(Collections.emptyIterator()).isEmpty()).isTrue();
-		assertThat(Iterators.getLast(Collections.singletonList(0).iterator()).get()).isEqualTo(0);
-		assertThat(Iterators.getLast(Iterators.singleton(null)).get()).isNull();
-		assertThat(Iterators.getLast(Iterators.of(1, 2, 3)).get()).isEqualTo(3);
+	void testGetOptionalLast() {
+		assertThat(Iterators.getOptionalLast(Collections.emptyIterator()).isEmpty()).isTrue();
+		assertThat(Iterators.getOptionalLast(Collections.singletonList(0).iterator()).get()).isEqualTo(0);
+		assertThat(Iterators.getOptionalLast(Iterators.singleton(null)).get()).isNull();
+		assertThat(Iterators.getOptionalLast(Iterators.of(1, 2, 3)).get()).isEqualTo(3);
 	}
 
 	@Test
-	void testGetLastInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.getLast(null));
+	void testGetOptionalLastInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.getOptionalLast(null));
 	}
 
 	@Test
@@ -576,10 +562,10 @@ final class IteratorsTest {
 			assertThat(reader.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(reader.read(buffer, 0, 2)).isEqualTo(2);
 			assertThatNullPointerException().isThrownBy(() -> reader.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> reader.read(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> reader.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> reader.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> reader.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> reader.read(buffer, 0, 3));
 			assertThat(buffer).containsExactly('b', 'c');
 			assertThat(reader.read(buffer, 0, 2)).isEqualTo(1);
 			assertThat(buffer[0]).isEqualTo('d');

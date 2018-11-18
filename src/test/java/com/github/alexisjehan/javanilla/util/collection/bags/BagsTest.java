@@ -99,7 +99,7 @@ final class BagsTest {
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(Bags.emptyToNull(null)).isNull();
+		assertThat(Bags.emptyToNull((Bag) null)).isNull();
 		assertThat(Bags.emptyToNull(Bags.empty())).isNull();
 		assertThat(Bags.emptyToNull(Bags.singleton("foo"))).isEqualTo(Bags.singleton("foo"));
 	}

@@ -23,9 +23,14 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -66,7 +71,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * @since 1.0.0
 	 */
 	public MapBag(final Supplier<? extends Map<E, LongAdder>> mapSupplier) {
-		this(Objects.requireNonNull(mapSupplier, "Invalid Map Supplier (not null expected)").get());
+		this(Ensure.notNull("mapSupplier", mapSupplier).get());
 	}
 
 	/**
@@ -76,9 +81,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * @since 1.0.0
 	 */
 	public MapBag(final Collection<? extends E> collection) {
-		if (null == collection) {
-			throw new NullPointerException("Invalid Collection (not null expected)");
-		}
+		Ensure.notNull("collection", collection);
 		map = new HashMap<>();
 		if (!collection.isEmpty()) {
 			for (final var element : collection) {
@@ -94,9 +97,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * @since 1.0.0
 	 */
 	private MapBag(final Map<E, LongAdder> map) {
-		if (null == map) {
-			throw new NullPointerException("Invalid Map (not null expected)");
-		}
+		Ensure.notNull("map", map);
 		this.map = map;
 		if (!map.isEmpty()) {
 			final var iterator = map.entrySet().iterator();
@@ -114,9 +115,7 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public void add(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		if (0L != quantity) {
 			map.computeIfAbsent(element, e -> new LongAdder()).add(quantity);
 			size += quantity;
@@ -125,9 +124,7 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public boolean remove(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		if (0L != quantity) {
 			final var adder = map.get(element);
 			if (null != adder) {
@@ -174,18 +171,14 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public boolean containsExactly(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		final var adder = map.get(element);
-		return (null == adder && 0L == quantity) || (null != adder && quantity == adder.longValue());
+		return null == adder ? 0L == quantity : quantity == adder.longValue();
 	}
 
 	@Override
 	public boolean containsAtLeast(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		if (0L == quantity) {
 			return true;
 		}
@@ -195,9 +188,7 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public boolean containsAtMost(final E element, final long quantity) {
-		if (0L > quantity) {
-			throw new IllegalArgumentException("Invalid quantity: " + quantity + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
 		final var adder = map.get(element);
 		return null == adder || quantity >= adder.longValue();
 	}

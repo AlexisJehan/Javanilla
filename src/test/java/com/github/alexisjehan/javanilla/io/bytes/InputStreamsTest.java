@@ -27,9 +27,10 @@ import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junitpioneer.jupiter.TempDirectory;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -37,12 +38,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIOException;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link InputStreams} unit tests.</p>
  */
 final class InputStreamsTest {
+
+	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 
 	@Test
 	void testEmpty() throws IOException {
@@ -55,17 +61,17 @@ final class InputStreamsTest {
 			assertThat(emptyInputStream.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(emptyInputStream.read(buffer, 0, 1)).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.read(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, 0, 3));
 			assertThat(emptyInputStream.readAllBytes()).isEmpty();
 			assertThat(emptyInputStream.readNBytes(buffer, 0, 1)).isEqualTo(0);
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.readNBytes(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, 3));
 			assertThat(emptyInputStream.skip(1)).isEqualTo(0);
 			assertThat(emptyInputStream.transferTo(OutputStreams.EMPTY)).isEqualTo(0L);
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.transferTo(null));
@@ -151,9 +157,7 @@ final class InputStreamsTest {
 			}
 		};
 		assertThatIOException().isThrownBy(inputStream::close);
-		{
-			InputStreams.uncloseable(inputStream).close();
-		}
+		InputStreams.uncloseable(inputStream).close();
 	}
 
 	@Test
@@ -164,7 +168,7 @@ final class InputStreamsTest {
 	@Test
 	void testLength() throws IOException {
 		assertThat(InputStreams.length(InputStreams.EMPTY)).isEqualTo(0L);
-		assertThat(InputStreams.length(InputStreams.of((byte) 1, (byte) 2, (byte) 3))).isEqualTo(3L);
+		assertThat(InputStreams.length(InputStreams.of(BYTES))).isEqualTo(BYTES.length);
 	}
 
 	@Test
@@ -210,7 +214,7 @@ final class InputStreamsTest {
 	@Test
 	void testOfBytesAndToBytes() throws IOException {
 		assertThat(InputStreams.toBytes(InputStreams.of())).isEmpty();
-		assertThat(InputStreams.toBytes(InputStreams.of((byte) 1, (byte) 2, (byte) 3))).containsExactly((byte) 1, (byte) 2, (byte) 3);
+		assertThat(InputStreams.toBytes(InputStreams.of(BYTES))).containsExactly(BYTES);
 	}
 
 	@Test
@@ -260,13 +264,13 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	void testOfPath() throws IOException {
-		final var path = File.createTempFile(getClass().getName() + ".testOfPath_", ".txt").toPath();
-		Files.write(path, ByteArrays.of((byte) 1, (byte) 2, (byte) 3));
+	@ExtendWith(TempDirectory.class)
+	void testOfPath(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testOfPath");
+		Files.write(path, ByteArrays.of(BYTES));
 		try (final var pathInputStream = InputStreams.of(path)) {
-			assertThat(pathInputStream).hasSameContentAs(InputStreams.of((byte) 1, (byte) 2, (byte) 3));
+			assertThat(pathInputStream).hasSameContentAs(InputStreams.of(BYTES));
 		}
-		Files.delete(path);
 	}
 
 	@Test

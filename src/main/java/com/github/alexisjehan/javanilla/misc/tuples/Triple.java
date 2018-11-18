@@ -23,7 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.tuples;
 
-import java.util.Objects;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
  * <p>A {@code Triple} is an immutable tuple that is composed of three elements.</p>
@@ -67,6 +68,34 @@ public final class Triple<F, S, T> {
 		this.third = third;
 	}
 
+	@Override
+	public boolean equals(final Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (!(object instanceof Triple)) {
+			return false;
+		}
+		final var other = (Triple) object;
+		return Equals.equals(first, other.first)
+				&& Equals.equals(second, other.second)
+				&& Equals.equals(third, other.third);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCode.of(
+				HashCode.hashCode(first),
+				HashCode.hashCode(second),
+				HashCode.hashCode(third)
+		);
+	}
+
+	@Override
+	public String toString() {
+		return "[" + first + ", " + second + ", " + third + "]";
+	}
+
 	/**
 	 * <p>Get the first element of the {@code Triple}.</p>
 	 * @return the first element
@@ -92,30 +121,6 @@ public final class Triple<F, S, T> {
 	 */
 	public T getThird() {
 		return third;
-	}
-
-	@Override
-	public boolean equals(final Object object) {
-		if (this == object) {
-			return true;
-		}
-		if (!(object instanceof Triple)) {
-			return false;
-		}
-		final var other = (Triple) object;
-		return Objects.equals(first, other.first)
-				&& Objects.equals(second, other.second)
-				&& Objects.equals(third, other.third);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(first, second, third);
-	}
-
-	@Override
-	public String toString() {
-		return "[" + first + ", " + second + ", " + third + "]";
 	}
 
 	/**

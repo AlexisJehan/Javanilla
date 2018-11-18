@@ -23,13 +23,19 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.distances;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+import com.github.alexisjehan.javanilla.misc.quality.ToString;
+import com.github.alexisjehan.javanilla.misc.tuples.Pair;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <p>The Minkowski {@link Distance} implementation.</p>
  * <p><b>Note</b>: This class is serializable.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)} and {@link #hashCode()} methods.</p>
+ * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
+ * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Minkowski_distance">https://en.wikipedia.org/wiki/Minkowski_distance</a>
  * @since 1.0.0
  */
@@ -54,31 +60,20 @@ public final class MinkowskiDistance implements Distance, Serializable {
 	 * @since 1.0.0
 	 */
 	public MinkowskiDistance(final int order) {
-		if (1 > order) {
-			throw new IllegalArgumentException("Invalid order: " + order + " (greater than or equal to 1 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("order", order, 1);
 		this.order = order;
 	}
 
 	@Override
 	public double calculate(final double[] vector1, final double[] vector2) {
-		if (null == vector1) {
-			throw new NullPointerException("Invalid first vector (not null expected)");
-		}
-		if (null == vector2) {
-			throw new NullPointerException("Invalid second vector (not null expected)");
-		}
-		if (vector1.length != vector2.length) {
-			throw new IllegalArgumentException("Invalid vectors dimension: " + vector1.length + " and " + vector2.length + " (same expected)");
-		}
-		if (1 > vector1.length) {
-			throw new IllegalArgumentException("Invalid vector dimension: " + vector1.length + " (greater than or equal to 1 expected)");
-		}
-		var result = 0.0d;
+		Ensure.notNullAndNotEmpty("vector1", vector1);
+		Ensure.notNullAndNotEmpty("vector2", vector2);
+		Ensure.equalTo("vector2 length", vector2.length, vector1.length);
+		var distance = 0.0d;
 		for (var i = 0; i < vector1.length; ++i) {
-			result += Math.pow(Math.abs(vector1[i] - vector2[i]), order);
+			distance += Math.pow(Math.abs(vector1[i] - vector2[i]), order);
 		}
-		return Math.pow(result, 1.0d / order);
+		return Math.pow(distance, 1.0d / order);
 	}
 
 	@Override
@@ -90,12 +85,20 @@ public final class MinkowskiDistance implements Distance, Serializable {
 			return false;
 		}
 		final var other = (MinkowskiDistance) object;
-		return Objects.equals(order, other.order);
+		return Equals.equals(order, other.order);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(order);
+		return HashCode.hashCode(order);
+	}
+
+	@Override
+	public String toString() {
+		return ToString.of(
+				this,
+				Pair.of("order", ToString.toString(order))
+		);
 	}
 
 	/**

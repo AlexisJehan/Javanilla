@@ -127,14 +127,14 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	void testGetRootCause() {
+	void testGetOptionalRootCause() {
 		{
 			final var rootException = new IOException();
 			final var uncheckedIOException = new UncheckedIOException(rootException);
 			final var runtimeException = new RuntimeException(uncheckedIOException);
-			assertThat(Throwables.getRootCause(rootException)).isEmpty();
-			assertThat(Throwables.getRootCause(uncheckedIOException)).hasValue(rootException);
-			assertThat(Throwables.getRootCause(runtimeException)).hasValue(rootException);
+			assertThat(Throwables.getOptionalRootCause(rootException)).isEmpty();
+			assertThat(Throwables.getOptionalRootCause(uncheckedIOException)).hasValue(rootException);
+			assertThat(Throwables.getOptionalRootCause(runtimeException)).hasValue(rootException);
 		}
 		{
 			// Cycle
@@ -147,13 +147,13 @@ final class ThrowablesTest {
 					return this;
 				}
 			};
-			assertThat(Throwables.getRootCause(exception)).isEmpty();
+			assertThat(Throwables.getOptionalRootCause(exception)).isEmpty();
 		}
 	}
 
 	@Test
-	void testGetRootCauseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.getRootCause(null));
+	void testGetOptionalRootCauseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.getOptionalRootCause(null));
 	}
 
 	@Test

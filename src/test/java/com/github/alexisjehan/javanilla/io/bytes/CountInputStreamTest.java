@@ -23,16 +23,21 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.io.bytes;
 
+import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link CountInputStream} unit tests.</p>
  */
 final class CountInputStreamTest {
+
+	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 
 	@Test
 	void testConstructorInvalid() {
@@ -41,7 +46,7 @@ final class CountInputStreamTest {
 
 	@Test
 	void testReadByte() throws IOException {
-		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
+		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
 			assertThat(countInputStream.read()).isEqualTo(1);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
@@ -57,7 +62,7 @@ final class CountInputStreamTest {
 	@Test
 	void testReadBuffer() throws IOException {
 		final var buffer = new byte[2];
-		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
+		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
 			assertThat(countInputStream.read(buffer, 0, 0)).isEqualTo(0);
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
@@ -73,19 +78,20 @@ final class CountInputStreamTest {
 	@Test
 	void testReadBufferInvalid() throws IOException {
 		final var buffer = new byte[2];
-		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
+		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThatNullPointerException().isThrownBy(() -> countInputStream.read(null, 0, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, -1, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, 3, 2));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, 0, -1));
-			assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> countInputStream.read(buffer, 0, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countInputStream.read(buffer, -1, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> countInputStream.read(buffer, 3, 2));
+			assertThatIllegalArgumentException().isThrownBy(() -> countInputStream.read(buffer, 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> countInputStream.read(buffer, 0, 3));
 		}
 	}
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var countInputStream = new CountInputStream(InputStreams.of((byte) 1, (byte) 2, (byte) 3))) {
+		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.skip(-1L)).isEqualTo(0L);
 			assertThat(countInputStream.skip(0L)).isEqualTo(0L);
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
 			assertThat(countInputStream.skip(2L)).isEqualTo(2L);
@@ -97,7 +103,7 @@ final class CountInputStreamTest {
 
 	@Test
 	void testMarkReset() throws IOException {
-		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of((byte) 1, (byte) 2, (byte) 3)))) {
+		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of(BYTES)))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
 			assertThat(countInputStream.read()).isEqualTo(1);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);

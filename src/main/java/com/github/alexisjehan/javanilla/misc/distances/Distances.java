@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.distances;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 /**
  * <p>Commons vectors {@link Distance}s implementations.</p>
  * @since 1.0.0
@@ -37,11 +39,11 @@ public enum Distances implements Distance {
 	MANHATTAN {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var result = 0.0d;
+			var distance = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
-				result += Math.abs(vector1[i] - vector2[i]);
+				distance += Math.abs(vector1[i] - vector2[i]);
 			}
-			return result;
+			return distance;
 		}
 	},
 
@@ -69,12 +71,12 @@ public enum Distances implements Distance {
 	SQUARED_EUCLIDEAN {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var result = 0.0d;
+			var distance = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
 				final var t = vector1[i] - vector2[i];
-				result += t * t;
+				distance += t * t;
 			}
-			return result;
+			return distance;
 		}
 	},
 
@@ -86,11 +88,11 @@ public enum Distances implements Distance {
 	CHEBYSHEV {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var result = 0.0d;
+			var distance = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
-				result = Math.max(result, Math.abs(vector1[i] - vector2[i]));
+				distance = Math.max(distance, Math.abs(vector1[i] - vector2[i]));
 			}
-			return result;
+			return distance;
 		}
 	},
 
@@ -102,30 +104,21 @@ public enum Distances implements Distance {
 	HAMMING {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
-			var result = 0.0d;
+			var distance = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
 				if (0 != Double.compare(vector1[i], vector2[i])) {
-					++result;
+					++distance;
 				}
 			}
-			return result;
+			return distance;
 		}
 	};
 
 	@Override
 	public final double calculate(final double[] vector1, final double[] vector2) {
-		if (null == vector1) {
-			throw new NullPointerException("Invalid first vector (not null expected)");
-		}
-		if (null == vector2) {
-			throw new NullPointerException("Invalid second vector (not null expected)");
-		}
-		if (vector1.length != vector2.length) {
-			throw new IllegalArgumentException("Invalid vectors dimension: " + vector1.length + " and " + vector2.length + " (same expected)");
-		}
-		if (1 > vector1.length) {
-			throw new IllegalArgumentException("Invalid vector dimension: " + vector1.length + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNullAndNotEmpty("vector1", vector1);
+		Ensure.notNullAndNotEmpty("vector2", vector2);
+		Ensure.equalTo("vector2 length", vector2.length, vector1.length);
 		return calculateImpl(vector1, vector2);
 	}
 

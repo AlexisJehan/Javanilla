@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.Predicate;
 
@@ -55,9 +56,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default ThrowablePredicate<T, X> and(final ThrowablePredicate<? super T, ? extends X> other) {
-		if (null == other) {
-			throw new NullPointerException("Invalid other (not null expected)");
-		}
+		Ensure.notNull("other", other);
 		return t -> test(t) && other.test(t);
 	}
 
@@ -80,9 +79,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default ThrowablePredicate<T, X> or(final ThrowablePredicate<? super T, ? extends X> other) {
-		if (null == other) {
-			throw new NullPointerException("Invalid other (not null expected)");
-		}
+		Ensure.notNull("other", other);
 		return t -> test(t) || other.test(t);
 	}
 
@@ -97,9 +94,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Predicate<T> unchecked(final ThrowablePredicate<? super T, ? extends X> throwablePredicate) {
-		if (null == throwablePredicate) {
-			throw new NullPointerException("Invalid ThrowablePredicate (not null expected)");
-		}
+		Ensure.notNull("throwablePredicate", throwablePredicate);
 		return t -> {
 			try {
 				return throwablePredicate.test(t);
@@ -119,9 +114,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowablePredicate<T, X> of(final Predicate<? super T> predicate) {
-		if (null == predicate) {
-			throw new NullPointerException("Invalid Predicate (not null expected)");
-		}
+		Ensure.notNull("predicate", predicate);
 		return predicate::test;
 	}
 }

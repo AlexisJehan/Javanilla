@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.lang;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 /**
  * <p>An utility class that provides {@link String} and {@link CharSequence} tools.</p>
  * @since 1.0.0
@@ -97,30 +99,19 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static <C extends CharSequence> C nullToDefault(final C charSequence, final C defaultCharSequence) {
-		if (null == defaultCharSequence) {
-			throw new NullPointerException("Invalid default CharSequence (not null expected)");
-		}
+		Ensure.notNull("defaultCharSequence", defaultCharSequence);
 		return null != charSequence ? charSequence : defaultCharSequence;
 	}
 
 	/**
 	 * <p>Wrap a {@code CharSequence} replacing an empty one by {@code null}.</p>
 	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @param <C> the {@code CharSequence} type
 	 * @return a non-empty {@code CharSequence} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static CharSequence emptyToNull(final CharSequence charSequence) {
+	public static <C extends CharSequence> C emptyToNull(final C charSequence) {
 		return emptyToDefault(charSequence, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code String} replacing an empty one by {@code null}.</p>
-	 * @param string the {@code String} or {@code null}
-	 * @return a non-empty {@code String} or {@code null}
-	 * @since 1.2.0
-	 */
-	public static String emptyToNull(final String string) {
-		return emptyToDefault(string, null);
 	}
 
 	/**
@@ -133,30 +124,10 @@ public final class Strings {
 	 * @since 1.1.0
 	 */
 	public static <C extends CharSequence> C emptyToDefault(final C charSequence, final C defaultCharSequence) {
-		if (null != defaultCharSequence && isEmpty(defaultCharSequence)) {
-			throw new IllegalArgumentException("Invalid default CharSequence (not empty expected)");
+		if (null != defaultCharSequence) {
+			Ensure.notNullAndNotEmpty("defaultCharSequence", defaultCharSequence);
 		}
 		return null == charSequence || !isEmpty(charSequence) ? charSequence : defaultCharSequence;
-	}
-
-	/**
-	 * <p>Wrap a {@code CharSequence} replacing a blank one by {@code null}.</p>
-	 * @param charSequence the {@code CharSequence} or {@code null}
-	 * @return a non-blank {@code CharSequence} or {@code null}
-	 * @since 1.0.0
-	 */
-	public static CharSequence blankToNull(final CharSequence charSequence) {
-		return blankToDefault(charSequence, null);
-	}
-
-	/**
-	 * <p>Wrap a {@code String} replacing a blank one by {@code null}.</p>
-	 * @param string the {@code String} or {@code null}
-	 * @return a non-blank {@code String} or {@code null}
-	 * @since 1.2.0
-	 */
-	public static String blankToNull(final String string) {
-		return blankToDefault(string, null);
 	}
 
 	/**
@@ -180,6 +151,17 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Wrap a {@code CharSequence} replacing a blank one by {@code null}.</p>
+	 * @param charSequence the {@code CharSequence} or {@code null}
+	 * @param <C> the {@code CharSequence} type
+	 * @return a non-blank {@code CharSequence} or {@code null}
+	 * @since 1.0.0
+	 */
+	public static <C extends CharSequence> C blankToNull(final C charSequence) {
+		return blankToDefault(charSequence, null);
+	}
+
+	/**
 	 * <p>Wrap a {@code CharSequence} replacing a blank one by a default {@code CharSequence}.</p>
 	 * @param charSequence the {@code CharSequence} or {@code null}
 	 * @param defaultCharSequence the default {@code CharSequence} or {@code null}
@@ -189,8 +171,8 @@ public final class Strings {
 	 * @since 1.1.0
 	 */
 	public static <C extends CharSequence> C blankToDefault(final C charSequence, final C defaultCharSequence) {
-		if (null != defaultCharSequence && isBlank(defaultCharSequence)) {
-			throw new IllegalArgumentException("Invalid default CharSequence: " + quote(defaultCharSequence) + " (not blank expected)");
+		if (null != defaultCharSequence) {
+			Ensure.notNullAndNotBlank("defaultCharSequence", defaultCharSequence);
 		}
 		return null == charSequence || !isBlank(charSequence) ? charSequence : defaultCharSequence;
 	}
@@ -203,9 +185,7 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isEmpty(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		return 0 == charSequence.length();
 	}
 
@@ -219,9 +199,7 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static boolean isBlank(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -243,9 +221,7 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isBoolean(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		return "true".contentEquals(charSequence) || "false".contentEquals(charSequence);
 	}
 
@@ -258,8 +234,9 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isShort(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
 		}
 		try {
 			Short.parseShort(charSequence.toString());
@@ -278,8 +255,9 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isInt(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
 		}
 		try {
 			Integer.parseInt(charSequence, 0, charSequence.length(), 10);
@@ -298,8 +276,9 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isLong(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
 		}
 		try {
 			Long.parseLong(charSequence, 0, charSequence.length(), 10);
@@ -318,8 +297,9 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isFloat(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
 		}
 		try {
 			Float.parseFloat(charSequence.toString());
@@ -338,8 +318,9 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isDouble(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
 		}
 		try {
 			Double.parseDouble(charSequence.toString());
@@ -358,9 +339,7 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isBinary(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -383,9 +362,7 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isOctal(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -408,9 +385,7 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isDecimal(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -433,10 +408,8 @@ public final class Strings {
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static boolean isHex(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+	public static boolean isHexadecimal(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -460,9 +433,7 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static boolean isBase64(final CharSequence charSequence, final boolean withPadding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -493,9 +464,7 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static boolean isBase64Url(final CharSequence charSequence, final boolean withPadding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return false;
@@ -514,6 +483,149 @@ public final class Strings {
 			}
 		}
 		return !withPadding || 0 == length % 4;
+	}
+
+	/**
+	 * <p>Test if a {@code CharSequence} contains a target {@code CharSequence} ignoring the case.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @param target the target {@code CharSequence}
+	 * @return {@code true} if the {@code CharSequence} contains the target {@code CharSequence} ignoring the case
+	 * @throws NullPointerException if the {@code CharSequence} or the target {@code CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static boolean containsIgnoreCase(final CharSequence charSequence, final CharSequence target) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("target", target);
+		final var targetLength = target.length();
+		if (0 == targetLength) {
+			return true;
+		}
+		final var length = charSequence.length();
+		if (length < targetLength) {
+			return false;
+		}
+		for (var i = 0; i < length - targetLength + 1; ++i) {
+			if (Character.toLowerCase(charSequence.charAt(i)) == Character.toLowerCase(target.charAt(0))) {
+				var j = 1;
+				while (i + j < length && j < targetLength && Character.toLowerCase(charSequence.charAt(i + j)) == Character.toLowerCase(target.charAt(j))) {
+					++j;
+				}
+				if (j == targetLength) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * <p>Test if a {@code CharSequence} starts with a prefix {@code CharSequence} ignoring the case.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @param prefix the prefix {@code CharSequence}
+	 * @return {@code true} if the {@code CharSequence} starts with the prefix {@code CharSequence} ignoring the case
+	 * @throws NullPointerException if the {@code CharSequence} or the prefix {@code CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static boolean startsWithIgnoreCase(final CharSequence charSequence, final CharSequence prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("prefix", prefix);
+		final var prefixLength = prefix.length();
+		if (0 == prefixLength) {
+			return true;
+		}
+		final var length = charSequence.length();
+		if (length < prefixLength) {
+			return false;
+		}
+		for (var i = 0; i < prefixLength; ++i) {
+			if (Character.toUpperCase(charSequence.charAt(i)) != Character.toUpperCase(prefix.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Test if a {@code CharSequence} ends with a suffix {@code CharSequence} ignoring the case.</p>
+	 * @param charSequence the {@code CharSequence} to test
+	 * @param suffix the suffix {@code CharSequence}
+	 * @return {@code true} if the {@code CharSequence} ends with the suffix {@code CharSequence} ignoring the case
+	 * @throws NullPointerException if the {@code CharSequence} or the suffix {@code CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static boolean endsWithIgnoreCase(final CharSequence charSequence, final CharSequence suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("suffix", suffix);
+		final var suffixLength = suffix.length();
+		if (0 == suffixLength) {
+			return true;
+		}
+		final var length = charSequence.length();
+		if (length < suffixLength) {
+			return false;
+		}
+		final var offset = length - suffixLength;
+		for (var i = 0; i < suffixLength; ++i) {
+			if (Character.toUpperCase(charSequence.charAt(offset + i)) != Character.toUpperCase(suffix.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Calculate the number of occurrences of the target {@code char} in the {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} to iterate
+	 * @param target the target {@code char} of the frequency to calculate
+	 * @return the frequency of the {@code char}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static int frequency(final CharSequence charSequence, final char target) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return 0;
+		}
+		var frequency = 0;
+		for (var i = 0; i < length; ++i) {
+			if (target == charSequence.charAt(i)) {
+				++frequency;
+			}
+		}
+		return frequency;
+	}
+
+	/**
+	 * <p>Calculate the number of occurrences of the target {@code CharSequence} in the {@code CharSequence}.</p>
+	 * @param charSequence the {@code CharSequence} to iterate
+	 * @param target the target {@code CharSequence} of the frequency to calculate
+	 * @return the frequency of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} or the target {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the target {@code CharSequence} is empty
+	 * @since 1.3.0
+	 */
+	public static int frequency(final CharSequence charSequence, final CharSequence target) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNullAndNotEmpty("target", target);
+		final var length = charSequence.length();
+		final var targetLength = target.length();
+		if (length < targetLength) {
+			return 0;
+		}
+		var frequency = 0;
+		for (var i = 0; i < length - targetLength + 1; ++i) {
+			if (charSequence.charAt(i) == target.charAt(0)) {
+				var j = 1;
+				while (i + j < length && j < targetLength && charSequence.charAt(i + j) == target.charAt(j)) {
+					++j;
+				}
+				if (j == targetLength) {
+					++frequency;
+				}
+			}
+		}
+		return frequency;
 	}
 
 	/**
@@ -566,9 +678,7 @@ public final class Strings {
 	 * @since 1.1.0
 	 */
 	public static String quote(final CharSequence charSequence, final char quote, final char escape) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		final var builder = new StringBuilder(length + 2);
 		builder.append(quote);
@@ -606,26 +716,13 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static char unquoteChar(final CharSequence charSequence, final char quote, final char escape) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (3 != length && 4 != length) {
-			throw new IllegalArgumentException("Invalid CharSequence length: " + length + " (equal to 3 or 4 expected)");
-		}
-		final var firstChar = charSequence.charAt(0);
-		if (quote != firstChar) {
-			throw new IllegalArgumentException("Invalid first char: " + quote(firstChar) + " (equal to " + quote(quote) + " expected)");
-		}
-		final var lastChar = charSequence.charAt(length - 1);
-		if (quote != lastChar) {
-			throw new IllegalArgumentException("Invalid last char: " + quote(lastChar) + " (equal to " + quote(quote) + " expected)");
-		}
+		Ensure.between("charSequence length", length, 3, 4);
+		Ensure.equalTo("charSequence first char", charSequence.charAt(0), quote);
+		Ensure.equalTo("charSequence last char", charSequence.charAt(length - 1), quote);
 		if (4 == length) {
-			final var escapeChar = charSequence.charAt(1);
-			if (escape != escapeChar) {
-				throw new IllegalArgumentException("Invalid escape char: " + quote(escapeChar) + " (equal to " + quote(escape) + " expected)");
-			}
+			Ensure.equalTo("charSequence escape char", charSequence.charAt(1), escape);
 			return charSequence.charAt(2);
 		}
 		return charSequence.charAt(1);
@@ -654,30 +751,20 @@ public final class Strings {
 	 * @since 1.1.0
 	 */
 	public static String unquote(final CharSequence charSequence, final char quote, final char escape) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (2 > length) {
-			throw new IllegalArgumentException("Invalid CharSequence length: " + length + " (greater than or equal to 2 expected)");
-		}
-		final var firstChar = charSequence.charAt(0);
-		if (quote != firstChar) {
-			throw new IllegalArgumentException("Invalid first char: " + quote(firstChar) + " (equal to " + quote(quote) + " expected)");
-		}
-		final var lastChar = charSequence.charAt(length - 1);
-		if (quote != lastChar) {
-			throw new IllegalArgumentException("Invalid last char: " + quote(lastChar) + " (equal to " + quote(quote) + " expected)");
-		}
+		Ensure.greaterThanOrEqualTo("charSequence length", length, 2);
+		Ensure.equalTo("charSequence first char", charSequence.charAt(0), quote);
+		Ensure.equalTo("charSequence last char", charSequence.charAt(length - 1), quote);
 		final var builder = new StringBuilder(length - 2);
-		var isEscaped = false;
+		var escaped = false;
 		for (var i = 1; i < length - 1; ++i) {
 			final var c = charSequence.charAt(i);
-			if (!isEscaped && escape == c) {
-				isEscaped = true;
+			if (!escaped && escape == c) {
+				escaped = true;
 			} else {
 				builder.append(c);
-				isEscaped = false;
+				escaped = false;
 			}
 		}
 		return builder.toString();
@@ -692,9 +779,7 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String repeat(final char c, final int times) {
-		if (0 > times) {
-			throw new IllegalArgumentException("Invalid number of times: " + times + " (greater than or equal to 0 expected)");
-		}
+		Ensure.greaterThanOrEqualTo("times", times, 0);
 		if (0 == times) {
 			return EMPTY;
 		}
@@ -719,12 +804,8 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String repeat(final CharSequence charSequence, final int times) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (0 > times) {
-			throw new IllegalArgumentException("Invalid number of times: " + times + " (greater than or equal to 0 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("times", times, 0);
 		final var length = charSequence.length();
 		if (0 == times || 0 == length) {
 			return EMPTY;
@@ -764,12 +845,8 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String padLeft(final CharSequence charSequence, final int size, final char padding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (1 > size) {
-			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("size", size, 1);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return repeat(padding, size);
@@ -791,15 +868,9 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String padLeft(final CharSequence charSequence, final int size, final CharSequence padding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == padding) {
-			throw new NullPointerException("Invalid padding (not null expected)");
-		}
-		if (1 > size) {
-			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("size", size, 1);
+		Ensure.notNull("padding", padding);
 		final var length = charSequence.length();
 		final var paddingLength = padding.length();
 		if (0 == length) {
@@ -837,12 +908,8 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String padRight(final CharSequence charSequence, final int size, final char padding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (1 > size) {
-			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("size", size, 1);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return repeat(padding, size);
@@ -864,15 +931,9 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String padRight(final CharSequence charSequence, final int size, final CharSequence padding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == padding) {
-			throw new NullPointerException("Invalid padding (not null expected)");
-		}
-		if (1 > size) {
-			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("size", size, 1);
+		Ensure.notNull("padding", padding);
 		final var length = charSequence.length();
 		final var paddingLength = padding.length();
 		if (0 == length) {
@@ -910,12 +971,8 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String padBoth(final CharSequence charSequence, final int size, final char padding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (1 > size) {
-			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("size", size, 1);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return repeat(padding, size);
@@ -939,15 +996,9 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String padBoth(final CharSequence charSequence, final int size, final CharSequence padding) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == padding) {
-			throw new NullPointerException("Invalid padding (not null expected)");
-		}
-		if (1 > size) {
-			throw new IllegalArgumentException("Invalid size: " + size + " (greater than or equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("size", size, 1);
+		Ensure.notNull("padding", padding);
 		final var length = charSequence.length();
 		final var paddingLength = padding.length();
 		if (0 == length) {
@@ -974,9 +1025,7 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String replaceFirst(final CharSequence charSequence, final char target, final char replacement) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		for (var i = 0; i < length; ++i) {
 			if (target == charSequence.charAt(i)) {
@@ -997,15 +1046,9 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String replaceFirst(final CharSequence charSequence, final CharSequence target, final CharSequence replacement) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == target) {
-			throw new NullPointerException("Invalid target (not null expected)");
-		}
-		if (null == replacement) {
-			throw new NullPointerException("Invalid replacement (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("target", target);
+		Ensure.notNull("replacement", replacement);
 		final var length = charSequence.length();
 		final var targetLength = target.length();
 		if (0 == targetLength || length < targetLength) {
@@ -1036,9 +1079,7 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String replaceLast(final CharSequence charSequence, final char target, final char replacement) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
 		for (var i = length - 1; i >= 0; --i) {
 			if (target == charSequence.charAt(i)) {
@@ -1059,15 +1100,9 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String replaceLast(final CharSequence charSequence, final CharSequence target, final CharSequence replacement) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == target) {
-			throw new NullPointerException("Invalid target (not null expected)");
-		}
-		if (null == replacement) {
-			throw new NullPointerException("Invalid replacement (not null expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("target", target);
+		Ensure.notNull("replacement", replacement);
 		final var length = charSequence.length();
 		final var targetLength = target.length();
 		if (0 == targetLength || length < targetLength) {
@@ -1088,152 +1123,132 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the target {@code char} if the {@code CharSequence} starts with it.</p>
+	 * <p>Remove the prefix {@code char} if the {@code CharSequence} starts with it.</p>
 	 * @param charSequence the {@code CharSequence} to remove from
-	 * @param target the target {@code char}
+	 * @param prefix the prefix {@code char}
 	 * @return a stripped {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String removeStart(final CharSequence charSequence, final char target) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (target == charSequence.charAt(0)) {
+	public static String removeStart(final CharSequence charSequence, final char prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		if (prefix == charSequence.charAt(0)) {
 			return charSequence.subSequence(1, charSequence.length()).toString();
 		}
 		return charSequence.toString();
 	}
 
 	/**
-	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} starts with it.</p>
+	 * <p>Remove the prefix {@code CharSequence} if the {@code CharSequence} starts with it.</p>
 	 * @param charSequence the {@code CharSequence} to remove from
-	 * @param target the target {@code CharSequence}
+	 * @param prefix the prefix {@code CharSequence}
 	 * @return a stripped {@code String} of the {@code CharSequence}
-	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
+	 * @throws NullPointerException if the {@code CharSequence} or the prefix is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String removeStart(final CharSequence charSequence, final CharSequence target) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == target) {
-			throw new NullPointerException("Invalid target (not null expected)");
-		}
+	public static String removeStart(final CharSequence charSequence, final CharSequence prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("prefix", prefix);
 		final var length = charSequence.length();
-		final var targetLength = target.length();
-		if (0 == targetLength || length < targetLength) {
+		final var prefixLength = prefix.length();
+		if (0 == prefixLength || length < prefixLength) {
 			return charSequence.toString();
 		}
-		for (var i = 0; i < targetLength; ++i) {
-			if (charSequence.charAt(i) != target.charAt(i)) {
+		for (var i = 0; i < prefixLength; ++i) {
+			if (charSequence.charAt(i) != prefix.charAt(i)) {
 				return charSequence.toString();
 			}
 		}
-		return charSequence.subSequence(targetLength, length).toString();
+		return charSequence.subSequence(prefixLength, length).toString();
 	}
 
 	/**
-	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} starts with it ignoring the case.</p>
+	 * <p>Remove the prefix {@code CharSequence} if the {@code CharSequence} starts with it ignoring the case.</p>
 	 * @param charSequence the {@code CharSequence} to remove from
-	 * @param target the target {@code CharSequence}
+	 * @param prefix the prefix {@code CharSequence}
 	 * @return a stripped {@code String} of the {@code CharSequence}
-	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
+	 * @throws NullPointerException if the {@code CharSequence} or the prefix is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String removeStartIgnoreCase(final CharSequence charSequence, final CharSequence target) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == target) {
-			throw new NullPointerException("Invalid target (not null expected)");
-		}
+	public static String removeStartIgnoreCase(final CharSequence charSequence, final CharSequence prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("prefix", prefix);
 		final var length = charSequence.length();
-		final var targetLength = target.length();
-		if (0 == targetLength || length < targetLength) {
+		final var prefixLength = prefix.length();
+		if (0 == prefixLength || length < prefixLength) {
 			return charSequence.toString();
 		}
-		for (var i = 0; i < targetLength; ++i) {
-			if (Character.toLowerCase(charSequence.charAt(i)) != Character.toLowerCase(target.charAt(i))) {
+		for (var i = 0; i < prefixLength; ++i) {
+			if (Character.toLowerCase(charSequence.charAt(i)) != Character.toLowerCase(prefix.charAt(i))) {
 				return charSequence.toString();
 			}
 		}
-		return charSequence.subSequence(targetLength, length).toString();
+		return charSequence.subSequence(prefixLength, length).toString();
 	}
 
 	/**
-	 * <p>Remove the target {@code char} if the {@code CharSequence} ends with it.</p>
+	 * <p>Remove the suffix {@code char} if the {@code CharSequence} ends with it.</p>
 	 * @param charSequence the {@code CharSequence} to remove from
-	 * @param target the target {@code char}
+	 * @param suffix the suffix {@code char}
 	 * @return a stripped {@code String} of the {@code CharSequence}
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String removeEnd(final CharSequence charSequence, final char target) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
+	public static String removeEnd(final CharSequence charSequence, final char suffix) {
+		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (target == charSequence.charAt(length - 1)) {
+		if (suffix == charSequence.charAt(length - 1)) {
 			return charSequence.subSequence(0, length - 1).toString();
 		}
 		return charSequence.toString();
 	}
 
 	/**
-	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} ends with it.</p>
+	 * <p>Remove the suffix {@code CharSequence} if the {@code CharSequence} ends with it.</p>
 	 * @param charSequence the {@code CharSequence} to remove from
-	 * @param target the target {@code CharSequence}
+	 * @param suffix the suffix {@code CharSequence}
 	 * @return a stripped {@code String} of the {@code CharSequence}
-	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
+	 * @throws NullPointerException if the {@code CharSequence} or the suffix is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String removeEnd(final CharSequence charSequence, final CharSequence target) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == target) {
-			throw new NullPointerException("Invalid target (not null expected)");
-		}
+	public static String removeEnd(final CharSequence charSequence, final CharSequence suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("suffix", suffix);
 		final var length = charSequence.length();
-		final var targetLength = target.length();
-		if (0 == targetLength || length < targetLength) {
+		final var suffixLength = suffix.length();
+		if (0 == suffixLength || length < suffixLength) {
 			return charSequence.toString();
 		}
-		for (var i = 1; i <= targetLength; ++i) {
-			if (charSequence.charAt(length - i) != target.charAt(targetLength - i)) {
+		for (var i = 1; i <= suffixLength; ++i) {
+			if (charSequence.charAt(length - i) != suffix.charAt(suffixLength - i)) {
 				return charSequence.toString();
 			}
 		}
-		return charSequence.subSequence(0, length - targetLength).toString();
+		return charSequence.subSequence(0, length - suffixLength).toString();
 	}
 
 	/**
-	 * <p>Remove the target {@code CharSequence} if the {@code CharSequence} ends with it ignoring the case.</p>
+	 * <p>Remove the suffix {@code CharSequence} if the {@code CharSequence} ends with it ignoring the case.</p>
 	 * @param charSequence the {@code CharSequence} to remove from
-	 * @param target the target {@code CharSequence}
+	 * @param suffix the suffix {@code CharSequence}
 	 * @return a stripped {@code String} of the {@code CharSequence}
-	 * @throws NullPointerException if the {@code CharSequence} or the target is {@code null}
+	 * @throws NullPointerException if the {@code CharSequence} or the suffix is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String removeEndIgnoreCase(final CharSequence charSequence, final CharSequence target) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		if (null == target) {
-			throw new NullPointerException("Invalid target (not null expected)");
-		}
+	public static String removeEndIgnoreCase(final CharSequence charSequence, final CharSequence suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("suffix", suffix);
 		final var length = charSequence.length();
-		final var targetLength = target.length();
-		if (0 == targetLength || length < targetLength) {
+		final var suffixLength = suffix.length();
+		if (0 == suffixLength || length < suffixLength) {
 			return charSequence.toString();
 		}
-		for (var i = 1; i <= targetLength; ++i) {
-			if (Character.toLowerCase(charSequence.charAt(length - i)) != Character.toLowerCase(target.charAt(targetLength - i))) {
+		for (var i = 1; i <= suffixLength; ++i) {
+			if (Character.toLowerCase(charSequence.charAt(length - i)) != Character.toLowerCase(suffix.charAt(suffixLength - i))) {
 				return charSequence.toString();
 			}
 		}
-		return charSequence.subSequence(0, length - targetLength).toString();
+		return charSequence.subSequence(0, length - suffixLength).toString();
 	}
 
 	/**
@@ -1246,12 +1261,8 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static String concatMerge(final CharSequence start, final CharSequence end) {
-		if (null == start) {
-			throw new NullPointerException("Invalid start (not null expected)");
-		}
-		if (null == end) {
-			throw new NullPointerException("Invalid end (not null expected)");
-		}
+		Ensure.notNull("start", start);
+		Ensure.notNull("end", end);
 		final var startLength = start.length();
 		if (0 == startLength) {
 			return end.toString();
@@ -1271,7 +1282,7 @@ public final class Strings {
 				}
 			}
 		}
-		return start.toString() + end.toString();
+		return start.toString() + end;
 	}
 
 	/**
@@ -1282,9 +1293,7 @@ public final class Strings {
 	 * @since 1.1.0
 	 */
 	public static String of(final char... chars) {
-		if (null == chars) {
-			throw new NullPointerException("Invalid chars (not null expected)");
-		}
+		Ensure.notNull("chars", chars);
 		if (0 == chars.length) {
 			return EMPTY;
 		}
@@ -1300,13 +1309,8 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static char toChar(final CharSequence charSequence) {
-		if (null == charSequence) {
-			throw new NullPointerException("Invalid CharSequence (not null expected)");
-		}
-		final var length = charSequence.length();
-		if (1 != length) {
-			throw new IllegalArgumentException("Invalid CharSequence length: " + length + " (equal to 1 expected)");
-		}
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.equalTo("charSequence length", charSequence.length(), 1);
 		return charSequence.charAt(0);
 	}
 }

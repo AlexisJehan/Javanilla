@@ -25,7 +25,13 @@ package com.github.alexisjehan.javanilla.misc.trees;
 
 import com.github.alexisjehan.javanilla.util.iteration.Iterables;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Queue;
 
 /**
  * <p>A {@code TreeNode} represents a single node in a whole tree data structure which contains optional parent and
@@ -67,7 +73,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 * @since 1.2.0
 	 */
 	default boolean isRoot() {
-		return !parent().isPresent();
+		return !optionalParent().isPresent();
 	}
 
 	/**
@@ -93,7 +99,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 * @return an {@code Optional} parent {@code TreeNode}
 	 * @since 1.2.0
 	 */
-	Optional<TreeNode<V>> parent();
+	Optional<TreeNode<V>> optionalParent();
 
 	/**
 	 * <p>Get a {@code List} of children {@code TreeNode}s of the current node.</p>
@@ -122,7 +128,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 * @since 1.2.0
 	 */
 	default Iterable<TreeNode<V>> siblings() {
-		return parent()
+		return optionalParent()
 				.map(parent -> Iterables.filter(parent.children(), node -> node != this))
 				.orElseGet(Iterables::empty);
 	}
@@ -156,12 +162,14 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 		return () -> new Iterator<>() {
 			private final Deque<TreeNode<V>> deque = new LinkedList<>(children());
 			private TreeNode<V> next;
+
 			{
 				prepareNext();
 			}
 
 			/**
 			 * <p>Prepare the next node.</p>
+			 *
 			 * @since 1.2.0
 			 */
 			private void prepareNext() {
@@ -237,14 +245,14 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 */
 	default Iterable<TreeNode<V>> ancestors() {
 		return () -> new Iterator<>() {
-			private TreeNode<V> next = parent().orElse(null);
+			private TreeNode<V> next = optionalParent().orElse(null);
 
 			/**
 			 * <p>Prepare the next node.</p>
 			 * @since 1.2.0
 			 */
 			private void prepareNext() {
-				next = next.parent().orElse(null);
+				next = next.optionalParent().orElse(null);
 			}
 
 			@Override
@@ -280,9 +288,9 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 */
 	default long depth() {
 		var depth = 0L;
-		var parentOptional = parent();
-		while (parentOptional.isPresent()) {
-			parentOptional = parentOptional.get().parent();
+		var optionalParent = optionalParent();
+		while (optionalParent.isPresent()) {
+			optionalParent = optionalParent.get().optionalParent();
 			++depth;
 		}
 		return depth;

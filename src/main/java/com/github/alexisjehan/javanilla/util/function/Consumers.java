@@ -23,6 +23,8 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.function;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -51,9 +53,7 @@ public final class Consumers {
 	 * @since 1.1.0
 	 */
 	public static <T> Consumer<T> once(final Consumer<? super T> consumer) {
-		if (null == consumer) {
-			throw new NullPointerException("Invalid Consumer (not null expected)");
-		}
+		Ensure.notNull("consumer", consumer);
 		return new Consumer<>() {
 			private boolean isConsumed = false;
 
@@ -77,9 +77,7 @@ public final class Consumers {
 	 * @since 1.2.0
 	 */
 	public static <T> Consumer<T> distinct(final Consumer<? super T> consumer) {
-		if (null == consumer) {
-			throw new NullPointerException("Invalid Consumer (not null expected)");
-		}
+		Ensure.notNull("consumer", consumer);
 		return new Consumer<>() {
 			private final Set<T> set = new HashSet<>();
 

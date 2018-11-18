@@ -35,6 +35,8 @@ import static org.assertj.core.api.Assertions.*;
  */
 final class CountLineReaderTest {
 
+	private static final String STRING = "abc\ndef\nghi";
+
 	@Test
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountLineReader(null));
@@ -42,7 +44,7 @@ final class CountLineReaderTest {
 
 	@Test
 	void testRead() throws IOException {
-		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of("abc\ndef\nghi")))) {
+		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(STRING)))) {
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
 			assertThat(countLineReader.read()).isEqualTo("abc");
 			assertThat(countLineReader.getCount()).isEqualTo(1L);
@@ -57,8 +59,9 @@ final class CountLineReaderTest {
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of("abc\ndef\nghi")))) {
+		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(STRING)))) {
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
+			assertThat(countLineReader.skip(-1L)).isEqualTo(0L);
 			assertThat(countLineReader.skip(0L)).isEqualTo(0L);
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
 			assertThat(countLineReader.skip(2L)).isEqualTo(2L);

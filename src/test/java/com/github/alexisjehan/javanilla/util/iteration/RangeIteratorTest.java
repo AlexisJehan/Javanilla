@@ -25,10 +25,13 @@ package com.github.alexisjehan.javanilla.util.iteration;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
@@ -38,15 +41,15 @@ final class RangeIteratorTest {
 
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new RangeIterator<>(null, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeIterator<>(Iterators.singleton(1), -1L, 0L));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> new RangeIterator<>(Iterators.singleton(1), 1L, 0L));
+		assertThatNullPointerException().isThrownBy(() -> new RangeIterator<>(null, 0L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeIterator<>(Iterators.singleton(1), -1L, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> new RangeIterator<>(Iterators.singleton(1), 1L, 0L));
 	}
 
 	@Test
 	void testNext() {
 		{
-			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 0L);
+			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 0L, 0L);
 			assertThat(rangeIterator.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeIterator.getToIndex()).isEqualTo(0L);
 			assertThat(rangeIterator.hasNext()).isTrue();
@@ -64,7 +67,7 @@ final class RangeIteratorTest {
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
 		}
 		{
-			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 10L);
+			final var rangeIterator = new RangeIterator<>(Iterators.of(1, 2, 3), 0L, 10L);
 			assertThat(rangeIterator.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeIterator.getToIndex()).isEqualTo(10L);
 			assertThat(rangeIterator.hasNext()).isTrue();

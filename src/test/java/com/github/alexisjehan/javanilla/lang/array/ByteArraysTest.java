@@ -92,40 +92,6 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testIndexOf() {
-		assertThat(ByteArrays.indexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
-		assertThat(ByteArrays.indexOf(array, (byte) 1)).isEqualTo(0);
-		assertThat(ByteArrays.indexOf(array, (byte) 2)).isEqualTo(1);
-		assertThat(ByteArrays.indexOf(array, (byte) 1, 1)).isEqualTo(2);
-		assertThat(ByteArrays.indexOf(array, (byte) 2, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.indexOf(null, (byte) 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.indexOf(ByteArrays.singleton((byte) 1), (byte) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.indexOf(ByteArrays.singleton((byte) 1), (byte) 1, 1));
-	}
-
-	@Test
-	void testLastIndexOf() {
-		assertThat(ByteArrays.lastIndexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
-		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 1)).isEqualTo(2);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 2)).isEqualTo(1);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 1, 1)).isEqualTo(2);
-		assertThat(ByteArrays.lastIndexOf(array, (byte) 2, 2)).isEqualTo(-1);
-	}
-
-	@Test
-	void testLastIndexOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.lastIndexOf(null, (byte) 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.singleton((byte) 1), (byte) 1, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.singleton((byte) 1), (byte) 1, 1));
-	}
-
-	@Test
 	void testContainsAny() {
 		assertThat(ByteArrays.containsAny(ByteArrays.EMPTY, (byte) 1)).isFalse();
 		assertThat(ByteArrays.containsAny(ByteArrays.singleton((byte) 1), (byte) 1)).isTrue();
@@ -195,6 +161,53 @@ final class ByteArraysTest {
 	}
 
 	@Test
+	void testIndexOf() {
+		assertThat(ByteArrays.indexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
+		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
+		assertThat(ByteArrays.indexOf(array, (byte) 1)).isEqualTo(0);
+		assertThat(ByteArrays.indexOf(array, (byte) 2)).isEqualTo(1);
+		assertThat(ByteArrays.indexOf(array, (byte) 1, 1)).isEqualTo(2);
+		assertThat(ByteArrays.indexOf(array, (byte) 2, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.indexOf(null, (byte) 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.indexOf(ByteArrays.singleton((byte) 1), (byte) 1, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.indexOf(ByteArrays.singleton((byte) 1), (byte) 1, 1));
+	}
+
+	@Test
+	void testLastIndexOf() {
+		assertThat(ByteArrays.lastIndexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
+		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
+		assertThat(ByteArrays.lastIndexOf(array, (byte) 1)).isEqualTo(2);
+		assertThat(ByteArrays.lastIndexOf(array, (byte) 2)).isEqualTo(1);
+		assertThat(ByteArrays.lastIndexOf(array, (byte) 1, 1)).isEqualTo(2);
+		assertThat(ByteArrays.lastIndexOf(array, (byte) 2, 2)).isEqualTo(-1);
+	}
+
+	@Test
+	void testLastIndexOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.lastIndexOf(null, (byte) 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.singleton((byte) 1), (byte) 1, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.lastIndexOf(ByteArrays.singleton((byte) 1), (byte) 1, 1));
+	}
+
+	@Test
+	void testFrequency() {
+		assertThat(ByteArrays.frequency(ByteArrays.EMPTY, (byte) 1)).isEqualTo(0);
+		final var array = ByteArrays.of((byte) 1, (byte) 2, (byte) 1);
+		assertThat(ByteArrays.frequency(array, (byte) 1)).isEqualTo(2);
+		assertThat(ByteArrays.frequency(array, (byte) 2)).isEqualTo(1);
+	}
+
+	@Test
+	void testFrequencyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.frequency(null, (byte) 1));
+	}
+
+	@Test
 	void testShuffle() {
 		{
 			final var array = ByteArrays.singleton((byte) 1);
@@ -259,10 +272,10 @@ final class ByteArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.singleton((byte) 1), (int[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.singleton(0)));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, 0)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(-1, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(2, 1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, -1)));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, 2)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.reorder(ByteArrays.of((byte) 1, (byte) 2), IntArrays.of(0, 2)));
 	}
 
 	@Test
@@ -282,10 +295,10 @@ final class ByteArraysTest {
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.swap(null, 0, 0));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), -1, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 2, 1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 0, -1));
-		assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.swap(ByteArrays.of((byte) 1, (byte) 2), 0, 2));
 	}
 
 	@Test

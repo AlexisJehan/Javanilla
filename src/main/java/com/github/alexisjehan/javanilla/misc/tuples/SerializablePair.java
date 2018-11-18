@@ -23,8 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.tuples;
 
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * <p>A {@code SerializablePair} is an immutable tuple that is composed of two {@link Serializable} elements.</p>
@@ -67,6 +69,41 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 		this.second = second;
 	}
 
+	@Override
+	public boolean equals(final Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (!(object instanceof SerializablePair)) {
+			return false;
+		}
+		final var other = (SerializablePair) object;
+		return Equals.equals(first, other.first)
+				&& Equals.equals(second, other.second);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCode.of(
+				HashCode.hashCode(first),
+				HashCode.hashCode(second)
+		);
+	}
+
+	@Override
+	public String toString() {
+		return "[" + first + ", " + second + "]";
+	}
+
+	/**
+	 * <p>Converts the current {@code SerializablePair} to a {@code Pair}.</p>
+	 * @return the converted {@code Pair}
+	 * @since 1.0.0
+	 */
+	public Pair<F, S> toPair() {
+		return new Pair<>(first, second);
+	}
+
 	/**
 	 * <p>Get the first {@code Serializable} element of the {@code SerializablePair}.</p>
 	 * @return the first {@code Serializable} element
@@ -85,29 +122,6 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 		return second;
 	}
 
-	@Override
-	public boolean equals(final Object object) {
-		if (this == object) {
-			return true;
-		}
-		if (!(object instanceof SerializablePair)) {
-			return false;
-		}
-		final var other = (SerializablePair) object;
-		return Objects.equals(first, other.first)
-				&& Objects.equals(second, other.second);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(first, second);
-	}
-
-	@Override
-	public String toString() {
-		return "[" + first + ", " + second + "]";
-	}
-
 	/**
 	 * <p>Vanilla constructor.</p>
 	 * @param first the first {@code Serializable} element or {@code null}
@@ -119,14 +133,5 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	 */
 	public static <F extends Serializable, S extends Serializable> SerializablePair<F, S> of(final F first, final S second) {
 		return new SerializablePair<>(first, second);
-	}
-
-	/**
-	 * <p>Converts the current {@code SerializablePair} to a {@code Pair}.</p>
-	 * @return the converted {@code Pair}
-	 * @since 1.0.0
-	 */
-	public Pair<F, S> toPair() {
-		return new Pair<>(first, second);
 	}
 }

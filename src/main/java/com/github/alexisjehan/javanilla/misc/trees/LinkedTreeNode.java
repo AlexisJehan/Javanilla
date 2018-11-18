@@ -23,7 +23,14 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.trees;
 
-import java.util.*;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -82,9 +89,7 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	@Override
 	public boolean remove(final TreeNode<V> descendant) {
-		if (null == descendant) {
-			throw new NullPointerException("Invalid descendant (not null expected)");
-		}
+		Ensure.notNull("descendant", descendant);
 		if (children.remove(descendant)) {
 			return true;
 		}
@@ -112,7 +117,7 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	}
 
 	@Override
-	public Optional<TreeNode<V>> parent() {
+	public Optional<TreeNode<V>> optionalParent() {
 		return Optional.ofNullable(parent);
 	}
 
@@ -130,17 +135,17 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 			return false;
 		}
 		final var other = (TreeNode) object;
-		return Objects.equals(getValue(), other.getValue())
-				&& Objects.equals(children(), other.children());
+		return Equals.equals(getValue(), other.getValue())
+				&& Equals.equals(children(), other.children());
 	}
 
 	@Override
 	public int hashCode() {
-		var h = Objects.hashCode(value);
+		var hashCode = Objects.hashCode(getValue());
 		for (final var child : children) {
-			h += child.hashCode();
+			hashCode += child.hashCode();
 		}
-		return h;
+		return hashCode;
 	}
 
 	@Override

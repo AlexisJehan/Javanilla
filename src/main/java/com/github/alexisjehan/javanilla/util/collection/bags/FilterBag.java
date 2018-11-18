@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
 import java.util.Map;
@@ -50,9 +51,7 @@ public abstract class FilterBag<E> implements Bag<E> {
 	 * @since 1.0.0
 	 */
 	protected FilterBag(final Bag<E> bag) {
-		if (null == bag) {
-			throw new NullPointerException("Invalid Bag (not null expected)");
-		}
+		Ensure.notNull("bag", bag);
 		this.bag = bag;
 	}
 

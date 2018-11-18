@@ -52,8 +52,8 @@ final class TreeNodeTest extends AbstractTreeNodeTest {
 			}
 
 			@Override
-			public Optional<TreeNode<V>> parent() {
-				return delegate.parent();
+			public Optional<TreeNode<V>> optionalParent() {
+				return delegate.optionalParent();
 			}
 
 			@Override

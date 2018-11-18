@@ -23,8 +23,9 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.sql;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
 import java.sql.SQLException;
-import java.util.Objects;
 
 /**
  * <p>Wrapped {@link SQLException} as an unchecked exception.</p>
@@ -46,7 +47,7 @@ public final class UncheckedSQLException extends RuntimeException {
 	 * @since 1.0.0
 	 */
 	public UncheckedSQLException(final SQLException cause) {
-		super(Objects.requireNonNull(cause, "Invalid cause (not null expected)"));
+		super(Ensure.notNull("cause", cause));
 	}
 
 	@Override

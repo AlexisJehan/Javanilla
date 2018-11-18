@@ -24,6 +24,7 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.util.function.Consumer;
 
@@ -54,9 +55,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	default ThrowableConsumer<T, X> andThen(final ThrowableConsumer<? super T, ? extends X> after) {
-		if (null == after) {
-			throw new NullPointerException("Invalid after (not null expected)");
-		}
+		Ensure.notNull("after", after);
 		return t -> {
 			accept(t);
 			after.accept(t);
@@ -74,9 +73,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Consumer<T> unchecked(final ThrowableConsumer<? super T, ? extends X> throwableConsumer) {
-		if (null == throwableConsumer) {
-			throw new NullPointerException("Invalid ThrowableConsumer (not null expected)");
-		}
+		Ensure.notNull("throwableConsumer", throwableConsumer);
 		return t -> {
 			try {
 				throwableConsumer.accept(t);
@@ -96,9 +93,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowableConsumer<T, X> of(final Consumer<? super T> consumer) {
-		if (null == consumer) {
-			throw new NullPointerException("Invalid Consumer (not null expected)");
-		}
+		Ensure.notNull("consumer", consumer);
 		return consumer::accept;
 	}
 }

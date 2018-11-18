@@ -117,7 +117,7 @@ final class StandardCiphersTest {
 		method.setAccessible(true);
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
 			try {
-				method.invoke(null, "???");
+				method.invoke(null, "?");
 			} catch (final InvocationTargetException e) {
 				throw e.getTargetException();
 			}

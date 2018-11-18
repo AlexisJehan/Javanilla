@@ -23,6 +23,10 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.util.function;
 
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.ToString;
+import com.github.alexisjehan.javanilla.misc.tuples.Single;
+
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
@@ -53,9 +57,7 @@ public final class Suppliers {
 	 * @since 1.0.0
 	 */
 	public static <T> Supplier<T> once(final Supplier<? extends T> supplier) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
 		return new Supplier<>() {
 			private boolean isSupplied = false;
 
@@ -79,20 +81,16 @@ public final class Suppliers {
 	 * @since 1.0.0
 	 */
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
 		return new Supplier<>() {
-			private T value;
-			private boolean isSupplied = false;
+			private Single<? extends T> cache;
 
 			@Override
 			public T get() {
-				if (!isSupplied) {
-					value = supplier.get();
-					isSupplied = true;
+				if (null == cache) {
+					cache = Single.of(supplier.get());
 				}
-				return value;
+				return cache.getUnique();
 			}
 		};
 	}
@@ -126,18 +124,12 @@ public final class Suppliers {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier, final Duration duration, final Clock clock) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
-		if (null == duration) {
-			throw new NullPointerException("Invalid Duration (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
+		Ensure.notNull("duration", duration);
 		if (duration.isNegative()) {
-			throw new IllegalArgumentException("Invalid Duration: " + duration + " (zero or positive expected)");
+			throw new IllegalArgumentException("Invalid duration: " + ToString.toString(duration) + " (zero or positive expected)");
 		}
-		if (null == clock) {
-			throw new NullPointerException("Invalid Clock (not null expected)");
-		}
+		Ensure.notNull("clock", clock);
 		if (duration.isZero()) {
 			return (Supplier<T>) supplier;
 		}
@@ -170,12 +162,8 @@ public final class Suppliers {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier, final int times) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
-		if (0 > times) {
-			throw new IllegalArgumentException("Invalid number of times: " + times + " (greater than or equal to 0 expected)");
-		}
+		Ensure.notNull("supplier", supplier);
+		Ensure.greaterThanOrEqualTo("times", times, 0);
 		if (0 == times) {
 			return (Supplier<T>) supplier;
 		}
@@ -205,12 +193,8 @@ public final class Suppliers {
 	 * @since 1.1.0
 	 */
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier, final BooleanSupplier booleanSupplier) {
-		if (null == supplier) {
-			throw new NullPointerException("Invalid Supplier (not null expected)");
-		}
-		if (null == booleanSupplier) {
-			throw new NullPointerException("Invalid BooleanSupplier (not null expected)");
-		}
+		Ensure.notNull("supplier", supplier);
+		Ensure.notNull("booleanSupplier", booleanSupplier);
 		return new Supplier<>() {
 			private T value;
 			private boolean isSupplied = false;
