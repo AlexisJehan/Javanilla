@@ -165,12 +165,18 @@ final class NullableOptionalTest {
 
 	@Test
 	void testOrElseThrow() {
+		assertThat(NullableOptional.of(null).orElseThrow()).isNull();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> NullableOptional.empty().orElseThrow());
+	}
+
+	@Test
+	void testOrElseThrowSupplier() {
 		assertThat(NullableOptional.of(null).orElseThrow(IllegalStateException::new)).isNull();
 		assertThatIllegalStateException().isThrownBy(() -> NullableOptional.empty().orElseThrow(IllegalStateException::new));
 	}
 
 	@Test
-	void testOrElseThrowInvalid() {
+	void testOrElseThrowSupplierInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> NullableOptional.of(null).orElseThrow(null));
 	}
 

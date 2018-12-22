@@ -292,7 +292,7 @@ final class EnsureTest {
 		final var foo = true;
 		assertThat(Ensure.equalTo("foo", foo, true)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", true, false))
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, false))
 				.withMessage("Invalid foo: true (equal to false expected)");
 	}
 
@@ -301,8 +301,8 @@ final class EnsureTest {
 		final var foo = (byte) 1;
 		assertThat(Ensure.equalTo("foo", foo, (byte) 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", (byte) 0, (byte) 1))
-				.withMessage("Invalid foo: 0 (equal to 1 expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, (byte) 0))
+				.withMessage("Invalid foo: 1 (equal to 0 expected)");
 	}
 
 	@Test
@@ -310,8 +310,8 @@ final class EnsureTest {
 		final var foo = (short) 1;
 		assertThat(Ensure.equalTo("foo", foo, (short) 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", (short) 0, (short) 1))
-				.withMessage("Invalid foo: 0 (equal to 1 expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, (short) 0))
+				.withMessage("Invalid foo: 1 (equal to 0 expected)");
 	}
 
 	@Test
@@ -319,8 +319,8 @@ final class EnsureTest {
 		final var foo = 'a';
 		assertThat(Ensure.equalTo("foo", foo, 'a')).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", '?', 'a'))
-				.withMessage("Invalid foo: '?' (equal to 'a' expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, '?'))
+				.withMessage("Invalid foo: 'a' (equal to '?' expected)");
 	}
 
 	@Test
@@ -328,8 +328,8 @@ final class EnsureTest {
 		final var foo = 1;
 		assertThat(Ensure.equalTo("foo", foo, 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", 0, 1))
-				.withMessage("Invalid foo: 0 (equal to 1 expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0))
+				.withMessage("Invalid foo: 1 (equal to 0 expected)");
 	}
 
 	@Test
@@ -337,8 +337,8 @@ final class EnsureTest {
 		final var foo = 1L;
 		assertThat(Ensure.equalTo("foo", foo, 1L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", 0L, 1L))
-				.withMessage("Invalid foo: 0L (equal to 1L expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0L))
+				.withMessage("Invalid foo: 1L (equal to 0L expected)");
 	}
 
 	@Test
@@ -346,8 +346,8 @@ final class EnsureTest {
 		final var foo = 1.0f;
 		assertThat(Ensure.equalTo("foo", foo, 1.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", 0.0f, 1.0f))
-				.withMessage("Invalid foo: 0.0f (equal to 1.0f expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0.0f))
+				.withMessage("Invalid foo: 1.0f (equal to 0.0f expected)");
 	}
 
 	@Test
@@ -355,441 +355,723 @@ final class EnsureTest {
 		final var foo = 1.0d;
 		assertThat(Ensure.equalTo("foo", foo, 1.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.equalTo("foo", 0.0d, 1.0d))
-				.withMessage("Invalid foo: 0.0d (equal to 1.0d expected)");
+				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0.0d))
+				.withMessage("Invalid foo: 1.0d (equal to 0.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToObject() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, 1)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, 0))
+				.withMessage("Invalid foo: 1 (equal to 0 expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToBooleanArray() {
+		final var foo = BooleanArrays.singleton(true);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, BooleanArrays.singleton(true))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, BooleanArrays.singleton(false)))
+				.withMessage("Invalid foo: [true] (equal to [false] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToByteArray() {
+		final var foo = ByteArrays.singleton((byte) 1);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, ByteArrays.singleton((byte) 1))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, ByteArrays.singleton((byte) 0)))
+				.withMessage("Invalid foo: [1] (equal to [0] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToShortArray() {
+		final var foo = ShortArrays.singleton((short) 1);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, ShortArrays.singleton((short) 1))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, ShortArrays.singleton((short) 0)))
+				.withMessage("Invalid foo: [1] (equal to [0] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToCharArray() {
+		final var foo = CharArrays.singleton('a');
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, CharArrays.singleton('a'))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, CharArrays.singleton('?')))
+				.withMessage("Invalid foo: ['a'] (equal to ['?'] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToIntArray() {
+		final var foo = IntArrays.singleton(1);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, IntArrays.singleton(1))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, IntArrays.singleton(0)))
+				.withMessage("Invalid foo: [1] (equal to [0] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToLongArray() {
+		final var foo = LongArrays.singleton(1L);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, LongArrays.singleton(1L))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, LongArrays.singleton(0L)))
+				.withMessage("Invalid foo: [1L] (equal to [0L] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToFloatArray() {
+		final var foo = FloatArrays.singleton(1.0f);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, FloatArrays.singleton(1.0f))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, FloatArrays.singleton(0.0f)))
+				.withMessage("Invalid foo: [1.0f] (equal to [0.0f] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToDoubleArray() {
+		final var foo = DoubleArrays.singleton(1.0d);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, DoubleArrays.singleton(1.0d))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, DoubleArrays.singleton(0.0d)))
+				.withMessage("Invalid foo: [1.0d] (equal to [0.0d] expected)");
+	}
+
+	@Test
+	void testNotNullAndEqualToArray() {
+		final var foo = ObjectArrays.singleton(1);
+		assertThat(Ensure.notNullAndEqualTo("foo", foo, ObjectArrays.singleton(1))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, ObjectArrays.singleton(0)))
+				.withMessage("Invalid foo: [1] (equal to [0] expected)");
+	}
+
+	@Test
+	void testNotEqualToBoolean() {
+		final var foo = true;
+		assertThat(Ensure.notEqualTo("foo", foo, false)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, true))
+				.withMessage("Invalid foo: true (not equal to true expected)");
+	}
+
+	@Test
+	void testNotEqualToByte() {
+		final var foo = (byte) 1;
+		assertThat(Ensure.notEqualTo("foo", foo, (byte) 0)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, (byte) 1))
+				.withMessage("Invalid foo: 1 (not equal to 1 expected)");
+	}
+
+	@Test
+	void testNotEqualToShort() {
+		final var foo = (short) 1;
+		assertThat(Ensure.notEqualTo("foo", foo, (short) 0)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, (short) 1))
+				.withMessage("Invalid foo: 1 (not equal to 1 expected)");
+	}
+
+	@Test
+	void testNotEqualToChar() {
+		final var foo = 'a';
+		assertThat(Ensure.notEqualTo("foo", foo, '?')).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 'a'))
+				.withMessage("Invalid foo: 'a' (not equal to 'a' expected)");
+	}
+
+	@Test
+	void testNotEqualToInt() {
+		final var foo = 1;
+		assertThat(Ensure.notEqualTo("foo", foo, 0)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1))
+				.withMessage("Invalid foo: 1 (not equal to 1 expected)");
+	}
+
+	@Test
+	void testNotEqualToLong() {
+		final var foo = 1L;
+		assertThat(Ensure.notEqualTo("foo", foo, 0L)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1L))
+				.withMessage("Invalid foo: 1L (not equal to 1L expected)");
+	}
+
+	@Test
+	void testNotEqualToFloat() {
+		final var foo = 1.0f;
+		assertThat(Ensure.notEqualTo("foo", foo, 0.0f)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1.0f))
+				.withMessage("Invalid foo: 1.0f (not equal to 1.0f expected)");
+	}
+
+	@Test
+	void testNotEqualToDouble() {
+		final var foo = 1.0d;
+		assertThat(Ensure.notEqualTo("foo", foo, 0.0d)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1.0d))
+				.withMessage("Invalid foo: 1.0d (not equal to 1.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToObject() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, 0)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, 1))
+				.withMessage("Invalid foo: 1 (not equal to 1 expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToBooleanArray() {
+		final var foo = BooleanArrays.singleton(true);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, BooleanArrays.singleton(false))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, BooleanArrays.singleton(true)))
+				.withMessage("Invalid foo: [true] (not equal to [true] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToByteArray() {
+		final var foo = ByteArrays.singleton((byte) 1);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, ByteArrays.singleton((byte) 0))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, ByteArrays.singleton((byte) 1)))
+				.withMessage("Invalid foo: [1] (not equal to [1] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToShortArray() {
+		final var foo = ShortArrays.singleton((short) 1);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, ShortArrays.singleton((short) 0))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, ShortArrays.singleton((short) 1)))
+				.withMessage("Invalid foo: [1] (not equal to [1] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToCharArray() {
+		final var foo = CharArrays.singleton('a');
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, CharArrays.singleton('?'))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, CharArrays.singleton('a')))
+				.withMessage("Invalid foo: ['a'] (not equal to ['a'] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToIntArray() {
+		final var foo = IntArrays.singleton(1);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, IntArrays.singleton(0))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, IntArrays.singleton(1)))
+				.withMessage("Invalid foo: [1] (not equal to [1] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToLongArray() {
+		final var foo = LongArrays.singleton(1L);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, LongArrays.singleton(0L))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, LongArrays.singleton(1L)))
+				.withMessage("Invalid foo: [1L] (not equal to [1L] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToFloatArray() {
+		final var foo = FloatArrays.singleton(1.0f);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, FloatArrays.singleton(0.0f))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, FloatArrays.singleton(1.0f)))
+				.withMessage("Invalid foo: [1.0f] (not equal to [1.0f] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToDoubleArray() {
+		final var foo = DoubleArrays.singleton(1.0d);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, DoubleArrays.singleton(0.0d))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, DoubleArrays.singleton(1.0d)))
+				.withMessage("Invalid foo: [1.0d] (not equal to [1.0d] expected)");
+	}
+
+	@Test
+	void testNotNullAndNotEqualToArray() {
+		final var foo = ObjectArrays.singleton(1);
+		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, ObjectArrays.singleton(0))).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, ObjectArrays.singleton(1)))
+				.withMessage("Invalid foo: [1] (not equal to [1] expected)");
 	}
 
 	@Test
 	void testLowerThanByte() {
-		final var foo = (byte) 0;
-		assertThat(Ensure.lowerThan("foo", foo, (byte) 1)).isEqualTo(foo);
+		final var foo = (byte) 1;
+		assertThat(Ensure.lowerThan("foo", foo, (byte) 2)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", (byte) 1, (byte) 1))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, (byte) 1))
 				.withMessage("Invalid foo: 1 (lower than 1 expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", (byte) 2, (byte) 1))
-				.withMessage("Invalid foo: 2 (lower than 1 expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, (byte) 0))
+				.withMessage("Invalid foo: 1 (lower than 0 expected)");
 	}
 
 	@Test
 	void testLowerThanShort() {
-		final var foo = (short) 0;
-		assertThat(Ensure.lowerThan("foo", foo, (short) 1)).isEqualTo(foo);
+		final var foo = (short) 1;
+		assertThat(Ensure.lowerThan("foo", foo, (short) 2)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", (short) 1, (short) 1))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, (short) 1))
 				.withMessage("Invalid foo: 1 (lower than 1 expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", (short) 2, (short) 1))
-				.withMessage("Invalid foo: 2 (lower than 1 expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, (short) 0))
+				.withMessage("Invalid foo: 1 (lower than 0 expected)");
 	}
 
 	@Test
 	void testLowerThanChar() {
-		final var foo = '?';
-		assertThat(Ensure.lowerThan("foo", foo, 'a')).isEqualTo(foo);
+		final var foo = 'a';
+		assertThat(Ensure.lowerThan("foo", foo, 'b')).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 'a', 'a'))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 'a'))
 				.withMessage("Invalid foo: 'a' (lower than 'a' expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 'b', 'a'))
-				.withMessage("Invalid foo: 'b' (lower than 'a' expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, '?'))
+				.withMessage("Invalid foo: 'a' (lower than '?' expected)");
 	}
 
 	@Test
 	void testLowerThanInt() {
-		final var foo = 0;
-		assertThat(Ensure.lowerThan("foo", foo, 1)).isEqualTo(foo);
+		final var foo = 1;
+		assertThat(Ensure.lowerThan("foo", foo, 2)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 1, 1))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1))
 				.withMessage("Invalid foo: 1 (lower than 1 expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 2, 1))
-				.withMessage("Invalid foo: 2 (lower than 1 expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0))
+				.withMessage("Invalid foo: 1 (lower than 0 expected)");
 	}
 
 	@Test
 	void testLowerThanLong() {
-		final var foo = 0L;
-		assertThat(Ensure.lowerThan("foo", foo, 1L)).isEqualTo(foo);
+		final var foo = 1L;
+		assertThat(Ensure.lowerThan("foo", foo, 2L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 1L, 1L))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1L))
 				.withMessage("Invalid foo: 1L (lower than 1L expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 2L, 1L))
-				.withMessage("Invalid foo: 2L (lower than 1L expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0L))
+				.withMessage("Invalid foo: 1L (lower than 0L expected)");
 	}
 
 	@Test
 	void testLowerThanFloat() {
-		final var foo = 0.0f;
-		assertThat(Ensure.lowerThan("foo", foo, 1.0f)).isEqualTo(foo);
+		final var foo = 1.0f;
+		assertThat(Ensure.lowerThan("foo", foo, 2.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 1.0f, 1.0f))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1.0f))
 				.withMessage("Invalid foo: 1.0f (lower than 1.0f expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 2.0f, 1.0f))
-				.withMessage("Invalid foo: 2.0f (lower than 1.0f expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0.0f))
+				.withMessage("Invalid foo: 1.0f (lower than 0.0f expected)");
 	}
 
 	@Test
 	void testLowerThanDouble() {
-		final var foo = 0.0d;
-		assertThat(Ensure.lowerThan("foo", foo, 1.0d)).isEqualTo(foo);
+		final var foo = 1.0d;
+		assertThat(Ensure.lowerThan("foo", foo, 2.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 1.0d, 1.0d))
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1.0d))
 				.withMessage("Invalid foo: 1.0d (lower than 1.0d expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThan("foo", 2.0d, 1.0d))
-				.withMessage("Invalid foo: 2.0d (lower than 1.0d expected)");
+				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0.0d))
+				.withMessage("Invalid foo: 1.0d (lower than 0.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndLowerThan() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndLowerThan("foo", foo, 2)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndLowerThan("foo", foo, 1))
+				.withMessage("Invalid foo: 1 (lower than 1 expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndLowerThan("foo", foo, 0))
+				.withMessage("Invalid foo: 1 (lower than 0 expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToByte() {
-		final var foo1 = (byte) 0;
-		final var foo2 = (byte) 1;
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, (byte) 1)).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, (byte) 1)).isEqualTo(foo2);
+		final var foo = (byte) 1;
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, (byte) 2)).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, (byte) 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", (byte) 2, (byte) 1))
-				.withMessage("Invalid foo: 2 (lower than or equal to 1 expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, (byte) 0))
+				.withMessage("Invalid foo: 1 (lower than or equal to 0 expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToShort() {
-		final var foo1 = (short) 0;
-		final var foo2 = (short) 1;
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, (short) 1)).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, (short) 1)).isEqualTo(foo2);
+		final var foo = (short) 1;
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, (short) 2)).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, (short) 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", (short) 2, (short) 1))
-				.withMessage("Invalid foo: 2 (lower than or equal to 1 expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, (short) 0))
+				.withMessage("Invalid foo: 1 (lower than or equal to 0 expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToChar() {
-		final var foo1 = '?';
-		final var foo2 = 'a';
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, 'a')).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, 'a')).isEqualTo(foo2);
+		final var foo = 'a';
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 'b')).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 'a')).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", 'b', 'a'))
-				.withMessage("Invalid foo: 'b' (lower than or equal to 'a' expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, '?'))
+				.withMessage("Invalid foo: 'a' (lower than or equal to '?' expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToInt() {
-		final var foo1 = 0;
-		final var foo2 = 1;
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, 1)).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, 1)).isEqualTo(foo2);
+		final var foo = 1;
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 2)).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", 2, 1))
-				.withMessage("Invalid foo: 2 (lower than or equal to 1 expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0))
+				.withMessage("Invalid foo: 1 (lower than or equal to 0 expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToLong() {
-		final var foo1 = 0L;
-		final var foo2 = 1L;
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, 1L)).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, 1L)).isEqualTo(foo2);
+		final var foo = 1L;
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 2L)).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", 2L, 1L))
-				.withMessage("Invalid foo: 2L (lower than or equal to 1L expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0L))
+				.withMessage("Invalid foo: 1L (lower than or equal to 0L expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToFloat() {
-		final var foo1 = 0.0f;
-		final var foo2 = 1.0f;
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, 1.0f)).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, 1.0f)).isEqualTo(foo2);
+		final var foo = 1.0f;
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 2.0f)).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", 2.0f, 1.0f))
-				.withMessage("Invalid foo: 2.0f (lower than or equal to 1.0f expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0.0f))
+				.withMessage("Invalid foo: 1.0f (lower than or equal to 0.0f expected)");
 	}
 
 	@Test
 	void testLowerThanOrEqualToDouble() {
-		final var foo1 = 0.0d;
-		final var foo2 = 1.0d;
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo1, 1.0d)).isEqualTo(foo1);
-		assertThat(Ensure.lowerThanOrEqualTo("foo", foo2, 1.0d)).isEqualTo(foo2);
+		final var foo = 1.0d;
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 2.0d)).isEqualTo(foo);
+		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", 2.0d, 1.0d))
-				.withMessage("Invalid foo: 2.0d (lower than or equal to 1.0d expected)");
+				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0.0d))
+				.withMessage("Invalid foo: 1.0d (lower than or equal to 0.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndLowerThanOrEqualTo() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndLowerThanOrEqualTo("foo", foo, 2)).isEqualTo(foo);
+		assertThat(Ensure.notNullAndLowerThanOrEqualTo("foo", foo, 1)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndLowerThanOrEqualTo("foo", foo, 0))
+				.withMessage("Invalid foo: 1 (lower than or equal to 0 expected)");
 	}
 
 	@Test
 	void testGreaterThanByte() {
-		final var foo = (byte) 2;
-		assertThat(Ensure.greaterThan("foo", foo, (byte) 1)).isEqualTo(foo);
+		final var foo = (byte) 1;
+		assertThat(Ensure.greaterThan("foo", foo, (byte) 0)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", (byte) 0, (byte) 1))
-				.withMessage("Invalid foo: 0 (greater than 1 expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", (byte) 1, (byte) 1))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, (byte) 1))
 				.withMessage("Invalid foo: 1 (greater than 1 expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, (byte) 2))
+				.withMessage("Invalid foo: 1 (greater than 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanShort() {
-		final var foo = (short) 2;
-		assertThat(Ensure.greaterThan("foo", foo, (short) 1)).isEqualTo(foo);
+		final var foo = (short) 1;
+		assertThat(Ensure.greaterThan("foo", foo, (short) 0)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", (short) 0, (short) 1))
-				.withMessage("Invalid foo: 0 (greater than 1 expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", (short) 1, (short) 1))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, (short) 1))
 				.withMessage("Invalid foo: 1 (greater than 1 expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, (short) 2))
+				.withMessage("Invalid foo: 1 (greater than 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanChar() {
-		final var foo = 'b';
-		assertThat(Ensure.greaterThan("foo", foo, 'a')).isEqualTo(foo);
+		final var foo = 'a';
+		assertThat(Ensure.greaterThan("foo", foo, '?')).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", '?', 'a'))
-				.withMessage("Invalid foo: '?' (greater than 'a' expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 'a', 'a'))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 'a'))
 				.withMessage("Invalid foo: 'a' (greater than 'a' expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 'b'))
+				.withMessage("Invalid foo: 'a' (greater than 'b' expected)");
 	}
 
 	@Test
 	void testGreaterThanInt() {
-		final var foo = 2;
-		assertThat(Ensure.greaterThan("foo", foo, 1)).isEqualTo(foo);
+		final var foo = 1;
+		assertThat(Ensure.greaterThan("foo", foo, 0)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 0, 1))
-				.withMessage("Invalid foo: 0 (greater than 1 expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 1, 1))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1))
 				.withMessage("Invalid foo: 1 (greater than 1 expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2))
+				.withMessage("Invalid foo: 1 (greater than 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanLong() {
-		final var foo = 2L;
-		assertThat(Ensure.greaterThan("foo", foo, 1L)).isEqualTo(foo);
+		final var foo = 1L;
+		assertThat(Ensure.greaterThan("foo", foo, 0L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 0L, 1L))
-				.withMessage("Invalid foo: 0L (greater than 1L expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 1L, 1L))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1L))
 				.withMessage("Invalid foo: 1L (greater than 1L expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2L))
+				.withMessage("Invalid foo: 1L (greater than 2L expected)");
 	}
 
 	@Test
 	void testGreaterThanFloat() {
-		final var foo = 2.0f;
-		assertThat(Ensure.greaterThan("foo", foo, 1.0f)).isEqualTo(foo);
+		final var foo = 1.0f;
+		assertThat(Ensure.greaterThan("foo", foo, 0.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 0.0f, 1.0f))
-				.withMessage("Invalid foo: 0.0f (greater than 1.0f expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 1.0f, 1.0f))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1.0f))
 				.withMessage("Invalid foo: 1.0f (greater than 1.0f expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2.0f))
+				.withMessage("Invalid foo: 1.0f (greater than 2.0f expected)");
 	}
 
 	@Test
 	void testGreaterThanDouble() {
-		final var foo = 2.0d;
-		assertThat(Ensure.greaterThan("foo", foo, 1.0d)).isEqualTo(foo);
+		final var foo = 1.0d;
+		assertThat(Ensure.greaterThan("foo", foo, 0.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 0.0d, 1.0d))
-				.withMessage("Invalid foo: 0.0d (greater than 1.0d expected)");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThan("foo", 1.0d, 1.0d))
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1.0d))
 				.withMessage("Invalid foo: 1.0d (greater than 1.0d expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2.0d))
+				.withMessage("Invalid foo: 1.0d (greater than 2.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndGreaterThan() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndGreaterThan("foo", foo, 0)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndGreaterThan("foo", foo, 1))
+				.withMessage("Invalid foo: 1 (greater than 1 expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndGreaterThan("foo", foo, 2))
+				.withMessage("Invalid foo: 1 (greater than 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToByte() {
-		final var foo1 = (byte) 2;
-		final var foo2 = (byte) 1;
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, (byte) 1)).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, (byte) 1)).isEqualTo(foo2);
+		final var foo = (byte) 1;
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, (byte) 0)).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, (byte) 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", (byte) 0, (byte) 1))
-				.withMessage("Invalid foo: 0 (greater than or equal to 1 expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, (byte) 2))
+				.withMessage("Invalid foo: 1 (greater than or equal to 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToShort() {
-		final var foo1 = (short) 2;
-		final var foo2 = (short) 1;
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, (short) 1)).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, (short) 1)).isEqualTo(foo2);
+		final var foo = (short) 1;
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, (short) 0)).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, (short) 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", (short) 0, (short) 1))
-				.withMessage("Invalid foo: 0 (greater than or equal to 1 expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, (short) 2))
+				.withMessage("Invalid foo: 1 (greater than or equal to 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToChar() {
-		final var foo1 = 'b';
-		final var foo2 = 'a';
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, 'a')).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, 'a')).isEqualTo(foo2);
+		final var foo = 'a';
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, '?')).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 'a')).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", '?', 'a'))
-				.withMessage("Invalid foo: '?' (greater than or equal to 'a' expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 'b'))
+				.withMessage("Invalid foo: 'a' (greater than or equal to 'b' expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToInt() {
-		final var foo1 = 2;
-		final var foo2 = 1;
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, 1)).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, 1)).isEqualTo(foo2);
+		final var foo = 1;
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 0)).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", 0, 1))
-				.withMessage("Invalid foo: 0 (greater than or equal to 1 expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2))
+				.withMessage("Invalid foo: 1 (greater than or equal to 2 expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToLong() {
-		final var foo1 = 2L;
-		final var foo2 = 1L;
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, 1L)).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, 1L)).isEqualTo(foo2);
+		final var foo = 1L;
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 0L)).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", 0L, 1L))
-				.withMessage("Invalid foo: 0L (greater than or equal to 1L expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2L))
+				.withMessage("Invalid foo: 1L (greater than or equal to 2L expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToFloat() {
-		final var foo1 = 2.0f;
-		final var foo2 = 1.0f;
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, 1.0f)).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, 1.0f)).isEqualTo(foo2);
+		final var foo = 1.0f;
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 0.0f)).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", 0.0f, 1.0f))
-				.withMessage("Invalid foo: 0.0f (greater than or equal to 1.0f expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2.0f))
+				.withMessage("Invalid foo: 1.0f (greater than or equal to 2.0f expected)");
 	}
 
 	@Test
 	void testGreaterThanOrEqualToDouble() {
-		final var foo1 = 2.0d;
-		final var foo2 = 1.0d;
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo1, 1.0d)).isEqualTo(foo1);
-		assertThat(Ensure.greaterThanOrEqualTo("foo", foo2, 1.0d)).isEqualTo(foo2);
+		final var foo = 1.0d;
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 0.0d)).isEqualTo(foo);
+		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", 0.0d, 1.0d))
-				.withMessage("Invalid foo: 0.0d (greater than or equal to 1.0d expected)");
+				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2.0d))
+				.withMessage("Invalid foo: 1.0d (greater than or equal to 2.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndGreaterThanOrEqualTo() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndGreaterThanOrEqualTo("foo", foo, 0)).isEqualTo(foo);
+		assertThat(Ensure.notNullAndGreaterThanOrEqualTo("foo", foo, 1)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndGreaterThanOrEqualTo("foo", foo, 2))
+				.withMessage("Invalid foo: 1 (greater than or equal to 2 expected)");
 	}
 
 	@Test
 	void testBetweenByte() {
-		final var foo1 = (byte) 1;
-		final var foo2 = (byte) 2;
-		final var foo3 = (byte) 3;
-		assertThat(Ensure.between("foo", foo1, (byte) 1, (byte) 3)).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, (byte) 1, (byte) 3)).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, (byte) 1, (byte) 3)).isEqualTo(foo3);
+		final var foo = (byte) 1;
+		assertThat(Ensure.between("foo", foo, (byte) 0, (byte) 1)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, (byte) 1, (byte) 1)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, (byte) 1, (byte) 2)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", (byte) 0, (byte) 1, (byte) 3))
-				.withMessage("Invalid foo: 0 (between 1 and 3 expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, (byte) 0, (byte) 0))
+				.withMessage("Invalid foo: 1 (between 0 and 0 expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", (byte) 4, (byte) 1, (byte) 3))
-				.withMessage("Invalid foo: 4 (between 1 and 3 expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, (byte) 2, (byte) 2))
+				.withMessage("Invalid foo: 1 (between 2 and 2 expected)");
 	}
 
 	@Test
 	void testBetweenShort() {
-		final var foo1 = (short) 1;
-		final var foo2 = (short) 2;
-		final var foo3 = (short) 3;
-		assertThat(Ensure.between("foo", foo1, (short) 1, (short) 3)).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, (short) 1, (short) 3)).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, (short) 1, (short) 3)).isEqualTo(foo3);
+		final var foo = (short) 1;
+		assertThat(Ensure.between("foo", foo, (short) 0, (short) 1)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, (short) 1, (short) 1)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, (short) 1, (short) 2)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", (short) 0, (short) 1, (short) 3))
-				.withMessage("Invalid foo: 0 (between 1 and 3 expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, (short) 0, (short) 0))
+				.withMessage("Invalid foo: 1 (between 0 and 0 expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", (short) 4, (short) 1, (short) 3))
-				.withMessage("Invalid foo: 4 (between 1 and 3 expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, (short) 2, (short) 2))
+				.withMessage("Invalid foo: 1 (between 2 and 2 expected)");
 	}
 
 	@Test
 	void testBetweenChar() {
-		final var foo1 = 'a';
-		final var foo2 = 'b';
-		final var foo3 = 'c';
-		assertThat(Ensure.between("foo", foo1, 'a', 'c')).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, 'a', 'c')).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, 'a', 'c')).isEqualTo(foo3);
+		final var foo = 'a';
+		assertThat(Ensure.between("foo", foo, '?', 'a')).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 'a', 'a')).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 'a', 'b')).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", '?', 'a', 'c'))
-				.withMessage("Invalid foo: '?' (between 'a' and 'c' expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, '?', '?'))
+				.withMessage("Invalid foo: 'a' (between '?' and '?' expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 'd', 'a', 'c'))
-				.withMessage("Invalid foo: 'd' (between 'a' and 'c' expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 'b', 'b'))
+				.withMessage("Invalid foo: 'a' (between 'b' and 'b' expected)");
 	}
 
 	@Test
 	void testBetweenInt() {
-		final var foo1 = 1;
-		final var foo2 = 2;
-		final var foo3 = 3;
-		assertThat(Ensure.between("foo", foo1, 1, 3)).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, 1, 3)).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, 1, 3)).isEqualTo(foo3);
+		final var foo = 1;
+		assertThat(Ensure.between("foo", foo, 0, 1)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1, 1)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1, 2)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 0, 1, 3))
-				.withMessage("Invalid foo: 0 (between 1 and 3 expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 0, 0))
+				.withMessage("Invalid foo: 1 (between 0 and 0 expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 4, 1, 3))
-				.withMessage("Invalid foo: 4 (between 1 and 3 expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 2, 2))
+				.withMessage("Invalid foo: 1 (between 2 and 2 expected)");
 	}
 
 	@Test
 	void testBetweenLong() {
-		final var foo1 = 1L;
-		final var foo2 = 2L;
-		final var foo3 = 3L;
-		assertThat(Ensure.between("foo", foo1, 1L, 3L)).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, 1L, 3L)).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, 1L, 3L)).isEqualTo(foo3);
+		final var foo = 1L;
+		assertThat(Ensure.between("foo", foo, 0L, 1L)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1L, 1L)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1L, 2L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 0L, 1L, 3L))
-				.withMessage("Invalid foo: 0L (between 1L and 3L expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 0L, 0L))
+				.withMessage("Invalid foo: 1L (between 0L and 0L expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 4L, 1L, 3L))
-				.withMessage("Invalid foo: 4L (between 1L and 3L expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 2L, 2L))
+				.withMessage("Invalid foo: 1L (between 2L and 2L expected)");
 	}
 
 	@Test
 	void testBetweenFloat() {
-		final var foo1 = 1.0f;
-		final var foo2 = 2.0f;
-		final var foo3 = 3.0f;
-		assertThat(Ensure.between("foo", foo1, 1.0f, 3.0f)).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, 1.0f, 3.0f)).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, 1.0f, 3.0f)).isEqualTo(foo3);
+		final var foo = 1.0f;
+		assertThat(Ensure.between("foo", foo, 0.0f, 1.0f)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1.0f, 1.0f)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1.0f, 2.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 0.0f, 1.0f, 3.0f))
-				.withMessage("Invalid foo: 0.0f (between 1.0f and 3.0f expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 0.0f, 0.0f))
+				.withMessage("Invalid foo: 1.0f (between 0.0f and 0.0f expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 4.0f, 1.0f, 3.0f))
-				.withMessage("Invalid foo: 4.0f (between 1.0f and 3.0f expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 2.0f, 2.0f))
+				.withMessage("Invalid foo: 1.0f (between 2.0f and 2.0f expected)");
 	}
 
 	@Test
 	void testBetweenDouble() {
-		final var foo1 = 1.0d;
-		final var foo2 = 2.0d;
-		final var foo3 = 3.0d;
-		assertThat(Ensure.between("foo", foo1, 1.0d, 3.0d)).isEqualTo(foo1);
-		assertThat(Ensure.between("foo", foo2, 1.0d, 3.0d)).isEqualTo(foo2);
-		assertThat(Ensure.between("foo", foo3, 1.0d, 3.0d)).isEqualTo(foo3);
+		final var foo = 1.0d;
+		assertThat(Ensure.between("foo", foo, 0.0d, 1.0d)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1.0d, 1.0d)).isEqualTo(foo);
+		assertThat(Ensure.between("foo", foo, 1.0d, 2.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 0.0d, 1.0d, 3.0d))
-				.withMessage("Invalid foo: 0.0d (between 1.0d and 3.0d expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 0.0d, 0.0d))
+				.withMessage("Invalid foo: 1.0d (between 0.0d and 0.0d expected)");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.between("foo", 4.0d, 1.0d, 3.0d))
-				.withMessage("Invalid foo: 4.0d (between 1.0d and 3.0d expected)");
+				.isThrownBy(() -> Ensure.between("foo", foo, 2.0d, 2.0d))
+				.withMessage("Invalid foo: 1.0d (between 2.0d and 2.0d expected)");
+	}
+
+	@Test
+	void testNotNullAndBetween() {
+		final var foo = Integer.valueOf(1);
+		assertThat(Ensure.notNullAndBetween("foo", foo, 0, 1)).isEqualTo(foo);
+		assertThat(Ensure.notNullAndBetween("foo", foo, 1, 1)).isEqualTo(foo);
+		assertThat(Ensure.notNullAndBetween("foo", foo, 1, 2)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndBetween("foo", foo, 0, 0))
+				.withMessage("Invalid foo: 1 (between 0 and 0 expected)");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndBetween("foo", foo, 2, 2))
+				.withMessage("Invalid foo: 1 (between 2 and 2 expected)");
 	}
 }

@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package com.github.alexisjehan.javanilla.misc.quality;
 
+import com.github.alexisjehan.javanilla.lang.Comparables;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.BooleanArrays;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
@@ -471,12 +472,13 @@ public final class Ensure {
 	 * @param value the {@code boolean} value to validate
 	 * @param other the other {@code boolean} value
 	 * @return the validated {@code boolean} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code boolean} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static boolean equalTo(final String name, final boolean value, final boolean other) {
 		notNull("name", name);
-		if (other != value) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -488,12 +490,13 @@ public final class Ensure {
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
 	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static byte equalTo(final String name, final byte value, final byte other) {
 		notNull("name", name);
-		if (other != value) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -505,12 +508,13 @@ public final class Ensure {
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
 	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static short equalTo(final String name, final short value, final short other) {
 		notNull("name", name);
-		if (other != value) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -522,12 +526,13 @@ public final class Ensure {
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
 	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static char equalTo(final String name, final char value, final char other) {
 		notNull("name", name);
-		if (other != value) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -539,12 +544,13 @@ public final class Ensure {
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
 	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static int equalTo(final String name, final int value, final int other) {
 		notNull("name", name);
-		if (other != value) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -556,12 +562,13 @@ public final class Ensure {
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
 	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static long equalTo(final String name, final long value, final long other) {
 		notNull("name", name);
-		if (other != value) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -573,12 +580,13 @@ public final class Ensure {
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
 	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static float equalTo(final String name, final float value, final float other) {
 		notNull("name", name);
-		if (0 != Float.compare(other, value)) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
@@ -590,15 +598,544 @@ public final class Ensure {
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
 	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} value is not equal to the other one
 	 * @since 1.3.0
 	 */
 	public static double equalTo(final String name, final double value, final double other) {
 		notNull("name", name);
-		if (0 != Double.compare(other, value)) {
+		if (!Equals.equals(value, other)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
 		}
 		return value;
+	}
+
+	/**
+	 * <p>Ensure the value is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the value
+	 * @param value the value to validate
+	 * @param other the other value
+	 * @param <V> the value type
+	 * @return the validated value
+	 * @throws NullPointerException if the name, the value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the value is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static <V> V notNullAndEqualTo(final String name, final V value, final Object other) {
+		notNull(name, value);
+		notNull("other", other);
+		if (!Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code boolean} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code boolean} array
+	 * @param array the {@code boolean} array to validate
+	 * @param other the other {@code boolean} array
+	 * @return the validated {@code boolean} array
+	 * @throws NullPointerException if the name, the {@code boolean} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code boolean} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static boolean[] notNullAndEqualTo(final String name, final boolean[] array, final boolean[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code byte} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code byte} array
+	 * @param array the {@code byte} array to validate
+	 * @param other the other {@code byte} array
+	 * @return the validated {@code byte} array
+	 * @throws NullPointerException if the name, the {@code byte} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code byte} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static byte[] notNullAndEqualTo(final String name, final byte[] array, final byte[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code short} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code short} array
+	 * @param array the {@code short} array to validate
+	 * @param other the other {@code short} array
+	 * @return the validated {@code short} array
+	 * @throws NullPointerException if the name, the {@code short} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code short} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static short[] notNullAndEqualTo(final String name, final short[] array, final short[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code char} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code char} array
+	 * @param array the {@code char} array to validate
+	 * @param other the other {@code char} array
+	 * @return the validated {@code char} array
+	 * @throws NullPointerException if the name, the {@code char} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code char} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static char[] notNullAndEqualTo(final String name, final char[] array, final char[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code int} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code int} array
+	 * @param array the {@code int} array to validate
+	 * @param other the other {@code int} array
+	 * @return the validated {@code int} array
+	 * @throws NullPointerException if the name, the {@code int} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code int} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static int[] notNullAndEqualTo(final String name, final int[] array, final int[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code long} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code long} array
+	 * @param array the {@code long} array to validate
+	 * @param other the other {@code long} array
+	 * @return the validated {@code long} array
+	 * @throws NullPointerException if the name, the {@code long} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code long} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static long[] notNullAndEqualTo(final String name, final long[] array, final long[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code float} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code float} array
+	 * @param array the {@code float} array to validate
+	 * @param other the other {@code float} array
+	 * @return the validated {@code float} array
+	 * @throws NullPointerException if the name, the {@code float} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code float} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static float[] notNullAndEqualTo(final String name, final float[] array, final float[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code double} array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the {@code double} array
+	 * @param array the {@code double} array to validate
+	 * @param other the other {@code double} array
+	 * @return the validated {@code double} array
+	 * @throws NullPointerException if the name, the {@code double} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code double} array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static double[] notNullAndEqualTo(final String name, final double[] array, final double[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the array is not {@code null} and equal to the other one.</p>
+	 * @param name the name of the array
+	 * @param array the array to validate
+	 * @param other the other array
+	 * @param <E> the element type
+	 * @return the validated array
+	 * @throws NullPointerException if the name, the array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the array is not equal to the other one
+	 * @since 1.3.1
+	 */
+	public static <E> E[] notNullAndEqualTo(final String name, final E[] array, final E[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (!Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code boolean} value is not equal to the other one.</p>
+	 * @param name the name of the {@code boolean} value
+	 * @param value the {@code boolean} value to validate
+	 * @param other the other {@code boolean} value
+	 * @return the validated {@code boolean} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code boolean} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static boolean notEqualTo(final String name, final boolean value, final boolean other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code byte} value is not equal to the other one.</p>
+	 * @param name the name of the {@code byte} value
+	 * @param value the {@code byte} value to validate
+	 * @param other the other {@code byte} value
+	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code byte} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static byte notEqualTo(final String name, final byte value, final byte other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code short} value is not equal to the other one.</p>
+	 * @param name the name of the {@code short} value
+	 * @param value the {@code short} value to validate
+	 * @param other the other {@code short} value
+	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code short} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static short notEqualTo(final String name, final short value, final short other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code char} value is not equal to the other one.</p>
+	 * @param name the name of the {@code char} value
+	 * @param value the {@code char} value to validate
+	 * @param other the other {@code char} value
+	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code char} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static char notEqualTo(final String name, final char value, final char other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code int} value is not equal to the other one.</p>
+	 * @param name the name of the {@code int} value
+	 * @param value the {@code int} value to validate
+	 * @param other the other {@code int} value
+	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code int} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static int notEqualTo(final String name, final int value, final int other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code long} value is not equal to the other one.</p>
+	 * @param name the name of the {@code long} value
+	 * @param value the {@code long} value to validate
+	 * @param other the other {@code long} value
+	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code long} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static long notEqualTo(final String name, final long value, final long other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code float} value is not equal to the other one.</p>
+	 * @param name the name of the {@code float} value
+	 * @param value the {@code float} value to validate
+	 * @param other the other {@code float} value
+	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code float} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static float notEqualTo(final String name, final float value, final float other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code double} value is not equal to the other one.</p>
+	 * @param name the name of the {@code double} value
+	 * @param value the {@code double} value to validate
+	 * @param other the other {@code double} value
+	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code double} value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static double notEqualTo(final String name, final double value, final double other) {
+		notNull("name", name);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the value is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the value
+	 * @param value the value to validate
+	 * @param other the other value
+	 * @param <V> the value type
+	 * @return the validated value
+	 * @throws NullPointerException if the name, the value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the value is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static <V> V notNullAndNotEqualTo(final String name, final V value, final Object other) {
+		notNull(name, value);
+		notNull("other", other);
+		if (Equals.equals(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code boolean} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code boolean} array
+	 * @param array the {@code boolean} array to validate
+	 * @param other the other {@code boolean} array
+	 * @return the validated {@code boolean} array
+	 * @throws NullPointerException if the name, the {@code boolean} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code boolean} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static boolean[] notNullAndNotEqualTo(final String name, final boolean[] array, final boolean[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code byte} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code byte} array
+	 * @param array the {@code byte} array to validate
+	 * @param other the other {@code byte} array
+	 * @return the validated {@code byte} array
+	 * @throws NullPointerException if the name, the {@code byte} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code byte} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static byte[] notNullAndNotEqualTo(final String name, final byte[] array, final byte[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code short} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code short} array
+	 * @param array the {@code short} array to validate
+	 * @param other the other {@code short} array
+	 * @return the validated {@code short} array
+	 * @throws NullPointerException if the name, the {@code short} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code short} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static short[] notNullAndNotEqualTo(final String name, final short[] array, final short[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code char} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code char} array
+	 * @param array the {@code char} array to validate
+	 * @param other the other {@code char} array
+	 * @return the validated {@code char} array
+	 * @throws NullPointerException if the name, the {@code char} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code char} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static char[] notNullAndNotEqualTo(final String name, final char[] array, final char[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code int} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code int} array
+	 * @param array the {@code int} array to validate
+	 * @param other the other {@code int} array
+	 * @return the validated {@code int} array
+	 * @throws NullPointerException if the name, the {@code int} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code int} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static int[] notNullAndNotEqualTo(final String name, final int[] array, final int[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code long} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code long} array
+	 * @param array the {@code long} array to validate
+	 * @param other the other {@code long} array
+	 * @return the validated {@code long} array
+	 * @throws NullPointerException if the name, the {@code long} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code long} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static long[] notNullAndNotEqualTo(final String name, final long[] array, final long[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code float} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code float} array
+	 * @param array the {@code float} array to validate
+	 * @param other the other {@code float} array
+	 * @return the validated {@code float} array
+	 * @throws NullPointerException if the name, the {@code float} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code float} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static float[] notNullAndNotEqualTo(final String name, final float[] array, final float[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the {@code double} array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the {@code double} array
+	 * @param array the {@code double} array to validate
+	 * @param other the other {@code double} array
+	 * @return the validated {@code double} array
+	 * @throws NullPointerException if the name, the {@code double} array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code double} array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static double[] notNullAndNotEqualTo(final String name, final double[] array, final double[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
+	}
+
+	/**
+	 * <p>Ensure the array is not {@code null} and not equal to the other one.</p>
+	 * @param name the name of the array
+	 * @param array the array to validate
+	 * @param other the other array
+	 * @param <E> the element type
+	 * @return the validated array
+	 * @throws NullPointerException if the name, the array or the other one is {@code null}
+	 * @throws IllegalArgumentException if the array is equal to the other one
+	 * @since 1.3.1
+	 */
+	public static <E> E[] notNullAndNotEqualTo(final String name, final E[] array, final E[] other) {
+		notNull(name, array);
+		notNull("other", other);
+		if (Equals.equals(array, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(array) + " (not equal to " + ToString.toString(other) + " expected)");
+		}
+		return array;
 	}
 
 	/**
@@ -607,6 +1144,7 @@ public final class Ensure {
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
 	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -624,6 +1162,7 @@ public final class Ensure {
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
 	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -641,6 +1180,7 @@ public final class Ensure {
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
 	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -658,6 +1198,7 @@ public final class Ensure {
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
 	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -675,6 +1216,7 @@ public final class Ensure {
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
 	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -692,6 +1234,7 @@ public final class Ensure {
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
 	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -709,6 +1252,7 @@ public final class Ensure {
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
 	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} value is greater than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -721,11 +1265,32 @@ public final class Ensure {
 	}
 
 	/**
+	 * <p>Ensure the {@code Comparable} value is not {@code null} and lower than the other one.</p>
+	 * @param name the name of the {@code Comparable} value
+	 * @param value the {@code Comparable} value to validate
+	 * @param other the other {@code Comparable} value
+	 * @param <C> the {@code Comparable} value type
+	 * @return the validated {@code Comparable} value
+	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code Comparable} value is greater than or equal to the other one
+	 * @since 1.3.1
+	 */
+	public static <C extends Comparable<C>> C notNullAndLowerThan(final String name, final C value, final C other) {
+		notNull(name, value);
+		notNull("other", other);
+		if (!Comparables.isLowerThan(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (lower than " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
 	 * <p>Ensure the {@code byte} value is lower than or equal to the other one.</p>
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
 	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -743,6 +1308,7 @@ public final class Ensure {
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
 	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -760,6 +1326,7 @@ public final class Ensure {
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
 	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -777,6 +1344,7 @@ public final class Ensure {
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
 	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -794,6 +1362,7 @@ public final class Ensure {
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
 	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -811,6 +1380,7 @@ public final class Ensure {
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
 	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -828,6 +1398,7 @@ public final class Ensure {
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
 	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} value is greater than the other one
 	 * @since 1.3.0
 	 */
@@ -840,11 +1411,32 @@ public final class Ensure {
 	}
 
 	/**
+	 * <p>Ensure the {@code Comparable} value is not {@code null} and lower than or equal to the other one.</p>
+	 * @param name the name of the {@code Comparable} value
+	 * @param value the {@code Comparable} value to validate
+	 * @param other the other {@code Comparable} value
+	 * @param <C> the {@code Comparable} value type
+	 * @return the validated {@code Comparable} value
+	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code Comparable} value is greater than the other one
+	 * @since 1.3.1
+	 */
+	public static <C extends Comparable<C>> C notNullAndLowerThanOrEqualTo(final String name, final C value, final C other) {
+		notNull(name, value);
+		notNull("other", other);
+		if (!Comparables.isLowerThanOrEqualTo(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (lower than or equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
 	 * <p>Ensure the {@code byte} value is greater than the other one.</p>
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
 	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -862,6 +1454,7 @@ public final class Ensure {
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
 	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -879,6 +1472,7 @@ public final class Ensure {
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
 	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -896,6 +1490,7 @@ public final class Ensure {
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
 	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -913,6 +1508,7 @@ public final class Ensure {
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
 	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -930,6 +1526,7 @@ public final class Ensure {
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
 	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -947,6 +1544,7 @@ public final class Ensure {
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
 	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} value is lower than or equal to the other one
 	 * @since 1.3.0
 	 */
@@ -959,11 +1557,32 @@ public final class Ensure {
 	}
 
 	/**
+	 * <p>Ensure the {@code Comparable} value is not {@code null} and greater than the other one.</p>
+	 * @param name the name of the {@code Comparable} value
+	 * @param value the {@code Comparable} value to validate
+	 * @param other the other {@code Comparable} value
+	 * @param <C> the {@code Comparable} value type
+	 * @return the validated {@code Comparable} value
+	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code Comparable} value is lower than or equal to the other one
+	 * @since 1.3.1
+	 */
+	public static <C extends Comparable<C>> C notNullAndGreaterThan(final String name, final C value, final C other) {
+		notNull(name, value);
+		notNull("other", other);
+		if (!Comparables.isGreaterThan(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (greater than " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
 	 * <p>Ensure the {@code byte} value is greater than or equal to the other one.</p>
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
 	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -981,6 +1600,7 @@ public final class Ensure {
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
 	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -998,6 +1618,7 @@ public final class Ensure {
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
 	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -1015,6 +1636,7 @@ public final class Ensure {
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
 	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -1032,6 +1654,7 @@ public final class Ensure {
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
 	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -1049,6 +1672,7 @@ public final class Ensure {
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
 	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -1066,6 +1690,7 @@ public final class Ensure {
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
 	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} value is lower than the other one
 	 * @since 1.3.0
 	 */
@@ -1078,12 +1703,33 @@ public final class Ensure {
 	}
 
 	/**
+	 * <p>Ensure the {@code Comparable} value is not {@code null} and greater than or equal to the other one.</p>
+	 * @param name the name of the {@code Comparable} value
+	 * @param value the {@code Comparable} value to validate
+	 * @param other the other {@code Comparable} value
+	 * @param <C> the {@code Comparable} value type
+	 * @return the validated {@code Comparable} value
+	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@code Comparable} value is lower than the other one
+	 * @since 1.3.1
+	 */
+	public static <C extends Comparable<C>> C notNullAndGreaterThanOrEqualTo(final String name, final C value, final C other) {
+		notNull(name, value);
+		notNull("other", other);
+		if (!Comparables.isGreaterThanOrEqualTo(value, other)) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (greater than or equal to " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
 	 * <p>Ensure the {@code byte} value is between both other ones.</p>
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param from the from {@code byte} value
 	 * @param to the to {@code byte} value
 	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} value is not between both other ones
 	 * @since 1.3.0
 	 */
@@ -1102,6 +1748,7 @@ public final class Ensure {
 	 * @param from the from {@code short} value
 	 * @param to the to {@code short} value
 	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} value is not between both other ones
 	 * @since 1.3.0
 	 */
@@ -1120,6 +1767,7 @@ public final class Ensure {
 	 * @param from the from {@code char} value
 	 * @param to the to {@code char} value
 	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} value is not between both other ones
 	 * @since 1.3.0
 	 */
@@ -1138,6 +1786,7 @@ public final class Ensure {
 	 * @param from the from {@code int} value
 	 * @param to the to {@code int} value
 	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} value is not between both other ones
 	 * @since 1.3.0
 	 */
@@ -1156,6 +1805,7 @@ public final class Ensure {
 	 * @param from the from {@code long} value
 	 * @param to the to {@code long} value
 	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} value is not between both other ones
 	 * @since 1.3.0
 	 */
@@ -1174,6 +1824,7 @@ public final class Ensure {
 	 * @param from the from {@code float} value
 	 * @param to the to {@code float} value
 	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} value is not between both other ones
 	 * @since 1.3.0
 	 */
@@ -1192,12 +1843,35 @@ public final class Ensure {
 	 * @param from the from {@code double} value
 	 * @param to the to {@code double} value
 	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} value is not between both other ones
 	 * @since 1.3.0
 	 */
 	public static double between(final String name, final double value, final double from, final double to) {
 		notNull("name", name);
 		if (from > value || to < value) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (between " + ToString.toString(from) + " and " + ToString.toString(to) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code Comparable} value is not {@code null} and between both other ones.</p>
+	 * @param name the name of the {@code Comparable} value
+	 * @param value the {@code Comparable} value to validate
+	 * @param from the from {@code Comparable} value
+	 * @param to the to {@code Comparable} value
+	 * @param <C> the {@code Comparable} value type
+	 * @return the validated {@code Comparable} value
+	 * @throws NullPointerException if the name, the {@code Comparable} value, or any of both other ones is {@code null}
+	 * @throws IllegalArgumentException if the {@code Comparable} value is not between both other ones
+	 * @since 1.3.1
+	 */
+	public static <C extends Comparable<C>> C notNullAndBetween(final String name, final C value, final C from, final C to) {
+		notNull(name, value);
+		notNull("from", from);
+		notNull("to", to);
+		if (!Comparables.isBetween(value, from, to)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (between " + ToString.toString(from) + " and " + ToString.toString(to) + " expected)");
 		}
 		return value;

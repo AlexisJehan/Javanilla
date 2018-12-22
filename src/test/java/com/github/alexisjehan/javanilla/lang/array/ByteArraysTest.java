@@ -668,31 +668,31 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfHexString() {
-		assertThat(ByteArrays.ofHexString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
-		assertThat(ByteArrays.ofHexString("00")).isEqualTo(ByteArrays.singleton((byte) 0x00));
-		assertThat(ByteArrays.ofHexString("ff")).isEqualTo(ByteArrays.singleton((byte) 0xff));
-		assertThat(ByteArrays.ofHexString("FF")).isEqualTo(ByteArrays.singleton((byte) 0xff));
-		assertThat(ByteArrays.ofHexString("0ff0")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
+	void testOfHexadecimalString() {
+		assertThat(ByteArrays.ofHexadecimalString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofHexadecimalString("00")).isEqualTo(ByteArrays.singleton((byte) 0x00));
+		assertThat(ByteArrays.ofHexadecimalString("ff")).isEqualTo(ByteArrays.singleton((byte) 0xff));
+		assertThat(ByteArrays.ofHexadecimalString("FF")).isEqualTo(ByteArrays.singleton((byte) 0xff));
+		assertThat(ByteArrays.ofHexadecimalString("0ff0")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
 	}
 
 	@Test
-	void testOfHexStringInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofHexString(null));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexString("0"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexString("0?"));
+	void testOfHexadecimalStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofHexadecimalString(null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0?"));
 	}
 
 	@Test
-	void testToHexString() {
-		assertThat(ByteArrays.toHexString(ByteArrays.EMPTY)).isEmpty();
-		assertThat(ByteArrays.toHexString(ByteArrays.singleton((byte) 0x00))).isEqualTo("00");
-		assertThat(ByteArrays.toHexString(ByteArrays.singleton((byte) 0xff))).isEqualTo("ff");
-		assertThat(ByteArrays.toHexString(ByteArrays.of((byte) 0x0f, (byte) 0xf0))).isEqualTo("0ff0");
+	void testToHexadecimalString() {
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.singleton((byte) 0x00))).isEqualTo("00");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.singleton((byte) 0xff))).isEqualTo("ff");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.of((byte) 0x0f, (byte) 0xf0))).isEqualTo("0ff0");
 	}
 
 	@Test
-	void testToHexStringInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toHexString(null));
+	void testToHexadecimalStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toHexadecimalString(null));
 	}
 }

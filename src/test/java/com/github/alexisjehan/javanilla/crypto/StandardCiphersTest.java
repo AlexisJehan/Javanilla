@@ -57,6 +57,11 @@ final class StandardCiphersTest {
 	}
 
 	@Test
+	void testGetAesGsmInstance() {
+		assertThat(StandardCiphers.getAesGcmInstance().getAlgorithm()).isEqualTo("AES/GCM/NoPadding");
+	}
+
+	@Test
 	void testGetDesCbcInstance() {
 		assertThat(StandardCiphers.getDesCbcInstance().getAlgorithm()).isEqualTo("DES/CBC/NoPadding");
 	}

@@ -44,7 +44,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 1220963535555090964L;
+	private static final long serialVersionUID = 8271847837522821498L;
 
 	/**
 	 * <p>First {@code Serializable} element.</p>

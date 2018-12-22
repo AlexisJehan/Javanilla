@@ -24,7 +24,6 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.lang.array;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
 
 import java.util.Arrays;
@@ -129,7 +128,7 @@ public final class BooleanArrays {
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					return true;
 				}
 			}
@@ -156,7 +155,7 @@ public final class BooleanArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					contained = true;
 					break;
 				}
@@ -186,7 +185,7 @@ public final class BooleanArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					if (contained) {
 						return false;
 					}
@@ -218,7 +217,7 @@ public final class BooleanArrays {
 		for (final var element : array) {
 			var contained = false;
 			for (final var value : values) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					contained = true;
 					break;
 				}
@@ -258,7 +257,7 @@ public final class BooleanArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = fromIndex; i < array.length; ++i) {
-				if (Equals.equals(value, array[i])) {
+				if (value == array[i]) {
 					return i;
 				}
 			}
@@ -294,7 +293,7 @@ public final class BooleanArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (Equals.equals(value, array[i])) {
+				if (value == array[i]) {
 					return i;
 				}
 			}
@@ -317,7 +316,7 @@ public final class BooleanArrays {
 		}
 		var frequency = 0;
 		for (final var element : array) {
-			if (Equals.equals(value, element)) {
+			if (value == element) {
 				++frequency;
 			}
 		}
@@ -494,12 +493,12 @@ public final class BooleanArrays {
 
 	/**
 	 * <p>Create a {@code boolean} array from a single {@code boolean}.</p>
-	 * @param bo the {@code boolean} to convert
+	 * @param b the {@code boolean} to convert
 	 * @return the created {@code boolean} array
 	 * @since 1.1.0
 	 */
-	public static boolean[] singleton(final boolean bo) {
-		return of(bo);
+	public static boolean[] singleton(final boolean b) {
+		return of(b);
 	}
 
 	/**

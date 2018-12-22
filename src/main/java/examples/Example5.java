@@ -48,11 +48,11 @@ public final class Example5 {
 		FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
 		FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True
 		DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2.0d); // 1
-		ByteArrays.toHexString(
+		ByteArrays.toHexadecimalString(
 				ByteArrays.concat(
 						ByteArrays.of((byte) 0x00, (byte) 0xff),
 						ByteArrays.ofDouble(3.14d, ByteOrder.BIG_ENDIAN),
-						ByteArrays.ofHexString("0xff"),
+						ByteArrays.ofHexadecimalString("0xff"),
 						"foo".getBytes()
 				)
 		); // 00ff40091eb851eb851fff666f6f

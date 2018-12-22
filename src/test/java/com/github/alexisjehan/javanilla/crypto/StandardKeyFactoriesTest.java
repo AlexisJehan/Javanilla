@@ -21,49 +21,46 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.github.alexisjehan.javanilla.util.function;
+package com.github.alexisjehan.javanilla.crypto;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * <p>{@link Consumers} unit tests.</p>
+ * <p>{@link StandardKeyFactories} unit tests.</p>
  */
-final class ConsumersTest {
+final class StandardKeyFactoriesTest {
 
 	@Test
-	void testOnce() {
-		final var onceConsumer = Consumers.once(i -> {});
-		onceConsumer.accept(1);
-		assertThatIllegalStateException().isThrownBy(() -> onceConsumer.accept(1));
+	void testGetDiffieHellmanInstance() {
+		assertThat(StandardKeyFactories.getDiffieHellmanInstance().getAlgorithm()).isEqualTo("DiffieHellman");
 	}
 
 	@Test
-	void testOnceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Consumers.once(null));
+	void testGetDsaInstance() {
+		assertThat(StandardKeyFactories.getDsaInstance().getAlgorithm()).isEqualTo("DSA");
 	}
 
 	@Test
-	void testDistinct() {
-		final var list = new ArrayList<>();
-		final var distinctConsumer = Consumers.distinct(list::add);
-		distinctConsumer.accept(1);
-		assertThat(list).containsExactly(1);
-		distinctConsumer.accept(2);
-		assertThat(list).containsExactly(1, 2);
-		distinctConsumer.accept(2);
-		assertThat(list).containsExactly(1, 2);
-		distinctConsumer.accept(3);
-		assertThat(list).containsExactly(1, 2, 3);
+	void testGetRsaInstance() {
+		assertThat(StandardKeyFactories.getRsaInstance().getAlgorithm()).isEqualTo("RSA");
 	}
 
 	@Test
-	void testDistinctInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Consumers.distinct(null));
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardKeyFactories.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
+			try {
+				method.invoke(null, "?");
+			} catch (final InvocationTargetException e) {
+				throw e.getTargetException();
+			}
+		}).withCauseInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

@@ -45,7 +45,7 @@ public final class MinkowskiDistance implements Distance, Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 109646403712305898L;
+	private static final long serialVersionUID = -5597952283768712559L;
 
 	/**
 	 * <p>Distance order.</p>

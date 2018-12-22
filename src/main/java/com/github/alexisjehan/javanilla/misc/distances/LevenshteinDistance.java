@@ -45,7 +45,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -4598809440368030824L;
+	private static final long serialVersionUID = 1468319669636701640L;
 
 	/**
 	 * <p>{@code LevenshteinDistance} instance with default parameters.</p>

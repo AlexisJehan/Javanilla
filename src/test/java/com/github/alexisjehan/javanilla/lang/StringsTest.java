@@ -528,6 +528,41 @@ final class StringsTest {
 	}
 
 	@Test
+	void testSplitChar() {
+		assertThat(Strings.split('x', Strings.EMPTY)).containsExactly(Strings.EMPTY);
+		assertThat(Strings.split('x', "x")).containsExactly(Strings.EMPTY, Strings.EMPTY);
+		assertThat(Strings.split('x', "xx")).containsExactly(Strings.EMPTY, Strings.EMPTY, Strings.EMPTY);
+		assertThat(Strings.split('x', "foo")).containsExactly("foo");
+		assertThat(Strings.split('x', "fooxbar")).containsExactly("foo", "bar");
+		assertThat(Strings.split('x', "xfooxbarx")).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
+	}
+
+	@Test
+	void testSplitCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.split('x', null));
+	}
+
+	@Test
+	void testSplitCharSequence() {
+		assertThat(Strings.split(Strings.EMPTY, "foo")).containsExactly("foo");
+		assertThat(Strings.split("xX", Strings.EMPTY)).containsExactly(Strings.EMPTY);
+		assertThat(Strings.split("xX", "xX")).containsExactly(Strings.EMPTY, Strings.EMPTY);
+		assertThat(Strings.split("xX", "xXxX")).containsExactly(Strings.EMPTY, Strings.EMPTY, Strings.EMPTY);
+		assertThat(Strings.split("xX", "foo")).containsExactly("foo");
+		assertThat(Strings.split("xX", "fooxXbar")).containsExactly("foo", "bar");
+		assertThat(Strings.split("xX", "xXfooxXbarxX")).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
+		assertThat(Strings.split("xX", "xfooxXbarxX")).containsExactly("xfoo", "bar", Strings.EMPTY);
+		assertThat(Strings.split("xX", "xXfooxbarxX")).containsExactly(Strings.EMPTY, "fooxbar", Strings.EMPTY);
+		assertThat(Strings.split("xX", "xXfooxXbarx")).containsExactly(Strings.EMPTY, "foo", "barx");
+	}
+
+	@Test
+	void testSplitCharSequenceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.split(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.split("xX", null));
+	}
+
+	@Test
 	void testRepeatChar() {
 		assertThat(Strings.repeat('x', 0)).isEmpty();
 		assertThat(Strings.repeat('x', 1)).isEqualTo("x");

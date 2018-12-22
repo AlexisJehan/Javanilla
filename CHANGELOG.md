@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.3.1 _(2018-12-22)_
+
+**io.crypto**
+- Added _StandardKeyFactories_, _StandardKeyPairGenerators_ and _StandardSignatures_ classes
+
+**io.crypto.StandardCiphers**
+- Added the _getAesGcmInstance()_ method
+
+**lang.array.ByteArrays**
+- Renamed the _ofHexString()_ method to _ofHexadecimalString()_
+- Renamed the _toHexString()_ method to _toHexadecimalString()_
+
+**lang**
+- Added the _Comparables_ class
+
+**lang.Strings**
+- Added _split()_ methods
+
+**misc.quality.Ensure**
+- Added _notNullAndEqualTo()_, _notEqualTo()_, _notNullAndNotEqualTo()_, _notNullAndLowerThan()_,
+_notNullAndLowerThanOrEqualTo()_, _notNullAndGreaterThan()_, _notNullAndGreaterThanOrEqualTo()_ and
+_notNullAndBetween()_ methods
+
+**util.NullableOptional**
+- Added the _orElseThrow()_ method
+
+
 ## 1.3.0 _(2018-11-18)_
 
 **io.bytes**

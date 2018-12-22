@@ -37,7 +37,7 @@ public final class SerializationException extends RuntimeException {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -2383288474294867415L;
+	private static final long serialVersionUID = -7322730015273496724L;
 
 	/**
 	 * <p>Constructor with a cause.</p>

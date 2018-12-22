@@ -25,6 +25,9 @@ package com.github.alexisjehan.javanilla.lang;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>An utility class that provides {@link String} and {@link CharSequence} tools.</p>
  * @since 1.0.0
@@ -768,6 +771,70 @@ public final class Strings {
 			}
 		}
 		return builder.toString();
+	}
+
+	/**
+	 * <p>Split a {@code CharSequence} using a {@code char} separator.</p>
+	 * @param separator the {@code char} separator
+	 * @param charSequence the {@code CharSequence} to split
+	 * @return a {@code List} of splitted {@code String}s
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.3.1
+	 */
+	public static List<String> split(final char separator, final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return List.of(EMPTY);
+		}
+		final var result = new ArrayList<String>();
+		var i = 0;
+		for (var j = 0; j < length; ++j) {
+			if (separator == charSequence.charAt(j)) {
+				result.add(charSequence.subSequence(i, j).toString());
+				i = j + 1;
+			}
+		}
+		result.add(charSequence.subSequence(i, length).toString());
+		return result;
+	}
+
+	/**
+	 * <p>Split a {@code CharSequence} using a {@code CharSequence} separator.</p>
+	 * <p><b>Note</b>: This implementation in not based on regular expressions unlike the standard Java one.</p>
+	 * @param separator the {@code CharSequence} separator
+	 * @param charSequence the {@code CharSequence} to split
+	 * @return a {@code List} of splitted {@code String}s
+	 * @throws NullPointerException if the {@code CharSequence} or the {@code CharSequence} separator is {@code null}
+	 * @since 1.3.1
+	 */
+	public static List<String> split(final CharSequence separator, final CharSequence charSequence) {
+		Ensure.notNull("separator", separator);
+		Ensure.notNull("charSequence", charSequence);
+		final var separatorLength = separator.length();
+		if (0 == separatorLength) {
+			return List.of(charSequence.toString());
+		}
+		final var length = charSequence.length();
+		if (0 == length) {
+			return List.of(EMPTY);
+		}
+		final var result = new ArrayList<String>();
+		var i = 0;
+		for (var j = 0; j < length; ++j) {
+			if (separator.charAt(0) == charSequence.charAt(j)) {
+				var k = 1;
+				while (k < separatorLength && j + k < length && separator.charAt(k) == charSequence.charAt(j + k)) {
+					++k;
+				}
+				if (k == separatorLength) {
+					result.add(charSequence.subSequence(i, j).toString());
+					i = j + separatorLength;
+				}
+			}
+		}
+		result.add(charSequence.subSequence(i, length).toString());
+		return result;
 	}
 
 	/**

@@ -78,6 +78,15 @@ public final class StandardCiphers {
 	}
 
 	/**
+	 * <p>Get a new "AES/GCM/NoPadding" {@code Cipher} instance.</p>
+	 * @return a "AES/GCM/NoPadding" {@code Cipher} instance
+	 * @since 1.3.1
+	 */
+	public static Cipher getAesGcmInstance() {
+		return getInstance("AES/GCM/NoPadding");
+	}
+
+	/**
 	 * <p>Get a new "DES/CBC/NoPadding" {@code Cipher} instance.</p>
 	 * @return a "DES/CBC/NoPadding" {@code Cipher} instance
 	 * @since 1.0.0

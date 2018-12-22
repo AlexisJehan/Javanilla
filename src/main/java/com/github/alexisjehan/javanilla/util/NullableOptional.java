@@ -258,6 +258,16 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
+	 * <p>If a value is present, returns the value, otherwise throws {@code NoSuchElementException}.</p>
+	 * @return the value, if present
+	 * @throws NoSuchElementException if no value is present
+	 * @since 1.3.1
+	 */
+	public T orElseThrow() {
+		return get();
+	}
+
+	/**
 	 * <p>If a value is present, returns the value, otherwise throws a {@code Throwable} produced by the
 	 * {@code Supplier}.</p>
 	 * @param throwableSupplier the {@code Supplier} that produces a {@code Throwable} to be thrown

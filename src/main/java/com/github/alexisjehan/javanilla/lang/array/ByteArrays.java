@@ -25,7 +25,6 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
 
 import java.nio.ByteOrder;
@@ -49,7 +48,7 @@ public final class ByteArrays {
 	 * <p>{@code char} array used for hexadecimal {@code String} conversion.</p>
 	 * @since 1.0.0
 	 */
-	private static final char[] HEX_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+	private static final char[] HEXADECIMAL_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
 	 * <p>An empty {@code byte} array.</p>
@@ -142,7 +141,7 @@ public final class ByteArrays {
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					return true;
 				}
 			}
@@ -168,7 +167,7 @@ public final class ByteArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					contained = true;
 					break;
 				}
@@ -198,7 +197,7 @@ public final class ByteArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					if (contained) {
 						return false;
 					}
@@ -230,7 +229,7 @@ public final class ByteArrays {
 		for (final var element : array) {
 			var contained = false;
 			for (final var value : values) {
-				if (Equals.equals(value, element)) {
+				if (value == element) {
 					contained = true;
 					break;
 				}
@@ -269,7 +268,7 @@ public final class ByteArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = fromIndex; i < array.length; ++i) {
-				if (Equals.equals(value, array[i])) {
+				if (value == array[i]) {
 					return i;
 				}
 			}
@@ -304,7 +303,7 @@ public final class ByteArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (Equals.equals(value, array[i])) {
+				if (value == array[i]) {
 					return i;
 				}
 			}
@@ -327,7 +326,7 @@ public final class ByteArrays {
 		}
 		var frequency = 0;
 		for (final var element : array) {
-			if (Equals.equals(value, element)) {
+			if (value == element) {
 				++frequency;
 			}
 		}
@@ -567,12 +566,12 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Create a {@code byte} array from a {@code boolean}.</p>
-	 * @param bo the {@code boolean} to convert
+	 * @param b the {@code boolean} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.0.0
 	 */
-	public static byte[] ofBoolean(final boolean bo) {
-		return singleton(bo ? (byte) 1 : (byte) 0);
+	public static byte[] ofBoolean(final boolean b) {
+		return singleton(b ? (byte) 1 : (byte) 0);
 	}
 
 	/**
@@ -591,33 +590,33 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param sh the {@code short} to convert
+	 * @param s the {@code short} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.0.0
 	 */
-	public static byte[] ofShort(final short sh) {
-		return ofShort(sh, ByteOrder.nativeOrder());
+	public static byte[] ofShort(final short s) {
+		return ofShort(s, ByteOrder.nativeOrder());
 	}
 
 	/**
 	 * <p>Create a {@code byte} array from a {@code short} using a custom {@code ByteOrder}.</p>
-	 * @param sh the {@code short} to convert
+	 * @param s the {@code short} to convert
 	 * @param order the {@code ByteOrder} to use
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
-	public static byte[] ofShort(final short sh, final ByteOrder order) {
+	public static byte[] ofShort(final short s, final ByteOrder order) {
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
 			return of(
-					(byte) (sh >> 8),
-					(byte) sh
+					(byte) (s >> 8),
+					(byte) s
 			);
 		}
 		return of(
-				(byte) sh,
-				(byte) (sh >> 8)
+				(byte) s,
+				(byte) (s >> 8)
 		);
 	}
 
@@ -1050,26 +1049,26 @@ public final class ByteArrays {
 	/**
 	 * <p>Create a {@code byte} array from a hexadecimal {@code CharSequence}.</p>
 	 * <p><b>Note</b>: The hexadecimal {@code CharSequence} value case does not matter.</p>
-	 * @param hexCharSequence the hexadecimal {@code CharSequence} to convert
+	 * @param hexadecimalCharSequence the hexadecimal {@code CharSequence} to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the hexadecimal {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the hexadecimal {@code CharSequence} length is not a multiple of {@code 2} or
 	 * if any {@code char} is not valid
 	 * @since 1.0.0
 	 */
-	public static byte[] ofHexString(final CharSequence hexCharSequence) {
-		Ensure.notNull("hexCharSequence", hexCharSequence);
-		final var length = hexCharSequence.length();
+	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence) {
+		Ensure.notNull("hexadecimalCharSequence", hexadecimalCharSequence);
+		final var length = hexadecimalCharSequence.length();
 		if (0 != length % 2) {
-			throw new IllegalArgumentException("Invalid hexCharSequence length: " + ToString.toString(length) + " (multiple of 2 expected)");
+			throw new IllegalArgumentException("Invalid hexadecimalCharSequence length: " + ToString.toString(length) + " (multiple of 2 expected)");
 		}
 		if (0 == length) {
 			return EMPTY;
 		}
 		final var bytes = new byte[length / 2];
 		for (var i = 0; i < length; ++i) {
-			final var c = hexCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(HEX_CHARS, Character.toLowerCase(c));
+			final var c = hexadecimalCharSequence.charAt(i);
+			final var p = CharArrays.indexOf(HEXADECIMAL_CHARS, Character.toLowerCase(c));
 			if (-1 == p) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
 			}
@@ -1087,7 +1086,7 @@ public final class ByteArrays {
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static String toHexString(final byte[] bytes) {
+	public static String toHexadecimalString(final byte[] bytes) {
 		Ensure.notNull("bytes", bytes);
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
@@ -1095,8 +1094,8 @@ public final class ByteArrays {
 		final var hexChars = new char[2 * bytes.length];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var v = Byte.toUnsignedInt(bytes[i]);
-			hexChars[i * 2] = HEX_CHARS[v >>> 4 & 0b00001111];
-			hexChars[i * 2 + 1] = HEX_CHARS[v & 0b00001111];
+			hexChars[i * 2] = HEXADECIMAL_CHARS[v >>> 4 & 0b00001111];
+			hexChars[i * 2 + 1] = HEXADECIMAL_CHARS[v & 0b00001111];
 		}
 		return new String(hexChars);
 	}

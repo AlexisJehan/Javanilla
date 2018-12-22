@@ -162,14 +162,12 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 		return () -> new Iterator<>() {
 			private final Deque<TreeNode<V>> deque = new LinkedList<>(children());
 			private TreeNode<V> next;
-
 			{
 				prepareNext();
 			}
 
 			/**
 			 * <p>Prepare the next node.</p>
-			 *
 			 * @since 1.2.0
 			 */
 			private void prepareNext() {

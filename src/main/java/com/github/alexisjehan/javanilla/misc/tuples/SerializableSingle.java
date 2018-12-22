@@ -43,7 +43,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.1.0
 	 */
-	private static final long serialVersionUID = -5782603938816673562L;
+	private static final long serialVersionUID = 4040327707639074966L;
 
 	/**
 	 * <p>Unique {@code Serializable} element.</p>

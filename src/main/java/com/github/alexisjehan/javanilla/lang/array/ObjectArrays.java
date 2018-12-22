@@ -24,13 +24,13 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.lang.array;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -151,7 +151,7 @@ public final class ObjectArrays {
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (Objects.equals(value, element)) {
 					return true;
 				}
 			}
@@ -178,7 +178,7 @@ public final class ObjectArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (Objects.equals(value, element)) {
 					contained = true;
 					break;
 				}
@@ -208,7 +208,7 @@ public final class ObjectArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (Objects.equals(value, element)) {
 					if (contained) {
 						return false;
 					}
@@ -240,7 +240,7 @@ public final class ObjectArrays {
 		for (final var element : array) {
 			var contained = false;
 			for (final var value : values) {
-				if (Equals.equals(value, element)) {
+				if (Objects.equals(value, element)) {
 					contained = true;
 					break;
 				}
@@ -279,7 +279,7 @@ public final class ObjectArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = fromIndex; i < array.length; ++i) {
-				if (Equals.equals(value, array[i])) {
+				if (Objects.equals(value, array[i])) {
 					return i;
 				}
 			}
@@ -314,7 +314,7 @@ public final class ObjectArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (Equals.equals(value, array[i])) {
+				if (Objects.equals(value, array[i])) {
 					return i;
 				}
 			}
@@ -337,7 +337,7 @@ public final class ObjectArrays {
 		}
 		var frequency = 0;
 		for (final var element : array) {
-			if (Equals.equals(value, element)) {
+			if (Objects.equals(value, element)) {
 				++frequency;
 			}
 		}

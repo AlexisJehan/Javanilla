@@ -44,7 +44,7 @@ public final class Example3 {
 		System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
 		System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
 		System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
-		System.out.println(Strings.isHexadecimal(ByteArrays.toHexString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
+		System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
 		final var withPadding = true;
 		System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
 	}

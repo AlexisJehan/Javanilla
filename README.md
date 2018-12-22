@@ -20,14 +20,14 @@ To include and use Javanilla, you need to add the following dependency into your
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.3.0</version>
+	<version>1.3.1</version>
 </dependency>
 ```
 
 Or if you are using _Gradle_:
 ```xml
 dependencies {
-	compile "com.github.alexisjehan:javanilla:1.3.0"
+	compile "com.github.alexisjehan:javanilla:1.3.1"
 }
 ```
 
@@ -81,7 +81,7 @@ System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
 System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
 System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
 System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
-System.out.println(Strings.isHexadecimal(ByteArrays.toHexString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
+System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
 final var withPadding = true;
 System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
 ```
@@ -111,11 +111,11 @@ CharArrays.join(separator, CharArrays.of('f', 'o', 'o'), CharArrays.of('b', 'a',
 FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
 FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True
 DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2.0d); // 1
-ByteArrays.toHexString(
+ByteArrays.toHexadecimalString(
 		ByteArrays.concat(
 				ByteArrays.of((byte) 0x00, (byte) 0xff),
 				ByteArrays.ofDouble(3.14d, ByteOrder.BIG_ENDIAN),
-				ByteArrays.ofHexString("0xff"),
+				ByteArrays.ofHexadecimalString("0xff"),
 				"foo".getBytes()
 		)
 ); // 00ff40091eb851eb851fff666f6f

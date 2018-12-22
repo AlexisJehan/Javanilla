@@ -24,7 +24,6 @@ SOFTWARE.
 package com.github.alexisjehan.javanilla.lang.array;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
 
 import java.util.Arrays;
@@ -128,7 +127,7 @@ public final class FloatArrays {
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (0 == Float.compare(value, element)) {
 					return true;
 				}
 			}
@@ -154,7 +153,7 @@ public final class FloatArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (0 == Float.compare(value, element)) {
 					contained = true;
 					break;
 				}
@@ -184,7 +183,7 @@ public final class FloatArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (Equals.equals(value, element)) {
+				if (0 == Float.compare(value, element)) {
 					if (contained) {
 						return false;
 					}
@@ -216,7 +215,7 @@ public final class FloatArrays {
 		for (final var element : array) {
 			var contained = false;
 			for (final var value : values) {
-				if (Equals.equals(value, element)) {
+				if (0 == Float.compare(value, element)) {
 					contained = true;
 					break;
 				}
@@ -255,7 +254,7 @@ public final class FloatArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = fromIndex; i < array.length; ++i) {
-				if (Equals.equals(value, array[i])) {
+				if (0 == Float.compare(value, array[i])) {
 					return i;
 				}
 			}
@@ -290,7 +289,7 @@ public final class FloatArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (Equals.equals(value, array[i])) {
+				if (0 == Float.compare(value, array[i])) {
 					return i;
 				}
 			}
@@ -313,7 +312,7 @@ public final class FloatArrays {
 		}
 		var frequency = 0;
 		for (final var element : array) {
-			if (Equals.equals(value, element)) {
+			if (0 == Float.compare(value, element)) {
 				++frequency;
 			}
 		}
