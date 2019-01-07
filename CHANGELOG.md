@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.2 _(in progress)_
+
+**lang.Strings**
+- Added new _split()_ methods
+
+
 ## 1.3.1 _(2018-12-22)_
 
 **io.crypto**

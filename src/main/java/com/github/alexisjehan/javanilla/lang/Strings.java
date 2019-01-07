@@ -782,7 +782,22 @@ public final class Strings {
 	 * @since 1.3.1
 	 */
 	public static List<String> split(final char separator, final CharSequence charSequence) {
+		return split(separator, charSequence, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * <p>Split a {@code CharSequence} using a {@code char} separator with a limit.</p>
+	 * @param separator the {@code char} separator
+	 * @param charSequence the {@code CharSequence} to split
+	 * @param limit the maximum number of splitted {@code String}s
+	 * @return a {@code List} of splitted {@code String}s
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the limit is lower than {@code 2}
+	 * @since 1.3.2
+	 */
+	public static List<String> split(final char separator, final CharSequence charSequence, final int limit) {
 		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("limit", limit, 2);
 		final var length = charSequence.length();
 		if (0 == length) {
 			return List.of(EMPTY);
@@ -793,6 +808,9 @@ public final class Strings {
 			if (separator == charSequence.charAt(j)) {
 				result.add(charSequence.subSequence(i, j).toString());
 				i = j + 1;
+				if (limit == result.size() + 1) {
+					break;
+				}
 			}
 		}
 		result.add(charSequence.subSequence(i, length).toString());
@@ -805,12 +823,28 @@ public final class Strings {
 	 * @param separator the {@code CharSequence} separator
 	 * @param charSequence the {@code CharSequence} to split
 	 * @return a {@code List} of splitted {@code String}s
-	 * @throws NullPointerException if the {@code CharSequence} or the {@code CharSequence} separator is {@code null}
+	 * @throws NullPointerException if the {@code CharSequence} separator or the {@code CharSequence} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static List<String> split(final CharSequence separator, final CharSequence charSequence) {
+		return split(separator, charSequence, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * <p>Split a {@code CharSequence} using a {@code CharSequence} separator with a limit.</p>
+	 * <p><b>Note</b>: This implementation in not based on regular expressions unlike the standard Java one.</p>
+	 * @param separator the {@code CharSequence} separator
+	 * @param charSequence the {@code CharSequence} to split
+	 * @param limit the maximum number of splitted {@code String}s
+	 * @return a {@code List} of splitted {@code String}s
+	 * @throws NullPointerException if the {@code CharSequence} separator or the {@code CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the limit is lower than {@code 2}
+	 * @since 1.3.2
+	 */
+	public static List<String> split(final CharSequence separator, final CharSequence charSequence, final int limit) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNull("charSequence", charSequence);
+		Ensure.greaterThanOrEqualTo("limit", limit, 2);
 		final var separatorLength = separator.length();
 		if (0 == separatorLength) {
 			return List.of(charSequence.toString());
@@ -830,6 +864,9 @@ public final class Strings {
 				if (k == separatorLength) {
 					result.add(charSequence.subSequence(i, j).toString());
 					i = j + separatorLength;
+					if (limit == result.size() + 1) {
+						break;
+					}
 				}
 			}
 		}

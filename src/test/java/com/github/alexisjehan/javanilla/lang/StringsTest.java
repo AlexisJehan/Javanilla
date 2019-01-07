@@ -535,11 +535,16 @@ final class StringsTest {
 		assertThat(Strings.split('x', "foo")).containsExactly("foo");
 		assertThat(Strings.split('x', "fooxbar")).containsExactly("foo", "bar");
 		assertThat(Strings.split('x', "xfooxbarx")).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
+		assertThat(Strings.split('x', "xfooxbarx", 2)).containsExactly(Strings.EMPTY, "fooxbarx");
+		assertThat(Strings.split('x', "xfooxbarx", 3)).containsExactly(Strings.EMPTY, "foo", "barx");
+		assertThat(Strings.split('x', "xfooxbarx", 4)).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
+		assertThat(Strings.split('x', "xfooxbarx", 5)).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
 	}
 
 	@Test
 	void testSplitCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.split('x', null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split('x', "foo", 1));
 	}
 
 	@Test
@@ -550,16 +555,21 @@ final class StringsTest {
 		assertThat(Strings.split("xX", "xXxX")).containsExactly(Strings.EMPTY, Strings.EMPTY, Strings.EMPTY);
 		assertThat(Strings.split("xX", "foo")).containsExactly("foo");
 		assertThat(Strings.split("xX", "fooxXbar")).containsExactly("foo", "bar");
-		assertThat(Strings.split("xX", "xXfooxXbarxX")).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
 		assertThat(Strings.split("xX", "xfooxXbarxX")).containsExactly("xfoo", "bar", Strings.EMPTY);
 		assertThat(Strings.split("xX", "xXfooxbarxX")).containsExactly(Strings.EMPTY, "fooxbar", Strings.EMPTY);
 		assertThat(Strings.split("xX", "xXfooxXbarx")).containsExactly(Strings.EMPTY, "foo", "barx");
+		assertThat(Strings.split("xX", "xXfooxXbarxX")).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
+		assertThat(Strings.split("xX", "xXfooxXbarxX", 2)).containsExactly(Strings.EMPTY, "fooxXbarxX");
+		assertThat(Strings.split("xX", "xXfooxXbarxX", 3)).containsExactly(Strings.EMPTY, "foo", "barxX");
+		assertThat(Strings.split("xX", "xXfooxXbarxX", 4)).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
+		assertThat(Strings.split("xX", "xXfooxXbarxX", 5)).containsExactly(Strings.EMPTY, "foo", "bar", Strings.EMPTY);
 	}
 
 	@Test
 	void testSplitCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.split(null, "foo"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.split("xX", null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split("xX", "foo", 1));
 	}
 
 	@Test
