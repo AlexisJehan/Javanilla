@@ -51,7 +51,7 @@ public enum LineSeparator {
 				if ('\n' == i) {
 					break;
 				}
-				builder.append((char) i);
+				builder.appendCodePoint(i);
 			}
 			return i;
 		}
@@ -72,13 +72,13 @@ public enum LineSeparator {
 					if ('\n' == (i2 = reader.read())) {
 						return i2;
 					}
-					builder.append((char) i1);
+					builder.appendCodePoint(i1);
 					if (-1 == i2) {
 						return i2;
 					}
-					builder.append((char) i2);
+					builder.appendCodePoint(i2);
 				} else {
-					builder.append((char) i1);
+					builder.appendCodePoint(i1);
 				}
 			}
 			return i1;
@@ -97,7 +97,7 @@ public enum LineSeparator {
 				if ('\r' == i) {
 					break;
 				}
-				builder.append((char) i);
+				builder.appendCodePoint(i);
 			}
 			return i;
 		}
@@ -116,7 +116,7 @@ public enum LineSeparator {
 				if ('\n' == i || '\r' == i) {
 					break;
 				}
-				builder.append((char) i);
+				builder.appendCodePoint(i);
 			}
 			return i;
 		}
