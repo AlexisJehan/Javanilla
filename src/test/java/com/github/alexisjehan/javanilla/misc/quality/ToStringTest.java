@@ -190,9 +190,9 @@ final class ToStringTest {
 
 	@Test
 	void testOf() {
-		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getName() + "{foo=1}");
-		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getName() + "{foo=1, bar=null}");
-		assertThat(ToString.of(this)).isEqualTo(getClass().getName() + '@' + hashCode());
+		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "{foo=1}");
+		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "{foo=1, bar=null}");
+		assertThat(ToString.of(this)).isEqualTo(getClass().getSimpleName() + '@' + hashCode());
 	}
 
 	@Test

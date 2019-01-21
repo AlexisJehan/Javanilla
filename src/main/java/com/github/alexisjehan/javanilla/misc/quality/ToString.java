@@ -398,7 +398,7 @@ public final class ToString {
 		Ensure.notNull("object", object);
 		Ensure.notNullAndNotNullElements("toStrings", toStrings);
 		final var builder = new StringBuilder();
-		builder.append(object.getClass().getName());
+		builder.append(object.getClass().getSimpleName());
 		if (0 < toStrings.length) {
 			builder.append('{')
 					.append(toStrings[0].getFirst())
