@@ -5,6 +5,9 @@
 **lang.Strings**
 - Added new _split()_ methods
 
+**misc.quality.Ensure**
+- Added the _notNullAndMatches()_ method
+
 
 ## 1.3.1 _(2018-12-22)_
 

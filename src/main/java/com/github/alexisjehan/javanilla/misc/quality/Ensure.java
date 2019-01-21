@@ -45,6 +45,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * <p>An utility class that provides multiple functions to validate arguments, throwing {@link NullPointerException} or
@@ -356,6 +357,26 @@ public final class Ensure {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(iterator) + " (not empty expected)");
 		}
 		return iterator;
+	}
+
+	/**
+	 * <p>Ensure the {@code CharSequence} is not {@code null} and matches the given {@code Pattern}.</p>
+	 * @param name the name of the {@code CharSequence}
+	 * @param charSequence the {@code CharSequence} to validate
+	 * @param pattern the {@code Pattern}
+	 * @param <C> the {@code CharSequence} type
+	 * @return the validated {@code CharSequence}
+	 * @throws NullPointerException if the name, the {@code CharSequence} or the {@code Pattern} is {@code null}
+	 * @throws IllegalArgumentException if the {@code CharSequence} does not match the {@code Pattern}
+	 * @since 1.3.2
+	 */
+	public static <C extends CharSequence> C notNullAndMatches(final String name, final C charSequence, final Pattern pattern) {
+		notNull(name, charSequence);
+		notNull("pattern", pattern);
+		if (!pattern.matcher(charSequence).matches()) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(charSequence) + " (matching " + ToString.toString(pattern) + " expected)");
+		}
+		return charSequence;
 	}
 
 	/**

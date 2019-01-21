@@ -48,10 +48,9 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * <p>{@link Ensure} unit tests.</p>
@@ -214,6 +213,21 @@ final class EnsureTest {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndNotEmpty("foo", Collections.emptyIterator()))
 				.withMessage("Invalid foo: " + Collections.emptyIterator() + " (not empty expected)");
+	}
+
+	@Test
+	void testNotNullAndMatches() {
+		final var pattern = Pattern.compile("^[0-9]$");
+		final var foo = "1";
+		assertThat(Ensure.notNullAndMatches("foo", foo, pattern)).isSameAs(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndMatches("foo", "a", pattern))
+				.withMessage("Invalid foo: \"a\" (matching " + pattern + " expected)");
+	}
+
+	@Test
+	void testNotNullAndMatchesInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Ensure.notNullAndMatches("foo", "1", null));
 	}
 
 	@Test
