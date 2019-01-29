@@ -224,6 +224,11 @@ Generate the Javadoc API documentation:
 mvn javadoc:javadoc
 ```
 
+Update sources license:
+```
+mvn license:format
+```
+
 Generate the Jacoco test coverage report:
 ```
 mvn jacoco:report
