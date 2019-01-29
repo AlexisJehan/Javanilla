@@ -190,7 +190,7 @@ public final class Writers {
 	 * @throws NullPointerException if the {@code Writer} {@code Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	public static Writer tee(final Collection<Writer> writers) {
+	public static Writer tee(final Collection<? extends Writer> writers) {
 		Ensure.notNullAndNotNullElements("writers", writers);
 		final var size = writers.size();
 		if (0 == size) {

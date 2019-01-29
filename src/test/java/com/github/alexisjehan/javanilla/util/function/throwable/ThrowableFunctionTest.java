@@ -40,7 +40,7 @@ final class ThrowableFunctionTest {
 	@Test
 	void testCompose() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction1 = t -> {
+		final var throwableFunction1 = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			list.add(t);
 			return t;
 		};
@@ -51,7 +51,7 @@ final class ThrowableFunctionTest {
 		assertThat(list).contains(1, 2);
 
 		list.clear();
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction2 = t -> {
+		final var throwableFunction2 = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableFunction1.compose(throwableFunction2).apply(1));
@@ -60,7 +60,7 @@ final class ThrowableFunctionTest {
 
 	@Test
 	void testComposeInvalid() {
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {
+		final var throwableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableFunction.compose(null));
@@ -69,7 +69,7 @@ final class ThrowableFunctionTest {
 	@Test
 	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction1 = t -> {
+		final var throwableFunction1 = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			list.add(t);
 			return t;
 		};
@@ -80,7 +80,7 @@ final class ThrowableFunctionTest {
 		assertThat(list).contains(1, 2);
 
 		list.clear();
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction2 = t -> {
+		final var throwableFunction2 = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableFunction1.andThen(throwableFunction2).apply(1));
@@ -89,7 +89,7 @@ final class ThrowableFunctionTest {
 
 	@Test
 	void testAndThenInvalid() {
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {
+		final var throwableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableFunction.andThen(null));
@@ -98,7 +98,7 @@ final class ThrowableFunctionTest {
 	@Test
 	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction1 = t -> {
+		final var throwableFunction1 = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			list.add(t);
 			return t;
 		};
@@ -106,7 +106,7 @@ final class ThrowableFunctionTest {
 		assertThat(ThrowableFunction.unchecked(throwableFunction1).apply(1)).isEqualTo(1);
 		assertThat(list).contains(1, 1);
 
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction2 = t -> {
+		final var throwableFunction2 = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		final var function = ThrowableFunction.unchecked(throwableFunction2);
@@ -120,7 +120,7 @@ final class ThrowableFunctionTest {
 
 	@Test
 	void testOf() {
-		final Function<Integer, Integer> function = t -> {
+		final var function = (Function<Integer, Integer>) t -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableFunction = ThrowableFunction.of(function);

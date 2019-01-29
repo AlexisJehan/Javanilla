@@ -296,7 +296,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> Iterable<E> concat(final List<Iterable<? extends E>> iterables) {
+	public static <E> Iterable<E> concat(final List<? extends Iterable<? extends E>> iterables) {
 		Ensure.notNullAndNotNullElements("iterables", iterables);
 		final var size = iterables.size();
 		if (0 == size) {
@@ -335,7 +335,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> Iterable<E> join(final E[] separator, final List<Iterable<? extends E>> iterables) {
+	public static <E> Iterable<E> join(final E[] separator, final List<? extends Iterable<? extends E>> iterables) {
 		Ensure.notNull("iterables", iterables);
 		Ensure.notNullAndNotNullElements("iterables", iterables);
 		if (0 == separator.length) {

@@ -149,7 +149,7 @@ public final class OutputStreams {
 	 * @throws NullPointerException if the {@code OutputStream} {@code Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	public static OutputStream tee(final Collection<OutputStream> outputStreams) {
+	public static OutputStream tee(final Collection<? extends OutputStream> outputStreams) {
 		Ensure.notNullAndNotNullElements("outputStreams", outputStreams);
 		final var size = outputStreams.size();
 		if (0 == size) {

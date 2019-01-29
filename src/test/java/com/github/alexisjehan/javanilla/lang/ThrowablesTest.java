@@ -75,7 +75,7 @@ final class ThrowablesTest {
 
 	@Test
 	void testUncheckThrowableRunnableInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableRunnable<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableRunnable<IOException>) null));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ final class ThrowablesTest {
 
 	@Test
 	void testUncheckThrowableSupplierInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<Integer, ?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<Integer, IOException>) null));
 	}
 
 	@Test

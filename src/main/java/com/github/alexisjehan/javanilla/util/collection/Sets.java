@@ -144,7 +144,7 @@ public final class Sets {
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> Set<E> union(final Collection<Set<? extends E>> sets) {
+	public static <E> Set<E> union(final Collection<? extends Set<? extends E>> sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
 		final var size = sets.size();
 		if (0 == size) {
@@ -183,7 +183,7 @@ public final class Sets {
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> Set<E> intersect(final Collection<Set<? extends E>> sets) {
+	public static <E> Set<E> intersect(final Collection<? extends Set<? extends E>> sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
 		final var size = sets.size();
 		if (0 == size) {

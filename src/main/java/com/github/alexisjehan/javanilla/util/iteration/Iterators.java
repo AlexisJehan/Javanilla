@@ -67,7 +67,7 @@ public final class Iterators {
 		 * <p>{@code Iterator} of {@code Iterator}s.</p>
 		 * @since 1.0.0
 		 */
-		private final Iterator<Iterator<? extends E>> iterator;
+		private final Iterator<? extends Iterator<? extends E>> iterator;
 
 		/**
 		 * <p>Current {@code Iterator}.</p>
@@ -80,7 +80,7 @@ public final class Iterators {
 		 * @param iterator the {@code Iterator} of {@code Iterator}s
 		 * @since 1.0.0
 		 */
-		private SequenceIterator(final Iterator<Iterator<? extends E>> iterator) {
+		private SequenceIterator(final Iterator<? extends Iterator<? extends E>> iterator) {
 			this.iterator = iterator;
 			nextIterator();
 		}
@@ -609,7 +609,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> Iterator<E> concat(final List<Iterator<? extends E>> iterators) {
+	public static <E> Iterator<E> concat(final List<? extends Iterator<? extends E>> iterators) {
 		Ensure.notNullAndNotNullElements("iterators", iterators);
 		final var size = iterators.size();
 		if (0 == size) {
@@ -648,7 +648,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> Iterator<E> join(final E[] separator, final List<Iterator<? extends E>> iterators) {
+	public static <E> Iterator<E> join(final E[] separator, final List<? extends Iterator<? extends E>> iterators) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("iterators", iterators);
 		if (0 == separator.length) {

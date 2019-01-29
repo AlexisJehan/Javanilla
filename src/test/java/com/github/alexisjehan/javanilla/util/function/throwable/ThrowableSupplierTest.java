@@ -40,11 +40,11 @@ final class ThrowableSupplierTest {
 
 	@Test
 	void testUnchecked() throws IOException {
-		final ThrowableSupplier<Integer, IOException> throwableSupplier1 = () -> 1;
+		final var throwableSupplier1 = (ThrowableSupplier<Integer, IOException>) () -> 1;
 		assertThat(throwableSupplier1.get()).isEqualTo(1);
 		assertThat(ThrowableSupplier.unchecked(throwableSupplier1).get()).isEqualTo(1);
 
-		final ThrowableSupplier<?, IOException> throwableSupplier2 = () -> {
+		final var throwableSupplier2 = (ThrowableSupplier<Integer, IOException>) () -> {
 			throw new IOException();
 		};
 		final var supplier = ThrowableSupplier.unchecked(throwableSupplier2);
@@ -58,7 +58,7 @@ final class ThrowableSupplierTest {
 
 	@Test
 	void testOf() {
-		final Supplier<?> supplier = () -> {
+		final var supplier = (Supplier<Integer>) () -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableSupplier = ThrowableSupplier.of(supplier);

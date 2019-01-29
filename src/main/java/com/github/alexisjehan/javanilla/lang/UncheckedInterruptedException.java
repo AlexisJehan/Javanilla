@@ -36,7 +36,7 @@ public final class UncheckedInterruptedException extends RuntimeException {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -7331750350490903250L;
+	private static final long serialVersionUID = -8954897992961985549L;
 
 	/**
 	 * <p>Constructor with a checked cause.</p>
@@ -49,7 +49,7 @@ public final class UncheckedInterruptedException extends RuntimeException {
 	}
 
 	@Override
-	public InterruptedException getCause() {
+	public synchronized InterruptedException getCause() {
 		return (InterruptedException) super.getCause();
 	}
 }

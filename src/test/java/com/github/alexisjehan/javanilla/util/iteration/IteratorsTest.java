@@ -103,14 +103,14 @@ final class IteratorsTest {
 
 	@Test
 	void testNullToEmptyIterator() {
-		assertThat(Iterators.nullToEmpty((Iterator<?>) null)).isEmpty();
+		assertThat(Iterators.nullToEmpty((Iterator<Integer>) null)).isEmpty();
 		assertThat(Iterators.nullToEmpty(Collections.emptyIterator())).isEmpty();
 		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).iterator())).containsExactly(1);
 	}
 
 	@Test
 	void testNullToEmptyListIterator() {
-		assertThat(Iterators.nullToEmpty((ListIterator<?>) null)).isEmpty();
+		assertThat(Iterators.nullToEmpty((ListIterator<Integer>) null)).isEmpty();
 		assertThat(Iterators.nullToEmpty(Collections.emptyListIterator())).isEmpty();
 		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).listIterator())).containsExactly(1);
 	}
@@ -129,7 +129,7 @@ final class IteratorsTest {
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(Iterators.emptyToNull((Iterator<?>) null)).isNull();
+		assertThat(Iterators.emptyToNull((Iterator<Integer>) null)).isNull();
 		assertThat(Iterators.emptyToNull(Collections.emptyIterator())).isNull();
 		assertThat(Iterators.emptyToNull(Collections.singletonList(1).iterator())).containsExactly(1);
 	}
@@ -374,9 +374,9 @@ final class IteratorsTest {
 
 	@Test
 	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((Iterator<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((List<Iterator<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((Iterator<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((Iterator<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((List<Iterator<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.concat((Iterator<Integer>) null));
 	}
 
 	@Test
@@ -400,9 +400,9 @@ final class IteratorsTest {
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.join(null, Iterators.singleton(1)));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (Iterator<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (List<Iterator<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (Iterator<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (Iterator<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (List<Iterator<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterators.join(ObjectArrays.singleton(0), (Iterator<Integer>) null));
 	}
 
 	@Test

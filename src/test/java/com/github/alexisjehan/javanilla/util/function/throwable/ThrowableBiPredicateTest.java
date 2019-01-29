@@ -41,13 +41,13 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testAnd() throws IOException {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 1 == t && 0 == Float.compare(u, 2.3f);
+		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> 1 == t && 0 == Float.compare(u, 2.3f);
 		assertThat(throwableBiPredicate1.and((t, u) -> 0 == t && 0 == Float.compare(u, 0.0f)).test(1, 2.3f)).isFalse();
 		assertThat(throwableBiPredicate1.and((t, u) -> 1 == t && 0 == Float.compare(u, 2.3f)).test(1, 2.3f)).isTrue();
 		assertThat(throwableBiPredicate1.and((t, u) -> 0 == t && 0 == Float.compare(u, 0.0f)).test(0, 0.0f)).isFalse();
 		assertThat(throwableBiPredicate1.and((t, u) -> 1 == t && 0 == Float.compare(u, 2.3f)).test(0, 0.0f)).isFalse();
 
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate2 = (t, u) -> {
+		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableBiPredicate1.and(throwableBiPredicate2).test(1, 2.3f));
@@ -55,7 +55,7 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testAndInvalid() {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate = (t, u) -> {
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableBiPredicate.and(null));
@@ -63,20 +63,20 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testNegate() throws IOException {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 1 == t && 0 == Float.compare(u, 2.3f);
+		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> 1 == t && 0 == Float.compare(u, 2.3f);
 		assertThat(throwableBiPredicate1.negate().test(1, 2.3f)).isFalse();
 		assertThat(throwableBiPredicate1.negate().negate().test(1, 2.3f)).isTrue();
 	}
 
 	@Test
 	void testOr() throws IOException {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 0 == t && 0 == Float.compare(u, 0.0f);
+		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> 0 == t && 0 == Float.compare(u, 0.0f);
 		assertThat(throwableBiPredicate1.or((t, u) -> 0 == t && 0 == Float.compare(u, 0.0f)).test(1, 2.3f)).isFalse();
 		assertThat(throwableBiPredicate1.or((t, u) -> 1 == t && 0 == Float.compare(u, 2.3f)).test(1, 2.3f)).isTrue();
 		assertThat(throwableBiPredicate1.or((t, u) -> 0 == t && 0 == Float.compare(u, 0.0f)).test(0, 0.0f)).isTrue();
 		assertThat(throwableBiPredicate1.or((t, u) -> 1 == t && 0 == Float.compare(u, 2.3f)).test(0, 0.0f)).isTrue();
 
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate2 = (t, u) -> {
+		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableBiPredicate1.or(throwableBiPredicate2).test(1, 2.3f));
@@ -84,7 +84,7 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testOrInvalid() {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate = (t, u) -> {
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableBiPredicate.or(null));
@@ -92,11 +92,11 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testUnchecked() throws IOException {
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate1 = (t, u) -> 1 == t && 0 == Float.compare(u, 2.3f);
+		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> 1 == t && 0 == Float.compare(u, 2.3f);
 		assertThat(throwableBiPredicate1.test(1, 2.3f)).isTrue();
 		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate1).test(1, 2.3f)).isTrue();
 
-		final ThrowableBiPredicate<Integer, Float, IOException> throwableBiPredicate2 = (t, u) -> {
+		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		final var biPredicate = ThrowableBiPredicate.unchecked(throwableBiPredicate2);
@@ -110,7 +110,7 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testOf() {
-		final BiPredicate<Integer, Float> biPredicate = (t, u) -> {
+		final var biPredicate = (BiPredicate<Integer, Float>) (t, u) -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableBiPredicate = ThrowableBiPredicate.of(biPredicate);

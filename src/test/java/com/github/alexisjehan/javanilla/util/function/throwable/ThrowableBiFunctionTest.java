@@ -41,7 +41,7 @@ final class ThrowableBiFunctionTest {
 	@Test
 	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction = (t, u) -> {
+		final var throwableBiFunction = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
 			list.add(Pair.of(t, u));
 			return t + Math.round(u);
 		};
@@ -52,7 +52,7 @@ final class ThrowableBiFunctionTest {
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(4, 0.0f));
 
 		list.clear();
-		final ThrowableFunction<Integer, Integer, IOException> throwableFunction = t -> {
+		final var throwableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableBiFunction.andThen(throwableFunction).apply(1, 2.3f));
@@ -61,7 +61,7 @@ final class ThrowableBiFunctionTest {
 
 	@Test
 	void testAndThenInvalid() {
-		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction = (t, u) -> {
+		final var throwableBiFunction = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableBiFunction.andThen(null));
@@ -70,7 +70,7 @@ final class ThrowableBiFunctionTest {
 	@Test
 	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction1 = (t, u) -> {
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
 			list.add(Pair.of(t, u));
 			return t + Math.round(u);
 		};
@@ -78,7 +78,7 @@ final class ThrowableBiFunctionTest {
 		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction1).apply(1, 2.3f)).isEqualTo(3);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(1, 2.3f));
 
-		final ThrowableBiFunction<Integer, Float, Integer, IOException> throwableBiFunction2 = (t, u) -> {
+		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		final var biFunction = ThrowableBiFunction.unchecked(throwableBiFunction2);
@@ -92,7 +92,7 @@ final class ThrowableBiFunctionTest {
 
 	@Test
 	void testOf() {
-		final BiFunction<Integer, Float, Integer> function = (t, u) -> {
+		final var function = (BiFunction<Integer, Float, Integer>) (t, u) -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableBiFunction = ThrowableBiFunction.of(function);

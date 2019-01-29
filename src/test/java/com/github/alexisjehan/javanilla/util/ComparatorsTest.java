@@ -73,7 +73,7 @@ final class ComparatorsTest {
 
 	@Test
 	void testNormalize() {
-		final Comparator<Integer> comparator = (i1, i2) -> {
+		final var comparator = (Comparator<Integer>) (i1, i2) -> {
 			if (i1.equals(i2)) {
 				return 0;
 			}

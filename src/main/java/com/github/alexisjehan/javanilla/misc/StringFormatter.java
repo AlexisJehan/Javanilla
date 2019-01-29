@@ -68,7 +68,7 @@ public final class StringFormatter implements Serializable {
 		 * <p>Base value.</p>
 		 * @since 1.0.0
 		 */
-		final int base;
+		private final int base;
 
 		/**
 		 * <p>Enumeration constructor.</p>

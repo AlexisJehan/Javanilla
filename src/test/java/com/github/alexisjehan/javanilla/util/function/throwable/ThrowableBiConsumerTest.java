@@ -41,12 +41,12 @@ final class ThrowableBiConsumerTest {
 	@Test
 	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer1 = (t, u) -> list.add(Pair.of(t, u));
+		final var throwableBiConsumer1 = (ThrowableBiConsumer<Integer, Float, IOException>) (t, u) -> list.add(Pair.of(t, u));
 		throwableBiConsumer1.andThen((t, u) -> list.add(Pair.of(t + 1, u + 1.1f))).accept(1, 2.3f);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(2, 3.4f));
 
 		list.clear();
-		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer2 = (t, u) -> {
+		final var throwableBiConsumer2 = (ThrowableBiConsumer<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableBiConsumer1.andThen(throwableBiConsumer2).accept(1, 2.3f));
@@ -55,7 +55,7 @@ final class ThrowableBiConsumerTest {
 
 	@Test
 	void testAndThenInvalid() {
-		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer = (t, u) -> {
+		final var throwableBiConsumer = (ThrowableBiConsumer<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableBiConsumer.andThen(null));
@@ -64,12 +64,12 @@ final class ThrowableBiConsumerTest {
 	@Test
 	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer1 = (t, u) -> list.add(Pair.of(t, u));
+		final var throwableBiConsumer1 = (ThrowableBiConsumer<Integer, Float, IOException>) (t, u) -> list.add(Pair.of(t, u));
 		throwableBiConsumer1.accept(1, 2.3f);
 		ThrowableBiConsumer.unchecked(throwableBiConsumer1).accept(1, 2.3f);
 		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(1, 2.3f));
 
-		final ThrowableBiConsumer<Integer, Float, IOException> throwableBiConsumer2 = (t, u) -> {
+		final var throwableBiConsumer2 = (ThrowableBiConsumer<Integer, Float, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		final var consumer = ThrowableBiConsumer.unchecked(throwableBiConsumer2);
@@ -83,7 +83,7 @@ final class ThrowableBiConsumerTest {
 
 	@Test
 	void testOf() {
-		final BiConsumer<Integer, Float> biConsumer = (t, u) -> {
+		final var biConsumer = (BiConsumer<Integer, Float>) (t, u) -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableBiConsumer = ThrowableBiConsumer.of(biConsumer);

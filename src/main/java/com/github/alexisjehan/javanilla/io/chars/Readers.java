@@ -295,7 +295,7 @@ public final class Readers {
 	 * @throws NullPointerException if the {@code Reader} {@code List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	public static Reader concat(final List<Reader> readers) {
+	public static Reader concat(final List<? extends Reader> readers) {
 		Ensure.notNullAndNotNullElements("readers", readers);
 		final var size = readers.size();
 		if (0 == size) {
@@ -330,7 +330,7 @@ public final class Readers {
 	 * is {@code null}
 	 * @since 1.0.0
 	 */
-	public static Reader join(final char[] separator, final List<Reader> readers) {
+	public static Reader join(final char[] separator, final List<? extends Reader> readers) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("readers", readers);
 		if (0 == separator.length) {

@@ -39,12 +39,12 @@ final class ThrowableRunnableTest {
 	@Test
 	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableRunnable<IOException> throwableRunnable1 = () -> list.add(1);
+		final var throwableRunnable1 = (ThrowableRunnable<IOException>) () -> list.add(1);
 		throwableRunnable1.run();
 		ThrowableRunnable.unchecked(throwableRunnable1).run();
 		assertThat(list).contains(1, 1);
 
-		final ThrowableRunnable<IOException> throwableRunnable2 = () -> {
+		final var throwableRunnable2 = (ThrowableRunnable<IOException>) () -> {
 			throw new IOException();
 		};
 		final var runnable = ThrowableRunnable.unchecked(throwableRunnable2);
@@ -58,7 +58,7 @@ final class ThrowableRunnableTest {
 
 	@Test
 	void testOf() {
-		final Runnable runnable = () -> {
+		final var runnable = (Runnable) () -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableRunnable = ThrowableRunnable.of(runnable);

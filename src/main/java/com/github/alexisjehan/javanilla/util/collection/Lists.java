@@ -159,7 +159,7 @@ public final class Lists {
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> concat(final List<List<? extends E>> lists) {
+	public static <E> List<E> concat(final List<? extends List<? extends E>> lists) {
 		Ensure.notNullAndNotNullElements("lists", lists);
 		final var size = lists.size();
 		if (0 == size) {
@@ -198,7 +198,7 @@ public final class Lists {
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> join(final E[] separator, final List<List<? extends E>> lists) {
+	public static <E> List<E> join(final E[] separator, final List<? extends List<? extends E>> lists) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("lists", lists);
 		if (0 == separator.length) {

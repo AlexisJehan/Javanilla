@@ -38,7 +38,7 @@ public final class UncheckedSQLException extends RuntimeException {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 4304033435969570989L;
+	private static final long serialVersionUID = -2160005675208116831L;
 
 	/**
 	 * <p>Constructor with a checked cause.</p>
@@ -51,7 +51,7 @@ public final class UncheckedSQLException extends RuntimeException {
 	}
 
 	@Override
-	public SQLException getCause() {
+	public synchronized SQLException getCause() {
 		return (SQLException) super.getCause();
 	}
 }

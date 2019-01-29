@@ -101,9 +101,9 @@ final class SetsTest {
 
 	@Test
 	void testUnionInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.union((Collection<Set<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.union((Collection<Set<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>) null));
 	}
 
 	@Test
@@ -115,9 +115,9 @@ final class SetsTest {
 
 	@Test
 	void testIntersectInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Set<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Collection<Set<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Set<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Set<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Collection<Set<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Set<Integer>) null));
 	}
 
 	@Test

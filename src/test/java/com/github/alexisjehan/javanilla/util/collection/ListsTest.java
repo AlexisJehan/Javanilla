@@ -61,7 +61,7 @@ final class ListsTest {
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(Lists.emptyToNull((List<?>) null)).isNull();
+		assertThat(Lists.emptyToNull((List<Integer>) null)).isNull();
 		assertThat(Lists.emptyToNull(Collections.emptyList())).isNull();
 		assertThat(Lists.emptyToNull(Collections.singletonList("foo"))).containsExactly("foo");
 	}
@@ -113,9 +113,9 @@ final class ListsTest {
 
 	@Test
 	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<List<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<List<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.concat((List<Integer>) null));
 	}
 
 	@Test
@@ -129,8 +129,8 @@ final class ListsTest {
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Lists.join(null, List.of(1)));
-		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<List<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<List<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<Integer>) null));
 	}
 }

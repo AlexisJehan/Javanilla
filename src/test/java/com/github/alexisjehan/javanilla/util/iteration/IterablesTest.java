@@ -120,7 +120,7 @@ final class IterablesTest {
 
 	@Test
 	void testNullToEmpty() {
-		assertThat(Iterables.nullToEmpty((Iterable<?>) null)).isEmpty();
+		assertThat(Iterables.nullToEmpty((Iterable<Integer>) null)).isEmpty();
 		assertThat(Iterables.nullToEmpty(Iterables.empty())).isEmpty();
 		assertThat(Iterables.nullToEmpty(Iterables.singleton(1))).containsExactly(1);
 	}
@@ -305,9 +305,9 @@ final class IterablesTest {
 
 	@Test
 	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((Iterable<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((List<Iterable<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((Iterable<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((Iterable<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((List<Iterable<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((Iterable<Integer>) null));
 	}
 
 	@Test
@@ -321,9 +321,9 @@ final class IterablesTest {
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.join(null, Iterables.singleton(1)));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (Iterable<?>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (List<Iterable<?>>) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (Iterable<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (Iterable<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (List<Iterable<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (Iterable<Integer>) null));
 	}
 
 	@Test
@@ -495,7 +495,7 @@ final class IterablesTest {
 
 	@Test
 	void testWrapStreamInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterables.wrap((Stream<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.wrap((Stream<Integer>) null));
 	}
 
 	@Test
@@ -543,6 +543,6 @@ final class IterablesTest {
 
 	@Test
 	void testWrapIteratorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Iterables.wrap((Iterator<?>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.wrap((Iterator<Integer>) null));
 	}
 }

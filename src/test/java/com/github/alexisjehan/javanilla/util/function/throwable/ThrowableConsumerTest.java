@@ -40,12 +40,12 @@ final class ThrowableConsumerTest {
 	@Test
 	void testAndThen() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableConsumer<Integer, IOException> throwableConsumer1 = list::add;
+		final var throwableConsumer1 = (ThrowableConsumer<Integer, IOException>) list::add;
 		throwableConsumer1.andThen(t -> list.add(t + 1)).accept(1);
 		assertThat(list).contains(1, 2);
 
 		list.clear();
-		final ThrowableConsumer<Integer, IOException> throwableConsumer2 = t -> {
+		final var throwableConsumer2 = (ThrowableConsumer<Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatIOException().isThrownBy(() -> throwableConsumer1.andThen(throwableConsumer2).accept(1));
@@ -54,7 +54,7 @@ final class ThrowableConsumerTest {
 
 	@Test
 	void testAndThenInvalid() {
-		final ThrowableConsumer<Integer, IOException> throwableConsumer = t -> {
+		final var throwableConsumer = (ThrowableConsumer<Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableConsumer.andThen(null));
@@ -63,12 +63,12 @@ final class ThrowableConsumerTest {
 	@Test
 	void testUnchecked() throws IOException {
 		final var list = new ArrayList<>();
-		final ThrowableConsumer<Integer, IOException> throwableConsumer1 = list::add;
+		final var throwableConsumer1 = (ThrowableConsumer<Integer, IOException>) list::add;
 		throwableConsumer1.accept(1);
 		ThrowableConsumer.unchecked(throwableConsumer1).accept(1);
 		assertThat(list).contains(1, 1);
 
-		final ThrowableConsumer<Integer, IOException> throwableConsumer2 = t -> {
+		final var throwableConsumer2 = (ThrowableConsumer<Integer, IOException>) t -> {
 			throw new IOException();
 		};
 		final var consumer = ThrowableConsumer.unchecked(throwableConsumer2);
@@ -82,7 +82,7 @@ final class ThrowableConsumerTest {
 
 	@Test
 	void testOf() {
-		final Consumer<Integer> consumer = t -> {
+		final var consumer = (Consumer<Integer>) t -> {
 			throw new UncheckedIOException(new IOException());
 		};
 		final var throwableConsumer = ThrowableConsumer.of(consumer);

@@ -216,7 +216,7 @@ public final class InputStreams {
 	 * @throws NullPointerException if the {@code InputStream} {@code List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	public static InputStream concat(final List<InputStream> inputStreams) {
+	public static InputStream concat(final List<? extends InputStream> inputStreams) {
 		Ensure.notNullAndNotNullElements("inputStreams", inputStreams);
 		final var size = inputStreams.size();
 		if (0 == size) {
@@ -251,7 +251,7 @@ public final class InputStreams {
 	 * them is {@code null}
 	 * @since 1.0.0
 	 */
-	public static InputStream join(final byte[] separator, final List<InputStream> inputStreams) {
+	public static InputStream join(final byte[] separator, final List<? extends InputStream> inputStreams) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("inputStreams", inputStreams);
 		if (0 == separator.length) {
