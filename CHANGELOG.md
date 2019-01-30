@@ -5,6 +5,43 @@
 **lang.Strings**
 - Added new _split()_ methods
 
+**lang.array.BooleanArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.ByteArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.CharArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.DoubleArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.FloatArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.IntArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.LongArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
+**lang.array.ObjectArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+- Changed _join()_ methods
+
+**lang.array.ShortArrays**
+- Added _add()_ methods
+- Added the _remove()_ method
+
 **misc.quality.Ensure**
 - Added the _notNullAndMatches()_ method
 

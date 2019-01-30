@@ -400,6 +400,65 @@ public final class CharArrays {
 	}
 
 	/**
+	 * <p>Add a {@code char} value at the end of the given {@code char} array.</p>
+	 * @param array the {@code char} array to add to
+	 * @param value the {@code char} value to add
+	 * @return a {@code char} array with the added {@code char} value
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @since 1.3.2
+	 */
+	public static char[] add(final char[] array, final char value) {
+		Ensure.notNull("array", array);
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code char} value at the provided index of the given {@code char} array.</p>
+	 * @param array the {@code char} array to add to
+	 * @param index the index of the {@code char} value
+	 * @param value the {@code char} value to add
+	 * @return a {@code char} array with the added {@code char} value
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static char[] add(final char[] array, final int index, final char value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new char[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code char} value at the provided index of the given {@code char} array.</p>
+	 * @param array the {@code char} array to remove from
+	 * @param index the index of the {@code char} value
+	 * @return a {@code char} array with the removed {@code char} value
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code char} array is empty or if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static char[] remove(final char[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new char[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
 	 * <p>Concatenate multiple {@code char} arrays.</p>
 	 * @param arrays the {@code char} array array to concatenate
 	 * @return the concatenated {@code char} array

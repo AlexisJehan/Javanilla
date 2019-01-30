@@ -400,6 +400,65 @@ public final class LongArrays {
 	}
 
 	/**
+	 * <p>Add a {@code long} value at the end of the given {@code long} array.</p>
+	 * @param array the {@code long} array to add to
+	 * @param value the {@code long} value to add
+	 * @return a {@code long} array with the added {@code long} value
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @since 1.3.2
+	 */
+	public static long[] add(final long[] array, final long value) {
+		Ensure.notNull("array", array);
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * @param array the {@code long} array to add to
+	 * @param index the index of the {@code long} value
+	 * @param value the {@code long} value to add
+	 * @return a {@code long} array with the added {@code long} value
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static long[] add(final long[] array, final int index, final long value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new long[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * @param array the {@code long} array to remove from
+	 * @param index the index of the {@code long} value
+	 * @return a {@code long} array with the removed {@code long} value
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code long} array is empty or if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static long[] remove(final long[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new long[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
 	 * <p>Concatenate multiple {@code long} arrays.</p>
 	 * @param arrays the {@code long} array array to concatenate
 	 * @return the concatenated {@code long} array

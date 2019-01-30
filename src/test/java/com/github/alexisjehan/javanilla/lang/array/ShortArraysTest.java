@@ -300,6 +300,40 @@ final class ShortArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(ShortArrays.add(ShortArrays.EMPTY, (short) 0)).containsExactly((short) 0);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 0, (short) 0)).containsExactly((short) 0, (short) 1, (short) 2, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 1, (short) 0)).containsExactly((short) 1, (short) 0, (short) 2, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 2, (short) 0)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 3, (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, (short) 0));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.singleton((short) 1), -1, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.singleton((short) 1), 2, (short) 0));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(ShortArrays.remove(ShortArrays.singleton((short) 1), 0)).isEmpty();
+		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 0)).containsExactly((short) 2, (short) 3);
+		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 1)).containsExactly((short) 1, (short) 3);
+		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 2)).containsExactly((short) 1, (short) 2);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.singleton((short) 1), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.singleton((short) 1), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(ShortArrays.concat()).isEmpty();
 		assertThat(ShortArrays.concat(ShortArrays.singleton((short) 1))).containsExactly((short) 1);

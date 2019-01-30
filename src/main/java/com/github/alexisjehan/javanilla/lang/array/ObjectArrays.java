@@ -425,6 +425,70 @@ public final class ObjectArrays {
 	}
 
 	/**
+	 * <p>Add an {@code Object} value at the end of the given {@code Object} array.</p>
+	 * @param array the {@code Object} array to add to
+	 * @param value the {@code Object} value to add
+	 * @param <E> the {@code Object} type
+	 * @return an {@code Object} array with the added {@code Object} value
+	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @since 1.3.2
+	 */
+	public static <E> E[] add(final E[] array, final E value) {
+		Ensure.notNull("array", array);
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add an {@code Object} value at the provided index of the given {@code Object} array.</p>
+	 * @param array the {@code Object} array to add to
+	 * @param index the index of the {@code Object} value
+	 * @param value the {@code Object} value to add
+	 * @param <E> the {@code Object} type
+	 * @return an {@code Object} array with the added {@code Object} value
+	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static <E> E[] add(final E[] array, final int index, final E value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		@SuppressWarnings("unchecked")
+		final var result = (E[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove an {@code Object} value at the provided index of the given {@code Object} array.</p>
+	 * @param array the {@code Object} array to remove from
+	 * @param index the index of the {@code Object} value
+	 * @param <E> the {@code Object} type
+	 * @return an {@code Object} array with the removed {@code Object} value
+	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code Object} array is empty or if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static <E> E[] remove(final E[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		@SuppressWarnings("unchecked")
+		final var result = (E[]) Array.newInstance(array.getClass().getComponentType(), array.length - 1);
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
 	 * <p>Concatenate multiple {@code Object} arrays.</p>
 	 * @param classType the {@code Class} type
 	 * @param arrays the {@code Object} array array to concatenate
@@ -472,37 +536,35 @@ public final class ObjectArrays {
 
 	/**
 	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
-	 * @param classType the {@code Class} type
 	 * @param separator the {@code Object} array separator
 	 * @param arrays the {@code Object} array array to join
 	 * @param <E> the {@code Object} type
 	 * @return the joined {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
-	 * array array or any of them is {@code null}
+	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array array or any of them
+	 * is {@code null}
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
-	public static <E> E[] join(final Class<E> classType, final E[] separator, final E[]... arrays) {
+	public static <E> E[] join(final E[] separator, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return join(classType, separator, List.of(arrays));
+		return join(separator, List.of(arrays));
 	}
 
 	/**
 	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
-	 * @param classType the {@code Class} type
 	 * @param separator the {@code Object} array separator
 	 * @param arrays the {@code Object} array {@code List} to join
 	 * @param <E> the {@code Object} type
 	 * @return the joined {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
-	 * array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array {@code List} or any
+	 * of them is {@code null}
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> E[] join(final Class<E> classType, final E[] separator, final List<E[]> arrays) {
-		Ensure.notNull("classType", classType);
+	public static <E> E[] join(final E[] separator, final List<E[]> arrays) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("arrays", arrays);
+		final var classType = (Class<E>) separator.getClass().getComponentType();
 		if (isEmpty(separator)) {
 			return concat(classType, arrays);
 		}

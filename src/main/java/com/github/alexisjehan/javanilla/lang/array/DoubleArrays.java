@@ -401,6 +401,65 @@ public final class DoubleArrays {
 	}
 
 	/**
+	 * <p>Add a {@code double} value at the end of the given {@code double} array.</p>
+	 * @param array the {@code double} array to add to
+	 * @param value the {@code double} value to add
+	 * @return a {@code double} array with the added {@code double} value
+	 * @throws NullPointerException if the {@code double} array is {@code null}
+	 * @since 1.3.2
+	 */
+	public static double[] add(final double[] array, final double value) {
+		Ensure.notNull("array", array);
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code double} value at the provided index of the given {@code double} array.</p>
+	 * @param array the {@code double} array to add to
+	 * @param index the index of the {@code double} value
+	 * @param value the {@code double} value to add
+	 * @return a {@code double} array with the added {@code double} value
+	 * @throws NullPointerException if the {@code double} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static double[] add(final double[] array, final int index, final double value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new double[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code double} value at the provided index of the given {@code double} array.</p>
+	 * @param array the {@code double} array to remove from
+	 * @param index the index of the {@code double} value
+	 * @return a {@code double} array with the removed {@code double} value
+	 * @throws NullPointerException if the {@code double} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code double} array is empty or if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static double[] remove(final double[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new double[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
 	 * <p>Concatenate multiple {@code double} arrays.</p>
 	 * @param arrays the {@code double} array array to concatenate
 	 * @return the concatenated {@code double} array

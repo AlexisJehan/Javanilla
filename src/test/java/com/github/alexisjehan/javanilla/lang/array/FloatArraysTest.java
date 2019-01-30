@@ -300,6 +300,40 @@ final class FloatArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(FloatArrays.add(FloatArrays.EMPTY, 0.0f)).containsExactly(0.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0, 0.0f)).containsExactly(0.0f, 1.0f, 2.0f, 3.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 1, 0.0f)).containsExactly(1.0f, 0.0f, 2.0f, 3.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 2, 0.0f)).containsExactly(1.0f, 2.0f, 0.0f, 3.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 3, 0.0f)).containsExactly(1.0f, 2.0f, 3.0f, 0.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0.0f)).containsExactly(1.0f, 2.0f, 3.0f, 0.0f);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0.0f));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0, 0.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.singleton(1), -1, 0.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.singleton(1), 2, 0.0f));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(FloatArrays.remove(FloatArrays.singleton(1.0f), 0)).isEmpty();
+		assertThat(FloatArrays.remove(FloatArrays.of(1.0f, 2.0f, 3.0f), 0)).containsExactly(2.0f, 3.0f);
+		assertThat(FloatArrays.remove(FloatArrays.of(1.0f, 2.0f, 3.0f), 1)).containsExactly(1.0f, 3.0f);
+		assertThat(FloatArrays.remove(FloatArrays.of(1.0f, 2.0f, 3.0f), 2)).containsExactly(1.0f, 2.0f);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.singleton(1.0f), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.singleton(1.0f), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(FloatArrays.concat()).isEmpty();
 		assertThat(FloatArrays.concat(FloatArrays.singleton(1.0f))).containsExactly(1.0f);

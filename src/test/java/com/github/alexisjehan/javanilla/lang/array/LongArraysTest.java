@@ -300,6 +300,40 @@ final class LongArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(LongArrays.add(LongArrays.EMPTY, 0L)).containsExactly(0L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0, 0L)).containsExactly(0L, 1L, 2L, 3L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 1, 0L)).containsExactly(1L, 0L, 2L, 3L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 2, 0L)).containsExactly(1L, 2L, 0L, 3L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 3, 0L)).containsExactly(1L, 2L, 3L, 0L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0L)).containsExactly(1L, 2L, 3L, 0L);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0L));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.singleton(1), -1, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.singleton(1), 2, 0L));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(LongArrays.remove(LongArrays.singleton(1L), 0)).isEmpty();
+		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 0)).containsExactly(2L, 3L);
+		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 1)).containsExactly(1L, 3L);
+		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 2)).containsExactly(1L, 2L);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.singleton(1), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.singleton(1), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(LongArrays.concat()).isEmpty();
 		assertThat(LongArrays.concat(LongArrays.singleton(1L))).containsExactly(1L);

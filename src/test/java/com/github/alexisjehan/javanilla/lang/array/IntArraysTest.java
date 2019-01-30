@@ -300,6 +300,40 @@ final class IntArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(IntArrays.add(IntArrays.EMPTY, 0)).containsExactly(0);
+		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
+		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 1, 0)).containsExactly(1, 0, 2, 3);
+		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 2, 0)).containsExactly(1, 2, 0, 3);
+		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 3, 0)).containsExactly(1, 2, 3, 0);
+		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 0)).containsExactly(1, 2, 3, 0);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.singleton(1), -1, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.singleton(1), 2, 0));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(IntArrays.remove(IntArrays.singleton(1), 0)).isEmpty();
+		assertThat(IntArrays.remove(IntArrays.of(1, 2, 3), 0)).containsExactly(2, 3);
+		assertThat(IntArrays.remove(IntArrays.of(1, 2, 3), 1)).containsExactly(1, 3);
+		assertThat(IntArrays.remove(IntArrays.of(1, 2, 3), 2)).containsExactly(1, 2);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.singleton(1), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.singleton(1), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(IntArrays.concat()).isEmpty();
 		assertThat(IntArrays.concat(IntArrays.singleton(1))).containsExactly(1);

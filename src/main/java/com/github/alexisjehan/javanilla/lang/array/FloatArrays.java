@@ -400,6 +400,65 @@ public final class FloatArrays {
 	}
 
 	/**
+	 * <p>Add a {@code float} value at the end of the given {@code float} array.</p>
+	 * @param array the {@code float} array to add to
+	 * @param value the {@code float} value to add
+	 * @return a {@code float} array with the added {@code float} value
+	 * @throws NullPointerException if the {@code float} array is {@code null}
+	 * @since 1.3.2
+	 */
+	public static float[] add(final float[] array, final float value) {
+		Ensure.notNull("array", array);
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code float} value at the provided index of the given {@code float} array.</p>
+	 * @param array the {@code float} array to add to
+	 * @param index the index of the {@code float} value
+	 * @param value the {@code float} value to add
+	 * @return a {@code float} array with the added {@code float} value
+	 * @throws NullPointerException if the {@code float} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static float[] add(final float[] array, final int index, final float value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new float[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code float} value at the provided index of the given {@code float} array.</p>
+	 * @param array the {@code float} array to remove from
+	 * @param index the index of the {@code float} value
+	 * @return a {@code float} array with the removed {@code float} value
+	 * @throws NullPointerException if the {@code float} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code float} array is empty or if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static float[] remove(final float[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new float[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
 	 * <p>Concatenate multiple {@code float} arrays.</p>
 	 * @param arrays the {@code float} array array to concatenate
 	 * @return the concatenated {@code float} array

@@ -300,6 +300,40 @@ final class DoubleArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(DoubleArrays.add(DoubleArrays.EMPTY, 0.0d)).containsExactly(0.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0, 0.0d)).containsExactly(0.0d, 1.0d, 2.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1, 0.0d)).containsExactly(1.0d, 0.0d, 2.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2, 0.0d)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 3, 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0.0d));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.singleton(1), -1, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.singleton(1), 2, 0.0d));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(DoubleArrays.remove(DoubleArrays.singleton(1.0d), 0)).isEmpty();
+		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0)).containsExactly(2.0d, 3.0d);
+		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1)).containsExactly(1.0d, 3.0d);
+		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2)).containsExactly(1.0d, 2.0d);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.singleton(1.0d), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.singleton(1.0d), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(DoubleArrays.concat()).isEmpty();
 		assertThat(DoubleArrays.concat(DoubleArrays.singleton(1.0d))).containsExactly(1.0d);

@@ -300,6 +300,40 @@ final class CharArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(CharArrays.add(CharArrays.EMPTY, '-')).containsExactly('-');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 0, '-')).containsExactly('-', 'a', 'b', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 1, '-')).containsExactly('a', '-', 'b', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 2, '-')).containsExactly('a', 'b', '-', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 3, '-')).containsExactly('a', 'b', 'c', '-');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-')).containsExactly('a', 'b', 'c', '-');
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, '-'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.singleton('a'), -1, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.singleton('a'), 2, '-'));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(CharArrays.remove(CharArrays.singleton('a'), 0)).isEmpty();
+		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 0)).containsExactly('b', 'c');
+		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 1)).containsExactly('a', 'c');
+		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 2)).containsExactly('a', 'b');
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.singleton('a'), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.singleton('a'), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(CharArrays.concat()).isEmpty();
 		assertThat(CharArrays.concat(CharArrays.singleton('a'))).containsExactly('a');

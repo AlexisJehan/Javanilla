@@ -302,6 +302,40 @@ final class ByteArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(ByteArrays.add(ByteArrays.EMPTY, (byte) 0)).containsExactly((byte) 0);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 0, (byte) 0)).containsExactly((byte) 0, (byte) 1, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 1, (byte) 0)).containsExactly((byte) 1, (byte) 0, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 2, (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 0, (byte) 3);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 3, (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, (byte) 0));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, 0, (byte) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.singleton((byte) 1), -1, (byte) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.singleton((byte) 1), 2, (byte) 0));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(ByteArrays.remove(ByteArrays.singleton((byte) 1), 0)).isEmpty();
+		assertThat(ByteArrays.remove(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 0)).containsExactly((byte) 2, (byte) 3);
+		assertThat(ByteArrays.remove(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 1)).containsExactly((byte) 1, (byte) 3);
+		assertThat(ByteArrays.remove(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 2)).containsExactly((byte) 1, (byte) 2);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.remove(ByteArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.remove(ByteArrays.singleton((byte) 1), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.remove(ByteArrays.singleton((byte) 1), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(ByteArrays.concat()).isEmpty();
 		assertThat(ByteArrays.concat(ByteArrays.singleton((byte) 1))).containsExactly((byte) 1);

@@ -300,6 +300,40 @@ final class BooleanArraysTest {
 	}
 
 	@Test
+	void testAdd() {
+		assertThat(BooleanArrays.add(BooleanArrays.EMPTY, false)).containsExactly(false);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 0, false)).containsExactly(false, true, true, true);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 1, false)).containsExactly(true, false, true, true);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 2, false)).containsExactly(true, true, false, true);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 3, false)).containsExactly(true, true, true, false);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false)).containsExactly(true, true, true, false);
+	}
+
+	@Test
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, false));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, 0, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.singleton(true), -1, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.singleton(true), 2, false));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(BooleanArrays.remove(BooleanArrays.singleton(true), 0)).isEmpty();
+		assertThat(BooleanArrays.remove(BooleanArrays.of(true, false, true), 0)).containsExactly(false, true);
+		assertThat(BooleanArrays.remove(BooleanArrays.of(true, false, true), 1)).containsExactly(true, true);
+		assertThat(BooleanArrays.remove(BooleanArrays.of(true, false, true), 2)).containsExactly(true, false);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.singleton(true), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.singleton(true), 1));
+	}
+
+	@Test
 	void testConcat() {
 		assertThat(BooleanArrays.concat()).isEmpty();
 		assertThat(BooleanArrays.concat(BooleanArrays.singleton(true))).containsExactly(true);

@@ -400,6 +400,65 @@ public final class ShortArrays {
 	}
 
 	/**
+	 * <p>Add a {@code short} value at the end of the given {@code short} array.</p>
+	 * @param array the {@code short} array to add to
+	 * @param value the {@code short} value to add
+	 * @return a {@code short} array with the added {@code short} value
+	 * @throws NullPointerException if the {@code short} array is {@code null}
+	 * @since 1.3.2
+	 */
+	public static short[] add(final short[] array, final short value) {
+		Ensure.notNull("array", array);
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code short} value at the provided index of the given {@code short} array.</p>
+	 * @param array the {@code short} array to add to
+	 * @param index the index of the {@code short} value
+	 * @param value the {@code short} value to add
+	 * @return a {@code short} array with the added {@code short} value
+	 * @throws NullPointerException if the {@code short} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static short[] add(final short[] array, final int index, final short value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new short[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code short} value at the provided index of the given {@code short} array.</p>
+	 * @param array the {@code short} array to remove from
+	 * @param index the index of the {@code short} value
+	 * @return a {@code short} array with the removed {@code short} value
+	 * @throws NullPointerException if the {@code short} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code short} array is empty or if the index is not valid
+	 * @since 1.3.2
+	 */
+	public static short[] remove(final short[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new short[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
 	 * <p>Concatenate multiple {@code short} arrays.</p>
 	 * @param arrays the {@code short} array array to concatenate
 	 * @return the concatenated {@code short} array
