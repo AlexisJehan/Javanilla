@@ -431,7 +431,7 @@ public final class ObjectArrays {
 	 * @param <E> the {@code Object} type
 	 * @return an {@code Object} array with the added {@code Object} value
 	 * @throws NullPointerException if the {@code Object} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static <E> E[] add(final E[] array, final E value) {
 		Ensure.notNull("array", array);
@@ -447,7 +447,7 @@ public final class ObjectArrays {
 	 * @return an {@code Object} array with the added {@code Object} value
 	 * @throws NullPointerException if the {@code Object} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static <E> E[] add(final E[] array, final int index, final E value) {
 		Ensure.notNull("array", array);
@@ -472,7 +472,7 @@ public final class ObjectArrays {
 	 * @return an {@code Object} array with the removed {@code Object} value
 	 * @throws NullPointerException if the {@code Object} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code Object} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static <E> E[] remove(final E[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);
@@ -536,6 +536,25 @@ public final class ObjectArrays {
 
 	/**
 	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
+	 * @param classType the {@code Class} type
+	 * @param separator the {@code Object} array separator
+	 * @param arrays the {@code Object} array array to join
+	 * @param <E> the {@code Object} type
+	 * @return the joined {@code Object} array
+	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
+	 * array array or any of them is {@code null}
+	 * @since 1.2.0
+	 * @deprecated use {@link #join(Object[], Object[][])} instead
+	 */
+	@SafeVarargs
+	@Deprecated(since = "1.4.0", forRemoval = true)
+	public static <E> E[] join(final Class<E> classType, final E[] separator, final E[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(classType, separator, List.of(arrays));
+	}
+
+	/**
+	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
 	 * @param separator the {@code Object} array separator
 	 * @param arrays the {@code Object} array array to join
 	 * @param <E> the {@code Object} type
@@ -548,6 +567,49 @@ public final class ObjectArrays {
 	public static <E> E[] join(final E[] separator, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
 		return join(separator, List.of(arrays));
+	}
+
+	/**
+	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
+	 * @param classType the {@code Class} type
+	 * @param separator the {@code Object} array separator
+	 * @param arrays the {@code Object} array {@code List} to join
+	 * @param <E> the {@code Object} type
+	 * @return the joined {@code Object} array
+	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
+	 * array {@code List} or any of them is {@code null}
+	 * @since 1.2.0
+	 * @deprecated use {@link #join(Object[], List)} instead
+	 */
+	@SuppressWarnings("unchecked")
+	@Deprecated(since = "1.4.0", forRemoval = true)
+	public static <E> E[] join(final Class<E> classType, final E[] separator, final List<E[]> arrays) {
+		Ensure.notNull("classType", classType);
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		if (isEmpty(separator)) {
+			return concat(classType, arrays);
+		}
+		final var size = arrays.size();
+		if (0 == size) {
+			return empty(classType);
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = (E[]) Array.newInstance(classType, arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length);
+		final var iterator = arrays.iterator();
+		var array = iterator.next();
+		System.arraycopy(array, 0, result, 0, array.length);
+		var offset = array.length;
+		while (iterator.hasNext()) {
+			System.arraycopy(separator, 0, result, offset, separator.length);
+			offset += separator.length;
+			array = iterator.next();
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
 	}
 
 	/**

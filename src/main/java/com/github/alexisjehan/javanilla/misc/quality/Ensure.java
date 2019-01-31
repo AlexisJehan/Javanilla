@@ -360,26 +360,6 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code CharSequence} is not {@code null} and matches the given {@code Pattern}.</p>
-	 * @param name the name of the {@code CharSequence}
-	 * @param charSequence the {@code CharSequence} to validate
-	 * @param pattern the {@code Pattern}
-	 * @param <C> the {@code CharSequence} type
-	 * @return the validated {@code CharSequence}
-	 * @throws NullPointerException if the name, the {@code CharSequence} or the {@code Pattern} is {@code null}
-	 * @throws IllegalArgumentException if the {@code CharSequence} does not match the {@code Pattern}
-	 * @since 1.3.2
-	 */
-	public static <C extends CharSequence> C notNullAndMatches(final String name, final C charSequence, final Pattern pattern) {
-		notNull(name, charSequence);
-		notNull("pattern", pattern);
-		if (!pattern.matcher(charSequence).matches()) {
-			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(charSequence) + " (matching " + ToString.toString(pattern) + " expected)");
-		}
-		return charSequence;
-	}
-
-	/**
 	 * <p>Ensure the {@code CharSequence} is not {@code null} and not blank.</p>
 	 * @param name the name of the {@code CharSequence}
 	 * @param charSequence the {@code CharSequence} to validate
@@ -393,6 +373,26 @@ public final class Ensure {
 		notNull(name, charSequence);
 		if (Strings.isBlank(charSequence)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(charSequence) + " (not blank expected)");
+		}
+		return charSequence;
+	}
+
+	/**
+	 * <p>Ensure the {@code CharSequence} is not {@code null} and matches the given {@code Pattern}.</p>
+	 * @param name the name of the {@code CharSequence}
+	 * @param charSequence the {@code CharSequence} to validate
+	 * @param pattern the {@code Pattern}
+	 * @param <C> the {@code CharSequence} type
+	 * @return the validated {@code CharSequence}
+	 * @throws NullPointerException if the name, the {@code CharSequence} or the {@code Pattern} is {@code null}
+	 * @throws IllegalArgumentException if the {@code CharSequence} does not match the {@code Pattern}
+	 * @since 1.4.0
+	 */
+	public static <C extends CharSequence> C notNullAndMatches(final String name, final C charSequence, final Pattern pattern) {
+		notNull(name, charSequence);
+		notNull("pattern", pattern);
+		if (!pattern.matcher(charSequence).matches()) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(charSequence) + " (matching " + ToString.toString(pattern) + " expected)");
 		}
 		return charSequence;
 	}

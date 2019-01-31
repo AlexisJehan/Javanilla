@@ -409,7 +409,7 @@ public final class BooleanArrays {
 	 * @param value the {@code boolean} value to add
 	 * @return a {@code boolean} array with the added {@code boolean} value
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static boolean[] add(final boolean[] array, final boolean value) {
 		Ensure.notNull("array", array);
@@ -424,7 +424,7 @@ public final class BooleanArrays {
 	 * @return a {@code boolean} array with the added {@code boolean} value
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static boolean[] add(final boolean[] array, final int index, final boolean value) {
 		Ensure.notNull("array", array);
@@ -447,7 +447,7 @@ public final class BooleanArrays {
 	 * @return a {@code boolean} array with the removed {@code boolean} value
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code boolean} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static boolean[] remove(final boolean[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

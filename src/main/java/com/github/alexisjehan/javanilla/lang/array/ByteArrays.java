@@ -419,7 +419,7 @@ public final class ByteArrays {
 	 * @param value the {@code byte} value to add
 	 * @return a {@code byte} array with the added {@code byte} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static byte[] add(final byte[] array, final byte value) {
 		Ensure.notNull("array", array);
@@ -434,7 +434,7 @@ public final class ByteArrays {
 	 * @return a {@code byte} array with the added {@code byte} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static byte[] add(final byte[] array, final int index, final byte value) {
 		Ensure.notNull("array", array);
@@ -457,7 +457,7 @@ public final class ByteArrays {
 	 * @return a {@code byte} array with the removed {@code byte} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static byte[] remove(final byte[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

@@ -405,7 +405,7 @@ public final class LongArrays {
 	 * @param value the {@code long} value to add
 	 * @return a {@code long} array with the added {@code long} value
 	 * @throws NullPointerException if the {@code long} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static long[] add(final long[] array, final long value) {
 		Ensure.notNull("array", array);
@@ -420,7 +420,7 @@ public final class LongArrays {
 	 * @return a {@code long} array with the added {@code long} value
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static long[] add(final long[] array, final int index, final long value) {
 		Ensure.notNull("array", array);
@@ -443,7 +443,7 @@ public final class LongArrays {
 	 * @return a {@code long} array with the removed {@code long} value
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code long} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static long[] remove(final long[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

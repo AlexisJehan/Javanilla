@@ -4,11 +4,11 @@
 
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.3.2-SNAPSHOT</version>
+	<version>1.4.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Javanilla</name>
-	<description>A Java 10 lightweight utility library to enhance the Java standard API.</description>
+	<description>A Java 10+ lightweight utility library to enhance the Java standard API.</description>
 	<url>https://github.com/alexisjehan/javanilla</url>
 	<inceptionYear>2018</inceptionYear>
 	<licenses>
@@ -191,7 +191,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
+				<version>0.8.3</version>
 				<configuration>
 					<excludes>
 						<exclude>**/benchmarks/**</exclude>

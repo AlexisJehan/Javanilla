@@ -405,7 +405,7 @@ public final class CharArrays {
 	 * @param value the {@code char} value to add
 	 * @return a {@code char} array with the added {@code char} value
 	 * @throws NullPointerException if the {@code char} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static char[] add(final char[] array, final char value) {
 		Ensure.notNull("array", array);
@@ -420,7 +420,7 @@ public final class CharArrays {
 	 * @return a {@code char} array with the added {@code char} value
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static char[] add(final char[] array, final int index, final char value) {
 		Ensure.notNull("array", array);
@@ -443,7 +443,7 @@ public final class CharArrays {
 	 * @return a {@code char} array with the removed {@code char} value
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code char} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static char[] remove(final char[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

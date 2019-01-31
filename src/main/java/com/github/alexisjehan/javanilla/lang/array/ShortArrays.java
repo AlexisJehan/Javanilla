@@ -405,7 +405,7 @@ public final class ShortArrays {
 	 * @param value the {@code short} value to add
 	 * @return a {@code short} array with the added {@code short} value
 	 * @throws NullPointerException if the {@code short} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static short[] add(final short[] array, final short value) {
 		Ensure.notNull("array", array);
@@ -420,7 +420,7 @@ public final class ShortArrays {
 	 * @return a {@code short} array with the added {@code short} value
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static short[] add(final short[] array, final int index, final short value) {
 		Ensure.notNull("array", array);
@@ -443,7 +443,7 @@ public final class ShortArrays {
 	 * @return a {@code short} array with the removed {@code short} value
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code short} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static short[] remove(final short[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

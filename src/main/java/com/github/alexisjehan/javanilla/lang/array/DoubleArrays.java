@@ -406,7 +406,7 @@ public final class DoubleArrays {
 	 * @param value the {@code double} value to add
 	 * @return a {@code double} array with the added {@code double} value
 	 * @throws NullPointerException if the {@code double} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static double[] add(final double[] array, final double value) {
 		Ensure.notNull("array", array);
@@ -421,7 +421,7 @@ public final class DoubleArrays {
 	 * @return a {@code double} array with the added {@code double} value
 	 * @throws NullPointerException if the {@code double} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static double[] add(final double[] array, final int index, final double value) {
 		Ensure.notNull("array", array);
@@ -444,7 +444,7 @@ public final class DoubleArrays {
 	 * @return a {@code double} array with the removed {@code double} value
 	 * @throws NullPointerException if the {@code double} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static double[] remove(final double[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

@@ -405,7 +405,7 @@ public final class FloatArrays {
 	 * @param value the {@code float} value to add
 	 * @return a {@code float} array with the added {@code float} value
 	 * @throws NullPointerException if the {@code float} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static float[] add(final float[] array, final float value) {
 		Ensure.notNull("array", array);
@@ -420,7 +420,7 @@ public final class FloatArrays {
 	 * @return a {@code float} array with the added {@code float} value
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static float[] add(final float[] array, final int index, final float value) {
 		Ensure.notNull("array", array);
@@ -443,7 +443,7 @@ public final class FloatArrays {
 	 * @return a {@code float} array with the removed {@code float} value
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code float} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static float[] remove(final float[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);

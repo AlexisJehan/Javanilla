@@ -6,7 +6,7 @@
 [![Codecov](https://img.shields.io/codecov/c/github/alexisjehan/javanilla.svg)](https://codecov.io/gh/alexisjehan/javanilla)
 [![License](https://img.shields.io/github/license/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla/blob/master/LICENSE.txt)
 
-A _Java 10_ lightweight utility library to enhance the Java standard API.
+A _Java 10+_ lightweight utility library to enhance the Java standard API.
 
 ## Introduction
 **Javanilla** has been made to improve the developer experience with Java, in fact it provides lot of easy-to-use

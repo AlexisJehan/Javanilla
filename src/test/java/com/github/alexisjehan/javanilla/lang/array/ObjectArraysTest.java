@@ -357,6 +357,11 @@ final class ObjectArraysTest {
 
 	@Test
 	void testJoin() {
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.empty(Integer.class), ObjectArrays.singleton(1), ObjectArrays.singleton(Integer.class, null))).containsExactly(1, null);
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0))).isEmpty();
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), ObjectArrays.singleton(1))).containsExactly(1);
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), ObjectArrays.singleton(1), ObjectArrays.singleton(Integer.class, null))).containsExactly(1, 0, null);
+
 		assertThat(ObjectArrays.join(ObjectArrays.empty(Integer.class), ObjectArrays.singleton(1), ObjectArrays.singleton(Integer.class, null))).containsExactly(1, null);
 		assertThat(ObjectArrays.join(ObjectArrays.singleton(0))).isEmpty();
 		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), ObjectArrays.singleton(1))).containsExactly(1);
@@ -365,7 +370,13 @@ final class ObjectArraysTest {
 
 	@Test
 	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(null, ObjectArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Class<Integer>) null, ObjectArrays.singleton(0), ObjectArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, null, ObjectArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), (Integer[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), (List<Integer[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), (Integer[]) null));
+
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Integer[]) null, ObjectArrays.singleton(1)));
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.singleton(0), (Integer[][]) null));
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.singleton(0), (List<Integer[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.singleton(0), (Integer[]) null));

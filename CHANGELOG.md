@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.2 _(in progress)_
+## 1.4.0 _(in progress)_
 
 **lang.Strings**
 - Added new _split()_ methods

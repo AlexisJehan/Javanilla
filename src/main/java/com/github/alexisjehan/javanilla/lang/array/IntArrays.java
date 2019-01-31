@@ -405,7 +405,7 @@ public final class IntArrays {
 	 * @param value the {@code int} value to add
 	 * @return an {@code int} array with the added {@code int} value
 	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static int[] add(final int[] array, final int value) {
 		Ensure.notNull("array", array);
@@ -420,7 +420,7 @@ public final class IntArrays {
 	 * @return an {@code int} array with the added {@code int} value
 	 * @throws NullPointerException if the {@code int} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static int[] add(final int[] array, final int index, final int value) {
 		Ensure.notNull("array", array);
@@ -443,7 +443,7 @@ public final class IntArrays {
 	 * @return an {@code int} array with the removed {@code int} value
 	 * @throws NullPointerException if the {@code int} array is {@code null}
 	 * @throws IllegalArgumentException if the {@code int} array is empty or if the index is not valid
-	 * @since 1.3.2
+	 * @since 1.4.0
 	 */
 	public static int[] remove(final int[] array, final int index) {
 		Ensure.notNullAndNotEmpty("array", array);
