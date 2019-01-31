@@ -830,6 +830,7 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static InputStream toInputStream(final Iterator<Integer> iterator) {
 		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
@@ -866,6 +867,7 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static Reader toReader(final Iterator<Integer> iterator) {
 		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {

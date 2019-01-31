@@ -34,6 +34,7 @@ public final class Example3 {
 		// Not available
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void main(final String... args) {
 		System.out.println(Strings.blankToEmpty("   ")); // Prints an empty String
 		System.out.println(Strings.quote("A quoted String with an escaped \" double quote")); // Prints "A quoted String with an escaped \" double quote"

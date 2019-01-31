@@ -561,7 +561,7 @@ public final class ObjectArrays {
 	 * @return the joined {@code Object} array
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array array or any of them
 	 * is {@code null}
-	 * @since 1.2.0
+	 * @since 1.4.0
 	 */
 	@SafeVarargs
 	public static <E> E[] join(final E[] separator, final E[]... arrays) {
@@ -620,7 +620,7 @@ public final class ObjectArrays {
 	 * @return the joined {@code Object} array
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array {@code List} or any
 	 * of them is {@code null}
-	 * @since 1.2.0
+	 * @since 1.4.0
 	 */
 	@SuppressWarnings("unchecked")
 	public static <E> E[] join(final E[] separator, final List<E[]> arrays) {

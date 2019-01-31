@@ -84,7 +84,7 @@ public final class StringFormatter implements Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 5487436919618772105L;
+	private static final long serialVersionUID = 2030734148661946724L;
 
 	/**
 	 * <p>Units suffixes.</p>
@@ -195,6 +195,7 @@ public final class StringFormatter implements Serializable {
 	 * @throws IllegalArgumentException if the float precision is lower than {@code 0}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public StringFormatter(final Locale locale, final int floatPrecision, final boolean strictPrecision) {
 		Ensure.notNull("locale", locale);
 		Ensure.greaterThanOrEqualTo("floatPrecision", floatPrecision, 0);

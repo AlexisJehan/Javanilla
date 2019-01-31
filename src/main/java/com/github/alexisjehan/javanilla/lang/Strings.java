@@ -173,6 +173,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the default {@code CharSequence} is blank
 	 * @since 1.1.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static <C extends CharSequence> C blankToDefault(final C charSequence, final C defaultCharSequence) {
 		if (null != defaultCharSequence) {
 			Ensure.notNullAndNotBlank("defaultCharSequence", defaultCharSequence);
@@ -954,6 +955,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String padLeft(final CharSequence charSequence, final int size, final char padding) {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.greaterThanOrEqualTo("size", size, 1);
@@ -977,6 +979,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String padLeft(final CharSequence charSequence, final int size, final CharSequence padding) {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.greaterThanOrEqualTo("size", size, 1);
@@ -1017,6 +1020,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String padRight(final CharSequence charSequence, final int size, final char padding) {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.greaterThanOrEqualTo("size", size, 1);
@@ -1040,6 +1044,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String padRight(final CharSequence charSequence, final int size, final CharSequence padding) {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.greaterThanOrEqualTo("size", size, 1);
@@ -1080,6 +1085,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String padBoth(final CharSequence charSequence, final int size, final char padding) {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.greaterThanOrEqualTo("size", size, 1);
@@ -1105,6 +1111,7 @@ public final class Strings {
 	 * @throws IllegalArgumentException if the padding size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String padBoth(final CharSequence charSequence, final int size, final CharSequence padding) {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.greaterThanOrEqualTo("size", size, 1);

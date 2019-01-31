@@ -198,6 +198,7 @@ public final class Readers {
 	 * @return a non-{@code null} {@code Reader}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static Reader nullToEmpty(final Reader reader) {
 		return nullToDefault(reader, EMPTY);
 	}
@@ -273,6 +274,7 @@ public final class Readers {
 	 * @throws NullPointerException if the {@code Reader} is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static long length(final Reader reader) throws IOException {
 		Ensure.notNull("reader", reader);
 		return reader.transferTo(Writers.EMPTY);
@@ -297,6 +299,7 @@ public final class Readers {
 	 * @throws NullPointerException if the {@code Reader} {@code List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static Reader concat(final List<? extends Reader> readers) {
 		Ensure.notNullAndNotNullElements("readers", readers);
 		final var size = readers.size();
@@ -332,6 +335,7 @@ public final class Readers {
 	 * is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static Reader join(final char[] separator, final List<? extends Reader> readers) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("readers", readers);
@@ -372,6 +376,7 @@ public final class Readers {
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static Reader of(final char... chars) {
 		Ensure.notNull("chars", chars);
 		if (0 == chars.length) {
@@ -405,6 +410,7 @@ public final class Readers {
 	 * @throws NullPointerException if the {@code String} is {@code null}
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static Reader of(final String string) {
 		Ensure.notNull("string", string);
 		if (string.isEmpty()) {

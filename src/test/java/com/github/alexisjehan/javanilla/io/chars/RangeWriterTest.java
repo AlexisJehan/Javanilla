@@ -40,6 +40,7 @@ final class RangeWriterTest {
 	private static final String STRING = "abc";
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new RangeWriter(null, 0L, 0L));
 		assertThatIllegalArgumentException().isThrownBy(() -> new RangeWriter(Writers.EMPTY, -1L, 0L));
@@ -135,6 +136,7 @@ final class RangeWriterTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testWriteCharsInvalid() throws IOException {
 		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeWriter.write((char[]) null, 0, 2));
@@ -190,6 +192,7 @@ final class RangeWriterTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testWriteStringInvalid() throws IOException {
 		try (final var rangeWriter = new RangeWriter(Writers.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeWriter.write((String) null, 0, 2));

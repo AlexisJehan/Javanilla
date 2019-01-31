@@ -43,6 +43,7 @@ final class CountOutputStreamTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testWriteByte() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isEqualTo(0L);
@@ -56,6 +57,7 @@ final class CountOutputStreamTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testWriteBytes() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isEqualTo(0L);
@@ -67,6 +69,7 @@ final class CountOutputStreamTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testWriteBytesInvalid() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countOutputStream.write(null, 0, 2));

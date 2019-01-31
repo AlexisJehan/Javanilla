@@ -52,6 +52,7 @@ final class ReadersTest {
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testEmpty() throws IOException {
 		final var buffer = new char[2];
 		try (final var emptyReader = Readers.EMPTY) {
@@ -75,6 +76,7 @@ final class ReadersTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToEmpty() throws IOException {
 		assertThat(Readers.toChars(Readers.nullToEmpty(null))).isEmpty();
 		assertThat(Readers.toChars(Readers.nullToEmpty(Readers.EMPTY))).isEmpty();
@@ -82,6 +84,7 @@ final class ReadersTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToDefault() throws IOException {
 		assertThat(Readers.toChars(Readers.nullToDefault(null, Readers.singleton('-')))).containsExactly('-');
 		assertThat(Readers.toChars(Readers.nullToDefault(Readers.EMPTY, Readers.singleton('-')))).isEmpty();
@@ -94,6 +97,7 @@ final class ReadersTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testBuffered() throws IOException {
 		try (final var reader = Readers.EMPTY) {
 			assertThat(reader).isNotInstanceOf(BufferedReader.class);
@@ -117,6 +121,7 @@ final class ReadersTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testMarkSupported() throws IOException {
 		try (final var reader = Readers.EMPTY) {
 			assertThat(reader.markSupported()).isFalse();
@@ -162,6 +167,7 @@ final class ReadersTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testLength() throws IOException {
 		assertThat(Readers.length(Readers.EMPTY)).isEqualTo(0L);
 		assertThat(Readers.length(Readers.of(CHARS))).isEqualTo(CHARS.length);

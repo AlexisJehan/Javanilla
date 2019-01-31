@@ -159,6 +159,7 @@ final class LineReaderTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testTransferTo() throws IOException {
 		try (final var stringWriter = new StringWriter()) {
 			try (final var lineReader = new LineReader(Readers.EMPTY, LineSeparator.DEFAULT)) {

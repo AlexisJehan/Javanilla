@@ -51,6 +51,7 @@ final class InputStreamsTest {
 	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testEmpty() throws IOException {
 		final var buffer = new byte[2];
 		try (final var emptyInputStream = InputStreams.EMPTY) {
@@ -79,6 +80,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToEmpty() {
 		assertThat(InputStreams.nullToEmpty(null)).hasSameContentAs(InputStreams.EMPTY);
 		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).hasSameContentAs(InputStreams.EMPTY);
@@ -86,6 +88,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToDefault() {
 		assertThat(InputStreams.nullToDefault(null, InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.singleton((byte) 0));
 		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.EMPTY);
@@ -98,6 +101,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testBuffered() throws IOException {
 		try (final var inputStream = InputStreams.EMPTY) {
 			assertThat(inputStream).isNotInstanceOf(BufferedInputStream.class);
@@ -121,6 +125,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testMarkSupported() throws IOException {
 		try (final var inputStream = InputStreams.EMPTY) {
 			assertThat(inputStream.markSupported()).isFalse();
@@ -166,6 +171,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testLength() throws IOException {
 		assertThat(InputStreams.length(InputStreams.EMPTY)).isEqualTo(0L);
 		assertThat(InputStreams.length(InputStreams.of(BYTES))).isEqualTo(BYTES.length);
@@ -177,6 +183,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testConcat() {
 		assertThat(InputStreams.concat()).hasSameContentAs(InputStreams.EMPTY);
 		assertThat(InputStreams.concat(InputStreams.singleton((byte) 1))).hasSameContentAs(InputStreams.singleton((byte) 1));
@@ -191,6 +198,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testJoin() {
 		assertThat(InputStreams.join(ByteArrays.EMPTY, InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 2))).hasSameContentAs(InputStreams.concat(InputStreams.singleton((byte) 1), InputStreams.singleton((byte) 2)));
 		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).hasSameContentAs(InputStreams.EMPTY);
@@ -249,6 +257,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testToReader() throws IOException {
 		assertThat(Readers.toString(InputStreams.toReader(InputStreams.EMPTY))).isEmpty();
 		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String("foo".getBytes(), StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)))).isEqualTo(new String("foo".getBytes(), StandardCharsets.ISO_8859_1));

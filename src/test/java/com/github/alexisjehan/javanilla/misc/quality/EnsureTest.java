@@ -216,6 +216,15 @@ final class EnsureTest {
 	}
 
 	@Test
+	void testNotNullAndNotBlank() {
+		final var foo = "1";
+		assertThat(Ensure.notNullAndNotBlank("foo", foo)).isSameAs(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotBlank("foo", " "))
+				.withMessage("Invalid foo: \" \" (not blank expected)");
+	}
+
+	@Test
 	void testNotNullAndMatches() {
 		final var pattern = Pattern.compile("^[0-9]$");
 		final var foo = "1";
@@ -231,15 +240,7 @@ final class EnsureTest {
 	}
 
 	@Test
-	void testNotNullAndNotBlank() {
-		final var foo = "1";
-		assertThat(Ensure.notNullAndNotBlank("foo", foo)).isSameAs(foo);
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Ensure.notNullAndNotBlank("foo", " "))
-				.withMessage("Invalid foo: \" \" (not blank expected)");
-	}
-
-	@Test
+	@SuppressWarnings("deprecation")
 	void testNotNullAndMarkSupportedInputStream() {
 		final var foo = InputStreams.buffered(InputStreams.EMPTY);
 		assertThat(Ensure.notNullAndMarkSupported("foo", foo)).isSameAs(foo);
@@ -249,6 +250,7 @@ final class EnsureTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNotNullAndMarkSupportedReader() {
 		final var foo = Readers.buffered(Readers.EMPTY);
 		assertThat(Ensure.notNullAndMarkSupported("foo", foo)).isSameAs(foo);

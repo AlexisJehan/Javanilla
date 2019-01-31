@@ -139,6 +139,7 @@ final class StringsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testIsBlank() {
 		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
 		assertThat(Strings.isBlank(" ")).isTrue();
@@ -148,6 +149,7 @@ final class StringsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testIsBlankInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.isBlank(null));
 	}
@@ -573,6 +575,7 @@ final class StringsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testRepeatChar() {
 		assertThat(Strings.repeat('x', 0)).isEmpty();
 		assertThat(Strings.repeat('x', 1)).isEqualTo("x");
@@ -580,11 +583,13 @@ final class StringsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testRepeatCharInvalid() {
 		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat('x', -1));
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testRepeatCharSequence() {
 		assertThat(Strings.repeat(Strings.EMPTY, 3)).isEmpty();
 		assertThat(Strings.repeat("xX", 0)).isEmpty();
@@ -593,6 +598,7 @@ final class StringsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testRepeatCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.repeat(null, 1));
 		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat("xX", -1));

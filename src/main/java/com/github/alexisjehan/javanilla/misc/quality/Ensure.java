@@ -369,6 +369,7 @@ public final class Ensure {
 	 * @throws IllegalArgumentException if the {@code CharSequence} is blank
 	 * @since 1.3.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static <C extends CharSequence> C notNullAndNotBlank(final String name, final C charSequence) {
 		notNull(name, charSequence);
 		if (Strings.isBlank(charSequence)) {

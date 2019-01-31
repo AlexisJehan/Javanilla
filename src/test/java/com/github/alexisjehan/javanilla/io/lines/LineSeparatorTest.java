@@ -46,6 +46,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class LineSeparatorTest {
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testReadLf() throws IOException {
 		try (final var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
@@ -82,6 +83,7 @@ final class LineSeparatorTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testReadCrLf() throws IOException {
 		try (final var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
@@ -129,6 +131,7 @@ final class LineSeparatorTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testReadCr() throws IOException {
 		try (final var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
@@ -165,6 +168,7 @@ final class LineSeparatorTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testReadDefault() throws IOException {
 		try (final var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
@@ -216,6 +220,7 @@ final class LineSeparatorTest {
 
 	@Test
 	@ExtendWith(TempDirectory.class)
+	@SuppressWarnings("deprecation")
 	void testDetect(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
 		assertThat(LineSeparator.detect(new StringReader(Strings.EMPTY))).isEqualTo(LineSeparator.DEFAULT);
 		assertThat(LineSeparator.detect(new StringReader("\nabcdef"))).isEqualTo(LineSeparator.LF);
@@ -230,9 +235,10 @@ final class LineSeparatorTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testDetectInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Path) null));
-		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(Paths.get("testDetectInvalid"), null));
+		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(Paths.get(getClass().getName() + ".testDetectInvalid.txt"), null));
 		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Reader) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> LineSeparator.detect(Readers.EMPTY));
 	}

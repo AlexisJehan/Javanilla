@@ -37,6 +37,7 @@ import static org.assertj.core.api.Assertions.*;
 final class RangeLineWriterTest {
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new RangeLineWriter(null, 0L, 0L));
 		assertThatIllegalArgumentException().isThrownBy(() -> new RangeLineWriter(new LineWriter(Writers.EMPTY), -1L, 0L));

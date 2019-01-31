@@ -356,6 +356,7 @@ final class ObjectArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("removal")
 	void testJoin() {
 		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.empty(Integer.class), ObjectArrays.singleton(1), ObjectArrays.singleton(Integer.class, null))).containsExactly(1, null);
 		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0))).isEmpty();
@@ -369,6 +370,7 @@ final class ObjectArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("removal")
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Class<Integer>) null, ObjectArrays.singleton(0), ObjectArrays.singleton(1)));
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, null, ObjectArrays.singleton(1)));

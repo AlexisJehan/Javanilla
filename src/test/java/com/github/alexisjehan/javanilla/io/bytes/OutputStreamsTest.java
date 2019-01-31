@@ -49,6 +49,7 @@ final class OutputStreamsTest {
 	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testEmpty() throws IOException {
 		try (final var emptyOutputStream = OutputStreams.EMPTY) {
 			emptyOutputStream.write(1);
@@ -64,23 +65,27 @@ final class OutputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToEmpty() {
 		assertThat(OutputStreams.nullToEmpty(null)).isSameAs(OutputStreams.EMPTY);
 		assertThat(OutputStreams.nullToEmpty(OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToDefault() {
 		assertThat(OutputStreams.nullToDefault(null, OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
 		assertThat(OutputStreams.nullToDefault(OutputStreams.EMPTY, OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testNullToDefaultInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.nullToDefault(OutputStreams.EMPTY, null));
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testBuffered() throws IOException {
 		try (final var outputStream = OutputStreams.EMPTY) {
 			assertThat(outputStream).isNotInstanceOf(BufferedOutputStream.class);
@@ -126,6 +131,7 @@ final class OutputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testTee() throws IOException {
 		assertThat(OutputStreams.tee()).isSameAs(OutputStreams.EMPTY);
 		assertThat(OutputStreams.tee(OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
@@ -183,6 +189,7 @@ final class OutputStreamsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testToWriterInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(null));
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(OutputStreams.EMPTY, null));
