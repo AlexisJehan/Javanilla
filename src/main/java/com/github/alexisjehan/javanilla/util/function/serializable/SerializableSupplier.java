@@ -21,8 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.github.alexisjehan.javanilla.util.function.serializable;
+
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
+import java.io.Serializable;
+import java.util.function.Supplier;
+
 /**
- * <p>New {@link java.util.function} interfaces that may throw a {@link java.lang.Throwable}.</p>
- * @since 1.0.0
+ * <p>Interface for a {@link Supplier} that is {@link Serializable}.</p>
+ * @param <T> the type of results supplied by this supplier
+ * @since 1.4.0
  */
-package com.github.alexisjehan.javanilla.util.function.throwable;
+@FunctionalInterface
+public interface SerializableSupplier<T> extends Supplier<T>, Serializable {
+
+	/**
+	 * <p>Create a {@code SerializableSupplier} from the given {@code Supplier}.</p>
+	 * @param supplier the {@code Supplier} to convert
+	 * @param <T> the type of results supplied by this supplier
+	 * @return the created {@code SerializableSupplier}
+	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * @since 1.4.0
+	 */
+	static <T> SerializableSupplier<T> of(final Supplier<? extends T> supplier) {
+		Ensure.notNull("supplier", supplier);
+		return supplier::get;
+	}
+}

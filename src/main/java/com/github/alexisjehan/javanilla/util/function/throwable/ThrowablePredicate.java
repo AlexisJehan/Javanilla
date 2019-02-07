@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -81,6 +82,21 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	default ThrowablePredicate<T, X> or(final ThrowablePredicate<? super T, ? extends X> other) {
 		Ensure.notNull("other", other);
 		return t -> test(t) || other.test(t);
+	}
+
+	/**
+	 * <p>Returns a {@code ThrowablePredicate} that tests if two arguments are equal according to
+	 * {@link Objects#equals(Object, Object)}.</p>
+	 * @param <T> the type of arguments to the predicate
+	 * @param targetRef the object reference with which to compare for equality, which may be {@code null}
+	 * @return a {@code ThrowablePredicate} that tests if two arguments are equal according to
+	 * {@link Objects#equals(Object, Object)}
+	 * @since 1.4.0
+	 */
+	static <T> Predicate<T> isEqual(final Object targetRef) {
+		return (null == targetRef)
+				? Objects::isNull
+				: targetRef::equals;
 	}
 
 	/**

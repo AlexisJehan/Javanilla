@@ -27,28 +27,60 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.ArrayList;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIOException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link ThrowableRunnable} unit tests.</p>
  */
 final class ThrowableRunnableTest {
 
-	@Test
-	void testUnchecked() throws IOException {
-		final var list = new ArrayList<>();
-		final var throwableRunnable1 = (ThrowableRunnable<IOException>) () -> list.add(1);
-		throwableRunnable1.run();
-		ThrowableRunnable.unchecked(throwableRunnable1).run();
-		assertThat(list).contains(1, 1);
+	private static final class FooRunnable implements Runnable {
 
+		private int value;
+
+		@Override
+		public void run() {
+			++value;
+		}
+	}
+
+	private static final class FooThrowableRunnable implements ThrowableRunnable<IOException> {
+
+		private int value;
+
+		@Override
+		public void run() {
+			++value;
+		}
+	}
+
+	@Test
+	void testRun() {
+		final var throwableRunnable1 = new FooThrowableRunnable();
 		final var throwableRunnable2 = (ThrowableRunnable<IOException>) () -> {
 			throw new IOException();
 		};
-		final var runnable = ThrowableRunnable.unchecked(throwableRunnable2);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(runnable::run);
+		throwableRunnable1.run();
+		throwableRunnable1.run();
+		assertThat(throwableRunnable1.value).isEqualTo(2);
+		assertThatIOException().isThrownBy(throwableRunnable2::run);
+	}
+
+	@Test
+	void testUnchecked() {
+		final var throwableRunnable = new FooThrowableRunnable();
+		final var runnable1 = ThrowableRunnable.unchecked(throwableRunnable);
+		final var runnable2 = ThrowableRunnable.unchecked(() -> {
+			throw new IOException();
+		});
+		runnable1.run();
+		runnable1.run();
+		assertThat(throwableRunnable.value).isEqualTo(2);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(runnable2::run);
 	}
 
 	@Test
@@ -57,12 +89,16 @@ final class ThrowableRunnableTest {
 	}
 
 	@Test
-	void testOf() {
-		final var runnable = (Runnable) () -> {
+	void testOf() throws Throwable {
+		final var runnable = new FooRunnable();
+		final var throwableRunnable1 = ThrowableRunnable.of(runnable);
+		final var throwableRunnable2 = ThrowableRunnable.of(() -> {
 			throw new UncheckedIOException(new IOException());
-		};
-		final var throwableRunnable = ThrowableRunnable.of(runnable);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(throwableRunnable::run);
+		});
+		throwableRunnable1.run();
+		throwableRunnable1.run();
+		assertThat(runnable.value).isEqualTo(2);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(throwableRunnable2::run);
 	}
 
 	@Test

@@ -21,8 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.github.alexisjehan.javanilla.util.function.serializable;
+
+import com.github.alexisjehan.javanilla.io.Serializables;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+
 /**
- * <p>New {@link java.util.function} interfaces that may throw a {@link java.lang.Throwable}.</p>
- * @since 1.0.0
+ * <p>{@link SerializableSupplier} unit tests.</p>
  */
-package com.github.alexisjehan.javanilla.util.function.throwable;
+final class SerializableSupplierTest {
+
+	@Test
+	void testGet() {
+		final var serializableSupplier = (SerializableSupplier<Integer>) () -> 1;
+		assertThat(serializableSupplier.get()).isEqualTo(1);
+	}
+
+	@Test
+	void testOf() {
+		final var serializableSupplier = SerializableSupplier.of(() -> 1);
+		assertThat(serializableSupplier.get()).isEqualTo(1);
+	}
+
+	@Test
+	void testOfInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> SerializableSupplier.of(null));
+	}
+
+	@Test
+	void testSerializable() {
+		final var serializableSupplier = Serializables.<SerializableSupplier<Integer>>deserialize(
+				Serializables.serialize(
+						(SerializableSupplier<Integer>) () -> 1
+				)
+		);
+		assertThat(serializableSupplier.get()).isEqualTo(1);
+	}
+}

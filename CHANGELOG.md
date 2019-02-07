@@ -45,6 +45,16 @@
 **misc.quality.Ensure**
 - Added the _notNullAndMatches()_ method
 
+**util.function.serializable**
+- Added _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_,
+_SerializableFunction_, _SerializablePredicate_, _SerializableRunnable_ and _SerializableSupplier_ classes
+
+**util.function.throwable.ThrowableFunction**
+- Added the _identity()_ method
+
+**util.function.throwable.ThrowablePredicate**
+- Added the _isEqual()_ method
+
 
 ## 1.3.1 _(2018-12-22)_
 

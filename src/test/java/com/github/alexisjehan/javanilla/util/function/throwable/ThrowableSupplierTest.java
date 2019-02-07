@@ -27,10 +27,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
@@ -39,16 +39,23 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class ThrowableSupplierTest {
 
 	@Test
-	void testUnchecked() throws IOException {
+	void testGet() throws IOException {
 		final var throwableSupplier1 = (ThrowableSupplier<Integer, IOException>) () -> 1;
-		assertThat(throwableSupplier1.get()).isEqualTo(1);
-		assertThat(ThrowableSupplier.unchecked(throwableSupplier1).get()).isEqualTo(1);
-
 		final var throwableSupplier2 = (ThrowableSupplier<Integer, IOException>) () -> {
 			throw new IOException();
 		};
-		final var supplier = ThrowableSupplier.unchecked(throwableSupplier2);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(supplier::get);
+		assertThat(throwableSupplier1.get()).isEqualTo(1);
+		assertThatIOException().isThrownBy(throwableSupplier2::get);
+	}
+
+	@Test
+	void testUnchecked() {
+		final var throwableSupplier1 = (ThrowableSupplier<Integer, IOException>) () -> 1;
+		final var throwableSupplier2 = (ThrowableSupplier<Integer, IOException>) () -> {
+			throw new IOException();
+		};
+		assertThat(ThrowableSupplier.unchecked(throwableSupplier1).get()).isEqualTo(1);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableSupplier.unchecked(throwableSupplier2).get());
 	}
 
 	@Test
@@ -57,12 +64,9 @@ final class ThrowableSupplierTest {
 	}
 
 	@Test
-	void testOf() {
-		final var supplier = (Supplier<Integer>) () -> {
-			throw new UncheckedIOException(new IOException());
-		};
-		final var throwableSupplier = ThrowableSupplier.of(supplier);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(throwableSupplier::get);
+	void testOf() throws Throwable {
+		final var throwableSupplier = ThrowableSupplier.of(() -> 1);
+		assertThat(throwableSupplier.get()).isEqualTo(1);
 	}
 
 	@Test

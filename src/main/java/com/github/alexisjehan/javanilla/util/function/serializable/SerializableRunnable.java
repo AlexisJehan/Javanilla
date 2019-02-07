@@ -21,8 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.github.alexisjehan.javanilla.util.function.serializable;
+
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
+import java.io.Serializable;
+
 /**
- * <p>New {@link java.util.function} interfaces that may throw a {@link java.lang.Throwable}.</p>
- * @since 1.0.0
+ * <p>Interface for a {@link Runnable} that is {@link Serializable}.</p>
+ * @since 1.4.0
  */
-package com.github.alexisjehan.javanilla.util.function.throwable;
+@FunctionalInterface
+public interface SerializableRunnable extends Runnable, Serializable {
+
+	/**
+	 * <p>Create a {@code SerializableRunnable} from the given {@code Runnable}.</p>
+	 * @param runnable the {@code Runnable} to convert
+	 * @return the created {@code SerializableRunnable}
+	 * @throws NullPointerException if the {@code Runnable} is {@code null}
+	 * @since 1.4.0
+	 */
+	static SerializableRunnable of(final Runnable runnable) {
+		Ensure.notNull("runnable", runnable);
+		return runnable::run;
+	}
+}

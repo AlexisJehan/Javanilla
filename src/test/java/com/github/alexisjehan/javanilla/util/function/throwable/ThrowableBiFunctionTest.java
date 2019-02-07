@@ -23,15 +23,16 @@
  */
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
-import com.github.alexisjehan.javanilla.misc.tuples.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.ArrayList;
 import java.util.function.BiFunction;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIOException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link ThrowableBiFunction} unit tests.</p>
@@ -39,50 +40,48 @@ import static org.assertj.core.api.Assertions.*;
 final class ThrowableBiFunctionTest {
 
 	@Test
-	void testAndThen() throws IOException {
-		final var list = new ArrayList<>();
-		final var throwableBiFunction = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
-			list.add(Pair.of(t, u));
-			return t + Math.round(u);
-		};
-		assertThat(throwableBiFunction.andThen(t -> {
-			list.add(Pair.of(t + 1, 0.0f));
-			return t;
-		}).apply(1, 2.3f)).isEqualTo(3);
-		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(4, 0.0f));
-
-		list.clear();
-		final var throwableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> {
+	void testApply() throws IOException {
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> t + u;
+		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		assertThatIOException().isThrownBy(() -> throwableBiFunction.andThen(throwableFunction).apply(1, 2.3f));
-		assertThat(list).contains(Pair.of(1, 2.3f));
+		assertThat(throwableBiFunction1.apply(1, 2)).isEqualTo(3);
+		assertThat(throwableBiFunction1.apply(3, 3)).isEqualTo(6);
+		assertThatIOException().isThrownBy(() -> throwableBiFunction2.apply(1, 2));
+		assertThatIOException().isThrownBy(() -> throwableBiFunction2.apply(3, 3));
+	}
+
+	@Test
+	void testAndThen() throws IOException {
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> t + u;
+		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
+			throw new IOException();
+		};
+		final var throwableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> -t;
+		assertThat(throwableBiFunction1.andThen(throwableFunction).apply(1, 2)).isEqualTo(-3);
+		assertThat(throwableBiFunction1.andThen(throwableFunction).apply(3, 3)).isEqualTo(-6);
+		assertThatIOException().isThrownBy(() -> throwableBiFunction2.andThen(throwableFunction).apply(1, 2));
+		assertThatIOException().isThrownBy(() -> throwableBiFunction2.andThen(throwableFunction).apply(3, 3));
 	}
 
 	@Test
 	void testAndThenInvalid() {
-		final var throwableBiFunction = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
+		final var throwableBiFunction = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
 		assertThatNullPointerException().isThrownBy(() -> throwableBiFunction.andThen(null));
 	}
 
 	@Test
-	void testUnchecked() throws IOException {
-		final var list = new ArrayList<>();
-		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
-			list.add(Pair.of(t, u));
-			return t + Math.round(u);
-		};
-		assertThat(throwableBiFunction1.apply(1, 2.3f)).isEqualTo(3);
-		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction1).apply(1, 2.3f)).isEqualTo(3);
-		assertThat(list).contains(Pair.of(1, 2.3f), Pair.of(1, 2.3f));
-
-		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Float, Integer, IOException>) (t, u) -> {
+	void testUnchecked() {
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> t + u;
+		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		final var biFunction = ThrowableBiFunction.unchecked(throwableBiFunction2);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> biFunction.apply(1, 2.3f));
+		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction1).apply(1, 2)).isEqualTo(3);
+		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction1).apply(3, 3)).isEqualTo(6);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiFunction.unchecked(throwableBiFunction2).apply(1, 2));
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiFunction.unchecked(throwableBiFunction2).apply(3, 3));
 	}
 
 	@Test
@@ -91,12 +90,10 @@ final class ThrowableBiFunctionTest {
 	}
 
 	@Test
-	void testOf() {
-		final var function = (BiFunction<Integer, Float, Integer>) (t, u) -> {
-			throw new UncheckedIOException(new IOException());
-		};
-		final var throwableBiFunction = ThrowableBiFunction.of(function);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> throwableBiFunction.apply(1, 2.3f));
+	void testOf() throws Throwable {
+		final var throwableBiFunction = ThrowableBiFunction.of((BiFunction<Integer, Integer, Integer>) (t, u) -> t + u);
+		assertThat(throwableBiFunction.apply(1, 2)).isEqualTo(3);
+		assertThat(throwableBiFunction.apply(3, 3)).isEqualTo(6);
 	}
 
 	@Test

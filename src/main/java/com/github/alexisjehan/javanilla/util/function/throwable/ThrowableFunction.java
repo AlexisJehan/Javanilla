@@ -77,6 +77,17 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
+	 * <p>Returns a {@code ThrowableFunction} that always returns its input argument.</p>
+	 * @param <T> the type of the input and output objects to the function
+	 * @param <X> the type of the {@code Throwable}
+	 * @return a {@code ThrowableFunction} that always returns its input argument
+	 * @since 1.4.0
+	 */
+	static <T, X extends Throwable> ThrowableFunction<T, T, X> identity() {
+		return t -> t;
+	}
+
+	/**
 	 * <p>Converts the given {@code ThrowableFunction} to a {@code Function} that may throw an unchecked
 	 * {@code Throwable}.</p>
 	 * @param throwableFunction the {@code ThrowableFunction} to convert

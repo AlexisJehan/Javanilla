@@ -52,11 +52,11 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	/**
 	 * <p>Returns a composed {@code ThrowableBiFunction} that first applies this function to its input, and then applies
 	 * the after function to the result.</p>
-	 * @param after the {@code ThrowableBiFunction} to apply after this function is applied
+	 * @param after the {@code ThrowableFunction} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code ThrowableBiFunction} that first applies this function and then applies the after
 	 * function
-	 * @throws NullPointerException if the after {@code ThrowableBiFunction} is {@code null}
+	 * @throws NullPointerException if the after {@code ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableBiFunction<T, U, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
