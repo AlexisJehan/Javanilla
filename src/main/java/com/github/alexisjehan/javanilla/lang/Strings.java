@@ -201,7 +201,7 @@ public final class Strings {
 	 * @return {@code true} if the {@code CharSequence} is blank
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @since 1.0.0
-	 * @deprecated since Java 11, use {@link String#isBlank()} instead
+	 * @deprecated since Java 11, use {@code String#isBlank()} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static boolean isBlank(final CharSequence charSequence) {
@@ -884,7 +884,7 @@ public final class Strings {
 	 * @return a {@code String} of the repeated {@code char}
 	 * @throws IllegalArgumentException if the number of times is lower than {@code 0}
 	 * @since 1.0.0
-	 * @deprecated since Java 11, use {@link String#repeat(int)} instead
+	 * @deprecated since Java 11, use {@code String#repeat(int)} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static String repeat(final char c, final int times) {
@@ -911,7 +911,7 @@ public final class Strings {
 	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the number of times is lower than {@code 0}
 	 * @since 1.0.0
-	 * @deprecated since Java 11, use {@link String#repeat(int)} instead
+	 * @deprecated since Java 11, use {@code String#repeat(int)} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static String repeat(final CharSequence charSequence, final int times) {

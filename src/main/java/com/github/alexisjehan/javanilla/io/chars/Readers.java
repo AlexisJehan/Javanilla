@@ -132,7 +132,7 @@ public final class Readers {
 	/**
 	 * <p>An empty {@code Reader} that returns no char.</p>
 	 * @since 1.0.0
-	 * @deprecated since Java 11, use {@link Reader#nullReader()} instead
+	 * @deprecated since Java 11, use {@code Reader#nullReader()} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final Reader EMPTY = new Reader() {
