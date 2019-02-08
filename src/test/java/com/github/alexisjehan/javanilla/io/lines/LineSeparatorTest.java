@@ -26,8 +26,7 @@ package com.github.alexisjehan.javanilla.io.lines;
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -219,9 +218,8 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
 	@SuppressWarnings("deprecation")
-	void testDetect(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testDetect(@TempDir final Path tmpDirectory) throws IOException {
 		assertThat(LineSeparator.detect(new StringReader(Strings.EMPTY))).isEqualTo(LineSeparator.DEFAULT);
 		assertThat(LineSeparator.detect(new StringReader("\nabcdef"))).isEqualTo(LineSeparator.LF);
 		assertThat(LineSeparator.detect(new StringReader("abc\r\ndef"))).isEqualTo(LineSeparator.CR_LF);

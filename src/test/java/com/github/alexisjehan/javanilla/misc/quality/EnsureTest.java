@@ -39,8 +39,7 @@ import com.github.alexisjehan.javanilla.util.collection.bags.Bags;
 import com.github.alexisjehan.javanilla.util.iteration.Iterables;
 import com.github.alexisjehan.javanilla.util.iteration.Iterators;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,7 +49,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
  * <p>{@link Ensure} unit tests.</p>
@@ -260,8 +261,7 @@ final class EnsureTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testNotNullAndExists(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testNotNullAndExists(@TempDir final Path tmpDirectory) throws IOException {
 		final var foo = tmpDirectory.resolve("testNotNullAndExists");
 		Files.createFile(foo);
 		assertThat(Ensure.notNullAndExists("foo", foo)).isSameAs(foo);
@@ -272,8 +272,7 @@ final class EnsureTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testNotNullAndFile(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testNotNullAndFile(@TempDir final Path tmpDirectory) throws IOException {
 		final var foo = tmpDirectory.resolve("testNotNullAndFile");
 		Files.createFile(foo);
 		assertThat(Ensure.notNullAndFile("foo", foo)).isSameAs(foo);
@@ -288,8 +287,7 @@ final class EnsureTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testNotNullAndDirectory(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testNotNullAndDirectory(@TempDir final Path tmpDirectory) throws IOException {
 		final var foo = tmpDirectory.resolve("testNotNullAndDirectory");
 		Files.createDirectory(foo);
 		assertThat(Ensure.notNullAndDirectory("foo", foo)).isSameAs(foo);

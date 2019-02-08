@@ -26,8 +26,7 @@ package com.github.alexisjehan.javanilla.io.chars;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.BufferedWriter;
 import java.io.CharArrayWriter;
@@ -217,8 +216,7 @@ final class WritersTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testOf(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testOf(@TempDir final Path tmpDirectory) throws IOException {
 		final var path = tmpDirectory.resolve("testOf");
 		try (final var pathWriter = Writers.of(path)) {
 			pathWriter.write(CHARS);

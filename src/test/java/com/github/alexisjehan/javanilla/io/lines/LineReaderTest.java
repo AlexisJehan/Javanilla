@@ -25,8 +25,7 @@ package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -46,8 +45,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class LineReaderTest {
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testConstructor(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testConstructor(@TempDir final Path tmpDirectory) throws IOException {
 		final var path = tmpDirectory.resolve("testConstructor");
 		Files.write(path, "abc\ndef".getBytes());
 		try (final var lineReader = new LineReader(path)) {

@@ -25,8 +25,7 @@ package com.github.alexisjehan.javanilla.io.bytes;
 
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -196,8 +195,7 @@ final class OutputStreamsTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testOf(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testOf(@TempDir final Path tmpDirectory) throws IOException {
 		final var path = tmpDirectory.resolve("testOf");
 		try (final var pathOutputStream = OutputStreams.of(path)) {
 			pathOutputStream.write(BYTES);

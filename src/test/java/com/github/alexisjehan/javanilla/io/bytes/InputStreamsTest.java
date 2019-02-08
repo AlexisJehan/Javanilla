@@ -27,8 +27,7 @@ import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junitpioneer.jupiter.TempDirectory;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -273,8 +272,7 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@ExtendWith(TempDirectory.class)
-	void testOfPath(@TempDirectory.TempDir final Path tmpDirectory) throws IOException {
+	void testOfPath(@TempDir final Path tmpDirectory) throws IOException {
 		final var path = tmpDirectory.resolve("testOfPath");
 		Files.write(path, ByteArrays.of(BYTES));
 		try (final var pathInputStream = InputStreams.of(path)) {
