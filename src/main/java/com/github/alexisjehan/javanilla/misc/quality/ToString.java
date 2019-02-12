@@ -100,7 +100,7 @@ public final class ToString {
 	 * @since 1.3.0
 	 */
 	public static String toString(final long value) {
-		return Long.toString(value) + 'L';
+		return Long.toString(value);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public final class ToString {
 	 * @since 1.3.0
 	 */
 	public static String toString(final float value) {
-		return Float.toString(value) + 'f';
+		return Float.toString(value);
 	}
 
 	/**
@@ -120,7 +120,7 @@ public final class ToString {
 	 * @since 1.3.0
 	 */
 	public static String toString(final double value) {
-		return Double.toString(value) + 'd';
+		return Double.toString(value);
 	}
 
 	/**

@@ -352,7 +352,7 @@ final class EnsureTest {
 		assertThat(Ensure.equalTo("foo", foo, 1L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0L))
-				.withMessage("Invalid foo: 1L (equal to 0L expected)");
+				.withMessage("Invalid foo: 1 (equal to 0 expected)");
 	}
 
 	@Test
@@ -361,7 +361,7 @@ final class EnsureTest {
 		assertThat(Ensure.equalTo("foo", foo, 1.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0.0f))
-				.withMessage("Invalid foo: 1.0f (equal to 0.0f expected)");
+				.withMessage("Invalid foo: 1.0 (equal to 0.0 expected)");
 	}
 
 	@Test
@@ -370,7 +370,7 @@ final class EnsureTest {
 		assertThat(Ensure.equalTo("foo", foo, 1.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.equalTo("foo", foo, 0.0d))
-				.withMessage("Invalid foo: 1.0d (equal to 0.0d expected)");
+				.withMessage("Invalid foo: 1.0 (equal to 0.0 expected)");
 	}
 
 	@Test
@@ -433,7 +433,7 @@ final class EnsureTest {
 		assertThat(Ensure.notNullAndEqualTo("foo", foo, LongArrays.singleton(1L))).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, LongArrays.singleton(0L)))
-				.withMessage("Invalid foo: [1L] (equal to [0L] expected)");
+				.withMessage("Invalid foo: [1] (equal to [0] expected)");
 	}
 
 	@Test
@@ -442,7 +442,7 @@ final class EnsureTest {
 		assertThat(Ensure.notNullAndEqualTo("foo", foo, FloatArrays.singleton(1.0f))).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, FloatArrays.singleton(0.0f)))
-				.withMessage("Invalid foo: [1.0f] (equal to [0.0f] expected)");
+				.withMessage("Invalid foo: [1.0] (equal to [0.0] expected)");
 	}
 
 	@Test
@@ -451,7 +451,7 @@ final class EnsureTest {
 		assertThat(Ensure.notNullAndEqualTo("foo", foo, DoubleArrays.singleton(1.0d))).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndEqualTo("foo", foo, DoubleArrays.singleton(0.0d)))
-				.withMessage("Invalid foo: [1.0d] (equal to [0.0d] expected)");
+				.withMessage("Invalid foo: [1.0] (equal to [0.0] expected)");
 	}
 
 	@Test
@@ -514,7 +514,7 @@ final class EnsureTest {
 		assertThat(Ensure.notEqualTo("foo", foo, 0L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1L))
-				.withMessage("Invalid foo: 1L (not equal to 1L expected)");
+				.withMessage("Invalid foo: 1 (not equal to 1 expected)");
 	}
 
 	@Test
@@ -523,7 +523,7 @@ final class EnsureTest {
 		assertThat(Ensure.notEqualTo("foo", foo, 0.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1.0f))
-				.withMessage("Invalid foo: 1.0f (not equal to 1.0f expected)");
+				.withMessage("Invalid foo: 1.0 (not equal to 1.0 expected)");
 	}
 
 	@Test
@@ -532,7 +532,7 @@ final class EnsureTest {
 		assertThat(Ensure.notEqualTo("foo", foo, 0.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notEqualTo("foo", foo, 1.0d))
-				.withMessage("Invalid foo: 1.0d (not equal to 1.0d expected)");
+				.withMessage("Invalid foo: 1.0 (not equal to 1.0 expected)");
 	}
 
 	@Test
@@ -595,7 +595,7 @@ final class EnsureTest {
 		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, LongArrays.singleton(0L))).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, LongArrays.singleton(1L)))
-				.withMessage("Invalid foo: [1L] (not equal to [1L] expected)");
+				.withMessage("Invalid foo: [1] (not equal to [1] expected)");
 	}
 
 	@Test
@@ -604,7 +604,7 @@ final class EnsureTest {
 		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, FloatArrays.singleton(0.0f))).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, FloatArrays.singleton(1.0f)))
-				.withMessage("Invalid foo: [1.0f] (not equal to [1.0f] expected)");
+				.withMessage("Invalid foo: [1.0] (not equal to [1.0] expected)");
 	}
 
 	@Test
@@ -613,7 +613,7 @@ final class EnsureTest {
 		assertThat(Ensure.notNullAndNotEqualTo("foo", foo, DoubleArrays.singleton(0.0d))).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.notNullAndNotEqualTo("foo", foo, DoubleArrays.singleton(1.0d)))
-				.withMessage("Invalid foo: [1.0d] (not equal to [1.0d] expected)");
+				.withMessage("Invalid foo: [1.0] (not equal to [1.0] expected)");
 	}
 
 	@Test
@@ -679,10 +679,10 @@ final class EnsureTest {
 		assertThat(Ensure.lowerThan("foo", foo, 2L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1L))
-				.withMessage("Invalid foo: 1L (lower than 1L expected)");
+				.withMessage("Invalid foo: 1 (lower than 1 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0L))
-				.withMessage("Invalid foo: 1L (lower than 0L expected)");
+				.withMessage("Invalid foo: 1 (lower than 0 expected)");
 	}
 
 	@Test
@@ -691,10 +691,10 @@ final class EnsureTest {
 		assertThat(Ensure.lowerThan("foo", foo, 2.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1.0f))
-				.withMessage("Invalid foo: 1.0f (lower than 1.0f expected)");
+				.withMessage("Invalid foo: 1.0 (lower than 1.0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0.0f))
-				.withMessage("Invalid foo: 1.0f (lower than 0.0f expected)");
+				.withMessage("Invalid foo: 1.0 (lower than 0.0 expected)");
 	}
 
 	@Test
@@ -703,10 +703,10 @@ final class EnsureTest {
 		assertThat(Ensure.lowerThan("foo", foo, 2.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 1.0d))
-				.withMessage("Invalid foo: 1.0d (lower than 1.0d expected)");
+				.withMessage("Invalid foo: 1.0 (lower than 1.0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThan("foo", foo, 0.0d))
-				.withMessage("Invalid foo: 1.0d (lower than 0.0d expected)");
+				.withMessage("Invalid foo: 1.0 (lower than 0.0 expected)");
 	}
 
 	@Test
@@ -768,7 +768,7 @@ final class EnsureTest {
 		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0L))
-				.withMessage("Invalid foo: 1L (lower than or equal to 0L expected)");
+				.withMessage("Invalid foo: 1 (lower than or equal to 0 expected)");
 	}
 
 	@Test
@@ -778,7 +778,7 @@ final class EnsureTest {
 		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0.0f))
-				.withMessage("Invalid foo: 1.0f (lower than or equal to 0.0f expected)");
+				.withMessage("Invalid foo: 1.0 (lower than or equal to 0.0 expected)");
 	}
 
 	@Test
@@ -788,7 +788,7 @@ final class EnsureTest {
 		assertThat(Ensure.lowerThanOrEqualTo("foo", foo, 1.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.lowerThanOrEqualTo("foo", foo, 0.0d))
-				.withMessage("Invalid foo: 1.0d (lower than or equal to 0.0d expected)");
+				.withMessage("Invalid foo: 1.0 (lower than or equal to 0.0 expected)");
 	}
 
 	@Test
@@ -855,10 +855,10 @@ final class EnsureTest {
 		assertThat(Ensure.greaterThan("foo", foo, 0L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1L))
-				.withMessage("Invalid foo: 1L (greater than 1L expected)");
+				.withMessage("Invalid foo: 1 (greater than 1 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2L))
-				.withMessage("Invalid foo: 1L (greater than 2L expected)");
+				.withMessage("Invalid foo: 1 (greater than 2 expected)");
 	}
 
 	@Test
@@ -867,10 +867,10 @@ final class EnsureTest {
 		assertThat(Ensure.greaterThan("foo", foo, 0.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1.0f))
-				.withMessage("Invalid foo: 1.0f (greater than 1.0f expected)");
+				.withMessage("Invalid foo: 1.0 (greater than 1.0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2.0f))
-				.withMessage("Invalid foo: 1.0f (greater than 2.0f expected)");
+				.withMessage("Invalid foo: 1.0 (greater than 2.0 expected)");
 	}
 
 	@Test
@@ -879,10 +879,10 @@ final class EnsureTest {
 		assertThat(Ensure.greaterThan("foo", foo, 0.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 1.0d))
-				.withMessage("Invalid foo: 1.0d (greater than 1.0d expected)");
+				.withMessage("Invalid foo: 1.0 (greater than 1.0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThan("foo", foo, 2.0d))
-				.withMessage("Invalid foo: 1.0d (greater than 2.0d expected)");
+				.withMessage("Invalid foo: 1.0 (greater than 2.0 expected)");
 	}
 
 	@Test
@@ -944,7 +944,7 @@ final class EnsureTest {
 		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2L))
-				.withMessage("Invalid foo: 1L (greater than or equal to 2L expected)");
+				.withMessage("Invalid foo: 1 (greater than or equal to 2 expected)");
 	}
 
 	@Test
@@ -954,7 +954,7 @@ final class EnsureTest {
 		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2.0f))
-				.withMessage("Invalid foo: 1.0f (greater than or equal to 2.0f expected)");
+				.withMessage("Invalid foo: 1.0 (greater than or equal to 2.0 expected)");
 	}
 
 	@Test
@@ -964,7 +964,7 @@ final class EnsureTest {
 		assertThat(Ensure.greaterThanOrEqualTo("foo", foo, 1.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.greaterThanOrEqualTo("foo", foo, 2.0d))
-				.withMessage("Invalid foo: 1.0d (greater than or equal to 2.0d expected)");
+				.withMessage("Invalid foo: 1.0 (greater than or equal to 2.0 expected)");
 	}
 
 	@Test
@@ -1041,10 +1041,10 @@ final class EnsureTest {
 		assertThat(Ensure.between("foo", foo, 1L, 2L)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.between("foo", foo, 0L, 0L))
-				.withMessage("Invalid foo: 1L (between 0L and 0L expected)");
+				.withMessage("Invalid foo: 1 (between 0 and 0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.between("foo", foo, 2L, 2L))
-				.withMessage("Invalid foo: 1L (between 2L and 2L expected)");
+				.withMessage("Invalid foo: 1 (between 2 and 2 expected)");
 	}
 
 	@Test
@@ -1055,10 +1055,10 @@ final class EnsureTest {
 		assertThat(Ensure.between("foo", foo, 1.0f, 2.0f)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.between("foo", foo, 0.0f, 0.0f))
-				.withMessage("Invalid foo: 1.0f (between 0.0f and 0.0f expected)");
+				.withMessage("Invalid foo: 1.0 (between 0.0 and 0.0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.between("foo", foo, 2.0f, 2.0f))
-				.withMessage("Invalid foo: 1.0f (between 2.0f and 2.0f expected)");
+				.withMessage("Invalid foo: 1.0 (between 2.0 and 2.0 expected)");
 	}
 
 	@Test
@@ -1069,10 +1069,10 @@ final class EnsureTest {
 		assertThat(Ensure.between("foo", foo, 1.0d, 2.0d)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.between("foo", foo, 0.0d, 0.0d))
-				.withMessage("Invalid foo: 1.0d (between 0.0d and 0.0d expected)");
+				.withMessage("Invalid foo: 1.0 (between 0.0 and 0.0 expected)");
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.between("foo", foo, 2.0d, 2.0d))
-				.withMessage("Invalid foo: 1.0d (between 2.0d and 2.0d expected)");
+				.withMessage("Invalid foo: 1.0 (between 2.0 and 2.0 expected)");
 	}
 
 	@Test

@@ -76,20 +76,20 @@ final class ToStringTest {
 
 	@Test
 	void testToStringLong() {
-		assertThat(ToString.toString(1L)).isEqualTo("1L");
-		assertThat(ToString.toString(0L)).isEqualTo("0L");
+		assertThat(ToString.toString(1L)).isEqualTo("1");
+		assertThat(ToString.toString(0L)).isEqualTo("0");
 	}
 
 	@Test
 	void testToStringFloat() {
-		assertThat(ToString.toString(1.0f)).isEqualTo("1.0f");
-		assertThat(ToString.toString(0.0f)).isEqualTo("0.0f");
+		assertThat(ToString.toString(1.0f)).isEqualTo("1.0");
+		assertThat(ToString.toString(0.0f)).isEqualTo("0.0");
 	}
 
 	@Test
 	void testToStringDouble() {
-		assertThat(ToString.toString(1.0d)).isEqualTo("1.0d");
-		assertThat(ToString.toString(0.0d)).isEqualTo("0.0d");
+		assertThat(ToString.toString(1.0d)).isEqualTo("1.0");
+		assertThat(ToString.toString(0.0d)).isEqualTo("0.0");
 	}
 
 	@Test
@@ -149,24 +149,24 @@ final class ToStringTest {
 
 	@Test
 	void testToStringLongArray() {
-		assertThat(ToString.toString(LongArrays.singleton(1L))).isEqualTo("[1L]");
-		assertThat(ToString.toString(LongArrays.of(1L, 0L))).isEqualTo("[1L, 0L]");
+		assertThat(ToString.toString(LongArrays.singleton(1L))).isEqualTo("[1]");
+		assertThat(ToString.toString(LongArrays.of(1L, 0L))).isEqualTo("[1, 0]");
 		assertThat(ToString.toString(LongArrays.EMPTY)).isEqualTo("[]");
 		assertThat(ToString.toString((long[]) null)).isEqualTo("null");
 	}
 
 	@Test
 	void testToStringFloatArray() {
-		assertThat(ToString.toString(FloatArrays.singleton(1.0f))).isEqualTo("[1.0f]");
-		assertThat(ToString.toString(FloatArrays.of(1.0f, 0.0f))).isEqualTo("[1.0f, 0.0f]");
+		assertThat(ToString.toString(FloatArrays.singleton(1.0f))).isEqualTo("[1.0]");
+		assertThat(ToString.toString(FloatArrays.of(1.0f, 0.0f))).isEqualTo("[1.0, 0.0]");
 		assertThat(ToString.toString(FloatArrays.EMPTY)).isEqualTo("[]");
 		assertThat(ToString.toString((float[]) null)).isEqualTo("null");
 	}
 
 	@Test
 	void testToStringDoubleArray() {
-		assertThat(ToString.toString(DoubleArrays.singleton(1.0d))).isEqualTo("[1.0d]");
-		assertThat(ToString.toString(DoubleArrays.of(1.0d, 0.0d))).isEqualTo("[1.0d, 0.0d]");
+		assertThat(ToString.toString(DoubleArrays.singleton(1.0d))).isEqualTo("[1.0]");
+		assertThat(ToString.toString(DoubleArrays.of(1.0d, 0.0d))).isEqualTo("[1.0, 0.0]");
 		assertThat(ToString.toString(DoubleArrays.EMPTY)).isEqualTo("[]");
 		assertThat(ToString.toString((double[]) null)).isEqualTo("null");
 	}
