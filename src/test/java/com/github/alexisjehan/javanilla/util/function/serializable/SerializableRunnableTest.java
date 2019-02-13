@@ -46,7 +46,7 @@ final class SerializableRunnableTest {
 
 	private static final class FooSerializableRunnable implements SerializableRunnable {
 
-		private static final long serialVersionUID = 5040906744868003263L;
+		private static final long serialVersionUID = 1712953992098716328L;
 
 		private int value;
 

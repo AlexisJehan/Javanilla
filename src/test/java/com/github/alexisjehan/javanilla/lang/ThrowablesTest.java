@@ -140,7 +140,7 @@ final class ThrowablesTest {
 			// Cycle
 			final var rootException = new IOException();
 			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
-				private static final long serialVersionUID = 4309514616835186744L;
+				private static final long serialVersionUID = -5569787925848456326L;
 
 				@Override
 				public Throwable getCause() {
@@ -168,7 +168,7 @@ final class ThrowablesTest {
 			// Cycle
 			final var rootException = new IOException();
 			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
-				private static final long serialVersionUID = -1588285205100189446L;
+				private static final long serialVersionUID = -4148978604443508830L;
 
 				@Override
 				public Throwable getCause() {
