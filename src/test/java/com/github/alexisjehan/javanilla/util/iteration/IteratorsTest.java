@@ -82,44 +82,44 @@ final class IteratorsTest {
 
 	@Test
 	void testNullToEmptyOfInt() {
-		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfInt) null)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_INT)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.singletonInt(1))).containsExactly(1);
+		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfInt) null)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_INT)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.singletonInt(1))).toIterable().containsExactly(1);
 	}
 
 	@Test
 	void testNullToEmptyOfLong() {
-		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfLong) null)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_LONG)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.singletonLong(1L))).containsExactly(1L);
+		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfLong) null)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_LONG)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.singletonLong(1L))).toIterable().containsExactly(1L);
 	}
 
 	@Test
 	void testNullToEmptyOfDouble() {
-		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfDouble) null)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_DOUBLE)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.singletonDouble(1.0d))).containsExactly(1.0d);
+		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfDouble) null)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_DOUBLE)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Iterators.singletonDouble(1.0d))).toIterable().containsExactly(1.0d);
 	}
 
 	@Test
 	void testNullToEmptyIterator() {
-		assertThat(Iterators.nullToEmpty((Iterator<Integer>) null)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Collections.emptyIterator())).isEmpty();
-		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).iterator())).containsExactly(1);
+		assertThat(Iterators.nullToEmpty((Iterator<Integer>) null)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Collections.emptyIterator())).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).iterator())).toIterable().containsExactly(1);
 	}
 
 	@Test
 	void testNullToEmptyListIterator() {
-		assertThat(Iterators.nullToEmpty((ListIterator<Integer>) null)).isEmpty();
-		assertThat(Iterators.nullToEmpty(Collections.emptyListIterator())).isEmpty();
-		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).listIterator())).containsExactly(1);
+		assertThat(Iterators.nullToEmpty((ListIterator<Integer>) null)).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Collections.emptyListIterator())).toIterable().isEmpty();
+		assertThat(Iterators.nullToEmpty(Collections.singletonList(1).listIterator())).toIterable().containsExactly(1);
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Iterators.nullToDefault(null, Iterators.singleton(0))).containsExactly(0);
-		assertThat(Iterators.nullToDefault(Collections.emptyIterator(), Iterators.singleton(0))).isEmpty();
-		assertThat(Iterators.nullToDefault(Iterators.singleton(1), Iterators.singleton(0))).containsExactly(1);
+		assertThat(Iterators.nullToDefault(null, Iterators.singleton(0))).toIterable().containsExactly(0);
+		assertThat(Iterators.nullToDefault(Collections.emptyIterator(), Iterators.singleton(0))).toIterable().isEmpty();
+		assertThat(Iterators.nullToDefault(Iterators.singleton(1), Iterators.singleton(0))).toIterable().containsExactly(1);
 	}
 
 	@Test
@@ -131,14 +131,14 @@ final class IteratorsTest {
 	void testEmptyToNull() {
 		assertThat(Iterators.emptyToNull((Iterator<Integer>) null)).isNull();
 		assertThat(Iterators.emptyToNull(Collections.emptyIterator())).isNull();
-		assertThat(Iterators.emptyToNull(Collections.singletonList(1).iterator())).containsExactly(1);
+		assertThat(Iterators.emptyToNull(Collections.singletonList(1).iterator())).toIterable().containsExactly(1);
 	}
 
 	@Test
 	void testEmptyToDefault() {
 		assertThat(Iterators.emptyToDefault(null, Iterators.singleton(0))).isNull();
-		assertThat(Iterators.emptyToDefault(Collections.emptyIterator(), Iterators.singleton(0))).containsExactly(0);
-		assertThat(Iterators.emptyToDefault(Iterators.singleton(1), Iterators.singleton(0))).containsExactly(1);
+		assertThat(Iterators.emptyToDefault(Collections.emptyIterator(), Iterators.singleton(0))).toIterable().containsExactly(0);
+		assertThat(Iterators.emptyToDefault(Iterators.singleton(1), Iterators.singleton(0))).toIterable().containsExactly(1);
 	}
 
 	@Test
@@ -159,7 +159,7 @@ final class IteratorsTest {
 
 	@Test
 	void testUnmodifiable() {
-		assertThat(Iterators.unmodifiable(Collections.emptyIterator())).isEmpty();
+		assertThat(Iterators.unmodifiable(Collections.emptyIterator())).toIterable().isEmpty();
 		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var iterator = list.iterator();
 		iterator.next();
@@ -181,7 +181,7 @@ final class IteratorsTest {
 
 	@Test
 	void testFilter() {
-		assertThat(Iterators.filter(Collections.emptyIterator(), element -> true)).isEmpty();
+		assertThat(Iterators.filter(Collections.emptyIterator(), element -> true)).toIterable().isEmpty();
 		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var filterIterator = Iterators.filter(list.iterator(), i -> 0 == i % 2);
 		while (filterIterator.hasNext()) {
@@ -200,7 +200,7 @@ final class IteratorsTest {
 
 	@Test
 	void testMap() {
-		assertThat(Iterators.map(Collections.emptyIterator(), Function.identity())).isEmpty();
+		assertThat(Iterators.map(Collections.emptyIterator(), Function.identity())).toIterable().isEmpty();
 		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var mapIterator = Iterators.map(list.iterator(), i -> -i);
 		while (mapIterator.hasNext()) {
@@ -219,7 +219,7 @@ final class IteratorsTest {
 
 	@Test
 	void testIndex() {
-		assertThat(Iterators.index(Collections.emptyIterator())).isEmpty();
+		assertThat(Iterators.index(Collections.emptyIterator())).toIterable().isEmpty();
 		final var list = new ArrayList<>(List.of(1, 2, 3));
 		final var indexedIterator = Iterators.index(list.iterator());
 		var index = 0;
@@ -367,9 +367,9 @@ final class IteratorsTest {
 
 	@Test
 	void testConcat() {
-		assertThat(Iterators.concat()).isEmpty();
-		assertThat(Iterators.concat(Iterators.singleton(1))).containsExactly(1);
-		assertThat(Iterators.concat(Iterators.singleton(1), Iterators.singleton(2))).containsExactly(1, 2);
+		assertThat(Iterators.concat()).toIterable().isEmpty();
+		assertThat(Iterators.concat(Iterators.singleton(1))).toIterable().containsExactly(1);
+		assertThat(Iterators.concat(Iterators.singleton(1), Iterators.singleton(2))).toIterable().containsExactly(1, 2);
 	}
 
 	@Test
@@ -391,10 +391,10 @@ final class IteratorsTest {
 
 	@Test
 	void testJoin() {
-		assertThat(Iterators.join(ObjectArrays.empty(Integer.class), Iterators.singleton(1), Iterators.singleton(2))).containsExactly(1, 2);
-		assertThat(Iterators.join(ObjectArrays.singleton(0))).isEmpty();
-		assertThat(Iterators.join(ObjectArrays.singleton(0), Iterators.singleton(1))).containsExactly(1);
-		assertThat(Iterators.join(ObjectArrays.singleton(0), Iterators.singleton(1), Iterators.singleton(2))).containsExactly(1, 0, 2);
+		assertThat(Iterators.join(ObjectArrays.empty(Integer.class), Iterators.singleton(1), Iterators.singleton(2))).toIterable().containsExactly(1, 2);
+		assertThat(Iterators.join(ObjectArrays.singleton(0))).toIterable().isEmpty();
+		assertThat(Iterators.join(ObjectArrays.singleton(0), Iterators.singleton(1))).toIterable().containsExactly(1);
+		assertThat(Iterators.join(ObjectArrays.singleton(0), Iterators.singleton(1), Iterators.singleton(2))).toIterable().containsExactly(1, 0, 2);
 	}
 
 	@Test
@@ -407,28 +407,28 @@ final class IteratorsTest {
 
 	@Test
 	void testSingletonInt() {
-		assertThat(Iterators.singletonInt(1)).containsExactly(1);
+		assertThat(Iterators.singletonInt(1)).toIterable().containsExactly(1);
 	}
 
 	@Test
 	void testSingletonLong() {
-		assertThat(Iterators.singletonLong(1L)).containsExactly(1L);
+		assertThat(Iterators.singletonLong(1L)).toIterable().containsExactly(1L);
 	}
 
 	@Test
 	void testSingletonDouble() {
-		assertThat(Iterators.singletonDouble(1.0d)).containsExactly(1.0d);
+		assertThat(Iterators.singletonDouble(1.0d)).toIterable().containsExactly(1.0d);
 	}
 
 	@Test
 	void testSingleton() {
-		assertThat(Iterators.singleton(1)).containsExactly(1);
+		assertThat(Iterators.singleton(1)).toIterable().containsExactly(1);
 	}
 
 	@Test
 	void testOfInt() {
-		assertThat(Iterators.ofInt()).isEmpty();
-		assertThat(Iterators.ofInt(1, 2, 3)).containsExactly(1, 2, 3);
+		assertThat(Iterators.ofInt()).toIterable().isEmpty();
+		assertThat(Iterators.ofInt(1, 2, 3)).toIterable().containsExactly(1, 2, 3);
 	}
 
 	@Test
@@ -438,8 +438,8 @@ final class IteratorsTest {
 
 	@Test
 	void testOfLong() {
-		assertThat(Iterators.ofLong()).isEmpty();
-		assertThat(Iterators.ofLong(1L, 2L, 3L)).containsExactly(1L, 2L, 3L);
+		assertThat(Iterators.ofLong()).toIterable().isEmpty();
+		assertThat(Iterators.ofLong(1L, 2L, 3L)).toIterable().containsExactly(1L, 2L, 3L);
 	}
 
 	@Test
@@ -449,8 +449,8 @@ final class IteratorsTest {
 
 	@Test
 	void testOfDouble() {
-		assertThat(Iterators.ofDouble()).isEmpty();
-		assertThat(Iterators.ofDouble(1.0d, 2.0d, 3.0d)).containsExactly(1.0d, 2.0d, 3.0d);
+		assertThat(Iterators.ofDouble()).toIterable().isEmpty();
+		assertThat(Iterators.ofDouble(1.0d, 2.0d, 3.0d)).toIterable().containsExactly(1.0d, 2.0d, 3.0d);
 	}
 
 	@Test
@@ -460,8 +460,8 @@ final class IteratorsTest {
 
 	@Test
 	void testOf() {
-		assertThat(Iterators.of()).isEmpty();
-		assertThat(Iterators.of(1, 2, 3)).containsExactly(1, 2, 3);
+		assertThat(Iterators.of()).toIterable().isEmpty();
+		assertThat(Iterators.of(1, 2, 3)).toIterable().containsExactly(1, 2, 3);
 	}
 
 	@Test

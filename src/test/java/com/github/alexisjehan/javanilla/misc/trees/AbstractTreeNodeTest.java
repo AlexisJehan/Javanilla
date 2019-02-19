@@ -402,14 +402,14 @@ abstract class AbstractTreeNodeTest {
 		final var foo21Node = foo2Node.extend("foo21");
 		final var foo111Node = foo11Node.extend("foo111");
 		final var barNode = newTreeNode("bar");
-		assertThat(fooNode.iterator()).containsExactly(foo1Node, foo11Node, foo111Node, foo12Node, foo2Node, foo21Node, foo3Node);
-		assertThat(foo1Node.iterator()).containsExactly(foo11Node, foo111Node, foo12Node);
-		assertThat(foo2Node.iterator()).containsExactly(foo21Node);
-		assertThat(foo3Node.iterator()).isEmpty();
-		assertThat(foo11Node.iterator()).containsExactly(foo111Node);
-		assertThat(foo12Node.iterator()).isEmpty();
-		assertThat(foo21Node.iterator()).isEmpty();
-		assertThat(foo111Node.iterator()).isEmpty();
-		assertThat(barNode.iterator()).isEmpty();
+		assertThat(fooNode.iterator()).toIterable().containsExactly(foo1Node, foo11Node, foo111Node, foo12Node, foo2Node, foo21Node, foo3Node);
+		assertThat(foo1Node.iterator()).toIterable().containsExactly(foo11Node, foo111Node, foo12Node);
+		assertThat(foo2Node.iterator()).toIterable().containsExactly(foo21Node);
+		assertThat(foo3Node.iterator()).toIterable().isEmpty();
+		assertThat(foo11Node.iterator()).toIterable().containsExactly(foo111Node);
+		assertThat(foo12Node.iterator()).toIterable().isEmpty();
+		assertThat(foo21Node.iterator()).toIterable().isEmpty();
+		assertThat(foo111Node.iterator()).toIterable().isEmpty();
+		assertThat(barNode.iterator()).toIterable().isEmpty();
 	}
 }

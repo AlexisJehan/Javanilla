@@ -363,7 +363,7 @@ final class IterablesTest {
 		assertThat(Iterables.ofInt()).isEmpty();
 		final var iterable = Iterables.ofInt(1, 2, 3);
 		for (var i = 0; i < 2; ++i) {
-			assertThat(iterable.iterator()).containsExactly(1, 2, 3);
+			assertThat(iterable.iterator()).toIterable().containsExactly(1, 2, 3);
 		}
 	}
 
@@ -377,7 +377,7 @@ final class IterablesTest {
 		assertThat(Iterables.ofLong()).isEmpty();
 		final var iterable = Iterables.ofLong(1L, 2L, 3L);
 		for (var i = 0; i < 2; ++i) {
-			assertThat(iterable.iterator()).containsExactly(1L, 2L, 3L);
+			assertThat(iterable.iterator()).toIterable().containsExactly(1L, 2L, 3L);
 		}
 	}
 
@@ -391,7 +391,7 @@ final class IterablesTest {
 		assertThat(Iterables.ofDouble()).isEmpty();
 		final var iterable = Iterables.ofDouble(1.0d, 2.0d, 3.0d);
 		for (var i = 0; i < 2; ++i) {
-			assertThat(iterable.iterator()).containsExactly(1.0d, 2.0d, 3.0d);
+			assertThat(iterable.iterator()).toIterable().containsExactly(1.0d, 2.0d, 3.0d);
 		}
 	}
 
@@ -405,7 +405,7 @@ final class IterablesTest {
 		assertThat(Iterables.of()).isEmpty();
 		final var iterable = Iterables.of(1, null, 2);
 		for (var i = 0; i < 2; ++i) {
-			assertThat(iterable.iterator()).containsExactly(1, null, 2);
+			assertThat(iterable.iterator()).toIterable().containsExactly(1, null, 2);
 		}
 	}
 
@@ -441,7 +441,7 @@ final class IterablesTest {
 	@Test
 	void testWrapInputStream() {
 		final var iterable = Iterables.wrap(InputStreams.of((byte) 1, (byte) 2, (byte) 3));
-		assertThat(iterable.iterator()).containsExactly(1, 2, 3);
+		assertThat(iterable.iterator()).toIterable().containsExactly(1, 2, 3);
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -453,7 +453,7 @@ final class IterablesTest {
 	@Test
 	void testWrapReader() {
 		final var iterable = Iterables.wrap(Readers.of('a', 'b', 'c'));
-		assertThat(iterable.iterator()).containsExactly((int) 'a', (int) 'b', (int) 'c');
+		assertThat(iterable.iterator()).toIterable().containsExactly((int) 'a', (int) 'b', (int) 'c');
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -465,7 +465,7 @@ final class IterablesTest {
 	@Test
 	void testWrapBufferedReader() {
 		final var iterable = Iterables.wrap(new BufferedReader(new StringReader("abc\ndef\nghi")));
-		assertThat(iterable.iterator()).containsExactly("abc", "def", "ghi");
+		assertThat(iterable.iterator()).toIterable().containsExactly("abc", "def", "ghi");
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -477,7 +477,7 @@ final class IterablesTest {
 	@Test
 	void testWrapLineReader() {
 		final var iterable = Iterables.wrap(new LineReader(new StringReader("abc\ndef\nghi"), LineSeparator.DEFAULT));
-		assertThat(iterable.iterator()).containsExactly("abc", "def", "ghi");
+		assertThat(iterable.iterator()).toIterable().containsExactly("abc", "def", "ghi");
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -489,7 +489,7 @@ final class IterablesTest {
 	@Test
 	void testWrapStream() {
 		final var iterable = Iterables.wrap(Stream.of(1, 2, 3));
-		assertThat(iterable.iterator()).containsExactly(1, 2, 3);
+		assertThat(iterable.iterator()).toIterable().containsExactly(1, 2, 3);
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -501,7 +501,7 @@ final class IterablesTest {
 	@Test
 	void testWrapPrimitiveIteratorOfInt() {
 		final var iterable = Iterables.wrap(Iterables.ofInt(1, 2, 3).iterator());
-		assertThat(iterable.iterator()).containsExactly(1, 2, 3);
+		assertThat(iterable.iterator()).toIterable().containsExactly(1, 2, 3);
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -513,7 +513,7 @@ final class IterablesTest {
 	@Test
 	void testWrapPrimitiveIteratorOfLong() {
 		final var iterable = Iterables.wrap(Iterables.ofLong(1L, 2L, 3L).iterator());
-		assertThat(iterable.iterator()).containsExactly(1L, 2L, 3L);
+		assertThat(iterable.iterator()).toIterable().containsExactly(1L, 2L, 3L);
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -525,7 +525,7 @@ final class IterablesTest {
 	@Test
 	void testWrapPrimitiveIteratorOfDouble() {
 		final var iterable = Iterables.wrap(Iterables.ofDouble(1.0d, 2.0d, 3.0d).iterator());
-		assertThat(iterable.iterator()).containsExactly(1.0d, 2.0d, 3.0d);
+		assertThat(iterable.iterator()).toIterable().containsExactly(1.0d, 2.0d, 3.0d);
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
@@ -537,7 +537,7 @@ final class IterablesTest {
 	@Test
 	void testWrapIterator() {
 		final var iterable = Iterables.wrap(Iterables.of(1, 2, 3).iterator());
-		assertThat(iterable.iterator()).containsExactly(1, 2, 3);
+		assertThat(iterable.iterator()).toIterable().containsExactly(1, 2, 3);
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
 
