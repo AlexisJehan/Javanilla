@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.NavigableSet;
 import java.util.Set;
 import java.util.SortedSet;
@@ -132,7 +133,7 @@ public final class Sets {
 	@SafeVarargs
 	public static <E> Set<E> union(final Set<? extends E>... sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
-		return union(Set.of(sets));
+		return union(List.of(sets));
 	}
 
 	/**
@@ -171,7 +172,7 @@ public final class Sets {
 	@SafeVarargs
 	public static <E> Set<E> intersect(final Set<? extends E>... sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
-		return intersect(Set.of(sets));
+		return intersect(List.of(sets));
 	}
 
 	/**
