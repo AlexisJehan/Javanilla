@@ -97,7 +97,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
-					<compilerArgument>-Xlint:unchecked</compilerArgument>
+					<compilerArgs>
+						<arg>-Xlint:unchecked</arg>
+					</compilerArgs>
 					<excludes>
 						<exclude>**/benchmarks/**</exclude>
 						<exclude>**/examples/**</exclude>
