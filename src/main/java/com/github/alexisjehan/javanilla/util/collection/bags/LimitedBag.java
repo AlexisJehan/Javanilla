@@ -76,6 +76,6 @@ public final class LimitedBag<E> extends FilterBag<E> {
 
 	@Override
 	public String toString() {
-		return bag.toString() + '[' + limit + ']';
+		return bag + "[" + limit + "]";
 	}
 }

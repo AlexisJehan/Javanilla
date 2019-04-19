@@ -7,10 +7,10 @@ cache:
 install: mvn install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 
 jdk:
-- oraclejdk11
-- openjdk10
-- openjdk11
-- openjdk12
+  - oraclejdk11
+  - openjdk10
+  - openjdk11
+  - openjdk12
 
 after_success:
   - mvn jacoco:report && bash <(curl -s https://codecov.io/bash)

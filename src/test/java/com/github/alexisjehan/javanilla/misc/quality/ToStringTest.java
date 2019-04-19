@@ -192,7 +192,7 @@ final class ToStringTest {
 	void testOf() {
 		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "{foo=1}");
 		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "{foo=1, bar=null}");
-		assertThat(ToString.of(this)).isEqualTo(getClass().getSimpleName() + '@' + hashCode());
+		assertThat(ToString.of(this)).isEqualTo(getClass().getSimpleName() + "@" + hashCode());
 	}
 
 	@Test
