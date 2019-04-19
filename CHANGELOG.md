@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.2 _(in progress)_
+
+
+## 1.4.1 _(2019-04-19)_
+
+**util.collection.Sets**
+- Fixed _union()_ and _intersect()_ methods
+
+
 ## 1.4.0 _(2019-02-12)_
 
 **lang.Strings**
