@@ -25,7 +25,11 @@ package com.github.alexisjehan.javanilla.util.collection;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -39,58 +43,58 @@ final class MapsTest {
 	@Test
 	void testNullToEmptyMap() {
 		assertThat(Maps.nullToEmpty((Map<String, Integer>) null)).isEmpty();
-		assertThat(Maps.nullToEmpty(Collections.emptyMap())).isEmpty();
-		assertThat(Maps.nullToEmpty(Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToEmpty(Map.of())).isEmpty();
+		assertThat(Maps.nullToEmpty(Map.of("foo", 1))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testNullToEmptySortedMap() {
 		assertThat(Maps.nullToEmpty((SortedMap<String, Integer>) null)).isEmpty();
 		assertThat(Maps.nullToEmpty(Collections.emptySortedMap())).isEmpty();
-		assertThat(Maps.nullToEmpty((SortedMap<String, Integer>) new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToEmpty((SortedMap<String, Integer>) new TreeMap<>(Map.of("foo", 1)))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testNullToEmptyNavigableMap() {
 		assertThat(Maps.nullToEmpty(null)).isEmpty();
 		assertThat(Maps.nullToEmpty(Collections.emptyNavigableMap())).isEmpty();
-		assertThat(Maps.nullToEmpty(new TreeMap<>(Collections.singletonMap("foo", 1)))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToEmpty(new TreeMap<>(Map.of("foo", 1)))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Maps.nullToDefault(null, Collections.singletonMap("bar", 2))).containsExactly(Map.entry("bar", 2));
-		assertThat(Maps.nullToDefault(Collections.emptyMap(), Collections.singletonMap("bar", 2))).isEmpty();
-		assertThat(Maps.nullToDefault(Collections.singletonMap("foo", 1), Collections.singletonMap("bar", 2))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.nullToDefault(null, Map.of("bar", 2))).containsExactly(Map.entry("bar", 2));
+		assertThat(Maps.nullToDefault(Map.of(), Map.of("bar", 2))).isEmpty();
+		assertThat(Maps.nullToDefault(Map.of("foo", 1), Map.of("bar", 2))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Maps.nullToDefault(Collections.singletonMap("foo", 1), null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.nullToDefault(Map.of("foo", 1), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Maps.emptyToNull((Map<String, Integer>) null)).isNull();
-		assertThat(Maps.emptyToNull(Collections.emptyMap())).isNull();
-		assertThat(Maps.emptyToNull(Collections.singletonMap("foo", 1))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.emptyToNull(Map.of())).isNull();
+		assertThat(Maps.emptyToNull(Map.of("foo", 1))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Maps.emptyToDefault(null, Collections.singletonMap("bar", 2))).isNull();
-		assertThat(Maps.emptyToDefault(Collections.emptyMap(), Collections.singletonMap("bar", 2))).containsExactly(Map.entry("bar", 2));
-		assertThat(Maps.emptyToDefault(Collections.singletonMap("foo", 1), Collections.singletonMap("bar", 2))).containsExactly(Map.entry("foo", 1));
+		assertThat(Maps.emptyToDefault(null, Map.of("bar", 2))).isNull();
+		assertThat(Maps.emptyToDefault(Map.of(), Map.of("bar", 2))).containsExactly(Map.entry("bar", 2));
+		assertThat(Maps.emptyToDefault(Map.of("foo", 1), Map.of("bar", 2))).containsExactly(Map.entry("foo", 1));
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Maps.emptyToDefault(Collections.singletonMap("foo", 1), Collections.emptyMap()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Maps.emptyToDefault(Map.of("foo", 1), Map.of()));
 	}
 
 	@Test
 	void testPutAll() {
-		assertThat(Maps.putAll(Collections.emptyMap())).isFalse();
+		assertThat(Maps.putAll(Map.of())).isFalse();
 		final var map = new HashMap<>();
 		assertThat(Maps.putAll(map, Map.entry("foo", 1), Map.entry("bar", 2))).isTrue();
 		assertThat(map).contains(Map.entry("foo", 1), Map.entry("bar", 2));
@@ -99,7 +103,7 @@ final class MapsTest {
 	@Test
 	void testPutAllInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Maps.putAll(null, Map.entry("foo", 1)));
-		assertThatNullPointerException().isThrownBy(() -> Maps.putAll(Collections.emptyMap(), (Map.Entry<String, Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.putAll(Map.of(), (Map.Entry<String, Integer>[]) null));
 	}
 
 	@Test

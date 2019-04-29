@@ -196,12 +196,12 @@ public final class Bags {
 
 		@Override
 		public Set toSet() {
-			return Collections.emptySet();
+			return Set.of();
 		}
 
 		@Override
 		public Map toMap() {
-			return Collections.emptyMap();
+			return Map.of();
 		}
 
 		@Override

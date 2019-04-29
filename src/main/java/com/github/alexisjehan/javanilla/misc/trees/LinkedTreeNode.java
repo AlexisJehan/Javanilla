@@ -26,7 +26,6 @@ package com.github.alexisjehan.javanilla.misc.trees;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.misc.quality.Equals;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -123,7 +122,7 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	@Override
 	public List<TreeNode<V>> children() {
-		return Collections.unmodifiableList(children);
+		return List.copyOf(children);
 	}
 
 	@Override

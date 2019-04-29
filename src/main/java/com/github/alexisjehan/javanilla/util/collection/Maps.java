@@ -54,7 +54,7 @@ public final class Maps {
 	 * @since 1.0.0
 	 */
 	public static <K, V> Map<K, V> nullToEmpty(final Map<K, V> map) {
-		return nullToDefault(map, Collections.emptyMap());
+		return nullToDefault(map, Map.of());
 	}
 
 	/**

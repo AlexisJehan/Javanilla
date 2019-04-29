@@ -27,8 +27,10 @@ import com.github.alexisjehan.javanilla.io.Serializables;
 import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.offset;
 
 /**
  * <p>{@link MinkowskiDistance} unit tests.</p>

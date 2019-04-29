@@ -54,7 +54,7 @@ public final class Lists {
 	 * @since 1.0.0
 	 */
 	public static <E> List<E> nullToEmpty(final List<E> list) {
-		return nullToDefault(list, Collections.emptyList());
+		return nullToDefault(list, List.of());
 	}
 
 	/**

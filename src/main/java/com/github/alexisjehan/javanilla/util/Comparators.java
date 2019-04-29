@@ -121,7 +121,7 @@ public final class Comparators {
 	 */
 	public static <T> Comparator<T> normalize(final Comparator<T> comparator) {
 		Ensure.notNull("comparator", comparator);
-		return (object1, object2) ->  {
+		return (object1, object2) -> {
 			final var result = comparator.compare(object1, object2);
 			if (0 == result) {
 				return 0;

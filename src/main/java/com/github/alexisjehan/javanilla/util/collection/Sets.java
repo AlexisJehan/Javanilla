@@ -56,7 +56,7 @@ public final class Sets {
 	 * @since 1.0.0
 	 */
 	public static <E> Set<E> nullToEmpty(final Set<E> set) {
-		return nullToDefault(set, Collections.emptySet());
+		return nullToDefault(set, Set.of());
 	}
 
 	/**

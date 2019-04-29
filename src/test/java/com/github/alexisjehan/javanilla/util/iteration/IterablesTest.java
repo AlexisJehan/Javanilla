@@ -35,11 +35,11 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.PrimitiveIterator;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -233,7 +233,7 @@ final class IterablesTest {
 
 	@Test
 	void testLength() {
-		assertThat(Iterables.length(Collections.emptySet())).isEqualTo(0L);
+		assertThat(Iterables.length(Set.of())).isEqualTo(0L);
 		assertThat(Iterables.length(Iterables.singleton(1))).isEqualTo(1L);
 		final var iterable = Iterables.of(1, 2, 3);
 		for (var i = 0; i < 2; ++i) {
@@ -249,7 +249,7 @@ final class IterablesTest {
 	@Test
 	void testTransferTo() {
 		final var list = new ArrayList<>();
-		assertThat(Iterables.transferTo(Collections.singletonList(0), list)).isEqualTo(1L);
+		assertThat(Iterables.transferTo(List.of(0), list)).isEqualTo(1L);
 		assertThat(list).containsExactly(0);
 		final var iterable = Iterables.of(1, 2, 3);
 		assertThat(Iterables.transferTo(iterable, list)).isEqualTo(3L);
@@ -267,7 +267,7 @@ final class IterablesTest {
 	@Test
 	void testGetOptionalFirst() {
 		assertThat(Iterables.getOptionalFirst(Iterables.empty()).isEmpty()).isTrue();
-		assertThat(Iterables.getOptionalFirst(Collections.singletonList(0)).get()).isEqualTo(0);
+		assertThat(Iterables.getOptionalFirst(List.of(0)).get()).isEqualTo(0);
 		assertThat(Iterables.getOptionalFirst(Iterables.singleton(null)).get()).isNull();
 		final var iterable = Iterables.of(1, 2, 3);
 		for (var i = 0; i < 2; ++i) {
@@ -283,7 +283,7 @@ final class IterablesTest {
 	@Test
 	void testGetOptionalLast() {
 		assertThat(Iterables.getOptionalLast(Iterables.empty()).isEmpty()).isTrue();
-		assertThat(Iterables.getOptionalLast(Collections.singletonList(0)).get()).isEqualTo(0);
+		assertThat(Iterables.getOptionalLast(List.of(0)).get()).isEqualTo(0);
 		assertThat(Iterables.getOptionalLast(Iterables.singleton(null)).get()).isNull();
 		final var iterable = Iterables.of(1, 2, 3);
 		for (var i = 0; i < 2; ++i) {
@@ -417,7 +417,7 @@ final class IterablesTest {
 	@Test
 	void testToSet() {
 		assertThat(Iterables.toSet(Iterables.empty())).isEmpty();
-		assertThat(Iterables.toSet(Collections.singleton(1))).containsExactly(1);
+		assertThat(Iterables.toSet(Set.of(1))).containsExactly(1);
 		assertThat(Iterables.toSet(Iterables.of(1, 2, 2, 3))).containsExactlyInAnyOrder(1, 2, 3);
 	}
 
@@ -429,7 +429,7 @@ final class IterablesTest {
 	@Test
 	void testToList() {
 		assertThat(Iterables.toList(Iterables.empty())).isEmpty();
-		assertThat(Iterables.toList(Collections.singletonList(1))).containsExactly(1);
+		assertThat(Iterables.toList(List.of(1))).containsExactly(1);
 		assertThat(Iterables.toList(Iterables.of(1, 2, 2, 3))).containsExactly(1, 2, 2, 3);
 	}
 

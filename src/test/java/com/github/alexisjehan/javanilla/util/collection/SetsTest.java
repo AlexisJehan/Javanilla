@@ -43,53 +43,53 @@ final class SetsTest {
 	@Test
 	void testNullToEmptySet() {
 		assertThat(Sets.nullToEmpty((Set<String>) null)).isEmpty();
-		assertThat(Sets.nullToEmpty(Collections.emptySet())).isEmpty();
-		assertThat(Sets.nullToEmpty(Collections.singleton("foo"))).containsExactly("foo");
+		assertThat(Sets.nullToEmpty(Set.of())).isEmpty();
+		assertThat(Sets.nullToEmpty(Set.of("foo"))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToEmptySortedSet() {
 		assertThat(Sets.nullToEmpty((SortedSet<String>) null)).isEmpty();
 		assertThat(Sets.nullToEmpty(Collections.emptySortedSet())).isEmpty();
-		assertThat(Sets.nullToEmpty((SortedSet<String>) new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+		assertThat(Sets.nullToEmpty((SortedSet<String>) new TreeSet<>(Set.of("foo")))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToEmptyNavigableSet() {
 		assertThat(Sets.nullToEmpty(null)).isEmpty();
 		assertThat(Sets.nullToEmpty(Collections.emptyNavigableSet())).isEmpty();
-		assertThat(Sets.nullToEmpty(new TreeSet<>(Collections.singleton("foo")))).containsExactly("foo");
+		assertThat(Sets.nullToEmpty(new TreeSet<>(Set.of("foo")))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Sets.nullToDefault(null, Collections.singleton("bar"))).containsExactly("bar");
-		assertThat(Sets.nullToDefault(Collections.emptySet(), Collections.singleton("bar"))).isEmpty();
-		assertThat(Sets.nullToDefault(Collections.singleton("foo"), Collections.singleton("bar"))).containsExactly("foo");
+		assertThat(Sets.nullToDefault(null, Set.of("bar"))).containsExactly("bar");
+		assertThat(Sets.nullToDefault(Set.of(), Set.of("bar"))).isEmpty();
+		assertThat(Sets.nullToDefault(Set.of("foo"), Set.of("bar"))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Collections.singleton("foo"), null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Set.of("foo"), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Sets.emptyToNull((Set<String>) null)).isNull();
-		assertThat(Sets.emptyToNull(Collections.emptySet())).isNull();
-		assertThat(Sets.emptyToNull(Collections.singleton("foo"))).containsExactly("foo");
+		assertThat(Sets.emptyToNull(Set.of())).isNull();
+		assertThat(Sets.emptyToNull(Set.of("foo"))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Sets.emptyToDefault(null, Collections.singleton("bar"))).isNull();
-		assertThat(Sets.emptyToDefault(Collections.emptySet(), Collections.singleton("bar"))).containsExactly("bar");
-		assertThat(Sets.emptyToDefault(Collections.singleton("foo"), Collections.singleton("bar"))).containsExactly("foo");
+		assertThat(Sets.emptyToDefault(null, Set.of("bar"))).isNull();
+		assertThat(Sets.emptyToDefault(Set.of(), Set.of("bar"))).containsExactly("bar");
+		assertThat(Sets.emptyToDefault(Set.of("foo"), Set.of("bar"))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Collections.singleton("foo"), Collections.emptySet()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Set.of("foo"), Set.of()));
 	}
 
 	@Test

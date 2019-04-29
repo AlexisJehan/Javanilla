@@ -43,44 +43,44 @@ final class ListsTest {
 	@Test
 	void testNullToEmpty() {
 		assertThat(Lists.nullToEmpty(null)).isEmpty();
-		assertThat(Lists.nullToEmpty(Collections.emptyList())).isEmpty();
-		assertThat(Lists.nullToEmpty(Collections.singletonList("foo"))).containsExactly("foo");
+		assertThat(Lists.nullToEmpty(List.of())).isEmpty();
+		assertThat(Lists.nullToEmpty(List.of("foo"))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Lists.nullToDefault(null, Collections.singletonList("bar"))).containsExactly("bar");
-		assertThat(Lists.nullToDefault(Collections.emptyList(), Collections.singletonList("bar"))).isEmpty();
-		assertThat(Lists.nullToDefault(Collections.singletonList("foo"), Collections.singletonList("bar"))).containsExactly("foo");
+		assertThat(Lists.nullToDefault(null, List.of("bar"))).containsExactly("bar");
+		assertThat(Lists.nullToDefault(List.of(), List.of("bar"))).isEmpty();
+		assertThat(Lists.nullToDefault(List.of("foo"), List.of("bar"))).containsExactly("foo");
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.nullToDefault(Collections.singletonList("foo"), null));
+		assertThatNullPointerException().isThrownBy(() -> Lists.nullToDefault(List.of("foo"), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Lists.emptyToNull((List<Integer>) null)).isNull();
-		assertThat(Lists.emptyToNull(Collections.emptyList())).isNull();
-		assertThat(Lists.emptyToNull(Collections.singletonList("foo"))).containsExactly("foo");
+		assertThat(Lists.emptyToNull(List.of())).isNull();
+		assertThat(Lists.emptyToNull(List.of("foo"))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Lists.emptyToDefault(null, Collections.singletonList("bar"))).isNull();
-		assertThat(Lists.emptyToDefault(Collections.emptyList(), Collections.singletonList("bar"))).containsExactly("bar");
-		assertThat(Lists.emptyToDefault(Collections.singletonList("foo"), Collections.singletonList("bar"))).containsExactly("foo");
+		assertThat(Lists.emptyToDefault(null, List.of("bar"))).isNull();
+		assertThat(Lists.emptyToDefault(List.of(), List.of("bar"))).containsExactly("bar");
+		assertThat(Lists.emptyToDefault(List.of("foo"), List.of("bar"))).containsExactly("foo");
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Lists.emptyToDefault(Collections.singletonList("foo"), Collections.emptyList()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Lists.emptyToDefault(List.of("foo"), List.of()));
 	}
 
 	@Test
 	void testGetOptionalFirst() {
-		assertThat(Lists.getOptionalFirst(Collections.emptyList()).isEmpty()).isTrue();
+		assertThat(Lists.getOptionalFirst(List.of()).isEmpty()).isTrue();
 		assertThat(Lists.getOptionalFirst(Collections.singletonList(null)).get()).isNull();
 		assertThat(Lists.getOptionalFirst(new LinkedList<>(List.of(1, 2, 3))).get()).isEqualTo(1);
 		assertThat(Lists.getOptionalFirst(new ArrayList<>(List.of(1, 2, 3))).get()).isEqualTo(1);
@@ -93,7 +93,7 @@ final class ListsTest {
 
 	@Test
 	void testGetOptionalLast() {
-		assertThat(Lists.getOptionalLast(Collections.emptyList()).isEmpty()).isTrue();
+		assertThat(Lists.getOptionalLast(List.of()).isEmpty()).isTrue();
 		assertThat(Lists.getOptionalLast(Collections.singletonList(null)).get()).isNull();
 		assertThat(Lists.getOptionalLast(new LinkedList<>((List.of(1, 2, 3)))).get()).isEqualTo(3);
 		assertThat(Lists.getOptionalLast(new ArrayList<>(List.of(1, 2, 3))).get()).isEqualTo(3);

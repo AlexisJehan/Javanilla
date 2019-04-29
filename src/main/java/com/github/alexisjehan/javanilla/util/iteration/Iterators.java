@@ -785,7 +785,7 @@ public final class Iterators {
 	public static <E> Set<E> toSet(final Iterator<? extends E> iterator) {
 		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
-			return Collections.emptySet();
+			return Set.of();
 		}
 		final var set = new HashSet<E>();
 		transferTo(iterator, set);
@@ -803,7 +803,7 @@ public final class Iterators {
 	public static <E> List<E> toList(final Iterator<? extends E> iterator) {
 		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
-			return Collections.emptyList();
+			return List.of();
 		}
 		final var list = new ArrayList<E>();
 		transferTo(iterator, list);
