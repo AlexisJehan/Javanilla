@@ -1059,9 +1059,7 @@ public final class ByteArrays {
 	public static byte[] ofBinaryString(final CharSequence binaryCharSequence) {
 		Ensure.notNull("binaryCharSequence", binaryCharSequence);
 		final var length = binaryCharSequence.length();
-		if (0 != length % 8) {
-			throw new IllegalArgumentException("Invalid binaryCharSequence length: " + ToString.toString(length) + " (multiple of 8 expected)");
-		}
+		Ensure.multipleOf("binaryCharSequence length", length, 8);
 		if (0 == length) {
 			return EMPTY;
 		}
@@ -1118,9 +1116,7 @@ public final class ByteArrays {
 	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence) {
 		Ensure.notNull("hexadecimalCharSequence", hexadecimalCharSequence);
 		final var length = hexadecimalCharSequence.length();
-		if (0 != length % 2) {
-			throw new IllegalArgumentException("Invalid hexadecimalCharSequence length: " + ToString.toString(length) + " (multiple of 2 expected)");
-		}
+		Ensure.multipleOf("hexadecimalCharSequence length", length, 2);
 		if (0 == length) {
 			return EMPTY;
 		}

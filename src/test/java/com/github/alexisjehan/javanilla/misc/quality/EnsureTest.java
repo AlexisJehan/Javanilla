@@ -1088,4 +1088,74 @@ final class EnsureTest {
 				.isThrownBy(() -> Ensure.notNullAndBetween("foo", foo, 2, 2))
 				.withMessage("Invalid foo: 1 (between 2 and 2 expected)");
 	}
+
+	@Test
+	void testMultipleOfByte() {
+		final var foo = (byte) 4;
+		assertThat(Ensure.multipleOf("foo", foo, (byte) 2)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, (byte) 4)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, (byte) 3))
+				.withMessage("Invalid foo: 4 (multiple of 3 expected)");
+	}
+
+	@Test
+	void testMultipleOfShort() {
+		final var foo = (short) 4;
+		assertThat(Ensure.multipleOf("foo", foo, (short) 2)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, (short) 4)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, (short) 3))
+				.withMessage("Invalid foo: 4 (multiple of 3 expected)");
+	}
+
+	@Test
+	void testMultipleOfChar() {
+		final var foo = (char) 4;
+		assertThat(Ensure.multipleOf("foo", foo, (char) 2)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, (char) 4)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, (char) 3))
+				.withMessage("Invalid foo: " + ToString.toString (foo) + " (multiple of " + ToString.toString((char) 3) + " expected)");
+	}
+
+	@Test
+	void testMultipleOfInt() {
+		final var foo = 4;
+		assertThat(Ensure.multipleOf("foo", foo, 2)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, 4)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, 3))
+				.withMessage("Invalid foo: 4 (multiple of 3 expected)");
+	}
+
+	@Test
+	void testMultipleOfLong() {
+		final var foo = 4L;
+		assertThat(Ensure.multipleOf("foo", foo, 2L)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, 4L)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, 3L))
+				.withMessage("Invalid foo: 4 (multiple of 3 expected)");
+	}
+
+	@Test
+	void testMultipleOfFloat() {
+		final var foo = 4.0f;
+		assertThat(Ensure.multipleOf("foo", foo, 2.0f)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, 4.0f)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, 3.0f))
+				.withMessage("Invalid foo: 4.0 (multiple of 3.0 expected)");
+	}
+
+	@Test
+	void testMultipleOfDouble() {
+		final var foo = 4.0d;
+		assertThat(Ensure.multipleOf("foo", foo, 2.0d)).isEqualTo(foo);
+		assertThat(Ensure.multipleOf("foo", foo, 4.0d)).isEqualTo(foo);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.multipleOf("foo", foo, 3.0d))
+				.withMessage("Invalid foo: 4.0 (multiple of 3.0 expected)");
+	}
 }

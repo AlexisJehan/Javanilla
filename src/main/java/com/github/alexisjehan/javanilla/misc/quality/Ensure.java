@@ -1898,4 +1898,130 @@ public final class Ensure {
 		}
 		return value;
 	}
+
+	/**
+	 * <p>Ensure the {@code byte} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code byte} value
+	 * @param value the {@code byte} value to validate
+	 * @param other the other {@code byte} value
+	 * @return the validated {@code byte} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code byte} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static byte multipleOf(final String name, final byte value, final byte other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code short} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code short} value
+	 * @param value the {@code short} value to validate
+	 * @param other the other {@code short} value
+	 * @return the validated {@code short} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code short} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static short multipleOf(final String name, final short value, final short other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code char} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code char} value
+	 * @param value the {@code char} value to validate
+	 * @param other the other {@code char} value
+	 * @return the validated {@code char} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code char} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static char multipleOf(final String name, final char value, final char other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code int} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code int} value
+	 * @param value the {@code int} value to validate
+	 * @param other the other {@code int} value
+	 * @return the validated {@code int} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code int} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static int multipleOf(final String name, final int value, final int other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code long} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code long} value
+	 * @param value the {@code long} value to validate
+	 * @param other the other {@code long} value
+	 * @return the validated {@code long} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code long} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static long multipleOf(final String name, final long value, final long other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code float} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code float} value
+	 * @param value the {@code float} value to validate
+	 * @param other the other {@code float} value
+	 * @return the validated {@code float} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code float} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static float multipleOf(final String name, final float value, final float other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
+
+	/**
+	 * <p>Ensure the {@code double} value is a multiple of the other one.</p>
+	 * @param name the name of the {@code double} value
+	 * @param value the {@code double} value to validate
+	 * @param other the other {@code double} value
+	 * @return the validated {@code double} value
+	 * @throws NullPointerException if the name is {@code null}
+	 * @throws IllegalArgumentException if the {@code double} value is not a multiple of the other one
+	 * @since 1.5.0
+	 */
+	public static double multipleOf(final String name, final double value, final double other) {
+		notNull("name", name);
+		if (0 != value % other) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(value) + " (multiple of " + ToString.toString(other) + " expected)");
+		}
+		return value;
+	}
 }

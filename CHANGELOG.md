@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.4.2 _(in progress)_
+## 1.5.0 _(in progress)_
+
+**misc.quality.Ensure**
+- Added _multipleOf()_ methods
 
 
 ## 1.4.1 _(2019-04-19)_
