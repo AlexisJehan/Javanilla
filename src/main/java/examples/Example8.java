@@ -34,5 +34,7 @@ public final class Example8 {
 	public static void main(final String... args) {
 		System.out.println("foo10".compareTo("foo2")); // Prints -1
 		System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
+		System.out.println("foo".compareTo("bar")); // Prints 4
+		System.out.println(Comparators.normalize(String::compareTo).compare("foo", "bar")); // Prints 1
 	}
 }

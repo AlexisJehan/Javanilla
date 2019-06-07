@@ -35,9 +35,13 @@ public final class Example7 {
 	}
 
 	public static void main(final String... args) {
-		System.out.println(Distances.MANHATTAN.calculate(0.0d, 0.0d, 1.0d, 1.0d)); // Prints 2
+		final var x1 = 0.0d;
+		final var y1 = 0.0d;
+		final var x2 = 1.0d;
+		final var y2 = 2.0d;
+		System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3
 		final var order = 1;
-		System.out.println(new MinkowskiDistance(order).calculate(0.0d, 1.0d, 2.0d, 3.0d)); // Prints 4
+		System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3
 		System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
 		System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
 	}

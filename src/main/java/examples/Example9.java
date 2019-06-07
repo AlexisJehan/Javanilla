@@ -34,7 +34,8 @@ public final class Example9 {
 	public static void main(final String... args) {
 		final var bag = new MapBag<String>();
 		bag.add("foo");
-		bag.add("bar", 5L);
+		final var quantity = 5L;
+		bag.add("bar", quantity);
 		System.out.println(bag.count("foo")); // Prints 1
 		System.out.println(bag.distinct()); // Prints 2
 		System.out.println(bag.size()); // Prints 6

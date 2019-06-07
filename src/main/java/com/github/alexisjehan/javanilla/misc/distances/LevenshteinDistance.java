@@ -42,16 +42,16 @@ import java.io.Serializable;
 public final class LevenshteinDistance implements EditDistance, Serializable {
 
 	/**
-	 * <p>Serial version unique ID.</p>
-	 * @since 1.0.0
-	 */
-	private static final long serialVersionUID = 1468319669636701640L;
-
-	/**
 	 * <p>{@code LevenshteinDistance} instance with default parameters.</p>
 	 * @since 1.3.0
 	 */
 	public static final LevenshteinDistance DEFAULT = new LevenshteinDistance(1.0d, 1.0d, 1.0d);
+
+	/**
+	 * <p>Serial version unique ID.</p>
+	 * @since 1.0.0
+	 */
+	private static final long serialVersionUID = 1468319669636701640L;
 
 	/**
 	 * <p>Insertion cost.</p>

@@ -127,7 +127,7 @@ public enum LineSeparator {
 	 * {@code Reader}.</p>
 	 * @since 1.0.0
 	 */
-	private static final int DETECTION_LIMIT = 8000;
+	private static final int DETECTION_LIMIT = 8_000;
 
 	/**
 	 * <p>{@code String} representation of the current {@code LineSeparator} type.</p>

@@ -48,11 +48,15 @@ public final class Example1 {
 				InputStreams.nullToEmpty(optionalInputStream),
 				InputStreams.of((byte) 0x00, (byte) 0xff)
 		);
+
 		// Write to both a buffered file OutputStream and a sampling one
+		final var fromIndex = 0L;
+		final var toIndex = 100L;
 		final var teeOutputStream = OutputStreams.tee(
 				OutputStreams.buffered(fileOutputStream),
-				new RangeOutputStream(sampleOutputStream, 0L, 100L) // Write only the 100 firsts bytes
+				new RangeOutputStream(sampleOutputStream, fromIndex, toIndex) // Write only the 100 firsts bytes
 		);
+
 		// Wrap the InputStream to be used in a foreach-style loop for a better readability
 		for (final var i : Iterables.wrap(concatInputStream)) {
 			teeOutputStream.write(i);

@@ -36,7 +36,8 @@ public final class Example4 {
 
 	public static void main(final String... args) {
 		// Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
-		Throwables.uncheck(() -> Thread.sleep(5_000L));
+		final var millis = 5_000L;
+		Throwables.uncheck(() -> Thread.sleep(millis));
 
 		// Handle checked Exceptions in lambda converting them automatically to unchecked ones
 		try {

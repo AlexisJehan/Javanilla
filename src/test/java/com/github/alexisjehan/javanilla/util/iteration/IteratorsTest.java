@@ -243,7 +243,7 @@ final class IteratorsTest {
 	@Test
 	void testUntil() {
 		{
-			final var array = ObjectArrays.of(1, 2000, null, 4000);
+			final var array = ObjectArrays.of(1, 2_000, null, 4_000);
 			final var untilIterator = Iterators.until(new Supplier<>() {
 				private int i = 0;
 
@@ -253,7 +253,7 @@ final class IteratorsTest {
 				}
 			}, 4000);
 			assertThat(untilIterator.next()).isEqualTo(1);
-			assertThat(untilIterator.next()).isEqualTo(2000);
+			assertThat(untilIterator.next()).isEqualTo(2_000);
 			assertThat(untilIterator.next()).isNull();
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(untilIterator::next);
 		}

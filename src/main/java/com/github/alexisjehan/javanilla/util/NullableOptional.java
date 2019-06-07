@@ -91,7 +91,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public T get() {
-		if (isEmpty()) {
+		if (isEmpty) {
 			throw new NoSuchElementException("No value present");
 		}
 		return value;
@@ -123,7 +123,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	public void ifPresent(final Consumer<? super T> action) {
 		Ensure.notNull("action", action);
-		if (isPresent()) {
+		if (!isEmpty) {
 			action.accept(value);
 		}
 	}
@@ -139,7 +139,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	public void ifPresentOrElse(final Consumer<? super T> action, final Runnable emptyAction) {
 		Ensure.notNull("action", action);
 		Ensure.notNull("emptyAction", emptyAction);
-		if (isPresent()) {
+		if (!isEmpty) {
 			action.accept(value);
 		} else {
 			emptyAction.run();
@@ -157,7 +157,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	public NullableOptional<T> filter(final Predicate<? super T> filter) {
 		Ensure.notNull("filter", filter);
-		if (isEmpty()) {
+		if (isEmpty) {
 			return this;
 		}
 		return filter.test(value) ? this : empty();
@@ -175,7 +175,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	public <U> NullableOptional<U> map(final Function<? super T, ? extends U> mapper) {
 		Ensure.notNull("mapper", mapper);
-		if (isEmpty()) {
+		if (isEmpty) {
 			return empty();
 		}
 		return of(mapper.apply(value));
@@ -197,7 +197,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	@SuppressWarnings("unchecked")
 	public <U> NullableOptional<U> flatMap(final Function<? super T, ? extends NullableOptional<? extends U>> mapper) {
 		Ensure.notNull("mapper", mapper);
-		if (isEmpty()) {
+		if (isEmpty) {
 			return empty();
 		}
 		return Objects.requireNonNull((NullableOptional<U>) mapper.apply(value));
@@ -215,7 +215,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	@SuppressWarnings("unchecked")
 	public NullableOptional<T> or(final Supplier<? extends NullableOptional<? extends T>> supplier) {
 		Ensure.notNull("supplier", supplier);
-		if (isPresent()) {
+		if (!isEmpty) {
 			return this;
 		}
 		return Objects.requireNonNull((NullableOptional<T>) supplier.get());
@@ -229,7 +229,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	@Override
 	public Stream<T> stream() {
-		if (isEmpty()) {
+		if (isEmpty) {
 			return Stream.empty();
 		}
 		return Stream.of(value);
@@ -242,7 +242,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @since 1.1.0
 	 */
 	public T orElse(final T other) {
-		return isPresent() ? value : other;
+		return !isEmpty ? value : other;
 	}
 
 	/**
@@ -254,7 +254,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	public T orElseGet(final Supplier<? extends T> supplier) {
 		Ensure.notNull("supplier", supplier);
-		return isPresent() ? value : supplier.get();
+		return !isEmpty ? value : supplier.get();
 	}
 
 	/**
@@ -279,7 +279,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 */
 	public <X extends Throwable> T orElseThrow(final Supplier<? extends X> throwableSupplier) throws X {
 		Ensure.notNull("throwableSupplier", throwableSupplier);
-		if (isPresent()) {
+		if (!isEmpty) {
 			return value;
 		}
 		throw throwableSupplier.get();
@@ -309,7 +309,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + (
-				isPresent()
+				!isEmpty
 						? "[" + value + "]"
 						: ".empty"
 		);

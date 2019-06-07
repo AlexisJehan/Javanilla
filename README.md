@@ -44,11 +44,15 @@ final var concatInputStream = InputStreams.concat(
 		InputStreams.nullToEmpty(optionalInputStream),
 		InputStreams.of((byte) 0x00, (byte) 0xff)
 );
+
 // Write to both a buffered file OutputStream and a sampling one
+final var fromIndex = 0L;
+final var toIndex = 100L;
 final var teeOutputStream = OutputStreams.tee(
 		OutputStreams.buffered(fileOutputStream),
-		new RangeOutputStream(sampleOutputStream, 0L, 100L) // Write only the 100 firsts bytes
+		new RangeOutputStream(sampleOutputStream, fromIndex, toIndex) // Write only the 100 firsts bytes
 );
+
 // Wrap the InputStream to be used in a foreach-style loop for a better readability
 for (final var i : Iterables.wrap(concatInputStream)) {
 	teeOutputStream.write(i);
@@ -78,8 +82,11 @@ final var times = 5;
 System.out.println(Strings.repeat("xX", times)); // Prints "xXxXxXxXxX"
 final var size = 5;
 System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
-System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
-System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
+final var suffix = 'o';
+System.out.println(Strings.removeEnd("foo", suffix)); // Prints "fo"
+final var target = 'o';
+final var replacement = 'r';
+System.out.println(Strings.replaceLast("foo", target, replacement)); // Prints "for"
 System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
 System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
 final var withPadding = true;
@@ -89,7 +96,8 @@ System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".get
 _Throwable_ utility tools:
 ```java
 // Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
-Throwables.uncheck(() -> Thread.sleep(5_000L));
+final var millis = 5_000L;
+Throwables.uncheck(() -> Thread.sleep(millis));
 
 // Handle checked Exceptions in lambda converting them automatically to unchecked ones
 try {
@@ -106,7 +114,7 @@ Primitive and generic arrays utility tools:
 IntArrays.of(1, 2, 3); // Similar to new int[] {1, 2, 3};
 ObjectArrays.of("foo", "bar"); // Similar to new String[] {"foo", "bar"};
 LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)); // 1, 2, 3, 4, 5, 6
-final var separator = CharArrays.of(' ');
+final var separator = CharArrays.singleton(' ');
 CharArrays.join(separator, CharArrays.of('f', 'o', 'o'), CharArrays.of('b', 'a', 'r')); // 'f', 'o', 'o', ' ', 'b', 'a', 'r'
 FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
 FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True
@@ -127,17 +135,23 @@ Print values as pretty strings using _StringFormatter_:
 final var floatPrecision = 3; // Up to 3 digits after the floating point
 final var stringFormatter = new StringFormatter(Locale.US, floatPrecision);
 System.out.println(stringFormatter.format(1_234_567L)); // Prints 1,234,567
-System.out.println(stringFormatter.formatPercent(1.0d, 3.0d)); // Prints 33.333%
-System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
 System.out.println(stringFormatter.formatBytes(1_300_000L)); // Prints 1.24MiB
 System.out.println(stringFormatter.formatBytes(1_300_000L, StringFormatter.BytePrefix.SI)); // Prints 1.3MB
+final var progression = 1.0d;
+final var total = 3.0d;
+System.out.println(stringFormatter.formatPercent(progression, total)); // Prints 33.333%
+System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
 ```
 
 Some _Distance_ and _EditDistance_ calculations:
 ```java
-System.out.println(Distances.MANHATTAN.calculate(0.0d, 0.0d, 1.0d, 1.0d)); // Prints 2
+final var x1 = 0.0d;
+final var y1 = 0.0d;
+final var x2 = 1.0d;
+final var y2 = 2.0d;
+System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3
 final var order = 1;
-System.out.println(new MinkowskiDistance(order).calculate(0.0d, 1.0d, 2.0d, 3.0d)); // Prints 4
+System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3
 System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
 System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
 ```
@@ -147,13 +161,16 @@ New _Comparator_ implementation:
 ```java
 System.out.println("foo10".compareTo("foo2")); // Prints -1
 System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
+System.out.println("foo".compareTo("bar")); // Prints 4
+System.out.println(Comparators.normalize(String::compareTo).compare("foo", "bar")); // Prints 1
 ```
 
 New _Bag_ collection type:
 ```java
 final var bag = new MapBag<String>();
 bag.add("foo");
-bag.add("bar", 5L);
+final var quantity = 5L;
+bag.add("bar", quantity);
 System.out.println(bag.count("foo")); // Prints 1
 System.out.println(bag.distinct()); // Prints 2
 System.out.println(bag.size()); // Prints 6
@@ -162,12 +179,15 @@ System.out.println(bag.size()); // Prints 6
 _Iterator_ utility tools:
 ```java
 // Iterator to iterate over groups of integers
+final var batchSize = 3;
 final var batchIterator = new BatchIterator<>(
 		Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-		3 // Batch size
+		batchSize
 );
+
 // Iterator that counts iterated groups
 final var countIterator = new CountIterator<>(batchIterator);
+
 // Wrap the Iterator to be used in a foreach-style loop for a better readability
 for (final var list : Iterables.wrap(countIterator)) {
 	System.out.println(list); // Prints [1, 2, 3], [4, 5, 6], [7, 8, 9] and [10]

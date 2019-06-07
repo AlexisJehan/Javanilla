@@ -36,12 +36,15 @@ public final class Example10 {
 
 	public static void main(final String... args) {
 		// Iterator to iterate over groups of integers
+		final var batchSize = 3;
 		final var batchIterator = new BatchIterator<>(
 				Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-				3 // Batch size
+				batchSize
 		);
+
 		// Iterator that counts iterated groups
 		final var countIterator = new CountIterator<>(batchIterator);
+
 		// Wrap the Iterator to be used in a foreach-style loop for a better readability
 		for (final var list : Iterables.wrap(countIterator)) {
 			System.out.println(list); // Prints [1, 2, 3], [4, 5, 6], [7, 8, 9] and [10]

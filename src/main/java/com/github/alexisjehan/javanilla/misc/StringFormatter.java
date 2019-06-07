@@ -55,14 +55,14 @@ public final class StringFormatter implements Serializable {
 		 * @see <a href="https://en.wikipedia.org/wiki/SI_prefix">https://en.wikipedia.org/wiki/SI_prefix</a>
 		 * @since 1.0.0
 		 */
-		SI(1000),
+		SI(1_000),
 
 		/**
 		 * <p>Binary prefix with a base of {@code 1024}.</p>
 		 * @see <a href="https://en.wikipedia.org/wiki/Binary_prefix">https://en.wikipedia.org/wiki/Binary_prefix</a>
 		 * @since 1.0.0
 		 */
-		BINARY(1024);
+		BINARY(1_024);
 
 		/**
 		 * <p>Base value.</p>
@@ -79,12 +79,6 @@ public final class StringFormatter implements Serializable {
 			this.base = base;
 		}
 	}
-
-	/**
-	 * <p>Serial version unique ID.</p>
-	 * @since 1.0.0
-	 */
-	private static final long serialVersionUID = 5487436919618772105L;
 
 	/**
 	 * <p>Units suffixes.</p>
@@ -115,6 +109,12 @@ public final class StringFormatter implements Serializable {
 	 * @since 1.3.0
 	 */
 	public static final StringFormatter DEFAULT = new StringFormatter(Locale.getDefault());
+
+	/**
+	 * <p>Serial version unique ID.</p>
+	 * @since 1.0.0
+	 */
+	private static final long serialVersionUID = 5487436919618772105L;
 
 	/**
 	 * <p>{@code Locale} instance.</p>
@@ -245,31 +245,6 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a currency value as a pretty {@code String}, the currency type is the one from the {@code Locale}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
-	 * @param value the currency value
-	 * @return the currency {@code String} representation
-	 * @since 1.0.0
-	 */
-	public String formatCurrency(final double value) {
-		return currencyFormatter.format(value);
-	}
-
-	/**
-	 * <p>Format a percent value as a pretty {@code String}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
-	 * @param progression the progression value
-	 * @param total the total value
-	 * @return the percent {@code String} representation
-	 * @throws IllegalArgumentException if the progression is lower than {@code 0} or greater than the total
-	 * @since 1.0.0
-	 */
-	public String formatPercent(final double progression, final double total) {
-		Ensure.between("progression", progression, 0.0d, total);
-		return percentFormatter.format(progression / total);
-	}
-
-	/**
 	 * <p>Format a number of bytes value such as a file size as a pretty {@code String} using the default
 	 * {@code BytePrefix}.</p>
 	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
@@ -301,6 +276,31 @@ public final class StringFormatter implements Serializable {
 				+ localeDelimiter
 				+ UNITS[exponent - 1]
 				+ (BytePrefix.BINARY == bytePrefix ? "iB" : "B");
+	}
+
+	/**
+	 * <p>Format a percent value as a pretty {@code String}.</p>
+	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * @param progression the progression value
+	 * @param total the total value
+	 * @return the percent {@code String} representation
+	 * @throws IllegalArgumentException if the progression is lower than {@code 0} or greater than the total
+	 * @since 1.0.0
+	 */
+	public String formatPercent(final double progression, final double total) {
+		Ensure.between("progression", progression, 0.0d, total);
+		return percentFormatter.format(progression / total);
+	}
+
+	/**
+	 * <p>Format a currency value as a pretty {@code String}, the currency type is the one from the {@code Locale}.</p>
+	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * @param value the currency value
+	 * @return the currency {@code String} representation
+	 * @since 1.0.0
+	 */
+	public String formatCurrency(final double value) {
+		return currencyFormatter.format(value);
 	}
 
 	@Override

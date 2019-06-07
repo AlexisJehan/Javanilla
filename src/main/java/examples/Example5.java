@@ -43,7 +43,7 @@ public final class Example5 {
 		IntArrays.of(1, 2, 3); // Similar to new int[] {1, 2, 3};
 		ObjectArrays.of("foo", "bar"); // Similar to new String[] {"foo", "bar"};
 		LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)); // 1, 2, 3, 4, 5, 6
-		final var separator = CharArrays.of(' ');
+		final var separator = CharArrays.singleton(' ');
 		CharArrays.join(separator, CharArrays.of('f', 'o', 'o'), CharArrays.of('b', 'a', 'r')); // 'f', 'o', 'o', ' ', 'b', 'a', 'r'
 		FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
 		FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True

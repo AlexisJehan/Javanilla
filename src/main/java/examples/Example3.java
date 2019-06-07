@@ -42,8 +42,11 @@ public final class Example3 {
 		System.out.println(Strings.repeat("xX", times)); // Prints "xXxXxXxXxX"
 		final var size = 5;
 		System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
-		System.out.println(Strings.removeEnd("foo", 'o')); // Prints "fo"
-		System.out.println(Strings.replaceLast("foo", 'o', 'r')); // Prints "for"
+		final var suffix = 'o';
+		System.out.println(Strings.removeEnd("foo", suffix)); // Prints "fo"
+		final var target = 'o';
+		final var replacement = 'r';
+		System.out.println(Strings.replaceLast("foo", target, replacement)); // Prints "for"
 		System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
 		System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
 		final var withPadding = true;
