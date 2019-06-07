@@ -2,6 +2,9 @@
 
 ## 1.5.0 _(in progress)_
 
+**misc.StringFormatter**
+- Fixed the _formatPercent_ method
+
 **misc.quality.Ensure**
 - Added _multipleOf()_ methods
 

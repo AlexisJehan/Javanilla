@@ -31,6 +31,7 @@ import com.github.alexisjehan.javanilla.misc.quality.ToString;
 import com.github.alexisjehan.javanilla.misc.tuples.Pair;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -206,6 +207,7 @@ public final class StringFormatter implements Serializable {
 		doubleFormatter = new DecimalFormat("###,##0." + Strings.repeat(strictPrecision ? '0' : '#', floatPrecision), new DecimalFormatSymbols(locale));
 		percentFormatter = NumberFormat.getPercentInstance(locale);
 		percentFormatter.setMaximumFractionDigits(floatPrecision);
+		percentFormatter.setRoundingMode(RoundingMode.DOWN);
 		if (strictPrecision) {
 			percentFormatter.setMinimumFractionDigits(floatPrecision);
 		} else {
