@@ -190,15 +190,27 @@ final class ToStringTest {
 
 	@Test
 	void testOf() {
-		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "{foo=1}");
-		assertThat(ToString.of(this, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "{foo=1, bar=null}");
-		assertThat(ToString.of(this)).isEqualTo(getClass().getSimpleName() + "@" + hashCode());
+		{
+			final var object = Integer.valueOf(1);
+			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)))).isEqualTo("Integer{foo=1}");
+			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo("Integer{foo=1, bar=null}");
+			assertThat(ToString.of(object)).isEqualTo("Integer@" + object.hashCode());
+		}
+		{
+			final var object = new Exception() {
+				private static final long serialVersionUID = 7581622222244353204L;
+			};
+			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "$1{foo=1}");
+			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "$1{foo=1, bar=null}");
+			assertThat(ToString.of(object)).isEqualTo(getClass().getSimpleName() + "$1@" + object.hashCode());
+		}
 	}
 
 	@Test
 	void testOfInvalid() {
+		final var object = Integer.valueOf(1);
 		assertThatNullPointerException().isThrownBy(() -> ToString.of(null, Pair.of("foo", ToString.toString(1))));
-		assertThatNullPointerException().isThrownBy(() -> ToString.of(this, (Pair<String, String>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> ToString.of(this, (Pair<String, String>) null));
+		assertThatNullPointerException().isThrownBy(() -> ToString.of(object, (Pair<String, String>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ToString.of(object, (Pair<String, String>) null));
 	}
 }
