@@ -214,7 +214,7 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public NullableOptional<E> min() {
-		Map.Entry<E, LongAdder> minEntry = null;
+		var minEntry = (Map.Entry<E, LongAdder>) null;
 		for (final var entry : map.entrySet()) {
 			if (null == minEntry || minEntry.getValue().longValue() > entry.getValue().longValue()) {
 				minEntry = entry;
@@ -228,7 +228,7 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public NullableOptional<E> max() {
-		Map.Entry<E, LongAdder> maxEntry = null;
+		var maxEntry = (Map.Entry<E, LongAdder>) null;
 		for (final var entry : map.entrySet()) {
 			if (null == maxEntry || maxEntry.getValue().longValue() < entry.getValue().longValue()) {
 				maxEntry = entry;
