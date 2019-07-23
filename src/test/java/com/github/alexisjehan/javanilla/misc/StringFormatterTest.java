@@ -346,6 +346,7 @@ final class StringFormatterTest {
 		assertThat(stringFormatter).isNotEqualTo(1);
 		{
 			final var otherStringFormatter = new StringFormatter(Locale.getDefault());
+			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isEqualTo(otherStringFormatter);
 			assertThat(stringFormatter).hasSameHashCodeAs(otherStringFormatter);
 			assertThat(stringFormatter).hasToString(otherStringFormatter.toString());
@@ -353,18 +354,21 @@ final class StringFormatterTest {
 		{
 			// Locale.FRENCH instead of Locale.FRANCE to work correctly with the default Locale
 			final var otherStringFormatter = new StringFormatter(Locale.FRENCH);
+			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
 			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
 			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
 		}
 		{
 			final var otherStringFormatter = new StringFormatter(Locale.getDefault(), 5);
+			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
 			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
 			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
 		}
 		{
 			final var otherStringFormatter = new StringFormatter(Locale.getDefault(), StringFormatter.DEFAULT_FLOAT_PRECISION, true);
+			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
 			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
 			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());

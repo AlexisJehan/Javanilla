@@ -46,6 +46,7 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 		{
 			final var otherTreeNode = new LinkedTreeNode<>("foo").extend("foo1");
 			otherTreeNode.extend("foo11");
+			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isEqualTo(otherTreeNode);
 			assertThat(treeNode).hasSameHashCodeAs(otherTreeNode);
 			assertThat(treeNode).hasToString(otherTreeNode.toString());
@@ -53,6 +54,7 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 		{
 			final var otherTreeNode = new LinkedTreeNode<>("foo").extend("bar1");
 			otherTreeNode.extend("foo11");
+			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isNotEqualTo(otherTreeNode);
 			assertThat(treeNode.hashCode()).isNotEqualTo(otherTreeNode.hashCode());
 			assertThat(treeNode.toString()).isNotEqualTo(otherTreeNode.toString());
@@ -60,6 +62,7 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 		{
 			final var otherTreeNode = new LinkedTreeNode<>("foo").extend("foo1");
 			otherTreeNode.extend("bar11");
+			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isNotEqualTo(otherTreeNode);
 			assertThat(treeNode.hashCode()).isNotEqualTo(otherTreeNode.hashCode());
 			assertThat(treeNode.toString()).isNotEqualTo(otherTreeNode.toString());
@@ -67,6 +70,7 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 		{
 			final var otherTreeNode = new LinkedTreeNode<>("foo").extend("foo1");
 			otherTreeNode.extend("foo11").extend("foo111");
+			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isNotEqualTo(otherTreeNode);
 			assertThat(treeNode.hashCode()).isNotEqualTo(otherTreeNode.hashCode());
 			assertThat(treeNode.toString()).isNotEqualTo(otherTreeNode.toString());

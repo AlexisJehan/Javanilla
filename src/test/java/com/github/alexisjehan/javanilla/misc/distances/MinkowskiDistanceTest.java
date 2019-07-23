@@ -87,12 +87,14 @@ final class MinkowskiDistanceTest {
 		assertThat(minkowskiDistance).isNotEqualTo(1);
 		{
 			final var otherMinkowskiDistance = new MinkowskiDistance(1);
+			assertThat(minkowskiDistance).isNotSameAs(otherMinkowskiDistance);
 			assertThat(otherMinkowskiDistance).isEqualTo(minkowskiDistance);
 			assertThat(otherMinkowskiDistance).hasSameHashCodeAs(minkowskiDistance);
 			assertThat(otherMinkowskiDistance).hasToString(minkowskiDistance.toString());
 		}
 		{
 			final var otherMinkowskiDistance = new MinkowskiDistance(2);
+			assertThat(minkowskiDistance).isNotSameAs(otherMinkowskiDistance);
 			assertThat(otherMinkowskiDistance).isNotEqualTo(minkowskiDistance);
 			assertThat(otherMinkowskiDistance.hashCode()).isNotEqualTo(minkowskiDistance.hashCode());
 			assertThat(otherMinkowskiDistance.toString()).isNotEqualTo(minkowskiDistance.toString());

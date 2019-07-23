@@ -44,10 +44,8 @@ final class SerializableRunnableTest {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	private static final class FooSerializableRunnable implements SerializableRunnable {
-
-		private static final long serialVersionUID = 1712953992098716328L;
-
 		private int value;
 
 		@Override

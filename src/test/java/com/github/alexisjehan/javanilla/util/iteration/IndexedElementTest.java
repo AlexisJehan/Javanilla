@@ -39,18 +39,21 @@ final class IndexedElementTest {
 		assertThat(indexedElement).isNotEqualTo(1);
 		{
 			final var otherIndexedElement = new IndexedElement<>(1L, "foo");
+			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isEqualTo(otherIndexedElement);
 			assertThat(indexedElement).hasSameHashCodeAs(otherIndexedElement);
 			assertThat(indexedElement).hasToString(otherIndexedElement.toString());
 		}
 		{
 			final var otherIndexedElement = new IndexedElement<>(2L, "foo");
+			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
 			assertThat(indexedElement.hashCode()).isNotEqualTo(otherIndexedElement.hashCode());
 			assertThat(indexedElement.toString()).isNotEqualTo(otherIndexedElement.toString());
 		}
 		{
 			final var otherIndexedElement = new IndexedElement<>(1L, "bar");
+			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
 			assertThat(indexedElement.hashCode()).isNotEqualTo(otherIndexedElement.hashCode());
 			assertThat(indexedElement.toString()).isNotEqualTo(otherIndexedElement.toString());
