@@ -25,10 +25,10 @@ package com.github.alexisjehan.javanilla.misc.trees;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.misc.quality.Equals;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -140,11 +140,10 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	@Override
 	public int hashCode() {
-		var hashCode = Objects.hashCode(getValue());
-		for (final var child : children) {
-			hashCode += child.hashCode();
-		}
-		return hashCode;
+		return HashCode.of(
+				HashCode.hashCode(getValue()),
+				HashCode.hashCode(children())
+		);
 	}
 
 	@Override

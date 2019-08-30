@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
 
 import java.nio.ByteOrder;
@@ -141,7 +142,7 @@ public final class ByteArrays {
 		}
 		for (final var value : values) {
 			for (final var element : array) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					return true;
 				}
 			}
@@ -167,7 +168,7 @@ public final class ByteArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					contained = true;
 					break;
 				}
@@ -197,7 +198,7 @@ public final class ByteArrays {
 		for (final var value : values) {
 			var contained = false;
 			for (final var element : array) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					if (contained) {
 						return false;
 					}
@@ -229,7 +230,7 @@ public final class ByteArrays {
 		for (final var element : array) {
 			var contained = false;
 			for (final var value : values) {
-				if (value == element) {
+				if (Equals.equals(value, element)) {
 					contained = true;
 					break;
 				}
@@ -268,7 +269,7 @@ public final class ByteArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = fromIndex; i < array.length; ++i) {
-				if (value == array[i]) {
+				if (Equals.equals(value, array[i])) {
 					return i;
 				}
 			}
@@ -303,7 +304,7 @@ public final class ByteArrays {
 		if (!isEmpty(array)) {
 			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
 			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (value == array[i]) {
+				if (Equals.equals(value, array[i])) {
 					return i;
 				}
 			}
@@ -326,7 +327,7 @@ public final class ByteArrays {
 		}
 		var frequency = 0;
 		for (final var element : array) {
-			if (value == element) {
+			if (Equals.equals(value, element)) {
 				++frequency;
 			}
 		}

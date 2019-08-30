@@ -27,6 +27,7 @@ import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.io.lines.LineReader;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.tuples.Single;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableSupplier;
@@ -43,7 +44,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.PrimitiveIterator;
 import java.util.Set;
 import java.util.function.Function;
@@ -455,7 +455,7 @@ public final class Iterators {
 		return new PreparedIterator<>() {
 			@Override
 			protected boolean isValid(final E next) {
-				return !Objects.equals(next, excludedElement);
+				return !Equals.equals(next, excludedElement);
 			}
 
 			@Override

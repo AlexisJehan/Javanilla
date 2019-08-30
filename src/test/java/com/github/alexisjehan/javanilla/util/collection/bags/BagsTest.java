@@ -43,7 +43,10 @@ final class BagsTest {
 	void testEmpty() {
 		final var emptyBag = Bags.empty();
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> emptyBag.add("foo"));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> emptyBag.add("foo", 2L));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> emptyBag.remove("foo"));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> emptyBag.remove("foo", 2L));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> emptyBag.removeAll("foo"));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(emptyBag::clear);
 		assertThat(emptyBag.count("foo")).isEqualTo(0L);
 		assertThat(emptyBag.count("bar")).isEqualTo(0L);
@@ -125,7 +128,10 @@ final class BagsTest {
 		assertThat(unmodifiableBag.count("foo")).isEqualTo(2L);
 		assertThat(unmodifiableBag.count("bar")).isEqualTo(1L);
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> unmodifiableBag.add("foo"));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> unmodifiableBag.add("foo", 2L));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> unmodifiableBag.remove("foo"));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> unmodifiableBag.remove("foo", 2L));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> unmodifiableBag.removeAll("foo"));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(unmodifiableBag::clear);
 	}
 
@@ -139,7 +145,10 @@ final class BagsTest {
 		{
 			final var singletonBag = Bags.singleton("foo", 5L);
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo", 2L));
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.removeAll("foo"));
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
 			assertThat(singletonBag.count("foo")).isEqualTo(5L);
 			assertThat(singletonBag.count("bar")).isEqualTo(0L);
@@ -155,7 +164,10 @@ final class BagsTest {
 			// Zero
 			final var singletonBag = Bags.singleton("foo", 0L);
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo", 2L));
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.removeAll("foo"));
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
 			assertThat(singletonBag.count("foo")).isEqualTo(0L);
 			assertThat(singletonBag.count("bar")).isEqualTo(0L);
@@ -171,7 +183,10 @@ final class BagsTest {
 			// Null
 			final var singletonBag = Bags.singleton(null, 5L);
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo", 2L));
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.removeAll("foo"));
 			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
 			assertThat(singletonBag.count("foo")).isEqualTo(0L);
 			assertThat(singletonBag.count("bar")).isEqualTo(0L);
@@ -227,7 +242,10 @@ final class BagsTest {
 		assertThat(Bags.of("foo").toSet()).containsExactly("foo");
 		final var bag = Bags.of("foo", "foo", "foo", "bar", "bar", null);
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.add("foo"));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.add("foo", 2L));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.remove("foo"));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.remove("foo", 2L));
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> bag.removeAll("foo"));
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(bag::clear);
 		assertThat(bag.count("foo")).isEqualTo(3L);
 		assertThat(bag.count("bar")).isEqualTo(2L);

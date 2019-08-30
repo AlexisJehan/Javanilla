@@ -24,12 +24,12 @@
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.Supplier;
@@ -75,22 +75,6 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Constructor with elements from an existing {@code Collection}, a {@code HashMap} is used.</p>
-	 * @param collection the {@code Collection} to get elements from
-	 * @throws NullPointerException if the {@code Collection} is {@code null}
-	 * @since 1.0.0
-	 */
-	public MapBag(final Collection<? extends E> collection) {
-		Ensure.notNull("collection", collection);
-		map = new HashMap<>();
-		if (!collection.isEmpty()) {
-			for (final var element : collection) {
-				add(element);
-			}
-		}
-	}
-
-	/**
 	 * <p>Private constructor with the given {@code Map}, empty or not.</p>
 	 * @param map the {@code Map} to get elements and occurrences from
 	 * @throws NullPointerException if the {@code Map} is {@code null}
@@ -109,6 +93,22 @@ public final class MapBag<E> implements Bag<E> {
 				} else {
 					iterator.remove();
 				}
+			}
+		}
+	}
+
+	/**
+	 * <p>Constructor with elements from an existing {@code Collection}, a {@code HashMap} is used.</p>
+	 * @param collection the {@code Collection} to get elements from
+	 * @throws NullPointerException if the {@code Collection} is {@code null}
+	 * @since 1.0.0
+	 */
+	public MapBag(final Collection<? extends E> collection) {
+		Ensure.notNull("collection", collection);
+		map = new HashMap<>();
+		if (!collection.isEmpty()) {
+			for (final var element : collection) {
+				add(element);
 			}
 		}
 	}
@@ -270,9 +270,8 @@ public final class MapBag<E> implements Bag<E> {
 		}
 		for (final var entry : map.entrySet()) {
 			final var element = entry.getKey();
-			final var adder = entry.getValue();
-			final var otherCount = other.count(element);
-			if (adder.longValue() != otherCount) {
+			final var quantity = entry.getValue().longValue();
+			if (quantity != other.count(element)) {
 				return false;
 			}
 		}
@@ -281,11 +280,16 @@ public final class MapBag<E> implements Bag<E> {
 
 	@Override
 	public int hashCode() {
-		var h = 0;
+		var hashCode = 0;
 		for (final var entry : map.entrySet()) {
-			h += Objects.hash(entry.getKey(), entry.getValue().longValue());
+			final var element = entry.getKey();
+			final var quantity = entry.getValue().longValue();
+			hashCode += HashCode.of(
+					HashCode.hashCode(element),
+					HashCode.hashCode(quantity)
+			);
 		}
-		return h;
+		return hashCode;
 	}
 
 	@Override

@@ -56,8 +56,18 @@ public abstract class FilterBag<E> implements Bag<E> {
 	}
 
 	@Override
+	public void add(final E element) {
+		bag.add(element);
+	}
+
+	@Override
 	public void add(final E element, final long quantity) {
 		bag.add(element, quantity);
+	}
+
+	@Override
+	public boolean remove(final E element) {
+		return bag.remove(element);
 	}
 
 	@Override
@@ -101,16 +111,6 @@ public abstract class FilterBag<E> implements Bag<E> {
 	}
 
 	@Override
-	public NullableOptional<E> min() {
-		return bag.min();
-	}
-
-	@Override
-	public NullableOptional<E> max() {
-		return bag.max();
-	}
-
-	@Override
 	public long count(final E element) {
 		return bag.count(element);
 	}
@@ -123,6 +123,16 @@ public abstract class FilterBag<E> implements Bag<E> {
 	@Override
 	public long size() {
 		return bag.size();
+	}
+
+	@Override
+	public NullableOptional<E> min() {
+		return bag.min();
+	}
+
+	@Override
+	public NullableOptional<E> max() {
+		return bag.max();
 	}
 
 	@Override

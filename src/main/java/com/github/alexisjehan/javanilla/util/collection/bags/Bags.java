@@ -24,13 +24,13 @@
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -72,12 +72,27 @@ public final class Bags {
 		}
 
 		@Override
+		public void add(final E element) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
 		public void add(final E element, final long quantity) {
 			throw new UnsupportedOperationException();
 		}
 
 		@Override
+		public boolean remove(final E element) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
 		public boolean remove(final E element, final long quantity) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public boolean removeAll(final E element) {
 			throw new UnsupportedOperationException();
 		}
 
@@ -88,7 +103,7 @@ public final class Bags {
 
 		@Override
 		public long count(final E element) {
-			return Objects.equals(this.element, element) ? quantity : 0L;
+			return Equals.equals(this.element, element) ? quantity : 0L;
 		}
 
 		@Override
@@ -155,12 +170,27 @@ public final class Bags {
 	 */
 	private static final Bag EMPTY = new Bag() {
 		@Override
+		public void add(final Object element) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
 		public void add(final Object element, final long quantity) {
 			throw new UnsupportedOperationException();
 		}
 
 		@Override
+		public boolean remove(final Object element) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
 		public boolean remove(final Object element, final long quantity) {
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		public boolean removeAll(final Object element) {
 			throw new UnsupportedOperationException();
 		}
 
@@ -309,12 +339,27 @@ public final class Bags {
 		Ensure.notNull("bag", bag);
 		return new FilterBag<>(bag) {
 			@Override
+			public void add(final E element) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
 			public void add(final E element, final long quantity) {
 				throw new UnsupportedOperationException();
 			}
 
 			@Override
+			public boolean remove(final E element) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
 			public boolean remove(final E element, final long quantity) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public boolean removeAll(final E element) {
 				throw new UnsupportedOperationException();
 			}
 
