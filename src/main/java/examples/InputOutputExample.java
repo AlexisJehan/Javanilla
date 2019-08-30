@@ -32,9 +32,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public final class Example1 {
+public final class InputOutputExample {
 
-	private Example1() {
+	private InputOutputExample() {
 		// Not available
 	}
 

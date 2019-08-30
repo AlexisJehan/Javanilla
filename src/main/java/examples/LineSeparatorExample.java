@@ -23,25 +23,31 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.misc.StringFormatter;
+import com.github.alexisjehan.javanilla.io.lines.LineReader;
+import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
+import com.github.alexisjehan.javanilla.io.lines.LineWriter;
 
-import java.util.Locale;
+import java.io.IOException;
+import java.nio.file.Path;
 
-public final class Example6 {
+public final class LineSeparatorExample {
 
-	private Example6() {
+	private LineSeparatorExample() {
 		// Not available
 	}
 
-	public static void main(final String... args) {
-		final var floatPrecision = 3; // Up to 3 digits after the floating point
-		final var stringFormatter = new StringFormatter(Locale.US, floatPrecision);
-		System.out.println(stringFormatter.format(1_234_567L)); // Prints 1,234,567
-		System.out.println(stringFormatter.formatBytes(1_300_000L)); // Prints 1.24MiB
-		System.out.println(stringFormatter.formatBytes(1_300_000L, StringFormatter.BytePrefix.SI)); // Prints 1.3MB
-		final var progression = 1.0d;
-		final var total = 3.0d;
-		System.out.println(stringFormatter.formatPercent(progression, total)); // Prints 33.333%
-		System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
+	public static void main(final String... args) throws IOException {
+		final var unixFilePath = (Path) null;
+		final var windowsFilePath = (Path) null;
+
+		final var ignoreTerminatingNewLine = true;
+		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
+			final var appendTerminatingNewLine = false;
+			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
+				// Transfers all lines from the LineReader to the LineWriter
+				final var transferred = lineReader.transferTo(lineWriter);
+				System.out.println(transferred + " lines transferred");
+			}
+		}
 	}
 }

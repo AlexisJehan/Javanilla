@@ -23,31 +23,32 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.io.lines.LineReader;
-import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
-import com.github.alexisjehan.javanilla.io.lines.LineWriter;
+import com.github.alexisjehan.javanilla.util.iteration.BatchIterator;
+import com.github.alexisjehan.javanilla.util.iteration.CountIterator;
+import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.util.iteration.Iterators;
 
-import java.io.IOException;
-import java.nio.file.Path;
+public final class IteratorExample {
 
-public final class Example2 {
-
-	private Example2() {
+	private IteratorExample() {
 		// Not available
 	}
 
-	public static void main(final String... args) throws IOException {
-		final var unixFilePath = (Path) null;
-		final var windowsFilePath = (Path) null;
+	public static void main(final String... args) {
+		// Iterator to iterate over groups of integers
+		final var batchSize = 3;
+		final var batchIterator = new BatchIterator<>(
+				Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+				batchSize
+		);
 
-		final var ignoreTerminatingNewLine = true;
-		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
-			final var appendTerminatingNewLine = false;
-			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
-				// Transfers all lines from the LineReader to the LineWriter
-				final var transferred = lineReader.transferTo(lineWriter);
-				System.out.println(transferred + " lines transferred");
-			}
+		// Iterator that counts iterated groups
+		final var countIterator = new CountIterator<>(batchIterator);
+
+		// Wrap the Iterator to be used in a foreach-style loop for a better readability
+		for (final var list : Iterables.wrap(countIterator)) {
+			System.out.println(list); // Prints [1, 2, 3], [4, 5, 6], [7, 8, 9] and [10]
 		}
+		System.out.println(countIterator.getCount()); // Prints 4
 	}
 }

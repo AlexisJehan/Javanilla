@@ -28,9 +28,9 @@ import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 
 import java.util.Base64;
 
-public final class Example3 {
+public final class StringExample {
 
-	private Example3() {
+	private StringExample() {
 		// Not available
 	}
 

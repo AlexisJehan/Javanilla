@@ -33,9 +33,9 @@ import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 
 import java.nio.ByteOrder;
 
-public final class Example5 {
+public final class ArrayExample {
 
-	private Example5() {
+	private ArrayExample() {
 		// Not available
 	}
 

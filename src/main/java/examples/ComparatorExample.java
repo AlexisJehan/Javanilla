@@ -23,21 +23,18 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.util.collection.bags.MapBag;
+import com.github.alexisjehan.javanilla.util.Comparators;
 
-public final class Example9 {
+public final class ComparatorExample {
 
-	private Example9() {
+	private ComparatorExample() {
 		// Not available
 	}
 
 	public static void main(final String... args) {
-		final var bag = new MapBag<String>();
-		bag.add("foo");
-		final var quantity = 5L;
-		bag.add("bar", quantity);
-		System.out.println(bag.count("foo")); // Prints 1
-		System.out.println(bag.distinct()); // Prints 2
-		System.out.println(bag.size()); // Prints 6
+		System.out.println("foo10".compareTo("foo2")); // Prints -1
+		System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
+		System.out.println("foo".compareTo("bar")); // Prints 4
+		System.out.println(Comparators.normalize(String::compareTo).compare("foo", "bar")); // Prints 1
 	}
 }

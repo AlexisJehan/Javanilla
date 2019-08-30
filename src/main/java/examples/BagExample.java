@@ -23,29 +23,21 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.util.collection.bags.MapBag;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+public final class BagExample {
 
-public final class Example4 {
-
-	private Example4() {
+	private BagExample() {
 		// Not available
 	}
 
 	public static void main(final String... args) {
-		// Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
-		final var millis = 5_000L;
-		Throwables.uncheck(() -> Thread.sleep(millis));
-
-		// Handle checked Exceptions in lambda converting them automatically to unchecked ones
-		try {
-			Throwables.uncheck(() -> {
-				throw new IOException("A checked Exception inside a lambda");
-			});
-		} catch (final UncheckedIOException e) {
-			System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
-		}
+		final var bag = new MapBag<String>();
+		bag.add("foo");
+		final var quantity = 5L;
+		bag.add("bar", quantity);
+		System.out.println(bag.count("foo")); // Prints 1
+		System.out.println(bag.distinct()); // Prints 2
+		System.out.println(bag.size()); // Prints 6
 	}
 }

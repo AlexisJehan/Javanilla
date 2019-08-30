@@ -23,32 +23,26 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.util.iteration.BatchIterator;
-import com.github.alexisjehan.javanilla.util.iteration.CountIterator;
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
-import com.github.alexisjehan.javanilla.util.iteration.Iterators;
+import com.github.alexisjehan.javanilla.misc.distances.Distances;
+import com.github.alexisjehan.javanilla.misc.distances.EditDistances;
+import com.github.alexisjehan.javanilla.misc.distances.LevenshteinDistance;
+import com.github.alexisjehan.javanilla.misc.distances.MinkowskiDistance;
 
-public final class Example10 {
+public final class DistanceExample {
 
-	private Example10() {
+	private DistanceExample() {
 		// Not available
 	}
 
 	public static void main(final String... args) {
-		// Iterator to iterate over groups of integers
-		final var batchSize = 3;
-		final var batchIterator = new BatchIterator<>(
-				Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-				batchSize
-		);
-
-		// Iterator that counts iterated groups
-		final var countIterator = new CountIterator<>(batchIterator);
-
-		// Wrap the Iterator to be used in a foreach-style loop for a better readability
-		for (final var list : Iterables.wrap(countIterator)) {
-			System.out.println(list); // Prints [1, 2, 3], [4, 5, 6], [7, 8, 9] and [10]
-		}
-		System.out.println(countIterator.getCount()); // Prints 4
+		final var x1 = 0.0d;
+		final var y1 = 0.0d;
+		final var x2 = 1.0d;
+		final var y2 = 2.0d;
+		System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3
+		final var order = 1;
+		System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3
+		System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
+		System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
 	}
 }
