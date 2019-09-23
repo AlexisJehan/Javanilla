@@ -92,7 +92,13 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.format(-0L)).isEqualTo("0");
 		assertThat(stringFormatter.format(10L)).isEqualTo("10");
 		assertThat(stringFormatter.format(-10L)).isEqualTo("-10");
-		assertThat(stringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1\u00a0234\u00a0567\u00a0890\u00a0123\u00a0456\u00a0789");
+		if (13 > Runtime.version().feature()) {
+			// Before Java 13
+			assertThat(stringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1\u00a0234\u00a0567\u00a0890\u00a0123\u00a0456\u00a0789");
+		} else {
+			// Since Java 13
+			assertThat(stringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1\u202f234\u202f567\u202f890\u202f123\u202f456\u202f789");
+		}
 	}
 
 	@Test
@@ -116,7 +122,13 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.format(-10.0d)).isEqualTo("-10");
 		assertThat(stringFormatter.format(10.014d)).isEqualTo("10,01");
 		assertThat(stringFormatter.format(10.015d)).isEqualTo("10,02");
-		assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12");
+		if (13 > Runtime.version().feature()) {
+			// Before Java 13
+			assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12");
+		} else {
+			// Since Java 13
+			assertThat(stringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1\u202f234\u202f567\u202f890,12");
+		}
 	}
 
 	@Test
@@ -169,7 +181,13 @@ final class StringFormatterTest {
 		final var stringFormatter = new StringFormatter(Locale.FRANCE);
 		assertThat(stringFormatter.formatBytes(10L)).isEqualTo("10\u00a0B");
 		assertThat(stringFormatter.formatBytes(-10L)).isEqualTo("-10\u00a0B");
-		assertThat(stringFormatter.formatBytes(1_023L)).isEqualTo("1\u00a0023\u00a0B");
+		if (13 > Runtime.version().feature()) {
+			// Before Java 13
+			assertThat(stringFormatter.formatBytes(1_023L)).isEqualTo("1\u00a0023\u00a0B");
+		} else {
+			// Since Java 13
+			assertThat(stringFormatter.formatBytes(1_023L)).isEqualTo("1\u202f023\u00a0B");
+		}
 		assertThat(stringFormatter.formatBytes(1_024L)).isEqualTo("1\u00a0kiB");
 		assertThat(stringFormatter.formatBytes(1_024L + 512L)).isEqualTo("1,5\u00a0kiB");
 		assertThat(stringFormatter.formatBytes(31_141_888L)).isEqualTo("29,7\u00a0MiB");
@@ -312,7 +330,13 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.formatCurrency(-10.0d)).isEqualTo("-10\u00a0€");
 		assertThat(stringFormatter.formatCurrency(10.014d)).isEqualTo("10,01\u00a0€");
 		assertThat(stringFormatter.formatCurrency(10.015d)).isEqualTo("10,02\u00a0€");
-		assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12\u00a0€");
+		if (13 > Runtime.version().feature()) {
+			// Before Java 13
+			assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12\u00a0€");
+		} else {
+			// Since Java 13
+			assertThat(stringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1\u202f234\u202f567\u202f890,12\u00a0€");
+		}
 	}
 
 	@Test
