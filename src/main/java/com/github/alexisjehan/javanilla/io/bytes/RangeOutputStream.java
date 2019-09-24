@@ -42,7 +42,7 @@ public final class RangeOutputStream extends FilterOutputStream {
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last byte to write.<p>
+	 * <p>Inclusive index of the last byte to write.</p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -102,7 +102,7 @@ public final class RangeOutputStream extends FilterOutputStream {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last byte to write.<p>
+	 * <p>Get the inclusive index of the first last to write.</p>
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

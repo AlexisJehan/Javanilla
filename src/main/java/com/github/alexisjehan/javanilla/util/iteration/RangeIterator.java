@@ -43,7 +43,7 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last element to iterate.<p>
+	 * <p>Inclusive index of the last element to iterate.</p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -102,7 +102,7 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last element to iterate.<p>
+	 * <p>Get the inclusive index of the last element to iterate.</p>
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

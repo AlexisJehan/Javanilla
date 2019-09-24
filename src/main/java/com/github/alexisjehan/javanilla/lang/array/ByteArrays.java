@@ -712,10 +712,7 @@ public final class ByteArrays {
 							| (bytes[1] & 0xff)
 			);
 		}
-		return (short) (
-				(bytes[0] & 0xff)
-						| (bytes[1] & 0xff) << 8
-		);
+		return (short) ((bytes[0] & 0xff) | (bytes[1] & 0xff) << 8);
 	}
 
 	/**
@@ -739,15 +736,9 @@ public final class ByteArrays {
 	public static byte[] ofChar(final char c, final ByteOrder order) {
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of(
-					(byte) (c >> 8),
-					(byte) c
-			);
+			return of((byte) (c >> 8), (byte) c);
 		}
-		return of(
-				(byte) c,
-				(byte) (c >> 8)
-		);
+		return of((byte) c, (byte) (c >> 8));
 	}
 
 	/**

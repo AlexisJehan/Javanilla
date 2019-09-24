@@ -50,16 +50,25 @@ public abstract class FilterLineReader extends LineReader {
 		this.lineReader = lineReader;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String read() throws IOException {
 		return lineReader.read();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		return lineReader.skip(number);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void close() throws IOException {
 		lineReader.close();

@@ -386,24 +386,6 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Convert a {@code Reader} to a {@code char} array.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
-	 * @param reader the {@code Reader} to convert
-	 * @return the created {@code char} array
-	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static char[] toChars(final Reader reader) throws IOException {
-		Ensure.notNull("reader", reader);
-		try (final var writer = new CharArrayWriter()) {
-			reader.transferTo(writer);
-			return writer.toCharArray();
-		}
-	}
-
-	/**
 	 * <p>Create a {@code Reader} from a {@code String}.</p>
 	 * @param string the {@code String} to convert
 	 * @return the created {@code Reader}
@@ -417,24 +399,6 @@ public final class Readers {
 			return EMPTY;
 		}
 		return new StringReader(string);
-	}
-
-	/**
-	 * <p>Convert a {@code Reader} to a {@code String}.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
-	 * @param reader the {@code Reader} to convert
-	 * @return the created {@code String}
-	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static String toString(final Reader reader) throws IOException {
-		Ensure.notNull("reader", reader);
-		try (final var writer = new StringWriter()) {
-			reader.transferTo(writer);
-			return writer.toString();
-		}
 	}
 
 	/**
@@ -462,5 +426,41 @@ public final class Readers {
 		Ensure.notNull("path", path);
 		Ensure.notNull("charset", charset);
 		return Files.newBufferedReader(path, charset);
+	}
+
+	/**
+	 * <p>Convert a {@code Reader} to a {@code char} array.</p>
+	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
+	 * @param reader the {@code Reader} to convert
+	 * @return the created {@code char} array
+	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static char[] toChars(final Reader reader) throws IOException {
+		Ensure.notNull("reader", reader);
+		try (final var writer = new CharArrayWriter()) {
+			reader.transferTo(writer);
+			return writer.toCharArray();
+		}
+	}
+
+	/**
+	 * <p>Convert a {@code Reader} to a {@code String}.</p>
+	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
+	 * @param reader the {@code Reader} to convert
+	 * @return the created {@code String}
+	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static String toString(final Reader reader) throws IOException {
+		Ensure.notNull("reader", reader);
+		try (final var writer = new StringWriter()) {
+			reader.transferTo(writer);
+			return writer.toString();
+		}
 	}
 }

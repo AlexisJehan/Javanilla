@@ -51,11 +51,17 @@ public abstract class FilterIterator<E> implements Iterator<E> {
 		this.iterator = iterator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hasNext() {
 		return iterator.hasNext();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public E next() {
 		if (!hasNext()) {
@@ -64,6 +70,9 @@ public abstract class FilterIterator<E> implements Iterator<E> {
 		return iterator.next();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove() {
 		iterator.remove();

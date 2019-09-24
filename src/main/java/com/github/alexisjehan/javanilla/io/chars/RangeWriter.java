@@ -42,7 +42,7 @@ public final class RangeWriter extends FilterWriter {
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last char to write.<p>
+	 * <p>Inclusive index of the last char to write.</p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -117,7 +117,7 @@ public final class RangeWriter extends FilterWriter {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last char to write.<p>
+	 * <p>Get the inclusive index of the last char to write.</p>
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

@@ -307,21 +307,6 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code byte} array.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code InputStream} is too large.</p>
-	 * @param inputStream the {@code InputStream} to convert
-	 * @return the created {@code byte} array
-	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] toBytes(final InputStream inputStream) throws IOException {
-		Ensure.notNull("inputStream", inputStream);
-		return inputStream.readAllBytes();
-	}
-
-	/**
 	 * <p>Create an {@code InputStream} from a {@code String} using {@link Charset#defaultCharset()}.</p>
 	 * @param string the {@code String} to convert
 	 * @return the created {@code InputStream}
@@ -348,6 +333,34 @@ public final class InputStreams {
 			return EMPTY;
 		}
 		return of(string.getBytes(charset));
+	}
+
+	/**
+	 * <p>Create a {@code BufferedInputStream} from a {@code Path}.</p>
+	 * @param path the {@code Path} to convert
+	 * @return the created {@code BufferedInputStream}
+	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static BufferedInputStream of(final Path path) throws IOException {
+		Ensure.notNull("path", path);
+		return new BufferedInputStream(Files.newInputStream(path));
+	}
+
+	/**
+	 * <p>Convert an {@code InputStream} to a {@code byte} array.</p>
+	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code InputStream} is too large.</p>
+	 * @param inputStream the {@code InputStream} to convert
+	 * @return the created {@code byte} array
+	 * @throws IOException might occurs with I/O operations
+	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static byte[] toBytes(final InputStream inputStream) throws IOException {
+		Ensure.notNull("inputStream", inputStream);
+		return inputStream.readAllBytes();
 	}
 
 	/**
@@ -404,18 +417,5 @@ public final class InputStreams {
 		Ensure.notNull("inputStream", inputStream);
 		Ensure.notNull("charset", charset);
 		return new InputStreamReader(buffered(inputStream), charset);
-	}
-
-	/**
-	 * <p>Create a {@code BufferedInputStream} from a {@code Path}.</p>
-	 * @param path the {@code Path} to convert
-	 * @return the created {@code BufferedInputStream}
-	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static BufferedInputStream of(final Path path) throws IOException {
-		Ensure.notNull("path", path);
-		return new BufferedInputStream(Files.newInputStream(path));
 	}
 }

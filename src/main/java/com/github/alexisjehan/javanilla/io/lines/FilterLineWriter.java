@@ -50,21 +50,33 @@ public abstract class FilterLineWriter extends LineWriter {
 		this.lineWriter = lineWriter;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final String line) throws IOException {
 		lineWriter.write(line);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void newLine() throws IOException {
 		lineWriter.newLine();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void flush() throws IOException {
 		lineWriter.flush();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void close() throws IOException {
 		lineWriter.close();

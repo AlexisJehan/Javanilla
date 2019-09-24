@@ -42,7 +42,7 @@ public final class RangeInputStream extends FilterInputStream {
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last byte to read.<p>
+	 * <p>Inclusive index of the last byte to read.</p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -147,7 +147,7 @@ public final class RangeInputStream extends FilterInputStream {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last byte to read.<p>
+	 * <p>Get the inclusive index of the last byte to read.</p>
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

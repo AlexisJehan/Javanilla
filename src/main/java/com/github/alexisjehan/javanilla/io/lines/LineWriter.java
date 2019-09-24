@@ -235,6 +235,9 @@ public class LineWriter implements Closeable {
 		writer.flush();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void close() throws IOException {
 		if (appendTerminatingNewLine) {

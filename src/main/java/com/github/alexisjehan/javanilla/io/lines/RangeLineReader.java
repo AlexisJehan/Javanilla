@@ -40,7 +40,7 @@ public final class RangeLineReader extends FilterLineReader {
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last line to read.<p>
+	 * <p>Inclusive index of the last line to read.</p>
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
@@ -106,7 +106,7 @@ public final class RangeLineReader extends FilterLineReader {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last line to read.<p>
+	 * <p>Get the inclusive index of the last line to read.</p>
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

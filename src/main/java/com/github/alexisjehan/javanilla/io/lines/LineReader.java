@@ -275,6 +275,9 @@ public class LineReader implements Closeable {
 		return number;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void close() throws IOException {
 		reader.close();

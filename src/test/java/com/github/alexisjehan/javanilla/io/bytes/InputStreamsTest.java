@@ -256,6 +256,20 @@ final class InputStreamsTest {
 	}
 
 	@Test
+	void testOfPath(@TempDir final Path tmpDirectory) throws IOException {
+		final var path = tmpDirectory.resolve("testOfPath");
+		Files.write(path, ByteArrays.of(BYTES));
+		try (final var pathInputStream = InputStreams.of(path)) {
+			assertThat(pathInputStream).hasSameContentAs(InputStreams.of(BYTES));
+		}
+	}
+
+	@Test
+	void testOfPathInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.of((Path) null));
+	}
+
+	@Test
 	@SuppressWarnings("deprecation")
 	void testToReader() throws IOException {
 		assertThat(Readers.toString(InputStreams.toReader(InputStreams.EMPTY))).isEmpty();
@@ -269,19 +283,5 @@ final class InputStreamsTest {
 	void testToReaderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.toReader(null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.toReader(InputStreams.singleton((byte) 1), null));
-	}
-
-	@Test
-	void testOfPath(@TempDir final Path tmpDirectory) throws IOException {
-		final var path = tmpDirectory.resolve("testOfPath");
-		Files.write(path, ByteArrays.of(BYTES));
-		try (final var pathInputStream = InputStreams.of(path)) {
-			assertThat(pathInputStream).hasSameContentAs(InputStreams.of(BYTES));
-		}
-	}
-
-	@Test
-	void testOfPathInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.of((Path) null));
 	}
 }
