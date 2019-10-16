@@ -634,6 +634,26 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Capitalize a {@code CharSequence} so that the first {@code char} is in uppercase and the others in
+	 * lowercase.</p>
+	 * @param charSequence the {@code CharSequence} to capitalize
+	 * @return a capitalized {@code String} of the {@code CharSequence}
+	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * @since 1.5.0
+	 */
+	public static String capitalize(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		if (1 == length) {
+			return Character.toString(Character.toUpperCase(charSequence.charAt(0)));
+		}
+		return Character.toUpperCase(charSequence.charAt(0)) + charSequence.subSequence(1, length).toString().toLowerCase();
+	}
+
+	/**
 	 * <p>Quote a {@code char} using default quote and escape {@code char}s.</p>
 	 * <p><b>Note</b>: If the {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
 	 * @param c the {@code char} to quote

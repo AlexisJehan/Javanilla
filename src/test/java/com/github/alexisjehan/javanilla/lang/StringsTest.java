@@ -461,6 +461,20 @@ final class StringsTest {
 	}
 
 	@Test
+	void testCapitalize() {
+		assertThat(Strings.capitalize(Strings.EMPTY)).isEmpty();
+		assertThat(Strings.capitalize("a")).isEqualTo("A");
+		assertThat(Strings.capitalize("A")).isEqualTo("A");
+		assertThat(Strings.capitalize("foo")).isEqualTo("Foo");
+		assertThat(Strings.capitalize("FOO")).isEqualTo("Foo");
+	}
+
+	@Test
+	void testCapitalizeInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.capitalize(null));
+	}
+
+	@Test
 	void testQuoteChar() {
 		assertThat(Strings.quote('f')).isEqualTo("'f'");
 		assertThat(Strings.quote('\\')).isEqualTo("'\\\\'");

@@ -2,6 +2,12 @@
 
 ## 1.5.0 _(in progress)_
 
+**lang.Strings**
+- Added the _capitalize()_ method
+
+**misc**
+- Added the _CaseStyle_ class
+
 **misc.StringFormatter**
 - Fixed the _formatPercent_ method
 
