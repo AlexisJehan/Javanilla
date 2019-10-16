@@ -66,7 +66,7 @@ public final class Lists {
 	 * @throws NullPointerException if the default {@code List} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <L extends List> L nullToDefault(final L list, final L defaultList) {
+	public static <L extends List<?>> L nullToDefault(final L list, final L defaultList) {
 		Ensure.notNull("defaultList", defaultList);
 		return null != list ? list : defaultList;
 	}
@@ -78,7 +78,7 @@ public final class Lists {
 	 * @return a non-empty {@code List} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <L extends List> L emptyToNull(final L list) {
+	public static <L extends List<?>> L emptyToNull(final L list) {
 		return emptyToDefault(list, null);
 	}
 
@@ -91,7 +91,7 @@ public final class Lists {
 	 * @throws IllegalArgumentException if the default {@code List} is empty
 	 * @since 1.1.0
 	 */
-	public static <L extends List> L emptyToDefault(final L list, final L defaultList) {
+	public static <L extends List<?>> L emptyToDefault(final L list, final L defaultList) {
 		if (null != defaultList) {
 			Ensure.notNullAndNotEmpty("defaultList", defaultList);
 		}
@@ -145,6 +145,7 @@ public final class Lists {
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> List<E> concat(final List<? extends E>... lists) {
 		Ensure.notNullAndNotNullElements("lists", lists);
 		return concat(List.of(lists));
@@ -182,6 +183,7 @@ public final class Lists {
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> List<E> join(final E[] separator, final List<? extends E>... lists) {
 		Ensure.notNullAndNotNullElements("lists", lists);
 		return join(separator, List.of(lists));
@@ -194,7 +196,7 @@ public final class Lists {
 	 * @param <E> the type of elements in the list
 	 * @return the joined {@code List}
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code List} {@code List} or any of them
-	 * is {@code null}
+	 *         is {@code null}
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")

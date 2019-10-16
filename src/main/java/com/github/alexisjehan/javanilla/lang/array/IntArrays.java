@@ -322,9 +322,9 @@ public final class IntArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code int} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code int} array to shuffle
 	 * @throws NullPointerException if the {@code int} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final int[] array) {
@@ -358,7 +358,7 @@ public final class IntArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code int} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code int} array is empty, if the {@code int} array length is not equal to
-	 * the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final int[] array, final int... indexes) {
@@ -502,7 +502,7 @@ public final class IntArrays {
 	 * @param arrays the {@code int} array array to join
 	 * @return the joined {@code int} array
 	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array array or any of them is
-	 * {@code null}
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static int[] join(final int[] separator, final int[]... arrays) {
@@ -516,7 +516,7 @@ public final class IntArrays {
 	 * @param arrays the {@code int} array {@code List} to join
 	 * @return the joined {@code int} array
 	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static int[] join(final int[] separator, final List<int[]> arrays) {

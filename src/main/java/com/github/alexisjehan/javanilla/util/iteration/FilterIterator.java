@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
 
 /**
  * <p>An abstract {@link Iterator} filter to create decorators from the current position.</p>
+ * @param <E> the element type
  * @since 1.2.0
  */
 public abstract class FilterIterator<E> implements Iterator<E> {

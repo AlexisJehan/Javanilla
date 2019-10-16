@@ -35,8 +35,8 @@ import java.util.zip.Checksum;
 /**
  * <p>A Bloom Filter implementation to test if an element might be in a set or if it does absolutely not.</p>
  * <p>Some static functions are also available to calculate the false positive rate and optimal parameters.</p>
- * @see <a href="https://en.wikipedia.org/wiki/Bloom_filter">https://en.wikipedia.org/wiki/Bloom_filter</a>
  * @param <E> the element type
+ * @see <a href="https://en.wikipedia.org/wiki/Bloom_filter">https://en.wikipedia.org/wiki/Bloom_filter</a>
  * @since 1.2.0
  */
 public final class BloomFilter<E> {
@@ -65,7 +65,7 @@ public final class BloomFilter<E> {
 	 * @param hashFunctions the {@code Checksum} hash functions array used by the Bloom Filter
 	 * @throws NullPointerException if the {@code Checksum} hash functions array or any of them is {@code null}
 	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@code Checksum} hash functions
-	 * array is empty
+	 *         array is empty
 	 * @since 1.2.0
 	 */
 	public BloomFilter(final int length, final Checksum... hashFunctions) {
@@ -88,7 +88,7 @@ public final class BloomFilter<E> {
 	 * @param hashFunctions the {@code IntUnaryOperator} hash functions array used by the Bloom Filter
 	 * @throws NullPointerException if the {@code IntUnaryOperator} hash functions array or any of them is {@code null}
 	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@code IntUnaryOperator} hash
-	 * functions array is empty
+	 *         functions array is empty
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -107,10 +107,11 @@ public final class BloomFilter<E> {
 	 * @param hashFunctions the {@code ToIntFunction} hash functions array used by the Bloom Filter
 	 * @throws NullPointerException if the {@code ToIntFunction} hash functions array or any of them is {@code null}
 	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@code ToIntFunction} hash
-	 * functions array is empty
+	 *         functions array is empty
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public BloomFilter(final int length, final ToIntFunction<E>... hashFunctions) {
 		Ensure.greaterThanOrEqualTo("length", length, 1);
 		Ensure.notNullAndNotEmpty("hashFunctions", hashFunctions);
@@ -180,7 +181,7 @@ public final class BloomFilter<E> {
 	 * @param n the expected number of elements to be added
 	 * @return the false positive rate (p)
 	 * @throws IllegalArgumentException if the length, the number of hash functions or the expected number of elements
-	 * is not valid
+	 *         is not valid
 	 * @since 1.2.0
 	 */
 	public static double calculateFalsePositiveRate(final int m, final int k, final int n) {
@@ -196,7 +197,7 @@ public final class BloomFilter<E> {
 	 * @param p the acceptable false positive rate (between {@code 0} and {@code 1})
 	 * @return the optimal length (m)
 	 * @throws IllegalArgumentException if the expected number of elements or the acceptable false positive rate is not
-	 * valid
+	 *         valid
 	 * @since 1.2.0
 	 */
 	public static double calculateOptimalLength(final int n, final double p) {

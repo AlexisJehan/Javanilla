@@ -123,7 +123,6 @@ public final class Writers {
 	 * @return a non-{@code null} {@code Writer}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static Writer nullToEmpty(final Writer writer) {
 		return nullToDefault(writer, EMPTY);
 	}
@@ -193,7 +192,6 @@ public final class Writers {
 	 * @throws NullPointerException if the {@code Writer} {@code Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static Writer tee(final Collection<? extends Writer> writers) {
 		Ensure.notNullAndNotNullElements("writers", writers);
 		final var size = writers.size();

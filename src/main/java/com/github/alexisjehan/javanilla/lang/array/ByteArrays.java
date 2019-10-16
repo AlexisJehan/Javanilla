@@ -40,6 +40,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class ByteArrays {
 
 	/**
+	 * <p>An empty {@code byte} array.</p>
+	 * @since 1.0.0
+	 */
+	public static final byte[] EMPTY = {};
+
+	/**
 	 * <p>{@code char} array used for binary {@code String} conversion.</p>
 	 * @since 1.2.0
 	 */
@@ -50,12 +56,6 @@ public final class ByteArrays {
 	 * @since 1.0.0
 	 */
 	private static final char[] HEXADECIMAL_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
-	/**
-	 * <p>An empty {@code byte} array.</p>
-	 * @since 1.0.0
-	 */
-	public static final byte[] EMPTY = {};
 
 	/**
 	 * <p>Constructor not available.</p>
@@ -336,9 +336,9 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code byte} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code byte} array to shuffle
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final byte[] array) {
@@ -372,7 +372,7 @@ public final class ByteArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code byte} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code byte} array is empty, if the {@code byte} array length is not equal to
-	 * the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final byte[] array, final int... indexes) {
@@ -530,7 +530,7 @@ public final class ByteArrays {
 	 * @param arrays the {@code byte} array {@code List} to join
 	 * @return the joined {@code byte} array
 	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] join(final byte[] separator, final List<byte[]> arrays) {
@@ -707,10 +707,7 @@ public final class ByteArrays {
 		Ensure.equalTo("bytes length", bytes.length, Short.BYTES);
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return (short) (
-					(bytes[0] & 0xff) << 8
-							| (bytes[1] & 0xff)
-			);
+			return (short) ((bytes[0] & 0xff) << 8 | (bytes[1] & 0xff));
 		}
 		return (short) ((bytes[0] & 0xff) | (bytes[1] & 0xff) << 8);
 	}
@@ -768,15 +765,9 @@ public final class ByteArrays {
 		Ensure.equalTo("bytes length", bytes.length, Character.BYTES);
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return (char) (
-					(bytes[0] & 0xff) << 8
-							| (bytes[1] & 0xff)
-			);
+			return (char) ((bytes[0] & 0xff) << 8 | (bytes[1] & 0xff));
 		}
-		return (char) (
-				(bytes[0] & 0xff)
-						| (bytes[1] & 0xff) << 8
-		);
+		return (char) ((bytes[0] & 0xff) | (bytes[1] & 0xff) << 8);
 	}
 
 	/**
@@ -1045,7 +1036,7 @@ public final class ByteArrays {
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the binary {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the binary {@code CharSequence} length is not a multiple of {@code 8} or if
-	 * any {@code char} is not valid
+	 *         any {@code char} is not valid
 	 * @since 1.2.0
 	 */
 	public static byte[] ofBinaryString(final CharSequence binaryCharSequence) {
@@ -1102,7 +1093,7 @@ public final class ByteArrays {
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the hexadecimal {@code CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the hexadecimal {@code CharSequence} length is not a multiple of {@code 2} or
-	 * if any {@code char} is not valid
+	 *         if any {@code char} is not valid
 	 * @since 1.0.0
 	 */
 	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence) {

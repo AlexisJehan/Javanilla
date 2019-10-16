@@ -322,9 +322,9 @@ public final class ShortArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code short} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code short} array to shuffle
 	 * @throws NullPointerException if the {@code short} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final short[] array) {
@@ -358,7 +358,7 @@ public final class ShortArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code short} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code short} array is empty, if the {@code short} array length is not equal
-	 * to the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         to the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final short[] array, final int... indexes) {
@@ -502,7 +502,7 @@ public final class ShortArrays {
 	 * @param arrays the {@code short} array array to join
 	 * @return the joined {@code short} array
 	 * @throws NullPointerException if the {@code short} array separator, the {@code short} array array or any of them
-	 * is {@code null}
+	 *         is {@code null}
 	 * @since 1.0.0
 	 */
 	public static short[] join(final short[] separator, final short[]... arrays) {
@@ -516,7 +516,7 @@ public final class ShortArrays {
 	 * @param arrays the {@code short} array {@code List} to join
 	 * @return the joined {@code short} array
 	 * @throws NullPointerException if the {@code short} array separator, the {@code short} array {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static short[] join(final short[] separator, final List<short[]> arrays) {

@@ -45,7 +45,7 @@ public interface SerializableBiFunction<T, U, R> extends BiFunction<T, U, R>, Se
 	 * @param after the {@code Function} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code SerializableBiFunction} that first applies this function and then applies the after
-	 * function
+	 *         function
 	 * @throws NullPointerException if the after {@code Function} is {@code null}
 	 * @since 1.4.0
 	 */

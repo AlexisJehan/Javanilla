@@ -55,106 +55,169 @@ public abstract class FilterBag<E> implements Bag<E> {
 		this.bag = bag;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(final E element) {
 		bag.add(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(final E element, final long quantity) {
 		bag.add(element, quantity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean remove(final E element) {
 		return bag.remove(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean remove(final E element, final long quantity) {
 		return bag.remove(element, quantity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean removeAll(final E element) {
 		return bag.removeAll(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void clear() {
 		bag.clear();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isEmpty() {
 		return bag.isEmpty();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsAny(final E element) {
 		return bag.containsAny(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsExactly(final E element, final long quantity) {
 		return bag.containsExactly(element, quantity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsAtLeast(final E element, final long quantity) {
 		return bag.containsAtLeast(element, quantity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsAtMost(final E element, final long quantity) {
 		return bag.containsAtMost(element, quantity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long count(final E element) {
 		return bag.count(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long distinct() {
 		return bag.distinct();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long size() {
 		return bag.size();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NullableOptional<E> min() {
 		return bag.min();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NullableOptional<E> max() {
 		return bag.max();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<E> toSet() {
 		return bag.toSet();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<E, Long> toMap() {
 		return bag.toMap();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		return bag.equals(object);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return bag.hashCode();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return bag.toString();

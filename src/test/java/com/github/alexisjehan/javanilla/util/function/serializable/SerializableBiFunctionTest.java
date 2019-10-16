@@ -26,8 +26,6 @@ package com.github.alexisjehan.javanilla.util.function.serializable;
 import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
-import java.util.function.BiFunction;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -38,14 +36,14 @@ final class SerializableBiFunctionTest {
 
 	@Test
 	void testApply() {
-		final var serializableBiFunction = (SerializableBiFunction<Integer, Integer, Integer>) (t, u) -> t + u;
+		final var serializableBiFunction = (SerializableBiFunction<Integer, Integer, Integer>) Integer::sum;
 		assertThat(serializableBiFunction.apply(1, 2)).isEqualTo(3);
 		assertThat(serializableBiFunction.apply(3, 3)).isEqualTo(6);
 	}
 
 	@Test
 	void testAndThen() {
-		final var serializableBiFunction = (SerializableBiFunction<Integer, Integer, Integer>) (t, u) -> t + u;
+		final var serializableBiFunction = (SerializableBiFunction<Integer, Integer, Integer>) Integer::sum;
 		final var serializableFunction = (SerializableFunction<Integer, Integer>) t -> -t;
 		assertThat(serializableBiFunction.andThen(serializableFunction).apply(1, 2)).isEqualTo(-3);
 		assertThat(serializableBiFunction.andThen(serializableFunction).apply(3, 3)).isEqualTo(-6);
@@ -53,13 +51,13 @@ final class SerializableBiFunctionTest {
 
 	@Test
 	void testAndThenInvalid() {
-		final var serializableBiFunction = (SerializableBiFunction<Integer, Integer, Integer>) (t, u) -> t + u;
+		final var serializableBiFunction = (SerializableBiFunction<Integer, Integer, Integer>) Integer::sum;
 		assertThatNullPointerException().isThrownBy(() -> serializableBiFunction.andThen(null));
 	}
 
 	@Test
 	void testOf() {
-		final var serializableBiFunction = SerializableBiFunction.of((BiFunction<Integer, Integer, Integer>) (t, u) -> t + u);
+		final var serializableBiFunction = SerializableBiFunction.of(Integer::sum);
 		assertThat(serializableBiFunction.apply(1, 2)).isEqualTo(3);
 		assertThat(serializableBiFunction.apply(3, 3)).isEqualTo(6);
 	}
@@ -73,7 +71,7 @@ final class SerializableBiFunctionTest {
 	void testSerializable() {
 		final var serializableBiFunction = Serializables.<SerializableBiFunction<Integer, Integer, Integer>>deserialize(
 				Serializables.serialize(
-						(SerializableBiFunction<Integer, Integer, Integer>) (t, u) -> t + u
+						(SerializableBiFunction<Integer, Integer, Integer>) Integer::sum
 				)
 		);
 		assertThat(serializableBiFunction.apply(1, 2)).isEqualTo(3);

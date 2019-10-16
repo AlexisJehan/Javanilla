@@ -41,7 +41,7 @@ public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 	 * after operation.</p>
 	 * @param after the {@code Consumer} operation to perform after this operation
 	 * @return a composed {@code SerializableConsumer} that performs in sequence this operation followed by the after
-	 * operation
+	 *         operation
 	 * @throws NullPointerException if the after {@code Consumer} is {@code null}
 	 * @since 1.4.0
 	 */

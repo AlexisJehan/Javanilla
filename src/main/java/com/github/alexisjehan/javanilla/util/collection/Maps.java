@@ -90,7 +90,7 @@ public final class Maps {
 	 * @throws NullPointerException if the default {@code Map} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <M extends Map> M nullToDefault(final M map, final M defaultMap) {
+	public static <M extends Map<?, ?>> M nullToDefault(final M map, final M defaultMap) {
 		Ensure.notNull("defaultMap", defaultMap);
 		return null != map ? map : defaultMap;
 	}
@@ -102,7 +102,7 @@ public final class Maps {
 	 * @return a non-empty {@code Map} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <M extends Map> M emptyToNull(final M map) {
+	public static <M extends Map<?, ?>> M emptyToNull(final M map) {
 		return emptyToDefault(map, null);
 	}
 
@@ -115,7 +115,7 @@ public final class Maps {
 	 * @throws IllegalArgumentException if the default {@code Map} is empty
 	 * @since 1.1.0
 	 */
-	public static <M extends Map> M emptyToDefault(final M map, final M defaultMap) {
+	public static <M extends Map<?, ?>> M emptyToDefault(final M map, final M defaultMap) {
 		if (null != defaultMap) {
 			Ensure.notNullAndNotEmpty("defaultMap", defaultMap);
 		}
@@ -133,6 +133,7 @@ public final class Maps {
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <K, V> boolean putAll(final Map<K, V> map, final Map.Entry<? extends K, ? extends V>... entries) {
 		Ensure.notNull("map", map);
 		Ensure.notNullAndNotNullElements("entries", entries);
@@ -154,6 +155,7 @@ public final class Maps {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <K, V> Map<K, V> ofOrdered(final Map.Entry<? extends K, ? extends V>... entries) {
 		Ensure.notNullAndNotNullElements("entries", entries);
 		if (0 == entries.length) {

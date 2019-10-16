@@ -322,9 +322,9 @@ public final class LongArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code long} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code long} array to shuffle
 	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final long[] array) {
@@ -358,7 +358,7 @@ public final class LongArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code long} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code long} array is empty, if the {@code long} array length is not equal to
-	 * the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final long[] array, final int... indexes) {
@@ -516,7 +516,7 @@ public final class LongArrays {
 	 * @param arrays the {@code long} array {@code List} to join
 	 * @return the joined {@code long} array
 	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static long[] join(final long[] separator, final List<long[]> arrays) {

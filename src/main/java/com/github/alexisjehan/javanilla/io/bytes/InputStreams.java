@@ -119,7 +119,6 @@ public final class InputStreams {
 	 * @return a non-{@code null} {@code InputStream}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream nullToEmpty(final InputStream inputStream) {
 		return nullToDefault(inputStream, EMPTY);
 	}
@@ -220,7 +219,6 @@ public final class InputStreams {
 	 * @throws NullPointerException if the {@code InputStream} {@code List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream concat(final List<? extends InputStream> inputStreams) {
 		Ensure.notNullAndNotNullElements("inputStreams", inputStreams);
 		final var size = inputStreams.size();
@@ -253,10 +251,9 @@ public final class InputStreams {
 	 * @param inputStreams the {@code InputStream} {@code List} to join
 	 * @return the joined {@code InputStream}
 	 * @throws NullPointerException if the {@code byte} array separator, the {@code InputStream} {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream join(final byte[] separator, final List<? extends InputStream> inputStreams) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("inputStreams", inputStreams);
@@ -297,7 +294,6 @@ public final class InputStreams {
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream of(final byte... bytes) {
 		Ensure.notNull("bytes", bytes);
 		if (0 == bytes.length) {
@@ -325,7 +321,6 @@ public final class InputStreams {
 	 * @throws NullPointerException if the {@code String} or the {@code Charset} is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream of(final String string, final Charset charset) {
 		Ensure.notNull("string", string);
 		Ensure.notNull("charset", charset);

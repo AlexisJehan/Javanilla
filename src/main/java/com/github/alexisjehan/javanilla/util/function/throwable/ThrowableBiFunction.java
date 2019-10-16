@@ -55,7 +55,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @param after the {@code ThrowableFunction} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code ThrowableBiFunction} that first applies this function and then applies the after
-	 * function
+	 *         function
 	 * @throws NullPointerException if the after {@code ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */

@@ -52,7 +52,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * after operation.</p>
 	 * @param after the {@code ThrowableBiConsumer} operation to perform after this operation
 	 * @return a composed {@code ThrowableBiConsumer} that performs in sequence this operation followed by the after
-	 * operation
+	 *         operation
 	 * @throws NullPointerException if the after {@code ThrowableBiConsumer} is {@code null}
 	 * @since 1.0.0
 	 */

@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.function.BiFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -41,7 +40,7 @@ final class ThrowableBiFunctionTest {
 
 	@Test
 	void testApply() throws IOException {
-		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> t + u;
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) Integer::sum;
 		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
@@ -53,7 +52,7 @@ final class ThrowableBiFunctionTest {
 
 	@Test
 	void testAndThen() throws IOException {
-		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> t + u;
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) Integer::sum;
 		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
@@ -74,7 +73,7 @@ final class ThrowableBiFunctionTest {
 
 	@Test
 	void testUnchecked() {
-		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> t + u;
+		final var throwableBiFunction1 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) Integer::sum;
 		final var throwableBiFunction2 = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
@@ -91,7 +90,7 @@ final class ThrowableBiFunctionTest {
 
 	@Test
 	void testOf() throws Throwable {
-		final var throwableBiFunction = ThrowableBiFunction.of((BiFunction<Integer, Integer, Integer>) (t, u) -> t + u);
+		final var throwableBiFunction = ThrowableBiFunction.of(Integer::sum);
 		assertThat(throwableBiFunction.apply(1, 2)).isEqualTo(3);
 		assertThat(throwableBiFunction.apply(3, 3)).isEqualTo(6);
 	}

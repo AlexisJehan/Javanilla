@@ -44,7 +44,7 @@ public final class ObjectArrays {
 	 * <p>Map that associates a {@code Class} type to a cached empty {@code Object} array.</p>
 	 * @since 1.2.0
 	 */
-	private static final Map<Class, Object> cachedEmpties = new WeakHashMap<>();
+	private static final Map<Class<?>, Object> cachedEmpties = new WeakHashMap<>();
 
 	/**
 	 * <p>Constructor not available.</p>
@@ -164,7 +164,7 @@ public final class ObjectArrays {
 	 * @param array the {@code Object} array to test
 	 * @param values {@code Object} values to test
 	 * @return {@code true} if all of given {@code Object} values are contained at least once by the {@code Object}
-	 * array
+	 *         array
 	 * @throws NullPointerException if the {@code Object} array or the {@code Object} values array is {@code null}
 	 * @throws IllegalArgumentException if the {@code Object} values array is empty
 	 * @since 1.0.0
@@ -346,9 +346,9 @@ public final class ObjectArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code Object} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code Object} array to shuffle
 	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final Object[] array) {
@@ -382,7 +382,7 @@ public final class ObjectArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code Object} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code Object} array is empty, if the {@code Object} array length is not
-	 * equal to the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         equal to the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final Object[] array, final int... indexes) {
@@ -495,10 +495,11 @@ public final class ObjectArrays {
 	 * @param <E> the {@code Object} type
 	 * @return the concatenated {@code Object} array
 	 * @throws NullPointerException if the {@code Object} {@code Class} type, the {@code Object} array array or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> E[] concat(final Class<E> classType, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
 		return concat(classType, List.of(arrays));
@@ -542,11 +543,12 @@ public final class ObjectArrays {
 	 * @param <E> the {@code Object} type
 	 * @return the joined {@code Object} array
 	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
-	 * array array or any of them is {@code null}
+	 *         array array or any of them is {@code null}
 	 * @since 1.2.0
 	 * @deprecated use {@link #join(Object[], Object[][])} instead
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	@Deprecated(since = "1.4.0", forRemoval = true)
 	public static <E> E[] join(final Class<E> classType, final E[] separator, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
@@ -560,10 +562,11 @@ public final class ObjectArrays {
 	 * @param <E> the {@code Object} type
 	 * @return the joined {@code Object} array
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array array or any of them
-	 * is {@code null}
+	 *         is {@code null}
 	 * @since 1.4.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> E[] join(final E[] separator, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
 		return join(separator, List.of(arrays));
@@ -577,7 +580,7 @@ public final class ObjectArrays {
 	 * @param <E> the {@code Object} type
 	 * @return the joined {@code Object} array
 	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
-	 * array {@code List} or any of them is {@code null}
+	 *         array {@code List} or any of them is {@code null}
 	 * @since 1.2.0
 	 * @deprecated use {@link #join(Object[], List)} instead
 	 */
@@ -619,7 +622,7 @@ public final class ObjectArrays {
 	 * @param <E> the {@code Object} type
 	 * @return the joined {@code Object} array
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array {@code List} or any
-	 * of them is {@code null}
+	 *         of them is {@code null}
 	 * @since 1.4.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -692,6 +695,7 @@ public final class ObjectArrays {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> E[] of(final E... objects) {
 		Ensure.notNull("objects", objects);
 		return objects;

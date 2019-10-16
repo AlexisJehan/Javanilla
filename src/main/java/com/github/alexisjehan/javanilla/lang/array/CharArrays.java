@@ -322,9 +322,9 @@ public final class CharArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code char} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code char} array to shuffle
 	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final char[] array) {
@@ -358,7 +358,7 @@ public final class CharArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code char} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code char} array is empty, if the {@code char} array length is not equal to
-	 * the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final char[] array, final int... indexes) {
@@ -516,7 +516,7 @@ public final class CharArrays {
 	 * @param arrays the {@code char} array {@code List} to join
 	 * @return the joined {@code char} array
 	 * @throws NullPointerException if the {@code char} array separator, the {@code char} array {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static char[] join(final char[] separator, final List<char[]> arrays) {

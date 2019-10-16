@@ -141,7 +141,7 @@ public final class DoubleArrays {
 	 * @param array the {@code double} array to test
 	 * @param values {@code double} values to test
 	 * @return {@code true} if all of given {@code double} values are contained at least once by the {@code double}
-	 * array
+	 *         array
 	 * @throws NullPointerException if the {@code double} array or the {@code double} values array is {@code null}
 	 * @throws IllegalArgumentException if the {@code double} values array is empty
 	 * @since 1.0.0
@@ -323,9 +323,9 @@ public final class DoubleArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code double} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code double} array to shuffle
 	 * @throws NullPointerException if the {@code double} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final double[] array) {
@@ -359,7 +359,7 @@ public final class DoubleArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code double} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code double} array is empty, if the {@code double} array length is not
-	 * equal to the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         equal to the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final double[] array, final int... indexes) {
@@ -503,7 +503,7 @@ public final class DoubleArrays {
 	 * @param arrays the {@code double} array array to join
 	 * @return the joined {@code double} array
 	 * @throws NullPointerException if the {@code double} array separator, the {@code double} array array or any of them
-	 * is {@code null}
+	 *         is {@code null}
 	 * @since 1.0.0
 	 */
 	public static double[] join(final double[] separator, final double[]... arrays) {
@@ -517,7 +517,7 @@ public final class DoubleArrays {
 	 * @param arrays the {@code double} array {@code List} to join
 	 * @return the joined {@code double} array
 	 * @throws NullPointerException if the {@code double} array separator, the {@code double} array {@code List} or any
-	 * of them is {@code null}
+	 *         of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static double[] join(final double[] separator, final List<double[]> arrays) {

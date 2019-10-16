@@ -36,8 +36,8 @@ import java.util.Queue;
 /**
  * <p>A {@code TreeNode} represents a single node in a whole tree data structure which contains optional parent and
  * children nodes and a value.</p>
- * @see <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)">https://en.wikipedia.org/wiki/Tree_(data_structure)</a>
  * @param <V> the value type
+ * @see <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)">https://en.wikipedia.org/wiki/Tree_(data_structure)</a>
  * @since 1.2.0
  */
 public interface TreeNode<V> extends Iterable<TreeNode<V>> {
@@ -171,7 +171,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 			 * @since 1.2.0
 			 */
 			private void prepareNext() {
-				if (null != (next = deque.poll())) {
+				next = deque.poll();
+				if (null != next) {
 					final var listIterator = next.children().listIterator((int) next.degree());
 					while (listIterator.hasPrevious()) {
 						deque.push(listIterator.previous());
@@ -214,7 +215,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 			 * @since 1.2.0
 			 */
 			private void prepareNext() {
-				if (null != (next = queue.poll())) {
+				next = queue.poll();
+				if (null != next) {
 					queue.addAll(next.children());
 				}
 			}

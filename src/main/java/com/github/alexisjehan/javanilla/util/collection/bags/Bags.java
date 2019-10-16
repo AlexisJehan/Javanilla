@@ -168,7 +168,7 @@ public final class Bags {
 	 * <p>An immutable empty {@code Bag}.</p>
 	 * @since 1.0.0
 	 */
-	private static final Bag EMPTY = new Bag() {
+	private static final Bag<?> EMPTY = new Bag<>() {
 		@Override
 		public void add(final Object element) {
 			throw new UnsupportedOperationException();
@@ -215,22 +215,22 @@ public final class Bags {
 		}
 
 		@Override
-		public NullableOptional min() {
+		public NullableOptional<Object> min() {
 			return NullableOptional.empty();
 		}
 
 		@Override
-		public NullableOptional max() {
+		public NullableOptional<Object> max() {
 			return NullableOptional.empty();
 		}
 
 		@Override
-		public Set toSet() {
+		public Set<Object> toSet() {
 			return Set.of();
 		}
 
 		@Override
-		public Map toMap() {
+		public Map<Object, Long> toMap() {
 			return Map.of();
 		}
 
@@ -295,7 +295,7 @@ public final class Bags {
 	 * @throws NullPointerException if the default {@code Bag} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <B extends Bag> B nullToDefault(final B bag, final B defaultBag) {
+	public static <B extends Bag<?>> B nullToDefault(final B bag, final B defaultBag) {
 		Ensure.notNull("defaultBag", defaultBag);
 		return null != bag ? bag : defaultBag;
 	}
@@ -307,7 +307,7 @@ public final class Bags {
 	 * @return a non-empty {@code Bag} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <B extends Bag> B emptyToNull(final B bag) {
+	public static <B extends Bag<?>> B emptyToNull(final B bag) {
 		return emptyToDefault(bag, null);
 	}
 
@@ -320,7 +320,7 @@ public final class Bags {
 	 * @throws IllegalArgumentException if the default {@code Bag} is empty
 	 * @since 1.1.0
 	 */
-	public static <B extends Bag> B emptyToDefault(final B bag, final B defaultBag) {
+	public static <B extends Bag<?>> B emptyToDefault(final B bag, final B defaultBag) {
 		if (null != defaultBag) {
 			Ensure.notNullAndNotEmpty("defaultBag", defaultBag);
 		}
@@ -407,6 +407,7 @@ public final class Bags {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Bag<E> of(final E... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {

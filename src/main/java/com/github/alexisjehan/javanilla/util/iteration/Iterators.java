@@ -252,7 +252,7 @@ public final class Iterators {
 	 * @throws NullPointerException if the default {@code Iterator} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <I extends Iterator> I nullToDefault(final I iterator, final I defaultIterator) {
+	public static <I extends Iterator<?>> I nullToDefault(final I iterator, final I defaultIterator) {
 		Ensure.notNull("defaultIterator", defaultIterator);
 		return null != iterator ? iterator : defaultIterator;
 	}
@@ -264,7 +264,7 @@ public final class Iterators {
 	 * @return a non-empty {@code Iterator} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <I extends Iterator> I emptyToNull(final I iterator) {
+	public static <I extends Iterator<?>> I emptyToNull(final I iterator) {
 		return emptyToDefault(iterator, null);
 	}
 
@@ -277,7 +277,7 @@ public final class Iterators {
 	 * @throws IllegalArgumentException if the default {@code Iterator} is empty
 	 * @since 1.1.0
 	 */
-	public static <I extends Iterator> I emptyToDefault(final I iterator, final I defaultIterator) {
+	public static <I extends Iterator<?>> I emptyToDefault(final I iterator, final I defaultIterator) {
 		if (null != defaultIterator) {
 			Ensure.notNullAndNotEmpty("defaultIterator", defaultIterator);
 		}
@@ -291,7 +291,7 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.2.0
 	 */
-	public static boolean isEmpty(final Iterator iterator) {
+	public static boolean isEmpty(final Iterator<?> iterator) {
 		Ensure.notNull("iterator", iterator);
 		return !iterator.hasNext();
 	}
@@ -473,7 +473,7 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@code Iterator} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static long length(final Iterator iterator) {
+	public static long length(final Iterator<?> iterator) {
 		Ensure.notNull("iterator", iterator);
 		var length = 0L;
 		while (iterator.hasNext()) {
@@ -595,6 +595,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Iterator<E> concat(final Iterator<? extends E>... iterators) {
 		Ensure.notNullAndNotNullElements("iterators", iterators);
 		return concat(List.of(iterators));
@@ -632,6 +633,7 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Iterator<E> join(final E[] separator, final Iterator<? extends E>... iterators) {
 		Ensure.notNullAndNotNullElements("iterators", iterators);
 		return join(separator, List.of(iterators));
@@ -644,7 +646,7 @@ public final class Iterators {
 	 * @param <E> the element type
 	 * @return the joined {@code Iterator}
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code Iterator} {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -766,12 +768,65 @@ public final class Iterators {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Iterator<E> of(final E... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return Collections.emptyIterator();
 		}
 		return Arrays.stream(elements).iterator();
+	}
+
+	/**
+	 * <p>Create an {@code Iterator} with an {@code InputStream} from the current position.</p>
+	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
+	 * @param inputStream the {@code InputStream} to convert
+	 * @return the created {@code Iterator}
+	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static Iterator<Integer> of(final InputStream inputStream) {
+		Ensure.notNull("inputStream", inputStream);
+		return until(ThrowableSupplier.unchecked(inputStream::read), -1);
+	}
+
+	/**
+	 * <p>Create an {@code Iterator} with a {@code Reader} from the current position.</p>
+	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
+	 * @param reader the {@code Reader} to convert
+	 * @return the created {@code Iterator}
+	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static Iterator<Integer> of(final Reader reader) {
+		Ensure.notNull("reader", reader);
+		return until(ThrowableSupplier.unchecked(reader::read), -1);
+	}
+
+	/**
+	 * <p>Create an {@code Iterator} with a {@code BufferedReader} from the current position.</p>
+	 * <p><b>Note</b>: The {@code BufferedReader} will not be closed.</p>
+	 * @param bufferedReader the {@code BufferedReader} to convert
+	 * @return the created {@code Iterator}
+	 * @throws NullPointerException if the {@code BufferedReader} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static Iterator<String> of(final BufferedReader bufferedReader) {
+		Ensure.notNull("bufferedReader", bufferedReader);
+		return until(ThrowableSupplier.unchecked(bufferedReader::readLine), null);
+	}
+
+	/**
+	 * <p>Create an {@code Iterator} with a {@code LineReader} from the current position.</p>
+	 * <p><b>Note</b>: The {@code LineReader} will not be closed.</p>
+	 * @param lineReader the {@code LineReader} to convert
+	 * @return the created {@code Iterator}
+	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static Iterator<String> of(final LineReader lineReader) {
+		Ensure.notNull("lineReader", lineReader);
+		return until(ThrowableSupplier.unchecked(lineReader::read), null);
 	}
 
 	/**
@@ -811,19 +866,6 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create an {@code Iterator} with an {@code InputStream} from the current position.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * @param inputStream the {@code InputStream} to convert
-	 * @return the created {@code Iterator}
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static Iterator<Integer> of(final InputStream inputStream) {
-		Ensure.notNull("inputStream", inputStream);
-		return until(ThrowableSupplier.unchecked(inputStream::read), -1);
-	}
-
-	/**
 	 * <p>Convert an {@code Iterator} from the current position to an {@code InputStream}.</p>
 	 * @param iterator the {@code Iterator} to convert
 	 * @return the created {@code InputStream}
@@ -845,19 +887,6 @@ public final class Iterators {
 				return -1;
 			}
 		};
-	}
-
-	/**
-	 * <p>Create an {@code Iterator} with a {@code Reader} from the current position.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * @param reader the {@code Reader} to convert
-	 * @return the created {@code Iterator}
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static Iterator<Integer> of(final Reader reader) {
-		Ensure.notNull("reader", reader);
-		return until(ThrowableSupplier.unchecked(reader::read), -1);
 	}
 
 	/**
@@ -905,31 +934,5 @@ public final class Iterators {
 				// Nothing to do
 			}
 		};
-	}
-
-	/**
-	 * <p>Create an {@code Iterator} with a {@code BufferedReader} from the current position.</p>
-	 * <p><b>Note</b>: The {@code BufferedReader} will not be closed.</p>
-	 * @param bufferedReader the {@code BufferedReader} to convert
-	 * @return the created {@code Iterator}
-	 * @throws NullPointerException if the {@code BufferedReader} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static Iterator<String> of(final BufferedReader bufferedReader) {
-		Ensure.notNull("bufferedReader", bufferedReader);
-		return until(ThrowableSupplier.unchecked(bufferedReader::readLine), null);
-	}
-
-	/**
-	 * <p>Create an {@code Iterator} with a {@code LineReader} from the current position.</p>
-	 * <p><b>Note</b>: The {@code LineReader} will not be closed.</p>
-	 * @param lineReader the {@code LineReader} to convert
-	 * @return the created {@code Iterator}
-	 * @throws NullPointerException if the {@code LineReader} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static Iterator<String> of(final LineReader lineReader) {
-		Ensure.notNull("lineReader", lineReader);
-		return until(ThrowableSupplier.unchecked(lineReader::read), null);
 	}
 }

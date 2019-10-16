@@ -34,8 +34,8 @@ import java.util.Set;
  * <p>A {@code Bag} also known as a multiset is a collection that associates a quantity to each distinct element. It
  * could be use for structures such as histograms or occurrence vectors.</p>
  * <p><b>Note</b>: {@code Bag} does not extend the {@link Collection} interface for API design reasons.</p>
- * @see <a href="https://en.wikipedia.org/wiki/Multiset">https://en.wikipedia.org/wiki/Multiset</a>
  * @param <E> the element type
+ * @see <a href="https://en.wikipedia.org/wiki/Multiset">https://en.wikipedia.org/wiki/Multiset</a>
  * @since 1.0.0
  */
 public interface Bag<E> {

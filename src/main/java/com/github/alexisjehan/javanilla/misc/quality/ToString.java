@@ -387,13 +387,14 @@ public final class ToString {
 	 * <p>Create a {@code String} representing an {@code Object} and its attributes if any.</p>
 	 * @param object the {@code Object}
 	 * @param toStrings the {@code String} representation array with an attribute name and its {@code String}
-	 * representation
+	 *        representation
 	 * @return the created {@code String} representation
 	 * @throws NullPointerException if the {@code Object} or the {@code String} representation array or any of them is
 	 * {@code null}
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static String of(final Object object, final Pair<String, String>... toStrings) {
 		Ensure.notNull("object", object);
 		Ensure.notNullAndNotNullElements("toStrings", toStrings);

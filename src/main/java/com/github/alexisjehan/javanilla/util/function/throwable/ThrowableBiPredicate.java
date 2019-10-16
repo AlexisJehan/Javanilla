@@ -53,7 +53,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * predicate and another.</p>
 	 * @param other a {@code ThrowableBiPredicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code ThrowableBiPredicate} that represents the short-circuiting logical AND of this
-	 * predicate and the other predicate
+	 *         predicate and the other predicate
 	 * @throws NullPointerException if the other {@code ThrowableBiPredicate} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -76,7 +76,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	 * predicate and another.</p>
 	 * @param other a {@code ThrowableBiPredicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code ThrowableBiPredicate} that represents the short-circuiting logical OR of this predicate
-	 * and the other predicate
+	 *         and the other predicate
 	 * @throws NullPointerException if the other {@code ThrowableBiPredicate} is {@code null}
 	 * @since 1.0.0
 	 */

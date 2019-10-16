@@ -95,7 +95,7 @@ final class ListsTest {
 	void testGetOptionalLast() {
 		assertThat(Lists.getOptionalLast(List.of()).isEmpty()).isTrue();
 		assertThat(Lists.getOptionalLast(Collections.singletonList(null)).get()).isNull();
-		assertThat(Lists.getOptionalLast(new LinkedList<>((List.of(1, 2, 3)))).get()).isEqualTo(3);
+		assertThat(Lists.getOptionalLast(new LinkedList<>(List.of(1, 2, 3))).get()).isEqualTo(3);
 		assertThat(Lists.getOptionalLast(new ArrayList<>(List.of(1, 2, 3))).get()).isEqualTo(3);
 	}
 

@@ -52,7 +52,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * and another.</p>
 	 * @param other a {@code ThrowablePredicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code ThrowablePredicate} that represents the short-circuiting logical AND of this predicate
-	 * and the other predicate
+	 *         and the other predicate
 	 * @throws NullPointerException if the other {@code ThrowablePredicate} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -75,7 +75,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * and another.</p>
 	 * @param other a {@code ThrowablePredicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code ThrowablePredicate} that represents the short-circuiting logical OR of this predicate
-	 * and the other predicate
+	 *         and the other predicate
 	 * @throws NullPointerException if the other {@code ThrowablePredicate} is {@code null}
 	 * @since 1.0.0
 	 */

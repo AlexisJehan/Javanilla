@@ -43,12 +43,12 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class SerializablesTest {
 
-	private static final SerializablePair FOO = SerializablePair.of("foo", 1);
+	private static final SerializablePair<String, Integer> FOO = SerializablePair.of("foo", 1);
 
 	@Test
 	void testSerializeDeserialize() {
-		assertThat(Serializables.<SerializablePair>deserialize(Serializables.serialize(FOO))).isEqualTo(FOO);
-		assertThat(Serializables.<SerializablePair>deserialize(Serializables.serialize(null))).isNull();
+		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(FOO))).isEqualTo(FOO);
+		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
 
 		// Serializable containing a non-serializable attribute
 		assertThatExceptionOfType(SerializationException.class)
@@ -57,7 +57,7 @@ final class SerializablesTest {
 
 		// Different type used for serialization and deserialization
 		assertThatExceptionOfType(ClassCastException.class)
-				.isThrownBy(() -> Serializables.<SerializableSingle>deserialize(Serializables.serialize(FOO)).getUnique());
+				.isThrownBy(() -> Serializables.<SerializableSingle<String>>deserialize(Serializables.serialize(FOO)).getUnique());
 
 		// Corruption
 		final var serialized = Serializables.serialize(FOO);

@@ -90,7 +90,7 @@ public final class Sets {
 	 * @throws NullPointerException if the default {@code Set} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <S extends Set> S nullToDefault(final S set, final S defaultSet) {
+	public static <S extends Set<?>> S nullToDefault(final S set, final S defaultSet) {
 		Ensure.notNull("defaultSet", defaultSet);
 		return null != set ? set : defaultSet;
 	}
@@ -102,7 +102,7 @@ public final class Sets {
 	 * @return a non-empty {@code Set} or {@code null}
 	 * @since 1.0.0
 	 */
-	public static <S extends Set> S emptyToNull(final S set) {
+	public static <S extends Set<?>> S emptyToNull(final S set) {
 		return emptyToDefault(set, null);
 	}
 
@@ -115,7 +115,7 @@ public final class Sets {
 	 * @throws IllegalArgumentException if the default {@code Set} is empty
 	 * @since 1.1.0
 	 */
-	public static <S extends Set> S emptyToDefault(final S set, final S defaultSet) {
+	public static <S extends Set<?>> S emptyToDefault(final S set, final S defaultSet) {
 		if (null != defaultSet) {
 			Ensure.notNullAndNotEmpty("defaultSet", defaultSet);
 		}
@@ -131,6 +131,7 @@ public final class Sets {
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Set<E> union(final Set<? extends E>... sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
 		return union(List.of(sets));
@@ -170,6 +171,7 @@ public final class Sets {
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Set<E> intersect(final Set<? extends E>... sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
 		return intersect(List.of(sets));
@@ -210,6 +212,7 @@ public final class Sets {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Set<E> ofOrdered(final E... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {

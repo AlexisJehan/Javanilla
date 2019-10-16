@@ -42,7 +42,7 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	 * predicate and another.</p>
 	 * @param other a {@code Predicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code SerializablePredicate} that represents the short-circuiting logical AND of this
-	 * predicate and the other predicate
+	 *         predicate and the other predicate
 	 * @throws NullPointerException if the other {@code Predicate} is {@code null}
 	 * @since 1.4.0
 	 */
@@ -67,7 +67,7 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	 * predicate and another.</p>
 	 * @param other a {@code Predicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code SerializablePredicate} that represents the short-circuiting logical OR of this
-	 * predicate and the other predicate
+	 *         predicate and the other predicate
 	 * @throws NullPointerException if the other {@code Predicate} is {@code null}
 	 * @since 1.4.0
 	 */

@@ -51,7 +51,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * <p>Common instance for {@link #empty()}.</p>
 	 * @since 1.1.0
 	 */
-	private static final NullableOptional EMPTY = new NullableOptional();
+	private static final NullableOptional<?> EMPTY = new NullableOptional<>();
 
 	/**
 	 * <p>Nullable value or {@code null} if not present.</p>
@@ -151,7 +151,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * {@code NullableOptional} describing the value, otherwise returns an empty {@code NullableOptional}.</p>
 	 * @param filter the filter {@code Predicate} to apply to a value, if present
 	 * @return a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is present
-	 * and the value matches the given filter {@code Predicate}, otherwise an empty {@code NullableOptional}
+	 *         and the value matches the given filter {@code Predicate}, otherwise an empty {@code NullableOptional}
 	 * @throws NullPointerException if the filter {@code Predicate} is {@code null}
 	 * @since 1.1.0
 	 */
@@ -169,7 +169,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * @param mapper the mapper {@code Function} to apply to a value, if present
 	 * @param <U> the type of the value returned from the mapper {@code Function}
 	 * @return a {@code NullableOptional} describing the result of applying a mapper {@code Function} to the value of
-	 * this {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
+	 *         this {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
 	 * @throws NullPointerException if the mapper {@code Function} is {@code null}
 	 * @since 1.1.0
 	 */
@@ -186,7 +186,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * {@code Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
 	 * <p>This method is similar to {@link #map(Function)}, but the mapper {@code Function} is one whose result is
 	 * already a {@code NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an additional
-	 * {@code NullableOptional}.
+	 * {@code NullableOptional}.</p>
 	 * @param mapper the mapper {@code Function} to apply to a value, if present
 	 * @param <U> the type of value of the {@code NullableOptional} returned by the mapper {@code Function}
 	 * @return the result of applying an {@code NullableOptional}-bearing mapper {@code Function} to the value of this
@@ -208,7 +208,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	 * {@code NullableOptional} produced by the {@code Supplier}.</p>
 	 * @param supplier the {@code Supplier} that produces an {@code NullableOptional} to be returned
 	 * @return returns a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is
-	 * present, otherwise a {@code NullableOptional} produced by the {@code Supplier}
+	 *         present, otherwise a {@code NullableOptional} produced by the {@code Supplier}
 	 * @throws NullPointerException if the {@code Supplier} is {@code null}
 	 * @since 1.1.0
 	 */

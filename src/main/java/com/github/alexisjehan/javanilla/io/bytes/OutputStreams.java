@@ -82,7 +82,6 @@ public final class OutputStreams {
 	 * @return a non-{@code null} {@code OutputStream}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static OutputStream nullToEmpty(final OutputStream outputStream) {
 		return nullToDefault(outputStream, EMPTY);
 	}
@@ -152,7 +151,6 @@ public final class OutputStreams {
 	 * @throws NullPointerException if the {@code OutputStream} {@code Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static OutputStream tee(final Collection<? extends OutputStream> outputStreams) {
 		Ensure.notNullAndNotNullElements("outputStreams", outputStreams);
 		final var size = outputStreams.size();

@@ -322,9 +322,9 @@ public final class FloatArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code float} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code float} array to shuffle
 	 * @throws NullPointerException if the {@code float} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final float[] array) {
@@ -358,7 +358,7 @@ public final class FloatArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code float} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code float} array is empty, if the {@code float} array length is not equal
-	 * to the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         to the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final float[] array, final int... indexes) {
@@ -502,7 +502,7 @@ public final class FloatArrays {
 	 * @param arrays the {@code float} array array to join
 	 * @return the joined {@code float} array
 	 * @throws NullPointerException if the {@code float} array separator, the {@code float} array array or any of them
-	 * is {@code null}
+	 *         is {@code null}
 	 * @since 1.0.0
 	 */
 	public static float[] join(final float[] separator, final float[]... arrays) {
@@ -516,7 +516,7 @@ public final class FloatArrays {
 	 * @param arrays the {@code float} array {@code List} to join
 	 * @return the joined {@code float} array
 	 * @throws NullPointerException if the {@code float} array separator, the {@code float} array {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static float[] join(final float[] separator, final List<float[]> arrays) {

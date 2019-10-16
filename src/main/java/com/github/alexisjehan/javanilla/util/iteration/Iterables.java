@@ -134,7 +134,7 @@ public final class Iterables {
 	 * @throws NullPointerException if the default {@code Iterable} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static <I extends Iterable> I nullToDefault(final I iterable, final I defaultIterable) {
+	public static <I extends Iterable<?>> I nullToDefault(final I iterable, final I defaultIterable) {
 		Ensure.notNull("defaultIterable", defaultIterable);
 		return null != iterable ? iterable : defaultIterable;
 	}
@@ -208,7 +208,7 @@ public final class Iterables {
 	 * @throws NullPointerException if the {@code Iterable} is {@code null}
 	 * @since 1.1.0
 	 */
-	public static long length(final Iterable iterable) {
+	public static long length(final Iterable<?> iterable) {
 		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof Collection) {
 			return ((Collection) iterable).size();
@@ -282,6 +282,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Iterable<E> concat(final Iterable<? extends E>... iterables) {
 		Ensure.notNullAndNotNullElements("iterables", iterables);
 		return concat(List.of(iterables));
@@ -319,6 +320,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Iterable<E> join(final E[] separator, final Iterable<? extends E>... iterables) {
 		Ensure.notNullAndNotNullElements("iterables", iterables);
 		return join(separator, List.of(iterables));
@@ -331,7 +333,7 @@ public final class Iterables {
 	 * @param <E> the element type
 	 * @return the joined {@code Iterable}
 	 * @throws NullPointerException if the {@code Object} array separator, the {@code Iterable} {@code List} or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -446,6 +448,7 @@ public final class Iterables {
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <E> Iterable<E> of(final E... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {

@@ -50,7 +50,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	 * operation.</p>
 	 * @param after the {@code ThrowableConsumer} operation to perform after this operation
 	 * @return a composed {@code ThrowableConsumer} that performs in sequence this operation followed by the after
-	 * operation
+	 *         operation
 	 * @throws NullPointerException if the after {@code ThrowableConsumer} is {@code null}
 	 * @since 1.0.0
 	 */

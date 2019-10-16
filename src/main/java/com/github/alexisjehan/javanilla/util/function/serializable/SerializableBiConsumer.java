@@ -42,7 +42,7 @@ public interface SerializableBiConsumer<T, U> extends BiConsumer<T, U>, Serializ
 	 * after operation.</p>
 	 * @param after the {@code BiConsumer} operation to perform after this operation
 	 * @return a composed {@code SerializableBiConsumer} that performs in sequence this operation followed by the after
-	 * operation
+	 *         operation
 	 * @throws NullPointerException if the after {@code BiConsumer} is {@code null}
 	 * @since 1.4.0
 	 */

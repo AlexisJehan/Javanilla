@@ -297,7 +297,7 @@ public final class Ensure {
 	 * @throws IllegalArgumentException if the {@code Collection} is empty
 	 * @since 1.3.0
 	 */
-	public static <C extends Collection> C notNullAndNotEmpty(final String name, final C collection) {
+	public static <C extends Collection<?>> C notNullAndNotEmpty(final String name, final C collection) {
 		notNull(name, collection);
 		if (collection.isEmpty()) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(collection) + " (not empty expected)");
@@ -315,7 +315,7 @@ public final class Ensure {
 	 * @throws IllegalArgumentException if the {@code Map} is empty
 	 * @since 1.3.0
 	 */
-	public static <M extends Map> M notNullAndNotEmpty(final String name, final M map) {
+	public static <M extends Map<?, ?>> M notNullAndNotEmpty(final String name, final M map) {
 		notNull(name, map);
 		if (map.isEmpty()) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(map) + " (not empty expected)");
@@ -333,7 +333,7 @@ public final class Ensure {
 	 * @throws IllegalArgumentException if the {@code Bag} is empty
 	 * @since 1.3.0
 	 */
-	public static <B extends Bag> B notNullAndNotEmpty(final String name, final B bag) {
+	public static <B extends Bag<?>> B notNullAndNotEmpty(final String name, final B bag) {
 		notNull(name, bag);
 		if (bag.isEmpty()) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(bag) + " (not empty expected)");
@@ -351,7 +351,7 @@ public final class Ensure {
 	 * @throws IllegalArgumentException if the {@code Iterator} is empty
 	 * @since 1.3.0
 	 */
-	public static <I extends Iterator> I notNullAndNotEmpty(final String name, final I iterator) {
+	public static <I extends Iterator<?>> I notNullAndNotEmpty(final String name, final I iterator) {
 		notNull(name, iterator);
 		if (Iterators.isEmpty(iterator)) {
 			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(iterator) + " (not empty expected)");

@@ -116,7 +116,7 @@ public final class BooleanArrays {
 	 * @param array the {@code boolean} array to test
 	 * @param values {@code boolean} values to test
 	 * @return {@code true} if any of given {@code boolean} values is contained at least once by the {@code boolean}
-	 * array
+	 *         array
 	 * @throws NullPointerException if the {@code boolean} array or the {@code boolean} values array is {@code null}
 	 * @throws IllegalArgumentException if the {@code boolean} values array is empty
 	 * @since 1.0.0
@@ -142,7 +142,7 @@ public final class BooleanArrays {
 	 * @param array the {@code boolean} array to test
 	 * @param values {@code boolean} values to test
 	 * @return {@code true} if all of given {@code boolean} values are contained at least once by the {@code boolean}
-	 * array
+	 *         array
 	 * @throws NullPointerException if the {@code boolean} array or the {@code boolean} values array is {@code null}
 	 * @throws IllegalArgumentException if the {@code boolean} values array is empty
 	 * @since 1.0.0
@@ -326,9 +326,9 @@ public final class BooleanArrays {
 
 	/**
 	 * <p>Shuffle values in the given {@code boolean} array using the Fisher-Yates algorithm.</p>
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @param array the {@code boolean} array to shuffle
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	public static void shuffle(final boolean[] array) {
@@ -362,7 +362,7 @@ public final class BooleanArrays {
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code boolean} array or the indexes array is {@code null}
 	 * @throws IllegalArgumentException if {@code boolean} array is empty, if the {@code boolean} array length is not
-	 * equal to the indexes array length, if indexes are not distinct or if any index is not valid
+	 *         equal to the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
 	public static void reorder(final boolean[] array, final int... indexes) {
@@ -506,7 +506,7 @@ public final class BooleanArrays {
 	 * @param arrays the {@code boolean} array array to join
 	 * @return the joined {@code boolean} array
 	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array array or any of
-	 * them is {@code null}
+	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean[] join(final boolean[] separator, final boolean[]... arrays) {
@@ -520,7 +520,7 @@ public final class BooleanArrays {
 	 * @param arrays the {@code boolean} array {@code List} to join
 	 * @return the joined {@code boolean} array
 	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array {@code List} or
-	 * any of them is {@code null}
+	 *         any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean[] join(final boolean[] separator, final List<boolean[]> arrays) {

@@ -43,7 +43,7 @@ public interface SerializableFunction<T, R> extends Function<T, R>, Serializable
 	 * @param before the {@code Function} to apply before this function is applied
 	 * @param <V> the type of input to the before function, and to the composed function
 	 * @return a composed {@code SerializableFunction} that first applies the before function and then applies this
-	 * function
+	 *         function
 	 * @throws NullPointerException if the before {@code Function} is {@code null}
 	 * @since 1.4.0
 	 */
@@ -59,7 +59,7 @@ public interface SerializableFunction<T, R> extends Function<T, R>, Serializable
 	 * @param after the {@code Function} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code SerializableFunction} that first applies this function and then applies the after
-	 * function
+	 *         function
 	 * @throws NullPointerException if the after {@code Function} is {@code null}
 	 * @since 1.4.0
 	 */

@@ -87,6 +87,6 @@ final class SerializablePairTest {
 	@Test
 	void testSerializable() {
 		final var serializablePair = new SerializablePair<>(1, 2);
-		assertThat(Serializables.<SerializablePair>deserialize(Serializables.serialize(serializablePair))).isEqualTo(serializablePair);
+		assertThat(Serializables.<SerializablePair<Integer, Integer>>deserialize(Serializables.serialize(serializablePair))).isEqualTo(serializablePair);
 	}
 }

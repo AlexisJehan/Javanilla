@@ -53,7 +53,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * @param before the {@code ThrowableFunction} to apply before this function is applied
 	 * @param <V> the type of input to the before function, and to the composed function
 	 * @return a composed {@code ThrowableFunction} that first applies the before function and then applies this
-	 * function
+	 *         function
 	 * @throws NullPointerException if the before {@code ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */

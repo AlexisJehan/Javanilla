@@ -93,6 +93,6 @@ final class SerializableTripleTest {
 	@Test
 	void testSerializable() {
 		final var serializableTriple = new SerializableTriple<>(1, 2, 3);
-		assertThat(Serializables.<SerializableTriple>deserialize(Serializables.serialize(serializableTriple))).isEqualTo(serializableTriple);
+		assertThat(Serializables.<SerializableTriple<Integer, Integer, Integer>>deserialize(Serializables.serialize(serializableTriple))).isEqualTo(serializableTriple);
 	}
 }

@@ -82,16 +82,10 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Units suffixes.</p>
-	 * @since 1.0.0
+	 * <p>{@code StringFormatter} instance with default parameters.</p>
+	 * @since 1.3.0
 	 */
-	private static final String[] UNITS = {"k", "M", "G", "T", "P", "E", "Z", "Y"};
-
-	/**
-	 * <p>Default {@code BytePrefix}.</p>
-	 * @since 1.0.0
-	 */
-	private static final BytePrefix DEFAULT_BYTE_PREFIX = BytePrefix.BINARY;
+	public static final StringFormatter DEFAULT = new StringFormatter(Locale.getDefault());
 
 	/**
 	 * <p>Default float precision.</p>
@@ -106,10 +100,16 @@ public final class StringFormatter implements Serializable {
 	static final boolean DEFAULT_STRICT_PRECISION = false;
 
 	/**
-	 * <p>{@code StringFormatter} instance with default parameters.</p>
-	 * @since 1.3.0
+	 * <p>Units suffixes.</p>
+	 * @since 1.0.0
 	 */
-	public static final StringFormatter DEFAULT = new StringFormatter(Locale.getDefault());
+	private static final String[] UNITS = {"k", "M", "G", "T", "P", "E", "Z", "Y"};
+
+	/**
+	 * <p>Default {@code BytePrefix}.</p>
+	 * @since 1.0.0
+	 */
+	private static final BytePrefix DEFAULT_BYTE_PREFIX = BytePrefix.BINARY;
 
 	/**
 	 * <p>Serial version unique ID.</p>

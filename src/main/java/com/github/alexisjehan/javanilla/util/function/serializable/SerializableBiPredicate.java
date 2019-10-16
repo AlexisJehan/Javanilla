@@ -42,7 +42,7 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	 * predicate and another.</p>
 	 * @param other a {@code BiPredicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code SerializableBiPredicate} that represents the short-circuiting logical AND of this
-	 * predicate and the other predicate
+	 *         predicate and the other predicate
 	 * @throws NullPointerException if the other {@code BiPredicate} is {@code null}
 	 * @since 1.4.0
 	 */
@@ -67,7 +67,7 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	 * predicate and another.</p>
 	 * @param other a {@code BiPredicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code SerializableBiPredicate} that represents the short-circuiting logical OR of this
-	 * predicate and the other predicate
+	 *         predicate and the other predicate
 	 * @throws NullPointerException if the other {@code BiPredicate} is {@code null}
 	 * @since 1.4.0
 	 */

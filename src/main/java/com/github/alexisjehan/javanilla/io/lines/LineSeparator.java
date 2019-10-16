@@ -69,7 +69,8 @@ public enum LineSeparator {
 			int i2;
 			while (-1 != (i1 = reader.read())) {
 				if ('\r' == i1) {
-					if ('\n' == (i2 = reader.read())) {
+					i2 = reader.read();
+					if ('\n' == i2) {
 						return i2;
 					}
 					builder.appendCodePoint(i1);
@@ -216,7 +217,8 @@ public enum LineSeparator {
 			if ('\n' == i1) {
 				++counts[LF.ordinal()];
 			} else if ('\r' == i1) {
-				if ('\n' == (i2 = reader.read())) {
+				i2 = reader.read();
+				if ('\n' == i2) {
 					++counts[CR_LF.ordinal()];
 				} else {
 					++counts[CR.ordinal()];
