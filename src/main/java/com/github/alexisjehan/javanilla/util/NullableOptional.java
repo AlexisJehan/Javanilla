@@ -308,11 +308,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + (
-				!isEmpty
-						? "[" + value + "]"
-						: ".empty"
-		);
+		return getClass().getSimpleName() + (!isEmpty ? "[" + value + "]" : ".empty");
 	}
 
 	/**

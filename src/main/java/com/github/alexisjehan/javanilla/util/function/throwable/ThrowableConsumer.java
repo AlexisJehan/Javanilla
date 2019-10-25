@@ -77,8 +77,8 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 		return t -> {
 			try {
 				throwableConsumer.accept(t);
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

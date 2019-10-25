@@ -80,8 +80,8 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 		return (t, u) -> {
 			try {
 				throwableBiConsumer.accept(t, u);
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

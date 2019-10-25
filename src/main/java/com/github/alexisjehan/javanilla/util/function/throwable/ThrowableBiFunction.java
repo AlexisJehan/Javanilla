@@ -81,8 +81,8 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 		return (t, u) -> {
 			try {
 				return throwableBiFunction.apply(t, u);
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

@@ -114,8 +114,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 		return t -> {
 			try {
 				return throwablePredicate.test(t);
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

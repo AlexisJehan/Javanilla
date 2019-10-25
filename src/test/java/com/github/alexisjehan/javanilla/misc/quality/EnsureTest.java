@@ -1116,7 +1116,7 @@ final class EnsureTest {
 		assertThat(Ensure.multipleOf("foo", foo, (char) 4)).isEqualTo(foo);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> Ensure.multipleOf("foo", foo, (char) 3))
-				.withMessage("Invalid foo: " + ToString.toString (foo) + " (multiple of " + ToString.toString((char) 3) + " expected)");
+				.withMessage("Invalid foo: " + ToString.toString(foo) + " (multiple of " + ToString.toString((char) 3) + " expected)");
 	}
 
 	@Test

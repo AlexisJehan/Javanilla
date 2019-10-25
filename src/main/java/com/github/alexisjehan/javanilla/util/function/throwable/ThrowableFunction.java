@@ -103,8 +103,8 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 		return t -> {
 			try {
 				return throwableFunction.apply(t);
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

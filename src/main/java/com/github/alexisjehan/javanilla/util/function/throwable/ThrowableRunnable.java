@@ -55,8 +55,8 @@ public interface ThrowableRunnable<X extends Throwable> {
 		return () -> {
 			try {
 				throwableRunnable.run();
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

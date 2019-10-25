@@ -101,8 +101,8 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 		return (t, u) -> {
 			try {
 				return throwableBiPredicate.test(t, u);
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}

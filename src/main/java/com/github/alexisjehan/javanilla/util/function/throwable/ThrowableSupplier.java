@@ -60,8 +60,8 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 		return () -> {
 			try {
 				return throwableSupplier.get();
-			} catch (final Throwable x) {
-				throw Throwables.unchecked(x);
+			} catch (final Throwable e) {
+				throw Throwables.unchecked(e);
 			}
 		};
 	}
