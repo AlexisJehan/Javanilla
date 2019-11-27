@@ -548,65 +548,65 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Create an {@code int} array from a single {@code int}.</p>
-	 * @param i the {@code int} to convert
+	 * <p>Create an {@code int} array from a single {@code int} value.</p>
+	 * @param value the {@code int} value to convert
 	 * @return the created {@code int} array
 	 * @since 1.1.0
 	 */
-	public static int[] singleton(final int i) {
-		return of(i);
+	public static int[] singleton(final int value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create an {@code int} array from multiple {@code int}s.</p>
-	 * @param ints the {@code int} array to convert
+	 * <p>Create an {@code int} array from multiple {@code int} values.</p>
+	 * @param values {@code int} values to convert
 	 * @return the created {@code int} array
-	 * @throws NullPointerException if the {@code int} array is {@code null}
+	 * @throws NullPointerException if the {@code int} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static int[] of(final int... ints) {
-		Ensure.notNull("ints", ints);
-		if (isEmpty(ints)) {
+	public static int[] of(final int... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return ints;
+		return values;
 	}
 
 	/**
 	 * <p>Create an {@code int} array from a boxed {@code Integer} array.</p>
-	 * @param boxedIntegers the boxed {@code Integer} array to convert
+	 * @param boxedArray the boxed {@code Integer} array to convert
 	 * @return the created {@code int} array
 	 * @throws NullPointerException if the boxed {@code Integer} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static int[] of(final Integer[] boxedIntegers) {
-		Ensure.notNull("boxedIntegers", boxedIntegers);
-		if (ObjectArrays.isEmpty(boxedIntegers)) {
+	public static int[] of(final Integer[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var ints = new int[boxedIntegers.length];
-		for (var i = 0; i < ints.length; ++i) {
-			ints[i] = boxedIntegers[i];
+		final var array = new int[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return ints;
+		return array;
 	}
 
 	/**
 	 * <p>Convert an {@code int} array to a boxed {@code Integer} array.</p>
-	 * @param ints the {@code int} array to convert
+	 * @param array the {@code int} array to convert
 	 * @return the created boxed {@code Integer} array
 	 * @throws NullPointerException if the {@code int} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Integer[] toBoxed(final int[] ints) {
-		Ensure.notNull("ints", ints);
-		if (isEmpty(ints)) {
+	public static Integer[] toBoxed(final int[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Integer.class);
 		}
-		final var boxedIntegers = new Integer[ints.length];
-		for (var i = 0; i < boxedIntegers.length; ++i) {
-			boxedIntegers[i] = ints[i];
+		final var boxedArray = new Integer[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedIntegers;
+		return boxedArray;
 	}
 }

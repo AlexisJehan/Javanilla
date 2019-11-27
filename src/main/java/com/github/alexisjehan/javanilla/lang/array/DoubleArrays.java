@@ -549,65 +549,65 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Create a {@code double} array from a single {@code double}.</p>
-	 * @param d the {@code double} to convert
+	 * <p>Create a {@code double} array from a single {@code double} value.</p>
+	 * @param value the {@code double} value to convert
 	 * @return the created {@code double} array
 	 * @since 1.1.0
 	 */
-	public static double[] singleton(final double d) {
-		return of(d);
+	public static double[] singleton(final double value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code double} array from multiple {@code double}s.</p>
-	 * @param doubles the {@code double} array to convert
+	 * <p>Create a {@code double} array from multiple {@code double} values.</p>
+	 * @param values {@code double} values to convert
 	 * @return the created {@code double} array
-	 * @throws NullPointerException if the {@code double} array is {@code null}
+	 * @throws NullPointerException if the {@code double} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static double[] of(final double... doubles) {
-		Ensure.notNull("doubles", doubles);
-		if (isEmpty(doubles)) {
+	public static double[] of(final double... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return doubles;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code double} array from a boxed {@code Double} array.</p>
-	 * @param boxedDoubles the boxed {@code Double} array to convert
+	 * @param boxedArray the boxed {@code Double} array to convert
 	 * @return the created {@code double} array
 	 * @throws NullPointerException if the boxed {@code Double} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static double[] of(final Double[] boxedDoubles) {
-		Ensure.notNull("boxedDoubles", boxedDoubles);
-		if (ObjectArrays.isEmpty(boxedDoubles)) {
+	public static double[] of(final Double[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var doubles = new double[boxedDoubles.length];
-		for (var i = 0; i < doubles.length; ++i) {
-			doubles[i] = boxedDoubles[i];
+		final var array = new double[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return doubles;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code double} array to a boxed {@code Double} array.</p>
-	 * @param doubles the {@code double} array to convert
+	 * @param array the {@code double} array to convert
 	 * @return the created boxed {@code Double} array
 	 * @throws NullPointerException if the {@code double} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Double[] toBoxed(final double[] doubles) {
-		Ensure.notNull("doubles", doubles);
-		if (isEmpty(doubles)) {
+	public static Double[] toBoxed(final double[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Double.class);
 		}
-		final var boxedDoubles = new Double[doubles.length];
-		for (var i = 0; i < boxedDoubles.length; ++i) {
-			boxedDoubles[i] = doubles[i];
+		final var boxedArray = new Double[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedDoubles;
+		return boxedArray;
 	}
 }

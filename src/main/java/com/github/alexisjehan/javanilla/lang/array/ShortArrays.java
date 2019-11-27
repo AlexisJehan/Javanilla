@@ -548,65 +548,65 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Create a {@code short} array from a single {@code short}.</p>
-	 * @param s the {@code short} to convert
+	 * <p>Create a {@code short} array from a single {@code short} value.</p>
+	 * @param value the {@code short} value to convert
 	 * @return the created {@code short} array
 	 * @since 1.1.0
 	 */
-	public static short[] singleton(final short s) {
-		return of(s);
+	public static short[] singleton(final short value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code short} array from multiple {@code short}s.</p>
-	 * @param shorts the {@code short} array to convert
+	 * <p>Create a {@code short} array from multiple {@code short} values.</p>
+	 * @param values {@code short} values to convert
 	 * @return the created {@code short} array
-	 * @throws NullPointerException if the {@code short} array is {@code null}
+	 * @throws NullPointerException if the {@code short} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static short[] of(final short... shorts) {
-		Ensure.notNull("shorts", shorts);
-		if (isEmpty(shorts)) {
+	public static short[] of(final short... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return shorts;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code short} array from a boxed {@code Short} array.</p>
-	 * @param boxedShorts the boxed {@code Short} array to convert
+	 * @param boxedArray the boxed {@code Short} array to convert
 	 * @return the created {@code short} array
 	 * @throws NullPointerException if the boxed {@code Short} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static short[] of(final Short[] boxedShorts) {
-		Ensure.notNull("boxedShorts", boxedShorts);
-		if (ObjectArrays.isEmpty(boxedShorts)) {
+	public static short[] of(final Short[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var shorts = new short[boxedShorts.length];
-		for (var i = 0; i < shorts.length; ++i) {
-			shorts[i] = boxedShorts[i];
+		final var array = new short[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return shorts;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code short} array to a boxed {@code Short} array.</p>
-	 * @param shorts the {@code short} array to convert
+	 * @param array the {@code short} array to convert
 	 * @return the created boxed {@code Short} array
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Short[] toBoxed(final short[] shorts) {
-		Ensure.notNull("shorts", shorts);
-		if (isEmpty(shorts)) {
+	public static Short[] toBoxed(final short[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Short.class);
 		}
-		final var boxedShorts = new Short[shorts.length];
-		for (var i = 0; i < boxedShorts.length; ++i) {
-			boxedShorts[i] = shorts[i];
+		final var boxedArray = new Short[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedShorts;
+		return boxedArray;
 	}
 }

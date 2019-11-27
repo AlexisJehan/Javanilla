@@ -656,48 +656,48 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@code Object} array from a single {@code Object}.</p>
-	 * @param object the {@code Object} to convert
+	 * <p>Create an {@code Object} array from a single {@code Object} value.</p>
+	 * @param value the {@code Object} value to convert
 	 * @param <E> the {@code Object} type
 	 * @return the created {@code Object} array
-	 * @throws NullPointerException if the {@code Object} is {@code null}
+	 * @throws NullPointerException if the {@code Object} value is {@code null}
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> E[] singleton(final E object) {
-		Ensure.notNull("object", object);
-		return singleton((Class<E>) object.getClass(), object);
+	public static <E> E[] singleton(final E value) {
+		Ensure.notNull("value", value);
+		return singleton((Class<E>) value.getClass(), value);
 	}
 
 	/**
-	 * <p>Create an {@code Object} array from a single {@code Object} or {@code null}.</p>
+	 * <p>Create an {@code Object} array from a single {@code Object} value or {@code null}.</p>
 	 * @param classType the {@code Class} type
-	 * @param object the {@code Object} to convert or {@code null}
+	 * @param value the {@code Object} value to convert or {@code null}
 	 * @param <E> the {@code Object} type
 	 * @return the created {@code Object} array
 	 * @throws NullPointerException if the {@code Class} type is {@code null}
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E> E[] singleton(final Class<E> classType, final E object) {
+	public static <E> E[] singleton(final Class<E> classType, final E value) {
 		Ensure.notNull("classType", classType);
 		final var array = (E[]) Array.newInstance(classType, 1);
-		array[0] = object;
+		array[0] = value;
 		return array;
 	}
 
 	/**
-	 * <p>Create an {@code Object} array from multiple {@code Object}s.</p>
-	 * @param objects the {@code Object} array to convert
+	 * <p>Create an {@code Object} array from multiple {@code Object} values.</p>
+	 * @param values {@code Object} values to convert
 	 * @param <E> the {@code Object} type
 	 * @return the created {@code Object} array
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @throws NullPointerException if the {@code Object} values array is {@code null}
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
 	@SuppressWarnings("varargs")
-	public static <E> E[] of(final E... objects) {
-		Ensure.notNull("objects", objects);
-		return objects;
+	public static <E> E[] of(final E... values) {
+		Ensure.notNull("values", values);
+		return values;
 	}
 }

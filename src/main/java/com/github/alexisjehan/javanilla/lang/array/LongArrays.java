@@ -548,65 +548,65 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Create a {@code long} array from a single {@code long}.</p>
-	 * @param l the {@code long} to convert
+	 * <p>Create a {@code long} array from a single {@code long} value.</p>
+	 * @param value the {@code long} value to convert
 	 * @return the created {@code long} array
 	 * @since 1.1.0
 	 */
-	public static long[] singleton(final long l) {
-		return of(l);
+	public static long[] singleton(final long value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code long} array from multiple {@code long}s.</p>
-	 * @param longs the {@code long} array to convert
+	 * <p>Create a {@code long} array from multiple {@code long} values.</p>
+	 * @param values {@code long} values to convert
 	 * @return the created {@code long} array
-	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @throws NullPointerException if the {@code long} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static long[] of(final long... longs) {
-		Ensure.notNull("longs", longs);
-		if (isEmpty(longs)) {
+	public static long[] of(final long... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return longs;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code long} array from a boxed {@code Long} array.</p>
-	 * @param boxedLongs the boxed {@code Long} array to convert
+	 * @param boxedArray the boxed {@code Long} array to convert
 	 * @return the created {@code long} array
 	 * @throws NullPointerException if the boxed {@code Long} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static long[] of(final Long[] boxedLongs) {
-		Ensure.notNull("boxedLongs", boxedLongs);
-		if (ObjectArrays.isEmpty(boxedLongs)) {
+	public static long[] of(final Long[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var longs = new long[boxedLongs.length];
-		for (var i = 0; i < longs.length; ++i) {
-			longs[i] = boxedLongs[i];
+		final var array = new long[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return longs;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code long} array to a boxed {@code Long} array.</p>
-	 * @param longs the {@code long} array to convert
+	 * @param array the {@code long} array to convert
 	 * @return the created boxed {@code Long} array
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Long[] toBoxed(final long[] longs) {
-		Ensure.notNull("longs", longs);
-		if (isEmpty(longs)) {
+	public static Long[] toBoxed(final long[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Long.class);
 		}
-		final var boxedLongs = new Long[longs.length];
-		for (var i = 0; i < boxedLongs.length; ++i) {
-			boxedLongs[i] = longs[i];
+		final var boxedArray = new Long[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedLongs;
+		return boxedArray;
 	}
 }

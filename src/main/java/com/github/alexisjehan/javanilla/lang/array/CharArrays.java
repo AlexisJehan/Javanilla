@@ -548,65 +548,65 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Create a {@code char} array from a single {@code char}.</p>
-	 * @param c the {@code char} to convert
+	 * <p>Create a {@code char} array from a single {@code char} value.</p>
+	 * @param value the {@code char} value to convert
 	 * @return the created {@code char} array
 	 * @since 1.1.0
 	 */
-	public static char[] singleton(final char c) {
-		return of(c);
+	public static char[] singleton(final char value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code char} array from multiple {@code char}s.</p>
-	 * @param chars the {@code char} array to convert
+	 * <p>Create a {@code char} array from multiple {@code char} values.</p>
+	 * @param values {@code char} values to convert
 	 * @return the created {@code char} array
-	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @throws NullPointerException if the {@code char} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static char[] of(final char... chars) {
-		Ensure.notNull("chars", chars);
-		if (isEmpty(chars)) {
+	public static char[] of(final char... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return chars;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code char} array from a boxed {@code Character} array.</p>
-	 * @param boxedCharacters the boxed {@code Character} array to convert
+	 * @param boxedArray the boxed {@code Character} array to convert
 	 * @return the created {@code char} array
 	 * @throws NullPointerException if the boxed {@code Character} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static char[] of(final Character[] boxedCharacters) {
-		Ensure.notNull("boxedCharacters", boxedCharacters);
-		if (ObjectArrays.isEmpty(boxedCharacters)) {
+	public static char[] of(final Character[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var chars = new char[boxedCharacters.length];
-		for (var i = 0; i < chars.length; ++i) {
-			chars[i] = boxedCharacters[i];
+		final var array = new char[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return chars;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code char} array to a boxed {@code Character} array.</p>
-	 * @param chars the {@code char} array to convert
+	 * @param array the {@code char} array to convert
 	 * @return the created boxed {@code Character} array
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Character[] toBoxed(final char[] chars) {
-		Ensure.notNull("chars", chars);
-		if (isEmpty(chars)) {
+	public static Character[] toBoxed(final char[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Character.class);
 		}
-		final var boxedCharacters = new Character[chars.length];
-		for (var i = 0; i < boxedCharacters.length; ++i) {
-			boxedCharacters[i] = chars[i];
+		final var boxedArray = new Character[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedCharacters;
+		return boxedArray;
 	}
 }

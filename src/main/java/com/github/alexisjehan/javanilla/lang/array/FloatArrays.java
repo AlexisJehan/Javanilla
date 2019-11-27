@@ -548,65 +548,65 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Create a {@code float} array from a single {@code float}.</p>
-	 * @param f the {@code float} to convert
+	 * <p>Create a {@code float} array from a single {@code float} value.</p>
+	 * @param value the {@code float} value to convert
 	 * @return the created {@code float} array
 	 * @since 1.1.0
 	 */
-	public static float[] singleton(final float f) {
-		return of(f);
+	public static float[] singleton(final float value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code float} array from multiple {@code float}s.</p>
-	 * @param floats the {@code float} array to convert
+	 * <p>Create a {@code float} array from multiple {@code float} values.</p>
+	 * @param values {@code float} values to convert
 	 * @return the created {@code float} array
-	 * @throws NullPointerException if the {@code float} array is {@code null}
+	 * @throws NullPointerException if the {@code float} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static float[] of(final float... floats) {
-		Ensure.notNull("floats", floats);
-		if (isEmpty(floats)) {
+	public static float[] of(final float... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return floats;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code float} array from a boxed {@code Float} array.</p>
-	 * @param boxedFloats the boxed {@code Float} array to convert
+	 * @param boxedArray the boxed {@code Float} array to convert
 	 * @return the created {@code float} array
 	 * @throws NullPointerException if the boxed {@code Float} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static float[] of(final Float[] boxedFloats) {
-		Ensure.notNull("boxedFloats", boxedFloats);
-		if (ObjectArrays.isEmpty(boxedFloats)) {
+	public static float[] of(final Float[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var floats = new float[boxedFloats.length];
-		for (var i = 0; i < floats.length; ++i) {
-			floats[i] = boxedFloats[i];
+		final var array = new float[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return floats;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code float} array to a boxed {@code Float} array.</p>
-	 * @param floats the {@code float} array to convert
+	 * @param array the {@code float} array to convert
 	 * @return the created boxed {@code Float} array
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Float[] toBoxed(final float[] floats) {
-		Ensure.notNull("floats", floats);
-		if (isEmpty(floats)) {
+	public static Float[] toBoxed(final float[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Float.class);
 		}
-		final var boxedFloats = new Float[floats.length];
-		for (var i = 0; i < boxedFloats.length; ++i) {
-			boxedFloats[i] = floats[i];
+		final var boxedArray = new Float[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedFloats;
+		return boxedArray;
 	}
 }

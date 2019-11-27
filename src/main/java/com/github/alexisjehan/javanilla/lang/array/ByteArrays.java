@@ -562,66 +562,66 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a single {@code byte}.</p>
-	 * @param b the {@code byte} to convert
+	 * <p>Create a {@code byte} array from a single {@code byte} value.</p>
+	 * @param value the {@code byte} value to convert
 	 * @return the created {@code byte} array
 	 * @since 1.1.0
 	 */
-	public static byte[] singleton(final byte b) {
-		return of(b);
+	public static byte[] singleton(final byte value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from multiple {@code byte}s.</p>
-	 * @param bytes the {@code byte} array to convert
+	 * <p>Create a {@code byte} array from multiple {@code byte} values.</p>
+	 * @param values {@code byte} values to convert
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @throws NullPointerException if the {@code byte} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static byte[] of(final byte... bytes) {
-		Ensure.notNull("bytes", bytes);
-		if (isEmpty(bytes)) {
+	public static byte[] of(final byte... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return bytes;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code byte} array from a boxed {@code Byte} array.</p>
-	 * @param boxedBytes the boxed {@code Byte} array to convert
+	 * @param boxedArray the boxed {@code Byte} array to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the boxed {@code Byte} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static byte[] of(final Byte[] boxedBytes) {
-		Ensure.notNull("boxedBytes", boxedBytes);
-		if (ObjectArrays.isEmpty(boxedBytes)) {
+	public static byte[] of(final Byte[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var bytes = new byte[boxedBytes.length];
-		for (var i = 0; i < bytes.length; ++i) {
-			bytes[i] = boxedBytes[i];
+		final var array = new byte[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return bytes;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code byte} array to a boxed {@code Byte} array.</p>
-	 * @param bytes the {@code byte} array to convert
+	 * @param array the {@code byte} array to convert
 	 * @return the created boxed {@code Byte} array
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Byte[] toBoxed(final byte[] bytes) {
-		Ensure.notNull("bytes", bytes);
-		if (isEmpty(bytes)) {
+	public static Byte[] toBoxed(final byte[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Byte.class);
 		}
-		final var boxedBytes = new Byte[bytes.length];
-		for (var i = 0; i < boxedBytes.length; ++i) {
-			boxedBytes[i] = bytes[i];
+		final var boxedArray = new Byte[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedBytes;
+		return boxedArray;
 	}
 
 	/**

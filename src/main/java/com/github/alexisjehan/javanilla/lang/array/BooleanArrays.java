@@ -552,65 +552,65 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Create a {@code boolean} array from a single {@code boolean}.</p>
-	 * @param b the {@code boolean} to convert
+	 * <p>Create a {@code boolean} array from a single {@code boolean} value.</p>
+	 * @param value the {@code boolean} value to convert
 	 * @return the created {@code boolean} array
 	 * @since 1.1.0
 	 */
-	public static boolean[] singleton(final boolean b) {
-		return of(b);
+	public static boolean[] singleton(final boolean value) {
+		return of(value);
 	}
 
 	/**
-	 * <p>Create a {@code boolean} array from multiple {@code boolean}s.</p>
-	 * @param booleans the {@code boolean} array to convert
+	 * <p>Create a {@code boolean} array from multiple {@code boolean} values.</p>
+	 * @param values {@code boolean} values to convert
 	 * @return the created {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array is {@code null}
+	 * @throws NullPointerException if the {@code boolean} values array is {@code null}
 	 * @since 1.0.0
 	 */
-	public static boolean[] of(final boolean... booleans) {
-		Ensure.notNull("booleans", booleans);
-		if (isEmpty(booleans)) {
+	public static boolean[] of(final boolean... values) {
+		Ensure.notNull("values", values);
+		if (isEmpty(values)) {
 			return EMPTY;
 		}
-		return booleans;
+		return values;
 	}
 
 	/**
 	 * <p>Create a {@code boolean} array from a boxed {@code Boolean} array.</p>
-	 * @param boxedBooleans the boxed {@code Boolean} array to convert
+	 * @param boxedArray the boxed {@code Boolean} array to convert
 	 * @return the created {@code boolean} array
 	 * @throws NullPointerException if the boxed {@code Boolean} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static boolean[] of(final Boolean[] boxedBooleans) {
-		Ensure.notNull("boxedBooleans", boxedBooleans);
-		if (ObjectArrays.isEmpty(boxedBooleans)) {
+	public static boolean[] of(final Boolean[] boxedArray) {
+		Ensure.notNull("boxedArray", boxedArray);
+		if (ObjectArrays.isEmpty(boxedArray)) {
 			return EMPTY;
 		}
-		final var booleans = new boolean[boxedBooleans.length];
-		for (var i = 0; i < booleans.length; ++i) {
-			booleans[i] = boxedBooleans[i];
+		final var array = new boolean[boxedArray.length];
+		for (var i = 0; i < array.length; ++i) {
+			array[i] = boxedArray[i];
 		}
-		return booleans;
+		return array;
 	}
 
 	/**
 	 * <p>Convert a {@code boolean} array to a boxed {@code Boolean} array.</p>
-	 * @param booleans the {@code boolean} array to convert
+	 * @param array the {@code boolean} array to convert
 	 * @return the created boxed {@code Boolean} array
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @since 1.2.0
 	 */
-	public static Boolean[] toBoxed(final boolean[] booleans) {
-		Ensure.notNull("booleans", booleans);
-		if (isEmpty(booleans)) {
+	public static Boolean[] toBoxed(final boolean[] array) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
 			return ObjectArrays.empty(Boolean.class);
 		}
-		final var boxedBooleans = new Boolean[booleans.length];
-		for (var i = 0; i < boxedBooleans.length; ++i) {
-			boxedBooleans[i] = booleans[i];
+		final var boxedArray = new Boolean[array.length];
+		for (var i = 0; i < boxedArray.length; ++i) {
+			boxedArray[i] = array[i];
 		}
-		return boxedBooleans;
+		return boxedArray;
 	}
 }
