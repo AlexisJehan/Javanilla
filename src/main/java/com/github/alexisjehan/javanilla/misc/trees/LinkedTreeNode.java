@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.misc.trees;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
@@ -148,6 +149,6 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	@Override
 	public String toString() {
-		return value + (!children.isEmpty() ? "{" + children.stream().map(TreeNode::toString).collect(Collectors.joining(", ")) + "}" : "");
+		return value + (!children.isEmpty() ? "{" + children.stream().map(TreeNode::toString).collect(Collectors.joining(", ")) + "}" : Strings.EMPTY);
 	}
 }
