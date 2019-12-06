@@ -103,7 +103,7 @@ public final class StringFormatter implements Serializable {
 	 * <p>Units suffixes.</p>
 	 * @since 1.0.0
 	 */
-	private static final String[] UNITS = {"k", "M", "G", "T", "P", "E", "Z", "Y"};
+	private static final char[] UNITS = {'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'};
 
 	/**
 	 * <p>Default {@code BytePrefix}.</p>
@@ -266,18 +266,32 @@ public final class StringFormatter implements Serializable {
 	 * @param bytePrefix the {@code BytePrefix} to use
 	 * @return the number of bytes {@code String} representation
 	 * @throws NullPointerException if the {@code BytePrefix} is {@code null}
+	 * @see <a href="https://stackoverflow.com/a/3758880">https://stackoverflow.com/a/3758880</a>
 	 * @since 1.0.0
 	 */
-	public String formatBytes(final long value, final BytePrefix bytePrefix) {
+	public strictfp String formatBytes(final long value, final BytePrefix bytePrefix) {
 		Ensure.notNull("bytePrefix", bytePrefix);
-		if (bytePrefix.base > Math.abs(value)) {
+		final var absValue = Long.MIN_VALUE != value ? Math.abs(value) : Long.MAX_VALUE;
+		if (bytePrefix.base > absValue) {
 			return format((double) value) + localeDelimiter + "B";
 		}
-		final var exponent = (int) (Math.log(value) / Math.log(bytePrefix.base));
-		return format(value / Math.pow(bytePrefix.base, exponent))
+		var exponent = (int) (Math.log(absValue) / Math.log(bytePrefix.base));
+		final var threshold = (long) (Math.pow(bytePrefix.base, exponent) * (bytePrefix.base - 5 / Math.pow(10.0d, floatPrecision + 1.0d)));
+		if (6 > exponent && threshold <= absValue) {
+			++exponent;
+		}
+		final var unit = UNITS[exponent - 1];
+		final long fixedValue;
+		if (4 < exponent) {
+			fixedValue = value / bytePrefix.base;
+			exponent -= 1;
+		} else {
+			fixedValue = value;
+		}
+		return format(fixedValue / Math.pow(bytePrefix.base, exponent))
 				+ localeDelimiter
-				+ UNITS[exponent - 1]
-				+ (BytePrefix.BINARY == bytePrefix ? "iB" : "B");
+				+ (BytePrefix.BINARY == bytePrefix ? Character.toUpperCase(unit) + "i" : unit)
+				+ "B";
 	}
 
 	/**
