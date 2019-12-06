@@ -246,8 +246,8 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.formatBytes(10L)).isEqualTo("10B");
 		assertThat(stringFormatter.formatBytes(-10L)).isEqualTo("-10B");
 		assertThat(stringFormatter.formatBytes(1023L)).isEqualTo("1,023B");
-		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1kiB");
-		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1.5kiB");
+		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1KiB");
+		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1.5KiB");
 		assertThat(stringFormatter.formatBytes(31_141_888L)).isEqualTo("29.7MiB");
 		assertThat(stringFormatter.formatBytes(1_288_802_304L)).isEqualTo("1.2GiB");
 		assertThat(stringFormatter.formatBytes(1_234_567_890_123_456_789L)).isEqualTo("1.07EiB");
@@ -267,8 +267,8 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.formatBytes(10L)).isEqualTo("10\u00a0B");
 		assertThat(stringFormatter.formatBytes(-10L)).isEqualTo("-10\u00a0B");
 		assertThat(stringFormatter.formatBytes(1023L)).isEqualTo("1\u00a0023\u00a0B");
-		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1\u00a0kiB");
-		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1,5\u00a0kiB");
+		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1\u00a0KiB");
+		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1,5\u00a0KiB");
 		assertThat(stringFormatter.formatBytes(31_141_888L)).isEqualTo("29,7\u00a0MiB");
 		assertThat(stringFormatter.formatBytes(1_288_802_304L)).isEqualTo("1,2\u00a0GiB");
 		assertThat(stringFormatter.formatBytes(1_234_567_890_123_456_789L)).isEqualTo("1,07\u00a0EiB");
@@ -288,8 +288,8 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.formatBytes(10L)).isEqualTo("10B");
 		assertThat(stringFormatter.formatBytes(-10L)).isEqualTo("-10B");
 		assertThat(stringFormatter.formatBytes(1023L)).isEqualTo("1,023B");
-		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1kiB");
-		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1.5kiB");
+		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1KiB");
+		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1.5KiB");
 		assertThat(stringFormatter.formatBytes(31_141_888L)).isEqualTo("29.69922MiB");
 		assertThat(stringFormatter.formatBytes(1_288_802_304L)).isEqualTo("1.20029GiB");
 		assertThat(stringFormatter.formatBytes(1_234_567_890_123_456_789L)).isEqualTo("1.07082EiB");
@@ -309,8 +309,8 @@ final class StringFormatterTest {
 		assertThat(stringFormatter.formatBytes(10L)).isEqualTo("10.00B");
 		assertThat(stringFormatter.formatBytes(-10L)).isEqualTo("-10.00B");
 		assertThat(stringFormatter.formatBytes(1023L)).isEqualTo("1,023.00B");
-		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1.00kiB");
-		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1.50kiB");
+		assertThat(stringFormatter.formatBytes(1024L)).isEqualTo("1.00KiB");
+		assertThat(stringFormatter.formatBytes(1024L + 512L)).isEqualTo("1.50KiB");
 		assertThat(stringFormatter.formatBytes(31_141_888L)).isEqualTo("29.70MiB");
 		assertThat(stringFormatter.formatBytes(1_288_802_304L)).isEqualTo("1.20GiB");
 		assertThat(stringFormatter.formatBytes(1_234_567_890_123_456_789L)).isEqualTo("1.07EiB");
@@ -327,6 +327,32 @@ final class StringFormatterTest {
 	@Test
 	void testFormatBytesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> StringFormatter.DEFAULT.formatBytes(0L, null));
+	}
+
+	// https://programming.guide/worlds-most-copied-so-snippet.html
+	@Test
+	void testFormatBytesIssue() {
+		{
+			final var stringFormatter = new StringFormatter(Locale.US, 1, true);
+			assertThat(stringFormatter.formatBytes(999_999L, StringFormatter.BytePrefix.SI)).isEqualTo("1.0MB");
+			assertThat(stringFormatter.formatBytes(999_949_999_999_999_999L, StringFormatter.BytePrefix.SI)).isEqualTo("999.9PB");
+			assertThat(stringFormatter.formatBytes(Long.MIN_VALUE, StringFormatter.BytePrefix.SI)).isEqualTo("-9.2EB");
+			assertThat(stringFormatter.formatBytes(Long.MAX_VALUE, StringFormatter.BytePrefix.SI)).isEqualTo("9.2EB");
+		}
+		{
+			final var stringFormatter = new StringFormatter(Locale.US, 2, true);
+			assertThat(stringFormatter.formatBytes(999_999L, StringFormatter.BytePrefix.SI)).isEqualTo("1.00MB");
+			assertThat(stringFormatter.formatBytes(999_994_999_999_999_999L, StringFormatter.BytePrefix.SI)).isEqualTo("999.99PB");
+			assertThat(stringFormatter.formatBytes(Long.MIN_VALUE, StringFormatter.BytePrefix.SI)).isEqualTo("-9.22EB");
+			assertThat(stringFormatter.formatBytes(Long.MAX_VALUE, StringFormatter.BytePrefix.SI)).isEqualTo("9.22EB");
+		}
+		{
+			final var stringFormatter = new StringFormatter(Locale.US, 11, true);
+			assertThat(stringFormatter.formatBytes(999_999L, StringFormatter.BytePrefix.SI)).isEqualTo("0.99999900000MB");
+			assertThat(stringFormatter.formatBytes(999_999_999_999_994_999L, StringFormatter.BytePrefix.SI)).isEqualTo("999.99999999999PB");
+			assertThat(stringFormatter.formatBytes(Long.MIN_VALUE, StringFormatter.BytePrefix.SI)).isEqualTo("-9.22337203685EB");
+			assertThat(stringFormatter.formatBytes(Long.MAX_VALUE, StringFormatter.BytePrefix.SI)).isEqualTo("9.22337203685EB");
+		}
 	}
 
 	@Test

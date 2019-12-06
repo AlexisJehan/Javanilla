@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.4.2 _(in progress)_
+## 1.4.3 _(in progress)_
+
+
+## 1.4.2 _(2019-12-06)_
+
+**misc.StringFormatter**
+- Fixed the _formatBytes()_ method (The most copied StackOverflow snippet of all time is flawed!)
 
 
 ## 1.4.1 _(2019-04-19)_
