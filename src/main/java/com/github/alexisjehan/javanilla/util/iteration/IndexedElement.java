@@ -71,7 +71,7 @@ public final class IndexedElement<E> {
 		if (!(object instanceof IndexedElement)) {
 			return false;
 		}
-		final var other = (IndexedElement) object;
+		final var other = (IndexedElement<?>) object;
 		return Equals.equals(index, other.index)
 				&& Equals.equals(element, other.element);
 	}

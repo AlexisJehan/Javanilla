@@ -293,7 +293,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 		if (!(object instanceof NullableOptional)) {
 			return false;
 		}
-		final var other = (NullableOptional) object;
+		final var other = (NullableOptional<?>) object;
 		return Equals.equals(value, other.value)
 				&& Equals.equals(isEmpty, other.isEmpty);
 	}

@@ -707,9 +707,9 @@ public final class ByteArrays {
 		Ensure.equalTo("bytes length", bytes.length, Short.BYTES);
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return (short) ((bytes[0] & 0xff) << 8 | (bytes[1] & 0xff));
+			return (short) ((bytes[0] & 0xff) << 8 | bytes[1] & 0xff);
 		}
-		return (short) ((bytes[0] & 0xff) | (bytes[1] & 0xff) << 8);
+		return (short) (bytes[0] & 0xff | (bytes[1] & 0xff) << 8);
 	}
 
 	/**
@@ -765,9 +765,9 @@ public final class ByteArrays {
 		Ensure.equalTo("bytes length", bytes.length, Character.BYTES);
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return (char) ((bytes[0] & 0xff) << 8 | (bytes[1] & 0xff));
+			return (char) ((bytes[0] & 0xff) << 8 | bytes[1] & 0xff);
 		}
-		return (char) ((bytes[0] & 0xff) | (bytes[1] & 0xff) << 8);
+		return (char) (bytes[0] & 0xff | (bytes[1] & 0xff) << 8);
 	}
 
 	/**
@@ -836,9 +836,9 @@ public final class ByteArrays {
 			return (bytes[0] & 0xff) << 24
 					| (bytes[1] & 0xff) << 16
 					| (bytes[2] & 0xff) << 8
-					| (bytes[3] & 0xff);
+					| bytes[3] & 0xff;
 		}
-		return (bytes[0] & 0xff)
+		return bytes[0] & 0xff
 				| (bytes[1] & 0xff) << 8
 				| (bytes[2] & 0xff) << 16
 				| (bytes[3] & 0xff) << 24;
@@ -922,9 +922,9 @@ public final class ByteArrays {
 					| ((long) bytes[4] & 0xff) << 24
 					| ((long) bytes[5] & 0xff) << 16
 					| ((long) bytes[6] & 0xff) << 8
-					| ((long) bytes[7] & 0xff);
+					| (long) bytes[7] & 0xff;
 		}
-		return ((long) bytes[0] & 0xff)
+		return (long) bytes[0] & 0xff
 				| ((long) bytes[1] & 0xff) << 8
 				| ((long) bytes[2] & 0xff) << 16
 				| ((long) bytes[3] & 0xff) << 24

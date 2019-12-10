@@ -87,7 +87,7 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	 * @since 1.4.0
 	 */
 	static <T> SerializablePredicate<T> isEqual(final Object targetRef) {
-		return (null == targetRef)
+		return null == targetRef
 				? Objects::isNull
 				: targetRef::equals;
 	}

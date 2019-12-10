@@ -242,7 +242,7 @@ public final class Bags {
 			if (!(object instanceof Bag)) {
 				return false;
 			}
-			return ((Bag) object).isEmpty();
+			return ((Bag<?>) object).isEmpty();
 		}
 
 		@Override

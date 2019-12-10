@@ -85,7 +85,7 @@ public final class Pair<F, S> {
 		if (!(object instanceof Pair)) {
 			return false;
 		}
-		final var other = (Pair) object;
+		final var other = (Pair<?, ?>) object;
 		return Equals.equals(first, other.first)
 				&& Equals.equals(second, other.second);
 	}

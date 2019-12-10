@@ -77,7 +77,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 		if (!(object instanceof SerializablePair)) {
 			return false;
 		}
-		final var other = (SerializablePair) object;
+		final var other = (SerializablePair<?, ?>) object;
 		return Equals.equals(first, other.first)
 				&& Equals.equals(second, other.second);
 	}

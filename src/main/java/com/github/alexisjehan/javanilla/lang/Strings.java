@@ -1137,8 +1137,8 @@ public final class Strings {
 		if (size <= length || 0 == paddingLength) {
 			return charSequence.toString();
 		}
-		return repeat(padding, ((size - length) / 2) / paddingLength)
-				+ padding.subSequence(0, ((size - length) / 2) % paddingLength)
+		return repeat(padding, (size - length) / 2 / paddingLength)
+				+ padding.subSequence(0, (size - length) / 2 % paddingLength)
 				+ charSequence
 				+ repeat(padding, ((size - length) / 2 + (size - length) % 2) / paddingLength)
 				+ padding.subSequence(0, ((size - length) / 2 + (size - length) % 2) % paddingLength);

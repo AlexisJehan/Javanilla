@@ -134,7 +134,7 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 		if (!(object instanceof TreeNode)) {
 			return false;
 		}
-		final var other = (TreeNode) object;
+		final var other = (TreeNode<?>) object;
 		return Equals.equals(getValue(), other.getValue())
 				&& Equals.equals(children(), other.children());
 	}

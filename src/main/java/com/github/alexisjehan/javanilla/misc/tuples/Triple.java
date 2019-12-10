@@ -76,7 +76,7 @@ public final class Triple<F, S, T> {
 		if (!(object instanceof Triple)) {
 			return false;
 		}
-		final var other = (Triple) object;
+		final var other = (Triple<?, ?, ?>) object;
 		return Equals.equals(first, other.first)
 				&& Equals.equals(second, other.second)
 				&& Equals.equals(third, other.third);

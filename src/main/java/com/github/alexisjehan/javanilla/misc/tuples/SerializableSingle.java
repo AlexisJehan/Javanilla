@@ -68,7 +68,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 		if (!(object instanceof SerializableSingle)) {
 			return false;
 		}
-		final var other = (SerializableSingle) object;
+		final var other = (SerializableSingle<?>) object;
 		return Equals.equals(unique, other.unique);
 	}
 

@@ -86,7 +86,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 		if (!(object instanceof SerializableTriple)) {
 			return false;
 		}
-		final var other = (SerializableTriple) object;
+		final var other = (SerializableTriple<?, ?, ?>) object;
 		return Equals.equals(first, other.first)
 				&& Equals.equals(second, other.second)
 				&& Equals.equals(third, other.third);

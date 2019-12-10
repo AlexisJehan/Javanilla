@@ -58,7 +58,7 @@ public final class Single<U> {
 		if (!(object instanceof Single)) {
 			return false;
 		}
-		final var other = (Single) object;
+		final var other = (Single<?>) object;
 		return Equals.equals(unique, other.unique);
 	}
 

@@ -211,7 +211,7 @@ public final class Iterables {
 	public static long length(final Iterable<?> iterable) {
 		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof Collection) {
-			return ((Collection) iterable).size();
+			return ((Collection<?>) iterable).size();
 		}
 		return Iterators.length(iterable.iterator());
 	}
