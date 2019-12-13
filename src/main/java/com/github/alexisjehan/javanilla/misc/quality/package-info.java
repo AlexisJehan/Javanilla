@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * <p>New quality tools for arguments validation and custom {@link java.lang.Object#equals(java.lang.Object)},
  * {@link java.lang.Object#hashCode()} and {@link java.lang.Object#toString()} implementations.</p>

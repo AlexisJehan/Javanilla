@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * <p>New {@link java.util.function} interfaces that may throw a {@link java.lang.Throwable}.</p>
  * @since 1.0.0

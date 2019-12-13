@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * <p>New {@link com.github.alexisjehan.javanilla.misc.distances.Distance}s and
  * {@link com.github.alexisjehan.javanilla.misc.distances.EditDistance}s interfaces and implementations.</p>

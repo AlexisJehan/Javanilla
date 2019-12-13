@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.github.alexisjehan.javanilla.io;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;

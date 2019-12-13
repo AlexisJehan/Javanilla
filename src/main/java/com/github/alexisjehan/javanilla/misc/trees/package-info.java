@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * <p>New {@link com.github.alexisjehan.javanilla.misc.trees.TreeNode} interface and implementations to work with tree
  * data structures.</p>

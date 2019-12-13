@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.github.alexisjehan.javanilla.util.collection.bags;
 
 import org.junit.jupiter.api.Test;

@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * <p>New {@link com.github.alexisjehan.javanilla.io.lines.LineReader}/
  * {@link com.github.alexisjehan.javanilla.io.lines.LineWriter} implementations and decorators for advanced text lines

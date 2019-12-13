@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * <p>New {@link java.util.function} interfaces that are {@link java.io.Serializable}.</p>
  * @since 1.4.0
