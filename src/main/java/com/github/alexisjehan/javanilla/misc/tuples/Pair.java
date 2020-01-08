@@ -59,24 +59,6 @@ public final class Pair<F, S> {
 		this.second = second;
 	}
 
-	/**
-	 * <p>Get the first element of the {@code Pair}.</p>
-	 * @return the first element
-	 * @since 1.0.0
-	 */
-	public F getFirst() {
-		return first;
-	}
-
-	/**
-	 * <p>Get the second element of the {@code Pair}.</p>
-	 * @return the second element
-	 * @since 1.0.0
-	 */
-	public S getSecond() {
-		return second;
-	}
-
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -101,6 +83,24 @@ public final class Pair<F, S> {
 	@Override
 	public String toString() {
 		return "[" + first + ", " + second + "]";
+	}
+
+	/**
+	 * <p>Get the first element of the {@code Pair}.</p>
+	 * @return the first element
+	 * @since 1.0.0
+	 */
+	public F getFirst() {
+		return first;
+	}
+
+	/**
+	 * <p>Get the second element of the {@code Pair}.</p>
+	 * @return the second element
+	 * @since 1.0.0
+	 */
+	public S getSecond() {
+		return second;
 	}
 
 	/**
