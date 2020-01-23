@@ -25,7 +25,6 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.AbstractMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,6 +59,7 @@ abstract class AbstractBagTest {
 		final var bag = newBag();
 		assertThat(bag.count("foo")).isEqualTo(0L);
 		assertThat(bag.remove("foo")).isFalse();
+		assertThat(bag.count("foo")).isEqualTo(0L);
 		bag.add("foo", 10L);
 		assertThat(bag.count("foo")).isEqualTo(10L);
 		assertThat(bag.remove("foo")).isTrue();
@@ -68,7 +68,6 @@ abstract class AbstractBagTest {
 		assertThat(bag.count("foo")).isEqualTo(9L);
 		assertThat(bag.remove("foo", 10L)).isTrue();
 		assertThat(bag.count("foo")).isEqualTo(0L);
-		assertThat(bag.remove("foo")).isFalse();
 	}
 
 	@Test
@@ -81,6 +80,7 @@ abstract class AbstractBagTest {
 		final var bag = newBag();
 		assertThat(bag.count("foo")).isEqualTo(0L);
 		assertThat(bag.removeAll("foo")).isFalse();
+		assertThat(bag.count("foo")).isEqualTo(0L);
 		bag.add("foo", 10L);
 		assertThat(bag.count("foo")).isEqualTo(10L);
 		assertThat(bag.removeAll("foo")).isTrue();
@@ -153,10 +153,13 @@ abstract class AbstractBagTest {
 		assertThat(bag.containsAtLeast("foo", 0L)).isTrue();
 		assertThat(bag.containsAtLeast("foo", 2L)).isFalse();
 		bag.add("foo", 2L);
+		assertThat(bag.containsAtLeast("foo", 0L)).isTrue();
 		assertThat(bag.containsAtLeast("foo", 2L)).isTrue();
 		bag.remove("foo");
+		assertThat(bag.containsAtLeast("foo", 0L)).isTrue();
 		assertThat(bag.containsAtLeast("foo", 2L)).isFalse();
 		bag.remove("foo");
+		assertThat(bag.containsAtLeast("foo", 0L)).isTrue();
 		assertThat(bag.containsAtLeast("foo", 2L)).isFalse();
 	}
 
@@ -279,30 +282,16 @@ abstract class AbstractBagTest {
 		final var bag = newBag();
 		assertThat(bag.toMap()).isEmpty();
 		bag.add("foo");
-		assertThat(bag.toMap()).contains(Map.entry("foo", 1L));
+		assertThat(bag.toMap()).containsOnly(Map.entry("foo", 1L));
 		bag.add("foo");
-		assertThat(bag.toMap()).contains(Map.entry("foo", 2L));
+		assertThat(bag.toMap()).containsOnly(Map.entry("foo", 2L));
 		bag.add("bar");
-		assertThat(bag.toMap()).contains(Map.entry("foo", 2L), Map.entry("bar", 1L));
+		assertThat(bag.toMap()).containsOnly(Map.entry("foo", 2L), Map.entry("bar", 1L));
 		bag.remove("foo");
-		assertThat(bag.toMap()).contains(Map.entry("foo", 1L), Map.entry("bar", 1L));
+		assertThat(bag.toMap()).containsOnly(Map.entry("foo", 1L), Map.entry("bar", 1L));
 		bag.remove("foo");
-		assertThat(bag.toMap()).contains(Map.entry("bar", 1L));
+		assertThat(bag.toMap()).containsOnly(Map.entry("bar", 1L));
 		bag.remove("bar");
 		assertThat(bag.toMap()).isEmpty();
-	}
-
-	@Test
-	void testNull() {
-		final var bag = newBag();
-		assertThat(bag.count(null)).isEqualTo(0L);
-		bag.add(null, 5L);
-		assertThat(bag.count(null)).isEqualTo(5L);
-		bag.remove(null, 2L);
-		assertThat(bag.count(null)).isEqualTo(3L);
-		assertThat(bag.min().get()).isNull();
-		assertThat(bag.max().get()).isNull();
-		assertThat(bag.toSet()).containsExactlyInAnyOrder((Object) null);
-		assertThat(bag.toMap()).contains(new AbstractMap.SimpleEntry<>(null, 3L));
 	}
 }

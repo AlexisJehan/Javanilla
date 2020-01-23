@@ -45,16 +45,16 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testAnd() {
-		final var serializablePredicate1 = (SerializablePredicate<Integer>) t -> t >= 2;
-		final var serializablePredicate2 = (SerializablePredicate<Integer>) t -> t <= 2;
-		assertThat(serializablePredicate1.and(serializablePredicate2).test(1)).isFalse();
-		assertThat(serializablePredicate1.and(serializablePredicate2).test(3)).isFalse();
-		assertThat(serializablePredicate2.and(serializablePredicate1).test(1)).isFalse();
-		assertThat(serializablePredicate2.and(serializablePredicate1).test(3)).isFalse();
-		assertThat(serializablePredicate1.and(serializablePredicate1).test(1)).isFalse();
-		assertThat(serializablePredicate1.and(serializablePredicate1).test(3)).isTrue();
-		assertThat(serializablePredicate2.and(serializablePredicate2).test(1)).isTrue();
-		assertThat(serializablePredicate2.and(serializablePredicate2).test(3)).isFalse();
+		final var fooSerializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
+		final var barSerializablePredicate = (SerializablePredicate<Integer>) t -> t <= 2;
+		assertThat(fooSerializablePredicate.and(barSerializablePredicate).test(1)).isFalse();
+		assertThat(fooSerializablePredicate.and(barSerializablePredicate).test(3)).isFalse();
+		assertThat(barSerializablePredicate.and(fooSerializablePredicate).test(1)).isFalse();
+		assertThat(barSerializablePredicate.and(fooSerializablePredicate).test(3)).isFalse();
+		assertThat(fooSerializablePredicate.and(fooSerializablePredicate).test(1)).isFalse();
+		assertThat(fooSerializablePredicate.and(fooSerializablePredicate).test(3)).isTrue();
+		assertThat(barSerializablePredicate.and(barSerializablePredicate).test(1)).isTrue();
+		assertThat(barSerializablePredicate.and(barSerializablePredicate).test(3)).isFalse();
 	}
 
 	@Test
@@ -72,16 +72,16 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testOr() {
-		final var serializablePredicate1 = (SerializablePredicate<Integer>) t -> t >= 2;
-		final var serializablePredicate2 = (SerializablePredicate<Integer>) t -> t <= 2;
-		assertThat(serializablePredicate1.or(serializablePredicate2).test(1)).isTrue();
-		assertThat(serializablePredicate1.or(serializablePredicate2).test(3)).isTrue();
-		assertThat(serializablePredicate2.or(serializablePredicate1).test(1)).isTrue();
-		assertThat(serializablePredicate2.or(serializablePredicate1).test(3)).isTrue();
-		assertThat(serializablePredicate1.or(serializablePredicate1).test(1)).isFalse();
-		assertThat(serializablePredicate1.or(serializablePredicate1).test(3)).isTrue();
-		assertThat(serializablePredicate2.or(serializablePredicate2).test(1)).isTrue();
-		assertThat(serializablePredicate2.or(serializablePredicate2).test(3)).isFalse();
+		final var fooSerializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
+		final var barSerializablePredicate = (SerializablePredicate<Integer>) t -> t <= 2;
+		assertThat(fooSerializablePredicate.or(barSerializablePredicate).test(1)).isTrue();
+		assertThat(fooSerializablePredicate.or(barSerializablePredicate).test(3)).isTrue();
+		assertThat(barSerializablePredicate.or(fooSerializablePredicate).test(1)).isTrue();
+		assertThat(barSerializablePredicate.or(fooSerializablePredicate).test(3)).isTrue();
+		assertThat(fooSerializablePredicate.or(fooSerializablePredicate).test(1)).isFalse();
+		assertThat(fooSerializablePredicate.or(fooSerializablePredicate).test(3)).isTrue();
+		assertThat(barSerializablePredicate.or(barSerializablePredicate).test(1)).isTrue();
+		assertThat(barSerializablePredicate.or(barSerializablePredicate).test(3)).isFalse();
 	}
 
 	@Test
@@ -92,12 +92,12 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testIsEqual() {
-		final var serializablePredicate1 = SerializablePredicate.isEqual(1);
-		final var serializablePredicate2 = SerializablePredicate.isEqual(null);
-		assertThat(serializablePredicate1.test(null)).isFalse();
-		assertThat(serializablePredicate1.test(1)).isTrue();
-		assertThat(serializablePredicate2.test(null)).isTrue();
-		assertThat(serializablePredicate2.test(3)).isFalse();
+		final var fooSerializablePredicate = SerializablePredicate.isEqual(1);
+		final var barSerializablePredicate = SerializablePredicate.isEqual(null);
+		assertThat(fooSerializablePredicate.test(null)).isFalse();
+		assertThat(fooSerializablePredicate.test(1)).isTrue();
+		assertThat(barSerializablePredicate.test(null)).isTrue();
+		assertThat(barSerializablePredicate.test(3)).isFalse();
 	}
 
 	@Test
@@ -114,12 +114,12 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testSerializable() {
-		final var serializablePredicate = Serializables.<SerializablePredicate<Integer>>deserialize(
+		final var deserializedSerializablePredicate = Serializables.<SerializablePredicate<Integer>>deserialize(
 				Serializables.serialize(
 						(SerializablePredicate<Integer>) t -> t >= 2
 				)
 		);
-		assertThat(serializablePredicate.test(1)).isFalse();
-		assertThat(serializablePredicate.test(3)).isTrue();
+		assertThat(deserializedSerializablePredicate.test(1)).isFalse();
+		assertThat(deserializedSerializablePredicate.test(3)).isTrue();
 	}
 }

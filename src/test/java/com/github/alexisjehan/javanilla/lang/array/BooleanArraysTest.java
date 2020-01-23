@@ -36,6 +36,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class BooleanArraysTest {
 
+	private static final boolean[] VALUES = {true, false};
+
 	@Test
 	void testEmpty() {
 		assertThat(BooleanArrays.EMPTY).isEmpty();
@@ -45,44 +47,44 @@ final class BooleanArraysTest {
 	void testNullToEmpty() {
 		assertThat(BooleanArrays.nullToEmpty(null)).isEmpty();
 		assertThat(BooleanArrays.nullToEmpty(BooleanArrays.EMPTY)).isEmpty();
-		assertThat(BooleanArrays.nullToEmpty(BooleanArrays.singleton(true))).containsExactly(true);
+		assertThat(BooleanArrays.nullToEmpty(BooleanArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefault() {
 		assertThat(BooleanArrays.nullToDefault(null, BooleanArrays.singleton(false))).containsExactly(false);
 		assertThat(BooleanArrays.nullToDefault(BooleanArrays.EMPTY, BooleanArrays.singleton(false))).isEmpty();
-		assertThat(BooleanArrays.nullToDefault(BooleanArrays.singleton(true), BooleanArrays.singleton(false))).containsExactly(true);
+		assertThat(BooleanArrays.nullToDefault(BooleanArrays.of(VALUES), BooleanArrays.singleton(false))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.nullToDefault(BooleanArrays.singleton(true), null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.nullToDefault(BooleanArrays.of(VALUES), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(BooleanArrays.emptyToNull(null)).isNull();
 		assertThat(BooleanArrays.emptyToNull(BooleanArrays.EMPTY)).isNull();
-		assertThat(BooleanArrays.emptyToNull(BooleanArrays.singleton(true))).containsExactly(true);
+		assertThat(BooleanArrays.emptyToNull(BooleanArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefault() {
 		assertThat(BooleanArrays.emptyToDefault(null, BooleanArrays.singleton(false))).isNull();
 		assertThat(BooleanArrays.emptyToDefault(BooleanArrays.EMPTY, BooleanArrays.singleton(false))).containsExactly(false);
-		assertThat(BooleanArrays.emptyToDefault(BooleanArrays.singleton(true), BooleanArrays.singleton(false))).containsExactly(true);
+		assertThat(BooleanArrays.emptyToDefault(BooleanArrays.of(VALUES), BooleanArrays.singleton(false))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.emptyToDefault(BooleanArrays.singleton(true), BooleanArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.emptyToDefault(BooleanArrays.of(VALUES), BooleanArrays.EMPTY));
 	}
 
 	@Test
 	void testIsEmpty() {
 		assertThat(BooleanArrays.isEmpty(BooleanArrays.EMPTY)).isTrue();
-		assertThat(BooleanArrays.isEmpty(BooleanArrays.singleton(true))).isFalse();
+		assertThat(BooleanArrays.isEmpty(BooleanArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
@@ -101,8 +103,8 @@ final class BooleanArraysTest {
 	@Test
 	void testContainsAnyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsAny(null, true));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsAny(BooleanArrays.singleton(true), (boolean[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsAny(BooleanArrays.singleton(true)));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsAny(BooleanArrays.of(VALUES), (boolean[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsAny(BooleanArrays.of(VALUES)));
 	}
 
 	@Test
@@ -119,8 +121,8 @@ final class BooleanArraysTest {
 	@Test
 	void testContainsAllInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsAll(null, true));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsAll(BooleanArrays.singleton(true), (boolean[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsAll(BooleanArrays.singleton(true)));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsAll(BooleanArrays.of(VALUES), (boolean[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsAll(BooleanArrays.of(VALUES)));
 	}
 
 	@Test
@@ -137,8 +139,8 @@ final class BooleanArraysTest {
 	@Test
 	void testContainsOnceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsOnce(null, true));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsOnce(BooleanArrays.singleton(true), (boolean[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsOnce(BooleanArrays.singleton(true)));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsOnce(BooleanArrays.of(VALUES), (boolean[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsOnce(BooleanArrays.of(VALUES)));
 	}
 
 	@Test
@@ -155,50 +157,47 @@ final class BooleanArraysTest {
 	@Test
 	void testContainsOnlyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsOnly(null, true));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsOnly(BooleanArrays.singleton(true), (boolean[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsOnly(BooleanArrays.singleton(true)));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.containsOnly(BooleanArrays.of(VALUES), (boolean[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.containsOnly(BooleanArrays.of(VALUES)));
 	}
 
 	@Test
 	void testIndexOf() {
 		assertThat(BooleanArrays.indexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
-		final var array = BooleanArrays.of(true, false, true);
-		assertThat(BooleanArrays.indexOf(array, true)).isEqualTo(0);
-		assertThat(BooleanArrays.indexOf(array, false)).isEqualTo(1);
-		assertThat(BooleanArrays.indexOf(array, true, 1)).isEqualTo(2);
-		assertThat(BooleanArrays.indexOf(array, false, 2)).isEqualTo(-1);
+		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), true)).isEqualTo(0);
+		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), false)).isEqualTo(1);
+		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), true, 1)).isEqualTo(2);
+		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), false, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.indexOf(null, true));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.singleton(true), true, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.singleton(true), true, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.of(VALUES), true, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.indexOf(BooleanArrays.of(VALUES), true, 2));
 	}
 
 	@Test
 	void testLastIndexOf() {
 		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
-		final var array = BooleanArrays.of(true, false, true);
-		assertThat(BooleanArrays.lastIndexOf(array, true)).isEqualTo(2);
-		assertThat(BooleanArrays.lastIndexOf(array, false)).isEqualTo(1);
-		assertThat(BooleanArrays.lastIndexOf(array, true, 1)).isEqualTo(2);
-		assertThat(BooleanArrays.lastIndexOf(array, false, 2)).isEqualTo(-1);
+		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.of(true, false, true), true)).isEqualTo(2);
+		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.of(true, false, true), false)).isEqualTo(1);
+		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.of(true, false, true), true, 1)).isEqualTo(2);
+		assertThat(BooleanArrays.lastIndexOf(BooleanArrays.of(true, false, true), false, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testLastIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.lastIndexOf(null, true));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.singleton(true), true, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.singleton(true), true, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.of(VALUES), true, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.lastIndexOf(BooleanArrays.of(VALUES), true, 2));
 	}
 
 	@Test
 	void testFrequency() {
 		assertThat(BooleanArrays.frequency(BooleanArrays.EMPTY, true)).isEqualTo(0);
-		final var array = BooleanArrays.of(true, false, true);
-		assertThat(BooleanArrays.frequency(array, true)).isEqualTo(2);
-		assertThat(BooleanArrays.frequency(array, false)).isEqualTo(1);
+		assertThat(BooleanArrays.frequency(BooleanArrays.of(true, false, true), true)).isEqualTo(2);
+		assertThat(BooleanArrays.frequency(BooleanArrays.of(true, false, true), false)).isEqualTo(1);
 	}
 
 	@Test
@@ -208,16 +207,14 @@ final class BooleanArraysTest {
 
 	@Test
 	void testShuffle() {
-		{
-			final var array = BooleanArrays.singleton(true);
+		assertThat(BooleanArrays.singleton(true)).satisfies(array -> {
 			BooleanArrays.shuffle(array);
 			assertThat(array).containsExactly(true);
-		}
-		{
-			final var array = BooleanArrays.of(true, false, true, false);
+		});
+		assertThat(BooleanArrays.of(true, false, true, false)).satisfies(array -> {
 			BooleanArrays.shuffle(array);
 			assertThat(array).containsExactlyInAnyOrder(true, false, true, false);
-		}
+		});
 	}
 
 	@Test
@@ -227,23 +224,22 @@ final class BooleanArraysTest {
 
 	@Test
 	void testReverse() {
-		{
-			final var array = BooleanArrays.singleton(true);
+		assertThat(BooleanArrays.singleton(true)).satisfies(array -> {
 			BooleanArrays.reverse(array);
 			assertThat(array).containsExactly(true);
-		}
-		{
-			// Even
-			final var array = BooleanArrays.of(true, false, true, false);
+		});
+
+		// Even
+		assertThat(BooleanArrays.of(true, false, true, false)).satisfies(array -> {
 			BooleanArrays.reverse(array);
 			assertThat(array).containsExactly(false, true, false, true);
-		}
-		{
-			// Odd
-			final var array = BooleanArrays.of(true, false, false);
+		});
+
+		// Odd
+		assertThat(BooleanArrays.of(true, false, false)).satisfies(array -> {
 			BooleanArrays.reverse(array);
 			assertThat(array).containsExactly(false, false, true);
-		}
+		});
 	}
 
 	@Test
@@ -253,51 +249,47 @@ final class BooleanArraysTest {
 
 	@Test
 	void testReorder() {
-		{
-			final var array = BooleanArrays.singleton(true);
+		assertThat(BooleanArrays.singleton(true)).satisfies(array -> {
 			BooleanArrays.reorder(array, 0);
 			assertThat(array).containsExactly(true);
-		}
-		{
-			final var array = BooleanArrays.of(true, false, true, false);
+		});
+		assertThat(BooleanArrays.of(true, false, true, false)).satisfies(array -> {
 			BooleanArrays.reorder(array, 2, 0, 3, 1);
 			assertThat(array).containsExactly(true, true, false, false);
-		}
+		});
 	}
 
 	@Test
 	void testReorderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.reorder(null));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.singleton(true), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.singleton(0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, 0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(-1, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(2, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, -1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(true, false), IntArrays.of(0, 2)));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), IntArrays.of(0, 0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.reorder(BooleanArrays.of(VALUES), IntArrays.of(0, 2)));
 	}
 
 	@Test
 	void testSwap() {
-		{
-			final var array = BooleanArrays.singleton(true);
+		assertThat(BooleanArrays.singleton(true)).satisfies(array -> {
 			BooleanArrays.swap(array, 0, 0);
 			assertThat(array).containsExactly(true);
-		}
-		{
-			final var array = BooleanArrays.of(true, false, true, false);
+		});
+		assertThat(BooleanArrays.of(true, false, true, false)).satisfies(array -> {
 			BooleanArrays.swap(array, 1, 2);
 			assertThat(array).containsExactly(true, true, false, false);
-		}
+		});
 	}
 
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.swap(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), -1, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 2, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 0, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(true, false), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(VALUES), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(VALUES), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(VALUES), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.swap(BooleanArrays.of(VALUES), 0, 2));
 	}
 
 	@Test
@@ -314,8 +306,8 @@ final class BooleanArraysTest {
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, false));
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, 0, false));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.singleton(true), -1, false));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.singleton(true), 2, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), -1, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), 3, false));
 	}
 
 	@Test
@@ -330,15 +322,15 @@ final class BooleanArraysTest {
 	void testRemoveInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.remove(null, 0));
 		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.singleton(true), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.singleton(true), 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.remove(BooleanArrays.of(VALUES), 2));
 	}
 
 	@Test
 	void testConcat() {
 		assertThat(BooleanArrays.concat()).isEmpty();
-		assertThat(BooleanArrays.concat(BooleanArrays.singleton(true))).containsExactly(true);
-		assertThat(BooleanArrays.concat(BooleanArrays.singleton(true), BooleanArrays.singleton(false))).containsExactly(true, false);
+		assertThat(BooleanArrays.concat(BooleanArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(BooleanArrays.concat(BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 	}
 
 	@Test
@@ -350,29 +342,29 @@ final class BooleanArraysTest {
 
 	@Test
 	void testJoin() {
-		assertThat(BooleanArrays.join(BooleanArrays.EMPTY, BooleanArrays.singleton(true), BooleanArrays.singleton(false))).containsExactly(true, false);
+		assertThat(BooleanArrays.join(BooleanArrays.EMPTY, BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 		assertThat(BooleanArrays.join(BooleanArrays.singleton(false))).isEmpty();
-		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), BooleanArrays.singleton(true))).containsExactly(true);
-		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), BooleanArrays.singleton(true), BooleanArrays.singleton(false))).containsExactly(true, false, false);
+		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), BooleanArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], false, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(null, BooleanArrays.singleton(true)));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.singleton(false), (boolean[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.singleton(false), (List<boolean[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.singleton(false), (boolean[]) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(null, BooleanArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (boolean[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (List<boolean[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (boolean[]) null));
 	}
 
 	@Test
 	void testSingleton() {
-		assertThat(BooleanArrays.singleton(true)).containsExactly(true);
+		assertThat(BooleanArrays.singleton(VALUES[0])).containsExactly(VALUES[0]);
 	}
 
 	@Test
 	void testOf() {
 		assertThat(BooleanArrays.of()).isEmpty();
-		assertThat(BooleanArrays.of(true, false)).containsExactly(true, false);
+		assertThat(BooleanArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
@@ -383,9 +375,9 @@ final class BooleanArraysTest {
 	@Test
 	void testOfBoxedToBoxed() {
 		assertThat(BooleanArrays.of(BooleanArrays.toBoxed(BooleanArrays.EMPTY))).isEmpty();
-		assertThat(BooleanArrays.of(BooleanArrays.toBoxed(BooleanArrays.of(true, false)))).containsExactly(true, false);
-		assertThat(BooleanArrays.toBoxed(BooleanArrays.singleton(true))).isInstanceOf(Boolean[].class);
-		assertThat(BooleanArrays.of(BooleanArrays.toBoxed(BooleanArrays.singleton(true)))).isInstanceOf(boolean[].class);
+		assertThat(BooleanArrays.of(BooleanArrays.toBoxed(BooleanArrays.of(VALUES)))).containsExactly(VALUES);
+		assertThat(BooleanArrays.toBoxed(BooleanArrays.of(VALUES))).isInstanceOf(Boolean[].class);
+		assertThat(BooleanArrays.of(BooleanArrays.toBoxed(BooleanArrays.of(VALUES)))).isInstanceOf(boolean[].class);
 	}
 
 	@Test

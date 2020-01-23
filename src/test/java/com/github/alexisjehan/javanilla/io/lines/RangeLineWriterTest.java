@@ -24,6 +24,7 @@
 package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Writers;
+import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -38,6 +39,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class RangeLineWriterTest {
 
+	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
+
 	@Test
 	@SuppressWarnings("deprecation")
 	void testConstructorInvalid() {
@@ -48,56 +51,56 @@ final class RangeLineWriterTest {
 
 	@Test
 	void testWrite() throws IOException {
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 0L, 0L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(0L);
-				rangeLineWriter.write("abc");
-				rangeLineWriter.write("def");
-				rangeLineWriter.write("ghi");
+				rangeLineWriter.write(LINES[0]);
+				rangeLineWriter.write(LINES[1]);
+				rangeLineWriter.write(LINES[2]);
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter).hasToString("abc");
+			assertThat(writer).hasToString(LINES[0]);
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 1L, 1L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 1L, 1L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(1L);
-				rangeLineWriter.write("abc");
-				rangeLineWriter.write("def");
-				rangeLineWriter.write("ghi");
+				rangeLineWriter.write(LINES[0]);
+				rangeLineWriter.write(LINES[1]);
+				rangeLineWriter.write(LINES[2]);
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter).hasToString("def");
+			assertThat(writer).hasToString(LINES[1]);
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 0L, 10L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
-				rangeLineWriter.write("abc");
-				rangeLineWriter.write("def");
-				rangeLineWriter.write("ghi");
+				rangeLineWriter.write(LINES[0]);
+				rangeLineWriter.write(LINES[1]);
+				rangeLineWriter.write(LINES[2]);
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter).hasToString("abc" + System.lineSeparator() + "def" + System.lineSeparator() + "ghi");
+			assertThat(writer).hasToString(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 10L, 10L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 10L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
-				rangeLineWriter.write("abc");
-				rangeLineWriter.write("def");
-				rangeLineWriter.write("ghi");
+				rangeLineWriter.write(LINES[0]);
+				rangeLineWriter.write(LINES[1]);
+				rangeLineWriter.write(LINES[2]);
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter.toString()).isEmpty();
+			assertThat(writer.toString()).isEmpty();
 		}
 	}
 
 	@Test
 	void testNewLine() throws IOException {
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 0L, 0L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(0L);
 				rangeLineWriter.newLine();
@@ -105,10 +108,10 @@ final class RangeLineWriterTest {
 				rangeLineWriter.newLine();
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter).hasToString(System.lineSeparator());
+			assertThat(writer).hasToString(System.lineSeparator());
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 1L, 1L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 1L, 1L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(1L);
 				rangeLineWriter.newLine();
@@ -116,10 +119,10 @@ final class RangeLineWriterTest {
 				rangeLineWriter.newLine();
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter).hasToString(System.lineSeparator());
+			assertThat(writer).hasToString(System.lineSeparator());
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 0L, 10L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.newLine();
@@ -127,10 +130,10 @@ final class RangeLineWriterTest {
 				rangeLineWriter.newLine();
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter).hasToString(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
+			assertThat(writer).hasToString(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(stringWriter), 10L, 10L)) {
+		try (final var writer = new StringWriter()) {
+			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 10L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.newLine();
@@ -138,7 +141,7 @@ final class RangeLineWriterTest {
 				rangeLineWriter.newLine();
 				rangeLineWriter.flush();
 			}
-			assertThat(stringWriter.toString()).isEmpty();
+			assertThat(writer.toString()).isEmpty();
 		}
 	}
 }

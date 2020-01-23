@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.misc.quality;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.BooleanArrays;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import com.github.alexisjehan.javanilla.lang.array.CharArrays;
@@ -95,7 +96,7 @@ final class ToStringTest {
 	@Test
 	void testToStringCharSequence() {
 		assertThat(ToString.toString("foo")).isEqualTo("\"foo\"");
-		assertThat(ToString.toString("")).isEqualTo("\"\"");
+		assertThat(ToString.toString(Strings.EMPTY)).isEqualTo("\"\"");
 		assertThat(ToString.toString("\"")).isEqualTo("\"\\\"\"");
 		assertThat(ToString.toString((CharSequence) null)).isEqualTo("null");
 	}
@@ -174,7 +175,7 @@ final class ToStringTest {
 	@Test
 	void testToStringCharSequenceArray() {
 		assertThat(ToString.toString(ObjectArrays.singleton("foo"))).isEqualTo("[\"foo\"]");
-		assertThat(ToString.toString(ObjectArrays.of("foo", ""))).isEqualTo("[\"foo\", \"\"]");
+		assertThat(ToString.toString(ObjectArrays.of("foo", Strings.EMPTY))).isEqualTo("[\"foo\", \"\"]");
 		assertThat(ToString.toString(ObjectArrays.empty(CharSequence.class))).isEqualTo("[]");
 		assertThat(ToString.toString((CharSequence[]) null)).isEqualTo("null");
 	}
@@ -189,21 +190,18 @@ final class ToStringTest {
 	}
 
 	@Test
+	@SuppressWarnings("serial")
 	void testOf() {
-		{
-			final var object = Integer.valueOf(1);
+		assertThat(Integer.valueOf(1)).satisfies(object -> {
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)))).isEqualTo("Integer{foo=1}");
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo("Integer{foo=1, bar=null}");
 			assertThat(ToString.of(object)).isEqualTo("Integer@" + object.hashCode());
-		}
-		{
-			final var object = new Exception() {
-				private static final long serialVersionUID = 7581622222244353204L;
-			};
+		});
+		assertThat(new Exception() {}).satisfies(object -> {
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "$1{foo=1}");
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "$1{foo=1, bar=null}");
 			assertThat(ToString.of(object)).isEqualTo(getClass().getSimpleName() + "$1@" + object.hashCode());
-		}
+		});
 	}
 
 	@Test

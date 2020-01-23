@@ -21,41 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.misc.tuples;
+package com.github.alexisjehan.javanilla.lang;
 
+import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
- * <p>{@link Single} unit tests.</p>
+ * <p>{@link UncheckedInterruptedException} unit tests.</p>
  */
-final class SingleTest {
+final class UncheckedInterruptedExceptionTest {
 
-	private static final Integer UNIQUE = 1;
+	private static final InterruptedException CAUSE = new InterruptedException();
 
-	private final Single<Integer> single = Single.of(UNIQUE);
+	private final UncheckedInterruptedException uncheckedInterruptedException = new UncheckedInterruptedException(CAUSE);
 
 	@Test
-	void testEqualsHashCodeToString() {
-		assertThat(single).isEqualTo(single);
-		assertThat(single).isNotEqualTo(1);
-		assertThat(Single.of(UNIQUE)).satisfies(otherSingle -> {
-			assertThat(single).isNotSameAs(otherSingle);
-			assertThat(single).isEqualTo(otherSingle);
-			assertThat(single).hasSameHashCodeAs(otherSingle);
-			assertThat(single).hasToString(otherSingle.toString());
-		});
-		assertThat(Single.of(null)).satisfies(otherSingle -> {
-			assertThat(single).isNotSameAs(otherSingle);
-			assertThat(single).isNotEqualTo(otherSingle);
-			assertThat(single.hashCode()).isNotEqualTo(otherSingle.hashCode());
-			assertThat(single.toString()).isNotEqualTo(otherSingle.toString());
-		});
+	void testConstructorInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> new UncheckedInterruptedException(null));
 	}
 
 	@Test
-	void testGetUnique() {
-		assertThat(single.getUnique()).isEqualTo(UNIQUE);
+	void testGetCause() {
+		assertThat(uncheckedInterruptedException.getCause()).isEqualTo(CAUSE);
+	}
+
+	@Test
+	void testSerializable() {
+		assertThat(Serializables.<UncheckedInterruptedException>deserialize(Serializables.serialize(uncheckedInterruptedException))).hasSameClassAs(uncheckedInterruptedException);
 	}
 }

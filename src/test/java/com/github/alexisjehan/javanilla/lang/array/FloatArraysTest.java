@@ -36,6 +36,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class FloatArraysTest {
 
+	private static final float[] VALUES = {1.0f, 2.0f};
+
 	@Test
 	void testEmpty() {
 		assertThat(FloatArrays.EMPTY).isEmpty();
@@ -45,44 +47,44 @@ final class FloatArraysTest {
 	void testNullToEmpty() {
 		assertThat(FloatArrays.nullToEmpty(null)).isEmpty();
 		assertThat(FloatArrays.nullToEmpty(FloatArrays.EMPTY)).isEmpty();
-		assertThat(FloatArrays.nullToEmpty(FloatArrays.singleton(1.0f))).containsExactly(1.0f);
+		assertThat(FloatArrays.nullToEmpty(FloatArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefault() {
 		assertThat(FloatArrays.nullToDefault(null, FloatArrays.singleton(0.0f))).containsExactly(0.0f);
 		assertThat(FloatArrays.nullToDefault(FloatArrays.EMPTY, FloatArrays.singleton(0.0f))).isEmpty();
-		assertThat(FloatArrays.nullToDefault(FloatArrays.singleton(1.0f), FloatArrays.singleton(0.0f))).containsExactly(1.0f);
+		assertThat(FloatArrays.nullToDefault(FloatArrays.of(VALUES), FloatArrays.singleton(0.0f))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.nullToDefault(FloatArrays.singleton(1.0f), null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.nullToDefault(FloatArrays.of(VALUES), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(FloatArrays.emptyToNull(null)).isNull();
 		assertThat(FloatArrays.emptyToNull(FloatArrays.EMPTY)).isNull();
-		assertThat(FloatArrays.emptyToNull(FloatArrays.singleton(1.0f))).containsExactly(1.0f);
+		assertThat(FloatArrays.emptyToNull(FloatArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefault() {
 		assertThat(FloatArrays.emptyToDefault(null, FloatArrays.singleton(0.0f))).isNull();
 		assertThat(FloatArrays.emptyToDefault(FloatArrays.EMPTY, FloatArrays.singleton(0.0f))).containsExactly(0.0f);
-		assertThat(FloatArrays.emptyToDefault(FloatArrays.singleton(1.0f), FloatArrays.singleton(0.0f))).containsExactly(1.0f);
+		assertThat(FloatArrays.emptyToDefault(FloatArrays.of(VALUES), FloatArrays.singleton(0.0f))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.emptyToDefault(FloatArrays.singleton(1.0f), FloatArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.emptyToDefault(FloatArrays.of(VALUES), FloatArrays.EMPTY));
 	}
 
 	@Test
 	void testIsEmpty() {
 		assertThat(FloatArrays.isEmpty(FloatArrays.EMPTY)).isTrue();
-		assertThat(FloatArrays.isEmpty(FloatArrays.singleton(1.0f))).isFalse();
+		assertThat(FloatArrays.isEmpty(FloatArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
@@ -101,8 +103,8 @@ final class FloatArraysTest {
 	@Test
 	void testContainsAnyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsAny(null, 1.0f));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsAny(FloatArrays.singleton(1.0f), (float[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsAny(FloatArrays.singleton(1.0f)));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsAny(FloatArrays.of(VALUES), (float[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsAny(FloatArrays.of(VALUES)));
 	}
 
 	@Test
@@ -119,8 +121,8 @@ final class FloatArraysTest {
 	@Test
 	void testContainsAllInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsAll(null, 1.0f));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsAll(FloatArrays.singleton(1.0f), (float[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsAll(FloatArrays.singleton(1.0f)));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsAll(FloatArrays.of(VALUES), (float[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsAll(FloatArrays.of(VALUES)));
 	}
 
 	@Test
@@ -137,8 +139,8 @@ final class FloatArraysTest {
 	@Test
 	void testContainsOnceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsOnce(null, 1.0f));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsOnce(FloatArrays.singleton(1.0f), (float[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsOnce(FloatArrays.singleton(1.0f)));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsOnce(FloatArrays.of(VALUES), (float[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsOnce(FloatArrays.of(VALUES)));
 	}
 
 	@Test
@@ -155,50 +157,47 @@ final class FloatArraysTest {
 	@Test
 	void testContainsOnlyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsOnly(null, 1.0f));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsOnly(FloatArrays.singleton(1.0f), (float[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsOnly(FloatArrays.singleton(1.0f)));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.containsOnly(FloatArrays.of(VALUES), (float[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.containsOnly(FloatArrays.of(VALUES)));
 	}
 
 	@Test
 	void testIndexOf() {
 		assertThat(FloatArrays.indexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
-		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
-		assertThat(FloatArrays.indexOf(array, 1.0f)).isEqualTo(0);
-		assertThat(FloatArrays.indexOf(array, 2.0f)).isEqualTo(1);
-		assertThat(FloatArrays.indexOf(array, 1.0f, 1)).isEqualTo(2);
-		assertThat(FloatArrays.indexOf(array, 2.0f, 2)).isEqualTo(-1);
+		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f)).isEqualTo(0);
+		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f)).isEqualTo(1);
+		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f, 1)).isEqualTo(2);
+		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.indexOf(null, 1.0f));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.indexOf(FloatArrays.singleton(1.0f), 1.0f, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.indexOf(FloatArrays.singleton(1.0f), 1.0f, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.indexOf(FloatArrays.of(VALUES), 1.0f, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.indexOf(FloatArrays.of(VALUES), 1.0f, 2));
 	}
 
 	@Test
 	void testLastIndexOf() {
 		assertThat(FloatArrays.lastIndexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
-		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
-		assertThat(FloatArrays.lastIndexOf(array, 1.0f)).isEqualTo(2);
-		assertThat(FloatArrays.lastIndexOf(array, 2.0f)).isEqualTo(1);
-		assertThat(FloatArrays.lastIndexOf(array, 1.0f, 1)).isEqualTo(2);
-		assertThat(FloatArrays.lastIndexOf(array, 2.0f, 2)).isEqualTo(-1);
+		assertThat(FloatArrays.lastIndexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f)).isEqualTo(2);
+		assertThat(FloatArrays.lastIndexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f)).isEqualTo(1);
+		assertThat(FloatArrays.lastIndexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f, 1)).isEqualTo(2);
+		assertThat(FloatArrays.lastIndexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testLastIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.lastIndexOf(null, 1.0f));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.singleton(1.0f), 1.0f, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.singleton(1.0f), 1.0f, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.of(VALUES), 1.0f, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.lastIndexOf(FloatArrays.of(VALUES), 1.0f, 2));
 	}
 
 	@Test
 	void testFrequency() {
 		assertThat(FloatArrays.frequency(FloatArrays.EMPTY, 1.0f)).isEqualTo(0);
-		final var array = FloatArrays.of(1.0f, 2.0f, 1.0f);
-		assertThat(FloatArrays.frequency(array, 1.0f)).isEqualTo(2);
-		assertThat(FloatArrays.frequency(array, 2.0f)).isEqualTo(1);
+		assertThat(FloatArrays.frequency(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f)).isEqualTo(2);
+		assertThat(FloatArrays.frequency(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f)).isEqualTo(1);
 	}
 
 	@Test
@@ -208,16 +207,14 @@ final class FloatArraysTest {
 
 	@Test
 	void testShuffle() {
-		{
-			final var array = FloatArrays.singleton(1.0f);
+		assertThat(FloatArrays.singleton(1.0f)).satisfies(array -> {
 			FloatArrays.shuffle(array);
 			assertThat(array).containsExactly(1.0f);
-		}
-		{
-			final var array = FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f);
+		});
+		assertThat(FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f)).satisfies(array -> {
 			FloatArrays.shuffle(array);
 			assertThat(array).containsExactlyInAnyOrder(1.0f, 2.0f, 1.0f, 2.0f);
-		}
+		});
 	}
 
 	@Test
@@ -227,23 +224,22 @@ final class FloatArraysTest {
 
 	@Test
 	void testReverse() {
-		{
-			final var array = FloatArrays.singleton(1.0f);
+		assertThat(FloatArrays.singleton(1.0f)).satisfies(array -> {
 			FloatArrays.reverse(array);
 			assertThat(array).containsExactly(1.0f);
-		}
-		{
-			// Even
-			final var array = FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f);
+		});
+
+		// Even
+		assertThat(FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f)).satisfies(array -> {
 			FloatArrays.reverse(array);
 			assertThat(array).containsExactly(2.0f, 1.0f, 2.0f, 1.0f);
-		}
-		{
-			// Odd
-			final var array = FloatArrays.of(1.0f, 2.0f, 2.0f);
+		});
+
+		// Odd
+		assertThat(FloatArrays.of(1.0f, 2.0f, 2.0f)).satisfies(array -> {
 			FloatArrays.reverse(array);
 			assertThat(array).containsExactly(2.0f, 2.0f, 1.0f);
-		}
+		});
 	}
 
 	@Test
@@ -253,51 +249,47 @@ final class FloatArraysTest {
 
 	@Test
 	void testReorder() {
-		{
-			final var array = FloatArrays.singleton(1.0f);
+		assertThat(FloatArrays.singleton(1.0f)).satisfies(array -> {
 			FloatArrays.reorder(array, 0);
 			assertThat(array).containsExactly(1.0f);
-		}
-		{
-			final var array = FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f);
+		});
+		assertThat(FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f)).satisfies(array -> {
 			FloatArrays.reorder(array, 2, 0, 3, 1);
 			assertThat(array).containsExactly(1.0f, 1.0f, 2.0f, 2.0f);
-		}
+		});
 	}
 
 	@Test
 	void testReorderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.reorder(null));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.singleton(1.0f), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.singleton(0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, 0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(-1, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(2, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, -1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(1.0f, 2.0f), IntArrays.of(0, 2)));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), IntArrays.of(0, 0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.reorder(FloatArrays.of(VALUES), IntArrays.of(0, 2)));
 	}
 
 	@Test
 	void testSwap() {
-		{
-			final var array = FloatArrays.singleton(1.0f);
+		assertThat(FloatArrays.singleton(1.0f)).satisfies(array -> {
 			FloatArrays.swap(array, 0, 0);
 			assertThat(array).containsExactly(1.0f);
-		}
-		{
-			final var array = FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f);
+		});
+		assertThat(FloatArrays.of(1.0f, 2.0f, 1.0f, 2.0f)).satisfies(array -> {
 			FloatArrays.swap(array, 1, 2);
 			assertThat(array).containsExactly(1.0f, 1.0f, 2.0f, 2.0f);
-		}
+		});
 	}
 
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.swap(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), -1, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 2, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 0, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(1.0f, 2.0f), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(VALUES), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(VALUES), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(VALUES), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.swap(FloatArrays.of(VALUES), 0, 2));
 	}
 
 	@Test
@@ -314,8 +306,8 @@ final class FloatArraysTest {
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0.0f));
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0, 0.0f));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.singleton(1), -1, 0.0f));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.singleton(1), 2, 0.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), -1, 0.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), 3, 0.0f));
 	}
 
 	@Test
@@ -330,15 +322,15 @@ final class FloatArraysTest {
 	void testRemoveInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.remove(null, 0));
 		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.singleton(1.0f), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.singleton(1.0f), 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.remove(FloatArrays.of(VALUES), 2));
 	}
 
 	@Test
 	void testConcat() {
 		assertThat(FloatArrays.concat()).isEmpty();
-		assertThat(FloatArrays.concat(FloatArrays.singleton(1.0f))).containsExactly(1.0f);
-		assertThat(FloatArrays.concat(FloatArrays.singleton(1.0f), FloatArrays.singleton(2.0f))).containsExactly(1.0f, 2.0f);
+		assertThat(FloatArrays.concat(FloatArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(FloatArrays.concat(FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 	}
 
 	@Test
@@ -350,29 +342,29 @@ final class FloatArraysTest {
 
 	@Test
 	void testJoin() {
-		assertThat(FloatArrays.join(FloatArrays.EMPTY, FloatArrays.singleton(1.0f), FloatArrays.singleton(2.0f))).containsExactly(1.0f, 2.0f);
+		assertThat(FloatArrays.join(FloatArrays.EMPTY, FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f))).isEmpty();
-		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), FloatArrays.singleton(1.0f))).containsExactly(1.0f);
-		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), FloatArrays.singleton(1.0f), FloatArrays.singleton(2.0f))).containsExactly(1.0f, 0.0f, 2.0f);
+		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), FloatArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0.0f, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(null, FloatArrays.singleton(1.0f)));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.singleton(0.0f), (float[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.singleton(0.0f), (List<float[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.singleton(0.0f), (float[]) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(null, FloatArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (float[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (List<float[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (float[]) null));
 	}
 
 	@Test
 	void testSingleton() {
-		assertThat(FloatArrays.singleton(1.0f)).containsExactly(1.0f);
+		assertThat(FloatArrays.singleton(VALUES[0])).containsExactly(VALUES[0]);
 	}
 
 	@Test
 	void testOf() {
 		assertThat(FloatArrays.of()).isEmpty();
-		assertThat(FloatArrays.of(1.0f, 2.0f)).containsExactly(1.0f, 2.0f);
+		assertThat(FloatArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
@@ -383,9 +375,9 @@ final class FloatArraysTest {
 	@Test
 	void testOfBoxedToBoxed() {
 		assertThat(FloatArrays.of(FloatArrays.toBoxed(FloatArrays.EMPTY))).isEmpty();
-		assertThat(FloatArrays.of(FloatArrays.toBoxed(FloatArrays.of(1.0f, 2.0f)))).containsExactly(1.0f, 2.0f);
-		assertThat(FloatArrays.toBoxed(FloatArrays.singleton(1.0f))).isInstanceOf(Float[].class);
-		assertThat(FloatArrays.of(FloatArrays.toBoxed(FloatArrays.singleton(1.0f)))).isInstanceOf(float[].class);
+		assertThat(FloatArrays.of(FloatArrays.toBoxed(FloatArrays.of(VALUES)))).containsExactly(VALUES);
+		assertThat(FloatArrays.toBoxed(FloatArrays.of(VALUES))).isInstanceOf(Float[].class);
+		assertThat(FloatArrays.of(FloatArrays.toBoxed(FloatArrays.of(VALUES)))).isInstanceOf(float[].class);
 	}
 
 	@Test

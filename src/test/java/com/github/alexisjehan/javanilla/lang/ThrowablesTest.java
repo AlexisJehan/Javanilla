@@ -81,10 +81,7 @@ final class ThrowablesTest {
 	@Test
 	void testUncheckThrowableSupplier() {
 		Throwables.uncheck(() -> true);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck(() -> {
-			if (1 == 0) {
-				return null;
-			}
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<?, IOException>) () -> {
 			throw new IOException();
 		}));
 	}
@@ -96,29 +93,12 @@ final class ThrowablesTest {
 
 	@Test
 	void testUnchecked() {
-		final var ioException = new IOException();
-		assertThat(Throwables.unchecked(ioException)).isInstanceOf(UncheckedIOException.class);
-		assertThat(Throwables.unchecked(ioException).getCause()).isSameAs(ioException);
-
-		final var sqlException = new SQLException();
-		assertThat(Throwables.unchecked(sqlException)).isInstanceOf(UncheckedSQLException.class);
-		assertThat(Throwables.unchecked(sqlException).getCause()).isSameAs(sqlException);
-
-		final var interruptedException = new InterruptedException();
-		assertThat(Throwables.unchecked(interruptedException)).isInstanceOf(UncheckedInterruptedException.class);
-		assertThat(Throwables.unchecked(interruptedException).getCause()).isSameAs(interruptedException);
-
-		final var cloneNotSupportedException = new CloneNotSupportedException();
-		assertThat(Throwables.unchecked(cloneNotSupportedException)).isInstanceOf(RuntimeException.class);
-		assertThat(Throwables.unchecked(cloneNotSupportedException).getCause()).isSameAs(cloneNotSupportedException);
-
-		final var exception = new Exception();
-		assertThat(Throwables.unchecked(exception)).isInstanceOf(RuntimeException.class);
-		assertThat(Throwables.unchecked(exception).getCause()).isSameAs(exception);
-
-		final var runtimeException = new RuntimeException(exception);
-		assertThat(Throwables.unchecked(runtimeException)).isInstanceOf(RuntimeException.class);
-		assertThat(Throwables.unchecked(runtimeException).getCause()).isSameAs(exception);
+		assertThat(Throwables.unchecked(new IOException())).isInstanceOf(UncheckedIOException.class);
+		assertThat(Throwables.unchecked(new SQLException())).isInstanceOf(UncheckedSQLException.class);
+		assertThat(Throwables.unchecked(new InterruptedException())).isInstanceOf(UncheckedInterruptedException.class);
+		assertThat(Throwables.unchecked(new CloneNotSupportedException())).isInstanceOf(RuntimeException.class);
+		assertThat(Throwables.unchecked(new Exception())).isInstanceOf(RuntimeException.class);
+		assertThat(Throwables.unchecked(new RuntimeException())).isInstanceOf(RuntimeException.class);
 	}
 
 	@Test
@@ -128,26 +108,24 @@ final class ThrowablesTest {
 
 	@Test
 	void testGetOptionalRootCause() {
-		{
-			final var rootException = new IOException();
-			final var uncheckedIOException = new UncheckedIOException(rootException);
-			final var runtimeException = new RuntimeException(uncheckedIOException);
+		assertThat(new IOException()).satisfies(rootException -> {
+			final var exception = new UncheckedIOException((IOException) rootException);
 			assertThat(Throwables.getOptionalRootCause(rootException)).isEmpty();
-			assertThat(Throwables.getOptionalRootCause(uncheckedIOException)).hasValue(rootException);
-			assertThat(Throwables.getOptionalRootCause(runtimeException)).hasValue(rootException);
-		}
-		{
-			// Cycle
-			final var rootException = new IOException();
+			assertThat(Throwables.getOptionalRootCause(exception)).hasValue(rootException);
+			assertThat(Throwables.getOptionalRootCause(new RuntimeException(exception))).hasValue(rootException);
+		});
+
+		// Cycle
+		assertThat(new IOException()).satisfies(rootException -> {
 			@SuppressWarnings("serial")
-			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
+			final var exception = new RuntimeException(new UncheckedIOException((IOException) rootException)) {
 				@Override
 				public Throwable getCause() {
 					return this;
 				}
 			};
 			assertThat(Throwables.getOptionalRootCause(exception)).isEmpty();
-		}
+		});
 	}
 
 	@Test
@@ -157,24 +135,22 @@ final class ThrowablesTest {
 
 	@Test
 	void testGetCauses() {
-		{
-			final var rootException = new IOException();
-			final var uncheckedIOException = new UncheckedIOException(rootException);
-			final var runtimeException = new RuntimeException(uncheckedIOException);
-			assertThat(Throwables.getCauses(runtimeException)).containsExactly(uncheckedIOException, rootException);
-		}
-		{
-			// Cycle
-			final var rootException = new IOException();
+		assertThat(new IOException()).satisfies(rootException -> {
+			final var exception = new UncheckedIOException((IOException) rootException);
+			assertThat(Throwables.getCauses(new RuntimeException(exception))).containsExactly(exception, rootException);
+		});
+
+		// Cycle
+		assertThat(new IOException()).satisfies(rootException -> {
 			@SuppressWarnings("serial")
-			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
+			final var exception = new RuntimeException(new UncheckedIOException((IOException) rootException)) {
 				@Override
 				public Throwable getCause() {
 					return this;
 				}
 			};
 			assertThat(Throwables.getCauses(exception)).isEmpty();
-		}
+		});
 	}
 
 	@Test

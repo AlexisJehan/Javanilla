@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class CountIteratorTest {
 
+	private static final Integer[] ELEMENTS = ObjectArrays.of(1, 2, 3);
+
 	@Test
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new CountIterator<>(null));
@@ -45,16 +48,16 @@ final class CountIteratorTest {
 
 	@Test
 	void testNext() {
-		final var countIterator = new CountIterator<>(Iterators.of(1, 2, 3));
+		final var countIterator = new CountIterator<>(Iterators.of(ELEMENTS));
 		assertThat(countIterator.getCount()).isEqualTo(0L);
 		assertThat(countIterator.hasNext()).isTrue();
-		assertThat(countIterator.next()).isEqualTo(1);
+		assertThat(countIterator.next()).isEqualTo(ELEMENTS[0]);
 		assertThat(countIterator.getCount()).isEqualTo(1L);
 		assertThat(countIterator.hasNext()).isTrue();
-		assertThat(countIterator.next()).isEqualTo(2);
+		assertThat(countIterator.next()).isEqualTo(ELEMENTS[1]);
 		assertThat(countIterator.getCount()).isEqualTo(2L);
 		assertThat(countIterator.hasNext()).isTrue();
-		assertThat(countIterator.next()).isEqualTo(3);
+		assertThat(countIterator.next()).isEqualTo(ELEMENTS[2]);
 		assertThat(countIterator.getCount()).isEqualTo(3L);
 		assertThat(countIterator.hasNext()).isFalse();
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(countIterator::next);
@@ -63,14 +66,14 @@ final class CountIteratorTest {
 
 	@Test
 	void testRemove() {
-		final var list = new ArrayList<>(List.of(1, 2, 3));
+		final var list = new ArrayList<>(List.of(ELEMENTS));
 		final var countIterator = new CountIterator<>(list.iterator());
 		assertThat(countIterator.getCount()).isEqualTo(0L);
 		countIterator.next();
 		assertThat(countIterator.getCount()).isEqualTo(1L);
-		assertThat(list).containsExactly(1, 2, 3);
+		assertThat(list).containsExactly(ELEMENTS);
 		countIterator.remove();
 		assertThat(countIterator.getCount()).isEqualTo(1L);
-		assertThat(list).containsExactly(2, 3);
+		assertThat(list).containsExactly(ELEMENTS[1], ELEMENTS[2]);
 	}
 }

@@ -43,11 +43,11 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class SerializablesTest {
 
-	private static final SerializablePair<String, Integer> FOO = SerializablePair.of("foo", 1);
+	private static final SerializablePair<String, Integer> SERIALIZABLE = SerializablePair.of("foo", 1);
 
 	@Test
 	void testSerializeDeserialize() {
-		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(FOO))).isEqualTo(FOO);
+		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(SERIALIZABLE))).isEqualTo(SERIALIZABLE);
 		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
 
 		// Serializable containing a non-serializable attribute
@@ -57,19 +57,19 @@ final class SerializablesTest {
 
 		// Different type used for serialization and deserialization
 		assertThatExceptionOfType(ClassCastException.class)
-				.isThrownBy(() -> Serializables.<SerializableSingle<String>>deserialize(Serializables.serialize(FOO)).getUnique());
+				.isThrownBy(() -> Serializables.<SerializableSingle<String>>deserialize(Serializables.serialize(SERIALIZABLE)).getUnique());
 
 		// Corruption
-		final var serialized = Serializables.serialize(FOO);
-		serialized[0] = (byte) 1;
+		final var serializedSerializable = Serializables.serialize(SERIALIZABLE);
+		serializedSerializable[0] = (byte) 1;
 		assertThatExceptionOfType(SerializationException.class)
-				.isThrownBy(() -> Serializables.deserialize(serialized))
+				.isThrownBy(() -> Serializables.deserialize(serializedSerializable))
 				.withCauseInstanceOf(StreamCorruptedException.class);
 	}
 
 	@Test
 	void testSerializeInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(null, FOO));
+		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(null, SERIALIZABLE));
 	}
 
 	@Test

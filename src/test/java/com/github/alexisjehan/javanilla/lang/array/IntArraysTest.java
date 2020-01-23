@@ -36,6 +36,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class IntArraysTest {
 
+	private static final int[] VALUES = {1, 2};
+
 	@Test
 	void testEmpty() {
 		assertThat(IntArrays.EMPTY).isEmpty();
@@ -45,44 +47,44 @@ final class IntArraysTest {
 	void testNullToEmpty() {
 		assertThat(IntArrays.nullToEmpty(null)).isEmpty();
 		assertThat(IntArrays.nullToEmpty(IntArrays.EMPTY)).isEmpty();
-		assertThat(IntArrays.nullToEmpty(IntArrays.singleton(1))).containsExactly(1);
+		assertThat(IntArrays.nullToEmpty(IntArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefault() {
 		assertThat(IntArrays.nullToDefault(null, IntArrays.singleton(0))).containsExactly(0);
 		assertThat(IntArrays.nullToDefault(IntArrays.EMPTY, IntArrays.singleton(0))).isEmpty();
-		assertThat(IntArrays.nullToDefault(IntArrays.singleton(1), IntArrays.singleton(0))).containsExactly(1);
+		assertThat(IntArrays.nullToDefault(IntArrays.of(VALUES), IntArrays.singleton(0))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.nullToDefault(IntArrays.singleton(1), null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.nullToDefault(IntArrays.of(VALUES), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(IntArrays.emptyToNull(IntArrays.EMPTY)).isNull();
 		assertThat(IntArrays.emptyToNull(null)).isNull();
-		assertThat(IntArrays.emptyToNull(IntArrays.of(1))).containsExactly(1);
+		assertThat(IntArrays.emptyToNull(IntArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefault() {
 		assertThat(IntArrays.emptyToDefault(null, IntArrays.singleton(0))).isNull();
 		assertThat(IntArrays.emptyToDefault(IntArrays.EMPTY, IntArrays.singleton(0))).containsExactly(0);
-		assertThat(IntArrays.emptyToDefault(IntArrays.singleton(1), IntArrays.singleton(0))).containsExactly(1);
+		assertThat(IntArrays.emptyToDefault(IntArrays.of(VALUES), IntArrays.singleton(0))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.emptyToDefault(IntArrays.singleton(1), IntArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.emptyToDefault(IntArrays.of(VALUES), IntArrays.EMPTY));
 	}
 
 	@Test
 	void testIsEmpty() {
 		assertThat(IntArrays.isEmpty(IntArrays.EMPTY)).isTrue();
-		assertThat(IntArrays.isEmpty(IntArrays.singleton(1))).isFalse();
+		assertThat(IntArrays.isEmpty(IntArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
@@ -101,8 +103,8 @@ final class IntArraysTest {
 	@Test
 	void testContainsAnyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsAny(null, 1));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsAny(IntArrays.singleton(1), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsAny(IntArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsAny(IntArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsAny(IntArrays.of(VALUES)));
 	}
 
 	@Test
@@ -119,8 +121,8 @@ final class IntArraysTest {
 	@Test
 	void testContainsAllInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsAll(null, 1));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsAll(IntArrays.singleton(1), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsAll(IntArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsAll(IntArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsAll(IntArrays.of(VALUES)));
 	}
 
 	@Test
@@ -137,8 +139,8 @@ final class IntArraysTest {
 	@Test
 	void testContainsOnceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnce(null, 1));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnce(IntArrays.singleton(1), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsOnce(IntArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnce(IntArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsOnce(IntArrays.of(VALUES)));
 	}
 
 	@Test
@@ -155,50 +157,47 @@ final class IntArraysTest {
 	@Test
 	void testContainsOnlyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnly(null, 1));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnly(IntArrays.singleton(1), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsOnly(IntArrays.singleton(1)));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.containsOnly(IntArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.containsOnly(IntArrays.of(VALUES)));
 	}
 
 	@Test
 	void testIndexOf() {
 		assertThat(IntArrays.indexOf(IntArrays.EMPTY, 1)).isEqualTo(-1);
-		final var array = IntArrays.of(1, 2, 1);
-		assertThat(IntArrays.indexOf(array, 1)).isEqualTo(0);
-		assertThat(IntArrays.indexOf(array, 2)).isEqualTo(1);
-		assertThat(IntArrays.indexOf(array, 1, 1)).isEqualTo(2);
-		assertThat(IntArrays.indexOf(array, 2, 2)).isEqualTo(-1);
+		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 1)).isEqualTo(0);
+		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 2)).isEqualTo(1);
+		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 1, 1)).isEqualTo(2);
+		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 2, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.indexOf(null, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.indexOf(IntArrays.singleton(1), 1, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.indexOf(IntArrays.singleton(1), 1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.indexOf(IntArrays.of(VALUES), 1, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.indexOf(IntArrays.of(VALUES), 1, 2));
 	}
 
 	@Test
 	void testLastIndexOf() {
 		assertThat(IntArrays.lastIndexOf(IntArrays.EMPTY, 1)).isEqualTo(-1);
-		final var array = IntArrays.of(1, 2, 1);
-		assertThat(IntArrays.lastIndexOf(array, 1)).isEqualTo(2);
-		assertThat(IntArrays.lastIndexOf(array, 2)).isEqualTo(1);
-		assertThat(IntArrays.lastIndexOf(array, 1, 1)).isEqualTo(2);
-		assertThat(IntArrays.lastIndexOf(array, 2, 2)).isEqualTo(-1);
+		assertThat(IntArrays.lastIndexOf(IntArrays.of(1, 2, 1), 1)).isEqualTo(2);
+		assertThat(IntArrays.lastIndexOf(IntArrays.of(1, 2, 1), 2)).isEqualTo(1);
+		assertThat(IntArrays.lastIndexOf(IntArrays.of(1, 2, 1), 1, 1)).isEqualTo(2);
+		assertThat(IntArrays.lastIndexOf(IntArrays.of(1, 2, 1), 2, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testLastIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.lastIndexOf(null, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.lastIndexOf(IntArrays.singleton(1), 1, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.lastIndexOf(IntArrays.singleton(1), 1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.lastIndexOf(IntArrays.of(VALUES), 1, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.lastIndexOf(IntArrays.of(VALUES), 1, 2));
 	}
 
 	@Test
 	void testFrequency() {
 		assertThat(IntArrays.frequency(IntArrays.EMPTY, 1)).isEqualTo(0);
-		final var array = IntArrays.of(1, 2, 1);
-		assertThat(IntArrays.frequency(array, 1)).isEqualTo(2);
-		assertThat(IntArrays.frequency(array, 2)).isEqualTo(1);
+		assertThat(IntArrays.frequency(IntArrays.of(1, 2, 1), 1)).isEqualTo(2);
+		assertThat(IntArrays.frequency(IntArrays.of(1, 2, 1), 2)).isEqualTo(1);
 	}
 
 	@Test
@@ -208,16 +207,14 @@ final class IntArraysTest {
 
 	@Test
 	void testShuffle() {
-		{
-			final var array = IntArrays.singleton(1);
+		assertThat(IntArrays.singleton(1)).satisfies(array -> {
 			IntArrays.shuffle(array);
 			assertThat(array).containsExactly(1);
-		}
-		{
-			final var array = IntArrays.of(1, 2, 1, 2);
+		});
+		assertThat(IntArrays.of(1, 2, 1, 2)).satisfies(array -> {
 			IntArrays.shuffle(array);
 			assertThat(array).containsExactlyInAnyOrder(1, 2, 1, 2);
-		}
+		});
 	}
 
 	@Test
@@ -227,23 +224,22 @@ final class IntArraysTest {
 
 	@Test
 	void testReverse() {
-		{
-			final var array = IntArrays.singleton(1);
+		assertThat(IntArrays.singleton(1)).satisfies(array -> {
 			IntArrays.reverse(array);
 			assertThat(array).containsExactly(1);
-		}
-		{
-			// Even
-			final var array = IntArrays.of(1, 2, 1, 2);
+		});
+
+		// Even
+		assertThat(IntArrays.of(1, 2, 1, 2)).satisfies(array -> {
 			IntArrays.reverse(array);
 			assertThat(array).containsExactly(2, 1, 2, 1);
-		}
-		{
-			// Odd
-			final var array = IntArrays.of(1, 2, 2);
+		});
+
+		// Odd
+		assertThat(IntArrays.of(1, 2, 2)).satisfies(array -> {
 			IntArrays.reverse(array);
 			assertThat(array).containsExactly(2, 2, 1);
-		}
+		});
 	}
 
 	@Test
@@ -253,51 +249,47 @@ final class IntArraysTest {
 
 	@Test
 	void testReorder() {
-		{
-			final var array = IntArrays.singleton(1);
+		assertThat(IntArrays.singleton(1)).satisfies(array -> {
 			IntArrays.reorder(array, 0);
 			assertThat(array).containsExactly(1);
-		}
-		{
-			final var array = IntArrays.of(1, 2, 1, 2);
+		});
+		assertThat(IntArrays.of(1, 2, 1, 2)).satisfies(array -> {
 			IntArrays.reorder(array, 2, 0, 3, 1);
 			assertThat(array).containsExactly(1, 1, 2, 2);
-		}
+		});
 	}
 
 	@Test
 	void testReorderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.reorder(null));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.reorder(IntArrays.singleton(1), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(1, 2), IntArrays.singleton(0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(1, 2), IntArrays.of(0, 0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(1, 2), IntArrays.of(-1, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(1, 2), IntArrays.of(2, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(1, 2), IntArrays.of(0, -1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(1, 2), IntArrays.of(0, 2)));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), IntArrays.of(0, 0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.reorder(IntArrays.of(VALUES), IntArrays.of(0, 2)));
 	}
 
 	@Test
 	void testSwap() {
-		{
-			final var array = IntArrays.singleton(1);
+		assertThat(IntArrays.singleton(1)).satisfies(array -> {
 			IntArrays.swap(array, 0, 0);
 			assertThat(array).containsExactly(1);
-		}
-		{
-			final var array = IntArrays.of(1, 2, 1, 2);
+		});
+		assertThat(IntArrays.of(1, 2, 1, 2)).satisfies(array -> {
 			IntArrays.swap(array, 1, 2);
 			assertThat(array).containsExactly(1, 1, 2, 2);
-		}
+		});
 	}
 
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.swap(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(1, 2), -1, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(1, 2), 2, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(1, 2), 0, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(1, 2), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(VALUES), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(VALUES), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(VALUES), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.swap(IntArrays.of(VALUES), 0, 2));
 	}
 
 	@Test
@@ -314,8 +306,8 @@ final class IntArraysTest {
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0));
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.singleton(1), -1, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.singleton(1), 2, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.of(VALUES), -1, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.of(VALUES), 3, 0));
 	}
 
 	@Test
@@ -330,15 +322,15 @@ final class IntArraysTest {
 	void testRemoveInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.remove(null, 0));
 		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.singleton(1), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.singleton(1), 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.remove(IntArrays.of(VALUES), 2));
 	}
 
 	@Test
 	void testConcat() {
 		assertThat(IntArrays.concat()).isEmpty();
-		assertThat(IntArrays.concat(IntArrays.singleton(1))).containsExactly(1);
-		assertThat(IntArrays.concat(IntArrays.singleton(1), IntArrays.singleton(2))).containsExactly(1, 2);
+		assertThat(IntArrays.concat(IntArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(IntArrays.concat(IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 	}
 
 	@Test
@@ -350,29 +342,29 @@ final class IntArraysTest {
 
 	@Test
 	void testJoin() {
-		assertThat(IntArrays.join(IntArrays.EMPTY, IntArrays.singleton(1), IntArrays.singleton(2))).containsExactly(1, 2);
+		assertThat(IntArrays.join(IntArrays.EMPTY, IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 		assertThat(IntArrays.join(IntArrays.singleton(0))).isEmpty();
-		assertThat(IntArrays.join(IntArrays.singleton(0), IntArrays.singleton(1))).containsExactly(1);
-		assertThat(IntArrays.join(IntArrays.singleton(0), IntArrays.singleton(1), IntArrays.singleton(2))).containsExactly(1, 0, 2);
+		assertThat(IntArrays.join(IntArrays.singleton(0), IntArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(IntArrays.join(IntArrays.singleton(0), IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(null, IntArrays.singleton(1)));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.singleton(0), (int[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.singleton(0), (List<int[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.singleton(0), (int[]) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(null, IntArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (int[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (List<int[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (int[]) null));
 	}
 
 	@Test
 	void testSingleton() {
-		assertThat(IntArrays.singleton(1)).containsExactly(1);
+		assertThat(IntArrays.singleton(VALUES[0])).containsExactly(VALUES[0]);
 	}
 
 	@Test
 	void testOf() {
 		assertThat(IntArrays.of()).isEmpty();
-		assertThat(IntArrays.of(1, 2)).containsExactly(1, 2);
+		assertThat(IntArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
@@ -383,9 +375,9 @@ final class IntArraysTest {
 	@Test
 	void testOfBoxedToBoxed() {
 		assertThat(IntArrays.of(IntArrays.toBoxed(IntArrays.EMPTY))).isEmpty();
-		assertThat(IntArrays.of(IntArrays.toBoxed(IntArrays.of(1, 2)))).containsExactly(1, 2);
-		assertThat(IntArrays.toBoxed(IntArrays.singleton(1))).isInstanceOf(Integer[].class);
-		assertThat(IntArrays.of(IntArrays.toBoxed(IntArrays.singleton(1)))).isInstanceOf(int[].class);
+		assertThat(IntArrays.of(IntArrays.toBoxed(IntArrays.of(VALUES)))).containsExactly(VALUES);
+		assertThat(IntArrays.toBoxed(IntArrays.of(VALUES))).isInstanceOf(Integer[].class);
+		assertThat(IntArrays.of(IntArrays.toBoxed(IntArrays.of(VALUES)))).isInstanceOf(int[].class);
 	}
 
 	@Test

@@ -49,20 +49,16 @@ final class SerializableBiConsumerTest {
 
 	@Test
 	void testAndThen() {
-		final var serializableBiConsumer1 = (SerializableBiConsumer<List<Integer>, Integer>) (t, u) -> t.add(u + 1);
-		final var serializableBiConsumer2 = (SerializableBiConsumer<List<Integer>, Integer>) (t, u) -> t.add(u - 1);
-		{
-			final var list = new ArrayList<Integer>();
-			serializableBiConsumer1.andThen(serializableBiConsumer2).accept(list, 1);
-			serializableBiConsumer1.andThen(serializableBiConsumer2).accept(list, 3);
-			assertThat(list).containsExactly(2, 0, 4, 2);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			serializableBiConsumer2.andThen(serializableBiConsumer1).accept(list, 1);
-			serializableBiConsumer2.andThen(serializableBiConsumer1).accept(list, 3);
-			assertThat(list).containsExactly(0, 2, 2, 4);
-		}
+		final var fooSerializableBiConsumer = (SerializableBiConsumer<List<Integer>, Integer>) (t, u) -> t.add(u + 1);
+		final var barSerializableBiConsumer = (SerializableBiConsumer<List<Integer>, Integer>) (t, u) -> t.add(u - 1);
+		final var list = new ArrayList<Integer>();
+		fooSerializableBiConsumer.andThen(barSerializableBiConsumer).accept(list, 1);
+		fooSerializableBiConsumer.andThen(barSerializableBiConsumer).accept(list, 3);
+		assertThat(list).containsExactly(2, 0, 4, 2);
+		list.clear();
+		barSerializableBiConsumer.andThen(fooSerializableBiConsumer).accept(list, 1);
+		barSerializableBiConsumer.andThen(fooSerializableBiConsumer).accept(list, 3);
+		assertThat(list).containsExactly(0, 2, 2, 4);
 	}
 
 	@Test
@@ -87,14 +83,14 @@ final class SerializableBiConsumerTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableBiConsumer = Serializables.<SerializableBiConsumer<List<Integer>, Integer>>deserialize(
+		final var deserializedSerializableBiConsumer = Serializables.<SerializableBiConsumer<List<Integer>, Integer>>deserialize(
 				Serializables.serialize(
 						(SerializableBiConsumer<List<Integer>, Integer>) (t, u) -> t.add(u + 1)
 				)
 		);
 		final var list = new ArrayList<Integer>();
-		serializableBiConsumer.accept(list, 1);
-		serializableBiConsumer.accept(list, 3);
+		deserializedSerializableBiConsumer.accept(list, 1);
+		deserializedSerializableBiConsumer.accept(list, 3);
 		assertThat(list).containsExactly(2, 4);
 	}
 }

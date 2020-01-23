@@ -49,11 +49,11 @@ final class CountOutputStreamTest {
 	void testWriteByte() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isEqualTo(0L);
-			countOutputStream.write(1);
+			countOutputStream.write(BYTES[0]);
 			assertThat(countOutputStream.getCount()).isEqualTo(1L);
-			countOutputStream.write(2);
+			countOutputStream.write(BYTES[1]);
 			assertThat(countOutputStream.getCount()).isEqualTo(2L);
-			countOutputStream.write(3);
+			countOutputStream.write(BYTES[2]);
 			assertThat(countOutputStream.getCount()).isEqualTo(3L);
 		}
 	}

@@ -38,7 +38,6 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class CountWriterTest {
 
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
-	private static final String STRING = "abc";
 
 	@Test
 	void testConstructorInvalid() {
@@ -50,11 +49,11 @@ final class CountWriterTest {
 	void testWriteChar() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write('a');
+			countWriter.write(CHARS[0]);
 			assertThat(countWriter.getCount()).isEqualTo(1L);
-			countWriter.write('b');
+			countWriter.write(CHARS[1]);
 			assertThat(countWriter.getCount()).isEqualTo(2L);
-			countWriter.write('c');
+			countWriter.write(CHARS[2]);
 			assertThat(countWriter.getCount()).isEqualTo(3L);
 		}
 	}
@@ -88,9 +87,9 @@ final class CountWriterTest {
 	void testWriteString() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write(STRING, 0, 0);
+			countWriter.write(new String(CHARS), 0, 0);
 			assertThat(countWriter.getCount()).isEqualTo(0L);
-			countWriter.write(STRING, 0, 2);
+			countWriter.write(new String(CHARS), 0, 2);
 			assertThat(countWriter.getCount()).isEqualTo(2L);
 		}
 	}
@@ -100,10 +99,10 @@ final class CountWriterTest {
 	void testWriteStringInvalid() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((String) null, 0, 2));
-			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, -1, 3));
-			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, 4, 3));
-			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, 0, -1));
-			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(STRING, 0, 4));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(new String(CHARS), -1, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(new String(CHARS), 4, 3));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(new String(CHARS), 0, -1));
+			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(new String(CHARS), 0, 4));
 		}
 	}
 }

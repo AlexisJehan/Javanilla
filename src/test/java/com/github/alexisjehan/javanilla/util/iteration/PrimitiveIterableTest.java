@@ -23,6 +23,9 @@
  */
 package com.github.alexisjehan.javanilla.util.iteration;
 
+import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
+import com.github.alexisjehan.javanilla.lang.array.IntArrays;
+import com.github.alexisjehan.javanilla.lang.array.LongArrays;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.DoubleAdder;
@@ -30,6 +33,9 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
@@ -39,19 +45,23 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class PrimitiveIterableTest {
 
+	private static final int[] INT_ELEMENTS = IntArrays.of(1, 2, 3);
+	private static final long[] LONG_ELEMENTS = LongArrays.of(1L, 2L, 3L);
+	private static final double[] DOUBLE_ELEMENTS = DoubleArrays.of(1.0d, 2.0d, 3.0d);
+
 	@Test
 	void testOfInt() {
-		final var primitiveIterable = Iterables.ofInt(1, 2, 3);
-		assertThat(primitiveIterable).containsExactly(1, 2, 3);
-		assertThat(primitiveIterable).containsExactly(1, 2, 3);
+		final var primitiveIterable = Iterables.ofInt(INT_ELEMENTS);
+		assertThat(primitiveIterable).containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
+		assertThat(primitiveIterable).containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 	}
 
 	@Test
 	void testOfIntForEach() {
-		final var primitiveIterable = Iterables.ofInt(1, 2, 3);
+		final var primitiveIterable = Iterables.ofInt(INT_ELEMENTS);
 		final var adder = new LongAdder();
 		primitiveIterable.forEach((IntConsumer) adder::add);
-		assertThat(adder.intValue()).isEqualTo(6);
+		assertThat(adder.intValue()).isEqualTo(IntStream.of(INT_ELEMENTS).sum());
 	}
 
 	@Test
@@ -61,17 +71,17 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfLong() {
-		final var primitiveIterable = Iterables.ofLong(1L, 2L, 3L);
-		assertThat(primitiveIterable).containsExactly(1L, 2L, 3L);
-		assertThat(primitiveIterable).containsExactly(1L, 2L, 3L);
+		final var primitiveIterable = Iterables.ofLong(LONG_ELEMENTS);
+		assertThat(primitiveIterable).containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
+		assertThat(primitiveIterable).containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 	}
 
 	@Test
 	void testOfLongForEach() {
-		final var primitiveIterable = Iterables.ofLong(1L, 2L, 3L);
+		final var primitiveIterable = Iterables.ofLong(LONG_ELEMENTS);
 		final var adder = new LongAdder();
 		primitiveIterable.forEach((LongConsumer) adder::add);
-		assertThat(adder.longValue()).isEqualTo(6L);
+		assertThat(adder.longValue()).isEqualTo(LongStream.of(LONG_ELEMENTS).sum());
 	}
 
 	@Test
@@ -81,17 +91,17 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfDouble() {
-		final var primitiveIterable = Iterables.ofDouble(1.0d, 2.0d, 3.0d);
-		assertThat(primitiveIterable).containsExactly(1.0d, 2.0d, 3.0d);
-		assertThat(primitiveIterable).containsExactly(1.0d, 2.0d, 3.0d);
+		final var primitiveIterable = Iterables.ofDouble(DOUBLE_ELEMENTS);
+		assertThat(primitiveIterable).containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
+		assertThat(primitiveIterable).containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 	}
 
 	@Test
 	void testOfDoubleForEach() {
-		final var primitiveIterable = Iterables.ofDouble(1.0d, 2.0d, 3.0d);
+		final var primitiveIterable = Iterables.ofDouble(DOUBLE_ELEMENTS);
 		final var adder = new DoubleAdder();
 		primitiveIterable.forEach((DoubleConsumer) adder::add);
-		assertThat(adder.doubleValue()).isEqualTo(6.0d);
+		assertThat(adder.doubleValue()).isEqualTo(DoubleStream.of(DOUBLE_ELEMENTS).sum());
 	}
 
 	@Test

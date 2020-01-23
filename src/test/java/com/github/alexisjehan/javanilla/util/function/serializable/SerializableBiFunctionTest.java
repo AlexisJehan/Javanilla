@@ -69,12 +69,12 @@ final class SerializableBiFunctionTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableBiFunction = Serializables.<SerializableBiFunction<Integer, Integer, Integer>>deserialize(
+		final var deserializedSerializableBiFunction = Serializables.<SerializableBiFunction<Integer, Integer, Integer>>deserialize(
 				Serializables.serialize(
 						(SerializableBiFunction<Integer, Integer, Integer>) Integer::sum
 				)
 		);
-		assertThat(serializableBiFunction.apply(1, 2)).isEqualTo(3);
-		assertThat(serializableBiFunction.apply(3, 3)).isEqualTo(6);
+		assertThat(deserializedSerializableBiFunction.apply(1, 2)).isEqualTo(3);
+		assertThat(deserializedSerializableBiFunction.apply(3, 3)).isEqualTo(6);
 	}
 }

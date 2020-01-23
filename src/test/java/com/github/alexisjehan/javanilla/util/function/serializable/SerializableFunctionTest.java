@@ -45,12 +45,12 @@ final class SerializableFunctionTest {
 
 	@Test
 	void testCompose() {
-		final var serializableFunction1 = (SerializableFunction<Integer, Integer>) t -> t + 1;
-		final var serializableFunction2 = (SerializableFunction<Integer, Integer>) t -> -t;
-		assertThat(serializableFunction1.compose(serializableFunction2).apply(1)).isEqualTo(0);
-		assertThat(serializableFunction1.compose(serializableFunction2).apply(3)).isEqualTo(-2);
-		assertThat(serializableFunction2.compose(serializableFunction1).apply(1)).isEqualTo(-2);
-		assertThat(serializableFunction2.compose(serializableFunction1).apply(3)).isEqualTo(-4);
+		final var fooSerializableFunction = (SerializableFunction<Integer, Integer>) t -> t + 1;
+		final var barSerializableFunction = (SerializableFunction<Integer, Integer>) t -> -t;
+		assertThat(fooSerializableFunction.compose(barSerializableFunction).apply(1)).isEqualTo(0);
+		assertThat(fooSerializableFunction.compose(barSerializableFunction).apply(3)).isEqualTo(-2);
+		assertThat(barSerializableFunction.compose(fooSerializableFunction).apply(1)).isEqualTo(-2);
+		assertThat(barSerializableFunction.compose(fooSerializableFunction).apply(3)).isEqualTo(-4);
 	}
 
 	@Test
@@ -61,12 +61,12 @@ final class SerializableFunctionTest {
 
 	@Test
 	void testAndThen() {
-		final var serializableFunction1 = (SerializableFunction<Integer, Integer>) t -> t + 1;
-		final var serializableFunction2 = (SerializableFunction<Integer, Integer>) t -> -t;
-		assertThat(serializableFunction1.andThen(serializableFunction2).apply(1)).isEqualTo(-2);
-		assertThat(serializableFunction1.andThen(serializableFunction2).apply(3)).isEqualTo(-4);
-		assertThat(serializableFunction2.andThen(serializableFunction1).apply(1)).isEqualTo(0);
-		assertThat(serializableFunction2.andThen(serializableFunction1).apply(3)).isEqualTo(-2);
+		final var fooSerializableFunction = (SerializableFunction<Integer, Integer>) t -> t + 1;
+		final var barSerializableFunction = (SerializableFunction<Integer, Integer>) t -> -t;
+		assertThat(fooSerializableFunction.andThen(barSerializableFunction).apply(1)).isEqualTo(-2);
+		assertThat(fooSerializableFunction.andThen(barSerializableFunction).apply(3)).isEqualTo(-4);
+		assertThat(barSerializableFunction.andThen(fooSerializableFunction).apply(1)).isEqualTo(0);
+		assertThat(barSerializableFunction.andThen(fooSerializableFunction).apply(3)).isEqualTo(-2);
 	}
 
 	@Test
@@ -96,12 +96,12 @@ final class SerializableFunctionTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableFunction = Serializables.<SerializableFunction<Integer, Integer>>deserialize(
+		final var deserializedSerializableFunction = Serializables.<SerializableFunction<Integer, Integer>>deserialize(
 				Serializables.serialize(
 						(SerializableFunction<Integer, Integer>) t -> t + 1
 				)
 		);
-		assertThat(serializableFunction.apply(1)).isEqualTo(2);
-		assertThat(serializableFunction.apply(3)).isEqualTo(4);
+		assertThat(deserializedSerializableFunction.apply(1)).isEqualTo(2);
+		assertThat(deserializedSerializableFunction.apply(3)).isEqualTo(4);
 	}
 }

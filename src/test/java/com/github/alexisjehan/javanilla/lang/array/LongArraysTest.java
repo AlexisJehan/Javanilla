@@ -36,6 +36,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class LongArraysTest {
 
+	private static final long[] VALUES = {1L, 2L};
+
 	@Test
 	void testEmpty() {
 		assertThat(LongArrays.EMPTY).isEmpty();
@@ -45,44 +47,44 @@ final class LongArraysTest {
 	void testNullToEmpty() {
 		assertThat(LongArrays.nullToEmpty(null)).isEmpty();
 		assertThat(LongArrays.nullToEmpty(LongArrays.EMPTY)).isEmpty();
-		assertThat(LongArrays.nullToEmpty(LongArrays.singleton(1L))).containsExactly(1L);
+		assertThat(LongArrays.nullToEmpty(LongArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefault() {
 		assertThat(LongArrays.nullToDefault(null, LongArrays.singleton(0L))).containsExactly(0L);
 		assertThat(LongArrays.nullToDefault(LongArrays.EMPTY, LongArrays.singleton(0L))).isEmpty();
-		assertThat(LongArrays.nullToDefault(LongArrays.singleton(1L), LongArrays.singleton(0L))).containsExactly(1L);
+		assertThat(LongArrays.nullToDefault(LongArrays.of(VALUES), LongArrays.singleton(0L))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.nullToDefault(LongArrays.singleton(1L), null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.nullToDefault(LongArrays.of(VALUES), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(LongArrays.emptyToNull(null)).isNull();
 		assertThat(LongArrays.emptyToNull(LongArrays.EMPTY)).isNull();
-		assertThat(LongArrays.emptyToNull(LongArrays.singleton(1L))).containsExactly(1L);
+		assertThat(LongArrays.emptyToNull(LongArrays.of(VALUES))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefault() {
 		assertThat(LongArrays.emptyToDefault(null, LongArrays.singleton(0L))).isNull();
 		assertThat(LongArrays.emptyToDefault(LongArrays.EMPTY, LongArrays.singleton(0L))).containsExactly(0L);
-		assertThat(LongArrays.emptyToDefault(LongArrays.singleton(1L), LongArrays.singleton(0L))).containsExactly(1L);
+		assertThat(LongArrays.emptyToDefault(LongArrays.of(VALUES), LongArrays.singleton(0L))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.emptyToDefault(LongArrays.singleton(1L), LongArrays.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.emptyToDefault(LongArrays.of(VALUES), LongArrays.EMPTY));
 	}
 
 	@Test
 	void testIsEmpty() {
 		assertThat(LongArrays.isEmpty(LongArrays.EMPTY)).isTrue();
-		assertThat(LongArrays.isEmpty(LongArrays.singleton(1L))).isFalse();
+		assertThat(LongArrays.isEmpty(LongArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
@@ -101,8 +103,8 @@ final class LongArraysTest {
 	@Test
 	void testContainsAnyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsAny(null, 1L));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsAny(LongArrays.singleton(1L), (long[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsAny(LongArrays.singleton(1L)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsAny(LongArrays.of(VALUES), (long[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsAny(LongArrays.of(VALUES)));
 	}
 
 	@Test
@@ -119,8 +121,8 @@ final class LongArraysTest {
 	@Test
 	void testContainsAllInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsAll(null, 1L));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsAll(LongArrays.singleton(1L), (long[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsAll(LongArrays.singleton(1L)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsAll(LongArrays.of(VALUES), (long[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsAll(LongArrays.of(VALUES)));
 	}
 
 	@Test
@@ -137,8 +139,8 @@ final class LongArraysTest {
 	@Test
 	void testContainsOnceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnce(null, 1L));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnce(LongArrays.singleton(1L), (long[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsOnce(LongArrays.singleton(1L)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnce(LongArrays.of(VALUES), (long[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsOnce(LongArrays.of(VALUES)));
 	}
 
 	@Test
@@ -155,50 +157,47 @@ final class LongArraysTest {
 	@Test
 	void testContainsOnlyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnly(null, 1L));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnly(LongArrays.singleton(1L), (long[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsOnly(LongArrays.singleton(1L)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.containsOnly(LongArrays.of(VALUES), (long[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.containsOnly(LongArrays.of(VALUES)));
 	}
 
 	@Test
 	void testIndexOf() {
 		assertThat(LongArrays.indexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
-		final var array = LongArrays.of(1L, 2L, 1L);
-		assertThat(LongArrays.indexOf(array, 1L)).isEqualTo(0);
-		assertThat(LongArrays.indexOf(array, 2L)).isEqualTo(1);
-		assertThat(LongArrays.indexOf(array, 1L, 1)).isEqualTo(2);
-		assertThat(LongArrays.indexOf(array, 2L, 2)).isEqualTo(-1);
+		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 1L)).isEqualTo(0);
+		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 2L)).isEqualTo(1);
+		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 1L, 1)).isEqualTo(2);
+		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 2L, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.indexOf(null, 1L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.indexOf(LongArrays.singleton(1L), 1L, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.indexOf(LongArrays.singleton(1L), 1L, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.indexOf(LongArrays.of(VALUES), 1L, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.indexOf(LongArrays.of(VALUES), 1L, 2));
 	}
 
 	@Test
 	void testLastIndexOf() {
 		assertThat(LongArrays.lastIndexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
-		final var array = LongArrays.of(1L, 2L, 1L);
-		assertThat(LongArrays.lastIndexOf(array, 1L)).isEqualTo(2);
-		assertThat(LongArrays.lastIndexOf(array, 2L)).isEqualTo(1);
-		assertThat(LongArrays.lastIndexOf(array, 1L, 1)).isEqualTo(2);
-		assertThat(LongArrays.lastIndexOf(array, 2L, 2)).isEqualTo(-1);
+		assertThat(LongArrays.lastIndexOf(LongArrays.of(1L, 2L, 1L), 1L)).isEqualTo(2);
+		assertThat(LongArrays.lastIndexOf(LongArrays.of(1L, 2L, 1L), 2L)).isEqualTo(1);
+		assertThat(LongArrays.lastIndexOf(LongArrays.of(1L, 2L, 1L), 1L, 1)).isEqualTo(2);
+		assertThat(LongArrays.lastIndexOf(LongArrays.of(1L, 2L, 1L), 2L, 2)).isEqualTo(-1);
 	}
 
 	@Test
 	void testLastIndexOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.lastIndexOf(null, 1L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.singleton(1L), 1L, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.singleton(1L), 1L, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.of(VALUES), 1L, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.lastIndexOf(LongArrays.of(VALUES), 1L, 2));
 	}
 
 	@Test
 	void testFrequency() {
 		assertThat(LongArrays.frequency(LongArrays.EMPTY, 1L)).isEqualTo(0);
-		final var array = LongArrays.of(1L, 2L, 1L);
-		assertThat(LongArrays.frequency(array, 1L)).isEqualTo(2);
-		assertThat(LongArrays.frequency(array, 2L)).isEqualTo(1);
+		assertThat(LongArrays.frequency(LongArrays.of(1L, 2L, 1L), 1L)).isEqualTo(2);
+		assertThat(LongArrays.frequency(LongArrays.of(1L, 2L, 1L), 2L)).isEqualTo(1);
 	}
 
 	@Test
@@ -208,16 +207,14 @@ final class LongArraysTest {
 
 	@Test
 	void testShuffle() {
-		{
-			final var array = LongArrays.singleton(1L);
+		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.shuffle(array);
 			assertThat(array).containsExactly(1L);
-		}
-		{
-			final var array = LongArrays.of(1L, 2L, 1L, 2L);
+		});
+		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
 			LongArrays.shuffle(array);
 			assertThat(array).containsExactlyInAnyOrder(1L, 2L, 1L, 2L);
-		}
+		});
 	}
 
 	@Test
@@ -227,23 +224,22 @@ final class LongArraysTest {
 
 	@Test
 	void testReverse() {
-		{
-			final var array = LongArrays.singleton(1L);
+		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.reverse(array);
 			assertThat(array).containsExactly(1L);
-		}
-		{
-			// Even
-			final var array = LongArrays.of(1L, 2L, 1L, 2L);
+		});
+
+		// Even
+		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
 			LongArrays.reverse(array);
 			assertThat(array).containsExactly(2L, 1L, 2L, 1L);
-		}
-		{
-			// Odd
-			final var array = LongArrays.of(1L, 2L, 2L);
+		});
+
+		// Odd
+		assertThat(LongArrays.of(1L, 2L, 2L)).satisfies(array -> {
 			LongArrays.reverse(array);
 			assertThat(array).containsExactly(2L, 2L, 1L);
-		}
+		});
 	}
 
 	@Test
@@ -253,51 +249,47 @@ final class LongArraysTest {
 
 	@Test
 	void testReorder() {
-		{
-			final var array = LongArrays.singleton(1L);
+		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.reorder(array, 0);
 			assertThat(array).containsExactly(1L);
-		}
-		{
-			final var array = LongArrays.of(1L, 2L, 1L, 2L);
+		});
+		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
 			LongArrays.reorder(array, 2, 0, 3, 1);
 			assertThat(array).containsExactly(1L, 1L, 2L, 2L);
-		}
+		});
 	}
 
 	@Test
 	void testReorderInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.reorder(null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.reorder(LongArrays.singleton(1L), (int[]) null));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.singleton(0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, 0)));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(-1, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(2, 1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, -1)));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(1L, 2L), IntArrays.of(0, 2)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), (int[]) null));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), IntArrays.singleton(0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), IntArrays.of(0, 0)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), IntArrays.of(-1, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), IntArrays.of(2, 1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), IntArrays.of(0, -1)));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.reorder(LongArrays.of(VALUES), IntArrays.of(0, 2)));
 	}
 
 	@Test
 	void testSwap() {
-		{
-			final var array = LongArrays.singleton(1L);
+		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.swap(array, 0, 0);
 			assertThat(array).containsExactly(1L);
-		}
-		{
-			final var array = LongArrays.of(1L, 2L, 1L, 2L);
+		});
+		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
 			LongArrays.swap(array, 1, 2);
 			assertThat(array).containsExactly(1L, 1L, 2L, 2L);
-		}
+		});
 	}
 
 	@Test
 	void testSwapInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.swap(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), -1, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 2, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 0, -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(1L, 2L), 0, 2));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(VALUES), -1, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(VALUES), 2, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(VALUES), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.swap(LongArrays.of(VALUES), 0, 2));
 	}
 
 	@Test
@@ -314,8 +306,8 @@ final class LongArraysTest {
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0L));
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0, 0L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.singleton(1), -1, 0L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.singleton(1), 2, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), -1, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), 3, 0L));
 	}
 
 	@Test
@@ -330,15 +322,15 @@ final class LongArraysTest {
 	void testRemoveInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.remove(null, 0));
 		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.singleton(1), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.singleton(1), 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.of(VALUES), 2));
 	}
 
 	@Test
 	void testConcat() {
 		assertThat(LongArrays.concat()).isEmpty();
-		assertThat(LongArrays.concat(LongArrays.singleton(1L))).containsExactly(1L);
-		assertThat(LongArrays.concat(LongArrays.singleton(1L), LongArrays.singleton(2L))).containsExactly(1L, 2L);
+		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 	}
 
 	@Test
@@ -350,29 +342,29 @@ final class LongArraysTest {
 
 	@Test
 	void testJoin() {
-		assertThat(LongArrays.join(LongArrays.EMPTY, LongArrays.singleton(1L), LongArrays.singleton(2L))).containsExactly(1L, 2L);
+		assertThat(LongArrays.join(LongArrays.EMPTY, LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
 		assertThat(LongArrays.join(LongArrays.singleton(0L))).isEmpty();
-		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(1L))).containsExactly(1L);
-		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(1L), LongArrays.singleton(2L))).containsExactly(1L, 0L, 2L);
+		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0L, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(null, LongArrays.singleton(1L)));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.singleton(0L), (long[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.singleton(0L), (List<long[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.singleton(0L), (long[]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(null, LongArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (List<long[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[]) null));
 	}
 
 	@Test
 	void testSingleton() {
-		assertThat(LongArrays.singleton(1L)).containsExactly(1L);
+		assertThat(LongArrays.singleton(VALUES[0])).containsExactly(VALUES[0]);
 	}
 
 	@Test
 	void testOf() {
 		assertThat(LongArrays.of()).isEmpty();
-		assertThat(LongArrays.of(1L, 2L)).containsExactly(1L, 2L);
+		assertThat(LongArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
@@ -383,9 +375,9 @@ final class LongArraysTest {
 	@Test
 	void testOfBoxedToBoxed() {
 		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.EMPTY))).isEmpty();
-		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.of(1L, 2L)))).containsExactly(1L, 2L);
-		assertThat(LongArrays.toBoxed(LongArrays.singleton(1L))).isInstanceOf(Long[].class);
-		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.singleton(1L)))).isInstanceOf(long[].class);
+		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.of(VALUES)))).containsExactly(VALUES);
+		assertThat(LongArrays.toBoxed(LongArrays.of(VALUES))).isInstanceOf(Long[].class);
+		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.of(VALUES)))).isInstanceOf(long[].class);
 	}
 
 	@Test

@@ -24,6 +24,7 @@
 package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -34,6 +35,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -44,19 +46,23 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class LineReaderTest {
 
+	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
+
 	@Test
 	void testConstructor(@TempDir final Path tmpDirectory) throws IOException {
-		final var path = tmpDirectory.resolve("testConstructor");
-		Files.write(path, "abc\ndef".getBytes());
-		try (final var lineReader = new LineReader(path)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
-			assertThat(lineReader.read()).isEqualTo("def");
+		final var tmpFile = tmpDirectory.resolve("testConstructor");
+		Files.write(tmpFile, List.of(LINES));
+		try (final var lineReader = new LineReader(tmpFile)) {
+			assertThat(lineReader.read()).isEqualTo(LINES[0]);
+			assertThat(lineReader.read()).isEqualTo(LINES[1]);
+			assertThat(lineReader.read()).isEqualTo(LINES[2]);
 			assertThat(lineReader.read()).isNull();
 		}
-		Files.write(path, "abc\ndef".getBytes(StandardCharsets.ISO_8859_1));
-		try (final var lineReader = new LineReader(path, StandardCharsets.ISO_8859_1)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
-			assertThat(lineReader.read()).isEqualTo("def");
+		Files.write(tmpFile, List.of(LINES), StandardCharsets.ISO_8859_1);
+		try (final var lineReader = new LineReader(tmpFile, StandardCharsets.ISO_8859_1)) {
+			assertThat(lineReader.read()).isEqualTo(LINES[0]);
+			assertThat(lineReader.read()).isEqualTo(LINES[1]);
+			assertThat(lineReader.read()).isEqualTo(LINES[2]);
 			assertThat(lineReader.read()).isNull();
 		}
 	}
@@ -64,47 +70,47 @@ final class LineReaderTest {
 	@Test
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new LineReader((Reader) null, LineSeparator.DEFAULT));
-		assertThatNullPointerException().isThrownBy(() -> new LineReader(Readers.singleton('a'), null));
+		assertThatNullPointerException().isThrownBy(() -> new LineReader(Readers.of(String.join("\n", LINES)), null));
 	}
 
 	@Test
 	void testRead() throws IOException {
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef"), LineSeparator.DEFAULT)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar"), LineSeparator.DEFAULT)) {
+			assertThat(lineReader.read()).isEqualTo("foo");
 			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isEqualTo("def");
+			assertThat(lineReader.read()).isEqualTo("bar");
 			assertThat(lineReader.read()).isNull();
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef\n"), LineSeparator.DEFAULT)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar\n"), LineSeparator.DEFAULT)) {
+			assertThat(lineReader.read()).isEqualTo("foo");
 			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isEqualTo("def");
+			assertThat(lineReader.read()).isEqualTo("bar");
 			assertThat(lineReader.read()).isNull();
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\r\ndef\r\n"), LineSeparator.DEFAULT)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
+		try (final var lineReader = new LineReader(new StringReader("foo\r\nbar\r\n"), LineSeparator.DEFAULT)) {
+			assertThat(lineReader.read()).isEqualTo("foo");
 			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isEqualTo("def");
-			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isNull();
-		}
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef"), LineSeparator.DEFAULT, false)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
-			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isEqualTo("def");
-			assertThat(lineReader.read()).isNull();
-		}
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef\n"), LineSeparator.DEFAULT, false)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
-			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isEqualTo("def");
+			assertThat(lineReader.read()).isEqualTo("bar");
 			assertThat(lineReader.read()).isEmpty();
 			assertThat(lineReader.read()).isNull();
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\r\ndef\r\n"), LineSeparator.DEFAULT, false)) {
-			assertThat(lineReader.read()).isEqualTo("abc");
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar"), LineSeparator.DEFAULT, false)) {
+			assertThat(lineReader.read()).isEqualTo("foo");
 			assertThat(lineReader.read()).isEmpty();
-			assertThat(lineReader.read()).isEqualTo("def");
+			assertThat(lineReader.read()).isEqualTo("bar");
+			assertThat(lineReader.read()).isNull();
+		}
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar\n"), LineSeparator.DEFAULT, false)) {
+			assertThat(lineReader.read()).isEqualTo("foo");
+			assertThat(lineReader.read()).isEmpty();
+			assertThat(lineReader.read()).isEqualTo("bar");
+			assertThat(lineReader.read()).isEmpty();
+			assertThat(lineReader.read()).isNull();
+		}
+		try (final var lineReader = new LineReader(new StringReader("foo\r\nbar\r\n"), LineSeparator.DEFAULT, false)) {
+			assertThat(lineReader.read()).isEqualTo("foo");
+			assertThat(lineReader.read()).isEmpty();
+			assertThat(lineReader.read()).isEqualTo("bar");
 			assertThat(lineReader.read()).isEmpty();
 			assertThat(lineReader.read()).isEmpty();
 			assertThat(lineReader.read()).isNull();
@@ -113,37 +119,37 @@ final class LineReaderTest {
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef"), LineSeparator.DEFAULT)) {
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar"), LineSeparator.DEFAULT)) {
 			assertThat(lineReader.skip(0L)).isEqualTo(0L);
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(3L)).isEqualTo(2L);
 			assertThat(lineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef\n"), LineSeparator.DEFAULT)) {
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar\n"), LineSeparator.DEFAULT)) {
 			assertThat(lineReader.skip(0L)).isEqualTo(0L);
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(3L)).isEqualTo(2L);
 			assertThat(lineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\r\ndef\r\n"), LineSeparator.DEFAULT)) {
+		try (final var lineReader = new LineReader(new StringReader("foo\r\nbar\r\n"), LineSeparator.DEFAULT)) {
 			assertThat(lineReader.skip(0L)).isEqualTo(0L);
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(4L)).isEqualTo(3L);
 			assertThat(lineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef"), LineSeparator.DEFAULT, false)) {
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar"), LineSeparator.DEFAULT, false)) {
 			assertThat(lineReader.skip(0L)).isEqualTo(0L);
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(3L)).isEqualTo(2L);
 			assertThat(lineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\n\rdef\n"), LineSeparator.DEFAULT, false)) {
+		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar\n"), LineSeparator.DEFAULT, false)) {
 			assertThat(lineReader.skip(0L)).isEqualTo(0L);
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(4L)).isEqualTo(3L);
 			assertThat(lineReader.skip(1L)).isEqualTo(0L);
 		}
-		try (final var lineReader = new LineReader(new StringReader("abc\r\ndef\r\n"), LineSeparator.DEFAULT, false)) {
+		try (final var lineReader = new LineReader(new StringReader("foo\r\nbar\r\n"), LineSeparator.DEFAULT, false)) {
 			assertThat(lineReader.skip(0L)).isEqualTo(0L);
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(5L)).isEqualTo(4L);
@@ -159,22 +165,22 @@ final class LineReaderTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	void testTransferTo() throws IOException {
-		try (final var stringWriter = new StringWriter()) {
+		try (final var writer = new StringWriter()) {
 			try (final var lineReader = new LineReader(Readers.EMPTY, LineSeparator.DEFAULT)) {
-				assertThat(lineReader.transferTo(new LineWriter(stringWriter))).isEqualTo(0L);
+				assertThat(lineReader.transferTo(new LineWriter(writer))).isEqualTo(0L);
 			}
-			assertThat(stringWriter.toString()).isEmpty();
+			assertThat(writer.toString()).isEmpty();
 		}
-		try (final var stringWriter = new StringWriter()) {
-			try (final var lineReader = new LineReader(new StringReader("abc\ndef"), LineSeparator.DEFAULT)) {
-				assertThat(lineReader.transferTo(new LineWriter(stringWriter))).isEqualTo(2L);
+		try (final var writer = new StringWriter()) {
+			try (final var lineReader = new LineReader(Readers.of(String.join("\n", LINES)), LineSeparator.DEFAULT)) {
+				assertThat(lineReader.transferTo(new LineWriter(writer))).isEqualTo(3L);
 			}
-			assertThat(stringWriter.toString()).isEqualTo("abc" + System.lineSeparator() + "def");
+			assertThat(writer.toString()).isEqualTo(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
 		}
 	}
 
 	@Test
 	void testTransferToInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new LineReader(Readers.singleton('a'), LineSeparator.DEFAULT).transferTo(null));
+		assertThatNullPointerException().isThrownBy(() -> new LineReader(Readers.of(String.join("\n", LINES)), LineSeparator.DEFAULT).transferTo(null));
 	}
 }

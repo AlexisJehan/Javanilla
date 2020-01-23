@@ -34,6 +34,8 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class StringsTest {
 
+	private static final String STRING = "abc";
+
 	@Test
 	void testEmpty() {
 		assertThat(Strings.EMPTY).isEmpty();
@@ -43,94 +45,84 @@ final class StringsTest {
 	void testNullToEmptyCharSequence() {
 		assertThat(Strings.nullToEmpty((CharSequence) null)).isEmpty();
 		assertThat(Strings.nullToEmpty((CharSequence) Strings.EMPTY)).isEmpty();
-		assertThat(Strings.nullToEmpty((CharSequence) " ")).isEqualTo(" ");
-		assertThat(Strings.nullToEmpty((CharSequence) "foo")).isEqualTo("foo");
+		assertThat(Strings.nullToEmpty((CharSequence) STRING)).isEqualTo(STRING);
 	}
 
 	@Test
 	void testNullToEmptyString() {
 		assertThat(Strings.nullToEmpty(null)).isEmpty();
 		assertThat(Strings.nullToEmpty(Strings.EMPTY)).isEmpty();
-		assertThat(Strings.nullToEmpty(" ")).isEqualTo(" ");
-		assertThat(Strings.nullToEmpty("foo")).isEqualTo("foo");
+		assertThat(Strings.nullToEmpty(STRING)).isEqualTo(STRING);
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Strings.nullToDefault(null, "bar")).isEqualTo("bar");
-		assertThat(Strings.nullToDefault(Strings.EMPTY, "bar")).isEmpty();
-		assertThat(Strings.nullToDefault(" ", "bar")).isEqualTo(" ");
-		assertThat(Strings.nullToDefault("foo", "bar")).isEqualTo("foo");
+		assertThat(Strings.nullToDefault(null, "-")).isEqualTo("-");
+		assertThat(Strings.nullToDefault(Strings.EMPTY, "-")).isEmpty();
+		assertThat(Strings.nullToDefault(STRING, "-")).isEqualTo(STRING);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.nullToDefault("foo", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.nullToDefault(STRING, null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Strings.emptyToNull((CharSequence) null)).isNull();
 		assertThat(Strings.emptyToNull(Strings.EMPTY)).isNull();
-		assertThat(Strings.emptyToNull(" ")).isEqualTo(" ");
-		assertThat(Strings.emptyToNull("foo")).isEqualTo("foo");
+		assertThat(Strings.emptyToNull(STRING)).isEqualTo(STRING);
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Strings.emptyToDefault(null, "bar")).isNull();
-		assertThat(Strings.emptyToDefault(Strings.EMPTY, "bar")).isEqualTo("bar");
-		assertThat(Strings.emptyToDefault(" ", "bar")).isEqualTo(" ");
-		assertThat(Strings.emptyToDefault("foo", "bar")).isEqualTo("foo");
+		assertThat(Strings.emptyToDefault(null, "-")).isNull();
+		assertThat(Strings.emptyToDefault(Strings.EMPTY, "-")).isEqualTo("-");
+		assertThat(Strings.emptyToDefault(STRING, "-")).isEqualTo(STRING);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.emptyToDefault("foo", Strings.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.emptyToDefault(STRING, Strings.EMPTY));
 	}
 
 	@Test
 	void testBlankToNull() {
 		assertThat(Strings.blankToNull((CharSequence) null)).isNull();
-		assertThat(Strings.blankToNull(Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToNull(" ")).isNull();
-		assertThat(Strings.blankToNull("foo")).isEqualTo("foo");
+		assertThat(Strings.blankToNull(STRING)).isEqualTo(STRING);
 	}
 
 	@Test
 	void testBlankToEmptyCharSequence() {
 		assertThat(Strings.blankToEmpty((CharSequence) null)).isNull();
-		assertThat(Strings.blankToEmpty((CharSequence) Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToEmpty((CharSequence) " ")).isEmpty();
-		assertThat(Strings.blankToEmpty((CharSequence) "foo")).isEqualTo("foo");
+		assertThat(Strings.blankToEmpty((CharSequence) STRING)).isEqualTo(STRING);
 	}
 
 	@Test
 	void testBlankToEmptyString() {
 		assertThat(Strings.blankToEmpty(null)).isNull();
-		assertThat(Strings.blankToEmpty(Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToEmpty(" ")).isEmpty();
-		assertThat(Strings.blankToEmpty("foo")).isEqualTo("foo");
+		assertThat(Strings.blankToEmpty(STRING)).isEqualTo(STRING);
 	}
 
 	@Test
 	void testBlankToDefault() {
-		assertThat(Strings.blankToDefault(null, "bar")).isNull();
-		assertThat(Strings.blankToDefault(Strings.EMPTY, "bar")).isEmpty();
-		assertThat(Strings.blankToDefault(" ", "bar")).isEqualTo("bar");
-		assertThat(Strings.blankToDefault("foo", "bar")).isEqualTo("foo");
+		assertThat(Strings.blankToDefault(null, "-")).isNull();
+		assertThat(Strings.blankToDefault(" ", "-")).isEqualTo("-");
+		assertThat(Strings.blankToDefault(STRING, "-")).isEqualTo(STRING);
 	}
 
 	@Test
 	void testBlankToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.blankToDefault("foo", " "));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.blankToDefault(STRING, " "));
 	}
 
 	@Test
 	void testIsEmpty() {
 		assertThat(Strings.isEmpty(Strings.EMPTY)).isTrue();
-		assertThat(Strings.isEmpty(" ")).isFalse();
-		assertThat(Strings.isEmpty("foo")).isFalse();
+		assertThat(Strings.isEmpty(STRING)).isFalse();
 	}
 
 	@Test
@@ -143,9 +135,9 @@ final class StringsTest {
 	void testIsBlank() {
 		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
 		assertThat(Strings.isBlank(" ")).isTrue();
-		assertThat(Strings.isBlank("foo")).isFalse();
+		assertThat(Strings.isBlank(STRING)).isFalse();
 		assertThat(Strings.isBlank(" \t\n\r")).isTrue();
-		assertThat(Strings.isBlank(" \t\n\rfoo")).isFalse();
+		assertThat(Strings.isBlank(" \t\n\r" + STRING)).isFalse();
 	}
 
 	@Test
@@ -393,8 +385,8 @@ final class StringsTest {
 
 	@Test
 	void testContainsIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, "fo"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase("foo", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(STRING, null));
 	}
 
 	@Test
@@ -410,8 +402,8 @@ final class StringsTest {
 
 	@Test
 	void testStartsWithIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, "fo"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase("foo", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(STRING, null));
 	}
 
 	@Test
@@ -427,8 +419,8 @@ final class StringsTest {
 
 	@Test
 	void testEndsWithIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, "oo"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase("foo", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(STRING, null));
 	}
 
 	@Test
@@ -455,9 +447,9 @@ final class StringsTest {
 
 	@Test
 	void testFrequencyCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, "foo"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency("foofoo", null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.frequency("foofoo", Strings.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(STRING, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.frequency(STRING, Strings.EMPTY));
 	}
 
 	@Test
@@ -560,7 +552,7 @@ final class StringsTest {
 	@Test
 	void testSplitCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.split('x', null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split('x', "foo", 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split('x', STRING, 1));
 	}
 
 	@Test
@@ -583,9 +575,9 @@ final class StringsTest {
 
 	@Test
 	void testSplitCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.split(null, "foo"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.split("xX", null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split("xX", "foo", 1));
+		assertThatNullPointerException().isThrownBy(() -> Strings.split(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.split(STRING, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split(STRING, STRING, 1));
 	}
 
 	@Test
@@ -615,7 +607,7 @@ final class StringsTest {
 	@SuppressWarnings("deprecation")
 	void testRepeatCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.repeat(null, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat("xX", -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat(STRING, -1));
 	}
 
 	@Test
@@ -629,7 +621,7 @@ final class StringsTest {
 	@Test
 	void testPadLeftCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(null, 1, 'x'));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft("foo", -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft(STRING, -1));
 	}
 
 	@Test
@@ -644,9 +636,9 @@ final class StringsTest {
 
 	@Test
 	void testPadLeftCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(null, 1, "xX"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft("foo", 1, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft("foo", -1, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(null, 1, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(STRING, 1, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft(STRING, -1, STRING));
 	}
 
 	@Test
@@ -660,7 +652,7 @@ final class StringsTest {
 	@Test
 	void testPadRightCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(null, 1, 'x'));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight("foo", -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight(STRING, -1));
 	}
 
 	@Test
@@ -675,9 +667,9 @@ final class StringsTest {
 
 	@Test
 	void testPadRightCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(null, 1, "xX"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.padRight("foo", 1, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight("foo", -1, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(null, 1, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(STRING, 1, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight(STRING, -1, STRING));
 	}
 
 	@Test
@@ -693,7 +685,7 @@ final class StringsTest {
 	@Test
 	void testPadBothCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(null, 1, 'x'));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth("foo", -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth(STRING, -1));
 	}
 
 	@Test
@@ -708,9 +700,9 @@ final class StringsTest {
 
 	@Test
 	void testPadBothCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(null, 1, "xX"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth("foo", 1, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth("foo", -1, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(null, 1, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(STRING, 1, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth(STRING, -1, STRING));
 	}
 
 	@Test
@@ -738,9 +730,9 @@ final class StringsTest {
 
 	@Test
 	void testReplaceFirstCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(null, "xX", "__"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst("12345123450", null, "__"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst("12345123450", "xX", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(null, STRING, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(STRING, null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(STRING, STRING, null));
 	}
 
 	@Test
@@ -768,9 +760,9 @@ final class StringsTest {
 
 	@Test
 	void testReplaceLastCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(null, "xX", "__"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast("01234512345", null, "__"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast("01234512345", "xX", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(null, STRING, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(STRING, null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(STRING, STRING, null));
 	}
 
 	@Test
@@ -795,8 +787,8 @@ final class StringsTest {
 
 	@Test
 	void testRemoveStartCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(null, "zzz"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart("abc", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(STRING, null));
 	}
 
 	@Test
@@ -810,8 +802,8 @@ final class StringsTest {
 
 	@Test
 	void testRemoveStartIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(null, "zzz"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase("abc", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(STRING, null));
 	}
 
 	@Test
@@ -836,8 +828,8 @@ final class StringsTest {
 
 	@Test
 	void testRemoveEndCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(null, "zzz"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd("abc", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(STRING, null));
 	}
 
 	@Test
@@ -851,8 +843,8 @@ final class StringsTest {
 
 	@Test
 	void testRemoveEndIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(null, "zzz"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase("abc", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(STRING, null));
 	}
 
 	@Test
@@ -867,8 +859,8 @@ final class StringsTest {
 
 	@Test
 	void testConcatMergeInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, "456789"));
-		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge("123456", null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(STRING, null));
 	}
 
 	@Test
@@ -891,6 +883,6 @@ final class StringsTest {
 	void testToCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.toChar(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> Strings.toChar(Strings.EMPTY));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.toChar("ab"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.toChar(STRING));
 	}
 }

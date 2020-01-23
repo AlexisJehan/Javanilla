@@ -49,20 +49,16 @@ final class SerializableConsumerTest {
 
 	@Test
 	void testAndThen() {
-		final var serializableConsumer1 = (SerializableConsumer<List<Integer>>) t -> t.add(t.size() + 1);
-		final var serializableConsumer2 = (SerializableConsumer<List<Integer>>) t -> t.add(t.size() - 1);
-		{
-			final var list = new ArrayList<Integer>();
-			serializableConsumer1.andThen(serializableConsumer2).accept(list);
-			serializableConsumer1.andThen(serializableConsumer2).accept(list);
-			assertThat(list).containsExactly(1, 0, 3, 2);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			serializableConsumer2.andThen(serializableConsumer1).accept(list);
-			serializableConsumer2.andThen(serializableConsumer1).accept(list);
-			assertThat(list).containsExactly(-1, 2, 1, 4);
-		}
+		final var fooSerializableConsumer = (SerializableConsumer<List<Integer>>) t -> t.add(t.size() + 1);
+		final var barSerializableConsumer = (SerializableConsumer<List<Integer>>) t -> t.add(t.size() - 1);
+		final var list = new ArrayList<Integer>();
+		fooSerializableConsumer.andThen(barSerializableConsumer).accept(list);
+		fooSerializableConsumer.andThen(barSerializableConsumer).accept(list);
+		assertThat(list).containsExactly(1, 0, 3, 2);
+		list.clear();
+		barSerializableConsumer.andThen(fooSerializableConsumer).accept(list);
+		barSerializableConsumer.andThen(fooSerializableConsumer).accept(list);
+		assertThat(list).containsExactly(-1, 2, 1, 4);
 	}
 
 	@Test
@@ -87,14 +83,14 @@ final class SerializableConsumerTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableConsumer = Serializables.<SerializableConsumer<List<Integer>>>deserialize(
+		final var deserializedSerializableConsumer = Serializables.<SerializableConsumer<List<Integer>>>deserialize(
 				Serializables.serialize(
 						(SerializableConsumer<List<Integer>>) t -> t.add(t.size() + 1)
 				)
 		);
 		final var list = new ArrayList<Integer>();
-		serializableConsumer.accept(list);
-		serializableConsumer.accept(list);
+		deserializedSerializableConsumer.accept(list);
+		deserializedSerializableConsumer.accept(list);
 		assertThat(list).containsExactly(1, 2);
 	}
 }

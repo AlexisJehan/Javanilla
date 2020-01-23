@@ -35,7 +35,6 @@ import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -79,7 +78,7 @@ final class ReadersTest {
 	void testNullToEmpty() throws IOException {
 		assertThat(Readers.toChars(Readers.nullToEmpty(null))).isEmpty();
 		assertThat(Readers.toChars(Readers.nullToEmpty(Readers.EMPTY))).isEmpty();
-		assertThat(Readers.toChars(Readers.nullToEmpty(Readers.singleton('a')))).containsExactly('a');
+		assertThat(Readers.toChars(Readers.nullToEmpty(Readers.of(CHARS)))).containsExactly(CHARS);
 	}
 
 	@Test
@@ -87,12 +86,12 @@ final class ReadersTest {
 	void testNullToDefault() throws IOException {
 		assertThat(Readers.toChars(Readers.nullToDefault(null, Readers.singleton('-')))).containsExactly('-');
 		assertThat(Readers.toChars(Readers.nullToDefault(Readers.EMPTY, Readers.singleton('-')))).isEmpty();
-		assertThat(Readers.toChars(Readers.nullToDefault(Readers.singleton('a'), Readers.singleton('-')))).containsExactly('a');
+		assertThat(Readers.toChars(Readers.nullToDefault(Readers.of(CHARS), Readers.singleton('-')))).containsExactly(CHARS);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Readers.nullToDefault(Readers.singleton('a'), null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.nullToDefault(Readers.of(CHARS), null));
 	}
 
 	@Test
@@ -180,8 +179,8 @@ final class ReadersTest {
 	@Test
 	void testConcat() throws IOException {
 		assertThat(Readers.toChars(Readers.concat())).isEmpty();
-		assertThat(Readers.toChars(Readers.concat(Readers.singleton('a')))).containsExactly('a');
-		assertThat(Readers.toChars(Readers.concat(Readers.singleton('a'), Readers.singleton('b')))).containsExactly('a', 'b');
+		assertThat(Readers.toChars(Readers.concat(Readers.singleton(CHARS[0])))).containsExactly(CHARS[0]);
+		assertThat(Readers.toChars(Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2])))).containsExactly(CHARS);
 	}
 
 	@Test
@@ -194,7 +193,7 @@ final class ReadersTest {
 	@Test
 	void testConcatSequenceReader() throws IOException {
 		final var buffer = new char[2];
-		try (final var concatReader = Readers.concat(Readers.of('a', 'b', 'c'), Readers.of('d', 'e', 'f'))) {
+		try (final var concatReader = Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]))) {
 			assertThat(concatReader.read(buffer, 0, 0)).isEqualTo(0);
 			assertThatNullPointerException().isThrownBy(() -> concatReader.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, -1, 2));
@@ -206,21 +205,21 @@ final class ReadersTest {
 			}
 			assertThat(concatReader.read(buffer, 0, 1)).isEqualTo(-1);
 		}
-		final var concatReader = Readers.concat(Readers.of('a', 'b', 'c'), Readers.of('d', 'e', 'f'));
+		final var concatReader = Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]));
 		concatReader.close();
 	}
 
 	@Test
 	void testJoin() throws IOException {
-		assertThat(Readers.toChars(Readers.join(CharArrays.EMPTY, Readers.singleton('a'), Readers.singleton('b')))).containsExactly('a', 'b');
+		assertThat(Readers.toChars(Readers.join(CharArrays.EMPTY, Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2])))).containsExactly(CHARS);
 		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-')))).isEmpty();
-		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton('a')))).containsExactly('a');
-		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton('a'), Readers.singleton('b')))).containsExactly('a', '-', 'b');
+		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton(CHARS[0])))).containsExactly(CHARS[0]);
+		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2])))).containsExactly(CHARS[0], '-', CHARS[1], '-', CHARS[2]);
 	}
 
 	@Test
 	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Readers.join(null, Readers.singleton('a')));
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(null, Readers.of(CHARS)));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (List<Reader>) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader) null));
@@ -228,7 +227,7 @@ final class ReadersTest {
 
 	@Test
 	void testSingleton() throws IOException {
-		assertThat(Readers.toChars(Readers.singleton('a'))).containsExactly('a');
+		assertThat(Readers.toChars(Readers.singleton(CHARS[0]))).containsExactly(CHARS[0]);
 	}
 
 	@Test
@@ -250,10 +249,10 @@ final class ReadersTest {
 	@Test
 	void testOfStringAndToString() throws IOException {
 		assertThat(Readers.toString(Readers.of(Strings.EMPTY))).isEmpty();
-		assertThat(Readers.toString(Readers.of(new String("foo".getBytes(), StandardCharsets.ISO_8859_1)))).isEqualTo(new String("foo".getBytes(), StandardCharsets.ISO_8859_1));
+		assertThat(Readers.toString(Readers.of(new String(new String(CHARS).getBytes(), StandardCharsets.ISO_8859_1)))).isEqualTo(new String(new String(CHARS).getBytes(), StandardCharsets.ISO_8859_1));
 
 		// Not the same charset
-		assertThat(Readers.toString(Readers.of(new String("foo".getBytes(), StandardCharsets.UTF_16)))).isNotEqualTo(new String("foo".getBytes(), StandardCharsets.UTF_8));
+		assertThat(Readers.toString(Readers.of(new String(new String(CHARS).getBytes(), StandardCharsets.UTF_16)))).isNotEqualTo(new String(new String(CHARS).getBytes(), StandardCharsets.UTF_8));
 	}
 
 	@Test
@@ -268,16 +267,16 @@ final class ReadersTest {
 
 	@Test
 	void testOfPath(@TempDir final Path tmpDirectory) throws IOException {
-		final var path = tmpDirectory.resolve("testOfPath");
-		Files.write(path, new String(CHARS).getBytes());
-		try (final var pathReader = Readers.of(path)) {
-			assertThat(Readers.toChars(pathReader)).containsExactly(CHARS);
+		final var tmpFile = tmpDirectory.resolve("testOfPath");
+		Files.write(tmpFile, new String(CHARS).getBytes());
+		try (final var reader = Readers.of(tmpFile)) {
+			assertThat(Readers.toChars(reader)).containsExactly(CHARS);
 		}
 	}
 
 	@Test
-	void testOfPathInvalid() {
+	void testOfPathInvalid(@TempDir final Path tmpDirectory) {
 		assertThatNullPointerException().isThrownBy(() -> Readers.of((Path) null));
-		assertThatNullPointerException().isThrownBy(() -> Readers.of(Paths.get(getClass().getName() + ".testOfPathInvalid.txt"), null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.of(tmpDirectory.resolve("testOfPathInvalid"), null));
 	}
 }

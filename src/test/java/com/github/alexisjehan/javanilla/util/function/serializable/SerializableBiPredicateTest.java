@@ -45,16 +45,16 @@ final class SerializableBiPredicateTest {
 
 	@Test
 	void testAnd() {
-		final var serializableBiPredicate1 = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t >= u;
-		final var serializableBiPredicate2 = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t <= u;
-		assertThat(serializableBiPredicate1.and(serializableBiPredicate2).test(1, 2)).isFalse();
-		assertThat(serializableBiPredicate1.and(serializableBiPredicate2).test(3, 3)).isTrue();
-		assertThat(serializableBiPredicate2.and(serializableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(serializableBiPredicate2.and(serializableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(serializableBiPredicate1.and(serializableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(serializableBiPredicate1.and(serializableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(serializableBiPredicate2.and(serializableBiPredicate2).test(1, 2)).isTrue();
-		assertThat(serializableBiPredicate2.and(serializableBiPredicate2).test(3, 3)).isTrue();
+		final var fooSerializableBiPredicate = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t >= u;
+		final var barSerializableBiPredicate = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t <= u;
+		assertThat(fooSerializableBiPredicate.and(barSerializableBiPredicate).test(1, 2)).isFalse();
+		assertThat(fooSerializableBiPredicate.and(barSerializableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barSerializableBiPredicate.and(fooSerializableBiPredicate).test(1, 2)).isFalse();
+		assertThat(barSerializableBiPredicate.and(fooSerializableBiPredicate).test(3, 3)).isTrue();
+		assertThat(fooSerializableBiPredicate.and(fooSerializableBiPredicate).test(1, 2)).isFalse();
+		assertThat(fooSerializableBiPredicate.and(fooSerializableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barSerializableBiPredicate.and(barSerializableBiPredicate).test(1, 2)).isTrue();
+		assertThat(barSerializableBiPredicate.and(barSerializableBiPredicate).test(3, 3)).isTrue();
 	}
 
 	@Test
@@ -72,16 +72,16 @@ final class SerializableBiPredicateTest {
 
 	@Test
 	void testOr() {
-		final var serializableBiPredicate1 = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t >= u;
-		final var serializableBiPredicate2 = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t <= u;
-		assertThat(serializableBiPredicate1.or(serializableBiPredicate2).test(1, 2)).isTrue();
-		assertThat(serializableBiPredicate1.or(serializableBiPredicate2).test(3, 3)).isTrue();
-		assertThat(serializableBiPredicate2.or(serializableBiPredicate1).test(1, 2)).isTrue();
-		assertThat(serializableBiPredicate2.or(serializableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(serializableBiPredicate1.or(serializableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(serializableBiPredicate1.or(serializableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(serializableBiPredicate2.or(serializableBiPredicate2).test(1, 2)).isTrue();
-		assertThat(serializableBiPredicate2.or(serializableBiPredicate2).test(3, 3)).isTrue();
+		final var fooSerializableBiPredicate = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t >= u;
+		final var barSerializableBiPredicate = (SerializableBiPredicate<Integer, Integer>) (t, u) -> t <= u;
+		assertThat(fooSerializableBiPredicate.or(barSerializableBiPredicate).test(1, 2)).isTrue();
+		assertThat(fooSerializableBiPredicate.or(barSerializableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barSerializableBiPredicate.or(fooSerializableBiPredicate).test(1, 2)).isTrue();
+		assertThat(barSerializableBiPredicate.or(fooSerializableBiPredicate).test(3, 3)).isTrue();
+		assertThat(fooSerializableBiPredicate.or(fooSerializableBiPredicate).test(1, 2)).isFalse();
+		assertThat(fooSerializableBiPredicate.or(fooSerializableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barSerializableBiPredicate.or(barSerializableBiPredicate).test(1, 2)).isTrue();
+		assertThat(barSerializableBiPredicate.or(barSerializableBiPredicate).test(3, 3)).isTrue();
 	}
 
 	@Test
@@ -104,12 +104,12 @@ final class SerializableBiPredicateTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableBiPredicate = Serializables.<SerializableBiPredicate<Integer, Integer>>deserialize(
+		final var deserializedSerializableBiPredicate = Serializables.<SerializableBiPredicate<Integer, Integer>>deserialize(
 				Serializables.serialize(
 						(SerializableBiPredicate<Integer, Integer>) (t, u) -> t >= u
 				)
 		);
-		assertThat(serializableBiPredicate.test(1, 2)).isFalse();
-		assertThat(serializableBiPredicate.test(3, 3)).isTrue();
+		assertThat(deserializedSerializableBiPredicate.test(1, 2)).isFalse();
+		assertThat(deserializedSerializableBiPredicate.test(3, 3)).isTrue();
 	}
 }

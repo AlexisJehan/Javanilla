@@ -43,77 +43,61 @@ final class ThrowableConsumerTest {
 
 	@Test
 	void testAccept() throws IOException {
-		final var throwableConsumer1 = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
-		final var throwableConsumer2 = (ThrowableConsumer<List<Integer>, IOException>) t -> {
+		final var throwableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
+		final var exceptionThrowableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> {
 			throw new IOException();
 		};
-		{
-			final var list = new ArrayList<Integer>();
-			throwableConsumer1.accept(list);
-			throwableConsumer1.accept(list);
-			assertThat(list).containsExactly(1, 2);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			assertThatIOException().isThrownBy(() -> throwableConsumer2.accept(list));
-			assertThatIOException().isThrownBy(() -> throwableConsumer2.accept(list));
-			assertThat(list).isEmpty();
-		}
+		final var list = new ArrayList<Integer>();
+		throwableConsumer.accept(list);
+		throwableConsumer.accept(list);
+		assertThat(list).containsExactly(1, 2);
+		list.clear();
+		assertThatIOException().isThrownBy(() -> exceptionThrowableConsumer.accept(list));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableConsumer.accept(list));
+		assertThat(list).isEmpty();
 	}
 
 	@Test
 	void testAndThen() throws IOException {
-		final var throwableConsumer1 = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
-		final var throwableConsumer2 = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() - 1);
-		final var throwableConsumer3 = (ThrowableConsumer<List<Integer>, IOException>) t -> {
+		final var fooThrowableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
+		final var barThrowableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() - 1);
+		final var exceptionThrowableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> {
 			throw new IOException();
 		};
-		{
-			final var list = new ArrayList<Integer>();
-			throwableConsumer1.andThen(throwableConsumer2).accept(list);
-			throwableConsumer1.andThen(throwableConsumer2).accept(list);
-			assertThat(list).containsExactly(1, 0, 3, 2);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			throwableConsumer2.andThen(throwableConsumer1).accept(list);
-			throwableConsumer2.andThen(throwableConsumer1).accept(list);
-			assertThat(list).containsExactly(-1, 2, 1, 4);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			assertThatIOException().isThrownBy(() -> throwableConsumer1.andThen(throwableConsumer3).accept(list));
-			assertThatIOException().isThrownBy(() -> throwableConsumer3.andThen(throwableConsumer1).accept(list));
-			assertThat(list).containsExactly(1);
-		}
+		final var list = new ArrayList<Integer>();
+		fooThrowableConsumer.andThen(barThrowableConsumer).accept(list);
+		fooThrowableConsumer.andThen(barThrowableConsumer).accept(list);
+		assertThat(list).containsExactly(1, 0, 3, 2);
+		list.clear();
+		barThrowableConsumer.andThen(fooThrowableConsumer).accept(list);
+		barThrowableConsumer.andThen(fooThrowableConsumer).accept(list);
+		assertThat(list).containsExactly(-1, 2, 1, 4);
+		list.clear();
+		assertThatIOException().isThrownBy(() -> fooThrowableConsumer.andThen(exceptionThrowableConsumer).accept(list));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableConsumer.andThen(fooThrowableConsumer).accept(list));
+		assertThat(list).containsExactly(1);
 	}
 
 	@Test
 	void testAndThenInvalid() {
-		final var throwableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> {
-			throw new IOException();
-		};
+		final var throwableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
 		assertThatNullPointerException().isThrownBy(() -> throwableConsumer.andThen(null));
 	}
 
 	@Test
 	void testUnchecked() {
-		final var throwableConsumer1 = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
-		final var throwableConsumer2 = (ThrowableConsumer<List<Integer>, IOException>) t -> {
+		final var throwableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
+		final var exceptionThrowableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> {
 			throw new IOException();
 		};
-		{
-			final var list = new ArrayList<Integer>();
-			ThrowableConsumer.unchecked(throwableConsumer1).accept(list);
-			ThrowableConsumer.unchecked(throwableConsumer1).accept(list);
-			assertThat(list).containsExactly(1, 2);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableConsumer.unchecked(throwableConsumer2).accept(list));
-			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableConsumer.unchecked(throwableConsumer2).accept(list));
-			assertThat(list).isEmpty();
-		}
+		final var list = new ArrayList<Integer>();
+		ThrowableConsumer.unchecked(throwableConsumer).accept(list);
+		ThrowableConsumer.unchecked(throwableConsumer).accept(list);
+		assertThat(list).containsExactly(1, 2);
+		list.clear();
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableConsumer.unchecked(exceptionThrowableConsumer).accept(list));
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableConsumer.unchecked(exceptionThrowableConsumer).accept(list));
+		assertThat(list).isEmpty();
 	}
 
 	@Test

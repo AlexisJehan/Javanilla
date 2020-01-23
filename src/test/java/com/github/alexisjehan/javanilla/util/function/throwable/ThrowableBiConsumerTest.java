@@ -43,79 +43,63 @@ final class ThrowableBiConsumerTest {
 
 	@Test
 	void testAccept() throws IOException {
-		final var throwableBiConsumer1 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
-		final var throwableBiConsumer2 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
+		final var throwableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
+		final var exceptionThrowableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		{
-			final var list = new ArrayList<Integer>();
-			throwableBiConsumer1.accept(list, 1);
-			throwableBiConsumer1.accept(list, 3);
-			assertThat(list).containsExactly(2, 4);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			assertThatIOException().isThrownBy(() -> throwableBiConsumer2.accept(list, 1));
-			assertThatIOException().isThrownBy(() -> throwableBiConsumer2.accept(list, 3));
-			assertThat(list).isEmpty();
-		}
+		final var list = new ArrayList<Integer>();
+		throwableBiConsumer.accept(list, 1);
+		throwableBiConsumer.accept(list, 3);
+		assertThat(list).containsExactly(2, 4);
+		list.clear();
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiConsumer.accept(list, 1));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiConsumer.accept(list, 3));
+		assertThat(list).isEmpty();
 	}
 
 	@Test
 	void testAndThen() throws IOException {
-		final var throwableBiConsumer1 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
-		final var throwableBiConsumer2 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u - 1);
-		final var throwableBiConsumer3 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
+		final var fooThrowableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
+		final var barThrowableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u - 1);
+		final var exceptionThrowableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		{
-			final var list = new ArrayList<Integer>();
-			throwableBiConsumer1.andThen(throwableBiConsumer2).accept(list, 1);
-			throwableBiConsumer1.andThen(throwableBiConsumer2).accept(list, 3);
-			assertThat(list).containsExactly(2, 0, 4, 2);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			throwableBiConsumer2.andThen(throwableBiConsumer1).accept(list, 1);
-			throwableBiConsumer2.andThen(throwableBiConsumer1).accept(list, 3);
-			assertThat(list).containsExactly(0, 2, 2, 4);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			assertThatIOException().isThrownBy(() -> throwableBiConsumer1.andThen(throwableBiConsumer3).accept(list, 1));
-			assertThatIOException().isThrownBy(() -> throwableBiConsumer1.andThen(throwableBiConsumer3).accept(list, 3));
-			assertThatIOException().isThrownBy(() -> throwableBiConsumer3.andThen(throwableBiConsumer1).accept(list, 1));
-			assertThatIOException().isThrownBy(() -> throwableBiConsumer3.andThen(throwableBiConsumer1).accept(list, 3));
-			assertThat(list).containsExactly(2, 4);
-		}
+		final var list = new ArrayList<Integer>();
+		fooThrowableBiConsumer.andThen(barThrowableBiConsumer).accept(list, 1);
+		fooThrowableBiConsumer.andThen(barThrowableBiConsumer).accept(list, 3);
+		assertThat(list).containsExactly(2, 0, 4, 2);
+		list.clear();
+		barThrowableBiConsumer.andThen(fooThrowableBiConsumer).accept(list, 1);
+		barThrowableBiConsumer.andThen(fooThrowableBiConsumer).accept(list, 3);
+		assertThat(list).containsExactly(0, 2, 2, 4);
+		list.clear();
+		assertThatIOException().isThrownBy(() -> fooThrowableBiConsumer.andThen(exceptionThrowableBiConsumer).accept(list, 1));
+		assertThatIOException().isThrownBy(() -> fooThrowableBiConsumer.andThen(exceptionThrowableBiConsumer).accept(list, 3));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiConsumer.andThen(fooThrowableBiConsumer).accept(list, 1));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiConsumer.andThen(fooThrowableBiConsumer).accept(list, 3));
+		assertThat(list).containsExactly(2, 4);
 	}
 
 	@Test
 	void testAndThenInvalid() {
-		final var throwableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
-			throw new IOException();
-		};
+		final var throwableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
 		assertThatNullPointerException().isThrownBy(() -> throwableBiConsumer.andThen(null));
 	}
 
 	@Test
 	void testUnchecked() {
-		final var throwableBiConsumer1 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
-		final var throwableBiConsumer2 = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
+		final var throwableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
+		final var exceptionThrowableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		{
-			final var list = new ArrayList<Integer>();
-			ThrowableBiConsumer.unchecked(throwableBiConsumer1).accept(list, 1);
-			ThrowableBiConsumer.unchecked(throwableBiConsumer1).accept(list, 3);
-			assertThat(list).containsExactly(2, 4);
-		}
-		{
-			final var list = new ArrayList<Integer>();
-			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiConsumer.unchecked(throwableBiConsumer2).accept(list, 1));
-			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiConsumer.unchecked(throwableBiConsumer2).accept(list, 3));
-			assertThat(list).isEmpty();
-		}
+		final var list = new ArrayList<Integer>();
+		ThrowableBiConsumer.unchecked(throwableBiConsumer).accept(list, 1);
+		ThrowableBiConsumer.unchecked(throwableBiConsumer).accept(list, 3);
+		assertThat(list).containsExactly(2, 4);
+		list.clear();
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiConsumer.unchecked(exceptionThrowableBiConsumer).accept(list, 1));
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiConsumer.unchecked(exceptionThrowableBiConsumer).accept(list, 3));
+		assertThat(list).isEmpty();
 	}
 
 	@Test

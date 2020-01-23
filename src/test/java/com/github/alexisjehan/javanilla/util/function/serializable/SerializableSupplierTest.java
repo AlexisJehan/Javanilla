@@ -53,11 +53,11 @@ final class SerializableSupplierTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableSupplier = Serializables.<SerializableSupplier<Integer>>deserialize(
+		final var deserializedSerializableSupplier = Serializables.<SerializableSupplier<Integer>>deserialize(
 				Serializables.serialize(
 						(SerializableSupplier<Integer>) () -> 1
 				)
 		);
-		assertThat(serializableSupplier.get()).isEqualTo(1);
+		assertThat(deserializedSerializableSupplier.get()).isEqualTo(1);
 	}
 }

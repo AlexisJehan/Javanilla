@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.misc.distances;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,8 +39,8 @@ final class EditDistancesTest {
 	void testCalculateLcs() {
 		final var editDistance = EditDistances.LCS;
 		assertThat(editDistance.calculate("a", "a")).isEqualTo(1.0d);
-		assertThat(editDistance.calculate("ab", "")).isEqualTo(0.0d);
-		assertThat(editDistance.calculate("", "ab")).isEqualTo(0.0d);
+		assertThat(editDistance.calculate("ab", Strings.EMPTY)).isEqualTo(0.0d);
+		assertThat(editDistance.calculate(Strings.EMPTY, "ab")).isEqualTo(0.0d);
 		assertThat(editDistance.calculate("ab", "abc")).isEqualTo(2.0d);
 		assertThat(editDistance.calculate("ab", "a")).isEqualTo(1.0d);
 		assertThat(editDistance.calculate("ab", "ac")).isEqualTo(1.0d);
@@ -62,7 +63,7 @@ final class EditDistancesTest {
 
 	@Test
 	void testCalculateInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate(null, "bar"));
 		assertThatNullPointerException().isThrownBy(() -> EditDistances.LCS.calculate("foo", null));
 	}
 }

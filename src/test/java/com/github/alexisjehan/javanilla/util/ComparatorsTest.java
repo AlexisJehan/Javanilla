@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.util;
 
+import com.github.alexisjehan.javanilla.lang.Strings;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
@@ -40,7 +41,7 @@ final class ComparatorsTest {
 		assertThat(Comparator.<String>naturalOrder().compare("foo1", "foo1")).isEqualTo(Comparators.NUMBER_AWARE.compare("foo1", "foo1"));
 		assertThat(Comparator.<String>naturalOrder().compare("foo1", "foo2")).isEqualTo(Comparators.NUMBER_AWARE.compare("foo1", "foo2"));
 
-		// Different result compared to natural order
+		// Different from natural order
 		assertThat(Comparator.<String>naturalOrder().compare("foo11", "foo2")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo11", "foo2")).isEqualTo(1);
 
@@ -48,9 +49,9 @@ final class ComparatorsTest {
 		assertThat(Comparators.NUMBER_AWARE.compare(null, "foo1")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo2", null)).isEqualTo(1);
 
-		assertThat(Comparators.NUMBER_AWARE.compare("", "")).isEqualTo(0);
-		assertThat(Comparators.NUMBER_AWARE.compare("", "foo1")).isEqualTo(-1);
-		assertThat(Comparators.NUMBER_AWARE.compare("foo2", "")).isEqualTo(1);
+		assertThat(Comparators.NUMBER_AWARE.compare(Strings.EMPTY, Strings.EMPTY)).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare(Strings.EMPTY, "foo1")).isEqualTo(-1);
+		assertThat(Comparators.NUMBER_AWARE.compare("foo2", Strings.EMPTY)).isEqualTo(1);
 
 		assertThat(Comparators.NUMBER_AWARE.compare("foo12", "fooabc")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foode", "foo345")).isEqualTo(1);
@@ -67,25 +68,27 @@ final class ComparatorsTest {
 		assertThat(Comparators.NUMBER_AWARE.compare("foo010", "foo010a")).isEqualTo(-1);
 
 		// Avoid internal cache
-		assertThat(Comparators.NUMBER_AWARE.compare(new String("foo"), new String("foo"))).isEqualTo(0);
-		assertThat(Comparators.NUMBER_AWARE.compare(new String("foo010"), new String("foo010"))).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare(new StringBuilder("foo"), new StringBuilder("foo"))).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare(new StringBuilder("foo010"), new StringBuilder("foo010"))).isEqualTo(0);
 	}
 
 	@Test
 	void testNormalize() {
-		final var comparator = (Comparator<Integer>) (i1, i2) -> {
+		assertThat((Comparator<Integer>) (i1, i2) -> {
 			if (i1.equals(i2)) {
 				return 0;
 			}
 			return i1 - i2;
-		};
-		assertThat(comparator.compare(0, 0)).isEqualTo(0);
-		assertThat(comparator.compare(0, 10)).isEqualTo(-10);
-		assertThat(comparator.compare(10, 0)).isEqualTo(10);
-		final var normalizedComparator = Comparators.normalize(comparator);
-		assertThat(normalizedComparator.compare(0, 0)).isEqualTo(0);
-		assertThat(normalizedComparator.compare(0, 10)).isEqualTo(-1);
-		assertThat(normalizedComparator.compare(10, 0)).isEqualTo(1);
+		}).satisfies(comparator -> {
+			assertThat(comparator.compare(0, 0)).isEqualTo(0);
+			assertThat(comparator.compare(0, 10)).isEqualTo(-10);
+			assertThat(comparator.compare(10, 0)).isEqualTo(10);
+			assertThat(Comparators.normalize(comparator)).satisfies(normalizedComparator -> {
+				assertThat(normalizedComparator.compare(0, 0)).isEqualTo(0);
+				assertThat(normalizedComparator.compare(0, 10)).isEqualTo(-1);
+				assertThat(normalizedComparator.compare(10, 0)).isEqualTo(1);
+			});
+		});
 	}
 
 	@Test

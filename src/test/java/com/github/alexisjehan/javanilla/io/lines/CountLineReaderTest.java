@@ -24,6 +24,7 @@
 package com.github.alexisjehan.javanilla.io.lines;
 
 import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class CountLineReaderTest {
 
-	private static final String STRING = "abc\ndef\nghi";
+	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
 
 	@Test
 	void testConstructorInvalid() {
@@ -45,13 +46,13 @@ final class CountLineReaderTest {
 
 	@Test
 	void testRead() throws IOException {
-		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(STRING)))) {
+		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(String.join("\n", LINES))))) {
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
-			assertThat(countLineReader.read()).isEqualTo("abc");
+			assertThat(countLineReader.read()).isEqualTo(LINES[0]);
 			assertThat(countLineReader.getCount()).isEqualTo(1L);
-			assertThat(countLineReader.read()).isEqualTo("def");
+			assertThat(countLineReader.read()).isEqualTo(LINES[1]);
 			assertThat(countLineReader.getCount()).isEqualTo(2L);
-			assertThat(countLineReader.read()).isEqualTo("ghi");
+			assertThat(countLineReader.read()).isEqualTo(LINES[2]);
 			assertThat(countLineReader.getCount()).isEqualTo(3L);
 			assertThat(countLineReader.read()).isNull();
 			assertThat(countLineReader.getCount()).isEqualTo(3L);
@@ -60,7 +61,7 @@ final class CountLineReaderTest {
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(STRING)))) {
+		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(String.join("\n", LINES))))) {
 			assertThat(countLineReader.getCount()).isEqualTo(0L);
 			assertThat(countLineReader.skip(-1L)).isEqualTo(0L);
 			assertThat(countLineReader.skip(0L)).isEqualTo(0L);

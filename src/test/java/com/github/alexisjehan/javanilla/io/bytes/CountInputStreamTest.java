@@ -48,11 +48,11 @@ final class CountInputStreamTest {
 	void testReadByte() throws IOException {
 		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			assertThat(countInputStream.read()).isEqualTo(1);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[1]);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
-			assertThat(countInputStream.read()).isEqualTo(3);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[2]);
 			assertThat(countInputStream.getCount()).isEqualTo(3L);
 			assertThat(countInputStream.read()).isEqualTo(-1);
 			assertThat(countInputStream.getCount()).isEqualTo(3L);
@@ -105,19 +105,19 @@ final class CountInputStreamTest {
 	void testMarkReset() throws IOException {
 		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of(BYTES)))) {
 			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			assertThat(countInputStream.read()).isEqualTo(1);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
 			countInputStream.mark(2);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[1]);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
 			countInputStream.reset();
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[1]);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
 			countInputStream.reset();
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
-			assertThat(countInputStream.read()).isEqualTo(2);
+			assertThat(countInputStream.read()).isEqualTo(BYTES[1]);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
 		}
 	}

@@ -30,6 +30,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
@@ -57,16 +58,17 @@ final class SuppliersTest {
 
 	@Test
 	void testCache() {
-		final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-			private int i = 0;
+		final var cacheSupplier = Suppliers.cache(new Supplier<>() {
+			private final LongAdder adder = new LongAdder();
 
 			@Override
 			public Integer get() {
-				return ++i;
+				adder.increment();
+				return adder.intValue();
 			}
 		});
-		assertThat(cachedSupplier.get()).isEqualTo(1);
-		assertThat(cachedSupplier.get()).isEqualTo(1);
+		assertThat(cacheSupplier.get()).isEqualTo(1);
+		assertThat(cacheSupplier.get()).isEqualTo(1);
 	}
 
 	@Test
@@ -76,54 +78,58 @@ final class SuppliersTest {
 
 	@Test
 	void testCacheDuration() {
-		{
-			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-				private int i = 0;
+		assertThat(Suppliers.cache(new Supplier<>() {
+			private final LongAdder adder = new LongAdder();
 
-				@Override
-				public Integer get() {
-					return ++i;
-				}
-			}, Duration.ZERO);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(3);
-		}
-		{
-			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-				private int i = 0;
+			@Override
+			public Integer get() {
+				adder.increment();
+				return adder.intValue();
+			}
+		}, Duration.ZERO)).satisfies(cacheSupplier -> {
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(3);
+		});
+		assertThat(Suppliers.cache(
+				new Supplier<>() {
+					private final LongAdder adder = new LongAdder();
 
-				@Override
-				public Integer get() {
-					return ++i;
-				}
-			}, Duration.ofMinutes(2L), new Clock() {
-				private Instant nextInstant = Instant.now(Clock.systemUTC());
+					@Override
+					public Integer get() {
+						adder.increment();
+						return adder.intValue();
+					}
+				},
+				Duration.ofMinutes(2L),
+				new Clock() {
+					private Instant nextInstant = Instant.now(Clock.systemUTC());
 
-				@Override
-				public ZoneId getZone() {
-					return Clock.systemUTC().getZone();
-				}
+					@Override
+					public ZoneId getZone() {
+						return Clock.systemUTC().getZone();
+					}
 
-				@Override
-				public Clock withZone(final ZoneId zone) {
-					return Clock.systemUTC().withZone(zone);
-				}
+					@Override
+					public Clock withZone(final ZoneId zone) {
+						return Clock.systemUTC().withZone(zone);
+					}
 
-				@Override
-				public Instant instant() {
-					final var instant = nextInstant;
-					nextInstant = instant.plus(1L, ChronoUnit.MINUTES);
-					return instant;
+					@Override
+					public Instant instant() {
+						final var instant = nextInstant;
+						nextInstant = instant.plus(1L, ChronoUnit.MINUTES);
+						return instant;
+					}
 				}
-			});
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(3);
-			assertThat(cachedSupplier.get()).isEqualTo(3);
-		}
+		)).satisfies(cacheSupplier -> {
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(3);
+			assertThat(cacheSupplier.get()).isEqualTo(3);
+		});
 	}
 
 	@Test
@@ -136,36 +142,36 @@ final class SuppliersTest {
 
 	@Test
 	void testCacheTimes() {
-		{
-			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-				private int i = 0;
+		assertThat(Suppliers.cache(new Supplier<>() {
+			private final LongAdder adder = new LongAdder();
 
-				@Override
-				public Integer get() {
-					return ++i;
-				}
-			}, 0);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(3);
-		}
-		{
-			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-				private int i = 0;
+			@Override
+			public Integer get() {
+				adder.increment();
+				return adder.intValue();
+			}
+		}, 0)).satisfies(cacheSupplier -> {
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(3);
+		});
+		assertThat(Suppliers.cache(new Supplier<>() {
+			private final LongAdder adder = new LongAdder();
 
-				@Override
-				public Integer get() {
-					return ++i;
-				}
-			}, 2);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(3);
-		}
+			@Override
+			public Integer get() {
+				adder.increment();
+				return adder.intValue();
+			}
+		}, 2)).satisfies(cacheSupplier -> {
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(3);
+		});
 	}
 
 	@Test
@@ -176,32 +182,32 @@ final class SuppliersTest {
 
 	@Test
 	void testCacheBooleanSupplier() {
-		{
-			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-				private int i = 0;
+		assertThat(Suppliers.cache(new Supplier<>() {
+			private final LongAdder adder = new LongAdder();
 
-				@Override
-				public Integer get() {
-					return ++i;
-				}
-			}, () -> true);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(2);
-			assertThat(cachedSupplier.get()).isEqualTo(3);
-		}
-		{
-			final var cachedSupplier = Suppliers.cache(new Supplier<>() {
-				private int i = 0;
+			@Override
+			public Integer get() {
+				adder.increment();
+				return adder.intValue();
+			}
+		}, () -> true)).satisfies(cacheSupplier -> {
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(2);
+			assertThat(cacheSupplier.get()).isEqualTo(3);
+		});
+		assertThat(Suppliers.cache(new Supplier<>() {
+			private final LongAdder adder = new LongAdder();
 
-				@Override
-				public Integer get() {
-					return ++i;
-				}
-			}, () -> false);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-			assertThat(cachedSupplier.get()).isEqualTo(1);
-		}
+			@Override
+			public Integer get() {
+				adder.increment();
+				return adder.intValue();
+			}
+		}, () -> false)).satisfies(cacheSupplier -> {
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+			assertThat(cacheSupplier.get()).isEqualTo(1);
+		});
 	}
 
 	@Test

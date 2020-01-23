@@ -32,46 +32,38 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 final class PairTest {
 
-	@Test
-	void testNull() {
-		final var pair1 = new Pair<>(1, null);
-		final var pair2 = new Pair<>(null, 2);
-		final var pair3 = new Pair<>(null, null);
-		assertThat(pair1.getFirst()).isNotNull();
-		assertThat(pair1.getSecond()).isNull();
-		assertThat(pair2.getFirst()).isNull();
-		assertThat(pair2.getSecond()).isNotNull();
-		assertThat(pair3.getFirst()).isNull();
-		assertThat(pair3.getSecond()).isNull();
-		assertThat(pair1).isEqualTo(Pair.of(1, null));
-		assertThat(pair2).isEqualTo(Pair.of(null, 2));
-		assertThat(pair3).isEqualTo(Pair.of(null, null));
-		assertThat(pair1).isNotEqualTo(pair2);
-		assertThat(pair2).isNotEqualTo(pair3);
-		assertThat(pair3).isNotEqualTo(pair1);
-	}
+	private static final Integer FIRST = 1;
+	private static final Integer SECOND = null;
+
+	private final Pair<Integer, Integer> pair = Pair.of(FIRST, SECOND);
 
 	@Test
-	void testSame() {
-		final var pair = new Pair<>(1, 2);
-		assertThat(pair.getFirst()).isEqualTo(1);
-		assertThat(pair.getSecond()).isEqualTo(2);
+	void testEqualsHashCodeToString() {
 		assertThat(pair).isEqualTo(pair);
-		assertThat(pair).isEqualTo(Pair.of(1, 2));
-		assertThat(pair.hashCode()).isEqualTo(Pair.of(1, 2).hashCode());
-		assertThat(pair.toString()).isEqualTo(Pair.of(1, 2).toString());
+		assertThat(pair).isNotEqualTo(1);
+		assertThat(Pair.of(FIRST, SECOND)).satisfies(otherPair -> {
+			assertThat(pair).isNotSameAs(otherPair);
+			assertThat(pair).isEqualTo(otherPair);
+			assertThat(pair).hasSameHashCodeAs(otherPair);
+			assertThat(pair).hasToString(otherPair.toString());
+		});
+		assertThat(Pair.of(null, SECOND)).satisfies(otherPair -> {
+			assertThat(pair).isNotSameAs(otherPair);
+			assertThat(pair).isNotEqualTo(otherPair);
+			assertThat(pair.hashCode()).isNotEqualTo(otherPair.hashCode());
+			assertThat(pair.toString()).isNotEqualTo(otherPair.toString());
+		});
+		assertThat(Pair.of(FIRST, 2)).satisfies(otherPair -> {
+			assertThat(pair).isNotSameAs(otherPair);
+			assertThat(pair).isNotEqualTo(otherPair);
+			assertThat(pair.hashCode()).isNotEqualTo(otherPair.hashCode());
+			assertThat(pair.toString()).isNotEqualTo(otherPair.toString());
+		});
 	}
 
 	@Test
-	void testNotSame() {
-		final var pair = new Pair<>(1, 2);
-		assertThat(pair.getFirst()).isNotEqualTo(2);
-		assertThat(pair.getSecond()).isNotEqualTo(1);
-		assertThat(pair).isNotEqualTo(null);
-		assertThat(pair).isNotEqualTo(Single.of(1));
-		assertThat(pair).isNotEqualTo(Pair.of(1, 3));
-		assertThat(pair).isNotEqualTo(Triple.of(1, 2, 3));
-		assertThat(pair.hashCode()).isNotEqualTo(Pair.of(1, 3).hashCode());
-		assertThat(pair.toString()).isNotEqualTo(Pair.of(1, 3).toString());
+	void testGetters() {
+		assertThat(pair.getFirst()).isEqualTo(FIRST);
+		assertThat(pair.getSecond()).isEqualTo(SECOND);
 	}
 }

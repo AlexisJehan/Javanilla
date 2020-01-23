@@ -21,41 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.misc.tuples;
+package com.github.alexisjehan.javanilla.sql;
 
+import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
- * <p>{@link Single} unit tests.</p>
+ * <p>{@link UncheckedSQLException} unit tests.</p>
  */
-final class SingleTest {
+final class UncheckedSQLExceptionTest {
 
-	private static final Integer UNIQUE = 1;
+	private static final SQLException CAUSE = new SQLException();
 
-	private final Single<Integer> single = Single.of(UNIQUE);
+	private final UncheckedSQLException uncheckedSQLException = new UncheckedSQLException(CAUSE);
 
 	@Test
-	void testEqualsHashCodeToString() {
-		assertThat(single).isEqualTo(single);
-		assertThat(single).isNotEqualTo(1);
-		assertThat(Single.of(UNIQUE)).satisfies(otherSingle -> {
-			assertThat(single).isNotSameAs(otherSingle);
-			assertThat(single).isEqualTo(otherSingle);
-			assertThat(single).hasSameHashCodeAs(otherSingle);
-			assertThat(single).hasToString(otherSingle.toString());
-		});
-		assertThat(Single.of(null)).satisfies(otherSingle -> {
-			assertThat(single).isNotSameAs(otherSingle);
-			assertThat(single).isNotEqualTo(otherSingle);
-			assertThat(single.hashCode()).isNotEqualTo(otherSingle.hashCode());
-			assertThat(single.toString()).isNotEqualTo(otherSingle.toString());
-		});
+	void testConstructorInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> new UncheckedSQLException(null));
 	}
 
 	@Test
-	void testGetUnique() {
-		assertThat(single.getUnique()).isEqualTo(UNIQUE);
+	void testGetCause() {
+		assertThat((Exception) uncheckedSQLException.getCause()).isEqualTo(CAUSE);
+	}
+
+	@Test
+	void testSerializable() {
+		assertThat(Serializables.<UncheckedSQLException>deserialize(Serializables.serialize(uncheckedSQLException))).hasSameClassAs(uncheckedSQLException);
 	}
 }

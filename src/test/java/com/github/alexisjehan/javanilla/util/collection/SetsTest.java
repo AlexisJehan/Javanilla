@@ -23,10 +23,10 @@
  */
 package com.github.alexisjehan.javanilla.util.collection;
 
+import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -40,63 +40,65 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class SetsTest {
 
+	private static final Integer[] ELEMENTS = ObjectArrays.of(1, 2, 3);
+
 	@Test
 	void testNullToEmptySet() {
-		assertThat(Sets.nullToEmpty((Set<String>) null)).isEmpty();
+		assertThat(Sets.nullToEmpty((Set<Integer>) null)).isEmpty();
 		assertThat(Sets.nullToEmpty(Set.of())).isEmpty();
-		assertThat(Sets.nullToEmpty(Set.of("foo"))).containsExactly("foo");
+		assertThat(Sets.nullToEmpty(Set.of(ELEMENTS))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testNullToEmptySortedSet() {
-		assertThat(Sets.nullToEmpty((SortedSet<String>) null)).isEmpty();
-		assertThat(Sets.nullToEmpty(Collections.emptySortedSet())).isEmpty();
-		assertThat(Sets.nullToEmpty((SortedSet<String>) new TreeSet<>(Set.of("foo")))).containsExactly("foo");
+		assertThat(Sets.nullToEmpty((SortedSet<Integer>) null)).isEmpty();
+		assertThat(Sets.nullToEmpty((SortedSet<Integer>) new TreeSet<>(Set.<Integer>of()))).isEmpty();
+		assertThat(Sets.nullToEmpty((SortedSet<Integer>) new TreeSet<>(Set.of(ELEMENTS)))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testNullToEmptyNavigableSet() {
 		assertThat(Sets.nullToEmpty(null)).isEmpty();
-		assertThat(Sets.nullToEmpty(Collections.emptyNavigableSet())).isEmpty();
-		assertThat(Sets.nullToEmpty(new TreeSet<>(Set.of("foo")))).containsExactly("foo");
+		assertThat(Sets.nullToEmpty(new TreeSet<>(Set.<Integer>of()))).isEmpty();
+		assertThat(Sets.nullToEmpty(new TreeSet<>(Set.of(ELEMENTS)))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Sets.nullToDefault(null, Set.of("bar"))).containsExactly("bar");
-		assertThat(Sets.nullToDefault(Set.of(), Set.of("bar"))).isEmpty();
-		assertThat(Sets.nullToDefault(Set.of("foo"), Set.of("bar"))).containsExactly("foo");
+		assertThat(Sets.nullToDefault(null, Set.of(0))).containsExactlyInAnyOrder(0);
+		assertThat(Sets.nullToDefault(Set.of(), Set.of(0))).isEmpty();
+		assertThat(Sets.nullToDefault(Set.of(ELEMENTS), Set.of(0))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Set.of("foo"), null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.nullToDefault(Set.of(ELEMENTS), null));
 	}
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(Sets.emptyToNull((Set<String>) null)).isNull();
+		assertThat(Sets.emptyToNull((Set<Integer>) null)).isNull();
 		assertThat(Sets.emptyToNull(Set.of())).isNull();
-		assertThat(Sets.emptyToNull(Set.of("foo"))).containsExactly("foo");
+		assertThat(Sets.emptyToNull(Set.of(ELEMENTS))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Sets.emptyToDefault(null, Set.of("bar"))).isNull();
-		assertThat(Sets.emptyToDefault(Set.of(), Set.of("bar"))).containsExactly("bar");
-		assertThat(Sets.emptyToDefault(Set.of("foo"), Set.of("bar"))).containsExactly("foo");
+		assertThat(Sets.emptyToDefault(null, Set.of(0))).isNull();
+		assertThat(Sets.emptyToDefault(Set.of(), Set.of(0))).containsExactlyInAnyOrder(0);
+		assertThat(Sets.emptyToDefault(Set.of(ELEMENTS), Set.of(0))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Set.of("foo"), Set.of()));
+		assertThatIllegalArgumentException().isThrownBy(() -> Sets.emptyToDefault(Set.of(ELEMENTS), Set.of()));
 	}
 
 	@Test
 	void testUnion() {
 		assertThat(Sets.union()).isEmpty();
-		assertThat(Sets.union(Set.of(1, 2))).containsExactlyInAnyOrder(1, 2);
-		assertThat(Sets.union(Set.of(1, 2), Set.of(2, 3))).containsExactlyInAnyOrder(1, 2, 3);
+		assertThat(Sets.union(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
+		assertThat(Sets.union(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2]))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
@@ -109,8 +111,8 @@ final class SetsTest {
 	@Test
 	void testIntersect() {
 		assertThat(Sets.intersect()).isEmpty();
-		assertThat(Sets.intersect(Set.of(1, 2))).containsExactlyInAnyOrder(1, 2);
-		assertThat(Sets.intersect(Set.of(1, 2), Set.of(2, 3))).containsExactlyInAnyOrder(2);
+		assertThat(Sets.intersect(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
+		assertThat(Sets.intersect(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2]))).containsExactlyInAnyOrder(ELEMENTS[1]);
 	}
 
 	@Test
@@ -123,12 +125,12 @@ final class SetsTest {
 	@Test
 	void testOfOrdered() {
 		assertThat(Sets.ofOrdered()).isEmpty();
-		assertThat(Sets.ofOrdered("foo")).containsExactly("foo");
-		assertThat(Sets.ofOrdered("foo", "bar")).containsExactly("foo", "bar");
+		assertThat(Sets.ofOrdered(ELEMENTS[0])).containsExactly(ELEMENTS[0]);
+		assertThat(Sets.ofOrdered(ELEMENTS)).containsExactly(ELEMENTS);
 	}
 
 	@Test
 	void testOfOrderedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Sets.ofOrdered((String[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.ofOrdered((Integer[]) null));
 	}
 }

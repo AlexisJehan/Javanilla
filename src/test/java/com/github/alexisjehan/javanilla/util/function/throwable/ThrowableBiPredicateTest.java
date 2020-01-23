@@ -41,96 +41,92 @@ final class ThrowableBiPredicateTest {
 
 	@Test
 	void testTest() throws IOException {
-		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
-		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
+		final var exceptionThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		assertThat(throwableBiPredicate1.test(1, 2)).isFalse();
-		assertThat(throwableBiPredicate1.test(3, 3)).isTrue();
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate2.test(1, 2));
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate2.test(3, 3));
+		assertThat(throwableBiPredicate.test(1, 2)).isFalse();
+		assertThat(throwableBiPredicate.test(3, 3)).isTrue();
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.test(1, 2));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.test(3, 3));
 	}
 
 	@Test
 	void testAnd() throws IOException {
-		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
-		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t <= u;
-		final var throwableBiPredicate3 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
+		final var fooThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
+		final var barThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t <= u;
+		final var exceptionThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		assertThat(throwableBiPredicate1.and(throwableBiPredicate2).test(1, 2)).isFalse();
-		assertThat(throwableBiPredicate1.and(throwableBiPredicate2).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate2.and(throwableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(throwableBiPredicate2.and(throwableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate1.and(throwableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(throwableBiPredicate1.and(throwableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate2.and(throwableBiPredicate2).test(1, 2)).isTrue();
-		assertThat(throwableBiPredicate2.and(throwableBiPredicate2).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate1.and(throwableBiPredicate3).test(1, 2)).isFalse();
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate1.and(throwableBiPredicate3).test(3, 3));
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate3.and(throwableBiPredicate1).test(1, 2));
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate3.and(throwableBiPredicate1).test(3, 3));
+		assertThat(fooThrowableBiPredicate.and(barThrowableBiPredicate).test(1, 2)).isFalse();
+		assertThat(fooThrowableBiPredicate.and(barThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barThrowableBiPredicate.and(fooThrowableBiPredicate).test(1, 2)).isFalse();
+		assertThat(barThrowableBiPredicate.and(fooThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(fooThrowableBiPredicate.and(fooThrowableBiPredicate).test(1, 2)).isFalse();
+		assertThat(fooThrowableBiPredicate.and(fooThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barThrowableBiPredicate.and(barThrowableBiPredicate).test(1, 2)).isTrue();
+		assertThat(barThrowableBiPredicate.and(barThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(fooThrowableBiPredicate.and(exceptionThrowableBiPredicate).test(1, 2)).isFalse();
+		assertThatIOException().isThrownBy(() -> fooThrowableBiPredicate.and(exceptionThrowableBiPredicate).test(3, 3));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.and(fooThrowableBiPredicate).test(1, 2));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.and(fooThrowableBiPredicate).test(3, 3));
 	}
 
 	@Test
 	void testAndInvalid() {
-		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
-			throw new IOException();
-		};
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
 		assertThatNullPointerException().isThrownBy(() -> throwableBiPredicate.and(null));
 	}
 
 	@Test
 	void testNegate() throws IOException {
-		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
-		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
+		final var exceptionThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		assertThat(throwableBiPredicate1.negate().test(1, 2)).isTrue();
-		assertThat(throwableBiPredicate1.negate().test(3, 3)).isFalse();
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate2.negate().test(1, 2));
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate2.negate().test(3, 3));
+		assertThat(throwableBiPredicate.negate().test(1, 2)).isTrue();
+		assertThat(throwableBiPredicate.negate().test(3, 3)).isFalse();
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.negate().test(1, 2));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.negate().test(3, 3));
 	}
 
 	@Test
 	void testOr() throws IOException {
-		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
-		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t <= u;
-		final var throwableBiPredicate3 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
+		final var fooThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
+		final var barThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t <= u;
+		final var exceptionThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		assertThat(throwableBiPredicate1.or(throwableBiPredicate2).test(1, 2)).isTrue();
-		assertThat(throwableBiPredicate1.or(throwableBiPredicate2).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate2.or(throwableBiPredicate1).test(1, 2)).isTrue();
-		assertThat(throwableBiPredicate2.or(throwableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate1.or(throwableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(throwableBiPredicate1.or(throwableBiPredicate1).test(3, 3)).isTrue();
-		assertThat(throwableBiPredicate2.or(throwableBiPredicate2).test(1, 2)).isTrue();
-		assertThat(throwableBiPredicate2.or(throwableBiPredicate2).test(3, 3)).isTrue();
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate1.or(throwableBiPredicate3).test(1, 2));
-		assertThat(throwableBiPredicate1.or(throwableBiPredicate3).test(3, 3)).isTrue();
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate3.or(throwableBiPredicate1).test(1, 2));
-		assertThatIOException().isThrownBy(() -> throwableBiPredicate3.or(throwableBiPredicate1).test(3, 3));
+		assertThat(fooThrowableBiPredicate.or(barThrowableBiPredicate).test(1, 2)).isTrue();
+		assertThat(fooThrowableBiPredicate.or(barThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barThrowableBiPredicate.or(fooThrowableBiPredicate).test(1, 2)).isTrue();
+		assertThat(barThrowableBiPredicate.or(fooThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(fooThrowableBiPredicate.or(fooThrowableBiPredicate).test(1, 2)).isFalse();
+		assertThat(fooThrowableBiPredicate.or(fooThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThat(barThrowableBiPredicate.or(barThrowableBiPredicate).test(1, 2)).isTrue();
+		assertThat(barThrowableBiPredicate.or(barThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThatIOException().isThrownBy(() -> fooThrowableBiPredicate.or(exceptionThrowableBiPredicate).test(1, 2));
+		assertThat(fooThrowableBiPredicate.or(exceptionThrowableBiPredicate).test(3, 3)).isTrue();
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.or(fooThrowableBiPredicate).test(1, 2));
+		assertThatIOException().isThrownBy(() -> exceptionThrowableBiPredicate.or(fooThrowableBiPredicate).test(3, 3));
 	}
 
 	@Test
 	void testOrInvalid() {
-		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
-			throw new IOException();
-		};
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
 		assertThatNullPointerException().isThrownBy(() -> throwableBiPredicate.or(null));
 	}
 
 	@Test
 	void testUnchecked() {
-		final var throwableBiPredicate1 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
-		final var throwableBiPredicate2 = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
+		final var exceptionThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
 			throw new IOException();
 		};
-		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate1).test(1, 2)).isFalse();
-		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate1).test(3, 3)).isTrue();
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiPredicate.unchecked(throwableBiPredicate2).test(1, 2));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiPredicate.unchecked(throwableBiPredicate2).test(3, 3));
+		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate).test(1, 2)).isFalse();
+		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate).test(3, 3)).isTrue();
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiPredicate.unchecked(exceptionThrowableBiPredicate).test(1, 2));
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiPredicate.unchecked(exceptionThrowableBiPredicate).test(3, 3));
 	}
 
 	@Test

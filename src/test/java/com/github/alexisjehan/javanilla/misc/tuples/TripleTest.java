@@ -32,51 +32,46 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 final class TripleTest {
 
-	@Test
-	void testNull() {
-		final var triple1 = new Triple<>(1, 2, null);
-		final var triple2 = new Triple<>(null, 2, 3);
-		final var triple3 = new Triple<>(null, null, null);
-		assertThat(triple1.getFirst()).isNotNull();
-		assertThat(triple1.getSecond()).isNotNull();
-		assertThat(triple1.getThird()).isNull();
-		assertThat(triple2.getFirst()).isNull();
-		assertThat(triple2.getSecond()).isNotNull();
-		assertThat(triple2.getThird()).isNotNull();
-		assertThat(triple3.getFirst()).isNull();
-		assertThat(triple3.getSecond()).isNull();
-		assertThat(triple3.getThird()).isNull();
-		assertThat(triple1).isEqualTo(Triple.of(1, 2, null));
-		assertThat(triple2).isEqualTo(Triple.of(null, 2, 3));
-		assertThat(triple3).isEqualTo(Triple.of(null, null, null));
-		assertThat(triple1).isNotEqualTo(triple2);
-		assertThat(triple2).isNotEqualTo(triple3);
-		assertThat(triple3).isNotEqualTo(triple1);
-	}
+	private static final Integer FIRST = 1;
+	private static final Integer SECOND = 2;
+	private static final Integer THIRD = null;
+
+	private final Triple<Integer, Integer, Integer> triple = Triple.of(FIRST, SECOND, THIRD);
 
 	@Test
-	void testSame() {
-		final var triple = new Triple<>(1, 2, 3);
-		assertThat(triple.getFirst()).isEqualTo(1);
-		assertThat(triple.getSecond()).isEqualTo(2);
-		assertThat(triple.getThird()).isEqualTo(3);
+	void testEqualsHashCodeToString() {
 		assertThat(triple).isEqualTo(triple);
-		assertThat(triple).isEqualTo(Triple.of(1, 2, 3));
-		assertThat(triple.hashCode()).isEqualTo(Triple.of(1, 2, 3).hashCode());
-		assertThat(triple.toString()).isEqualTo(Triple.of(1, 2, 3).toString());
+		assertThat(triple).isNotEqualTo(1);
+		assertThat(Triple.of(FIRST, SECOND, THIRD)).satisfies(otherTriple -> {
+			assertThat(triple).isNotSameAs(otherTriple);
+			assertThat(triple).isEqualTo(otherTriple);
+			assertThat(triple).hasSameHashCodeAs(otherTriple);
+			assertThat(triple).hasToString(otherTriple.toString());
+		});
+		assertThat(Triple.of(null, SECOND, THIRD)).satisfies(otherTriple -> {
+			assertThat(triple).isNotSameAs(otherTriple);
+			assertThat(triple).isNotEqualTo(otherTriple);
+			assertThat(triple.hashCode()).isNotEqualTo(otherTriple.hashCode());
+			assertThat(triple.toString()).isNotEqualTo(otherTriple.toString());
+		});
+		assertThat(Triple.of(FIRST, null, THIRD)).satisfies(otherTriple -> {
+			assertThat(triple).isNotSameAs(otherTriple);
+			assertThat(triple).isNotEqualTo(otherTriple);
+			assertThat(triple.hashCode()).isNotEqualTo(otherTriple.hashCode());
+			assertThat(triple.toString()).isNotEqualTo(otherTriple.toString());
+		});
+		assertThat(Triple.of(FIRST, SECOND, 3)).satisfies(otherTriple -> {
+			assertThat(triple).isNotSameAs(otherTriple);
+			assertThat(triple).isNotEqualTo(otherTriple);
+			assertThat(triple.hashCode()).isNotEqualTo(otherTriple.hashCode());
+			assertThat(triple.toString()).isNotEqualTo(otherTriple.toString());
+		});
 	}
 
 	@Test
-	void testNotSame() {
-		final var triple = new Triple<>(1, 2, 3);
-		assertThat(triple.getFirst()).isNotEqualTo(2);
-		assertThat(triple.getSecond()).isNotEqualTo(3);
-		assertThat(triple.getThird()).isNotEqualTo(1);
-		assertThat(triple).isNotEqualTo(null);
-		assertThat(triple).isNotEqualTo(Single.of(1));
-		assertThat(triple).isNotEqualTo(Pair.of(1, 2));
-		assertThat(triple).isNotEqualTo(Triple.of(1, 2, 4));
-		assertThat(triple.hashCode()).isNotEqualTo(Triple.of(1, 2, 4).hashCode());
-		assertThat(triple.toString()).isNotEqualTo(Triple.of(1, 2, 4).toString());
+	void testGetters() {
+		assertThat(triple.getFirst()).isEqualTo(FIRST);
+		assertThat(triple.getSecond()).isEqualTo(SECOND);
+		assertThat(triple.getThird()).isEqualTo(THIRD);
 	}
 }

@@ -48,11 +48,11 @@ final class CountReaderTest {
 	void testReadChar() throws IOException {
 		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
-			assertThat(countReader.read()).isEqualTo('a');
+			assertThat(countReader.read()).isEqualTo(CHARS[0]);
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.read()).isEqualTo(CHARS[1]);
 			assertThat(countReader.getCount()).isEqualTo(2L);
-			assertThat(countReader.read()).isEqualTo('c');
+			assertThat(countReader.read()).isEqualTo(CHARS[2]);
 			assertThat(countReader.getCount()).isEqualTo(3L);
 			assertThat(countReader.read()).isEqualTo(-1);
 			assertThat(countReader.getCount()).isEqualTo(3L);
@@ -105,19 +105,19 @@ final class CountReaderTest {
 	void testMarkReset() throws IOException {
 		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isEqualTo(0L);
-			assertThat(countReader.read()).isEqualTo('a');
+			assertThat(countReader.read()).isEqualTo(CHARS[0]);
 			assertThat(countReader.getCount()).isEqualTo(1L);
 			countReader.mark(2);
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.read()).isEqualTo(CHARS[1]);
 			assertThat(countReader.getCount()).isEqualTo(2L);
 			countReader.reset();
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.read()).isEqualTo(CHARS[1]);
 			assertThat(countReader.getCount()).isEqualTo(2L);
 			countReader.reset();
 			assertThat(countReader.getCount()).isEqualTo(1L);
-			assertThat(countReader.read()).isEqualTo('b');
+			assertThat(countReader.read()).isEqualTo(CHARS[1]);
 			assertThat(countReader.getCount()).isEqualTo(2L);
 		}
 	}

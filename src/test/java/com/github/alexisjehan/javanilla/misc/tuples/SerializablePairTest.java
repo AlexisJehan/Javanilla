@@ -33,60 +33,50 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 final class SerializablePairTest {
 
-	@Test
-	void testNull() {
-		final var serializablePair1 = new SerializablePair<>(1, null);
-		final var serializablePair2 = new SerializablePair<>(null, 2);
-		final var serializablePair3 = new SerializablePair<>(null, null);
-		assertThat(serializablePair1.getFirst()).isNotNull();
-		assertThat(serializablePair1.getSecond()).isNull();
-		assertThat(serializablePair2.getFirst()).isNull();
-		assertThat(serializablePair2.getSecond()).isNotNull();
-		assertThat(serializablePair3.getFirst()).isNull();
-		assertThat(serializablePair3.getSecond()).isNull();
-		assertThat(serializablePair1).isEqualTo(SerializablePair.of(1, null));
-		assertThat(serializablePair2).isEqualTo(SerializablePair.of(null, 2));
-		assertThat(serializablePair3).isEqualTo(SerializablePair.of(null, null));
-		assertThat(serializablePair1).isNotEqualTo(serializablePair2);
-		assertThat(serializablePair2).isNotEqualTo(serializablePair3);
-		assertThat(serializablePair3).isNotEqualTo(serializablePair1);
-	}
+	private static final Integer FIRST = 1;
+	private static final Integer SECOND = null;
+
+	private final SerializablePair<Integer, Integer> serializablePair = SerializablePair.of(FIRST, SECOND);
 
 	@Test
-	void testSame() {
-		final var serializablePair = new SerializablePair<>(1, 2);
-		assertThat(serializablePair.getFirst()).isEqualTo(1);
-		assertThat(serializablePair.getSecond()).isEqualTo(2);
+	void testEqualsHashCodeToString() {
 		assertThat(serializablePair).isEqualTo(serializablePair);
-		assertThat(serializablePair).isEqualTo(SerializablePair.of(1, 2));
-		assertThat(serializablePair.hashCode()).isEqualTo(SerializablePair.of(1, 2).hashCode());
-		assertThat(serializablePair.toString()).isEqualTo(SerializablePair.of(1, 2).toString());
-	}
-
-	@Test
-	void testNotSame() {
-		final var serializablePair = new SerializablePair<>(1, 2);
-		assertThat(serializablePair.getFirst()).isNotEqualTo(2);
-		assertThat(serializablePair.getSecond()).isNotEqualTo(1);
-		assertThat(serializablePair).isNotEqualTo(null);
-		assertThat(serializablePair).isNotEqualTo(SerializableSingle.of(1));
-		assertThat(serializablePair).isNotEqualTo(SerializablePair.of(1, 3));
-		assertThat(serializablePair).isNotEqualTo(SerializableTriple.of(1, 2, 3));
-		assertThat(serializablePair.hashCode()).isNotEqualTo(SerializablePair.of(1, 3).hashCode());
-		assertThat(serializablePair.toString()).isNotEqualTo(SerializablePair.of(1, 3).toString());
+		assertThat(serializablePair).isNotEqualTo(1);
+		assertThat(SerializablePair.of(FIRST, SECOND)).satisfies(otherSerializablePair -> {
+			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
+			assertThat(serializablePair).isEqualTo(otherSerializablePair);
+			assertThat(serializablePair).hasSameHashCodeAs(otherSerializablePair);
+			assertThat(serializablePair).hasToString(otherSerializablePair.toString());
+		});
+		assertThat(SerializablePair.of(null, SECOND)).satisfies(otherSerializablePair -> {
+			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
+			assertThat(serializablePair).isNotEqualTo(otherSerializablePair);
+			assertThat(serializablePair.hashCode()).isNotEqualTo(otherSerializablePair.hashCode());
+			assertThat(serializablePair.toString()).isNotEqualTo(otherSerializablePair.toString());
+		});
+		assertThat(SerializablePair.of(FIRST, 2)).satisfies(otherSerializablePair -> {
+			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
+			assertThat(serializablePair).isNotEqualTo(otherSerializablePair);
+			assertThat(serializablePair.hashCode()).isNotEqualTo(otherSerializablePair.hashCode());
+			assertThat(serializablePair.toString()).isNotEqualTo(otherSerializablePair.toString());
+		});
 	}
 
 	@Test
 	void testToPair() {
-		final var serializablePair = new SerializablePair<>(1, 2);
 		final var pair = serializablePair.toPair();
-		assertThat(pair.getFirst()).isEqualTo(serializablePair.getFirst());
-		assertThat(pair.getSecond()).isEqualTo(serializablePair.getSecond());
+		assertThat(serializablePair.getFirst()).isEqualTo(pair.getFirst());
+		assertThat(serializablePair.getSecond()).isEqualTo(pair.getSecond());
+	}
+
+	@Test
+	void testGetters() {
+		assertThat(serializablePair.getFirst()).isEqualTo(FIRST);
+		assertThat(serializablePair.getSecond()).isEqualTo(SECOND);
 	}
 
 	@Test
 	void testSerializable() {
-		final var serializablePair = new SerializablePair<>(1, 2);
 		assertThat(Serializables.<SerializablePair<Integer, Integer>>deserialize(Serializables.serialize(serializablePair))).isEqualTo(serializablePair);
 	}
 }

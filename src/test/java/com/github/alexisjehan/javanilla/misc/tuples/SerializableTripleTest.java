@@ -33,66 +33,59 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 final class SerializableTripleTest {
 
-	@Test
-	void testNull() {
-		final var serializableTriple1 = new SerializableTriple<>(1, 2, null);
-		final var serializableTriple2 = new SerializableTriple<>(null, 2, 3);
-		final var serializableTriple3 = new SerializableTriple<>(null, null, null);
-		assertThat(serializableTriple1.getFirst()).isNotNull();
-		assertThat(serializableTriple1.getSecond()).isNotNull();
-		assertThat(serializableTriple1.getThird()).isNull();
-		assertThat(serializableTriple2.getFirst()).isNull();
-		assertThat(serializableTriple2.getSecond()).isNotNull();
-		assertThat(serializableTriple2.getThird()).isNotNull();
-		assertThat(serializableTriple3.getFirst()).isNull();
-		assertThat(serializableTriple3.getSecond()).isNull();
-		assertThat(serializableTriple3.getThird()).isNull();
-		assertThat(serializableTriple1).isEqualTo(SerializableTriple.of(1, 2, null));
-		assertThat(serializableTriple2).isEqualTo(SerializableTriple.of(null, 2, 3));
-		assertThat(serializableTriple3).isEqualTo(SerializableTriple.of(null, null, null));
-		assertThat(serializableTriple1).isNotEqualTo(serializableTriple2);
-		assertThat(serializableTriple2).isNotEqualTo(serializableTriple3);
-		assertThat(serializableTriple3).isNotEqualTo(serializableTriple1);
-	}
+	private static final Integer FIRST = 1;
+	private static final Integer SECOND = 2;
+	private static final Integer THIRD = null;
+
+	private final SerializableTriple<Integer, Integer, Integer> serializableTriple = SerializableTriple.of(FIRST, SECOND, THIRD);
 
 	@Test
-	void testSame() {
-		final var serializableTriple = new SerializableTriple<>(1, 2, 3);
-		assertThat(serializableTriple.getFirst()).isEqualTo(1);
-		assertThat(serializableTriple.getSecond()).isEqualTo(2);
-		assertThat(serializableTriple.getThird()).isEqualTo(3);
+	void testEqualsHashCodeToString() {
 		assertThat(serializableTriple).isEqualTo(serializableTriple);
-		assertThat(serializableTriple).isEqualTo(SerializableTriple.of(1, 2, 3));
-		assertThat(serializableTriple.hashCode()).isEqualTo(SerializableTriple.of(1, 2, 3).hashCode());
-		assertThat(serializableTriple.toString()).isEqualTo(SerializableTriple.of(1, 2, 3).toString());
-	}
-
-	@Test
-	void testNotSame() {
-		final var serializableTriple = new SerializableTriple<>(1, 2, 3);
-		assertThat(serializableTriple.getFirst()).isNotEqualTo(2);
-		assertThat(serializableTriple.getSecond()).isNotEqualTo(3);
-		assertThat(serializableTriple.getThird()).isNotEqualTo(1);
-		assertThat(serializableTriple).isNotEqualTo(null);
-		assertThat(serializableTriple).isNotEqualTo(SerializableSingle.of(1));
-		assertThat(serializableTriple).isNotEqualTo(SerializablePair.of(1, 2));
-		assertThat(serializableTriple).isNotEqualTo(SerializableTriple.of(1, 2, 4));
-		assertThat(serializableTriple.hashCode()).isNotEqualTo(SerializableTriple.of(1, 2, 4).hashCode());
-		assertThat(serializableTriple.toString()).isNotEqualTo(SerializableTriple.of(1, 2, 4).toString());
+		assertThat(serializableTriple).isNotEqualTo(1);
+		assertThat(SerializableTriple.of(FIRST, SECOND, THIRD)).satisfies(otherSerializableTriple -> {
+			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
+			assertThat(serializableTriple).isEqualTo(otherSerializableTriple);
+			assertThat(serializableTriple).hasSameHashCodeAs(otherSerializableTriple);
+			assertThat(serializableTriple).hasToString(otherSerializableTriple.toString());
+		});
+		assertThat(SerializableTriple.of(null, SECOND, THIRD)).satisfies(otherSerializableTriple -> {
+			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
+			assertThat(serializableTriple).isNotEqualTo(otherSerializableTriple);
+			assertThat(serializableTriple.hashCode()).isNotEqualTo(otherSerializableTriple.hashCode());
+			assertThat(serializableTriple.toString()).isNotEqualTo(otherSerializableTriple.toString());
+		});
+		assertThat(SerializableTriple.of(FIRST, null, THIRD)).satisfies(otherSerializableTriple -> {
+			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
+			assertThat(serializableTriple).isNotEqualTo(otherSerializableTriple);
+			assertThat(serializableTriple.hashCode()).isNotEqualTo(otherSerializableTriple.hashCode());
+			assertThat(serializableTriple.toString()).isNotEqualTo(otherSerializableTriple.toString());
+		});
+		assertThat(SerializableTriple.of(FIRST, SECOND, 3)).satisfies(otherSerializableTriple -> {
+			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
+			assertThat(serializableTriple).isNotEqualTo(otherSerializableTriple);
+			assertThat(serializableTriple.hashCode()).isNotEqualTo(otherSerializableTriple.hashCode());
+			assertThat(serializableTriple.toString()).isNotEqualTo(otherSerializableTriple.toString());
+		});
 	}
 
 	@Test
 	void testToTriple() {
-		final var serializableTriple = new SerializableTriple<>(1, 2, 3);
 		final var triple = serializableTriple.toTriple();
-		assertThat(triple.getFirst()).isEqualTo(serializableTriple.getFirst());
-		assertThat(triple.getSecond()).isEqualTo(serializableTriple.getSecond());
-		assertThat(triple.getThird()).isEqualTo(serializableTriple.getThird());
+		assertThat(serializableTriple.getFirst()).isEqualTo(triple.getFirst());
+		assertThat(serializableTriple.getSecond()).isEqualTo(triple.getSecond());
+		assertThat(serializableTriple.getThird()).isEqualTo(triple.getThird());
+	}
+
+	@Test
+	void testGetters() {
+		assertThat(serializableTriple.getFirst()).isEqualTo(FIRST);
+		assertThat(serializableTriple.getSecond()).isEqualTo(SECOND);
+		assertThat(serializableTriple.getThird()).isEqualTo(THIRD);
 	}
 
 	@Test
 	void testSerializable() {
-		final var serializableTriple = new SerializableTriple<>(1, 2, 3);
 		assertThat(Serializables.<SerializableTriple<Integer, Integer, Integer>>deserialize(Serializables.serialize(serializableTriple))).isEqualTo(serializableTriple);
 	}
 }

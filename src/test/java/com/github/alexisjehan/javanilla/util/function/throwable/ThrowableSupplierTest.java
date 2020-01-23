@@ -40,22 +40,22 @@ final class ThrowableSupplierTest {
 
 	@Test
 	void testGet() throws IOException {
-		final var throwableSupplier1 = (ThrowableSupplier<Integer, IOException>) () -> 1;
-		final var throwableSupplier2 = (ThrowableSupplier<Integer, IOException>) () -> {
+		final var throwableSupplier = (ThrowableSupplier<Integer, IOException>) () -> 1;
+		final var exceptionThrowableSupplier = (ThrowableSupplier<Integer, IOException>) () -> {
 			throw new IOException();
 		};
-		assertThat(throwableSupplier1.get()).isEqualTo(1);
-		assertThatIOException().isThrownBy(throwableSupplier2::get);
+		assertThat(throwableSupplier.get()).isEqualTo(1);
+		assertThatIOException().isThrownBy(exceptionThrowableSupplier::get);
 	}
 
 	@Test
 	void testUnchecked() {
-		final var throwableSupplier1 = (ThrowableSupplier<Integer, IOException>) () -> 1;
-		final var throwableSupplier2 = (ThrowableSupplier<Integer, IOException>) () -> {
+		final var throwableSupplier = (ThrowableSupplier<Integer, IOException>) () -> 1;
+		final var exceptionThrowableSupplier = (ThrowableSupplier<Integer, IOException>) () -> {
 			throw new IOException();
 		};
-		assertThat(ThrowableSupplier.unchecked(throwableSupplier1).get()).isEqualTo(1);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableSupplier.unchecked(throwableSupplier2).get());
+		assertThat(ThrowableSupplier.unchecked(throwableSupplier).get()).isEqualTo(1);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableSupplier.unchecked(exceptionThrowableSupplier).get());
 	}
 
 	@Test

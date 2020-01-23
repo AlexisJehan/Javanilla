@@ -33,54 +33,41 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 final class SerializableSingleTest {
 
-	@Test
-	void testNull() {
-		final var serializableSingle1 = new SerializableSingle<>(1);
-		final var serializableSingle2 = new SerializableSingle<>(2);
-		final var serializableSingle3 = new SerializableSingle<>(null);
-		assertThat(serializableSingle1.getUnique()).isNotNull();
-		assertThat(serializableSingle2.getUnique()).isNotNull();
-		assertThat(serializableSingle3.getUnique()).isNull();
-		assertThat(serializableSingle1).isEqualTo(SerializableSingle.of(1));
-		assertThat(serializableSingle2).isEqualTo(SerializableSingle.of(2));
-		assertThat(serializableSingle3).isEqualTo(SerializableSingle.of(null));
-		assertThat(serializableSingle1).isNotEqualTo(serializableSingle2);
-		assertThat(serializableSingle2).isNotEqualTo(serializableSingle3);
-		assertThat(serializableSingle3).isNotEqualTo(serializableSingle1);
-	}
+	private static final Integer UNIQUE = 1;
+
+	private final SerializableSingle<Integer> serializableSingle = SerializableSingle.of(UNIQUE);
 
 	@Test
-	void testSame() {
-		final var serializableSingle = new SerializableSingle<>(1);
-		assertThat(serializableSingle.getUnique()).isEqualTo(1);
+	void testEqualsHashCodeToString() {
 		assertThat(serializableSingle).isEqualTo(serializableSingle);
-		assertThat(serializableSingle).isEqualTo(SerializableSingle.of(1));
-		assertThat(serializableSingle.hashCode()).isEqualTo(SerializableSingle.of(1).hashCode());
-		assertThat(serializableSingle.toString()).isEqualTo(SerializableSingle.of(1).toString());
-	}
-
-	@Test
-	void testNotSame() {
-		final var serializableSingle = new SerializableSingle<>(1);
-		assertThat(serializableSingle.getUnique()).isNotEqualTo(2);
-		assertThat(serializableSingle).isNotEqualTo(null);
-		assertThat(serializableSingle).isNotEqualTo(SerializableSingle.of(2));
-		assertThat(serializableSingle).isNotEqualTo(SerializablePair.of(1, 2));
-		assertThat(serializableSingle).isNotEqualTo(SerializableTriple.of(1, 2, 3));
-		assertThat(serializableSingle.hashCode()).isNotEqualTo(SerializableSingle.of(2).hashCode());
-		assertThat(serializableSingle.toString()).isNotEqualTo(SerializableSingle.of(2).toString());
+		assertThat(serializableSingle).isNotEqualTo(1);
+		assertThat(SerializableSingle.of(UNIQUE)).satisfies(otherSerializableSingle -> {
+			assertThat(serializableSingle).isNotSameAs(otherSerializableSingle);
+			assertThat(serializableSingle).isEqualTo(otherSerializableSingle);
+			assertThat(serializableSingle).hasSameHashCodeAs(otherSerializableSingle);
+			assertThat(serializableSingle).hasToString(otherSerializableSingle.toString());
+		});
+		assertThat(SerializableSingle.of(null)).satisfies(otherSerializableSingle -> {
+			assertThat(serializableSingle).isNotSameAs(otherSerializableSingle);
+			assertThat(serializableSingle).isNotEqualTo(otherSerializableSingle);
+			assertThat(serializableSingle.hashCode()).isNotEqualTo(otherSerializableSingle.hashCode());
+			assertThat(serializableSingle.toString()).isNotEqualTo(otherSerializableSingle.toString());
+		});
 	}
 
 	@Test
 	void testToSingle() {
-		final var serializableSingle = new SerializableSingle<>(1);
 		final var single = serializableSingle.toSingle();
-		assertThat(single.getUnique()).isEqualTo(serializableSingle.getUnique());
+		assertThat(serializableSingle.getUnique()).isEqualTo(single.getUnique());
+	}
+
+	@Test
+	void testGetUnique() {
+		assertThat(serializableSingle.getUnique()).isEqualTo(UNIQUE);
 	}
 
 	@Test
 	void testSerializable() {
-		final var serializableSingle = new SerializableSingle<>(1);
 		assertThat(Serializables.<SerializableSingle<Integer>>deserialize(Serializables.serialize(serializableSingle))).isEqualTo(serializableSingle);
 	}
 }

@@ -41,106 +41,102 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testTest() throws IOException {
-		final var throwablePredicate1 = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var throwablePredicate2 = (ThrowablePredicate<Integer, IOException>) t -> {
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
-		assertThat(throwablePredicate1.test(1)).isFalse();
-		assertThat(throwablePredicate1.test(3)).isTrue();
-		assertThatIOException().isThrownBy(() -> throwablePredicate2.test(1));
-		assertThatIOException().isThrownBy(() -> throwablePredicate2.test(3));
+		assertThat(throwablePredicate.test(1)).isFalse();
+		assertThat(throwablePredicate.test(3)).isTrue();
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.test(1));
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.test(3));
 	}
 
 	@Test
 	void testAnd() throws IOException {
-		final var throwablePredicate1 = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var throwablePredicate2 = (ThrowablePredicate<Integer, IOException>) t -> t <= 2;
-		final var throwablePredicate3 = (ThrowablePredicate<Integer, IOException>) t -> {
+		final var fooThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var barThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t <= 2;
+		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
-		assertThat(throwablePredicate1.and(throwablePredicate2).test(1)).isFalse();
-		assertThat(throwablePredicate1.and(throwablePredicate2).test(3)).isFalse();
-		assertThat(throwablePredicate2.and(throwablePredicate1).test(1)).isFalse();
-		assertThat(throwablePredicate2.and(throwablePredicate1).test(3)).isFalse();
-		assertThat(throwablePredicate1.and(throwablePredicate1).test(1)).isFalse();
-		assertThat(throwablePredicate1.and(throwablePredicate1).test(3)).isTrue();
-		assertThat(throwablePredicate2.and(throwablePredicate2).test(1)).isTrue();
-		assertThat(throwablePredicate2.and(throwablePredicate2).test(3)).isFalse();
-		assertThat(throwablePredicate1.and(throwablePredicate3).test(1)).isFalse();
-		assertThatIOException().isThrownBy(() -> throwablePredicate1.and(throwablePredicate3).test(3));
-		assertThatIOException().isThrownBy(() -> throwablePredicate3.and(throwablePredicate1).test(1));
-		assertThatIOException().isThrownBy(() -> throwablePredicate3.and(throwablePredicate1).test(3));
+		assertThat(fooThrowablePredicate.and(barThrowablePredicate).test(1)).isFalse();
+		assertThat(fooThrowablePredicate.and(barThrowablePredicate).test(3)).isFalse();
+		assertThat(barThrowablePredicate.and(fooThrowablePredicate).test(1)).isFalse();
+		assertThat(barThrowablePredicate.and(fooThrowablePredicate).test(3)).isFalse();
+		assertThat(fooThrowablePredicate.and(fooThrowablePredicate).test(1)).isFalse();
+		assertThat(fooThrowablePredicate.and(fooThrowablePredicate).test(3)).isTrue();
+		assertThat(barThrowablePredicate.and(barThrowablePredicate).test(1)).isTrue();
+		assertThat(barThrowablePredicate.and(barThrowablePredicate).test(3)).isFalse();
+		assertThat(fooThrowablePredicate.and(exceptionThrowablePredicate).test(1)).isFalse();
+		assertThatIOException().isThrownBy(() -> fooThrowablePredicate.and(exceptionThrowablePredicate).test(3));
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.and(fooThrowablePredicate).test(1));
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.and(fooThrowablePredicate).test(3));
 	}
 
 	@Test
 	void testAndInvalid() {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
-			throw new IOException();
-		};
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
 		assertThatNullPointerException().isThrownBy(() -> throwablePredicate.and(null));
 	}
 
 	@Test
 	void testNegate() throws IOException {
-		final var throwablePredicate1 = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var throwablePredicate2 = (ThrowablePredicate<Integer, IOException>) t -> {
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
-		assertThat(throwablePredicate1.negate().test(1)).isTrue();
-		assertThat(throwablePredicate1.negate().test(3)).isFalse();
-		assertThatIOException().isThrownBy(() -> throwablePredicate2.negate().test(1));
-		assertThatIOException().isThrownBy(() -> throwablePredicate2.negate().test(3));
+		assertThat(throwablePredicate.negate().test(1)).isTrue();
+		assertThat(throwablePredicate.negate().test(3)).isFalse();
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.negate().test(1));
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.negate().test(3));
 	}
 
 	@Test
 	void testOr() throws IOException {
-		final var throwablePredicate1 = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var throwablePredicate2 = (ThrowablePredicate<Integer, IOException>) t -> t <= 2;
-		final var throwablePredicate3 = (ThrowablePredicate<Integer, IOException>) t -> {
+		final var fooThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var barThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t <= 2;
+		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
-		assertThat(throwablePredicate1.or(throwablePredicate2).test(1)).isTrue();
-		assertThat(throwablePredicate1.or(throwablePredicate2).test(3)).isTrue();
-		assertThat(throwablePredicate2.or(throwablePredicate1).test(1)).isTrue();
-		assertThat(throwablePredicate2.or(throwablePredicate1).test(3)).isTrue();
-		assertThat(throwablePredicate1.or(throwablePredicate1).test(1)).isFalse();
-		assertThat(throwablePredicate1.or(throwablePredicate1).test(3)).isTrue();
-		assertThat(throwablePredicate2.or(throwablePredicate2).test(1)).isTrue();
-		assertThat(throwablePredicate2.or(throwablePredicate2).test(3)).isFalse();
-		assertThatIOException().isThrownBy(() -> throwablePredicate1.or(throwablePredicate3).test(1));
-		assertThat(throwablePredicate1.or(throwablePredicate3).test(3)).isTrue();
-		assertThatIOException().isThrownBy(() -> throwablePredicate3.or(throwablePredicate1).test(1));
-		assertThatIOException().isThrownBy(() -> throwablePredicate3.or(throwablePredicate1).test(3));
+		assertThat(fooThrowablePredicate.or(barThrowablePredicate).test(1)).isTrue();
+		assertThat(fooThrowablePredicate.or(barThrowablePredicate).test(3)).isTrue();
+		assertThat(barThrowablePredicate.or(fooThrowablePredicate).test(1)).isTrue();
+		assertThat(barThrowablePredicate.or(fooThrowablePredicate).test(3)).isTrue();
+		assertThat(fooThrowablePredicate.or(fooThrowablePredicate).test(1)).isFalse();
+		assertThat(fooThrowablePredicate.or(fooThrowablePredicate).test(3)).isTrue();
+		assertThat(barThrowablePredicate.or(barThrowablePredicate).test(1)).isTrue();
+		assertThat(barThrowablePredicate.or(barThrowablePredicate).test(3)).isFalse();
+		assertThatIOException().isThrownBy(() -> fooThrowablePredicate.or(exceptionThrowablePredicate).test(1));
+		assertThat(fooThrowablePredicate.or(exceptionThrowablePredicate).test(3)).isTrue();
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.or(fooThrowablePredicate).test(1));
+		assertThatIOException().isThrownBy(() -> exceptionThrowablePredicate.or(fooThrowablePredicate).test(3));
 	}
 
 	@Test
 	void testOrInvalid() {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
-			throw new IOException();
-		};
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
 		assertThatNullPointerException().isThrownBy(() -> throwablePredicate.or(null));
 	}
 
 	@Test
 	void testIsEqual() {
-		final var throwablePredicate1 = ThrowablePredicate.isEqual(1);
-		final var throwablePredicate2 = ThrowablePredicate.isEqual(null);
-		assertThat(throwablePredicate1.test(null)).isFalse();
-		assertThat(throwablePredicate1.test(1)).isTrue();
-		assertThat(throwablePredicate2.test(null)).isTrue();
-		assertThat(throwablePredicate2.test(3)).isFalse();
+		final var fooThrowablePredicate = ThrowablePredicate.isEqual(1);
+		final var barThrowablePredicate = ThrowablePredicate.isEqual(null);
+		assertThat(fooThrowablePredicate.test(null)).isFalse();
+		assertThat(fooThrowablePredicate.test(1)).isTrue();
+		assertThat(barThrowablePredicate.test(null)).isTrue();
+		assertThat(barThrowablePredicate.test(3)).isFalse();
 	}
 
 	@Test
 	void testUnchecked() {
-		final var throwablePredicate1 = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var throwablePredicate2 = (ThrowablePredicate<Integer, IOException>) t -> {
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
-		assertThat(ThrowablePredicate.unchecked(throwablePredicate1).test(1)).isFalse();
-		assertThat(ThrowablePredicate.unchecked(throwablePredicate1).test(3)).isTrue();
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowablePredicate.unchecked(throwablePredicate2).test(1));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowablePredicate.unchecked(throwablePredicate2).test(3));
+		assertThat(ThrowablePredicate.unchecked(throwablePredicate).test(1)).isFalse();
+		assertThat(ThrowablePredicate.unchecked(throwablePredicate).test(3)).isTrue();
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowablePredicate.unchecked(exceptionThrowablePredicate).test(1));
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowablePredicate.unchecked(exceptionThrowablePredicate).test(3));
 	}
 
 	@Test

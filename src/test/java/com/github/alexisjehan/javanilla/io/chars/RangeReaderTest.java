@@ -51,21 +51,21 @@ final class RangeReaderTest {
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 0L, 0L)) {
 			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeReader.getToIndex()).isEqualTo(0L);
-			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 1L, 1L)) {
 			assertThat(rangeReader.getFromIndex()).isEqualTo(1L);
 			assertThat(rangeReader.getToIndex()).isEqualTo(1L);
-			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 0L, 10L)) {
 			assertThat(rangeReader.getFromIndex()).isEqualTo(0L);
 			assertThat(rangeReader.getToIndex()).isEqualTo(10L);
-			assertThat(rangeReader.read()).isEqualTo('a');
-			assertThat(rangeReader.read()).isEqualTo('b');
-			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
+			assertThat(rangeReader.read()).isEqualTo(CHARS[2]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 10L, 10L)) {
@@ -158,39 +158,39 @@ final class RangeReaderTest {
 	void testMarkReset() throws IOException {
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 0L, 0L)) {
 			rangeReader.mark(2);
-			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 1L, 1L)) {
 			rangeReader.mark(2);
-			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo('b');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 0L, 10L)) {
-			assertThat(rangeReader.read()).isEqualTo('a');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);
 			rangeReader.mark(2);
-			assertThat(rangeReader.read()).isEqualTo('b');
-			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
+			assertThat(rangeReader.read()).isEqualTo(CHARS[2]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo('b');
-			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
+			assertThat(rangeReader.read()).isEqualTo(CHARS[2]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 			rangeReader.reset();
-			assertThat(rangeReader.read()).isEqualTo('b');
-			assertThat(rangeReader.read()).isEqualTo('c');
+			assertThat(rangeReader.read()).isEqualTo(CHARS[1]);
+			assertThat(rangeReader.read()).isEqualTo(CHARS[2]);
 			assertThat(rangeReader.read()).isEqualTo(-1);
 		}
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 10L, 10L)) {

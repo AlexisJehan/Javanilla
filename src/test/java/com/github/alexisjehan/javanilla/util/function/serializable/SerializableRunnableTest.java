@@ -26,6 +26,8 @@ package com.github.alexisjehan.javanilla.util.function.serializable;
 import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.LongAdder;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -36,21 +38,30 @@ final class SerializableRunnableTest {
 
 	private static final class FooRunnable implements Runnable {
 
-		private int value;
+		private final LongAdder adder = new LongAdder();
 
 		@Override
 		public void run() {
-			++value;
+			adder.increment();
+		}
+
+		public int getValue() {
+			return adder.intValue();
 		}
 	}
 
 	@SuppressWarnings("serial")
 	private static final class FooSerializableRunnable implements SerializableRunnable {
-		private int value;
+
+		private final LongAdder adder = new LongAdder();
 
 		@Override
 		public void run() {
-			++value;
+			adder.increment();
+		}
+
+		public int getValue() {
+			return adder.intValue();
 		}
 	}
 
@@ -59,7 +70,7 @@ final class SerializableRunnableTest {
 		final var serializableRunnable = new FooSerializableRunnable();
 		serializableRunnable.run();
 		serializableRunnable.run();
-		assertThat(serializableRunnable.value).isEqualTo(2);
+		assertThat(serializableRunnable.getValue()).isEqualTo(2);
 	}
 
 	@Test
@@ -68,7 +79,7 @@ final class SerializableRunnableTest {
 		final var serializableRunnable = SerializableRunnable.of(runnable);
 		serializableRunnable.run();
 		serializableRunnable.run();
-		assertThat(runnable.value).isEqualTo(2);
+		assertThat(runnable.getValue()).isEqualTo(2);
 	}
 
 	@Test
@@ -78,13 +89,13 @@ final class SerializableRunnableTest {
 
 	@Test
 	void testSerializable() {
-		final var serializableRunnable = Serializables.<FooSerializableRunnable>deserialize(
+		final var deserializedSerializableRunnable = Serializables.<FooSerializableRunnable>deserialize(
 				Serializables.serialize(
 						new FooSerializableRunnable()
 				)
 		);
-		serializableRunnable.run();
-		serializableRunnable.run();
-		assertThat(serializableRunnable.value).isEqualTo(2);
+		deserializedSerializableRunnable.run();
+		deserializedSerializableRunnable.run();
+		assertThat(deserializedSerializableRunnable.getValue()).isEqualTo(2);
 	}
 }

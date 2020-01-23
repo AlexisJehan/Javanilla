@@ -33,14 +33,24 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 /**
  * <p>{@link LimitedBag} unit tests.</p>
  */
-final class LimitedBagTest {
+final class LimitedBagTest extends AbstractBagTest {
+
+	private static final List<String> COLLECTION = List.of("foo", "bar");
+	private static final int LIMIT = 2;
+
+	private final LimitedBag<String> limitedBag = new LimitedBag<>(new MapBag<>(COLLECTION), LIMIT);
+
+	@Override
+	<E> LimitedBag<E> newBag() {
+		return new LimitedBag<>(new MapBag<>(), 2);
+	}
 
 	@Test
 	void testConstructor() {
-		final var bag = new LimitedBag<>(new MapBag<>(List.of("foo", "foo", "bar", "bar", "fooo")), 2);
-		assertThat(bag.count("foo")).isEqualTo(2L);
-		assertThat(bag.count("bar")).isEqualTo(2L);
-		assertThat(bag.count("fooo")).isEqualTo(0L);
+		final var limitedBag = new LimitedBag<>(new MapBag<>(List.of("foo", "foo", "bar", "bar", "fooo")), 2);
+		assertThat(limitedBag.count("foo")).isEqualTo(2L);
+		assertThat(limitedBag.count("bar")).isEqualTo(2L);
+		assertThat(limitedBag.count("fooo")).isEqualTo(0L);
 	}
 
 	@Test
@@ -49,57 +59,58 @@ final class LimitedBagTest {
 	}
 
 	@Test
+	@Override
 	void testAdd() {
-		final var bag = new LimitedBag<>(new MapBag<>(), 2);
-		bag.add("foo");
-		assertThat(bag.count("foo")).isEqualTo(1L);
-		bag.add("bar", 2L);
-		assertThat(bag.count("bar")).isEqualTo(2L);
-		bag.add("bar", 2L);
-		assertThat(bag.count("bar")).isEqualTo(4L);
-		bag.add("fooo", 3L);
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		final var limitedBag = newBag();
+		limitedBag.add("foo");
+		assertThat(limitedBag.count("foo")).isEqualTo(1L);
+		limitedBag.add("bar", 2L);
+		assertThat(limitedBag.count("bar")).isEqualTo(2L);
+		limitedBag.add("bar", 2L);
+		assertThat(limitedBag.count("bar")).isEqualTo(4L);
+		limitedBag.add("fooo", 3L);
+		assertThat(limitedBag.count("foo")).isEqualTo(0L);
 	}
 
 	@Test
 	void testEqualsHashCodeToString() {
-		final var bag = new LimitedBag<>(new MapBag<>(List.of("foo", "bar")), 2);
-		assertThat(bag).isEqualTo(bag);
-		assertThat(bag).isNotEqualTo(1);
-		{
-			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("foo", "bar")), 2);
-			assertThat(bag).isNotSameAs(otherBag);
-			assertThat(bag).isEqualTo(otherBag);
-			assertThat(bag).hasSameHashCodeAs(otherBag);
-			assertThat(bag).hasToString(otherBag.toString());
-		}
-		{
-			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("foo", "bar")), 10);
-			assertThat(bag).isNotSameAs(otherBag);
-			assertThat(bag).isEqualTo(otherBag);
-			assertThat(bag).hasSameHashCodeAs(otherBag);
-			assertThat(bag.toString()).isNotEqualTo(otherBag.toString()); // Distinct representation
-		}
-		{
-			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("foo")), 2);
-			assertThat(bag).isNotSameAs(otherBag);
-			assertThat(bag).isNotEqualTo(otherBag);
-			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
-		}
-		{
-			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("fooo", "bar")), 2);
-			assertThat(bag).isNotSameAs(otherBag);
-			assertThat(bag).isNotEqualTo(otherBag);
-			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
-		}
-		{
-			final var otherBag = new LimitedBag<>(new MapBag<>(List.of("bar", "bar")), 2);
-			assertThat(bag).isNotSameAs(otherBag);
-			assertThat(bag).isNotEqualTo(otherBag);
-			assertThat(bag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(bag.toString()).isNotEqualTo(otherBag.toString());
-		}
+		assertThat(limitedBag).isEqualTo(limitedBag);
+		assertThat(limitedBag).isNotEqualTo(1);
+		assertThat(new LimitedBag<>(new MapBag<>(COLLECTION), LIMIT)).satisfies(otherBag -> {
+			assertThat(limitedBag).isNotSameAs(otherBag);
+			assertThat(limitedBag).isEqualTo(otherBag);
+			assertThat(limitedBag).hasSameHashCodeAs(otherBag);
+			assertThat(limitedBag).hasToString(otherBag.toString());
+		});
+		assertThat(new LimitedBag<>(new MapBag<>(COLLECTION), 10)).satisfies(otherBag -> {
+			assertThat(limitedBag).isNotSameAs(otherBag);
+			assertThat(limitedBag).isEqualTo(otherBag);
+			assertThat(limitedBag).hasSameHashCodeAs(otherBag);
+			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+		});
+		assertThat(new MapBag<>(COLLECTION)).satisfies(otherBag -> {
+			assertThat(limitedBag).isNotSameAs(otherBag);
+			assertThat(limitedBag).isEqualTo(otherBag);
+			assertThat(limitedBag).hasSameHashCodeAs(otherBag);
+			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString()); // Custom implementation
+		});
+		assertThat(new LimitedBag<>(new MapBag<>(List.of("foo")), LIMIT)).satisfies(otherBag -> {
+			assertThat(limitedBag).isNotSameAs(otherBag);
+			assertThat(limitedBag).isNotEqualTo(otherBag);
+			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+		});
+		assertThat(new LimitedBag<>(new MapBag<>(List.of("fooo", "bar")), LIMIT)).satisfies(otherBag -> {
+			assertThat(limitedBag).isNotSameAs(otherBag);
+			assertThat(limitedBag).isNotEqualTo(otherBag);
+			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+		});
+		assertThat(new LimitedBag<>(new MapBag<>(List.of("bar", "bar")), LIMIT)).satisfies(otherBag -> {
+			assertThat(limitedBag).isNotSameAs(otherBag);
+			assertThat(limitedBag).isNotEqualTo(otherBag);
+			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
+			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+		});
 	}
 }

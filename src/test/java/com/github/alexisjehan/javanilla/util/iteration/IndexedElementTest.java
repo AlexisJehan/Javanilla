@@ -32,41 +32,38 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 final class IndexedElementTest {
 
+	private static final long INDEX = 1L;
+	private static final String ELEMENT = "foo";
+
+	private final IndexedElement<String> indexedElement = new IndexedElement<>(INDEX, ELEMENT);
+
 	@Test
 	void testEqualsHashCodeToString() {
-		final var indexedElement = new IndexedElement<>(1L, "foo");
 		assertThat(indexedElement).isEqualTo(indexedElement);
 		assertThat(indexedElement).isNotEqualTo(1);
-		{
-			final var otherIndexedElement = new IndexedElement<>(1L, "foo");
+		assertThat(new IndexedElement<>(INDEX, ELEMENT)).satisfies(otherIndexedElement -> {
 			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isEqualTo(otherIndexedElement);
 			assertThat(indexedElement).hasSameHashCodeAs(otherIndexedElement);
 			assertThat(indexedElement).hasToString(otherIndexedElement.toString());
-		}
-		{
-			final var otherIndexedElement = new IndexedElement<>(2L, "foo");
+		});
+		assertThat(new IndexedElement<>(2L, ELEMENT)).satisfies(otherIndexedElement -> {
 			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
 			assertThat(indexedElement.hashCode()).isNotEqualTo(otherIndexedElement.hashCode());
 			assertThat(indexedElement.toString()).isNotEqualTo(otherIndexedElement.toString());
-		}
-		{
-			final var otherIndexedElement = new IndexedElement<>(1L, "bar");
+		});
+		assertThat(new IndexedElement<>(INDEX, "bar")).satisfies(otherIndexedElement -> {
 			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
 			assertThat(indexedElement.hashCode()).isNotEqualTo(otherIndexedElement.hashCode());
 			assertThat(indexedElement.toString()).isNotEqualTo(otherIndexedElement.toString());
-		}
+		});
 	}
 
 	@Test
-	void testGetIndex() {
-		assertThat(new IndexedElement<>(1L, "foo").getIndex()).isEqualTo(1L);
-	}
-
-	@Test
-	void testGetElement() {
-		assertThat(new IndexedElement<>(1L, "foo").getElement()).isEqualTo("foo");
+	void testGetters() {
+		assertThat(indexedElement.getIndex()).isEqualTo(INDEX);
+		assertThat(indexedElement.getElement()).isEqualTo(ELEMENT);
 	}
 }

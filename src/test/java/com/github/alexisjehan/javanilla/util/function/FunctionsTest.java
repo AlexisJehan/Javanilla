@@ -40,7 +40,7 @@ final class FunctionsTest {
 
 	@Test
 	void testCache() {
-		final var cachedFunction = Functions.cache(new Function<Integer, Integer>() {
+		final var cacheFunction = Functions.cache(new Function<Integer, Integer>() {
 			private final Map<Integer, LongAdder> map = new HashMap<>();
 
 			@Override
@@ -50,10 +50,10 @@ final class FunctionsTest {
 				return adder.intValue();
 			}
 		});
-		assertThat(cachedFunction.apply(1)).isEqualTo(1);
-		assertThat(cachedFunction.apply(1)).isEqualTo(1);
-		assertThat(cachedFunction.apply(2)).isEqualTo(1);
-		assertThat(cachedFunction.apply(2)).isEqualTo(1);
+		assertThat(cacheFunction.apply(1)).isEqualTo(1);
+		assertThat(cacheFunction.apply(1)).isEqualTo(1);
+		assertThat(cacheFunction.apply(2)).isEqualTo(1);
+		assertThat(cacheFunction.apply(2)).isEqualTo(1);
 	}
 
 	@Test
