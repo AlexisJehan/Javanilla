@@ -52,8 +52,8 @@ public final class LimitedBag<E> extends FilterBag<E> {
 		super(bag);
 		Ensure.greaterThanOrEqualTo("limit", limit, 2L);
 		this.limit = limit;
-		while (limit < bag.distinct()) {
-			bag.remove(bag.min().orElseThrow(AssertionError::new));
+		while (limit < distinct()) {
+			remove(min().orElseThrow(AssertionError::new));
 		}
 	}
 
@@ -68,14 +68,14 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 */
 	@Override
 	public void add(final E element, final long quantity) {
-		if (!bag.containsAny(element) && limit <= bag.distinct()) {
-			bag.remove(bag.min().orElseThrow(AssertionError::new));
+		if (!containsAny(element) && limit <= distinct()) {
+			remove(min().orElseThrow(AssertionError::new));
 		}
-		bag.add(element, quantity);
+		super.add(element, quantity);
 	}
 
 	@Override
 	public String toString() {
-		return bag + "[" + limit + "]";
+		return super.toString() + "[" + limit + "]";
 	}
 }
