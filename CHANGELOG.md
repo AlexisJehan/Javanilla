@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.5.0 _(in progress)_
+## 1.6.0 _(in progress)_
+
+
+## 1.5.0 _(2020-01-23)_
 
 **lang.Strings**
 - Added the _capitalize()_ method
