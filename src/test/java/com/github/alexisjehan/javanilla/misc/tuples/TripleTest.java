@@ -36,7 +36,7 @@ final class TripleTest {
 	private static final Integer SECOND = 2;
 	private static final Integer THIRD = null;
 
-	private final Triple<Integer, Integer, Integer> triple = Triple.of(FIRST, SECOND, THIRD);
+	private final Triple<Integer, Integer, Integer> triple = new Triple<>(FIRST, SECOND, THIRD);
 
 	@Test
 	void testEqualsHashCodeToString() {

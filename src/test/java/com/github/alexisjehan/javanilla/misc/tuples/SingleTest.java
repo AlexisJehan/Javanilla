@@ -34,7 +34,7 @@ final class SingleTest {
 
 	private static final Integer UNIQUE = 1;
 
-	private final Single<Integer> single = Single.of(UNIQUE);
+	private final Single<Integer> single = new Single<>(UNIQUE);
 
 	@Test
 	void testEqualsHashCodeToString() {

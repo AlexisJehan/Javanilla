@@ -36,7 +36,7 @@ final class SerializablePairTest {
 	private static final Integer FIRST = 1;
 	private static final Integer SECOND = null;
 
-	private final SerializablePair<Integer, Integer> serializablePair = SerializablePair.of(FIRST, SECOND);
+	private final SerializablePair<Integer, Integer> serializablePair = new SerializablePair<>(FIRST, SECOND);
 
 	@Test
 	void testEqualsHashCodeToString() {

@@ -35,7 +35,7 @@ final class SerializableSingleTest {
 
 	private static final Integer UNIQUE = 1;
 
-	private final SerializableSingle<Integer> serializableSingle = SerializableSingle.of(UNIQUE);
+	private final SerializableSingle<Integer> serializableSingle = new SerializableSingle<>(UNIQUE);
 
 	@Test
 	void testEqualsHashCodeToString() {

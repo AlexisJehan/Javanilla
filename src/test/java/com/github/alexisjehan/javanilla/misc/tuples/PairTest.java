@@ -35,7 +35,7 @@ final class PairTest {
 	private static final Integer FIRST = 1;
 	private static final Integer SECOND = null;
 
-	private final Pair<Integer, Integer> pair = Pair.of(FIRST, SECOND);
+	private final Pair<Integer, Integer> pair = new Pair<>(FIRST, SECOND);
 
 	@Test
 	void testEqualsHashCodeToString() {

@@ -37,7 +37,7 @@ final class SerializableTripleTest {
 	private static final Integer SECOND = 2;
 	private static final Integer THIRD = null;
 
-	private final SerializableTriple<Integer, Integer, Integer> serializableTriple = SerializableTriple.of(FIRST, SECOND, THIRD);
+	private final SerializableTriple<Integer, Integer, Integer> serializableTriple = new SerializableTriple<>(FIRST, SECOND, THIRD);
 
 	@Test
 	void testEqualsHashCodeToString() {

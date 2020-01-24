@@ -103,7 +103,9 @@ final class ThrowablesTest {
 
 	@Test
 	void testUncheckedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.unchecked(null));
+		assertThatNullPointerException().isThrownBy(() -> {
+			throw Throwables.unchecked(null);
+		});
 	}
 
 	@Test

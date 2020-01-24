@@ -40,7 +40,9 @@ final class UncheckedInterruptedExceptionTest {
 
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new UncheckedInterruptedException(null));
+		assertThatNullPointerException().isThrownBy(() -> {
+			throw new UncheckedInterruptedException(null);
+		});
 	}
 
 	@Test

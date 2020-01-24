@@ -42,7 +42,9 @@ final class UncheckedSQLExceptionTest {
 
 	@Test
 	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new UncheckedSQLException(null));
+		assertThatNullPointerException().isThrownBy(() -> {
+			throw new UncheckedSQLException(null);
+		});
 	}
 
 	@Test
