@@ -41,8 +41,8 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "MD5" {@code MessageDigest} instance.</p>
-	 * @return a "MD5" {@code MessageDigest} instance
+	 * <p>Get a new "MD5" {@link MessageDigest} instance.</p>
+	 * @return a "MD5" {@link MessageDigest} instance
 	 * @since 1.0.0
 	 */
 	public static MessageDigest getMd5Instance() {
@@ -50,8 +50,8 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "SHA-1" {@code MessageDigest} instance.</p>
-	 * @return a "SHA-1" {@code MessageDigest} instance
+	 * <p>Get a new "SHA-1" {@link MessageDigest} instance.</p>
+	 * @return a "SHA-1" {@link MessageDigest} instance
 	 * @since 1.0.0
 	 */
 	public static MessageDigest getSha1Instance() {
@@ -59,8 +59,8 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "SHA-256" {@code MessageDigest} instance.</p>
-	 * @return a "SHA-256" {@code MessageDigest} instance
+	 * <p>Get a new "SHA-256" {@link MessageDigest} instance.</p>
+	 * @return a "SHA-256" {@link MessageDigest} instance
 	 * @since 1.0.0
 	 */
 	public static MessageDigest getSha256Instance() {
@@ -68,9 +68,9 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new {@code MessageDigest} instance without throwing {@code NoSuchAlgorithmException}.</p>
-	 * @param algorithm the {@code MessageDigest} algorithm
-	 * @return a {@code MessageDigest} instance of the provided algorithm
+	 * <p>Get a new {@link MessageDigest} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link MessageDigest} algorithm
+	 * @return a {@link MessageDigest} instance of the provided algorithm
 	 * @since 1.0.0
 	 */
 	private static MessageDigest getInstance(final String algorithm) {

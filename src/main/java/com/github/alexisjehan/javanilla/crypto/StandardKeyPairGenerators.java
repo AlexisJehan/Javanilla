@@ -41,8 +41,8 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@code KeyPairGenerator} instance.</p>
-	 * @return a "DiffieHellman" {@code KeyPairGenerator} instance
+	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>
+	 * @return a "DiffieHellman" {@link KeyPairGenerator} instance
 	 * @since 1.3.1
 	 */
 	public static KeyPairGenerator getDiffieHellmanInstance() {
@@ -50,8 +50,8 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@code KeyPairGenerator} instance.</p>
-	 * @return a "DSA" {@code KeyPairGenerator} instance
+	 * <p>Get a new "DSA" {@link KeyPairGenerator} instance.</p>
+	 * @return a "DSA" {@link KeyPairGenerator} instance
 	 * @since 1.3.1
 	 */
 	public static KeyPairGenerator getDsaInstance() {
@@ -59,8 +59,8 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "RSA" {@code KeyPairGenerator} instance.</p>
-	 * @return a "RSA" {@code KeyPairGenerator} instance
+	 * <p>Get a new "RSA" {@link KeyPairGenerator} instance.</p>
+	 * @return a "RSA" {@link KeyPairGenerator} instance
 	 * @since 1.3.1
 	 */
 	public static KeyPairGenerator getRsaInstance() {
@@ -68,9 +68,9 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new {@code KeyPairGenerator} instance without throwing {@code NoSuchAlgorithmException}.</p>
-	 * @param algorithm the {@code KeyPairGenerator} algorithm
-	 * @return a {@code KeyPairGenerator} instance of the provided algorithm
+	 * <p>Get a new {@link KeyPairGenerator} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link KeyPairGenerator} algorithm
+	 * @return a {@link KeyPairGenerator} instance of the provided algorithm
 	 * @since 1.3.1
 	 */
 	private static KeyPairGenerator getInstance(final String algorithm) {

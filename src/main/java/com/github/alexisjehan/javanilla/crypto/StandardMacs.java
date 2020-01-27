@@ -41,8 +41,8 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new "HmacMD5" {@code Mac} instance.</p>
-	 * @return a "HmacMD5" {@code Mac} instance
+	 * <p>Get a new "HmacMD5" {@link Mac} instance.</p>
+	 * @return a "HmacMD5" {@link Mac} instance
 	 * @since 1.1.0
 	 */
 	public static Mac getHmacMd5Instance() {
@@ -50,8 +50,8 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new "HmacSHA1" {@code Mac} instance.</p>
-	 * @return a "HmacSHA1" {@code Mac} instance
+	 * <p>Get a new "HmacSHA1" {@link Mac} instance.</p>
+	 * @return a "HmacSHA1" {@link Mac} instance
 	 * @since 1.1.0
 	 */
 	public static Mac getHmacSha1Instance() {
@@ -59,8 +59,8 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new "HmacSHA256" {@code Mac} instance.</p>
-	 * @return a "HmacSHA256" {@code Mac} instance
+	 * <p>Get a new "HmacSHA256" {@link Mac} instance.</p>
+	 * @return a "HmacSHA256" {@link Mac} instance
 	 * @since 1.1.0
 	 */
 	public static Mac getHmacSha256Instance() {
@@ -68,9 +68,9 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new {@code Mac} instance without throwing {@code NoSuchAlgorithmException}.</p>
-	 * @param algorithm the {@code Mac} algorithm
-	 * @return a {@code Mac} instance of the provided algorithm
+	 * <p>Get a new {@link Mac} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link Mac} algorithm
+	 * @return a {@link Mac} instance of the provided algorithm
 	 * @since 1.1.0
 	 */
 	private static Mac getInstance(final String algorithm) {

@@ -41,8 +41,8 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA1withDSA" {@code Signature} instance.</p>
-	 * @return a "SHA1withDSA" {@code Signature} instance
+	 * <p>Get a new "SHA1withDSA" {@link Signature} instance.</p>
+	 * @return a "SHA1withDSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
 	public static Signature getSha1WithDsaInstance() {
@@ -50,8 +50,8 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA256withDSA" {@code Signature} instance.</p>
-	 * @return a "SHA256withDSA" {@code Signature} instance
+	 * <p>Get a new "SHA256withDSA" {@link Signature} instance.</p>
+	 * @return a "SHA256withDSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
 	public static Signature getSha256WithDsaInstance() {
@@ -59,8 +59,8 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA1withRSA" {@code Signature} instance.</p>
-	 * @return a "SHA1withRSA" {@code Signature} instance
+	 * <p>Get a new "SHA1withRSA" {@link Signature} instance.</p>
+	 * @return a "SHA1withRSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
 	public static Signature getSha1WithRsaInstance() {
@@ -68,8 +68,8 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA256withRSA" {@code Signature} instance.</p>
-	 * @return a "SHA256withRSA" {@code Signature} instance
+	 * <p>Get a new "SHA256withRSA" {@link Signature} instance.</p>
+	 * @return a "SHA256withRSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
 	public static Signature getSha256WithRsaInstance() {
@@ -77,9 +77,9 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new {@code Signature} instance without throwing {@code NoSuchAlgorithmException}.</p>
-	 * @param algorithm the {@code Signature} algorithm
-	 * @return a {@code Signature} instance of the provided algorithm
+	 * <p>Get a new {@link Signature} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link Signature} algorithm
+	 * @return a {@link Signature} instance of the provided algorithm
 	 * @since 1.3.1
 	 */
 	private static Signature getInstance(final String algorithm) {

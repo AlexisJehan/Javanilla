@@ -41,8 +41,8 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@code KeyFactory} instance.</p>
-	 * @return a "DiffieHellman" {@code KeyFactory} instance
+	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>
+	 * @return a "DiffieHellman" {@link KeyFactory} instance
 	 * @since 1.3.1
 	 */
 	public static KeyFactory getDiffieHellmanInstance() {
@@ -50,8 +50,8 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@code KeyFactory} instance.</p>
-	 * @return a "DSA" {@code KeyFactory} instance
+	 * <p>Get a new "DSA" {@link KeyFactory} instance.</p>
+	 * @return a "DSA" {@link KeyFactory} instance
 	 * @since 1.3.1
 	 */
 	public static KeyFactory getDsaInstance() {
@@ -59,8 +59,8 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "RSA" {@code KeyFactory} instance.</p>
-	 * @return a "RSA" {@code KeyFactory} instance
+	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
+	 * @return a "RSA" {@link KeyFactory} instance
 	 * @since 1.3.1
 	 */
 	public static KeyFactory getRsaInstance() {
@@ -68,9 +68,9 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new {@code KeyFactory} instance without throwing {@code NoSuchAlgorithmException}.</p>
-	 * @param algorithm the {@code KeyFactory} algorithm
-	 * @return a {@code KeyFactory} instance of the provided algorithm
+	 * <p>Get a new {@link KeyFactory} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link KeyFactory} algorithm
+	 * @return a {@link KeyFactory} instance of the provided algorithm
 	 * @since 1.3.1
 	 */
 	private static KeyFactory getInstance(final String algorithm) {
