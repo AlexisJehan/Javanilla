@@ -52,11 +52,11 @@ public final class RangeLineReader extends FilterLineReader {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a {@code LineReader} to decorate and a range from an inclusive index to another one.</p>
-	 * @param lineReader the {@code LineReader} to decorate
+	 * <p>Constructor with a {@link LineReader} to decorate and a range from an inclusive index to another one.</p>
+	 * @param lineReader the {@link LineReader} to decorate
 	 * @param fromIndex the inclusive index of the first line to read
 	 * @param toIndex the inclusive index of the last line to read
-	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * @throws NullPointerException if the {@link LineReader} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -68,6 +68,9 @@ public final class RangeLineReader extends FilterLineReader {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String read() throws IOException {
 		if (fromIndex > index) {
@@ -83,6 +86,9 @@ public final class RangeLineReader extends FilterLineReader {
 		return line;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		if (0L >= number || toIndex < index) {

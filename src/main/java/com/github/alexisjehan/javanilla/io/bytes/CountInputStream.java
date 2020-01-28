@@ -48,15 +48,18 @@ public final class CountInputStream extends FilterInputStream {
 	private long markedCount = 0L;
 
 	/**
-	 * <p>Constructor with an {@code InputStream} to decorate.</p>
-	 * @param inputStream the {@code InputStream} to decorate
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Constructor with an {@link InputStream} to decorate.</p>
+	 * @param inputStream the {@link InputStream} to decorate
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountInputStream(final InputStream inputStream) {
 		super(Ensure.notNull("inputStream", inputStream));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read() throws IOException {
 		final var next = in.read();
@@ -66,6 +69,9 @@ public final class CountInputStream extends FilterInputStream {
 		return next;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read(final byte[] buffer, final int offset, final int length) throws IOException {
 		Ensure.notNull("buffer", buffer);
@@ -81,6 +87,9 @@ public final class CountInputStream extends FilterInputStream {
 		return total;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		if (0L >= number) {
@@ -91,12 +100,18 @@ public final class CountInputStream extends FilterInputStream {
 		return actual;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized void mark(final int limit) {
 		in.mark(limit);
 		markedCount = count;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized void reset() throws IOException {
 		in.reset();

@@ -42,22 +42,32 @@ import java.util.Set;
 public final class Writers {
 
 	/**
-	 * <p>An empty {@code Writer} that writes nothing.</p>
+	 * <p>An empty {@link Writer} that writes nothing.</p>
 	 * @since 1.0.0
 	 * @deprecated since Java 11, use {@code Writer#nullWriter()} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final Writer EMPTY = new Writer() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final int i) {
 			// Do nothing
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final char[] chars) {
 			Ensure.notNull("chars", chars);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final char[] chars, final int offset, final int length) {
 			Ensure.notNull("chars", chars);
@@ -65,11 +75,17 @@ public final class Writers {
 			Ensure.between("length", length, 0, chars.length - offset);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final String string) {
 			Ensure.notNull("string", string);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final String string, final int offset, final int length) {
 			Ensure.notNull("string", string);
@@ -78,12 +94,18 @@ public final class Writers {
 			Ensure.between("length", length, 0, stringLength - offset);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Writer append(final CharSequence charSequence) {
 			Ensure.notNull("charSequence", charSequence);
 			return this;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Writer append(final CharSequence charSequence, final int start, final int end) {
 			Ensure.notNull("charSequence", charSequence);
@@ -93,16 +115,25 @@ public final class Writers {
 			return this;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Writer append(final char c) {
 			return this;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void flush() {
 			// Do nothing
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void close() {
 			// Do nothing
@@ -118,9 +149,9 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} replacing {@code null} by an empty one.</p>
-	 * @param writer the {@code Writer} or {@code null}
-	 * @return a non-{@code null} {@code Writer}
+	 * <p>Wrap a {@link Writer} replacing {@code null} by an empty one.</p>
+	 * @param writer the {@link Writer} or {@code null}
+	 * @return a non-{@code null} {@link Writer}
 	 * @since 1.0.0
 	 */
 	public static Writer nullToEmpty(final Writer writer) {
@@ -128,12 +159,12 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Writer} replacing {@code null} by a default one.</p>
-	 * @param writer the {@code Writer} or {@code null}
-	 * @param defaultWriter the default {@code Writer}
-	 * @param <W> the {@code Writer} type
-	 * @return a non-{@code null} {@code Writer}
-	 * @throws NullPointerException if the default {@code Writer} is {@code null}
+	 * <p>Wrap a {@link Writer} replacing {@code null} by a default one.</p>
+	 * @param writer the {@link Writer} or {@code null}
+	 * @param defaultWriter the default {@link Writer}
+	 * @param <W> the {@link Writer} type
+	 * @return a non-{@code null} {@link Writer}
+	 * @throws NullPointerException if the default {@link Writer} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <W extends Writer> W nullToDefault(final W writer, final W defaultWriter) {
@@ -142,10 +173,10 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Writer} as a {@code BufferedWriter} if it was not already.</p>
-	 * @param writer the {@code Writer} to decorate
-	 * @return a {@code BufferedWriter}
-	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * <p>Decorate a {@link Writer} as a {@link BufferedWriter} if it was not already.</p>
+	 * @param writer the {@link Writer} to decorate
+	 * @return a {@link BufferedWriter}
+	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static BufferedWriter buffered(final Writer writer) {
@@ -157,15 +188,19 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Writer} so that its {@link Writer#close()} method has no effect.</p>
-	 * @param writer the {@code Writer} to decorate
-	 * @return an uncloseable {@code Writer}
-	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * <p>Decorate a {@link Writer} so that its {@link Writer#close()} method has no effect.</p>
+	 * @param writer the {@link Writer} to decorate
+	 * @return an uncloseable {@link Writer}
+	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer uncloseable(final Writer writer) {
 		Ensure.notNull("writer", writer);
 		return new FilterWriter(writer) {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void close() {
 				// Do nothing
@@ -174,10 +209,10 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap multiple {@code Writer}s into a single one.</p>
-	 * @param writers the {@code Writer} array to wrap
-	 * @return the "tee-ed" {@code Writer}
-	 * @throws NullPointerException if the {@code Writer} array or any of them is {@code null}
+	 * <p>Wrap multiple {@link Writer}s into a single one.</p>
+	 * @param writers the {@link Writer} array to wrap
+	 * @return the "tee-ed" {@link Writer}
+	 * @throws NullPointerException if the {@link Writer} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer tee(final Writer... writers) {
@@ -186,10 +221,10 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap multiple {@code Writer}s into a single one.</p>
-	 * @param writers the {@code Writer} {@code Collection} to wrap
-	 * @return the "tee-ed" {@code Writer}
-	 * @throws NullPointerException if the {@code Writer} {@code Collection} or any of them is {@code null}
+	 * <p>Wrap multiple {@link Writer}s into a single one.</p>
+	 * @param writers the {@link Writer} {@link Collection} to wrap
+	 * @return the "tee-ed" {@link Writer}
+	 * @throws NullPointerException if the {@link Writer} {@link Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer tee(final Collection<? extends Writer> writers) {
@@ -202,6 +237,10 @@ public final class Writers {
 			return writers.iterator().next();
 		}
 		return new Writer() {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final int i) throws IOException {
 				for (final var writer : writers) {
@@ -209,6 +248,9 @@ public final class Writers {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final char[] chars) throws IOException {
 				Ensure.notNull("chars", chars);
@@ -219,6 +261,9 @@ public final class Writers {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final char[] chars, final int offset, final int length) throws IOException {
 				Ensure.notNull("chars", chars);
@@ -231,6 +276,9 @@ public final class Writers {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final String string) throws IOException {
 				Ensure.notNull("string", string);
@@ -241,6 +289,9 @@ public final class Writers {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final String string, final int offset, final int length) throws IOException {
 				Ensure.notNull("string", string);
@@ -254,6 +305,9 @@ public final class Writers {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public Writer append(final CharSequence charSequence) throws IOException {
 				Ensure.notNull("charSequence", charSequence);
@@ -265,6 +319,9 @@ public final class Writers {
 				return this;
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public Writer append(final CharSequence charSequence, final int start, final int end) throws IOException {
 				Ensure.notNull("charSequence", charSequence);
@@ -279,6 +336,9 @@ public final class Writers {
 				return this;
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public Writer append(final char c) throws IOException {
 				for (final var writer : writers) {
@@ -287,6 +347,9 @@ public final class Writers {
 				return this;
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void flush() throws IOException {
 				for (final var writer : writers) {
@@ -294,6 +357,9 @@ public final class Writers {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void close() throws IOException {
 				for (final var writer : writers) {
@@ -304,11 +370,11 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Create a {@code BufferedWriter} from a {@code Path} using {@link Charset#defaultCharset()}.</p>
-	 * @param path the {@code Path} to convert
-	 * @return the created {@code BufferedWriter}
+	 * <p>Create a {@link BufferedWriter} from a {@link Path} using {@link Charset#defaultCharset()}.</p>
+	 * @param path the {@link Path} to convert
+	 * @return the created {@link BufferedWriter}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static BufferedWriter of(final Path path) throws IOException {
@@ -316,12 +382,12 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Create a {@code BufferedWriter} from a {@code Path} using a custom {@code Charset}.</p>
-	 * @param path the {@code Path} to convert
-	 * @param charset the {@code Charset} to use
-	 * @return the created {@code BufferedWriter}
+	 * <p>Create a {@link BufferedWriter} from a {@link Path} using a custom {@link Charset}.</p>
+	 * @param path the {@link Path} to convert
+	 * @param charset the {@link Charset} to use
+	 * @return the created {@link BufferedWriter}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static BufferedWriter of(final Path path, final Charset charset) throws IOException {

@@ -47,13 +47,13 @@ public class LineWriter implements Closeable {
 	private static final boolean DEFAULT_APPEND_TERMINATING_NEW_LINE = false;
 
 	/**
-	 * <p>Delegated {@code Writer}.</p>
+	 * <p>Delegated {@link Writer}.</p>
 	 * @since 1.0.0
 	 */
 	private final Writer writer;
 
 	/**
-	 * <p>{@code LineSeparator} type to use.</p>
+	 * <p>{@link LineSeparator} type to use.</p>
 	 * @since 1.0.0
 	 */
 	private final LineSeparator lineSeparator;
@@ -81,10 +81,10 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with the given {@code Path} and the default {@code LineSeparator}.</p>
-	 * @param path the {@code Path} of the file to write to
+	 * <p>Constructor with the given {@link Path} and the default {@link LineSeparator}.</p>
+	 * @param path the {@link Path} of the file to write to
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Path path) throws IOException {
@@ -92,12 +92,12 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Path}, {@code LineSeparator} and the default value for whether or not a
+	 * <p>Constructor with given {@link Path}, {@link LineSeparator} and the default value for whether or not a
 	 * terminating new line should be appended on close.</p>
-	 * @param path the {@code Path} of the file to write to
-	 * @param lineSeparator the {@code LineSeparator} type
+	 * @param path the {@link Path} of the file to write to
+	 * @param lineSeparator the {@link LineSeparator} type
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@link Path} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Path path, final LineSeparator lineSeparator) throws IOException {
@@ -105,13 +105,13 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Path}, {@code LineSeparator} and whether or not a terminating new line should be
+	 * <p>Constructor with given {@link Path}, {@link LineSeparator} and whether or not a terminating new line should be
 	 * appended on close.</p>
-	 * @param path the {@code Path} of the file to write to
-	 * @param lineSeparator the {@code LineSeparator} type
+	 * @param path the {@link Path} of the file to write to
+	 * @param lineSeparator the {@link LineSeparator} type
 	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@link Path} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Path path, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) throws IOException {
@@ -119,11 +119,11 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Path}, {@code Charset} and the default {@code LineSeparator}.</p>
-	 * @param path the {@code Path} of the file to write to
-	 * @param charset the {@code Charset} to use
+	 * <p>Constructor with given {@link Path}, {@link Charset} and the default {@link LineSeparator}.</p>
+	 * @param path the {@link Path} of the file to write to
+	 * @param charset the {@link Charset} to use
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Path path, final Charset charset) throws IOException {
@@ -131,14 +131,14 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Path}, {@code Charset}, {@code LineSeparator} and the default value for whether
+	 * <p>Constructor with given {@link Path}, {@link Charset}, {@link LineSeparator} and the default value for whether
 	 * or not a terminating new line should be appended on close.</p>
-	 * @param path the {@code Path} of the file to write to
-	 * @param charset the {@code Charset} to use
-	 * @param lineSeparator the {@code LineSeparator} type
+	 * @param path the {@link Path} of the file to write to
+	 * @param charset the {@link Charset} to use
+	 * @param lineSeparator the {@link LineSeparator} type
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path}, the {@code Charset} or the {@code LineSeparator} is
-	 * {@code null}
+	 * @throws NullPointerException if the {@link Path}, the {@link Charset} or the {@link LineSeparator} is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Path path, final Charset charset, final LineSeparator lineSeparator) throws IOException {
@@ -146,15 +146,15 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Path}, {@code Charset}, {@code LineSeparator} and whether or not a terminating
+	 * <p>Constructor with given {@link Path}, {@link Charset}, {@link LineSeparator} and whether or not a terminating
 	 * new line should be appended on close.</p>
-	 * @param path the {@code Path} of the file to write to
-	 * @param charset the {@code Charset} to use
-	 * @param lineSeparator the {@code LineSeparator} type
+	 * @param path the {@link Path} of the file to write to
+	 * @param charset the {@link Charset} to use
+	 * @param lineSeparator the {@link LineSeparator} type
 	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path}, the {@code Charset} or the {@code LineSeparator} is
-	 * {@code null}
+	 * @throws NullPointerException if the {@link Path}, the {@link Charset} or the {@link LineSeparator} is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Path path, final Charset charset, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) throws IOException {
@@ -162,9 +162,9 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with the given {@code Writer} and the default {@code LineSeparator}.</p>
-	 * @param writer the {@code Writer} to write to
-	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * <p>Constructor with the given {@link Writer} and the default {@link LineSeparator}.</p>
+	 * @param writer the {@link Writer} to write to
+	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Writer writer) {
@@ -172,11 +172,11 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Writer}, {@code LineSeparator} and the default value for whether or not a
+	 * <p>Constructor with given {@link Writer}, {@link LineSeparator} and the default value for whether or not a
 	 * terminating new line should be appended on close.</p>
-	 * @param writer the {@code Writer} to write to
-	 * @param lineSeparator the {@code LineSeparator} type
-	 * @throws NullPointerException if the {@code Writer} or the {@code LineSeparator} is {@code null}
+	 * @param writer the {@link Writer} to write to
+	 * @param lineSeparator the {@link LineSeparator} type
+	 * @throws NullPointerException if the {@link Writer} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Writer writer, final LineSeparator lineSeparator) {
@@ -184,12 +184,12 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Constructor with given {@code Writer}, {@code LineSeparator} and whether or not a terminating new line should
+	 * <p>Constructor with given {@link Writer}, {@link LineSeparator} and whether or not a terminating new line should
 	 * be appended on close.</p>
-	 * @param writer the {@code Writer} to write to
-	 * @param lineSeparator the {@code LineSeparator} type
+	 * @param writer the {@link Writer} to write to
+	 * @param lineSeparator the {@link LineSeparator} type
 	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
-	 * @throws NullPointerException if the {@code Writer} or the {@code LineSeparator} is {@code null}
+	 * @throws NullPointerException if the {@link Writer} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public LineWriter(final Writer writer, final LineSeparator lineSeparator, final boolean appendTerminatingNewLine) {
@@ -202,7 +202,7 @@ public class LineWriter implements Closeable {
 
 	/**
 	 * <p>Writes a line.</p>
-	 * @param line the {@code String} line to write
+	 * @param line the {@link String} line to write
 	 * @throws IOException might occurs with I/O operations
 	 * @throws NullPointerException if the line is {@code null}
 	 * @since 1.0.0
@@ -218,7 +218,7 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Writes a new line whose representation is based on the {@code LineSeparator} type.</p>
+	 * <p>Writes a new line whose representation is based on the {@link LineSeparator} type.</p>
 	 * @throws IOException might occurs with I/O operations
 	 * @since 1.0.0
 	 */
@@ -227,7 +227,7 @@ public class LineWriter implements Closeable {
 	}
 
 	/**
-	 * <p>Flush the delegated {@code Writer}.</p>
+	 * <p>Flush the delegated {@link Writer}.</p>
 	 * @throws IOException might occurs with I/O operations
 	 * @since 1.0.0
 	 */

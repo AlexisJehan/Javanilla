@@ -38,15 +38,18 @@ public final class CountLineReader extends FilterLineReader {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a {@code LineReader} to decorate.</p>
-	 * @param lineReader the {@code LineReader} to decorate
-	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * <p>Constructor with a {@link LineReader} to decorate.</p>
+	 * @param lineReader the {@link LineReader} to decorate
+	 * @throws NullPointerException if the {@link LineReader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountLineReader(final LineReader lineReader) {
 		super(lineReader);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String read() throws IOException {
 		final var line = super.read();
@@ -56,6 +59,9 @@ public final class CountLineReader extends FilterLineReader {
 		return line;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		if (0L >= number) {

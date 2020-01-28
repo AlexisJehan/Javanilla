@@ -42,21 +42,27 @@ public final class CountOutputStream extends FilterOutputStream {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with an {@code OutputStream} to decorate.</p>
-	 * @param outputStream the {@code OutputStream} to decorate
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * <p>Constructor with an {@link OutputStream} to decorate.</p>
+	 * @param outputStream the {@link OutputStream} to decorate
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountOutputStream(final OutputStream outputStream) {
 		super(Ensure.notNull("outputStream", outputStream));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final int i) throws IOException {
 		out.write(i);
 		++count;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final byte[] bytes, final int offset, final int length) throws IOException {
 		Ensure.notNull("bytes", bytes);

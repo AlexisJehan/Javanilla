@@ -38,21 +38,27 @@ public final class CountLineWriter extends FilterLineWriter {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a {@code LineWriter} to decorate.</p>
-	 * @param lineWriter the {@code LineWriter} to decorate
-	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
+	 * <p>Constructor with a {@link LineWriter} to decorate.</p>
+	 * @param lineWriter the {@link LineWriter} to decorate
+	 * @throws NullPointerException if the {@link LineWriter} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountLineWriter(final LineWriter lineWriter) {
 		super(lineWriter);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final String line) throws IOException {
 		super.write(line);
 		++count;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void newLine() throws IOException {
 		super.newLine();

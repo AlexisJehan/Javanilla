@@ -42,21 +42,27 @@ public final class CountWriter extends FilterWriter {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with a {@code Writer} to decorate.</p>
-	 * @param writer the {@code Writer} to decorate
-	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * <p>Constructor with a {@link Writer} to decorate.</p>
+	 * @param writer the {@link Writer} to decorate
+	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountWriter(final Writer writer) {
 		super(Ensure.notNull("writer", writer));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final int i) throws IOException {
 		out.write(i);
 		++count;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final char[] chars, final int offset, final int length) throws IOException {
 		Ensure.notNull("chars", chars);
@@ -68,6 +74,9 @@ public final class CountWriter extends FilterWriter {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final String string, final int offset, final int length) throws IOException {
 		Ensure.notNull("string", string);

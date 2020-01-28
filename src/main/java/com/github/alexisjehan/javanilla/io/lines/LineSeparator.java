@@ -44,6 +44,10 @@ public enum LineSeparator {
 	 * @since 1.0.0
 	 */
 	LF("\n") {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
 			int i;
@@ -63,6 +67,10 @@ public enum LineSeparator {
 	 * @since 1.0.0
 	 */
 	CR_LF("\r\n") {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
 			int i1;
@@ -91,6 +99,10 @@ public enum LineSeparator {
 	 * @since 1.0.0
 	 */
 	CR("\r") {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
 			int i;
@@ -110,6 +122,10 @@ public enum LineSeparator {
 	 * @since 1.0.0
 	 */
 	DEFAULT(System.lineSeparator()) {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		int read(final Reader reader, final StringBuilder builder) throws IOException {
 			int i;
@@ -124,21 +140,21 @@ public enum LineSeparator {
 	};
 
 	/**
-	 * <p>Limit on the characters sample to read while detecting the {@code LineSeparator} type over a
-	 * {@code Reader}.</p>
+	 * <p>Limit on the characters sample to read while detecting the {@link LineSeparator} type over a
+	 * {@link Reader}.</p>
 	 * @since 1.0.0
 	 */
 	private static final int DETECTION_LIMIT = 8_000;
 
 	/**
-	 * <p>{@code String} representation of the current {@code LineSeparator} type.</p>
+	 * <p>{@link String} representation of the current {@link LineSeparator} type.</p>
 	 * @since 1.0.0
 	 */
 	private final String string;
 
 	/**
 	 * <p>Enumeration constructor.</p>
-	 * @param string the {@code String} representation
+	 * @param string the {@link String} representation
 	 * @since 1.0.0
 	 */
 	LineSeparator(final String string) {
@@ -146,9 +162,9 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Read the next line from the given {@code Reader} using the current {@code LineSeparator} strategy.</p>
-	 * @param reader the {@code Reader} to read from
-	 * @param builder the {@code StringBuilder} to write the line to
+	 * <p>Read the next line from the given {@link Reader} using the current {@link LineSeparator} strategy.</p>
+	 * @param reader the {@link Reader} to read from
+	 * @param builder the {@link StringBuilder} to write the line to
 	 * @return the {@code int} value of the last read {@code char}
 	 * @throws IOException might occurs with I/O operations
 	 * @since 1.0.0
@@ -156,8 +172,8 @@ public enum LineSeparator {
 	abstract int read(final Reader reader, final StringBuilder builder) throws IOException;
 
 	/**
-	 * <p>Return the {@code String} representation.</p>
-	 * @return the {@code String} representation
+	 * <p>Return the {@link String} representation.</p>
+	 * @return the {@link String} representation
 	 * @since 1.0.0
 	 */
 	@Override
@@ -166,12 +182,12 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@code Path} using a default {@code Charset}
+	 * <p>Attempt to detect the {@link LineSeparator} type of the given {@link Path} using a default {@link Charset}
 	 * reading a sample.</p>
-	 * @param path the {@code Path} of the file to analyze
-	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
+	 * @param path the {@link Path} of the file to analyze
+	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Path path) throws IOException {
@@ -179,13 +195,13 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@code Path} using the given {@code Charset}
+	 * <p>Attempt to detect the {@link LineSeparator} type of the given {@link Path} using the given {@link Charset}
 	 * reading a sample.</p>
-	 * @param path the {@code Path} of the file to analyze
-	 * @param charset the {@code Charset} to use
-	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
+	 * @param path the {@link Path} of the file to analyze
+	 * @param charset the {@link Charset} to use
+	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Path path, final Charset charset) throws IOException {
@@ -197,13 +213,13 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@code Reader} using a sample.</p>
-	 * <p><b>Note</b>: The {@code Reader} need to support {@link Reader#mark(int)}.</p>
-	 * @param reader the {@code Reader} to analyze
-	 * @return the detected {@code LineSeparator} if one has been found, {@code DEFAULT} otherwise
+	 * <p>Attempt to detect the {@link LineSeparator} type of the given {@link Reader} using a sample.</p>
+	 * <p><b>Note</b>: The {@link Reader} need to support {@link Reader#mark(int)}.</p>
+	 * @param reader the {@link Reader} to analyze
+	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Reader} does not support {@link Reader#mark(int)}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Reader} does not support {@link Reader#mark(int)}
 	 * @since 1.0.0
 	 */
 	public static LineSeparator detect(final Reader reader) throws IOException {

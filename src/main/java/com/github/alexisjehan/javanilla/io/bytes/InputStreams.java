@@ -49,17 +49,24 @@ import java.util.List;
 public final class InputStreams {
 
 	/**
-	 * <p>An empty {@code InputStream} that returns no byte.</p>
+	 * <p>An empty {@link InputStream} that returns no byte.</p>
 	 * @since 1.0.0
 	 * @deprecated since Java 11, use {@code InputStream#nullInputStream()} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final InputStream EMPTY = new InputStream() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read() {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read(final byte[] buffer) {
 			Ensure.notNull("buffer", buffer);
@@ -69,6 +76,9 @@ public final class InputStreams {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read(final byte[] buffer, final int offset, final int length) {
 			Ensure.notNull("buffer", buffer);
@@ -80,11 +90,17 @@ public final class InputStreams {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public byte[] readAllBytes() {
 			return ByteArrays.EMPTY;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int readNBytes(final byte[] buffer, final int offset, final int length) {
 			Ensure.notNull("buffer", buffer);
@@ -93,11 +109,17 @@ public final class InputStreams {
 			return 0;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long skip(final long number) {
 			return 0L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long transferTo(final OutputStream outputStream) {
 			Ensure.notNull("outputStream", outputStream);
@@ -114,9 +136,9 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} replacing {@code null} by an empty one.</p>
-	 * @param inputStream the {@code InputStream} or {@code null}
-	 * @return a non-{@code null} {@code InputStream}
+	 * <p>Wrap an {@link InputStream} replacing {@code null} by an empty one.</p>
+	 * @param inputStream the {@link InputStream} or {@code null}
+	 * @return a non-{@code null} {@link InputStream}
 	 * @since 1.0.0
 	 */
 	public static InputStream nullToEmpty(final InputStream inputStream) {
@@ -124,12 +146,12 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code InputStream} replacing {@code null} by a default one.</p>
-	 * @param inputStream the {@code InputStream} or {@code null}
-	 * @param defaultInputStream the default {@code InputStream}
-	 * @param <I> the {@code InputStream} type
-	 * @return a non-{@code null} {@code InputStream}
-	 * @throws NullPointerException if the default {@code InputStream} is {@code null}
+	 * <p>Wrap an {@link InputStream} replacing {@code null} by a default one.</p>
+	 * @param inputStream the {@link InputStream} or {@code null}
+	 * @param defaultInputStream the default {@link InputStream}
+	 * @param <I> the {@link InputStream} type
+	 * @return a non-{@code null} {@link InputStream}
+	 * @throws NullPointerException if the default {@link InputStream} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <I extends InputStream> I nullToDefault(final I inputStream, final I defaultInputStream) {
@@ -138,10 +160,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@code InputStream} as a {@code BufferedInputStream} if it was not already.</p>
-	 * @param inputStream the {@code InputStream} to decorate
-	 * @return a {@code BufferedInputStream}
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Decorate an {@link InputStream} as a {@link BufferedInputStream} if it was not already.</p>
+	 * @param inputStream the {@link InputStream} to decorate
+	 * @return a {@link BufferedInputStream}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static BufferedInputStream buffered(final InputStream inputStream) {
@@ -153,10 +175,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@code InputStream} so that it supports {@link InputStream#mark(int)} if it did not already.</p>
-	 * @param inputStream the {@code InputStream} to decorate
-	 * @return an {@code InputStream} with mark supported
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Decorate an {@link InputStream} so that it supports {@link InputStream#mark(int)} if it did not already.</p>
+	 * @param inputStream the {@link InputStream} to decorate
+	 * @return an {@link InputStream} with mark supported
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream markSupported(final InputStream inputStream) {
@@ -168,15 +190,19 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@code InputStream} so that its {@link InputStream#close()} method has no effect.</p>
-	 * @param inputStream the {@code InputStream} to decorate
-	 * @return an uncloseable {@code InputStream}
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Decorate an {@link InputStream} so that its {@link InputStream#close()} method has no effect.</p>
+	 * @param inputStream the {@link InputStream} to decorate
+	 * @return an uncloseable {@link InputStream}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream uncloseable(final InputStream inputStream) {
 		Ensure.notNull("inputStream", inputStream);
 		return new FilterInputStream(inputStream) {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void close() {
 				// Do nothing
@@ -185,13 +211,13 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Read an {@code InputStream} from the current position to the end and return the length.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code InputStream} does not end.</p>
-	 * @param inputStream the {@code InputStream} to read
+	 * <p>Read an {@link InputStream} from the current position to the end and return the length.</p>
+	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link InputStream} does not end.</p>
+	 * @param inputStream the {@link InputStream} to read
 	 * @return the length from the current position
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("deprecation")
@@ -201,10 +227,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code InputStream}s.</p>
-	 * @param inputStreams the {@code InputStream} array to concatenate
-	 * @return the concatenated {@code InputStream}
-	 * @throws NullPointerException if the {@code InputStream} array or any of them is {@code null}
+	 * <p>Concatenate multiple {@link InputStream}s.</p>
+	 * @param inputStreams the {@link InputStream} array to concatenate
+	 * @return the concatenated {@link InputStream}
+	 * @throws NullPointerException if the {@link InputStream} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream concat(final InputStream... inputStreams) {
@@ -213,10 +239,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code InputStream}s.</p>
-	 * @param inputStreams the {@code InputStream} {@code List} to concatenate
-	 * @return the concatenated {@code InputStream}
-	 * @throws NullPointerException if the {@code InputStream} {@code List} or any of them is {@code null}
+	 * <p>Concatenate multiple {@link InputStream}s.</p>
+	 * @param inputStreams the {@link InputStream} {@link List} to concatenate
+	 * @return the concatenated {@link InputStream}
+	 * @throws NullPointerException if the {@link InputStream} {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream concat(final List<? extends InputStream> inputStreams) {
@@ -232,12 +258,12 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Join multiple {@code InputStream}s using a {@code byte} array separator.</p>
+	 * <p>Join multiple {@link InputStream}s using a {@code byte} array separator.</p>
 	 * @param separator the {@code byte} array separator
-	 * @param inputStreams the {@code InputStream} array to join
-	 * @return the joined {@code InputStream}
-	 * @throws NullPointerException if the {@code byte} array separator, the {@code InputStream} array or any of them is
-	 * {@code null}
+	 * @param inputStreams the {@link InputStream} array to join
+	 * @return the joined {@link InputStream}
+	 * @throws NullPointerException if the {@code byte} array separator, the {@link InputStream} array or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream join(final byte[] separator, final InputStream... inputStreams) {
@@ -246,11 +272,11 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Join multiple {@code InputStream}s using a {@code byte} array separator.</p>
+	 * <p>Join multiple {@link InputStream}s using a {@code byte} array separator.</p>
 	 * @param separator the {@code byte} array separator
-	 * @param inputStreams the {@code InputStream} {@code List} to join
-	 * @return the joined {@code InputStream}
-	 * @throws NullPointerException if the {@code byte} array separator, the {@code InputStream} {@code List} or any of
+	 * @param inputStreams the {@link InputStream} {@link List} to join
+	 * @return the joined {@link InputStream}
+	 * @throws NullPointerException if the {@code byte} array separator, the {@link InputStream} {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -278,9 +304,9 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} from a single {@code byte}.</p>
+	 * <p>Create an {@link InputStream} from a single {@code byte}.</p>
 	 * @param b the {@code byte} to convert
-	 * @return the created {@code InputStream}
+	 * @return the created {@link InputStream}
 	 * @since 1.1.0
 	 */
 	public static InputStream singleton(final byte b) {
@@ -288,9 +314,9 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} from multiple {@code byte}s.</p>
+	 * <p>Create an {@link InputStream} from multiple {@code byte}s.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @return the created {@code InputStream}
+	 * @return the created {@link InputStream}
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.0.0
 	 */
@@ -303,10 +329,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} from a {@code String} using {@link Charset#defaultCharset()}.</p>
-	 * @param string the {@code String} to convert
-	 * @return the created {@code InputStream}
-	 * @throws NullPointerException if the {@code String} is {@code null}
+	 * <p>Create an {@link InputStream} from a {@link String} using {@link Charset#defaultCharset()}.</p>
+	 * @param string the {@link String} to convert
+	 * @return the created {@link InputStream}
+	 * @throws NullPointerException if the {@link String} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream of(final String string) {
@@ -314,11 +340,11 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@code InputStream} from a {@code String} using a custom {@code Charset}.</p>
-	 * @param string the {@code String} to convert
-	 * @param charset the {@code Charset} to use
-	 * @return the created {@code InputStream}
-	 * @throws NullPointerException if the {@code String} or the {@code Charset} is {@code null}
+	 * <p>Create an {@link InputStream} from a {@link String} using a custom {@link Charset}.</p>
+	 * @param string the {@link String} to convert
+	 * @param charset the {@link Charset} to use
+	 * @return the created {@link InputStream}
+	 * @throws NullPointerException if the {@link String} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static InputStream of(final String string, final Charset charset) {
@@ -331,11 +357,11 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create a {@code BufferedInputStream} from a {@code Path}.</p>
-	 * @param path the {@code Path} to convert
-	 * @return the created {@code BufferedInputStream}
+	 * <p>Create a {@link BufferedInputStream} from a {@link Path}.</p>
+	 * @param path the {@link Path} to convert
+	 * @return the created {@link BufferedInputStream}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static BufferedInputStream of(final Path path) throws IOException {
@@ -344,13 +370,13 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code byte} array.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code InputStream} is too large.</p>
-	 * @param inputStream the {@code InputStream} to convert
+	 * <p>Convert an {@link InputStream} to a {@code byte} array.</p>
+	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
+	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@code byte} array
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] toBytes(final InputStream inputStream) throws IOException {
@@ -359,13 +385,13 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code String} using {@link Charset#defaultCharset()}.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code InputStream} is too large.</p>
-	 * @param inputStream the {@code InputStream} to convert
-	 * @return the created {@code String}
+	 * <p>Convert an {@link InputStream} to a {@link String} using {@link Charset#defaultCharset()}.</p>
+	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
+	 * @param inputStream the {@link InputStream} to convert
+	 * @return the created {@link String}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String toString(final InputStream inputStream) throws IOException {
@@ -373,14 +399,14 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code String} using a custom {@code Charset}.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code InputStream} is too large.</p>
-	 * @param inputStream the {@code InputStream} to convert
-	 * @param charset the {@code Charset} to use
-	 * @return the created {@code String}
+	 * <p>Convert an {@link InputStream} to a {@link String} using a custom {@link Charset}.</p>
+	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
+	 * @param inputStream the {@link InputStream} to convert
+	 * @param charset the {@link Charset} to use
+	 * @return the created {@link String}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code InputStream} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@link InputStream} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String toString(final InputStream inputStream, final Charset charset) throws IOException {
@@ -390,10 +416,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code Reader} using {@link Charset#defaultCharset()}.</p>
-	 * @param inputStream the {@code InputStream} to convert
-	 * @return the created {@code Reader}
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Convert an {@link InputStream} to a {@link Reader} using {@link Charset#defaultCharset()}.</p>
+	 * @param inputStream the {@link InputStream} to convert
+	 * @return the created {@link Reader}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader toReader(final InputStream inputStream) {
@@ -401,11 +427,11 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code InputStream} to a {@code Reader} using a custom {@code Charset}.</p>
-	 * @param inputStream the {@code InputStream} to convert
-	 * @param charset the {@code Charset} to use
-	 * @return the created {@code Reader}
-	 * @throws NullPointerException if the {@code InputStream} or the {@code Charset} is {@code null}
+	 * <p>Convert an {@link InputStream} to a {@link Reader} using a custom {@link Charset}.</p>
+	 * @param inputStream the {@link InputStream} to convert
+	 * @param charset the {@link Charset} to use
+	 * @return the created {@link Reader}
+	 * @throws NullPointerException if the {@link InputStream} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader toReader(final InputStream inputStream, final Charset charset) {

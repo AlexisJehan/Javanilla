@@ -60,11 +60,11 @@ public final class RangeInputStream extends FilterInputStream {
 	private long markedIndex = 0L;
 
 	/**
-	 * <p>Constructor with an {@code InputStream} to decorate and a range from an inclusive index to another one.</p>
-	 * @param inputStream the {@code InputStream} to decorate
+	 * <p>Constructor with an {@link InputStream} to decorate and a range from an inclusive index to another one.</p>
+	 * @param inputStream the {@link InputStream} to decorate
 	 * @param fromIndex the inclusive index of the first byte to read
 	 * @param toIndex the inclusive index of the last byte to read
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -76,6 +76,9 @@ public final class RangeInputStream extends FilterInputStream {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read() throws IOException {
 		if (fromIndex > index) {
@@ -91,6 +94,9 @@ public final class RangeInputStream extends FilterInputStream {
 		return next;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read(final byte[] buffer, final int offset, final int length) throws IOException {
 		Ensure.notNull("buffer", buffer);
@@ -112,6 +118,9 @@ public final class RangeInputStream extends FilterInputStream {
 		return total;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		if (0L >= number || toIndex < index) {
@@ -125,12 +134,18 @@ public final class RangeInputStream extends FilterInputStream {
 		return actual;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized void mark(final int limit) {
 		in.mark(limit);
 		markedIndex = index;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized void reset() throws IOException {
 		in.reset();

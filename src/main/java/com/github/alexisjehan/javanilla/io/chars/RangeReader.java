@@ -60,11 +60,11 @@ public final class RangeReader extends FilterReader {
 	private long markedIndex = 0L;
 
 	/**
-	 * <p>Constructor with a {@code Reader} to decorate and a range from an inclusive index to another one.</p>
-	 * @param reader the {@code Reader} to decorate
+	 * <p>Constructor with a {@link Reader} to decorate and a range from an inclusive index to another one.</p>
+	 * @param reader the {@link Reader} to decorate
 	 * @param fromIndex the inclusive index of the first char to read
 	 * @param toIndex the inclusive index of the last char to read
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -76,6 +76,9 @@ public final class RangeReader extends FilterReader {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read() throws IOException {
 		if (fromIndex > index) {
@@ -91,6 +94,9 @@ public final class RangeReader extends FilterReader {
 		return next;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read(final char[] buffer, final int offset, final int length) throws IOException {
 		Ensure.notNull("buffer", buffer);
@@ -112,6 +118,9 @@ public final class RangeReader extends FilterReader {
 		return total;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		if (0L >= number || toIndex < index) {
@@ -125,12 +134,18 @@ public final class RangeReader extends FilterReader {
 		return actual;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void mark(final int limit) throws IOException {
 		in.mark(limit);
 		markedIndex = index;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void reset() throws IOException {
 		in.reset();

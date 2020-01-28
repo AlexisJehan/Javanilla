@@ -52,11 +52,11 @@ public final class RangeLineWriter extends FilterLineWriter {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a {@code LineWriter} to decorate and a range from an inclusive index to another one.</p>
-	 * @param lineWriter the {@code LineWriter} to decorate
+	 * <p>Constructor with a {@link LineWriter} to decorate and a range from an inclusive index to another one.</p>
+	 * @param lineWriter the {@link LineWriter} to decorate
 	 * @param fromIndex the inclusive index of the first line to write
 	 * @param toIndex the inclusive index of the last line to write
-	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
+	 * @throws NullPointerException if the {@link LineWriter} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -68,6 +68,9 @@ public final class RangeLineWriter extends FilterLineWriter {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final String line) throws IOException {
 		if (fromIndex <= index && toIndex >= index) {
@@ -76,6 +79,9 @@ public final class RangeLineWriter extends FilterLineWriter {
 		++index;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void newLine() throws IOException {
 		if (fromIndex <= index && toIndex >= index) {

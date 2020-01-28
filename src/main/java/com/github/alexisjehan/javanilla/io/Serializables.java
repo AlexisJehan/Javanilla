@@ -48,8 +48,8 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Serialize the given {@code Serializable} to a {@code byte} array.</p>
-	 * @param serializable the {@code Serializable} or {@code null}
+	 * <p>Serialize the given {@link Serializable} to a {@code byte} array.</p>
+	 * @param serializable the {@link Serializable} or {@code null}
 	 * @return a {@code byte} array that contains the serialized data
 	 * @throws SerializationException might occurs with serialization operations
 	 * @since 1.0.0
@@ -61,10 +61,10 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Serialize the given {@code Serializable} to an {@code OutputStream}.</p>
-	 * @param outputStream the {@code OutputStream} to write into
-	 * @param serializable the {@code Serializable} or {@code null}
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * <p>Serialize the given {@link Serializable} to an {@link OutputStream}.</p>
+	 * @param outputStream the {@link OutputStream} to write into
+	 * @param serializable the {@link Serializable} or {@code null}
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @throws SerializationException might occurs with serialization or I/O operations
 	 * @since 1.0.0
 	 */
@@ -78,10 +78,10 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Deserialize from the given {@code byte} array to a new {@code Serializable}.</p>
+	 * <p>Deserialize from the given {@code byte} array to a new {@link Serializable}.</p>
 	 * @param bytes the {@code byte} array that contains the serialized data
-	 * @param <S> the type of the {@code Serializable}
-	 * @return a new {@code Serializable} from the serialized data
+	 * @param <S> the type of the {@link Serializable}
+	 * @return a new {@link Serializable} from the serialized data
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @throws SerializationException might occurs with serialization operations
 	 * @since 1.0.0
@@ -92,11 +92,11 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Deserialize from the given {@code InputStream} to a new {@code Serializable}.</p>
-	 * @param inputStream the {@code InputStream} to read into
-	 * @param <S> the type of the {@code Serializable}
-	 * @return a new {@code Serializable} from the serialized data
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Deserialize from the given {@link InputStream} to a new {@link Serializable}.</p>
+	 * @param inputStream the {@link InputStream} to read into
+	 * @param <S> the type of the {@link Serializable}
+	 * @return a new {@link Serializable} from the serialized data
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @throws SerializationException might occurs with serialization or I/O operations
 	 * @since 1.0.0
 	 */

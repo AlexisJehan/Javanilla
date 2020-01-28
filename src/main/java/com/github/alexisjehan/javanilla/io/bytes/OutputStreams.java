@@ -44,22 +44,32 @@ import java.util.Set;
 public final class OutputStreams {
 
 	/**
-	 * <p>An empty {@code OutputStream} that writes nothing.</p>
+	 * <p>An empty {@link OutputStream} that writes nothing.</p>
 	 * @since 1.0.0
 	 * @deprecated since Java 11, use {@code OutputStream#nullOutputStream()} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final OutputStream EMPTY = new OutputStream() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final int i) {
 			// Do nothing
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final byte[] bytes) {
 			Ensure.notNull("bytes", bytes);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void write(final byte[] bytes, final int offset, final int length) {
 			Ensure.notNull("bytes", bytes);
@@ -77,9 +87,9 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code OutputStream} replacing {@code null} by an empty one.</p>
-	 * @param outputStream the {@code OutputStream} or {@code null}
-	 * @return a non-{@code null} {@code OutputStream}
+	 * <p>Wrap an {@link OutputStream} replacing {@code null} by an empty one.</p>
+	 * @param outputStream the {@link OutputStream} or {@code null}
+	 * @return a non-{@code null} {@link OutputStream}
 	 * @since 1.0.0
 	 */
 	public static OutputStream nullToEmpty(final OutputStream outputStream) {
@@ -87,12 +97,12 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@code OutputStream} replacing {@code null} by a default one.</p>
-	 * @param outputStream the {@code OutputStream} or {@code null}
-	 * @param defaultOutputStream the default {@code OutputStream}
-	 * @param <O> the {@code OutputStream} type
-	 * @return a non-{@code null} {@code OutputStream}
-	 * @throws NullPointerException if the default {@code OutputStream} is {@code null}
+	 * <p>Wrap an {@link OutputStream} replacing {@code null} by a default one.</p>
+	 * @param outputStream the {@link OutputStream} or {@code null}
+	 * @param defaultOutputStream the default {@link OutputStream}
+	 * @param <O> the {@link OutputStream} type
+	 * @return a non-{@code null} {@link OutputStream}
+	 * @throws NullPointerException if the default {@link OutputStream} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <O extends OutputStream> O nullToDefault(final O outputStream, final O defaultOutputStream) {
@@ -101,10 +111,10 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@code OutputStream} as a {@code BufferedOutputStream} if it was not already.</p>
-	 * @param outputStream the {@code OutputStream} to decorate
-	 * @return a {@code BufferedOutputStream}
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * <p>Decorate an {@link OutputStream} as a {@link BufferedOutputStream} if it was not already.</p>
+	 * @param outputStream the {@link OutputStream} to decorate
+	 * @return a {@link BufferedOutputStream}
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static BufferedOutputStream buffered(final OutputStream outputStream) {
@@ -116,15 +126,19 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@code OutputStream} so that its {@link OutputStream#close()} method has no effect.</p>
-	 * @param outputStream the {@code OutputStream} to decorate
-	 * @return an uncloseable {@code OutputStream}
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * <p>Decorate an {@link OutputStream} so that its {@link OutputStream#close()} method has no effect.</p>
+	 * @param outputStream the {@link OutputStream} to decorate
+	 * @return an uncloseable {@link OutputStream}
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static OutputStream uncloseable(final OutputStream outputStream) {
 		Ensure.notNull("outputStream", outputStream);
 		return new FilterOutputStream(outputStream) {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void close() {
 				// Do nothing
@@ -133,10 +147,10 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap multiple {@code OutputStream}s into a single one.</p>
-	 * @param outputStreams the {@code OutputStream} array to wrap
-	 * @return the "tee-ed" {@code OutputStream}
-	 * @throws NullPointerException if the {@code OutputStream} array or any of them is {@code null}
+	 * <p>Wrap multiple {@link OutputStream}s into a single one.</p>
+	 * @param outputStreams the {@link OutputStream} array to wrap
+	 * @return the "tee-ed" {@link OutputStream}
+	 * @throws NullPointerException if the {@link OutputStream} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static OutputStream tee(final OutputStream... outputStreams) {
@@ -145,10 +159,10 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap multiple {@code OutputStream}s into a single one.</p>
-	 * @param outputStreams the {@code OutputStream} {@code Collection} to wrap
-	 * @return the "tee-ed" {@code OutputStream}
-	 * @throws NullPointerException if the {@code OutputStream} {@code Collection} or any of them is {@code null}
+	 * <p>Wrap multiple {@link OutputStream}s into a single one.</p>
+	 * @param outputStreams the {@link OutputStream} {@link Collection} to wrap
+	 * @return the "tee-ed" {@link OutputStream}
+	 * @throws NullPointerException if the {@link OutputStream} {@link Collection} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static OutputStream tee(final Collection<? extends OutputStream> outputStreams) {
@@ -161,6 +175,10 @@ public final class OutputStreams {
 			return outputStreams.iterator().next();
 		}
 		return new OutputStream() {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final int i) throws IOException {
 				for (final var outputStream : outputStreams) {
@@ -168,6 +186,9 @@ public final class OutputStreams {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final byte[] bytes) throws IOException {
 				Ensure.notNull("bytes", bytes);
@@ -178,6 +199,9 @@ public final class OutputStreams {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void write(final byte[] bytes, final int offset, final int length) throws IOException {
 				Ensure.notNull("bytes", bytes);
@@ -190,6 +214,9 @@ public final class OutputStreams {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void flush() throws IOException {
 				for (final var outputStream : outputStreams) {
@@ -197,6 +224,9 @@ public final class OutputStreams {
 				}
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void close() throws IOException {
 				for (final var outputStream : outputStreams) {
@@ -207,10 +237,10 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code OutputStream} to a {@code Writer} using {@link Charset#defaultCharset()}.</p>
-	 * @param outputStream the {@code OutputStream} to convert
-	 * @return the created {@code Writer}
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * <p>Convert an {@link OutputStream} to a {@link Writer} using {@link Charset#defaultCharset()}.</p>
+	 * @param outputStream the {@link OutputStream} to convert
+	 * @return the created {@link Writer}
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer toWriter(final OutputStream outputStream) {
@@ -218,11 +248,11 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@code OutputStream} to a {@code Writer} using a custom {@code Charset}.</p>
-	 * @param outputStream the {@code OutputStream} to convert
-	 * @param charset the {@code Charset} to use
-	 * @return the created {@code Writer}
-	 * @throws NullPointerException if the {@code OutputStream} or the {@code Charset} is {@code null}
+	 * <p>Convert an {@link OutputStream} to a {@link Writer} using a custom {@link Charset}.</p>
+	 * @param outputStream the {@link OutputStream} to convert
+	 * @param charset the {@link Charset} to use
+	 * @return the created {@link Writer}
+	 * @throws NullPointerException if the {@link OutputStream} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Writer toWriter(final OutputStream outputStream, final Charset charset) {
@@ -232,12 +262,12 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Create a {@code BufferedOutputStream} from a {@code Path}.</p>
-	 * <p><b>Warning</b>: If the file of the {@code Path} already exists its content is erased.</p>
-	 * @param path the {@code Path} to convert
-	 * @return the created {@code BufferedOutputStream}
+	 * <p>Create a {@link BufferedOutputStream} from a {@link Path}.</p>
+	 * <p><b>Warning</b>: If the file of the {@link Path} already exists its content is erased.</p>
+	 * @param path the {@link Path} to convert
+	 * @return the created {@link BufferedOutputStream}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static BufferedOutputStream of(final Path path) throws IOException {

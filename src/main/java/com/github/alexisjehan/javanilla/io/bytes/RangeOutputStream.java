@@ -54,11 +54,11 @@ public final class RangeOutputStream extends FilterOutputStream {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with an {@code OutputStream} to decorate and a range from an inclusive index to another one.</p>
-	 * @param outputStream the {@code OutputStream} to decorate
+	 * <p>Constructor with an {@link OutputStream} to decorate and a range from an inclusive index to another one.</p>
+	 * @param outputStream the {@link OutputStream} to decorate
 	 * @param fromIndex the inclusive index of the first byte to write
 	 * @param toIndex the inclusive index of the last byte to write
-	 * @throws NullPointerException if the {@code OutputStream} is {@code null}
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -70,6 +70,9 @@ public final class RangeOutputStream extends FilterOutputStream {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final int i) throws IOException {
 		if (fromIndex <= index && toIndex >= index) {
@@ -78,6 +81,9 @@ public final class RangeOutputStream extends FilterOutputStream {
 		++index;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final byte[] bytes, final int offset, final int length) throws IOException {
 		Ensure.notNull("bytes", bytes);

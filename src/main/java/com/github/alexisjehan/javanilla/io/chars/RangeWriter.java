@@ -54,11 +54,11 @@ public final class RangeWriter extends FilterWriter {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with a {@code Writer} to decorate and a range from an inclusive index to another one.</p>
-	 * @param writer the {@code Writer} to decorate
+	 * <p>Constructor with a {@link Writer} to decorate and a range from an inclusive index to another one.</p>
+	 * @param writer the {@link Writer} to decorate
 	 * @param fromIndex the inclusive index of the first char to write
 	 * @param toIndex the inclusive index of the last char to write
-	 * @throws NullPointerException if the {@code Writer} is {@code null}
+	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -70,6 +70,9 @@ public final class RangeWriter extends FilterWriter {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final int i) throws IOException {
 		if (fromIndex <= index && toIndex >= index) {
@@ -78,6 +81,9 @@ public final class RangeWriter extends FilterWriter {
 		++index;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final char[] chars, final int offset, final int length) throws IOException {
 		Ensure.notNull("chars", chars);
@@ -92,6 +98,9 @@ public final class RangeWriter extends FilterWriter {
 		index += length;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void write(final String string, final int offset, final int length) throws IOException {
 		Ensure.notNull("string", string);

@@ -34,15 +34,15 @@ import java.io.IOException;
 public abstract class FilterLineWriter extends LineWriter {
 
 	/**
-	 * <p>Delegated {@code LineWriter}.</p>
+	 * <p>Delegated {@link LineWriter}.</p>
 	 * @since 1.0.0
 	 */
 	protected final LineWriter lineWriter;
 
 	/**
-	 * <p>Constructor with a {@code LineWriter} to decorate.</p>
-	 * @param lineWriter the {@code LineWriter} to decorate
-	 * @throws NullPointerException if the {@code LineWriter} is {@code null}
+	 * <p>Constructor with a {@link LineWriter} to decorate.</p>
+	 * @param lineWriter the {@link LineWriter} to decorate
+	 * @throws NullPointerException if the {@link LineWriter} is {@code null}
 	 * @since 1.0.0
 	 */
 	protected FilterLineWriter(final LineWriter lineWriter) {

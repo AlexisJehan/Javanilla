@@ -55,20 +55,20 @@ public final class Readers {
 	private static final class SequenceReader extends Reader {
 
 		/**
-		 * <p>{@code Iterator} of {@code Reader}s.</p>
+		 * <p>{@link Iterator} of {@link Reader}s.</p>
 		 * @since 1.0.0
 		 */
 		private final Iterator<? extends Reader> iterator;
 
 		/**
-		 * <p>Current {@code Reader}.</p>
+		 * <p>Current {@link Reader}.</p>
 		 * @since 1.0.0
 		 */
 		private Reader current;
 
 		/**
 		 * <p>Private constructor.</p>
-		 * @param iterator the {@code Iterator} of {@code Reader}s
+		 * @param iterator the {@link Iterator} of {@link Reader}s
 		 * @since 1.0.0
 		 */
 		private SequenceReader(final Iterator<? extends Reader> iterator) {
@@ -77,7 +77,7 @@ public final class Readers {
 		}
 
 		/**
-		 * <p>Close the current {@code Reader} if set then peek the next one.</p>
+		 * <p>Close the current {@link Reader} if set then peek the next one.</p>
 		 * @throws IOException might occurs with I/O operations
 		 * @since 1.0.0
 		 */
@@ -89,7 +89,7 @@ public final class Readers {
 		}
 
 		/**
-		 * <p>Set the current {@code Reader} as the next one from the {@code Iterator}.</p>
+		 * <p>Set the current {@link Reader} as the next one from the {@link Iterator}.</p>
 		 * @since 1.0.0
 		 */
 		private void peekNextReader() {
@@ -100,6 +100,9 @@ public final class Readers {
 			}
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read(final char[] buffer, final int offset, final int length) throws IOException {
 			Ensure.notNull("buffer", buffer);
@@ -121,6 +124,9 @@ public final class Readers {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void close() throws IOException {
 			do {
@@ -130,23 +136,33 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>An empty {@code Reader} that returns no char.</p>
+	 * <p>An empty {@link Reader} that returns no char.</p>
 	 * @since 1.0.0
 	 * @deprecated since Java 11, use {@code Reader#nullReader()} instead
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final Reader EMPTY = new Reader() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read(final CharBuffer buffer) {
 			Ensure.notNull("buffer", buffer);
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read() {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read(final char[] buffer) {
 			Ensure.notNull("buffer", buffer);
@@ -156,6 +172,9 @@ public final class Readers {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int read(final char[] buffer, final int offset, final int length) {
 			Ensure.notNull("buffer", buffer);
@@ -167,16 +186,25 @@ public final class Readers {
 			return -1;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long skip(final long number) {
 			return 0L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void close() {
 			// Do nothing
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long transferTo(final Writer writer) {
 			Ensure.notNull("writer", writer);
@@ -193,9 +221,9 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Reader} replacing {@code null} by an empty one.</p>
-	 * @param reader the {@code Reader} or {@code null}
-	 * @return a non-{@code null} {@code Reader}
+	 * <p>Wrap a {@link Reader} replacing {@code null} by an empty one.</p>
+	 * @param reader the {@link Reader} or {@code null}
+	 * @return a non-{@code null} {@link Reader}
 	 * @since 1.0.0
 	 */
 	public static Reader nullToEmpty(final Reader reader) {
@@ -203,12 +231,12 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Wrap a {@code Reader} replacing {@code null} by a default one.</p>
-	 * @param reader the {@code Reader} or {@code null}
-	 * @param defaultReader the default {@code Reader}
-	 * @param <R> the {@code Reader} type
-	 * @return a non-{@code null} {@code Reader}
-	 * @throws NullPointerException if the default {@code Reader} is {@code null}
+	 * <p>Wrap a {@link Reader} replacing {@code null} by a default one.</p>
+	 * @param reader the {@link Reader} or {@code null}
+	 * @param defaultReader the default {@link Reader}
+	 * @param <R> the {@link Reader} type
+	 * @return a non-{@code null} {@link Reader}
+	 * @throws NullPointerException if the default {@link Reader} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <R extends Reader> R nullToDefault(final R reader, final R defaultReader) {
@@ -217,10 +245,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Reader} as a {@code BufferedReader} if it was not already.</p>
-	 * @param reader the {@code Reader} to decorate
-	 * @return a {@code BufferedReader}
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * <p>Decorate a {@link Reader} as a {@link BufferedReader} if it was not already.</p>
+	 * @param reader the {@link Reader} to decorate
+	 * @return a {@link BufferedReader}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static BufferedReader buffered(final Reader reader) {
@@ -232,10 +260,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Reader} so that it supports {@link Reader#mark(int)} if it did not already.</p>
-	 * @param reader the {@code Reader} to decorate
-	 * @return a {@code Reader} with mark supported
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * <p>Decorate a {@link Reader} so that it supports {@link Reader#mark(int)} if it did not already.</p>
+	 * @param reader the {@link Reader} to decorate
+	 * @return a {@link Reader} with mark supported
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader markSupported(final Reader reader) {
@@ -247,15 +275,19 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Reader} so that its {@link Reader#close()} method has no effect.</p>
-	 * @param reader the {@code Reader} to decorate
-	 * @return an uncloseable {@code Reader}
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * <p>Decorate a {@link Reader} so that its {@link Reader#close()} method has no effect.</p>
+	 * @param reader the {@link Reader} to decorate
+	 * @return an uncloseable {@link Reader}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader uncloseable(final Reader reader) {
 		Ensure.notNull("reader", reader);
 		return new FilterReader(reader) {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void close() {
 				// Do nothing
@@ -264,13 +296,13 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Read the {@code Reader} from the current position to the end and return the length.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code Reader} does not end.</p>
-	 * @param reader the {@code Reader} to read
+	 * <p>Read the {@link Reader} from the current position to the end and return the length.</p>
+	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Reader} does not end.</p>
+	 * @param reader the {@link Reader} to read
 	 * @return the length from the current position
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("deprecation")
@@ -280,10 +312,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code Reader}s.</p>
-	 * @param readers the {@code Reader} array to concatenate
-	 * @return the concatenated {@code Reader}
-	 * @throws NullPointerException if the {@code Reader} array or any of them is {@code null}
+	 * <p>Concatenate multiple {@link Reader}s.</p>
+	 * @param readers the {@link Reader} array to concatenate
+	 * @return the concatenated {@link Reader}
+	 * @throws NullPointerException if the {@link Reader} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader concat(final Reader... readers) {
@@ -292,10 +324,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code Reader}s.</p>
-	 * @param readers the {@code Reader} {@code List} to concatenate
-	 * @return the concatenated {@code Reader}
-	 * @throws NullPointerException if the {@code Reader} {@code List} or any of them is {@code null}
+	 * <p>Concatenate multiple {@link Reader}s.</p>
+	 * @param readers the {@link Reader} {@link List} to concatenate
+	 * @return the concatenated {@link Reader}
+	 * @throws NullPointerException if the {@link Reader} {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader concat(final List<? extends Reader> readers) {
@@ -311,12 +343,12 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Join multiple {@code Reader}s using a {@code char} array separator.</p>
+	 * <p>Join multiple {@link Reader}s using a {@code char} array separator.</p>
 	 * @param separator the {@code char} array separator
-	 * @param readers the {@code Reader} array to join
-	 * @return the joined {@code Reader}
-	 * @throws NullPointerException if the {@code char} array separator, the {@code Reader} array or any of them is
-	 * {@code null}
+	 * @param readers the {@link Reader} array to join
+	 * @return the joined {@link Reader}
+	 * @throws NullPointerException if the {@code char} array separator, the {@link Reader} array or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader join(final char[] separator, final Reader... readers) {
@@ -325,11 +357,11 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Join multiple {@code Reader}s using a {@code char} array separator.</p>
+	 * <p>Join multiple {@link Reader}s using a {@code char} array separator.</p>
 	 * @param separator the {@code char} array separator
-	 * @param readers the {@code Reader} {@code List} to join
-	 * @return the joined {@code Reader}
-	 * @throws NullPointerException if the {@code char} array separator, the {@code Reader} {@code List} or any of them
+	 * @param readers the {@link Reader} {@link List} to join
+	 * @return the joined {@link Reader}
+	 * @throws NullPointerException if the {@code char} array separator, the {@link Reader} {@link List} or any of them
 	 *         is {@code null}
 	 * @since 1.0.0
 	 */
@@ -357,9 +389,9 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@code Reader} from a single {@code char}.</p>
+	 * <p>Create a {@link Reader} from a single {@code char}.</p>
 	 * @param c the {@code char} to convert
-	 * @return the created {@code Reader}
+	 * @return the created {@link Reader}
 	 * @since 1.1.0
 	 */
 	public static Reader singleton(final char c) {
@@ -367,9 +399,9 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@code Reader} from multiple {@code char}s.</p>
+	 * <p>Create a {@link Reader} from multiple {@code char}s.</p>
 	 * @param chars the {@code char} array to convert
-	 * @return the created {@code Reader}
+	 * @return the created {@link Reader}
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @since 1.0.0
 	 */
@@ -382,10 +414,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@code Reader} from a {@code String}.</p>
-	 * @param string the {@code String} to convert
-	 * @return the created {@code Reader}
-	 * @throws NullPointerException if the {@code String} is {@code null}
+	 * <p>Create a {@link Reader} from a {@link String}.</p>
+	 * @param string the {@link String} to convert
+	 * @return the created {@link Reader}
+	 * @throws NullPointerException if the {@link String} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Reader of(final String string) {
@@ -397,11 +429,11 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@code BufferedReader} from a {@code Path} using {@link Charset#defaultCharset()}.</p>
-	 * @param path the {@code Path} to convert
-	 * @return the created {@code BufferedReader}
+	 * <p>Create a {@link BufferedReader} from a {@link Path} using {@link Charset#defaultCharset()}.</p>
+	 * @param path the {@link Path} to convert
+	 * @return the created {@link BufferedReader}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} is {@code null}
+	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static BufferedReader of(final Path path) throws IOException {
@@ -409,12 +441,12 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@code BufferedReader} from a {@code Path} using a custom {@code Charset}.</p>
-	 * @param path the {@code Path} to convert
-	 * @param charset the {@code Charset} to use
-	 * @return the created {@code BufferedReader}
+	 * <p>Create a {@link BufferedReader} from a {@link Path} using a custom {@link Charset}.</p>
+	 * @param path the {@link Path} to convert
+	 * @param charset the {@link Charset} to use
+	 * @return the created {@link BufferedReader}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Path} or the {@code Charset} is {@code null}
+	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static BufferedReader of(final Path path, final Charset charset) throws IOException {
@@ -424,13 +456,13 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Convert a {@code Reader} to a {@code char} array.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
-	 * @param reader the {@code Reader} to convert
+	 * <p>Convert a {@link Reader} to a {@code char} array.</p>
+	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Reader} is too large.</p>
+	 * @param reader the {@link Reader} to convert
 	 * @return the created {@code char} array
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static char[] toChars(final Reader reader) throws IOException {
@@ -442,13 +474,13 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Convert a {@code Reader} to a {@code String}.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Reader} is too large.</p>
-	 * @param reader the {@code Reader} to convert
-	 * @return the created {@code String}
+	 * <p>Convert a {@link Reader} to a {@link String}.</p>
+	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Reader} is too large.</p>
+	 * @param reader the {@link Reader} to convert
+	 * @return the created {@link String}
 	 * @throws IOException might occurs with I/O operations
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static String toString(final Reader reader) throws IOException {

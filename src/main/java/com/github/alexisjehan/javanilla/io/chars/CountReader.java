@@ -48,15 +48,18 @@ public final class CountReader extends FilterReader {
 	private long markedCount = 0L;
 
 	/**
-	 * <p>Constructor with a {@code Reader} to decorate.</p>
-	 * @param reader the {@code Reader} to decorate
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * <p>Constructor with a {@link Reader} to decorate.</p>
+	 * @param reader the {@link Reader} to decorate
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountReader(final Reader reader) {
 		super(Ensure.notNull("reader", reader));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read() throws IOException {
 		final var next = in.read();
@@ -66,6 +69,9 @@ public final class CountReader extends FilterReader {
 		return next;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int read(final char[] buffer, final int offset, final int length) throws IOException {
 		Ensure.notNull("buffer", buffer);
@@ -81,6 +87,9 @@ public final class CountReader extends FilterReader {
 		return total;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long skip(final long number) throws IOException {
 		if (0L >= number) {
@@ -91,12 +100,18 @@ public final class CountReader extends FilterReader {
 		return actual;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void mark(final int limit) throws IOException {
 		in.mark(limit);
 		markedCount = count;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void reset() throws IOException {
 		in.reset();

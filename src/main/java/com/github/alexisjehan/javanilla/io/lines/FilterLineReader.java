@@ -34,15 +34,15 @@ import java.io.IOException;
 public abstract class FilterLineReader extends LineReader {
 
 	/**
-	 * <p>Delegated {@code LineReader}.</p>
+	 * <p>Delegated {@link LineReader}.</p>
 	 * @since 1.0.0
 	 */
 	protected final LineReader lineReader;
 
 	/**
-	 * <p>Constructor with a {@code LineReader} to decorate.</p>
-	 * @param lineReader the {@code LineReader} to decorate
-	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * <p>Constructor with a {@link LineReader} to decorate.</p>
+	 * @param lineReader the {@link LineReader} to decorate
+	 * @throws NullPointerException if the {@link LineReader} is {@code null}
 	 * @since 1.0.0
 	 */
 	protected FilterLineReader(final LineReader lineReader) {
