@@ -35,13 +35,13 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code Object} array tools.</p>
+ * <p>An utility class that provides {@link Object} array tools.</p>
  * @since 1.0.0
  */
 public final class ObjectArrays {
 
 	/**
-	 * <p>Map that associates a {@code Class} type to a cached empty {@code Object} array.</p>
+	 * <p>Map that associates a {@link Class} type to a cached empty {@link Object} array.</p>
 	 * @since 1.2.0
 	 */
 	private static final Map<Class<?>, Object> cachedEmpties = new WeakHashMap<>();
@@ -55,11 +55,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Return an empty {@code Object} array.</p>
-	 * @param classType the {@code Class} type
-	 * @param <E> the {@code Object} type
-	 * @return an empty {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type is {@code null}
+	 * <p>Return an empty {@link Object} array.</p>
+	 * @param classType the {@link Class} type
+	 * @param <E> the {@link Object} type
+	 * @return an empty {@link Object} array
+	 * @throws NullPointerException if the {@link Class} type is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -69,12 +69,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@code Object} array replacing {@code null} by an empty one.</p>
-	 * @param classType the {@code Class} type
-	 * @param array the {@code Object} array or {@code null}
-	 * @param <E> the {@code Object} type
-	 * @return a non-{@code null} {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type is {@code null}
+	 * <p>Wrap an {@link Object} array replacing {@code null} by an empty one.</p>
+	 * @param classType the {@link Class} type
+	 * @param array the {@link Object} array or {@code null}
+	 * @param <E> the {@link Object} type
+	 * @return a non-{@code null} {@link Object} array
+	 * @throws NullPointerException if the {@link Class} type is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <E> E[] nullToEmpty(final Class<E> classType, final E[] array) {
@@ -82,12 +82,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@code Object} array replacing {@code null} by a default one.</p>
-	 * @param array the {@code Object} array or {@code null}
-	 * @param defaultArray the default {@code Object} array
-	 * @param <E> the {@code Object} type
-	 * @return a non-{@code null} {@code Object} array
-	 * @throws NullPointerException if the default {@code Object} array is {@code null}
+	 * <p>Wrap an {@link Object} array replacing {@code null} by a default one.</p>
+	 * @param array the {@link Object} array or {@code null}
+	 * @param defaultArray the default {@link Object} array
+	 * @param <E> the {@link Object} type
+	 * @return a non-{@code null} {@link Object} array
+	 * @throws NullPointerException if the default {@link Object} array is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <E> E[] nullToDefault(final E[] array, final E[] defaultArray) {
@@ -96,10 +96,10 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@code Object} array replacing an empty one by {@code null}.</p>
-	 * @param array the {@code Object} array or {@code null}
-	 * @param <E> the {@code Object} type
-	 * @return a non-empty {@code Object} array or {@code null}
+	 * <p>Wrap an {@link Object} array replacing an empty one by {@code null}.</p>
+	 * @param array the {@link Object} array or {@code null}
+	 * @param <E> the {@link Object} type
+	 * @return a non-empty {@link Object} array or {@code null}
 	 * @since 1.0.0
 	 */
 	public static <E> E[] emptyToNull(final E[] array) {
@@ -107,12 +107,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@code Object} array replacing an empty one by a default {@code Object} array.</p>
-	 * @param array the {@code Object} array or {@code null}
-	 * @param defaultArray the default {@code Object} array or {@code null}
-	 * @param <E> the {@code Object} type
-	 * @return a non-empty {@code Object} array or {@code null}
-	 * @throws IllegalArgumentException if the default {@code Object} array is empty
+	 * <p>Wrap an {@link Object} array replacing an empty one by a default {@link Object} array.</p>
+	 * @param array the {@link Object} array or {@code null}
+	 * @param defaultArray the default {@link Object} array or {@code null}
+	 * @param <E> the {@link Object} type
+	 * @return a non-empty {@link Object} array or {@code null}
+	 * @throws IllegalArgumentException if the default {@link Object} array is empty
 	 * @since 1.1.0
 	 */
 	public static <E> E[] emptyToDefault(final E[] array, final E[] defaultArray) {
@@ -123,10 +123,10 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if an {@code Object} array is empty.</p>
-	 * @param array the {@code Object} array to test
-	 * @return {@code true} if the {@code Object} array is empty
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Tell if an {@link Object} array is empty.</p>
+	 * @param array the {@link Object} array to test
+	 * @return {@code true} if the {@link Object} array is empty
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static boolean isEmpty(final Object[] array) {
@@ -135,12 +135,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code Object} array contains any of given {@code Object} values at least one.</p>
-	 * @param array the {@code Object} array to test
-	 * @param values {@code Object} values to test
-	 * @return {@code true} if any of given {@code Object} values is contained at least once by the {@code Object} array
-	 * @throws NullPointerException if the {@code Object} array or the {@code Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@code Object} values array is empty
+	 * <p>Tell if the {@link Object} array contains any of given {@link Object} values at least one.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if any of given {@link Object} values is contained at least once by the {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
 	 * @since 1.0.0
 	 */
 	public static boolean containsAny(final Object[] array, final Object... values) {
@@ -160,13 +160,13 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code Object} array contains all of given {@code Object} values at least one.</p>
-	 * @param array the {@code Object} array to test
-	 * @param values {@code Object} values to test
-	 * @return {@code true} if all of given {@code Object} values are contained at least once by the {@code Object}
+	 * <p>Tell if the {@link Object} array contains all of given {@link Object} values at least one.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if all of given {@link Object} values are contained at least once by the {@link Object}
 	 *         array
-	 * @throws NullPointerException if the {@code Object} array or the {@code Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@code Object} values array is empty
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
 	 * @since 1.0.0
 	 */
 	public static boolean containsAll(final Object[] array, final Object... values) {
@@ -191,12 +191,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code Object} array contains each given {@code Object} value only once.</p>
-	 * @param array the {@code Object} array to test
-	 * @param values {@code Object} values to test
-	 * @return {@code true} if each of given {@code Object} values are contained only once by the {@code Object} array
-	 * @throws NullPointerException if the {@code Object} array or the {@code Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@code Object} values array is empty
+	 * <p>Tell if the {@link Object} array contains each given {@link Object} value only once.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if each of given {@link Object} values are contained only once by the {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
 	 * @since 1.1.0
 	 */
 	public static boolean containsOnce(final Object[] array, final Object... values) {
@@ -223,12 +223,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code Object} array contains only given {@code Object} values at least one.</p>
-	 * @param array the {@code Object} array to test
-	 * @param values {@code Object} values to test
-	 * @return {@code true} if given {@code Object} values are only values contained by the {@code Object} array
-	 * @throws NullPointerException if the {@code Object} array or the {@code Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@code Object} values array is empty
+	 * <p>Tell if the {@link Object} array contains only given {@link Object} values at least one.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if given {@link Object} values are only values contained by the {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
 	 * @since 1.0.0
 	 */
 	public static boolean containsOnly(final Object[] array, final Object... values) {
@@ -253,11 +253,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code Object} value in the {@code Object} array.</p>
-	 * @param array the {@code Object} array to iterate
-	 * @param value the {@code Object} value to search
-	 * @return the first index of the {@code Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Get the first index of the {@link Object} value in the {@link Object} array.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
+	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.0.0
 	 */
 	public static int indexOf(final Object[] array, final Object value) {
@@ -265,12 +265,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code Object} value in the {@code Object} array starting from the given index.</p>
-	 * @param array the {@code Object} array to iterate
-	 * @param value the {@code Object} value to search
+	 * <p>Get the first index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
 	 * @param fromIndex the starting index
-	 * @return the first index of the {@code Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @throws IllegalArgumentException if the starting index is not valid
 	 * @since 1.0.0
 	 */
@@ -288,11 +288,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code Object} value in the {@code Object} array.</p>
-	 * @param array the {@code Object} array to iterate
-	 * @param value the {@code Object} value to search
-	 * @return the last index of the {@code Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Get the last index of the {@link Object} value in the {@link Object} array.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
+	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.0.0
 	 */
 	public static int lastIndexOf(final Object[] array, final Object value) {
@@ -300,12 +300,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code Object} value in the {@code Object} array starting from the given index.</p>
-	 * @param array the {@code Object} array to iterate
-	 * @param value the {@code Object} value to search
+	 * <p>Get the last index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
 	 * @param fromIndex the starting index
-	 * @return the last index of the {@code Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @throws IllegalArgumentException if the starting index is not valid
 	 * @since 1.0.0
 	 */
@@ -323,11 +323,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code Object} value in the {@code Object} array.</p>
-	 * @param array the {@code Object} array to iterate
-	 * @param value the {@code Object} value of the frequency to calculate
-	 * @return the frequency of the {@code Object} value
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Calculate the number of occurrences of the {@link Object} value in the {@link Object} array.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value of the frequency to calculate
+	 * @return the frequency of the {@link Object} value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.3.0
 	 */
 	public static int frequency(final Object[] array, final Object value) {
@@ -345,9 +345,9 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code Object} array using the Fisher-Yates algorithm.</p>
-	 * @param array the {@code Object} array to shuffle
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Shuffle values in the given {@link Object} array using the Fisher-Yates algorithm.</p>
+	 * @param array the {@link Object} array to shuffle
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
@@ -362,9 +362,9 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code Object} array.</p>
-	 * @param array the {@code Object} array to reverse
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Reverse values in the given {@link Object} array.</p>
+	 * @param array the {@link Object} array to reverse
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static void reverse(final Object[] array) {
@@ -377,11 +377,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code Object} array using provided indexes.</p>
-	 * @param array the {@code Object} array to reorder
+	 * <p>Reorder values in the given {@link Object} array using provided indexes.</p>
+	 * @param array the {@link Object} array to reorder
 	 * @param indexes indexes to use
-	 * @throws NullPointerException if the {@code Object} array or the indexes array is {@code null}
-	 * @throws IllegalArgumentException if {@code Object} array is empty, if the {@code Object} array length is not
+	 * @throws NullPointerException if the {@link Object} array or the indexes array is {@code null}
+	 * @throws IllegalArgumentException if {@link Object} array is empty, if the {@link Object} array length is not
 	 *         equal to the indexes array length, if indexes are not distinct or if any index is not valid
 	 * @since 1.2.0
 	 */
@@ -405,11 +405,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code Object} array using their indexes.</p>
-	 * @param array the {@code Object} array to swap
+	 * <p>Swap two values in the given {@link Object} array using their indexes.</p>
+	 * @param array the {@link Object} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @throws IllegalArgumentException if any index is not valid
 	 * @since 1.2.0
 	 */
@@ -425,12 +425,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Add an {@code Object} value at the end of the given {@code Object} array.</p>
-	 * @param array the {@code Object} array to add to
-	 * @param value the {@code Object} value to add
-	 * @param <E> the {@code Object} type
-	 * @return an {@code Object} array with the added {@code Object} value
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Add an {@link Object} value at the end of the given {@link Object} array.</p>
+	 * @param array the {@link Object} array to add to
+	 * @param value the {@link Object} value to add
+	 * @param <E> the {@link Object} type
+	 * @return an {@link Object} array with the added {@link Object} value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.4.0
 	 */
 	public static <E> E[] add(final E[] array, final E value) {
@@ -439,13 +439,13 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Add an {@code Object} value at the provided index of the given {@code Object} array.</p>
-	 * @param array the {@code Object} array to add to
-	 * @param index the index of the {@code Object} value
-	 * @param value the {@code Object} value to add
-	 * @param <E> the {@code Object} type
-	 * @return an {@code Object} array with the added {@code Object} value
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
+	 * <p>Add an {@link Object} value at the provided index of the given {@link Object} array.</p>
+	 * @param array the {@link Object} array to add to
+	 * @param index the index of the {@link Object} value
+	 * @param value the {@link Object} value to add
+	 * @param <E> the {@link Object} type
+	 * @return an {@link Object} array with the added {@link Object} value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
 	 * @since 1.4.0
 	 */
@@ -465,13 +465,13 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Remove an {@code Object} value at the provided index of the given {@code Object} array.</p>
-	 * @param array the {@code Object} array to remove from
-	 * @param index the index of the {@code Object} value
-	 * @param <E> the {@code Object} type
-	 * @return an {@code Object} array with the removed {@code Object} value
-	 * @throws NullPointerException if the {@code Object} array is {@code null}
-	 * @throws IllegalArgumentException if the {@code Object} array is empty or if the index is not valid
+	 * <p>Remove an {@link Object} value at the provided index of the given {@link Object} array.</p>
+	 * @param array the {@link Object} array to remove from
+	 * @param index the index of the {@link Object} value
+	 * @param <E> the {@link Object} type
+	 * @return an {@link Object} array with the removed {@link Object} value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} array is empty or if the index is not valid
 	 * @since 1.4.0
 	 */
 	public static <E> E[] remove(final E[] array, final int index) {
@@ -489,12 +489,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code Object} arrays.</p>
-	 * @param classType the {@code Class} type
-	 * @param arrays the {@code Object} array array to concatenate
-	 * @param <E> the {@code Object} type
-	 * @return the concatenated {@code Object} array
-	 * @throws NullPointerException if the {@code Object} {@code Class} type, the {@code Object} array array or any of
+	 * <p>Concatenate multiple {@link Object} arrays.</p>
+	 * @param classType the {@link Class} type
+	 * @param arrays the {@link Object} array array to concatenate
+	 * @param <E> the {@link Object} type
+	 * @return the concatenated {@link Object} array
+	 * @throws NullPointerException if the {@link Object} {@link Class} type, the {@link Object} array array or any of
 	 *         them is {@code null}
 	 * @since 1.2.0
 	 */
@@ -506,13 +506,13 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code Object} arrays.</p>
-	 * @param classType the {@code Class} type
-	 * @param arrays the {@code Object} array {@code List} to concatenate
-	 * @param <E> the {@code Object} type
-	 * @return the concatenated {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array {@code List} or any of them is
-	 * {@code null}
+	 * <p>Concatenate multiple {@link Object} arrays.</p>
+	 * @param classType the {@link Class} type
+	 * @param arrays the {@link Object} array {@link List} to concatenate
+	 * @param <E> the {@link Object} type
+	 * @return the concatenated {@link Object} array
+	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array {@link List} or any of them is
+	 *         {@code null}
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -536,13 +536,13 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
-	 * @param classType the {@code Class} type
-	 * @param separator the {@code Object} array separator
-	 * @param arrays the {@code Object} array array to join
-	 * @param <E> the {@code Object} type
-	 * @return the joined {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
+	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * @param classType the {@link Class} type
+	 * @param separator the {@link Object} array separator
+	 * @param arrays the {@link Object} array array to join
+	 * @param <E> the {@link Object} type
+	 * @return the joined {@link Object} array
+	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array separator, the {@link Object}
 	 *         array array or any of them is {@code null}
 	 * @since 1.2.0
 	 * @deprecated use {@link #join(Object[], Object[][])} instead
@@ -556,12 +556,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
-	 * @param separator the {@code Object} array separator
-	 * @param arrays the {@code Object} array array to join
-	 * @param <E> the {@code Object} type
-	 * @return the joined {@code Object} array
-	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array array or any of them
+	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param arrays the {@link Object} array array to join
+	 * @param <E> the {@link Object} type
+	 * @return the joined {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array separator, the {@link Object} array array or any of them
 	 *         is {@code null}
 	 * @since 1.4.0
 	 */
@@ -573,14 +573,14 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
-	 * @param classType the {@code Class} type
-	 * @param separator the {@code Object} array separator
-	 * @param arrays the {@code Object} array {@code List} to join
-	 * @param <E> the {@code Object} type
-	 * @return the joined {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type, the {@code Object} array separator, the {@code Object}
-	 *         array {@code List} or any of them is {@code null}
+	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * @param classType the {@link Class} type
+	 * @param separator the {@link Object} array separator
+	 * @param arrays the {@link Object} array {@link List} to join
+	 * @param <E> the {@link Object} type
+	 * @return the joined {@link Object} array
+	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array separator, the {@link Object}
+	 *         array {@link List} or any of them is {@code null}
 	 * @since 1.2.0
 	 * @deprecated use {@link #join(Object[], List)} instead
 	 */
@@ -616,12 +616,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code Object} arrays using an {@code Object} array separator.</p>
-	 * @param separator the {@code Object} array separator
-	 * @param arrays the {@code Object} array {@code List} to join
-	 * @param <E> the {@code Object} type
-	 * @return the joined {@code Object} array
-	 * @throws NullPointerException if the {@code Object} array separator, the {@code Object} array {@code List} or any
+	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param arrays the {@link Object} array {@link List} to join
+	 * @param <E> the {@link Object} type
+	 * @return the joined {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array separator, the {@link Object} array {@link List} or any
 	 *         of them is {@code null}
 	 * @since 1.4.0
 	 */
@@ -656,11 +656,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@code Object} array from a single {@code Object} value.</p>
-	 * @param value the {@code Object} value to convert
-	 * @param <E> the {@code Object} type
-	 * @return the created {@code Object} array
-	 * @throws NullPointerException if the {@code Object} value is {@code null}
+	 * <p>Create an {@link Object} array from a single {@link Object} value.</p>
+	 * @param value the {@link Object} value to convert
+	 * @param <E> the {@link Object} type
+	 * @return the created {@link Object} array
+	 * @throws NullPointerException if the {@link Object} value is {@code null}
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -670,12 +670,12 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@code Object} array from a single {@code Object} value or {@code null}.</p>
-	 * @param classType the {@code Class} type
-	 * @param value the {@code Object} value to convert or {@code null}
-	 * @param <E> the {@code Object} type
-	 * @return the created {@code Object} array
-	 * @throws NullPointerException if the {@code Class} type is {@code null}
+	 * <p>Create an {@link Object} array from a single {@link Object} value or {@code null}.</p>
+	 * @param classType the {@link Class} type
+	 * @param value the {@link Object} value to convert or {@code null}
+	 * @param <E> the {@link Object} type
+	 * @return the created {@link Object} array
+	 * @throws NullPointerException if the {@link Class} type is {@code null}
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -687,11 +687,11 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@code Object} array from multiple {@code Object} values.</p>
-	 * @param values {@code Object} values to convert
-	 * @param <E> the {@code Object} type
-	 * @return the created {@code Object} array
-	 * @throws NullPointerException if the {@code Object} values array is {@code null}
+	 * <p>Create an {@link Object} array from multiple {@link Object} values.</p>
+	 * @param values {@link Object} values to convert
+	 * @param <E> the {@link Object} type
+	 * @return the created {@link Object} array
+	 * @throws NullPointerException if the {@link Object} values array is {@code null}
 	 * @since 1.0.0
 	 */
 	@SafeVarargs

@@ -48,6 +48,9 @@ public final class UncheckedInterruptedException extends RuntimeException {
 		super(Ensure.notNull("cause", cause));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized InterruptedException getCause() {
 		return (InterruptedException) super.getCause();

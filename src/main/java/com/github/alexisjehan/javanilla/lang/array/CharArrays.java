@@ -473,9 +473,9 @@ public final class CharArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code char} arrays.</p>
-	 * @param arrays the {@code char} array {@code List} to concatenate
+	 * @param arrays the {@code char} array {@link List} to concatenate
 	 * @return the concatenated {@code char} array
-	 * @throws NullPointerException if the {@code char} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code char} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static char[] concat(final List<char[]> arrays) {
@@ -502,7 +502,7 @@ public final class CharArrays {
 	 * @param arrays the {@code char} array array to join
 	 * @return the joined {@code char} array
 	 * @throws NullPointerException if the {@code char} array separator, the {@code char} array array or any of them is
-	 * {@code null}
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static char[] join(final char[] separator, final char[]... arrays) {
@@ -513,9 +513,9 @@ public final class CharArrays {
 	/**
 	 * <p>Join multiple {@code char} arrays using a {@code char} array separator.</p>
 	 * @param separator the {@code char} array separator
-	 * @param arrays the {@code char} array {@code List} to join
+	 * @param arrays the {@code char} array {@link List} to join
 	 * @return the joined {@code char} array
-	 * @throws NullPointerException if the {@code char} array separator, the {@code char} array {@code List} or any of
+	 * @throws NullPointerException if the {@code char} array separator, the {@code char} array {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -573,10 +573,10 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Create a {@code char} array from a boxed {@code Character} array.</p>
-	 * @param boxedArray the boxed {@code Character} array to convert
+	 * <p>Create a {@code char} array from a boxed {@link Character} array.</p>
+	 * @param boxedArray the boxed {@link Character} array to convert
 	 * @return the created {@code char} array
-	 * @throws NullPointerException if the boxed {@code Character} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Character} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static char[] of(final Character[] boxedArray) {
@@ -592,9 +592,9 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code char} array to a boxed {@code Character} array.</p>
+	 * <p>Convert a {@code char} array to a boxed {@link Character} array.</p>
 	 * @param array the {@code char} array to convert
-	 * @return the created boxed {@code Character} array
+	 * @return the created boxed {@link Character} array
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @since 1.2.0
 	 */

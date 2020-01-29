@@ -473,9 +473,9 @@ public final class LongArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code long} arrays.</p>
-	 * @param arrays the {@code long} array {@code List} to concatenate
+	 * @param arrays the {@code long} array {@link List} to concatenate
 	 * @return the concatenated {@code long} array
-	 * @throws NullPointerException if the {@code long} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code long} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static long[] concat(final List<long[]> arrays) {
@@ -502,7 +502,7 @@ public final class LongArrays {
 	 * @param arrays the {@code long} array array to join
 	 * @return the joined {@code long} array
 	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array array or any of them is
-	 * {@code null}
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static long[] join(final long[] separator, final long[]... arrays) {
@@ -513,9 +513,9 @@ public final class LongArrays {
 	/**
 	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
 	 * @param separator the {@code long} array separator
-	 * @param arrays the {@code long} array {@code List} to join
+	 * @param arrays the {@code long} array {@link List} to join
 	 * @return the joined {@code long} array
-	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array {@code List} or any of
+	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -573,10 +573,10 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Create a {@code long} array from a boxed {@code Long} array.</p>
-	 * @param boxedArray the boxed {@code Long} array to convert
+	 * <p>Create a {@code long} array from a boxed {@link Long} array.</p>
+	 * @param boxedArray the boxed {@link Long} array to convert
 	 * @return the created {@code long} array
-	 * @throws NullPointerException if the boxed {@code Long} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Long} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static long[] of(final Long[] boxedArray) {
@@ -592,9 +592,9 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code long} array to a boxed {@code Long} array.</p>
+	 * <p>Convert a {@code long} array to a boxed {@link Long} array.</p>
 	 * @param array the {@code long} array to convert
-	 * @return the created boxed {@code Long} array
+	 * @return the created boxed {@link Long} array
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @since 1.2.0
 	 */

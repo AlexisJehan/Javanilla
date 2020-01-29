@@ -473,9 +473,9 @@ public final class FloatArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code float} arrays.</p>
-	 * @param arrays the {@code float} array {@code List} to concatenate
+	 * @param arrays the {@code float} array {@link List} to concatenate
 	 * @return the concatenated {@code float} array
-	 * @throws NullPointerException if the {@code float} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code float} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static float[] concat(final List<float[]> arrays) {
@@ -513,9 +513,9 @@ public final class FloatArrays {
 	/**
 	 * <p>Join multiple {@code float} arrays using a {@code float} array separator.</p>
 	 * @param separator the {@code float} array separator
-	 * @param arrays the {@code float} array {@code List} to join
+	 * @param arrays the {@code float} array {@link List} to join
 	 * @return the joined {@code float} array
-	 * @throws NullPointerException if the {@code float} array separator, the {@code float} array {@code List} or any of
+	 * @throws NullPointerException if the {@code float} array separator, the {@code float} array {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -573,10 +573,10 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Create a {@code float} array from a boxed {@code Float} array.</p>
-	 * @param boxedArray the boxed {@code Float} array to convert
+	 * <p>Create a {@code float} array from a boxed {@link Float} array.</p>
+	 * @param boxedArray the boxed {@link Float} array to convert
 	 * @return the created {@code float} array
-	 * @throws NullPointerException if the boxed {@code Float} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Float} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static float[] of(final Float[] boxedArray) {
@@ -592,9 +592,9 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code float} array to a boxed {@code Float} array.</p>
+	 * <p>Convert a {@code float} array to a boxed {@link Float} array.</p>
 	 * @param array the {@code float} array to convert
-	 * @return the created boxed {@code Float} array
+	 * @return the created boxed {@link Float} array
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @since 1.2.0
 	 */

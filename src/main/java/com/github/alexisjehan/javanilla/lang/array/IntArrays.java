@@ -473,9 +473,9 @@ public final class IntArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code int} arrays.</p>
-	 * @param arrays the {@code int} array {@code List} to concatenate
+	 * @param arrays the {@code int} array {@link List} to concatenate
 	 * @return the concatenated {@code int} array
-	 * @throws NullPointerException if the {@code int} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code int} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static int[] concat(final List<int[]> arrays) {
@@ -513,9 +513,9 @@ public final class IntArrays {
 	/**
 	 * <p>Join multiple {@code int} arrays using an {@code int} array separator.</p>
 	 * @param separator the {@code int} array separator
-	 * @param arrays the {@code int} array {@code List} to join
+	 * @param arrays the {@code int} array {@link List} to join
 	 * @return the joined {@code int} array
-	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array {@code List} or any of
+	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -573,10 +573,10 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Create an {@code int} array from a boxed {@code Integer} array.</p>
-	 * @param boxedArray the boxed {@code Integer} array to convert
+	 * <p>Create an {@code int} array from a boxed {@link Integer} array.</p>
+	 * @param boxedArray the boxed {@link Integer} array to convert
 	 * @return the created {@code int} array
-	 * @throws NullPointerException if the boxed {@code Integer} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Integer} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static int[] of(final Integer[] boxedArray) {
@@ -592,9 +592,9 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Convert an {@code int} array to a boxed {@code Integer} array.</p>
+	 * <p>Convert an {@code int} array to a boxed {@link Integer} array.</p>
 	 * @param array the {@code int} array to convert
-	 * @return the created boxed {@code Integer} array
+	 * @return the created boxed {@link Integer} array
 	 * @throws NullPointerException if the {@code int} array is {@code null}
 	 * @since 1.2.0
 	 */

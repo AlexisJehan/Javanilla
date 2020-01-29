@@ -40,12 +40,12 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is equal to another one.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param other the other {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is equal to another one.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is equal to the other one
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is equal to the other one
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isEqualTo(final T comparable, final T other) {
@@ -55,12 +55,12 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is not equal to another one.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param other the other {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is not equal to another one.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is not equal to the other one
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is not equal to the other one
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isNotEqualTo(final T comparable, final T other) {
@@ -70,12 +70,12 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is lower than another one.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param other the other {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is lower than another one.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is lower than the other one
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is lower than the other one
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isLowerThan(final T comparable, final T other) {
@@ -85,12 +85,12 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is lower than or equal to another one.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param other the other {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is lower than or equal to another one.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is lower than or equal to the other one
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is lower than or equal to the other one
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isLowerThanOrEqualTo(final T comparable, final T other) {
@@ -100,12 +100,12 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is greater than another one.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param other the other {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is greater than another one.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is greater than the other one
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is greater than the other one
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isGreaterThan(final T comparable, final T other) {
@@ -115,12 +115,12 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is greater than or equal to another one.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param other the other {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is greater than or equal to another one.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is greater than or equal to the other one
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is greater than or equal to the other one
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isGreaterThanOrEqualTo(final T comparable, final T other) {
@@ -130,13 +130,13 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Comparable} is between both other ones.</p>
-	 * @param comparable the {@code Comparable}
-	 * @param from the from {@code Comparable}
-	 * @param to the to {@code Comparable}
+	 * <p>Tell if a {@link Comparable} is between both other ones.</p>
+	 * @param comparable the {@link Comparable}
+	 * @param from the from {@link Comparable}
+	 * @param to the to {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
-	 * @return {@code true} if the {@code Comparable} is between both other ones
-	 * @throws NullPointerException if any {@code Comparable} is {@code null}
+	 * @return {@code true} if the {@link Comparable} is between both other ones
+	 * @throws NullPointerException if any {@link Comparable} is {@code null}
 	 * @since 1.3.1
 	 */
 	public static <T extends Comparable<T>> boolean isBetween(final T comparable, final T from, final T to) {

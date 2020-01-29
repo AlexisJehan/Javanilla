@@ -473,9 +473,9 @@ public final class ShortArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code short} arrays.</p>
-	 * @param arrays the {@code short} array {@code List} to concatenate
+	 * @param arrays the {@code short} array {@link List} to concatenate
 	 * @return the concatenated {@code short} array
-	 * @throws NullPointerException if the {@code short} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code short} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static short[] concat(final List<short[]> arrays) {
@@ -513,9 +513,9 @@ public final class ShortArrays {
 	/**
 	 * <p>Join multiple {@code short} arrays using a {@code short} array separator.</p>
 	 * @param separator the {@code short} array separator
-	 * @param arrays the {@code short} array {@code List} to join
+	 * @param arrays the {@code short} array {@link List} to join
 	 * @return the joined {@code short} array
-	 * @throws NullPointerException if the {@code short} array separator, the {@code short} array {@code List} or any of
+	 * @throws NullPointerException if the {@code short} array separator, the {@code short} array {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -573,10 +573,10 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Create a {@code short} array from a boxed {@code Short} array.</p>
-	 * @param boxedArray the boxed {@code Short} array to convert
+	 * <p>Create a {@code short} array from a boxed {@link Short} array.</p>
+	 * @param boxedArray the boxed {@link Short} array to convert
 	 * @return the created {@code short} array
-	 * @throws NullPointerException if the boxed {@code Short} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Short} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static short[] of(final Short[] boxedArray) {
@@ -592,9 +592,9 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code short} array to a boxed {@code Short} array.</p>
+	 * <p>Convert a {@code short} array to a boxed {@link Short} array.</p>
 	 * @param array the {@code short} array to convert
-	 * @return the created boxed {@code Short} array
+	 * @return the created boxed {@link Short} array
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @since 1.2.0
 	 */

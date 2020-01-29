@@ -477,9 +477,9 @@ public final class BooleanArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code boolean} arrays.</p>
-	 * @param arrays the {@code boolean} array {@code List} to concatenate
+	 * @param arrays the {@code boolean} array {@link List} to concatenate
 	 * @return the concatenated {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code boolean} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean[] concat(final List<boolean[]> arrays) {
@@ -517,9 +517,9 @@ public final class BooleanArrays {
 	/**
 	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
 	 * @param separator the {@code boolean} array separator
-	 * @param arrays the {@code boolean} array {@code List} to join
+	 * @param arrays the {@code boolean} array {@link List} to join
 	 * @return the joined {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array {@code List} or
+	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array {@link List} or
 	 *         any of them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -577,10 +577,10 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Create a {@code boolean} array from a boxed {@code Boolean} array.</p>
-	 * @param boxedArray the boxed {@code Boolean} array to convert
+	 * <p>Create a {@code boolean} array from a boxed {@link Boolean} array.</p>
+	 * @param boxedArray the boxed {@link Boolean} array to convert
 	 * @return the created {@code boolean} array
-	 * @throws NullPointerException if the boxed {@code Boolean} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Boolean} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static boolean[] of(final Boolean[] boxedArray) {
@@ -596,9 +596,9 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code boolean} array to a boxed {@code Boolean} array.</p>
+	 * <p>Convert a {@code boolean} array to a boxed {@link Boolean} array.</p>
 	 * @param array the {@code boolean} array to convert
-	 * @return the created boxed {@code Boolean} array
+	 * @return the created boxed {@link Boolean} array
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @since 1.2.0
 	 */

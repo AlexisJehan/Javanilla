@@ -474,9 +474,9 @@ public final class DoubleArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code double} arrays.</p>
-	 * @param arrays the {@code double} array {@code List} to concatenate
+	 * @param arrays the {@code double} array {@link List} to concatenate
 	 * @return the concatenated {@code double} array
-	 * @throws NullPointerException if the {@code double} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code double} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static double[] concat(final List<double[]> arrays) {
@@ -514,9 +514,9 @@ public final class DoubleArrays {
 	/**
 	 * <p>Join multiple {@code double} arrays using a {@code double} array separator.</p>
 	 * @param separator the {@code double} array separator
-	 * @param arrays the {@code double} array {@code List} to join
+	 * @param arrays the {@code double} array {@link List} to join
 	 * @return the joined {@code double} array
-	 * @throws NullPointerException if the {@code double} array separator, the {@code double} array {@code List} or any
+	 * @throws NullPointerException if the {@code double} array separator, the {@code double} array {@link List} or any
 	 *         of them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -574,10 +574,10 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Create a {@code double} array from a boxed {@code Double} array.</p>
-	 * @param boxedArray the boxed {@code Double} array to convert
+	 * <p>Create a {@code double} array from a boxed {@link Double} array.</p>
+	 * @param boxedArray the boxed {@link Double} array to convert
 	 * @return the created {@code double} array
-	 * @throws NullPointerException if the boxed {@code Double} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Double} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static double[] of(final Double[] boxedArray) {
@@ -593,9 +593,9 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code double} array to a boxed {@code Double} array.</p>
+	 * <p>Convert a {@code double} array to a boxed {@link Double} array.</p>
 	 * @param array the {@code double} array to convert
-	 * @return the created boxed {@code Double} array
+	 * @return the created boxed {@link Double} array
 	 * @throws NullPointerException if the {@code double} array is {@code null}
 	 * @since 1.2.0
 	 */

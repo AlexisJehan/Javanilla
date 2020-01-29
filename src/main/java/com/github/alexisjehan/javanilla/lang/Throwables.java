@@ -50,10 +50,10 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Throwable} is a checked {@code Exception}.</p>
-	 * @param throwable the {@code Throwable} to test
-	 * @return {@code true} if the {@code Throwable} is a checked {@code Exception}
-	 * @throws NullPointerException if the {@code Throwable} is {@code null}
+	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static boolean isChecked(final Throwable throwable) {
@@ -62,10 +62,10 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@code Throwable} is an unchecked {@code Exception}.</p>
-	 * @param throwable the {@code Throwable} to test
-	 * @return {@code true} if the {@code Throwable} is an unchecked {@code Exception}
-	 * @throws NullPointerException if the {@code Throwable} is {@code null}
+	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static boolean isUnchecked(final Throwable throwable) {
@@ -74,10 +74,10 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Execute the given {@code ThrowableRunnable} converting any thrown {@code Throwable} to an unchecked
-	 * {@code Exception}.</p>
-	 * @param throwableRunnable the {@code ThrowableRunnable} to execute
-	 * @throws NullPointerException if the {@code ThrowableRunnable} is {@code null}
+	 * <p>Execute the given {@link ThrowableRunnable} converting any thrown {@link Throwable} to an unchecked
+	 * {@link Exception}.</p>
+	 * @param throwableRunnable the {@link ThrowableRunnable} to execute
+	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static void uncheck(final ThrowableRunnable<?> throwableRunnable) {
@@ -86,12 +86,12 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Return a result from the given {@code ThrowableSupplier} converting any thrown {@code Throwable} to an
-	 * unchecked {@code Exception}.</p>
-	 * @param throwableSupplier the {@code ThrowableSupplier} to get the result from
+	 * <p>Return a result from the given {@link ThrowableSupplier} converting any thrown {@link Throwable} to an
+	 * unchecked {@link Exception}.</p>
+	 * @param throwableSupplier the {@link ThrowableSupplier} to get the result from
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the supplied result
-	 * @throws NullPointerException if the {@code ThrowableRunnable} is {@code null}
+	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <T> T uncheck(final ThrowableSupplier<T, ?> throwableSupplier) {
@@ -100,10 +100,10 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Wrap and return a {@code Throwable} as an unchecked {@code Exception} if it was not already.</p>
-	 * @param throwable the {@code Throwable} to wrap
-	 * @return an unchecked {@code Exception}
-	 * @throws NullPointerException if the {@code Throwable} is {@code null}
+	 * <p>Wrap and return a {@link Throwable} as an unchecked {@link Exception} if it was not already.</p>
+	 * @param throwable the {@link Throwable} to wrap
+	 * @return an unchecked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static RuntimeException unchecked(final Throwable throwable) {
@@ -121,12 +121,12 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Optionally get the root cause of the given {@code Throwable} by calling {@link Throwable#getCause()}
+	 * <p>Optionally get the root cause of the given {@link Throwable} by calling {@link Throwable#getCause()}
 	 * recursively.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if {@code Throwable} causes are making a cycle.</p>
-	 * @param throwable the {@code Throwable} to get the root cause from
-	 * @return an {@code Optional} {@code Throwable} root cause
-	 * @throws NullPointerException if the {@code Throwable} is {@code null}
+	 * <p><b>Warning</b>: Can produce an infinite loop if {@link Throwable} causes are making a cycle.</p>
+	 * @param throwable the {@link Throwable} to get the root cause from
+	 * @return an {@link Optional} {@link Throwable} root cause
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Optional<Throwable> getOptionalRootCause(final Throwable throwable) {
@@ -141,13 +141,13 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Get the {@code List} of causes of the given {@code Throwable} by calling {@link Throwable#getCause()}
+	 * <p>Get the {@link List} of causes of the given {@link Throwable} by calling {@link Throwable#getCause()}
 	 * recursively.</p>
-	 * <p><b>Note</b>: The {@code List} is ordered so that the root cause is at the end.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if {@code Throwable} causes are making a cycle.</p>
-	 * @param throwable the {@code Throwable} to get causes from
-	 * @return a {@code List} of {@code Throwable} causes
-	 * @throws NullPointerException if the {@code Throwable} is {@code null}
+	 * <p><b>Note</b>: The {@link List} is ordered so that the root cause is at the end.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if {@link Throwable} causes are making a cycle.</p>
+	 * @param throwable the {@link Throwable} to get causes from
+	 * @return a {@link List} of {@link Throwable} causes
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static List<Throwable> getCauses(final Throwable throwable) {

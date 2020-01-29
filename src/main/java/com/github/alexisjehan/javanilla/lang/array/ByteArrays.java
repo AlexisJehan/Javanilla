@@ -46,13 +46,13 @@ public final class ByteArrays {
 	public static final byte[] EMPTY = {};
 
 	/**
-	 * <p>{@code char} array used for binary {@code String} conversion.</p>
+	 * <p>{@code char} array used for binary {@link String} conversion.</p>
 	 * @since 1.2.0
 	 */
 	private static final char[] BINARY_CHARS = {'0', '1'};
 
 	/**
-	 * <p>{@code char} array used for hexadecimal {@code String} conversion.</p>
+	 * <p>{@code char} array used for hexadecimal {@link String} conversion.</p>
 	 * @since 1.0.0
 	 */
 	private static final char[] HEXADECIMAL_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -487,9 +487,9 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code byte} arrays.</p>
-	 * @param arrays the {@code byte} array {@code List} to concatenate
+	 * @param arrays the {@code byte} array {@link List} to concatenate
 	 * @return the concatenated {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array {@code List} or any of them is {@code null}
+	 * @throws NullPointerException if the {@code byte} array {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] concat(final List<byte[]> arrays) {
@@ -516,7 +516,7 @@ public final class ByteArrays {
 	 * @param arrays the {@code byte} array array to join
 	 * @return the joined {@code byte} array
 	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array array or any of them is
-	 * {@code null}
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] join(final byte[] separator, final byte[]... arrays) {
@@ -527,9 +527,9 @@ public final class ByteArrays {
 	/**
 	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
 	 * @param separator the {@code byte} array separator
-	 * @param arrays the {@code byte} array {@code List} to join
+	 * @param arrays the {@code byte} array {@link List} to join
 	 * @return the joined {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array {@code List} or any of
+	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -587,10 +587,10 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a boxed {@code Byte} array.</p>
-	 * @param boxedArray the boxed {@code Byte} array to convert
+	 * <p>Create a {@code byte} array from a boxed {@link Byte} array.</p>
+	 * @param boxedArray the boxed {@link Byte} array to convert
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the boxed {@code Byte} array is {@code null}
+	 * @throws NullPointerException if the boxed {@link Byte} array is {@code null}
 	 * @since 1.2.0
 	 */
 	public static byte[] of(final Byte[] boxedArray) {
@@ -606,9 +606,9 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a boxed {@code Byte} array.</p>
+	 * <p>Convert a {@code byte} array to a boxed {@link Byte} array.</p>
 	 * @param array the {@code byte} array to convert
-	 * @return the created boxed {@code Byte} array
+	 * @return the created boxed {@link Byte} array
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.2.0
 	 */
@@ -659,11 +659,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code short} using a custom {@code ByteOrder}.</p>
+	 * <p>Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.</p>
 	 * @param s the {@code short} to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] ofShort(final short s, final ByteOrder order) {
@@ -682,7 +682,7 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Convert a {@code byte} array back to a {@code short} value using {@link ByteOrder#nativeOrder()}
-	 * {@code ByteOrder}.</p>
+	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code short} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -694,11 +694,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code short} value using the given {@code ByteOrder}.</p>
+	 * <p>Convert a {@code byte} array back to a {@code short} value using the given {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code short} value
-	 * @throws NullPointerException if the {@code byte} array or the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array or the {@link ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array length is not valid
 	 * @since 1.0.0
 	 */
@@ -723,11 +723,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code char} using a custom {@code ByteOrder}.</p>
+	 * <p>Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.</p>
 	 * @param c the {@code char} to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] ofChar(final char c, final ByteOrder order) {
@@ -740,7 +740,7 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Convert a {@code byte} array back to a {@code char} value using {@link ByteOrder#nativeOrder()}
-	 * {@code ByteOrder}.</p>
+	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code char} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -752,11 +752,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code char} value using the given {@code ByteOrder}.</p>
+	 * <p>Convert a {@code byte} array back to a {@code char} value using the given {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code char} value
-	 * @throws NullPointerException if the {@code byte} array or the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array or the {@link ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array length is not valid
 	 * @since 1.0.0
 	 */
@@ -781,11 +781,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an {@code int} using a custom {@code ByteOrder}.</p>
+	 * <p>Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.</p>
 	 * @param i the {@code int} to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] ofInt(final int i, final ByteOrder order) {
@@ -808,7 +808,7 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Convert a {@code byte} array back to an {@code int} value using {@link ByteOrder#nativeOrder()}
-	 * {@code ByteOrder}.</p>
+	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code int} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -820,11 +820,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to an {@code int} value using the given {@code ByteOrder}.</p>
+	 * <p>Convert a {@code byte} array back to an {@code int} value using the given {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code int} value
-	 * @throws NullPointerException if the {@code byte} array or the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array or the {@link ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array length is not valid
 	 * @since 1.0.0
 	 */
@@ -855,11 +855,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code long} using a custom {@code ByteOrder}.</p>
+	 * <p>Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.</p>
 	 * @param l the {@code long} to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] ofLong(final long l, final ByteOrder order) {
@@ -890,7 +890,7 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Convert a {@code byte} array back to a {@code long} value using {@link ByteOrder#nativeOrder()}
-	 * {@code ByteOrder}.</p>
+	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code long} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -902,11 +902,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code long} value using the given {@code ByteOrder}.</p>
+	 * <p>Convert a {@code byte} array back to a {@code long} value using the given {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code long} value
-	 * @throws NullPointerException if the {@code byte} array or the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array or the {@link ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array length is not valid
 	 * @since 1.0.0
 	 */
@@ -945,11 +945,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code float} using a custom {@code ByteOrder}.</p>
+	 * <p>Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.</p>
 	 * @param f the {@code float} to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] ofFloat(final float f, final ByteOrder order) {
@@ -958,7 +958,7 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Convert a {@code byte} array back to a {@code float} value using {@link ByteOrder#nativeOrder()}
-	 * {@code ByteOrder}.</p>
+	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code float} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -970,11 +970,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code float} value using the given {@code ByteOrder}.</p>
+	 * <p>Convert a {@code byte} array back to a {@code float} value using the given {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code float} value
-	 * @throws NullPointerException if the {@code byte} array or the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array or the {@link ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array length is not valid
 	 * @since 1.0.0
 	 */
@@ -993,11 +993,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code double} using a custom {@code ByteOrder}.</p>
+	 * <p>Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.</p>
 	 * @param d the {@code double} to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] ofDouble(final double d, final ByteOrder order) {
@@ -1006,7 +1006,7 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Convert a {@code byte} array back to a {@code double} value using {@link ByteOrder#nativeOrder()}
-	 * {@code ByteOrder}.</p>
+	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code double} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1018,11 +1018,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code double} value using the given {@code ByteOrder}.</p>
+	 * <p>Convert a {@code byte} array back to a {@code double} value using the given {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @param order the {@code ByteOrder} to use
+	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code double} value
-	 * @throws NullPointerException if the {@code byte} array or the {@code ByteOrder} is {@code null}
+	 * @throws NullPointerException if the {@code byte} array or the {@link ByteOrder} is {@code null}
 	 * @throws IllegalArgumentException if the {@code byte} array length is not valid
 	 * @since 1.0.0
 	 */
@@ -1031,11 +1031,11 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a binary {@code CharSequence}.</p>
-	 * @param binaryCharSequence the binary {@code CharSequence} to convert
+	 * <p>Create a {@code byte} array from a binary {@link CharSequence}.</p>
+	 * @param binaryCharSequence the binary {@link CharSequence} to convert
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the binary {@code CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the binary {@code CharSequence} length is not a multiple of {@code 8} or if
+	 * @throws NullPointerException if the binary {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the binary {@link CharSequence} length is not a multiple of {@code 8} or if
 	 *         any {@code char} is not valid
 	 * @since 1.2.0
 	 */
@@ -1060,9 +1060,9 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a binary {@code String} value.</p>
+	 * <p>Convert a {@code byte} array to a binary {@link String} value.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @return the converted binary {@code String} value
+	 * @return the converted binary {@link String} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.2.0
 	 */
@@ -1087,12 +1087,12 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a hexadecimal {@code CharSequence}.</p>
-	 * <p><b>Note</b>: The hexadecimal {@code CharSequence} value case does not matter.</p>
-	 * @param hexadecimalCharSequence the hexadecimal {@code CharSequence} to convert
+	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence}.</p>
+	 * <p><b>Note</b>: The hexadecimal {@link CharSequence} value case does not matter.</p>
+	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
 	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the hexadecimal {@code CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the hexadecimal {@code CharSequence} length is not a multiple of {@code 2} or
+	 * @throws NullPointerException if the hexadecimal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the hexadecimal {@link CharSequence} length is not a multiple of {@code 2} or
 	 *         if any {@code char} is not valid
 	 * @since 1.0.0
 	 */
@@ -1117,10 +1117,10 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a hexadecimal {@code String} value.</p>
-	 * <p><b>Note</b>: The hexadecimal {@code String} value will be in lowercase.</p>
+	 * <p>Convert a {@code byte} array to a hexadecimal {@link String} value.</p>
+	 * <p><b>Note</b>: The hexadecimal {@link String} value will be in lowercase.</p>
 	 * @param bytes the {@code byte} array to convert
-	 * @return the converted hexadecimal {@code String} value
+	 * @return the converted hexadecimal {@link String} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.0.0
 	 */
