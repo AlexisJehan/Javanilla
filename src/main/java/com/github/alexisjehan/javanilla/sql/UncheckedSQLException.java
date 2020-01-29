@@ -50,6 +50,9 @@ public final class UncheckedSQLException extends RuntimeException {
 		super(Ensure.notNull("cause", cause));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public synchronized SQLException getCause() {
 		return (SQLException) super.getCause();
