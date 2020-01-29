@@ -44,19 +44,27 @@ public final class Consumers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Consumer} so that it only accepts a value once. If the {@code Consumer} is consumed more
-	 * than once an {@code IllegalStateException} is thrown.</p>
-	 * @param consumer the {@code Consumer} to decorate
+	 * <p>Decorate a {@link Consumer} so that it only accepts a value once. If the {@link Consumer} is consumed more
+	 * than once an {@link IllegalStateException} is thrown.</p>
+	 * @param consumer the {@link Consumer} to decorate
 	 * @param <T> the type of the input to the operation
-	 * @return the {@code Consumer} which accepts a value once
-	 * @throws NullPointerException if the {@code Consumer} is {@code null}
+	 * @return the {@link Consumer} which accepts a value once
+	 * @throws NullPointerException if the {@link Consumer} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <T> Consumer<T> once(final Consumer<? super T> consumer) {
 		Ensure.notNull("consumer", consumer);
 		return new Consumer<>() {
+
+			/**
+			 * <p>Whether or not a value has already been consumed.</p>
+			 * @since 1.1.0
+			 */
 			private boolean isConsumed = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void accept(final T t) {
 				if (isConsumed) {
@@ -69,18 +77,26 @@ public final class Consumers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Consumer} so that it only accepts distinct values.</p>
-	 * @param consumer the {@code Consumer} to decorate
+	 * <p>Decorate a {@link Consumer} so that it only accepts distinct values.</p>
+	 * @param consumer the {@link Consumer} to decorate
 	 * @param <T> the type of the input to the operation
-	 * @return the {@code Consumer} which accepts distinct values
-	 * @throws NullPointerException if the {@code Consumer} is {@code null}
+	 * @return the {@link Consumer} which accepts distinct values
+	 * @throws NullPointerException if the {@link Consumer} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static <T> Consumer<T> distinct(final Consumer<? super T> consumer) {
 		Ensure.notNull("consumer", consumer);
 		return new Consumer<>() {
+
+			/**
+			 * <p>Set of distinct values.</p>
+			 * @since 1.2.0
+			 */
 			private final Set<T> set = new HashSet<>();
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void accept(final T t) {
 				if (set.add(t)) {

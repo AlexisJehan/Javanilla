@@ -38,12 +38,12 @@ import java.util.function.BiPredicate;
 public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiPredicate} that represents a short-circuiting logical AND of this
+	 * <p>Returns a composed {@link SerializableBiPredicate} that represents a short-circuiting logical AND of this
 	 * predicate and another.</p>
-	 * @param other a {@code BiPredicate} that will be logically-ANDed with this predicate
-	 * @return a composed {@code SerializableBiPredicate} that represents the short-circuiting logical AND of this
+	 * @param other a {@link BiPredicate} that will be logically-ANDed with this predicate
+	 * @return a composed {@link SerializableBiPredicate} that represents the short-circuiting logical AND of this
 	 *         predicate and the other predicate
-	 * @throws NullPointerException if the other {@code BiPredicate} is {@code null}
+	 * @throws NullPointerException if the other {@link BiPredicate} is {@code null}
 	 * @since 1.4.0
 	 */
 	@Override
@@ -53,8 +53,8 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	}
 
 	/**
-	 * <p>Returns a {@code SerializableBiPredicate} that represents the logical negation of this predicate.</p>
-	 * @return a {@code SerializableBiPredicate} that represents the logical negation of this predicate
+	 * <p>Returns a {@link SerializableBiPredicate} that represents the logical negation of this predicate.</p>
+	 * @return a {@link SerializableBiPredicate} that represents the logical negation of this predicate
 	 * @since 1.4.0
 	 */
 	@Override
@@ -63,12 +63,12 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	}
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiPredicate} that represents a short-circuiting logical OR of this
+	 * <p>Returns a composed {@link SerializableBiPredicate} that represents a short-circuiting logical OR of this
 	 * predicate and another.</p>
-	 * @param other a {@code BiPredicate} that will be logically-ORed with this predicate
-	 * @return a composed {@code SerializableBiPredicate} that represents the short-circuiting logical OR of this
+	 * @param other a {@link BiPredicate} that will be logically-ORed with this predicate
+	 * @return a composed {@link SerializableBiPredicate} that represents the short-circuiting logical OR of this
 	 *         predicate and the other predicate
-	 * @throws NullPointerException if the other {@code BiPredicate} is {@code null}
+	 * @throws NullPointerException if the other {@link BiPredicate} is {@code null}
 	 * @since 1.4.0
 	 */
 	@Override
@@ -78,12 +78,12 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	}
 
 	/**
-	 * <p>Create a {@code SerializableBiPredicate} from the given {@code BiPredicate}.</p>
-	 * @param biPredicate the {@code BiPredicate} to convert
+	 * <p>Create a {@link SerializableBiPredicate} from the given {@link BiPredicate}.</p>
+	 * @param biPredicate the {@link BiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate
-	 * @return the created {@code SerializableBiPredicate}
-	 * @throws NullPointerException if the {@code BiPredicate} is {@code null}
+	 * @return the created {@link SerializableBiPredicate}
+	 * @throws NullPointerException if the {@link BiPredicate} is {@code null}
 	 * @since 1.4.0
 	 */
 	static <T, U> SerializableBiPredicate<T, U> of(final BiPredicate<? super T, ? super U> biPredicate) {

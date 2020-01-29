@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 /**
  * <p>Interface for a {@link Supplier} that may throw a {@link Throwable}.</p>
  * @param <T> the type of results supplied by this supplier
- * @param <X> the type of the {@code Throwable}
+ * @param <X> the type of the {@link Throwable}
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -40,19 +40,19 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	/**
 	 * <p>Gets a result.</p>
 	 * @return the result supplied
-	 * @throws X may throw a {@code Throwable}
+	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
 	T get() throws X;
 
 	/**
-	 * <p>Converts the given {@code ThrowableSupplier} to a {@code Supplier} that may throw an unchecked
-	 * {@code Throwable}.</p>
-	 * @param throwableSupplier the {@code ThrowableSupplier} to convert
+	 * <p>Converts the given {@link ThrowableSupplier} to a {@link Supplier} that may throw an unchecked
+	 * {@link Throwable}.</p>
+	 * @param throwableSupplier the {@link ThrowableSupplier} to convert
 	 * @param <T> the type of results supplied by this supplier
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the converted {@code Supplier}
-	 * @throws NullPointerException if the {@code ThrowableSupplier} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Supplier}
+	 * @throws NullPointerException if the {@link ThrowableSupplier} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Supplier<T> unchecked(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
@@ -67,12 +67,12 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableSupplier} from the given {@code Supplier}.</p>
-	 * @param supplier the {@code Supplier} to convert
+	 * <p>Create a {@link ThrowableSupplier} from the given {@link Supplier}.</p>
+	 * @param supplier the {@link Supplier} to convert
 	 * @param <T> the type of results supplied by this supplier
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the created {@code ThrowableSupplier}
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the created {@link ThrowableSupplier}
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowableSupplier<T, X> of(final Supplier<? extends T> supplier) {

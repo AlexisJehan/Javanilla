@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>Interface for a {@link Runnable} that may throw a {@link Throwable}.</p>
- * @param <X> the type of the {@code Throwable}
+ * @param <X> the type of the {@link Throwable}
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -36,18 +36,18 @@ public interface ThrowableRunnable<X extends Throwable> {
 
 	/**
 	 * <p>Take any action whatsoever.</p>
-	 * @throws X may throw a {@code Throwable}
+	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
 	void run() throws X;
 
 	/**
-	 * <p>Converts the given {@code ThrowableRunnable} to a {@code Runnable} that may throw an unchecked
-	 * {@code Throwable}.</p>
-	 * @param throwableRunnable the {@code ThrowableRunnable} to convert
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the converted {@code Runnable}
-	 * @throws NullPointerException if the {@code ThrowableRunnable} is {@code null}
+	 * <p>Converts the given {@link ThrowableRunnable} to a {@link Runnable} that may throw an unchecked
+	 * {@link Throwable}.</p>
+	 * @param throwableRunnable the {@link ThrowableRunnable} to convert
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Runnable}
+	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <X extends Throwable> Runnable unchecked(final ThrowableRunnable<? extends X> throwableRunnable) {
@@ -62,11 +62,11 @@ public interface ThrowableRunnable<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableRunnable} from the given {@code Runnable}.</p>
-	 * @param runnable the {@code Runnable} to convert
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the created {@code ThrowableRunnable}
-	 * @throws NullPointerException if the {@code Runnable} is {@code null}
+	 * <p>Create a {@link ThrowableRunnable} from the given {@link Runnable}.</p>
+	 * @param runnable the {@link Runnable} to convert
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the created {@link ThrowableRunnable}
+	 * @throws NullPointerException if the {@link Runnable} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <X extends Throwable> ThrowableRunnable<X> of(final Runnable runnable) {

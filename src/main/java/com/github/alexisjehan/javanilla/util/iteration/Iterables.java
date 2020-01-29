@@ -49,19 +49,19 @@ import java.util.stream.Stream;
 public final class Iterables {
 
 	/**
-	 * <p>A {@code PrimitiveIterable.OfInt} which gives empties {@code PrimitiveIterator.OfInt}s.</p>
+	 * <p>A {@link PrimitiveIterable.OfInt} which gives empties {@link PrimitiveIterator.OfInt}s.</p>
 	 * @since 1.0.0
 	 */
 	public static final PrimitiveIterable.OfInt EMPTY_INT = () -> Iterators.EMPTY_INT;
 
 	/**
-	 * <p>A {@code PrimitiveIterable.OfLong} which gives empties {@code PrimitiveIterator.OfLong}s.</p>
+	 * <p>A {@link PrimitiveIterable.OfLong} which gives empties {@link PrimitiveIterator.OfLong}s.</p>
 	 * @since 1.0.0
 	 */
 	public static final PrimitiveIterable.OfLong EMPTY_LONG = () -> Iterators.EMPTY_LONG;
 
 	/**
-	 * <p>A {@code PrimitiveIterable.OfDouble} which gives empties {@code PrimitiveIterator.OfDouble}s.</p>
+	 * <p>A {@link PrimitiveIterable.OfDouble} which gives empties {@link PrimitiveIterator.OfDouble}s.</p>
 	 * @since 1.0.0
 	 */
 	public static final PrimitiveIterable.OfDouble EMPTY_DOUBLE = () -> Iterators.EMPTY_DOUBLE;
@@ -75,9 +75,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Return an {@code Iterable} which gives empties {@code Iterator}s.</p>
+	 * <p>Return an {@link Iterable} which gives empties {@link Iterator}s.</p>
 	 * @param <E> the element type
-	 * @return an {@code Iterable} which gives empties {@code Iterator}s
+	 * @return an {@link Iterable} which gives empties {@link Iterator}s
 	 * @since 1.0.0
 	 */
 	public static <E> Iterable<E> empty() {
@@ -85,9 +85,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Wrap a {@code PrimitiveIterable.OfInt} replacing {@code null} by an empty one.</p>
-	 * @param primitiveIterable the {@code PrimitiveIterable.OfInt} or {@code null}
-	 * @return a non-{@code null} {@code PrimitiveIterable.OfInt}
+	 * <p>Wrap a {@link PrimitiveIterable.OfInt} replacing {@code null} by an empty one.</p>
+	 * @param primitiveIterable the {@link PrimitiveIterable.OfInt} or {@code null}
+	 * @return a non-{@code null} {@link PrimitiveIterable.OfInt}
 	 * @since 1.2.0
 	 */
 	public static PrimitiveIterable.OfInt nullToEmpty(final PrimitiveIterable.OfInt primitiveIterable) {
@@ -95,9 +95,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Wrap a {@code PrimitiveIterable.OfLong} replacing {@code null} by an empty one.</p>
-	 * @param primitiveIterable the {@code PrimitiveIterable.OfLong} or {@code null}
-	 * @return a non-{@code null} {@code PrimitiveIterable.OfLong}
+	 * <p>Wrap a {@link PrimitiveIterable.OfLong} replacing {@code null} by an empty one.</p>
+	 * @param primitiveIterable the {@link PrimitiveIterable.OfLong} or {@code null}
+	 * @return a non-{@code null} {@link PrimitiveIterable.OfLong}
 	 * @since 1.2.0
 	 */
 	public static PrimitiveIterable.OfLong nullToEmpty(final PrimitiveIterable.OfLong primitiveIterable) {
@@ -105,9 +105,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Wrap a {@code PrimitiveIterable.OfDouble} replacing {@code null} by an empty one.</p>
-	 * @param primitiveIterable the {@code PrimitiveIterable.OfDouble} or {@code null}
-	 * @return a non-{@code null} {@code PrimitiveIterable.OfDouble}
+	 * <p>Wrap a {@link PrimitiveIterable.OfDouble} replacing {@code null} by an empty one.</p>
+	 * @param primitiveIterable the {@link PrimitiveIterable.OfDouble} or {@code null}
+	 * @return a non-{@code null} {@link PrimitiveIterable.OfDouble}
 	 * @since 1.2.0
 	 */
 	public static PrimitiveIterable.OfDouble nullToEmpty(final PrimitiveIterable.OfDouble primitiveIterable) {
@@ -115,10 +115,10 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Wrap an {@code Iterable} replacing {@code null} by an empty one.</p>
-	 * @param iterable the {@code Iterable} or {@code null}
+	 * <p>Wrap an {@link Iterable} replacing {@code null} by an empty one.</p>
+	 * @param iterable the {@link Iterable} or {@code null}
 	 * @param <E> the element type
-	 * @return a non-{@code null} {@code Iterable}
+	 * @return a non-{@code null} {@link Iterable}
 	 * @since 1.0.0
 	 */
 	public static <E> Iterable<E> nullToEmpty(final Iterable<E> iterable) {
@@ -126,12 +126,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Wrap an {@code Iterable} replacing {@code null} by a default one.</p>
-	 * @param iterable the {@code Iterable} or {@code null}
-	 * @param defaultIterable the default {@code Iterable}
-	 * @param <I> the {@code Iterable} type
-	 * @return a non-{@code null} {@code Iterable}
-	 * @throws NullPointerException if the default {@code Iterable} is {@code null}
+	 * <p>Wrap an {@link Iterable} replacing {@code null} by a default one.</p>
+	 * @param iterable the {@link Iterable} or {@code null}
+	 * @param defaultIterable the default {@link Iterable}
+	 * @param <I> the {@link Iterable} type
+	 * @return a non-{@code null} {@link Iterable}
+	 * @throws NullPointerException if the default {@link Iterable} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <I extends Iterable<?>> I nullToDefault(final I iterable, final I defaultIterable) {
@@ -140,12 +140,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Decorate an {@code Iterable} which gives {@code Iterator}s so that their {@link Iterator#remove()} method is
+	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that their {@link Iterator#remove()} method is
 	 * not available.</p>
-	 * @param iterable the {@code Iterable} to decorate
+	 * @param iterable the {@link Iterable} to decorate
 	 * @param <E> the element type
-	 * @return the unmodifiable {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @return the unmodifiable {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <E> Iterable<E> unmodifiable(final Iterable<? extends E> iterable) {
@@ -154,13 +154,13 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Decorate an {@code Iterable} which gives {@code Iterator}s so that their elements are filtered using the given
-	 * {@code Predicate}.</p>
-	 * @param iterable the {@code Iterable} to decorate
-	 * @param filter the filter {@code Predicate}
+	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that their elements are filtered using the given
+	 * {@link Predicate}.</p>
+	 * @param iterable the {@link Iterable} to decorate
+	 * @param filter the filter {@link Predicate}
 	 * @param <E> the element type
-	 * @return the filtered {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterable} or the filter {@code Predicate} is {@code null}
+	 * @return the filtered {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} or the filter {@link Predicate} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <E> Iterable<E> filter(final Iterable<? extends E> iterable, final Predicate<? super E> filter) {
@@ -170,14 +170,14 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Decorate an {@code Iterable} which gives {@code Iterator}s so that their elements are mapped using the given
-	 * {@code Function}.</p>
-	 * @param iterable the {@code Iterable} to decorate
-	 * @param mapper the mapper {@code Function}
+	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that their elements are mapped using the given
+	 * {@link Function}.</p>
+	 * @param iterable the {@link Iterable} to decorate
+	 * @param mapper the mapper {@link Function}
 	 * @param <I> the input element type
 	 * @param <O> the output element type
-	 * @return the mapped {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterable} or the mapper {@code Function} is {@code null}
+	 * @return the mapped {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} or the mapper {@link Function} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <I, O> Iterable<O> map(final Iterable<? extends I> iterable, final Function<? super I, ? extends O> mapper) {
@@ -187,12 +187,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Decorate an {@code Iterable} which gives {@code Iterator}s so that they return {@code IndexedElement}s
+	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that they return {@link IndexedElement}s
 	 * composed of the index and the element.</p>
-	 * @param iterable the {@code Iterable} to decorate
+	 * @param iterable the {@link Iterable} to decorate
 	 * @param <E> the element type
-	 * @return the indexed {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @return the indexed {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static <E> Iterable<IndexedElement<E>> index(final Iterable<? extends E> iterable) {
@@ -201,11 +201,11 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Iterate an {@code Iterable} to the end and return the length.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code Iterable} does not end.</p>
-	 * @param iterable the {@code Iterable} to iterate
+	 * <p>Iterate an {@link Iterable} to the end and return the length.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterable} does not end.</p>
+	 * @param iterable the {@link Iterable} to iterate
 	 * @return the length
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static long length(final Iterable<?> iterable) {
@@ -217,13 +217,13 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Transfer {@code Iterable} elements to a {@code Collection}.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@code Iterable} is too large.</p>
-	 * @param iterable the {@code Iterable} to get elements from
-	 * @param collection the {@code Collection} to add elements to
+	 * <p>Transfer {@link Iterable} elements to a {@link Collection}.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Iterable} is too large.</p>
+	 * @param iterable the {@link Iterable} to get elements from
+	 * @param collection the {@link Collection} to add elements to
 	 * @param <E> the element type
 	 * @return the number of elements transferred
-	 * @throws NullPointerException if the {@code Iterable} or the {@code Collection} is {@code null}
+	 * @throws NullPointerException if the {@link Iterable} or the {@link Collection} is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -239,11 +239,11 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Optionally get the first element of an {@code Iterable}.</p>
-	 * @param iterable the {@code Iterable} to get the first element from
+	 * <p>Optionally get the first element of an {@link Iterable}.</p>
+	 * @param iterable the {@link Iterable} to get the first element from
 	 * @param <E> the element type
-	 * @return a {@code NullableOptional} containing the first element if the {@code Iterable} is not empty
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @return a {@link NullableOptional} containing the first element if the {@link Iterable} is not empty
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -256,12 +256,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Optionally get the last element of an {@code Iterable}.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code Iterable} does not end.</p>
-	 * @param iterable the {@code Iterable} to get the last element from
+	 * <p>Optionally get the last element of an {@link Iterable}.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterable} does not end.</p>
+	 * @param iterable the {@link Iterable} to get the last element from
 	 * @param <E> the element type
-	 * @return a {@code NullableOptional} containing the last element if the {@code Iterable} is not empty
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @return a {@link NullableOptional} containing the last element if the {@link Iterable} is not empty
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -274,11 +274,11 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code Iterable}s.</p>
-	 * @param iterables the {@code Iterable} array to concatenate
+	 * <p>Concatenate multiple {@link Iterable}s.</p>
+	 * @param iterables the {@link Iterable} array to concatenate
 	 * @param <E> the element type
-	 * @return the concatenated {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterable} array or any of them is {@code null}
+	 * @return the concatenated {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} array or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
@@ -289,11 +289,11 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code Iterable}s.</p>
-	 * @param iterables the {@code Iterable} {@code List} to concatenate
+	 * <p>Concatenate multiple {@link Iterable}s.</p>
+	 * @param iterables the {@link Iterable} {@link List} to concatenate
 	 * @param <E> the element type
-	 * @return the concatenated {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterable} {@code List} or any of them is {@code null}
+	 * @return the concatenated {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} {@link List} or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -310,13 +310,13 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Join multiple {@code Iterable}s using an {@code Object} array separator.</p>
-	 * @param separator the {@code Object} array separator
-	 * @param iterables the {@code Iterable} array to join
+	 * <p>Join multiple {@link Iterable}s using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param iterables the {@link Iterable} array to join
 	 * @param <E> the element type
-	 * @return the joined {@code Iterable}
-	 * @throws NullPointerException if the {@code Object} array separator, the {@code Iterable} array or any of them is
-	 * {@code null}
+	 * @return the joined {@link Iterable}
+	 * @throws NullPointerException if the {@link Object} array separator, the {@link Iterable} array or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	@SafeVarargs
@@ -327,12 +327,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Join multiple {@code Iterable}s using an {@code Object} array separator.</p>
-	 * @param separator the {@code Object} array separator
-	 * @param iterables the {@code Iterable} {@code List} to join
+	 * <p>Join multiple {@link Iterable}s using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param iterables the {@link Iterable} {@link List} to join
 	 * @param <E> the element type
-	 * @return the joined {@code Iterable}
-	 * @throws NullPointerException if the {@code Object} array separator, the {@code Iterable} {@code List} or any of
+	 * @return the joined {@link Iterable}
+	 * @throws NullPointerException if the {@link Object} array separator, the {@link Iterable} {@link List} or any of
 	 *         them is {@code null}
 	 * @since 1.0.0
 	 */
@@ -354,9 +354,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfInt} from a single {@code int} element.</p>
+	 * <p>Create a {@link PrimitiveIterable.OfInt} from a single {@code int} element.</p>
 	 * @param element the {@code int} element to convert
-	 * @return the created {@code PrimitiveIterable.OfInt}
+	 * @return the created {@link PrimitiveIterable.OfInt}
 	 * @since 1.1.0
 	 */
 	public static PrimitiveIterable.OfInt singletonInt(final int element) {
@@ -364,9 +364,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfLong} from a single {@code long} element.</p>
+	 * <p>Create a {@link PrimitiveIterable.OfLong} from a single {@code long} element.</p>
 	 * @param element the {@code long} element to convert
-	 * @return the created {@code PrimitiveIterable.OfLong}
+	 * @return the created {@link PrimitiveIterable.OfLong}
 	 * @since 1.1.0
 	 */
 	public static PrimitiveIterable.OfLong singletonLong(final long element) {
@@ -374,9 +374,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfDouble} from a single {@code double} element.</p>
+	 * <p>Create a {@link PrimitiveIterable.OfDouble} from a single {@code double} element.</p>
 	 * @param element the {@code double} element to convert
-	 * @return the created {@code PrimitiveIterable.OfDouble}
+	 * @return the created {@link PrimitiveIterable.OfDouble}
 	 * @since 1.1.0
 	 */
 	public static PrimitiveIterable.OfDouble singletonDouble(final double element) {
@@ -384,10 +384,10 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code Iterable} from a single element.</p>
+	 * <p>Create a {@link Iterable} from a single element.</p>
 	 * @param element the element to convert
 	 * @param <E> the element type
-	 * @return the created {@code Iterable}
+	 * @return the created {@link Iterable}
 	 * @since 1.1.0
 	 */
 	public static <E> Iterable<E> singleton(final E element) {
@@ -395,9 +395,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfInt} from multiple {@code int} elements.</p>
+	 * <p>Create a {@link PrimitiveIterable.OfInt} from multiple {@code int} elements.</p>
 	 * @param elements the {@code int} elements array to convert
-	 * @return the created {@code PrimitiveIterable.OfInt}
+	 * @return the created {@link PrimitiveIterable.OfInt}
 	 * @throws NullPointerException if the {@code int} elements array is {@code null}
 	 * @since 1.0.0
 	 */
@@ -410,9 +410,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfLong} from multiple {@code long} elements.</p>
+	 * <p>Create a {@link PrimitiveIterable.OfLong} from multiple {@code long} elements.</p>
 	 * @param elements the {@code long} elements array to convert
-	 * @return the created {@code PrimitiveIterable.OfLong}
+	 * @return the created {@link PrimitiveIterable.OfLong}
 	 * @throws NullPointerException if the {@code long} elements array is {@code null}
 	 * @since 1.0.0
 	 */
@@ -425,9 +425,9 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfDouble} from multiple {@code double} elements.</p>
+	 * <p>Create a {@link PrimitiveIterable.OfDouble} from multiple {@code double} elements.</p>
 	 * @param elements the {@code double} elements array to convert
-	 * @return the created {@code PrimitiveIterable.OfDouble}
+	 * @return the created {@link PrimitiveIterable.OfDouble}
 	 * @throws NullPointerException if the {@code double} elements array is {@code null}
 	 * @since 1.0.0
 	 */
@@ -440,10 +440,10 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} from multiple elements.</p>
+	 * <p>Create an {@link Iterable} from multiple elements.</p>
 	 * @param elements the elements array to convert
 	 * @param <E> the element type
-	 * @return the created {@code Iterable}
+	 * @return the created {@link Iterable}
 	 * @throws NullPointerException if the elements array is {@code null}
 	 * @since 1.0.0
 	 */
@@ -458,11 +458,11 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Convert an {@code Iterable} to a {@code Set}.</p>
-	 * @param iterable the {@code Iterable} to convert
+	 * <p>Convert an {@link Iterable} to a {@link Set}.</p>
+	 * @param iterable the {@link Iterable} to convert
 	 * @param <E> the element type
-	 * @return the created {@code Set}
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @return the created {@link Set}
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -475,11 +475,11 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Convert an {@code Iterable} to a {@code List}.</p>
-	 * @param iterable the {@code Iterable} to convert
+	 * <p>Convert an {@link Iterable} to a {@link List}.</p>
+	 * @param iterable the {@link Iterable} to convert
 	 * @param <E> the element type
-	 * @return the created {@code List}
-	 * @throws NullPointerException if the {@code Iterable} is {@code null}
+	 * @return the created {@link List}
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -492,12 +492,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} by wrapping an {@code InputStream} from the current position.</p>
-	 * <p><b>Warning</b>: The {@code Iterator} can only be obtained once unlike {@code Iterable} default behavior.</p>
-	 * <p><b>Note</b>: The {@code InputStream} will not be closed.</p>
-	 * @param inputStream the {@code InputStream} to wrap
-	 * @return the created {@code Iterable}
-	 * @throws NullPointerException if the {@code InputStream} is {@code null}
+	 * <p>Create an {@link Iterable} by wrapping an {@link InputStream} from the current position.</p>
+	 * <p><b>Warning</b>: The {@link Iterator} can only be obtained once unlike {@link Iterable} default behavior.</p>
+	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 * @param inputStream the {@link InputStream} to wrap
+	 * @return the created {@link Iterable}
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Iterable<Integer> wrap(final InputStream inputStream) {
@@ -505,12 +505,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} by wrapping a {@code Reader} from the current position.</p>
-	 * <p><b>Warning</b>: The {@code Iterator} can only be obtained once unlike {@code Iterable} default behavior.</p>
-	 * <p><b>Note</b>: The {@code Reader} will not be closed.</p>
-	 * @param reader the {@code Reader} to wrap
-	 * @return the created {@code Iterable}
-	 * @throws NullPointerException if the {@code Reader} is {@code null}
+	 * <p>Create an {@link Iterable} by wrapping a {@link Reader} from the current position.</p>
+	 * <p><b>Warning</b>: The {@link Iterator} can only be obtained once unlike {@link Iterable} default behavior.</p>
+	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 * @param reader the {@link Reader} to wrap
+	 * @return the created {@link Iterable}
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Iterable<Integer> wrap(final Reader reader) {
@@ -518,12 +518,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} by wrapping a {@code BufferedReader} from the current position.</p>
-	 * <p><b>Warning</b>: The {@code Iterator} can only be obtained once unlike {@code Iterable} default behavior.</p>
-	 * <p><b>Note</b>: The {@code BufferedReader} will not be closed.</p>
-	 * @param bufferedReader the {@code BufferedReader} to wrap
-	 * @return the created {@code Iterable}
-	 * @throws NullPointerException if the {@code BufferedReader} is {@code null}
+	 * <p>Create an {@link Iterable} by wrapping a {@link BufferedReader} from the current position.</p>
+	 * <p><b>Warning</b>: The {@link Iterator} can only be obtained once unlike {@link Iterable} default behavior.</p>
+	 * <p><b>Note</b>: The {@link BufferedReader} will not be closed.</p>
+	 * @param bufferedReader the {@link BufferedReader} to wrap
+	 * @return the created {@link Iterable}
+	 * @throws NullPointerException if the {@link BufferedReader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Iterable<String> wrap(final BufferedReader bufferedReader) {
@@ -531,12 +531,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} by wrapping a {@code LineReader} from the current position.</p>
-	 * <p><b>Warning</b>: The {@code Iterator} can only be obtained once unlike {@code Iterable} default behavior.</p>
-	 * <p><b>Note</b>: The {@code LineReader} will not be closed.</p>
-	 * @param lineReader the {@code LineReader} to wrap
-	 * @return the created {@code Iterable}
-	 * @throws NullPointerException if the {@code LineReader} is {@code null}
+	 * <p>Create an {@link Iterable} by wrapping a {@link LineReader} from the current position.</p>
+	 * <p><b>Warning</b>: The {@link Iterator} can only be obtained once unlike {@link Iterable} default behavior.</p>
+	 * <p><b>Note</b>: The {@link LineReader} will not be closed.</p>
+	 * @param lineReader the {@link LineReader} to wrap
+	 * @return the created {@link Iterable}
+	 * @throws NullPointerException if the {@link LineReader} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static Iterable<String> wrap(final LineReader lineReader) {
@@ -544,12 +544,12 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} by wrapping a {@code Stream}.</p>
-	 * <p><b>Warning</b>: The {@code Iterator} can only be obtained once unlike {@code Iterable} default behavior.</p>
-	 * @param stream the {@code Stream} to wrap
+	 * <p>Create an {@link Iterable} by wrapping a {@link Stream}.</p>
+	 * <p><b>Warning</b>: The {@link Iterator} can only be obtained once unlike {@link Iterable} default behavior.</p>
+	 * @param stream the {@link Stream} to wrap
 	 * @param <E> the element type
-	 * @return the created {@code Iterable}
-	 * @throws NullPointerException if the {@code Stream} is {@code null}
+	 * @return the created {@link Iterable}
+	 * @throws NullPointerException if the {@link Stream} is {@code null}
 	 * @since 1.2.0
 	 */
 	public static <E> Iterable<E> wrap(final Stream<? extends E> stream) {
@@ -558,20 +558,28 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfInt} by wrapping a {@code PrimitiveIterator.OfInt} from his current
+	 * <p>Create a {@link PrimitiveIterable.OfInt} by wrapping a {@link PrimitiveIterator.OfInt} from his current
 	 * position.</p>
-	 * <p><b>Warning</b>: The {@code PrimitiveIterator.OfInt} can only be obtained once unlike
-	 * {@code PrimitiveIterable.OfInt} default behavior.</p>
-	 * @param iterator the {@code PrimitiveIterator.OfInt} to wrap
-	 * @return the created {@code PrimitiveIterable.OfInt}
-	 * @throws NullPointerException if the {@code PrimitiveIterator.OfInt} is {@code null}
+	 * <p><b>Warning</b>: The {@link PrimitiveIterator.OfInt} can only be obtained once unlike
+	 * {@link PrimitiveIterable.OfInt} default behavior.</p>
+	 * @param iterator the {@link PrimitiveIterator.OfInt} to wrap
+	 * @return the created {@link PrimitiveIterable.OfInt}
+	 * @throws NullPointerException if the {@link PrimitiveIterator.OfInt} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfInt wrap(final PrimitiveIterator.OfInt iterator) {
 		Ensure.notNull("iterator", iterator);
 		return new PrimitiveIterable.OfInt() {
+
+			/**
+			 * <p>Whether or not the {@link PrimitiveIterator.OfInt} has already been obtained.</p>
+			 * @since 1.0.0
+			 */
 			private boolean obtained = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public PrimitiveIterator.OfInt iterator() {
 				if (obtained) {
@@ -584,20 +592,28 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfLong} by wrapping a {@code PrimitiveIterator.OfLong} from his current
+	 * <p>Create a {@link PrimitiveIterable.OfLong} by wrapping a {@link PrimitiveIterator.OfLong} from his current
 	 * position.</p>
-	 * <p><b>Warning</b>: The {@code PrimitiveIterator.OfLong} can only be obtained once unlike
-	 * {@code PrimitiveIterable.OfLong} default behavior.</p>
-	 * @param iterator the {@code PrimitiveIterator.OfLong} to wrap
-	 * @return the created {@code PrimitiveIterable.OfLong}
-	 * @throws NullPointerException if the {@code PrimitiveIterator.OfLong} is {@code null}
+	 * <p><b>Warning</b>: The {@link PrimitiveIterator.OfLong} can only be obtained once unlike
+	 * {@link PrimitiveIterable.OfLong} default behavior.</p>
+	 * @param iterator the {@link PrimitiveIterator.OfLong} to wrap
+	 * @return the created {@link PrimitiveIterable.OfLong}
+	 * @throws NullPointerException if the {@link PrimitiveIterator.OfLong} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfLong wrap(final PrimitiveIterator.OfLong iterator) {
 		Ensure.notNull("iterator", iterator);
 		return new PrimitiveIterable.OfLong() {
+
+			/**
+			 * <p>Whether or not the {@link PrimitiveIterator.OfLong} has already been obtained.</p>
+			 * @since 1.0.0
+			 */
 			private boolean obtained = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public PrimitiveIterator.OfLong iterator() {
 				if (obtained) {
@@ -610,20 +626,28 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create a {@code PrimitiveIterable.OfDouble} by wrapping a {@code PrimitiveIterator.OfDouble} from his current
+	 * <p>Create a {@link PrimitiveIterable.OfDouble} by wrapping a {@link PrimitiveIterator.OfDouble} from his current
 	 * position.</p>
-	 * <p><b>Warning</b>: The {@code PrimitiveIterator.OfDouble} can only be obtained once unlike
-	 * {@code PrimitiveIterable.OfDouble} default behavior.</p>
-	 * @param iterator the {@code PrimitiveIterator.OfDouble} to wrap
-	 * @return the created {@code PrimitiveIterable.OfDouble}
-	 * @throws NullPointerException if the {@code PrimitiveIterator.OfDouble} is {@code null}
+	 * <p><b>Warning</b>: The {@link PrimitiveIterator.OfDouble} can only be obtained once unlike
+	 * {@link PrimitiveIterable.OfDouble} default behavior.</p>
+	 * @param iterator the {@link PrimitiveIterator.OfDouble} to wrap
+	 * @return the created {@link PrimitiveIterable.OfDouble}
+	 * @throws NullPointerException if the {@link PrimitiveIterator.OfDouble} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static PrimitiveIterable.OfDouble wrap(final PrimitiveIterator.OfDouble iterator) {
 		Ensure.notNull("iterator", iterator);
 		return new PrimitiveIterable.OfDouble() {
+
+			/**
+			 * <p>Whether or not the {@link PrimitiveIterator.OfDouble} has already been obtained.</p>
+			 * @since 1.0.0
+			 */
 			private boolean obtained = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public PrimitiveIterator.OfDouble iterator() {
 				if (obtained) {
@@ -636,19 +660,27 @@ public final class Iterables {
 	}
 
 	/**
-	 * <p>Create an {@code Iterable} by wrapping an {@code Iterator} from the current position.</p>
-	 * <p><b>Warning</b>: The {@code Iterator} can only be obtained once unlike {@code Iterable} default behavior.</p>
-	 * @param iterator the {@code Iterator} to wrap
+	 * <p>Create an {@link Iterable} by wrapping an {@link Iterator} from the current position.</p>
+	 * <p><b>Warning</b>: The {@link Iterator} can only be obtained once unlike {@link Iterable} default behavior.</p>
+	 * @param iterator the {@link Iterator} to wrap
 	 * @param <E> the element type
-	 * @return the created {@code Iterable}
-	 * @throws NullPointerException if the {@code Iterator} is {@code null}
+	 * @return the created {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <E> Iterable<E> wrap(final Iterator<? extends E> iterator) {
 		Ensure.notNull("iterator", iterator);
 		return new Iterable<>() {
+
+			/**
+			 * <p>Whether or not the {@link Iterator} has already been obtained.</p>
+			 * @since 1.0.0
+			 */
 			private boolean obtained = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			@SuppressWarnings("unchecked")
 			public Iterator<E> iterator() {

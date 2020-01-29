@@ -33,7 +33,7 @@ import java.util.function.BiFunction;
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
  * @param <R> the type of the result of the function
- * @param <X> the type of the {@code Throwable}
+ * @param <X> the type of the {@link Throwable}
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -44,19 +44,19 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	 * @param t the first function argument
 	 * @param u the second function argument
 	 * @return the function result
-	 * @throws X may throw a {@code Throwable}
+	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
 	R apply(final T t, final U u) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableBiFunction} that first applies this function to its input, and then applies
+	 * <p>Returns a composed {@link ThrowableBiFunction} that first applies this function to its input, and then applies
 	 * the after function to the result.</p>
-	 * @param after the {@code ThrowableFunction} to apply after this function is applied
+	 * @param after the {@link ThrowableFunction} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
-	 * @return a composed {@code ThrowableBiFunction} that first applies this function and then applies the after
+	 * @return a composed {@link ThrowableBiFunction} that first applies this function and then applies the after
 	 *         function
-	 * @throws NullPointerException if the after {@code ThrowableFunction} is {@code null}
+	 * @throws NullPointerException if the after {@link ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableBiFunction<T, U, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
@@ -65,15 +65,15 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiFunction} to a {@code BiFunction} that may throw an unchecked
-	 * {@code Throwable}.</p>
-	 * @param throwableBiFunction the {@code ThrowableBiFunction} to convert
+	 * <p>Converts the given {@link ThrowableBiFunction} to a {@link BiFunction} that may throw an unchecked
+	 * {@link Throwable}.</p>
+	 * @param throwableBiFunction the {@link ThrowableBiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
 	 * @param <R> the type of the result of the function
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the converted {@code BiFunction}
-	 * @throws NullPointerException if the {@code ThrowableBiFunction} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link BiFunction}
+	 * @throws NullPointerException if the {@link ThrowableBiFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, U, R, X extends Throwable> BiFunction<T, U, R> unchecked(final ThrowableBiFunction<? super T, ? super U, ? extends R, ? extends X> throwableBiFunction) {
@@ -88,14 +88,14 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiFunction} from the given {@code BiFunction}.</p>
-	 * @param biFunction the {@code BiFunction} to convert
+	 * <p>Create a {@link ThrowableBiFunction} from the given {@link BiFunction}.</p>
+	 * @param biFunction the {@link BiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
 	 * @param <R> the type of the result of the function
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the created {@code ThrowableBiFunction}
-	 * @throws NullPointerException if the {@code BiFunction} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the created {@link ThrowableBiFunction}
+	 * @throws NullPointerException if the {@link BiFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, U, R, X extends Throwable> ThrowableBiFunction<T, U, R, X> of(final BiFunction<? super T, ? super U, ? extends R> biFunction) {

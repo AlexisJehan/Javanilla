@@ -55,11 +55,11 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	private long index = 0L;
 
 	/**
-	 * <p>Constructor with an {@code Iterator} to decorate and a range from an inclusive index to another one.</p>
-	 * @param iterator the {@code Iterator} to decorate
+	 * <p>Constructor with an {@link Iterator} to decorate and a range from an inclusive index to another one.</p>
+	 * @param iterator the {@link Iterator} to decorate
 	 * @param fromIndex the inclusive index of the first element to iterate
 	 * @param toIndex the inclusive index of the last element to iterate
-	 * @throws NullPointerException if the {@code Iterator} is {@code null}
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @throws IllegalArgumentException if the starting index is lower than {@code 0} or greater than the ending one
 	 * @since 1.0.0
 	 */
@@ -71,6 +71,9 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 		this.toIndex = toIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hasNext() {
 		while (fromIndex > index && iterator.hasNext()) {
@@ -83,6 +86,9 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 		return iterator.hasNext();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public E next() {
 		if (!hasNext()) {

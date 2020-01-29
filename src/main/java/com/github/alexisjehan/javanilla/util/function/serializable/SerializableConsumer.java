@@ -37,12 +37,12 @@ import java.util.function.Consumer;
 public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableConsumer} that performs, in sequence, this operation followed by the
+	 * <p>Returns a composed {@link SerializableConsumer} that performs, in sequence, this operation followed by the
 	 * after operation.</p>
-	 * @param after the {@code Consumer} operation to perform after this operation
-	 * @return a composed {@code SerializableConsumer} that performs in sequence this operation followed by the after
+	 * @param after the {@link Consumer} operation to perform after this operation
+	 * @return a composed {@link SerializableConsumer} that performs in sequence this operation followed by the after
 	 *         operation
-	 * @throws NullPointerException if the after {@code Consumer} is {@code null}
+	 * @throws NullPointerException if the after {@link Consumer} is {@code null}
 	 * @since 1.4.0
 	 */
 	@Override
@@ -55,11 +55,11 @@ public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 	}
 
 	/**
-	 * <p>Create a {@code SerializableConsumer} from the given {@code Consumer}.</p>
-	 * @param consumer the {@code Consumer} to convert
+	 * <p>Create a {@link SerializableConsumer} from the given {@link Consumer}.</p>
+	 * @param consumer the {@link Consumer} to convert
 	 * @param <T> the type of the input to the operation
-	 * @return the created {@code SerializableConsumer}
-	 * @throws NullPointerException if the {@code Consumer} is {@code null}
+	 * @return the created {@link SerializableConsumer}
+	 * @throws NullPointerException if the {@link Consumer} is {@code null}
 	 * @since 1.4.0
 	 */
 	static <T> SerializableConsumer<T> of(final Consumer<? super T> consumer) {

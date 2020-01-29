@@ -48,19 +48,27 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Supplier} so that it only returns a value once. If the {@code Supplier} is supplied more
-	 * than once an {@code IllegalStateException} is thrown.</p>
-	 * @param supplier the {@code Supplier} to decorate
+	 * <p>Decorate a {@link Supplier} so that it only returns a value once. If the {@link Supplier} is supplied more
+	 * than once an {@link IllegalStateException} is thrown.</p>
+	 * @param supplier the {@link Supplier} to decorate
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the {@code Supplier} which returns a value once
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * @return the {@link Supplier} which returns a value once
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <T> Supplier<T> once(final Supplier<? extends T> supplier) {
 		Ensure.notNull("supplier", supplier);
 		return new Supplier<>() {
+
+			/**
+			 * <p>Whether or not a value has already been supplied.</p>
+			 * @since 1.0.0
+			 */
 			private boolean isSupplied = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public T get() {
 				if (isSupplied) {
@@ -73,18 +81,26 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Supplier} so that the first supplied value is cached for next times.</p>
-	 * @param supplier the {@code Supplier} to decorate
+	 * <p>Decorate a {@link Supplier} so that the first supplied value is cached for next times.</p>
+	 * @param supplier the {@link Supplier} to decorate
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the cached {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * @return the cached {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier) {
 		Ensure.notNull("supplier", supplier);
 		return new Supplier<>() {
+
+			/**
+			 * <p>{@link Single} of the cached value.</p>
+			 * @since 1.0.0
+			 */
 			private Single<? extends T> cache;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public T get() {
 				if (null == cache) {
@@ -96,14 +112,14 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Supplier} so that it caches the value supplied for the given {@code Duration} using
+	 * <p>Decorate a {@link Supplier} so that it caches the value supplied for the given {@link Duration} using
 	 * {@link Clock#systemUTC()} before to refresh it.</p>
-	 * @param supplier the {@code Supplier} to decorate
-	 * @param duration the cache {@code Duration}
+	 * @param supplier the {@link Supplier} to decorate
+	 * @param duration the cache {@link Duration}
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the cached {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier} or the {@code Duration} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Duration} is negative
+	 * @return the cached {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier} or the {@link Duration} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Duration} is negative
 	 * @since 1.1.0
 	 */
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier, final Duration duration) {
@@ -111,15 +127,15 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Supplier} so that it caches the value supplied for the given {@code Duration} using the
-	 * provided {@code Clock} before to refresh it.</p>
-	 * @param supplier the {@code Supplier} to decorate
-	 * @param duration the cache {@code Duration}
-	 * @param clock the {@code Clock} to use
+	 * <p>Decorate a {@link Supplier} so that it caches the value supplied for the given {@link Duration} using the
+	 * provided {@link Clock} before to refresh it.</p>
+	 * @param supplier the {@link Supplier} to decorate
+	 * @param duration the cache {@link Duration}
+	 * @param clock the {@link Clock} to use
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the cached {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier}, the {@code Duration} or the {@code Clock} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Duration} is negative
+	 * @return the cached {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier}, the {@link Duration} or the {@link Clock} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Duration} is negative
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -134,9 +150,22 @@ public final class Suppliers {
 			return (Supplier<T>) supplier;
 		}
 		return new Supplier<>() {
+
+			/**
+			 * <p>Cached value.</p>
+			 * @since 1.1.0
+			 */
 			private T value;
+
+			/**
+			 * <p>{@link Instant} of the cached value.</p>
+			 * @since 1.1.0
+			 */
 			private Instant lastSupplied;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public T get() {
 				final var now = Instant.now(clock);
@@ -150,13 +179,13 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Supplier} so that it caches the value supplied for the given amount of times before to
+	 * <p>Decorate a {@link Supplier} so that it caches the value supplied for the given amount of times before to
 	 * refresh it.</p>
-	 * @param supplier the {@code Supplier} to decorate
+	 * @param supplier the {@link Supplier} to decorate
 	 * @param times the cache amount of times
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the cached {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * @return the cached {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @throws IllegalArgumentException if the amount of times is lower than {@code 0}
 	 * @since 1.1.0
 	 */
@@ -168,9 +197,22 @@ public final class Suppliers {
 			return (Supplier<T>) supplier;
 		}
 		return new Supplier<>() {
+
+			/**
+			 * <p>Cached value.</p>
+			 * @since 1.1.0
+			 */
 			private T value;
+
+			/**
+			 * <p>Remaining amount of times.</p>
+			 * @since 1.1.0
+			 */
 			private int remaining = -1;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public T get() {
 				if (-1 == remaining || 0 == remaining--) {
@@ -183,22 +225,35 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@code Supplier} so that it caches the value supplied and refresh it when the
-	 * {@code BooleanSupplier} supplies {@code true}.</p>
-	 * @param supplier the {@code Supplier} to decorate
-	 * @param booleanSupplier the {@code BooleanSupplier}
+	 * <p>Decorate a {@link Supplier} so that it caches the value supplied and refresh it when the
+	 * {@link BooleanSupplier} supplies {@code true}.</p>
+	 * @param supplier the {@link Supplier} to decorate
+	 * @param booleanSupplier the {@link BooleanSupplier}
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the cached {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier} or the {@code BooleanSupplier} is {@code null}
+	 * @return the cached {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier} or the {@link BooleanSupplier} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <T> Supplier<T> cache(final Supplier<? extends T> supplier, final BooleanSupplier booleanSupplier) {
 		Ensure.notNull("supplier", supplier);
 		Ensure.notNull("booleanSupplier", booleanSupplier);
 		return new Supplier<>() {
+
+			/**
+			 * <p>Cached value.</p>
+			 * @since 1.1.0
+			 */
 			private T value;
+
+			/**
+			 * <p>Whether or not a value has already been supplied.</p>
+			 * @since 1.1.0
+			 */
 			private boolean isSupplied = false;
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public T get() {
 				if (!isSupplied || booleanSupplier.getAsBoolean()) {

@@ -42,8 +42,8 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	private final int limit;
 
 	/**
-	 * <p>Constructor with a {@code Bag} to decorate and a limit.</p>
-	 * @param bag the {@code Bag} to decorate
+	 * <p>Constructor with a {@link Bag} to decorate and a limit.</p>
+	 * @param bag the {@link Bag} to decorate
 	 * @param limit the maximum number of distinct elements to be contained
 	 * @throws IllegalArgumentException if the limit if lower than {@code 2}
 	 * @since 1.0.0
@@ -58,7 +58,7 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	}
 
 	/**
-	 * <p>Add the element to the {@code Bag} in the given quantity.</p>
+	 * <p>Add the element to the {@link Bag} in the given quantity.</p>
 	 * <p><b>Note</b>: If the limit is reached then an element with a minimum occurrence is totally removed.</p>
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
@@ -74,6 +74,9 @@ public final class LimitedBag<E> extends FilterBag<E> {
 		super.add(element, quantity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + "[" + limit + "]";

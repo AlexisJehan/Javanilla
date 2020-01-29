@@ -41,9 +41,9 @@ import java.util.function.LongConsumer;
 public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
-	 * <p>Performs the given action for each element of the {@code Iterable} until all elements have been processed or
-	 * the action throws an {@code Exception}. Unless otherwise specified by the implementing class, actions are
-	 * performed in the order of iteration (if an iteration order is specified). {@code Exception}s thrown by the action
+	 * <p>Performs the given action for each element of the {@link Iterable} until all elements have been processed or
+	 * the action throws an {@link Exception}. Unless otherwise specified by the implementing class, actions are
+	 * performed in the order of iteration (if an iteration order is specified). {@link Exception}s thrown by the action
 	 * are relayed to the caller.</p>
 	 * @param action the action to be performed for each element
 	 * @throws NullPointerException if the specified action is {@code null}
@@ -53,15 +53,21 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	void forEach(final C action);
 
 	/**
-	 * <p>An {@code Iterable} specialized for {@code int} values.</p>
+	 * <p>An {@link Iterable} specialized for {@code int} values.</p>
 	 * @since 1.0.0
 	 */
 	@FunctionalInterface
 	interface OfInt extends PrimitiveIterable<Integer, IntConsumer> {
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		PrimitiveIterator.OfInt iterator();
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		default void forEach(final IntConsumer action) {
 			Ensure.notNull("action", action);
@@ -72,15 +78,21 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	}
 
 	/**
-	 * <p>An {@code Iterable} specialized for {@code long} values.</p>
+	 * <p>An {@link Iterable} specialized for {@code long} values.</p>
 	 * @since 1.0.0
 	 */
 	@FunctionalInterface
 	interface OfLong extends PrimitiveIterable<Long, LongConsumer> {
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		PrimitiveIterator.OfLong iterator();
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		default void forEach(final LongConsumer action) {
 			Ensure.notNull("action", action);
@@ -91,15 +103,21 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	}
 
 	/**
-	 * <p>An {@code Iterable} specialized for {@code double} values.</p>
+	 * <p>An {@link Iterable} specialized for {@code double} values.</p>
 	 * @since 1.0.0
 	 */
 	@FunctionalInterface
 	interface OfDouble extends PrimitiveIterable<Double, DoubleConsumer> {
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		PrimitiveIterator.OfDouble iterator();
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		default void forEach(final DoubleConsumer action) {
 			Ensure.notNull("action", action);

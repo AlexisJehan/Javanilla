@@ -38,7 +38,7 @@ import java.util.NoSuchElementException;
 public final class BatchIterator<E> implements Iterator<List<E>> {
 
 	/**
-	 * <p>Delegated {@code Iterator}.</p>
+	 * <p>Delegated {@link Iterator}.</p>
 	 * @since 1.0.0
 	 */
 	private final Iterator<? extends E> iterator;
@@ -51,16 +51,16 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	private final int batchSize;
 
 	/**
-	 * <p>{@code List} that contains batch elements.</p>
+	 * <p>{@link List} that contains batch elements.</p>
 	 * @since 1.0.0
 	 */
 	private final List<E> batch;
 
 	/**
-	 * <p>Constructor with an {@code Iterator} to decorate and a batch size.</p>
-	 * @param iterator the {@code Iterator} to decorate
+	 * <p>Constructor with an {@link Iterator} to decorate and a batch size.</p>
+	 * @param iterator the {@link Iterator} to decorate
 	 * @param batchSize the batch size
-	 * @throws NullPointerException if the {@code Iterator} is {@code null}
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @throws IllegalArgumentException if the batch size is lower than {@code 1}
 	 * @since 1.0.0
 	 */
@@ -72,11 +72,17 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 		batch = new ArrayList<>(batchSize);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hasNext() {
 		return iterator.hasNext();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<E> next() {
 		if (!hasNext()) {

@@ -49,10 +49,10 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@code Set} replacing {@code null} by an empty one.</p>
-	 * @param set the {@code Set} or {@code null}
+	 * <p>Wrap a {@link Set} replacing {@code null} by an empty one.</p>
+	 * @param set the {@link Set} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-{@code null} {@code Set}
+	 * @return a non-{@code null} {@link Set}
 	 * @since 1.0.0
 	 */
 	public static <E> Set<E> nullToEmpty(final Set<E> set) {
@@ -60,10 +60,10 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@code SortedSet} replacing {@code null} by an empty one.</p>
-	 * @param sortedSet the {@code SortedSet} or {@code null}
+	 * <p>Wrap a {@link SortedSet} replacing {@code null} by an empty one.</p>
+	 * @param sortedSet the {@link SortedSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-{@code null} {@code SortedSet}
+	 * @return a non-{@code null} {@link SortedSet}
 	 * @since 1.0.0
 	 */
 	public static <E> SortedSet<E> nullToEmpty(final SortedSet<E> sortedSet) {
@@ -71,10 +71,10 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@code NavigableSet} replacing {@code null} by an empty one.</p>
-	 * @param navigableSet the {@code NavigableSet} or {@code null}
+	 * <p>Wrap a {@link NavigableSet} replacing {@code null} by an empty one.</p>
+	 * @param navigableSet the {@link NavigableSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
-	 * @return a non-{@code null} {@code NavigableSet}
+	 * @return a non-{@code null} {@link NavigableSet}
 	 * @since 1.0.0
 	 */
 	public static <E> NavigableSet<E> nullToEmpty(final NavigableSet<E> navigableSet) {
@@ -82,12 +82,12 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@code Set} replacing {@code null} by a default one.</p>
-	 * @param set the {@code Set} or {@code null}
-	 * @param defaultSet the default {@code Set}
-	 * @param <S> the {@code Set} type
-	 * @return a non-{@code null} {@code Set}
-	 * @throws NullPointerException if the default {@code Set} is {@code null}
+	 * <p>Wrap a {@link Set} replacing {@code null} by a default one.</p>
+	 * @param set the {@link Set} or {@code null}
+	 * @param defaultSet the default {@link Set}
+	 * @param <S> the {@link Set} type
+	 * @return a non-{@code null} {@link Set}
+	 * @throws NullPointerException if the default {@link Set} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <S extends Set<?>> S nullToDefault(final S set, final S defaultSet) {
@@ -96,10 +96,10 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@code Set} replacing an empty one by {@code null}.</p>
-	 * @param set the {@code Set} or {@code null}
-	 * @param <S> the {@code Set} type
-	 * @return a non-empty {@code Set} or {@code null}
+	 * <p>Wrap a {@link Set} replacing an empty one by {@code null}.</p>
+	 * @param set the {@link Set} or {@code null}
+	 * @param <S> the {@link Set} type
+	 * @return a non-empty {@link Set} or {@code null}
 	 * @since 1.0.0
 	 */
 	public static <S extends Set<?>> S emptyToNull(final S set) {
@@ -107,12 +107,12 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@code Set} replacing an empty one by a default {@code Set}.</p>
-	 * @param set the {@code Set} or {@code null}
-	 * @param defaultSet the default {@code Set} or {@code null}
-	 * @param <S> the {@code Set} type
-	 * @return a non-empty {@code Set} or {@code null}
-	 * @throws IllegalArgumentException if the default {@code Set} is empty
+	 * <p>Wrap a {@link Set} replacing an empty one by a default {@link Set}.</p>
+	 * @param set the {@link Set} or {@code null}
+	 * @param defaultSet the default {@link Set} or {@code null}
+	 * @param <S> the {@link Set} type
+	 * @return a non-empty {@link Set} or {@code null}
+	 * @throws IllegalArgumentException if the default {@link Set} is empty
 	 * @since 1.1.0
 	 */
 	public static <S extends Set<?>> S emptyToDefault(final S set, final S defaultSet) {
@@ -123,11 +123,11 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Union multiple {@code Set}s.</p>
-	 * @param sets the {@code Set} array to union
+	 * <p>Union multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} array to union
 	 * @param <E> the type of elements maintained by the set
-	 * @return the union {@code Set}
-	 * @throws NullPointerException if the {@code Set} array or any of them is {@code null}
+	 * @return the union {@link Set}
+	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
@@ -138,11 +138,11 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Union multiple {@code Set}s.</p>
-	 * @param sets the {@code Set} {@code Collection} to union
+	 * <p>Union multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} {@link Collection} to union
 	 * @param <E> the type of elements maintained by the set
-	 * @return the union {@code Set}
-	 * @throws NullPointerException if the {@code Set} {@code Collection} or any of them is {@code null}
+	 * @return the union {@link Set}
+	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -163,11 +163,11 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Intersect multiple {@code Set}s.</p>
-	 * @param sets the {@code Set} array to intersect
+	 * <p>Intersect multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} array to intersect
 	 * @param <E> the type of elements maintained by the set
-	 * @return the intersect {@code Set}
-	 * @throws NullPointerException if the {@code Set} array or any of them is {@code null}
+	 * @return the intersect {@link Set}
+	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
@@ -178,11 +178,11 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Intersect multiple {@code Set}s.</p>
-	 * @param sets the {@code Set} {@code Collection} to concatenate
+	 * <p>Intersect multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} {@link Collection} to concatenate
 	 * @param <E> the type of elements maintained by the set
-	 * @return the intersect {@code Set}
-	 * @throws NullPointerException if the {@code Set} {@code Collection} or any of them is {@code null}
+	 * @return the intersect {@link Set}
+	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -204,10 +204,10 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Create an ordered {@code Set} from multiple elements.</p>
+	 * <p>Create an ordered {@link Set} from multiple elements.</p>
 	 * @param elements the elements array to convert
 	 * @param <E> the type of elements maintained by the set
-	 * @return the created ordered {@code Set}
+	 * @return the created ordered {@link Set}
 	 * @throws NullPointerException if the elements array is {@code null}
 	 * @since 1.0.0
 	 */

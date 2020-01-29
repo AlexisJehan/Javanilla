@@ -45,19 +45,19 @@ import java.util.stream.Collectors;
 public final class MapBag<E> implements Bag<E> {
 
 	/**
-	 * <p>Delegated {@code Map}.</p>
+	 * <p>Delegated {@link Map}.</p>
 	 * @since 1.0.0
 	 */
 	private final Map<E, LongAdder> map;
 
 	/**
-	 * <p>Current size of the {@code Bag}.</p>
+	 * <p>Current size of the {@link Bag}.</p>
 	 * @since 1.0.0
 	 */
 	private long size = 0L;
 
 	/**
-	 * <p>Default constructor, a {@code HashMap} is used.</p>
+	 * <p>Default constructor, a {@link HashMap} is used.</p>
 	 * @since 1.0.0
 	 */
 	public MapBag() {
@@ -65,9 +65,9 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Constructor with a custom {@code Map} implementation.</p>
-	 * @param mapSupplier the {@code Supplier} which provides the {@code Map}
-	 * @throws NullPointerException if the {@code Map} {@code Supplier} is {@code null}
+	 * <p>Constructor with a custom {@link Map} implementation.</p>
+	 * @param mapSupplier the {@link Supplier} which provides the {@link Map}
+	 * @throws NullPointerException if the {@link Map} {@link Supplier} is {@code null}
 	 * @since 1.0.0
 	 */
 	public MapBag(final Supplier<? extends Map<E, LongAdder>> mapSupplier) {
@@ -75,9 +75,9 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Private constructor with the given {@code Map}, empty or not.</p>
-	 * @param map the {@code Map} to get elements and occurrences from
-	 * @throws NullPointerException if the {@code Map} is {@code null}
+	 * <p>Private constructor with the given {@link Map}, empty or not.</p>
+	 * @param map the {@link Map} to get elements and occurrences from
+	 * @throws NullPointerException if the {@link Map} is {@code null}
 	 * @since 1.0.0
 	 */
 	private MapBag(final Map<E, LongAdder> map) {
@@ -98,9 +98,9 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Constructor with elements from an existing {@code Collection}, a {@code HashMap} is used.</p>
-	 * @param collection the {@code Collection} to get elements from
-	 * @throws NullPointerException if the {@code Collection} is {@code null}
+	 * <p>Constructor with elements from an existing {@link Collection}, a {@link HashMap} is used.</p>
+	 * @param collection the {@link Collection} to get elements from
+	 * @throws NullPointerException if the {@link Collection} is {@code null}
 	 * @since 1.0.0
 	 */
 	public MapBag(final Collection<? extends E> collection) {
@@ -113,6 +113,9 @@ public final class MapBag<E> implements Bag<E> {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void add(final E element, final long quantity) {
 		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
@@ -122,6 +125,9 @@ public final class MapBag<E> implements Bag<E> {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean remove(final E element, final long quantity) {
 		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
@@ -142,6 +148,9 @@ public final class MapBag<E> implements Bag<E> {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean removeAll(final E element) {
 		final var adder = map.get(element);
@@ -153,22 +162,34 @@ public final class MapBag<E> implements Bag<E> {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void clear() {
 		map.clear();
 		size = 0L;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isEmpty() {
 		return 0L == size;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsAny(final E element) {
 		return map.containsKey(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsExactly(final E element, final long quantity) {
 		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
@@ -176,6 +197,9 @@ public final class MapBag<E> implements Bag<E> {
 		return null == adder ? 0L == quantity : quantity == adder.longValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsAtLeast(final E element, final long quantity) {
 		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
@@ -186,6 +210,9 @@ public final class MapBag<E> implements Bag<E> {
 		return null != adder && quantity <= adder.longValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean containsAtMost(final E element, final long quantity) {
 		Ensure.greaterThanOrEqualTo("quantity", quantity, 0L);
@@ -193,6 +220,9 @@ public final class MapBag<E> implements Bag<E> {
 		return null == adder || quantity >= adder.longValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long count(final E element) {
 		final var adder = map.get(element);
@@ -202,16 +232,25 @@ public final class MapBag<E> implements Bag<E> {
 		return 0L;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long distinct() {
 		return map.size();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long size() {
 		return size;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NullableOptional<E> min() {
 		Map.Entry<E, LongAdder> minEntry = null;
@@ -226,6 +265,9 @@ public final class MapBag<E> implements Bag<E> {
 		return NullableOptional.of(minEntry.getKey());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NullableOptional<E> max() {
 		Map.Entry<E, LongAdder> maxEntry = null;
@@ -240,11 +282,17 @@ public final class MapBag<E> implements Bag<E> {
 		return NullableOptional.of(maxEntry.getKey());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<E> toSet() {
 		return map.keySet();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<E, Long> toMap() {
 		return map.entrySet().stream().collect(
@@ -255,8 +303,10 @@ public final class MapBag<E> implements Bag<E> {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public boolean equals(final Object object) {
 		if (this == object) {
 			return true;
@@ -264,7 +314,8 @@ public final class MapBag<E> implements Bag<E> {
 		if (!(object instanceof Bag)) {
 			return false;
 		}
-		final var other = (Bag) object;
+		@SuppressWarnings("unchecked")
+		final var other = (Bag<Object>) object;
 		if (distinct() != other.distinct() || size() != other.size()) {
 			return false;
 		}
@@ -278,6 +329,9 @@ public final class MapBag<E> implements Bag<E> {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		var hashCode = 0;
@@ -292,6 +346,9 @@ public final class MapBag<E> implements Bag<E> {
 		return hashCode;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return map.toString();

@@ -85,7 +85,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Get the nullable value or throw a {@code NoSuchElementException} if the value is not present.</p>
+	 * <p>Get the nullable value or throw a {@link NoSuchElementException} if the value is not present.</p>
 	 * @return the nullable value if present
 	 * @throws NoSuchElementException if no value is present
 	 * @since 1.1.0
@@ -147,12 +147,12 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, and the value matches the given filter {@code Predicate}, returns a
-	 * {@code NullableOptional} describing the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * @param filter the filter {@code Predicate} to apply to a value, if present
-	 * @return a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is present
-	 *         and the value matches the given filter {@code Predicate}, otherwise an empty {@code NullableOptional}
-	 * @throws NullPointerException if the filter {@code Predicate} is {@code null}
+	 * <p>If a value is present, and the value matches the given filter {@link Predicate}, returns a
+	 * {@link NullableOptional} describing the value, otherwise returns an empty {@link NullableOptional}.</p>
+	 * @param filter the filter {@link Predicate} to apply to a value, if present
+	 * @return a {@link NullableOptional} describing the value of this {@link NullableOptional}, if a value is present
+	 *         and the value matches the given filter {@link Predicate}, otherwise an empty {@link NullableOptional}
+	 * @throws NullPointerException if the filter {@link Predicate} is {@code null}
 	 * @since 1.1.0
 	 */
 	public NullableOptional<T> filter(final Predicate<? super T> filter) {
@@ -164,13 +164,13 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns a {@code NullableOptional} describing the result of applying the given mapper
-	 * {@code Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * @param mapper the mapper {@code Function} to apply to a value, if present
-	 * @param <U> the type of the value returned from the mapper {@code Function}
-	 * @return a {@code NullableOptional} describing the result of applying a mapper {@code Function} to the value of
-	 *         this {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
-	 * @throws NullPointerException if the mapper {@code Function} is {@code null}
+	 * <p>If a value is present, returns a {@link NullableOptional} describing the result of applying the given mapper
+	 * {@link Function} to the value, otherwise returns an empty {@link NullableOptional}.</p>
+	 * @param mapper the mapper {@link Function} to apply to a value, if present
+	 * @param <U> the type of the value returned from the mapper {@link Function}
+	 * @return a {@link NullableOptional} describing the result of applying a mapper {@link Function} to the value of
+	 *         this {@link NullableOptional}, if a value is present, otherwise an empty {@link NullableOptional}
+	 * @throws NullPointerException if the mapper {@link Function} is {@code null}
 	 * @since 1.1.0
 	 */
 	public <U> NullableOptional<U> map(final Function<? super T, ? extends U> mapper) {
@@ -182,16 +182,16 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the result of applying the given {@code NullableOptional}-bearing mapper
-	 * {@code Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * <p>This method is similar to {@link #map(Function)}, but the mapper {@code Function} is one whose result is
-	 * already a {@code NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an additional
-	 * {@code NullableOptional}.</p>
-	 * @param mapper the mapper {@code Function} to apply to a value, if present
-	 * @param <U> the type of value of the {@code NullableOptional} returned by the mapper {@code Function}
-	 * @return the result of applying an {@code NullableOptional}-bearing mapper {@code Function} to the value of this
-	 * {@code NullableOptional}, if a value is present, otherwise an empty {@code NullableOptional}
-	 * @throws NullPointerException if the mapper {@code Function} is {@code null}
+	 * <p>If a value is present, returns the result of applying the given {@link NullableOptional}-bearing mapper
+	 * {@link Function} to the value, otherwise returns an empty {@link NullableOptional}.</p>
+	 * <p>This method is similar to {@link #map(Function)}, but the mapper {@link Function} is one whose result is
+	 * already a {@link NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an additional
+	 * {@link NullableOptional}.</p>
+	 * @param mapper the mapper {@link Function} to apply to a value, if present
+	 * @param <U> the type of value of the {@link NullableOptional} returned by the mapper {@link Function}
+	 * @return the result of applying an {@link NullableOptional}-bearing mapper {@link Function} to the value of this
+	 *         {@link NullableOptional}, if a value is present, otherwise an empty {@link NullableOptional}
+	 * @throws NullPointerException if the mapper {@link Function} is {@code null}
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -204,12 +204,12 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns a {@code NullableOptional} describing the value, otherwise returns an
-	 * {@code NullableOptional} produced by the {@code Supplier}.</p>
-	 * @param supplier the {@code Supplier} that produces an {@code NullableOptional} to be returned
-	 * @return returns a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is
-	 *         present, otherwise a {@code NullableOptional} produced by the {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * <p>If a value is present, returns a {@link NullableOptional} describing the value, otherwise returns an
+	 * {@link NullableOptional} produced by the {@link Supplier}.</p>
+	 * @param supplier the {@link Supplier} that produces an {@link NullableOptional} to be returned
+	 * @return returns a {@link NullableOptional} describing the value of this {@link NullableOptional}, if a value is
+	 *         present, otherwise a {@link NullableOptional} produced by the {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -222,9 +222,9 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns a sequential {@code Stream} containing only that value, otherwise returns an
-	 * empty {@code Stream}.</p>
-	 * @return the optional value as a {@code Stream}
+	 * <p>If a value is present, returns a sequential {@link Stream} containing only that value, otherwise returns an
+	 * empty {@link Stream}.</p>
+	 * @return the optional value as a {@link Stream}
 	 * @since 1.1.0
 	 */
 	@Override
@@ -246,10 +246,10 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise returns the result produced by the {@code Supplier}.</p>
-	 * @param supplier the {@code Supplier} that produces a value to be returned
-	 * @return the value, if present, otherwise the result produced by the {@code Supplier}
-	 * @throws NullPointerException if the {@code Supplier} is {@code null}
+	 * <p>If a value is present, returns the value, otherwise returns the result produced by the {@link Supplier}.</p>
+	 * @param supplier the {@link Supplier} that produces a value to be returned
+	 * @return the value, if present, otherwise the result produced by the {@link Supplier}
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.1.0
 	 */
 	public T orElseGet(final Supplier<? extends T> supplier) {
@@ -258,7 +258,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise throws {@code NoSuchElementException}.</p>
+	 * <p>If a value is present, returns the value, otherwise throws {@link NoSuchElementException}.</p>
 	 * @return the value, if present
 	 * @throws NoSuchElementException if no value is present
 	 * @since 1.3.1
@@ -268,13 +268,13 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise throws a {@code Throwable} produced by the
-	 * {@code Supplier}.</p>
-	 * @param throwableSupplier the {@code Supplier} that produces a {@code Throwable} to be thrown
-	 * @param <X> type of the {@code Throwable} to be thrown
+	 * <p>If a value is present, returns the value, otherwise throws a {@link Throwable} produced by the
+	 * {@link Supplier}.</p>
+	 * @param throwableSupplier the {@link Supplier} that produces a {@link Throwable} to be thrown
+	 * @param <X> type of the {@link Throwable} to be thrown
 	 * @return the value, if present
 	 * @throws X if no value is present
-	 * @throws NullPointerException if the {@code Throwable} {@code Supplier} is {@code null}
+	 * @throws NullPointerException if the {@link Throwable} {@link Supplier} is {@code null}
 	 * @since 1.1.0
 	 */
 	public <X extends Throwable> T orElseThrow(final Supplier<? extends X> throwableSupplier) throws X {
@@ -285,6 +285,9 @@ public final class NullableOptional<T> implements Streamable<T> {
 		throw throwableSupplier.get();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -298,6 +301,9 @@ public final class NullableOptional<T> implements Streamable<T> {
 				&& Equals.equals(isEmpty, other.isEmpty);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -306,15 +312,18 @@ public final class NullableOptional<T> implements Streamable<T> {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + (!isEmpty ? "[" + value + "]" : ".empty");
 	}
 
 	/**
-	 * <p>Converts the current {@code NullableOptional} to an {@code Optional} using
+	 * <p>Converts the current {@link NullableOptional} to an {@link Optional} using
 	 * {@link Optional#ofNullable(Object)}.</p>
-	 * @return the created {@code Optional}
+	 * @return the created {@link Optional}
 	 * @since 1.1.0
 	 */
 	public Optional<T> toOptional() {
@@ -322,9 +331,9 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Returns an empty {@code NullableOptional} instance. No value is present for this {@code NullableOptional}.</p>
+	 * <p>Returns an empty {@link NullableOptional} instance. No value is present for this {@link NullableOptional}.</p>
 	 * @param <T> the type of the non-existent value
-	 * @return an empty {@code NullableOptional}
+	 * @return an empty {@link NullableOptional}
 	 * @since 1.1.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -333,10 +342,10 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Returns a {@code NullableOptional} describing the given nullable value.</p>
+	 * <p>Returns a {@link NullableOptional} describing the given nullable value.</p>
 	 * @param value the value to describe or {@code null}
 	 * @param <T> the type of the value
-	 * @return a {@code NullableOptional} with the value present
+	 * @return a {@link NullableOptional} with the value present
 	 * @since 1.1.0
 	 */
 	public static <T> NullableOptional<T> of(final T value) {
@@ -344,10 +353,10 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Create a {@code NullableOptional} with an {@code Optional}.</p>
-	 * @param optional the {@code Optional} to convert
+	 * <p>Create a {@link NullableOptional} with an {@link Optional}.</p>
+	 * @param optional the {@link Optional} to convert
 	 * @param <T> the type of the value
-	 * @return the created {@code NullableOptional}
+	 * @return the created {@link NullableOptional}
 	 * @since 1.1.0
 	 */
 	public static <T> NullableOptional<T> ofOptional(final Optional<T> optional) {

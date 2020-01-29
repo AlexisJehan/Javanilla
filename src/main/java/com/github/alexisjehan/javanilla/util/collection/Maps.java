@@ -46,11 +46,11 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@code Map} replacing {@code null} by an empty one.</p>
-	 * @param map the {@code Map} or {@code null}
+	 * <p>Wrap a {@link Map} replacing {@code null} by an empty one.</p>
+	 * @param map the {@link Map} or {@code null}
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
-	 * @return a non-{@code null} {@code Map}
+	 * @return a non-{@code null} {@link Map}
 	 * @since 1.0.0
 	 */
 	public static <K, V> Map<K, V> nullToEmpty(final Map<K, V> map) {
@@ -58,11 +58,11 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@code SortedMap} replacing {@code null} by an empty one.</p>
-	 * @param sortedMap the {@code SortedMap} or {@code null}
+	 * <p>Wrap a {@link SortedMap} replacing {@code null} by an empty one.</p>
+	 * @param sortedMap the {@link SortedMap} or {@code null}
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
-	 * @return a non-{@code null} {@code SortedMap}
+	 * @return a non-{@code null} {@link SortedMap}
 	 * @since 1.0.0
 	 */
 	public static <K, V> SortedMap<K, V> nullToEmpty(final SortedMap<K, V> sortedMap) {
@@ -70,11 +70,11 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@code NavigableMap} replacing {@code null} by an empty one.</p>
-	 * @param navigableMap the {@code NavigableMap} or {@code null}
+	 * <p>Wrap a {@link NavigableMap} replacing {@code null} by an empty one.</p>
+	 * @param navigableMap the {@link NavigableMap} or {@code null}
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
-	 * @return a non-{@code null} {@code NavigableMap}
+	 * @return a non-{@code null} {@link NavigableMap}
 	 * @since 1.0.0
 	 */
 	public static <K, V> NavigableMap<K, V> nullToEmpty(final NavigableMap<K, V> navigableMap) {
@@ -82,12 +82,12 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@code Map} replacing {@code null} by a default one.</p>
-	 * @param map the {@code Map} or {@code null}
-	 * @param defaultMap the default {@code Map}
-	 * @param <M> the {@code Map} type
-	 * @return a non-{@code null} {@code Map}
-	 * @throws NullPointerException if the default {@code Map} is {@code null}
+	 * <p>Wrap a {@link Map} replacing {@code null} by a default one.</p>
+	 * @param map the {@link Map} or {@code null}
+	 * @param defaultMap the default {@link Map}
+	 * @param <M> the {@link Map} type
+	 * @return a non-{@code null} {@link Map}
+	 * @throws NullPointerException if the default {@link Map} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <M extends Map<?, ?>> M nullToDefault(final M map, final M defaultMap) {
@@ -96,10 +96,10 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@code Map} replacing an empty one by {@code null}.</p>
-	 * @param map the {@code Map} or {@code null}
-	 * @param <M> the {@code Map} type
-	 * @return a non-empty {@code Map} or {@code null}
+	 * <p>Wrap a {@link Map} replacing an empty one by {@code null}.</p>
+	 * @param map the {@link Map} or {@code null}
+	 * @param <M> the {@link Map} type
+	 * @return a non-empty {@link Map} or {@code null}
 	 * @since 1.0.0
 	 */
 	public static <M extends Map<?, ?>> M emptyToNull(final M map) {
@@ -107,12 +107,12 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@code Map} replacing an empty one by a default {@code Map}.</p>
-	 * @param map the {@code Map} or {@code null}
-	 * @param defaultMap the default {@code Map} or {@code null}
-	 * @param <M> the {@code Map} type
-	 * @return a non-empty {@code Map} or {@code null}
-	 * @throws IllegalArgumentException if the default {@code Map} is empty
+	 * <p>Wrap a {@link Map} replacing an empty one by a default {@link Map}.</p>
+	 * @param map the {@link Map} or {@code null}
+	 * @param defaultMap the default {@link Map} or {@code null}
+	 * @param <M> the {@link Map} type
+	 * @return a non-empty {@link Map} or {@code null}
+	 * @throws IllegalArgumentException if the default {@link Map} is empty
 	 * @since 1.1.0
 	 */
 	public static <M extends Map<?, ?>> M emptyToDefault(final M map, final M defaultMap) {
@@ -123,13 +123,13 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Put all of the entries to the specified {@code Map}.</p>
-	 * @param map the {@code Map} to put entries to
+	 * <p>Put all of the entries to the specified {@link Map}.</p>
+	 * @param map the {@link Map} to put entries to
 	 * @param entries the entries array
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
 	 * @return {@code true} if at least one entry has been put
-	 * @throws NullPointerException if the {@code Map} or the entries array is {@code null}
+	 * @throws NullPointerException if the {@link Map} or the entries array is {@code null}
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
@@ -146,11 +146,11 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Create an ordered {@code Map} from multiple entries.</p>
+	 * <p>Create an ordered {@link Map} from multiple entries.</p>
 	 * @param entries the entries array to convert
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
-	 * @return the created ordered {@code Map}
+	 * @return the created ordered {@link Map}
 	 * @throws NullPointerException if the entries array is {@code null}
 	 * @since 1.0.0
 	 */

@@ -35,10 +35,10 @@ import java.io.Serializable;
 public interface SerializableRunnable extends Runnable, Serializable {
 
 	/**
-	 * <p>Create a {@code SerializableRunnable} from the given {@code Runnable}.</p>
-	 * @param runnable the {@code Runnable} to convert
-	 * @return the created {@code SerializableRunnable}
-	 * @throws NullPointerException if the {@code Runnable} is {@code null}
+	 * <p>Create a {@link SerializableRunnable} from the given {@link Runnable}.</p>
+	 * @param runnable the {@link Runnable} to convert
+	 * @return the created {@link SerializableRunnable}
+	 * @throws NullPointerException if the {@link Runnable} is {@code null}
 	 * @since 1.4.0
 	 */
 	static SerializableRunnable of(final Runnable runnable) {

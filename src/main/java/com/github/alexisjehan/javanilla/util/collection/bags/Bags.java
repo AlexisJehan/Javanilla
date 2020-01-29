@@ -40,7 +40,7 @@ import java.util.Set;
 public final class Bags {
 
 	/**
-	 * <p>Class for an immutable singleton {@code Bag} with only one element in any quantity.</p>
+	 * <p>Class for an immutable singleton {@link Bag} with only one element in any quantity.</p>
 	 * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and
 	 * {@link #toString()} methods.</p>
 	 * @param <E> the element type
@@ -49,7 +49,7 @@ public final class Bags {
 	private static final class SingletonBag<E> implements Bag<E> {
 
 		/**
-		 * <p>Single element of the {@code Bag}.</p>
+		 * <p>Single element of the {@link Bag}.</p>
 		 * @since 1.0.0
 		 */
 		private final E element;
@@ -71,73 +71,114 @@ public final class Bags {
 			this.quantity = quantity;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void add(final E element) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void add(final E element, final long quantity) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean remove(final E element) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean remove(final E element, final long quantity) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean removeAll(final E element) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void clear() {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long count(final E element) {
 			return Equals.equals(this.element, element) ? quantity : 0L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long distinct() {
 			return 1L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long size() {
 			return quantity;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public NullableOptional<E> min() {
 			return NullableOptional.of(element);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public NullableOptional<E> max() {
 			return NullableOptional.of(element);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Set<E> toSet() {
 			return Collections.singleton(element);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Map<E, Long> toMap() {
 			return Collections.singletonMap(element, quantity);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
-		@SuppressWarnings("unchecked")
 		public boolean equals(final Object object) {
 			if (this == object) {
 				return true;
@@ -145,11 +186,15 @@ public final class Bags {
 			if (!(object instanceof Bag)) {
 				return false;
 			}
-			final var other = (Bag) object;
+			@SuppressWarnings("unchecked")
+			final var other = (Bag<Object>) object;
 			return 1L == other.distinct()
 					&& quantity == other.count(element);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int hashCode() {
 			return HashCode.of(
@@ -158,6 +203,9 @@ public final class Bags {
 			);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String toString() {
 			return "{" + element + "=" + quantity + "}";
@@ -165,75 +213,118 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>An immutable empty {@code Bag}.</p>
+	 * <p>An immutable empty {@link Bag}.</p>
 	 * @since 1.0.0
 	 */
 	private static final Bag<?> EMPTY = new Bag<>() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void add(final Object element) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void add(final Object element, final long quantity) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean remove(final Object element) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean remove(final Object element, final long quantity) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean removeAll(final Object element) {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void clear() {
 			throw new UnsupportedOperationException();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long count(final Object element) {
 			return 0L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long distinct() {
 			return 0L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public long size() {
 			return 0L;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public NullableOptional<Object> min() {
 			return NullableOptional.empty();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public NullableOptional<Object> max() {
 			return NullableOptional.empty();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Set<Object> toSet() {
 			return Set.of();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Map<Object, Long> toMap() {
 			return Map.of();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean equals(final Object object) {
 			if (this == object) {
@@ -245,11 +336,17 @@ public final class Bags {
 			return ((Bag<?>) object).isEmpty();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public int hashCode() {
 			return 0;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String toString() {
 			return "{}";
@@ -265,9 +362,9 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Return an immutable empty {@code Bag}.</p>
+	 * <p>Return an immutable empty {@link Bag}.</p>
 	 * @param <E> the element type
-	 * @return an immutable empty {@code Bag}
+	 * @return an immutable empty {@link Bag}
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -276,10 +373,10 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@code Bag} replacing {@code null} by an empty one.</p>
-	 * @param bag the {@code Bag} or {@code null}
+	 * <p>Wrap a {@link Bag} replacing {@code null} by an empty one.</p>
+	 * @param bag the {@link Bag} or {@code null}
 	 * @param <E> the element type
-	 * @return a non-{@code null} {@code Bag}
+	 * @return a non-{@code null} {@link Bag}
 	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> nullToEmpty(final Bag<E> bag) {
@@ -287,12 +384,12 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@code Bag} replacing {@code null} by a default one.</p>
-	 * @param bag the {@code Bag} or {@code null}
-	 * @param defaultBag the default {@code Bag}
-	 * @param <B> the {@code Bag} type
-	 * @return a non-{@code null} {@code Bag}
-	 * @throws NullPointerException if the default {@code Bag} is {@code null}
+	 * <p>Wrap a {@link Bag} replacing {@code null} by a default one.</p>
+	 * @param bag the {@link Bag} or {@code null}
+	 * @param defaultBag the default {@link Bag}
+	 * @param <B> the {@link Bag} type
+	 * @return a non-{@code null} {@link Bag}
+	 * @throws NullPointerException if the default {@link Bag} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <B extends Bag<?>> B nullToDefault(final B bag, final B defaultBag) {
@@ -301,10 +398,10 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@code Bag} replacing an empty one by {@code null}.</p>
-	 * @param bag the {@code Bag} or {@code null}
-	 * @param <B> the {@code Bag} type
-	 * @return a non-empty {@code Bag} or {@code null}
+	 * <p>Wrap a {@link Bag} replacing an empty one by {@code null}.</p>
+	 * @param bag the {@link Bag} or {@code null}
+	 * @param <B> the {@link Bag} type
+	 * @return a non-empty {@link Bag} or {@code null}
 	 * @since 1.0.0
 	 */
 	public static <B extends Bag<?>> B emptyToNull(final B bag) {
@@ -312,12 +409,12 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@code Bag} replacing an empty one by a default {@code Bag}.</p>
-	 * @param bag the {@code Bag} or {@code null}
-	 * @param defaultBag the default {@code Bag} or {@code null}
-	 * @param <B> the {@code Bag} type
-	 * @return a non-empty {@code Bag} or {@code null}
-	 * @throws IllegalArgumentException if the default {@code Bag} is empty
+	 * <p>Wrap a {@link Bag} replacing an empty one by a default {@link Bag}.</p>
+	 * @param bag the {@link Bag} or {@code null}
+	 * @param defaultBag the default {@link Bag} or {@code null}
+	 * @param <B> the {@link Bag} type
+	 * @return a non-empty {@link Bag} or {@code null}
+	 * @throws IllegalArgumentException if the default {@link Bag} is empty
 	 * @since 1.1.0
 	 */
 	public static <B extends Bag<?>> B emptyToDefault(final B bag, final B defaultBag) {
@@ -328,41 +425,60 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Decorate a {@code Bag} by returning an immutable view of it.</p>
-	 * @param bag the {@code Bag} to decorate
+	 * <p>Decorate a {@link Bag} by returning an immutable view of it.</p>
+	 * @param bag the {@link Bag} to decorate
 	 * @param <E> the element type
-	 * @return an immutable view of the {@code Bag}
-	 * @throws NullPointerException if the {@code Bag} is {@code null}
+	 * @return an immutable view of the {@link Bag}
+	 * @throws NullPointerException if the {@link Bag} is {@code null}
 	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> unmodifiable(final Bag<E> bag) {
 		Ensure.notNull("bag", bag);
 		return new FilterBag<>(bag) {
+
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void add(final E element) {
 				throw new UnsupportedOperationException();
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void add(final E element, final long quantity) {
 				throw new UnsupportedOperationException();
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public boolean remove(final E element) {
 				throw new UnsupportedOperationException();
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public boolean remove(final E element, final long quantity) {
 				throw new UnsupportedOperationException();
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public boolean removeAll(final E element) {
 				throw new UnsupportedOperationException();
 			}
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public void clear() {
 				throw new UnsupportedOperationException();
@@ -371,10 +487,10 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create a {@code Bag} from a single element and a quantity of {@code 1}.</p>
+	 * <p>Create a {@link Bag} from a single element and a quantity of {@code 1}.</p>
 	 * @param element the element to convert
 	 * @param <E> the element type
-	 * @return the created {@code Bag}
+	 * @return the created {@link Bag}
 	 * @since 1.0.0
 	 */
 	public static <E> Bag<E> singleton(final E element) {
@@ -382,11 +498,11 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create a {@code Bag} from a single element in the given quantity.</p>
+	 * <p>Create a {@link Bag} from a single element in the given quantity.</p>
 	 * @param element the element to convert
 	 * @param quantity the quantity of the element
 	 * @param <E> the element type
-	 * @return the created {@code Bag}
+	 * @return the created {@link Bag}
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -399,10 +515,10 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create an immutable {@code Bag} from multiple elements.</p>
+	 * <p>Create an immutable {@link Bag} from multiple elements.</p>
 	 * @param elements the elements array to convert
 	 * @param <E> the element type
-	 * @return the created immutable {@code Bag}
+	 * @return the created immutable {@link Bag}
 	 * @throws NullPointerException if the elements array is {@code null}
 	 * @since 1.0.0
 	 */

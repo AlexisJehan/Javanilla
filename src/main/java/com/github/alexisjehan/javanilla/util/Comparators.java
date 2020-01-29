@@ -34,7 +34,7 @@ import java.util.Comparator;
 public final class Comparators {
 
 	/**
-	 * <p>A {@code CharSequence} {@code Comparator} that takes numbers into consideration.</p>
+	 * <p>A {@link CharSequence} {@link Comparator} that takes numbers into consideration.</p>
 	 * <p><b>Example</b>: {@code ["example2", "example1", "example11"]} would be sorted like
 	 * {@code ["example1", "example2", "example11"]} and not {@code ["example1", "example11", "example2"]}.</p>
 	 * @since 1.0.0
@@ -111,12 +111,12 @@ public final class Comparators {
 	}
 
 	/**
-	 * <p>Decorate a {@code Comparator} to replace negative and positive results respectively by {@code -1} and
+	 * <p>Decorate a {@link Comparator} to replace negative and positive results respectively by {@code -1} and
 	 * {@code 1}.</p>
-	 * @param comparator the {@code Comparator} to normalize
+	 * @param comparator the {@link Comparator} to normalize
 	 * @param <T> the type of objects that may be compared by this comparator
-	 * @return a normalized {@code Comparator}
-	 * @throws NullPointerException if the {@code Comparator} is {@code null}
+	 * @return a normalized {@link Comparator}
+	 * @throws NullPointerException if the {@link Comparator} is {@code null}
 	 * @since 1.3.0
 	 */
 	public static <T> Comparator<T> normalize(final Comparator<T> comparator) {

@@ -45,19 +45,27 @@ public final class Functions {
 	}
 
 	/**
-	 * <p>Decorate a {@code Function} so that the result of each applied values is cached for next times.</p>
-	 * @param function the {@code Function} to decorate
+	 * <p>Decorate a {@link Function} so that the result of each applied values is cached for next times.</p>
+	 * @param function the {@link Function} to decorate
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
-	 * @return the cached {@code Function}
-	 * @throws NullPointerException if the {@code Function} is {@code null}
+	 * @return the cached {@link Function}
+	 * @throws NullPointerException if the {@link Function} is {@code null}
 	 * @since 1.3.0
 	 */
 	public static <T, R> Function<T, R> cache(final Function<? super T, ? extends R> function) {
 		Ensure.notNull("function", function);
 		return new Function<>() {
+
+			/**
+			 * <p>Map of cached values.</p>
+			 * @since 1.3.0
+			 */
 			private final Map<T, Single<? extends R>> cache = new HashMap<>();
 
+			/**
+			 * {@inheritDoc}
+			 */
 			@Override
 			public R apply(final T t) {
 				return cache.computeIfAbsent(t, ignored -> Single.of(function.apply(t))).getUnique();

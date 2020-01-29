@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@code Iterator} whose next element is prepared when the last one is returned. The end is reached when the next
+ * <p>An {@link Iterator} whose next element is prepared when the last one is returned. The end is reached when the next
  * element is not valid based on {@link #isValid(Object)}.</p>
  * @param <E> the element type
  * @since 1.0.0
@@ -46,6 +46,9 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	 */
 	private E next;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final boolean hasNext() {
 		if (!initialized) {
@@ -63,6 +66,9 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	 */
 	protected abstract boolean isValid(final E next);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final E next() {
 		if (!hasNext()) {

@@ -38,12 +38,12 @@ import java.util.function.BiConsumer;
 public interface SerializableBiConsumer<T, U> extends BiConsumer<T, U>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiConsumer} that performs, in sequence, this operation followed by the
+	 * <p>Returns a composed {@link SerializableBiConsumer} that performs, in sequence, this operation followed by the
 	 * after operation.</p>
-	 * @param after the {@code BiConsumer} operation to perform after this operation
-	 * @return a composed {@code SerializableBiConsumer} that performs in sequence this operation followed by the after
+	 * @param after the {@link BiConsumer} operation to perform after this operation
+	 * @return a composed {@link SerializableBiConsumer} that performs in sequence this operation followed by the after
 	 *         operation
-	 * @throws NullPointerException if the after {@code BiConsumer} is {@code null}
+	 * @throws NullPointerException if the after {@link BiConsumer} is {@code null}
 	 * @since 1.4.0
 	 */
 	@Override
@@ -56,12 +56,12 @@ public interface SerializableBiConsumer<T, U> extends BiConsumer<T, U>, Serializ
 	}
 
 	/**
-	 * <p>Create a {@code SerializableBiConsumer} from the given {@code BiConsumer}.</p>
-	 * @param biConsumer the {@code BiConsumer} to convert
+	 * <p>Create a {@link SerializableBiConsumer} from the given {@link BiConsumer}.</p>
+	 * @param biConsumer the {@link BiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
-	 * @return the created {@code SerializableBiConsumer}
-	 * @throws NullPointerException if the {@code BiConsumer} is {@code null}
+	 * @return the created {@link SerializableBiConsumer}
+	 * @throws NullPointerException if the {@link BiConsumer} is {@code null}
 	 * @since 1.4.0
 	 */
 	static <T, U> SerializableBiConsumer<T, U> of(final BiConsumer<? super T, ? super U> biConsumer) {

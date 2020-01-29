@@ -41,15 +41,18 @@ public final class CountIterator<E> extends FilterIterator<E> {
 	private long count = 0L;
 
 	/**
-	 * <p>Constructor with an {@code Iterator} to decorate.</p>
-	 * @param iterator the {@code Iterator} to decorate
-	 * @throws NullPointerException if the {@code Iterator} is {@code null}
+	 * <p>Constructor with an {@link Iterator} to decorate.</p>
+	 * @param iterator the {@link Iterator} to decorate
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
 	public CountIterator(final Iterator<? extends E> iterator) {
 		super(iterator);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public E next() {
 		if (!hasNext()) {

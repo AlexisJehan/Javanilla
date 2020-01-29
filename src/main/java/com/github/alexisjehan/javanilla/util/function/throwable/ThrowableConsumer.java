@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 /**
  * <p>Interface for a {@link Consumer} that may throw a {@link Throwable}.</p>
  * @param <T> the type of the input to the operation
- * @param <X> the type of the {@code Throwable}
+ * @param <X> the type of the {@link Throwable}
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -40,18 +40,18 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	/**
 	 * <p>Performs this operation on the given argument.</p>
 	 * @param t the input argument
-	 * @throws X may throw a {@code Throwable}
+	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
 	void accept(final T t) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableConsumer} that performs, in sequence, this operation followed by the after
+	 * <p>Returns a composed {@link ThrowableConsumer} that performs, in sequence, this operation followed by the after
 	 * operation.</p>
-	 * @param after the {@code ThrowableConsumer} operation to perform after this operation
-	 * @return a composed {@code ThrowableConsumer} that performs in sequence this operation followed by the after
+	 * @param after the {@link ThrowableConsumer} operation to perform after this operation
+	 * @return a composed {@link ThrowableConsumer} that performs in sequence this operation followed by the after
 	 *         operation
-	 * @throws NullPointerException if the after {@code ThrowableConsumer} is {@code null}
+	 * @throws NullPointerException if the after {@link ThrowableConsumer} is {@code null}
 	 * @since 1.0.0
 	 */
 	default ThrowableConsumer<T, X> andThen(final ThrowableConsumer<? super T, ? extends X> after) {
@@ -63,13 +63,13 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableConsumer} to a {@code Consumer} that may throw an unchecked
-	 * {@code Throwable}.</p>
-	 * @param throwableConsumer the {@code ThrowableConsumer} to convert
+	 * <p>Converts the given {@link ThrowableConsumer} to a {@link Consumer} that may throw an unchecked
+	 * {@link Throwable}.</p>
+	 * @param throwableConsumer the {@link ThrowableConsumer} to convert
 	 * @param <T> the type of the input to the operation
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the converted {@code Consumer}
-	 * @throws NullPointerException if the {@code ThrowableConsumer} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Consumer}
+	 * @throws NullPointerException if the {@link ThrowableConsumer} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Consumer<T> unchecked(final ThrowableConsumer<? super T, ? extends X> throwableConsumer) {
@@ -84,12 +84,12 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableConsumer} from the given {@code Consumer}.</p>
-	 * @param consumer the {@code Consumer} to convert
+	 * <p>Create a {@link ThrowableConsumer} from the given {@link Consumer}.</p>
+	 * @param consumer the {@link Consumer} to convert
 	 * @param <T> the type of the input to the operation
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the created {@code ThrowableConsumer}
-	 * @throws NullPointerException if the {@code Consumer} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the created {@link ThrowableConsumer}
+	 * @throws NullPointerException if the {@link Consumer} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> ThrowableConsumer<T, X> of(final Consumer<? super T> consumer) {

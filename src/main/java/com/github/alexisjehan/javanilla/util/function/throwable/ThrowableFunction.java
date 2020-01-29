@@ -32,7 +32,7 @@ import java.util.function.Function;
  * <p>Interface for a {@link Function} that may throw a {@link Throwable}.</p>
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
- * @param <X> the type of the {@code Throwable}
+ * @param <X> the type of the {@link Throwable}
  * @since 1.0.0
  */
 @FunctionalInterface
@@ -42,19 +42,19 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	 * <p>Applies this function to the given argument.</p>
 	 * @param t the function argument
 	 * @return the function result
-	 * @throws X may throw a {@code Throwable}
+	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
 	R apply(final T t) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableFunction} that first applies the before function to its input, and then
+	 * <p>Returns a composed {@link ThrowableFunction} that first applies the before function to its input, and then
 	 * applies this function to the result.</p>
-	 * @param before the {@code ThrowableFunction} to apply before this function is applied
+	 * @param before the {@link ThrowableFunction} to apply before this function is applied
 	 * @param <V> the type of input to the before function, and to the composed function
-	 * @return a composed {@code ThrowableFunction} that first applies the before function and then applies this
+	 * @return a composed {@link ThrowableFunction} that first applies the before function and then applies this
 	 *         function
-	 * @throws NullPointerException if the before {@code ThrowableFunction} is {@code null}
+	 * @throws NullPointerException if the before {@link ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableFunction<V, R, X> compose(final ThrowableFunction<? super V, ? extends T, ? extends X> before) {
@@ -63,12 +63,12 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a composed {@code ThrowableFunction} that first applies this function to its input, and then applies
+	 * <p>Returns a composed {@link ThrowableFunction} that first applies this function to its input, and then applies
 	 * the after function to the result.</p>
-	 * @param after the {@code ThrowableFunction} to apply after this function is applied
+	 * @param after the {@link ThrowableFunction} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
-	 * @return a composed {@code ThrowableFunction} that first applies this function and then applies the after function
-	 * @throws NullPointerException if the after {@code ThrowableFunction} is {@code null}
+	 * @return a composed {@link ThrowableFunction} that first applies this function and then applies the after function
+	 * @throws NullPointerException if the after {@link ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	default <V> ThrowableFunction<T, V, X> andThen(final ThrowableFunction<? super R, ? extends V, ? extends X> after) {
@@ -77,10 +77,10 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@code ThrowableFunction} that always returns its input argument.</p>
+	 * <p>Returns a {@link ThrowableFunction} that always returns its input argument.</p>
 	 * @param <T> the type of the input and output objects to the function
-	 * @param <X> the type of the {@code Throwable}
-	 * @return a {@code ThrowableFunction} that always returns its input argument
+	 * @param <X> the type of the {@link Throwable}
+	 * @return a {@link ThrowableFunction} that always returns its input argument
 	 * @since 1.4.0
 	 */
 	static <T, X extends Throwable> ThrowableFunction<T, T, X> identity() {
@@ -88,14 +88,14 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableFunction} to a {@code Function} that may throw an unchecked
-	 * {@code Throwable}.</p>
-	 * @param throwableFunction the {@code ThrowableFunction} to convert
+	 * <p>Converts the given {@link ThrowableFunction} to a {@link Function} that may throw an unchecked
+	 * {@link Throwable}.</p>
+	 * @param throwableFunction the {@link ThrowableFunction} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the converted {@code Function}
-	 * @throws NullPointerException if the {@code ThrowableFunction} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Function}
+	 * @throws NullPointerException if the {@link ThrowableFunction} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, R, X extends Throwable> Function<T, R> unchecked(final ThrowableFunction<? super T, ? extends R, ? extends X> throwableFunction) {
@@ -110,13 +110,13 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableFunction} from the given {@code Function}.</p>
-	 * @param function the {@code Function} to convert
+	 * <p>Create a {@link ThrowableFunction} from the given {@link Function}.</p>
+	 * @param function the {@link Function} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
-	 * @param <X> the type of the {@code Throwable}
-	 * @return the created {@code ThrowableFunction}
-	 * @throws NullPointerException if the {@code Function} is {@code null}
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the created {@link ThrowableFunction}
+	 * @throws NullPointerException if the {@link Function} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, R, X extends Throwable> ThrowableFunction<T, R, X> of(final Function<? super T, ? extends R> function) {

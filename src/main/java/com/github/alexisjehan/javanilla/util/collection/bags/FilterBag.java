@@ -39,15 +39,15 @@ import java.util.Set;
 public abstract class FilterBag<E> implements Bag<E> {
 
 	/**
-	 * <p>Delegated {@code Bag}.</p>
+	 * <p>Delegated {@link Bag}.</p>
 	 * @since 1.0.0
 	 */
 	protected final Bag<E> bag;
 
 	/**
-	 * <p>Constructor with a {@code Bag} to decorate.</p>
-	 * @param bag the {@code Bag} to decorate
-	 * @throws NullPointerException if the {@code Bag} is {@code null}
+	 * <p>Constructor with a {@link Bag} to decorate.</p>
+	 * @param bag the {@link Bag} to decorate
+	 * @throws NullPointerException if the {@link Bag} is {@code null}
 	 * @since 1.0.0
 	 */
 	protected FilterBag(final Bag<E> bag) {

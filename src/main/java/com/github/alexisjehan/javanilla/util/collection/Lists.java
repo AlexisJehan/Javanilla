@@ -47,10 +47,10 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@code List} replacing {@code null} by an empty one.</p>
-	 * @param list the {@code List} or {@code null}
+	 * <p>Wrap a {@link List} replacing {@code null} by an empty one.</p>
+	 * @param list the {@link List} or {@code null}
 	 * @param <E> the type of elements in the list
-	 * @return a non-{@code null} {@code List}
+	 * @return a non-{@code null} {@link List}
 	 * @since 1.0.0
 	 */
 	public static <E> List<E> nullToEmpty(final List<E> list) {
@@ -58,12 +58,12 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@code List} replacing {@code null} by a default one.</p>
-	 * @param list the {@code List} or {@code null}
-	 * @param defaultList the default {@code List}
-	 * @param <L> the {@code List} type
-	 * @return a non-{@code null} {@code List}
-	 * @throws NullPointerException if the default {@code List} is {@code null}
+	 * <p>Wrap a {@link List} replacing {@code null} by a default one.</p>
+	 * @param list the {@link List} or {@code null}
+	 * @param defaultList the default {@link List}
+	 * @param <L> the {@link List} type
+	 * @return a non-{@code null} {@link List}
+	 * @throws NullPointerException if the default {@link List} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <L extends List<?>> L nullToDefault(final L list, final L defaultList) {
@@ -72,10 +72,10 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@code List} replacing an empty one by {@code null}.</p>
-	 * @param list the {@code List} or {@code null}
-	 * @param <L> the {@code List} type
-	 * @return a non-empty {@code List} or {@code null}
+	 * <p>Wrap a {@link List} replacing an empty one by {@code null}.</p>
+	 * @param list the {@link List} or {@code null}
+	 * @param <L> the {@link List} type
+	 * @return a non-empty {@link List} or {@code null}
 	 * @since 1.0.0
 	 */
 	public static <L extends List<?>> L emptyToNull(final L list) {
@@ -83,12 +83,12 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@code List} replacing an empty one by a default {@code List}.</p>
-	 * @param list the {@code List} or {@code null}
-	 * @param defaultList the default {@code List} or {@code null}
-	 * @param <L> the {@code List} type
-	 * @return a non-empty {@code List} or {@code null}
-	 * @throws IllegalArgumentException if the default {@code List} is empty
+	 * <p>Wrap a {@link List} replacing an empty one by a default {@link List}.</p>
+	 * @param list the {@link List} or {@code null}
+	 * @param defaultList the default {@link List} or {@code null}
+	 * @param <L> the {@link List} type
+	 * @return a non-empty {@link List} or {@code null}
+	 * @throws IllegalArgumentException if the default {@link List} is empty
 	 * @since 1.1.0
 	 */
 	public static <L extends List<?>> L emptyToDefault(final L list, final L defaultList) {
@@ -99,11 +99,11 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Optionally get the first element of a {@code List}.</p>
-	 * @param list the {@code List} to get the first element from
+	 * <p>Optionally get the first element of a {@link List}.</p>
+	 * @param list the {@link List} to get the first element from
 	 * @param <E> the type of elements in the list
-	 * @return a {@code NullableOptional} containing the first element if the {@code List} is not empty
-	 * @throws NullPointerException if the {@code List} is {@code null}
+	 * @return a {@link NullableOptional} containing the first element if the {@link List} is not empty
+	 * @throws NullPointerException if the {@link List} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <E> NullableOptional<E> getOptionalFirst(final List<E> list) {
@@ -118,11 +118,11 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Optionally get the last element of a {@code List}.</p>
-	 * @param list the {@code List} to get the last element from
+	 * <p>Optionally get the last element of a {@link List}.</p>
+	 * @param list the {@link List} to get the last element from
 	 * @param <E> the type of elements in the list
-	 * @return a {@code NullableOptional} containing the last element if the {@code List} is not empty
-	 * @throws NullPointerException if the {@code List} is {@code null}
+	 * @return a {@link NullableOptional} containing the last element if the {@link List} is not empty
+	 * @throws NullPointerException if the {@link List} is {@code null}
 	 * @since 1.1.0
 	 */
 	public static <E> NullableOptional<E> getOptionalLast(final List<E> list) {
@@ -137,11 +137,11 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code List}s.</p>
-	 * @param lists the {@code List} array to concatenate
+	 * <p>Concatenate multiple {@link List}s.</p>
+	 * @param lists the {@link List} array to concatenate
 	 * @param <E> the type of elements in the list
-	 * @return the concatenated {@code List}
-	 * @throws NullPointerException if the {@code List} array or any of them is {@code null}
+	 * @return the concatenated {@link List}
+	 * @throws NullPointerException if the {@link List} array or any of them is {@code null}
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
@@ -152,11 +152,11 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code List}s.</p>
-	 * @param lists the {@code List} {@code List} to concatenate
+	 * <p>Concatenate multiple {@link List}s.</p>
+	 * @param lists the {@link List} {@link List} to concatenate
 	 * @param <E> the type of elements in the list
-	 * @return the concatenated {@code List}
-	 * @throws NullPointerException if the {@code List} {@code List} or any of them is {@code null}
+	 * @return the concatenated {@link List}
+	 * @throws NullPointerException if the {@link List} {@link List} or any of them is {@code null}
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("unchecked")
@@ -173,13 +173,13 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Join multiple {@code List}s using an {@code Object} array separator.</p>
-	 * @param separator the {@code Object} array separator
-	 * @param lists the {@code List} array to join
+	 * <p>Join multiple {@link List}s using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param lists the {@link List} array to join
 	 * @param <E> the type of elements in the list
-	 * @return the joined {@code List}
-	 * @throws NullPointerException if the {@code Object} array separator, the {@code List} array or any of them is
-	 * {@code null}
+	 * @return the joined {@link List}
+	 * @throws NullPointerException if the {@link Object} array separator, the {@link List} array or any of them is
+	 *         {@code null}
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
@@ -190,12 +190,12 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Join multiple {@code List}s using an {@code Object} array separator.</p>
-	 * @param separator the {@code Object} array separator
-	 * @param lists the {@code List} {@code List} to join
+	 * <p>Join multiple {@link List}s using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param lists the {@link List} {@link List} to join
 	 * @param <E> the type of elements in the list
-	 * @return the joined {@code List}
-	 * @throws NullPointerException if the {@code Object} array separator, the {@code List} {@code List} or any of them
+	 * @return the joined {@link List}
+	 * @throws NullPointerException if the {@link Object} array separator, the {@link List} {@link List} or any of them
 	 *         is {@code null}
 	 * @since 1.3.0
 	 */

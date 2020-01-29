@@ -38,12 +38,12 @@ import java.util.function.Predicate;
 public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializablePredicate} that represents a short-circuiting logical AND of this
+	 * <p>Returns a composed {@link SerializablePredicate} that represents a short-circuiting logical AND of this
 	 * predicate and another.</p>
-	 * @param other a {@code Predicate} that will be logically-ANDed with this predicate
-	 * @return a composed {@code SerializablePredicate} that represents the short-circuiting logical AND of this
+	 * @param other a {@link Predicate} that will be logically-ANDed with this predicate
+	 * @return a composed {@link SerializablePredicate} that represents the short-circuiting logical AND of this
 	 *         predicate and the other predicate
-	 * @throws NullPointerException if the other {@code Predicate} is {@code null}
+	 * @throws NullPointerException if the other {@link Predicate} is {@code null}
 	 * @since 1.4.0
 	 */
 	@Override
@@ -53,8 +53,8 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Returns a {@code SerializablePredicate} that represents the logical negation of this predicate.</p>
-	 * @return a {@code SerializablePredicate} that represents the logical negation of this predicate
+	 * <p>Returns a {@link SerializablePredicate} that represents the logical negation of this predicate.</p>
+	 * @return a {@link SerializablePredicate} that represents the logical negation of this predicate
 	 * @since 1.4.0
 	 */
 	@Override
@@ -63,12 +63,12 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Returns a composed {@code SerializablePredicate} that represents a short-circuiting logical OR of this
+	 * <p>Returns a composed {@link SerializablePredicate} that represents a short-circuiting logical OR of this
 	 * predicate and another.</p>
-	 * @param other a {@code Predicate} that will be logically-ORed with this predicate
-	 * @return a composed {@code SerializablePredicate} that represents the short-circuiting logical OR of this
+	 * @param other a {@link Predicate} that will be logically-ORed with this predicate
+	 * @return a composed {@link SerializablePredicate} that represents the short-circuiting logical OR of this
 	 *         predicate and the other predicate
-	 * @throws NullPointerException if the other {@code Predicate} is {@code null}
+	 * @throws NullPointerException if the other {@link Predicate} is {@code null}
 	 * @since 1.4.0
 	 */
 	@Override
@@ -78,12 +78,12 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Returns a {@code SerializablePredicate} that tests if two arguments are equal according to
+	 * <p>Returns a {@link SerializablePredicate} that tests if two arguments are equal according to
 	 * {@link Objects#equals(Object, Object)}.</p>
 	 * @param <T> the type of arguments to the predicate
 	 * @param targetRef the object reference with which to compare for equality, which may be {@code null}
-	 * @return a {@code SerializablePredicate} that tests if two arguments are equal according to
-	 * {@link Objects#equals(Object, Object)}
+	 * @return a {@link SerializablePredicate} that tests if two arguments are equal according to
+	 *         {@link Objects#equals(Object, Object)}
 	 * @since 1.4.0
 	 */
 	static <T> SerializablePredicate<T> isEqual(final Object targetRef) {
@@ -93,11 +93,11 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Create a {@code SerializablePredicate} from the given {@code Predicate}.</p>
-	 * @param predicate the {@code Predicate} to convert
+	 * <p>Create a {@link SerializablePredicate} from the given {@link Predicate}.</p>
+	 * @param predicate the {@link Predicate} to convert
 	 * @param <T> the type of the input to the predicate
-	 * @return the created {@code SerializablePredicate}
-	 * @throws NullPointerException if the {@code Predicate} is {@code null}
+	 * @return the created {@link SerializablePredicate}
+	 * @throws NullPointerException if the {@link Predicate} is {@code null}
 	 * @since 1.4.0
 	 */
 	static <T> SerializablePredicate<T> of(final Predicate<? super T> predicate) {

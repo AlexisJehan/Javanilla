@@ -31,7 +31,7 @@ import com.github.alexisjehan.javanilla.misc.tuples.Pair;
 import java.util.Iterator;
 
 /**
- * <p>An element from an {@code Iterator} returned by {@link Iterables#index(Iterable)} or
+ * <p>An element from an {@link Iterator} returned by {@link Iterables#index(Iterable)} or
  * {@link Iterators#index(Iterator)} which is associated to an index.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
@@ -63,6 +63,9 @@ public final class IndexedElement<E> {
 		this.element = element;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -76,6 +79,9 @@ public final class IndexedElement<E> {
 				&& Equals.equals(element, other.element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -84,6 +90,9 @@ public final class IndexedElement<E> {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return ToString.of(
