@@ -27,7 +27,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * <p>A {@code Single} is an immutable tuple that is composed of an unique element.</p>
+ * <p>A {@link Single} is an immutable tuple that is composed of an unique element.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <U> the type of the unique element
@@ -50,6 +50,9 @@ public final class Single<U> {
 		this.unique = unique;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -62,18 +65,24 @@ public final class Single<U> {
 		return Equals.equals(unique, other.unique);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.hashCode(unique);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "[" + unique + "]";
 	}
 
 	/**
-	 * <p>Get the unique element of the {@code Single}.</p>
+	 * <p>Get the unique element of the {@link Single}.</p>
 	 * @return the unique element
 	 * @since 1.1.0
 	 */
@@ -85,7 +94,7 @@ public final class Single<U> {
 	 * <p>Vanilla constructor.</p>
 	 * @param unique the unique element or {@code null}
 	 * @param <U> the type of the unique element
-	 * @return the constructed {@code Single}
+	 * @return the constructed {@link Single}
 	 * @since 1.1.0
 	 */
 	public static <U> Single<U> of(final U unique) {

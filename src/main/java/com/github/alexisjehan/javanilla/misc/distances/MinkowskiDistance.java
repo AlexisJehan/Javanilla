@@ -64,6 +64,9 @@ public final class MinkowskiDistance implements Distance, Serializable {
 		this.order = order;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double calculate(final double[] vector1, final double[] vector2) {
 		Ensure.notNullAndNotEmpty("vector1", vector1);
@@ -76,6 +79,9 @@ public final class MinkowskiDistance implements Distance, Serializable {
 		return Math.pow(distance, 1.0d / order);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -88,11 +94,17 @@ public final class MinkowskiDistance implements Distance, Serializable {
 		return Equals.equals(order, other.order);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.hashCode(order);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return ToString.of(

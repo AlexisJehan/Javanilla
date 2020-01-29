@@ -29,7 +29,7 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import java.io.Serializable;
 
 /**
- * <p>A {@code SerializableTriple} is an immutable tuple that is composed of three {@link Serializable} elements.</p>
+ * <p>A {@link SerializableTriple} is an immutable tuple that is composed of three {@link Serializable} elements.</p>
  * <p><b>Note</b>: This class is serializable.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
@@ -48,28 +48,28 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	private static final long serialVersionUID = 2388194722678709538L;
 
 	/**
-	 * <p>First {@code Serializable} element.</p>
+	 * <p>First {@link Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second {@code Serializable} element.</p>
+	 * <p>Second {@link Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
-	 * <p>Third {@code Serializable} element.</p>
+	 * <p>Third {@link Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final T third;
 
 	/**
 	 * <p>Standard constructor.</p>
-	 * @param first the first {@code Serializable} element or {@code null}
-	 * @param second the second {@code Serializable} element or {@code null}
-	 * @param third the third {@code Serializable} element or {@code null}
+	 * @param first the first {@link Serializable} element or {@code null}
+	 * @param second the second {@link Serializable} element or {@code null}
+	 * @param third the third {@link Serializable} element or {@code null}
 	 * @since 1.0.0
 	 */
 	public SerializableTriple(final F first, final S second, final T third) {
@@ -78,6 +78,9 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 		this.third = third;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -92,6 +95,9 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 				&& Equals.equals(third, other.third);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -101,14 +107,17 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "[" + first + ", " + second + ", " + third + "]";
 	}
 
 	/**
-	 * <p>Converts the current {@code SerializableTriple} to a {@code Triple}.</p>
-	 * @return the converted {@code Triple}
+	 * <p>Converts the current {@link SerializableTriple} to a {@link Triple}.</p>
+	 * @return the converted {@link Triple}
 	 * @since 1.0.0
 	 */
 	public Triple<F, S, T> toTriple() {
@@ -116,8 +125,8 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the first {@code Serializable} element of the {@code SerializableTriple}.</p>
-	 * @return the first {@code Serializable} element
+	 * <p>Get the first {@link Serializable} element of the {@link SerializableTriple}.</p>
+	 * @return the first {@link Serializable} element
 	 * @since 1.0.0
 	 */
 	public F getFirst() {
@@ -125,8 +134,8 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the second {@code Serializable} element of the {@code SerializableTriple}.</p>
-	 * @return the second {@code Serializable} element
+	 * <p>Get the second {@link Serializable} element of the {@link SerializableTriple}.</p>
+	 * @return the second {@link Serializable} element
 	 * @since 1.0.0
 	 */
 	public S getSecond() {
@@ -134,8 +143,8 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the third {@code Serializable} element of the {@code SerializableTriple}.</p>
-	 * @return the third {@code Serializable} element
+	 * <p>Get the third {@link Serializable} element of the {@link SerializableTriple}.</p>
+	 * @return the third {@link Serializable} element
 	 * @since 1.0.0
 	 */
 	public T getThird() {
@@ -144,13 +153,13 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 
 	/**
 	 * <p>Vanilla constructor.</p>
-	 * @param first the first {@code Serializable} element or {@code null}
-	 * @param second the second {@code Serializable} element or {@code null}
-	 * @param third the third {@code Serializable} element or {@code null}
+	 * @param first the first {@link Serializable} element or {@code null}
+	 * @param second the second {@link Serializable} element or {@code null}
+	 * @param third the third {@link Serializable} element or {@code null}
 	 * @param <F> the type of the first serializable element
 	 * @param <S> the type of the second serializable element
 	 * @param <T> the type of the third serializable element
-	 * @return the constructed {@code SerializableTriple}
+	 * @return the constructed {@link SerializableTriple}
 	 * @since 1.0.0
 	 */
 	public static <F extends Serializable, S extends Serializable, T extends Serializable> SerializableTriple<F, S, T> of(final F first, final S second, final T third) {

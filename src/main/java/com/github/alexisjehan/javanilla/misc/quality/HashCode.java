@@ -123,8 +123,8 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of an {@code Object} value.</p>
-	 * @param value the {@code Object} value or {@code null}
+	 * <p>Calculate the hash code of an {@link Object} value.</p>
+	 * @param value the {@link Object} value or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
 	 */
@@ -213,8 +213,8 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of an {@code Object} array.</p>
-	 * @param array the {@code Object} array or {@code null}
+	 * <p>Calculate the hash code of an {@link Object} array.</p>
+	 * @param array the {@link Object} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
 	 */

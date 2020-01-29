@@ -32,7 +32,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * <p>Enumeration to create or convert case stylized {@code String}s, usually used for naming conventions.</p>
+ * <p>Enumeration to create or convert case stylized {@link String}s, usually used for naming conventions.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Letter_case#Special_case_styles">https://en.wikipedia.org/wiki/Letter_case#Special_case_styles</a>
  * @since 1.5.0
  */
@@ -45,6 +45,10 @@ public enum CaseStyle {
 	 * @since 1.5.0
 	 */
 	CAMEL {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected String of(final List<String> tokens) {
 			final var stringBuilder = new StringBuilder();
@@ -56,6 +60,9 @@ public enum CaseStyle {
 			return stringBuilder.toString();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected List<String> tokenize(final CharSequence charSequence) {
 			return CaseStyle.tokenize(charSequence, Character::isUpperCase, false);
@@ -69,6 +76,10 @@ public enum CaseStyle {
 	 * @since 1.5.0
 	 */
 	PASCAL {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected String of(final List<String> tokens) {
 			return tokens
@@ -77,6 +88,9 @@ public enum CaseStyle {
 					.collect(Collectors.joining());
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected List<String> tokenize(final CharSequence charSequence) {
 			return CAMEL.tokenize(charSequence);
@@ -90,11 +104,18 @@ public enum CaseStyle {
 	 * @since 1.5.0
 	 */
 	SNAKE {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected String of(final List<String> tokens) {
 			return String.join("_", tokens);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected List<String> tokenize(final CharSequence charSequence) {
 			return CaseStyle.tokenize(charSequence, Predicate.isEqual('_'), true);
@@ -107,11 +128,18 @@ public enum CaseStyle {
 	 * @since 1.5.0
 	 */
 	MACRO {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected String of(final List<String> tokens) {
 			return SNAKE.of(tokens).toUpperCase();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected List<String> tokenize(final CharSequence charSequence) {
 			return SNAKE.tokenize(charSequence);
@@ -125,11 +153,18 @@ public enum CaseStyle {
 	 * @since 1.5.0
 	 */
 	KEBAB {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected String of(final List<String> tokens) {
 			return String.join("-", tokens);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected List<String> tokenize(final CharSequence charSequence) {
 			return CaseStyle.tokenize(charSequence, Predicate.isEqual('-'), true);
@@ -142,11 +177,18 @@ public enum CaseStyle {
 	 * @since 1.5.0
 	 */
 	COBOL {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected String of(final List<String> tokens) {
 			return KEBAB.of(tokens).toUpperCase();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected List<String> tokenize(final CharSequence charSequence) {
 			return KEBAB.tokenize(charSequence);
@@ -154,10 +196,10 @@ public enum CaseStyle {
 	};
 
 	/**
-	 * <p>Create a stylized {@code String} from the given {@code CharSequence} using the current case style.</p>
-	 * @param charSequence the {@code CharSequence} to convert
-	 * @return a stylized {@code String}
-	 * @throws NullPointerException if the {@code CharSequence} is {@code null}
+	 * <p>Create a stylized {@link String} from the given {@link CharSequence} using the current case style.</p>
+	 * @param charSequence the {@link CharSequence} to convert
+	 * @return a stylized {@link String}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
 	 * @since 1.5.0
 	 */
 	public final String of(final CharSequence charSequence) {
@@ -170,12 +212,12 @@ public enum CaseStyle {
 	}
 
 	/**
-	 * <p>Create a stylized {@code String} from the given already stylized {@code CharSequence} using the current case
+	 * <p>Create a stylized {@link String} from the given already stylized {@link CharSequence} using the current case
 	 * style.</p>
-	 * @param charSequence the stylized {@code CharSequence} to convert
-	 * @param caseStyle the {@code CaseStyle} of the given {@code CharSequence}
-	 * @return a stylized {@code String}
-	 * @throws NullPointerException if the {@code CharSequence} or the {@code CaseStyle} is {@code null}
+	 * @param charSequence the stylized {@link CharSequence} to convert
+	 * @param caseStyle the {@link CaseStyle} of the given {@link CharSequence}
+	 * @return a stylized {@link String}
+	 * @throws NullPointerException if the {@link CharSequence} or the {@link CaseStyle} is {@code null}
 	 * @since 1.5.0
 	 */
 	public final String of(final CharSequence charSequence, final CaseStyle caseStyle) {
@@ -189,27 +231,27 @@ public enum CaseStyle {
 	}
 
 	/**
-	 * <p>Create a stylized {@code String} from the given {@code List} of tokens.</p>
-	 * @param tokens the {@code List} of tokens
-	 * @return a stylized {@code String}
+	 * <p>Create a stylized {@link String} from the given {@link List} of tokens.</p>
+	 * @param tokens the {@link List} of tokens
+	 * @return a stylized {@link String}
 	 * @since 1.5.0
 	 */
 	protected abstract String of(final List<String> tokens);
 
 	/**
-	 * <p>Tokenize the given {@code CharSequence} using the current case style.</p>
-	 * @param charSequence the {@code CharSequence} to tokenize
-	 * @return a {@code List} of tokens from the {@code CharSequence}
+	 * <p>Tokenize the given {@link CharSequence} using the current case style.</p>
+	 * @param charSequence the {@link CharSequence} to tokenize
+	 * @return a {@link List} of tokens from the {@link CharSequence}
 	 * @since 1.5.0
 	 */
 	protected abstract List<String> tokenize(final CharSequence charSequence);
 
 	/**
-	 * <p>Tokenize the given {@code CharSequence} using a delimiter {@code Predicate}.</p>
-	 * @param charSequence the {@code CharSequence} to tokenize
-	 * @param delimiterPredicate the delimiter {@code Predicate}
+	 * <p>Tokenize the given {@link CharSequence} using a delimiter {@link Predicate}.</p>
+	 * @param charSequence the {@link CharSequence} to tokenize
+	 * @param delimiterPredicate the delimiter {@link Predicate}
 	 * @param exclude {@code true} if the current delimiter should be excluded from the next token
-	 * @return a {@code List} of tokens from the {@code CharSequence}
+	 * @return a {@link List} of tokens from the {@link CharSequence}
 	 * @since 1.5.0
 	 */
 	private static List<String> tokenize(final CharSequence charSequence, final Predicate<Character> delimiterPredicate, final boolean exclude) {

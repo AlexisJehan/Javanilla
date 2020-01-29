@@ -27,7 +27,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * <p>A {@code Triple} is an immutable tuple that is composed of three elements.</p>
+ * <p>A {@link Triple} is an immutable tuple that is composed of three elements.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <F> the type of the first element
@@ -68,6 +68,9 @@ public final class Triple<F, S, T> {
 		this.third = third;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -82,6 +85,9 @@ public final class Triple<F, S, T> {
 				&& Equals.equals(third, other.third);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -91,13 +97,16 @@ public final class Triple<F, S, T> {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "[" + first + ", " + second + ", " + third + "]";
 	}
 
 	/**
-	 * <p>Get the first element of the {@code Triple}.</p>
+	 * <p>Get the first element of the {@link Triple}.</p>
 	 * @return the first element
 	 * @since 1.0.0
 	 */
@@ -106,7 +115,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the second element of the {@code Triple}.</p>
+	 * <p>Get the second element of the {@link Triple}.</p>
 	 * @return the second element
 	 * @since 1.0.0
 	 */
@@ -115,7 +124,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the third element of the {@code Triple}.</p>
+	 * <p>Get the third element of the {@link Triple}.</p>
 	 * @return the third element
 	 * @since 1.0.0
 	 */
@@ -131,7 +140,7 @@ public final class Triple<F, S, T> {
 	 * @param <F> the type of the first element
 	 * @param <S> the type of the second element
 	 * @param <T> the type of the third element
-	 * @return the constructed {@code Triple}
+	 * @return the constructed {@link Triple}
 	 * @since 1.0.0
 	 */
 	public static <F, S, T> Triple<F, S, T> of(final F first, final S second, final T third) {

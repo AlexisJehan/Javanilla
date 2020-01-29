@@ -60,11 +60,11 @@ public final class BloomFilter<E> {
 	private final BitSet bits;
 
 	/**
-	 * <p>Constructor with a length and multiple {@code Checksum} hash functions.</p>
+	 * <p>Constructor with a length and multiple {@link Checksum} hash functions.</p>
 	 * @param length the length of the Bloom Filter
-	 * @param hashFunctions the {@code Checksum} hash functions array used by the Bloom Filter
-	 * @throws NullPointerException if the {@code Checksum} hash functions array or any of them is {@code null}
-	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@code Checksum} hash functions
+	 * @param hashFunctions the {@link Checksum} hash functions array used by the Bloom Filter
+	 * @throws NullPointerException if the {@link Checksum} hash functions array or any of them is {@code null}
+	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link Checksum} hash functions
 	 *         array is empty
 	 * @since 1.2.0
 	 */
@@ -82,12 +82,12 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Constructor with a length and multiple {@code IntUnaryOperator} hash functions working with
+	 * <p>Constructor with a length and multiple {@link IntUnaryOperator} hash functions working with
 	 * {@link Object#hashCode()}.</p>
 	 * @param length the length of the Bloom Filter
-	 * @param hashFunctions the {@code IntUnaryOperator} hash functions array used by the Bloom Filter
-	 * @throws NullPointerException if the {@code IntUnaryOperator} hash functions array or any of them is {@code null}
-	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@code IntUnaryOperator} hash
+	 * @param hashFunctions the {@link IntUnaryOperator} hash functions array used by the Bloom Filter
+	 * @throws NullPointerException if the {@link IntUnaryOperator} hash functions array or any of them is {@code null}
+	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link IntUnaryOperator} hash
 	 *         functions array is empty
 	 * @since 1.2.0
 	 */
@@ -102,11 +102,11 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Constructor with a length and multiple {@code ToIntFunction} hash functions.</p>
+	 * <p>Constructor with a length and multiple {@link ToIntFunction} hash functions.</p>
 	 * @param length the length of the Bloom Filter
-	 * @param hashFunctions the {@code ToIntFunction} hash functions array used by the Bloom Filter
-	 * @throws NullPointerException if the {@code ToIntFunction} hash functions array or any of them is {@code null}
-	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@code ToIntFunction} hash
+	 * @param hashFunctions the {@link ToIntFunction} hash functions array used by the Bloom Filter
+	 * @throws NullPointerException if the {@link ToIntFunction} hash functions array or any of them is {@code null}
+	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link ToIntFunction} hash
 	 *         functions array is empty
 	 * @since 1.2.0
 	 */

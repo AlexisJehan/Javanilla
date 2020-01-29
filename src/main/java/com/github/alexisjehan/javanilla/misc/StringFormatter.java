@@ -38,7 +38,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p>An immutable formatter to pretty display values of several types as {@code String}s.</p>
+ * <p>An immutable formatter to pretty display values of several types as {@link String}s.</p>
  * <p><b>Note</b>: This class is serializable.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
@@ -82,7 +82,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>{@code StringFormatter} instance with default parameters.</p>
+	 * <p>{@link StringFormatter} instance with default parameters.</p>
 	 * @since 1.3.0
 	 */
 	public static final StringFormatter DEFAULT = new StringFormatter(Locale.getDefault());
@@ -106,7 +106,7 @@ public final class StringFormatter implements Serializable {
 	private static final char[] UNITS = {'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'};
 
 	/**
-	 * <p>Default {@code BytePrefix}.</p>
+	 * <p>Default {@link BytePrefix}.</p>
 	 * @since 1.0.0
 	 */
 	private static final BytePrefix DEFAULT_BYTE_PREFIX = BytePrefix.BINARY;
@@ -118,7 +118,7 @@ public final class StringFormatter implements Serializable {
 	private static final long serialVersionUID = 5166986914751010839L;
 
 	/**
-	 * <p>{@code Locale} instance.</p>
+	 * <p>{@link Locale} instance.</p>
 	 * @since 1.0.0
 	 */
 	private final Locale locale;
@@ -160,15 +160,15 @@ public final class StringFormatter implements Serializable {
 	private final NumberFormat currencyFormatter;
 
 	/**
-	 * <p>{@code Locale} delimiter.</p>
+	 * <p>{@link Locale} delimiter.</p>
 	 * @since 1.0.0
 	 */
 	private final String localeDelimiter;
 
 	/**
-	 * <p>Constructor with a custom {@code Locale} and the default float precision.</p>
-	 * @param locale the custom {@code Locale}
-	 * @throws NullPointerException if the {@code Locale} is {@code null}
+	 * <p>Constructor with a custom {@link Locale} and the default float precision.</p>
+	 * @param locale the custom {@link Locale}
+	 * @throws NullPointerException if the {@link Locale} is {@code null}
 	 * @since 1.0.0
 	 */
 	public StringFormatter(final Locale locale) {
@@ -176,10 +176,10 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Constructor with custom {@code Locale} and float precision, and the default strict precision parameter.</p>
-	 * @param locale the custom {@code Locale}
+	 * <p>Constructor with custom {@link Locale} and float precision, and the default strict precision parameter.</p>
+	 * @param locale the custom {@link Locale}
 	 * @param floatPrecision the custom float precision
-	 * @throws NullPointerException if the {@code Locale} is {@code null}
+	 * @throws NullPointerException if the {@link Locale} is {@code null}
 	 * @throws IllegalArgumentException if the float precision is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -188,11 +188,11 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Complete constructor with custom {@code Locale}, float precision and strict precision parameter.</p>
-	 * @param locale the custom {@code Locale}
+	 * <p>Complete constructor with custom {@link Locale}, float precision and strict precision parameter.</p>
+	 * @param locale the custom {@link Locale}
 	 * @param floatPrecision the custom float precision
 	 * @param strictPrecision the custom strict precision parameter
-	 * @throws NullPointerException if the {@code Locale} is {@code null}
+	 * @throws NullPointerException if the {@link Locale} is {@code null}
 	 * @throws IllegalArgumentException if the float precision is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -225,10 +225,10 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a {@code int}/{@code long} value as a pretty {@code String}.</p>
-	 * <p><b>Note</b>: The {@code Locale} attribute is used.</p>
+	 * <p>Format a {@code int}/{@code long} value as a pretty {@link String}.</p>
+	 * <p><b>Note</b>: The {@link Locale} attribute is used.</p>
 	 * @param value the {@code long} value
-	 * @return the {@code long} {@code String} representation
+	 * @return the {@code long} {@link String} representation
 	 * @since 1.0.0
 	 */
 	public String format(final long value) {
@@ -236,10 +236,10 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a {@code float}/{@code double} value as a pretty {@code String}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * <p>Format a {@code float}/{@code double} value as a pretty {@link String}.</p>
+	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the {@code double} value
-	 * @return the {@code double} {@code String} representation
+	 * @return the {@code double} {@link String} representation
 	 * @since 1.0.0
 	 */
 	public String format(final double value) {
@@ -247,11 +247,11 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a number of bytes value such as a file size as a pretty {@code String} using the default
-	 * {@code BytePrefix}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * <p>Format a number of bytes value such as a file size as a pretty {@link String} using the default
+	 * {@link BytePrefix}.</p>
+	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the number of bytes value
-	 * @return the number of bytes {@code String} representation
+	 * @return the number of bytes {@link String} representation
 	 * @since 1.0.0
 	 */
 	public String formatBytes(final long value) {
@@ -259,13 +259,13 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a number of bytes value such as a file size as a pretty {@code String} using a custom
-	 * {@code BytePrefix}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * <p>Format a number of bytes value such as a file size as a pretty {@link String} using a custom
+	 * {@link BytePrefix}.</p>
+	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the number of bytes value
-	 * @param bytePrefix the {@code BytePrefix} to use
-	 * @return the number of bytes {@code String} representation
-	 * @throws NullPointerException if the {@code BytePrefix} is {@code null}
+	 * @param bytePrefix the {@link BytePrefix} to use
+	 * @return the number of bytes {@link String} representation
+	 * @throws NullPointerException if the {@link BytePrefix} is {@code null}
 	 * @see <a href="https://stackoverflow.com/a/3758880">https://stackoverflow.com/a/3758880</a>
 	 * @since 1.0.0
 	 */
@@ -295,11 +295,11 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a percent value as a pretty {@code String}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * <p>Format a percent value as a pretty {@link String}.</p>
+	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param progression the progression value
 	 * @param total the total value
-	 * @return the percent {@code String} representation
+	 * @return the percent {@link String} representation
 	 * @throws IllegalArgumentException if the progression is lower than {@code 0} or greater than the total
 	 * @since 1.0.0
 	 */
@@ -309,16 +309,19 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a currency value as a pretty {@code String}, the currency type is the one from the {@code Locale}.</p>
-	 * <p><b>Note</b>: {@code Locale}, float precision and strict precision parameter attributes are used.</p>
+	 * <p>Format a currency value as a pretty {@link String}, the currency type is the one from the {@link Locale}.</p>
+	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the currency value
-	 * @return the currency {@code String} representation
+	 * @return the currency {@link String} representation
 	 * @since 1.0.0
 	 */
 	public String formatCurrency(final double value) {
 		return currencyFormatter.format(value);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -333,6 +336,9 @@ public final class StringFormatter implements Serializable {
 				&& Equals.equals(strictPrecision, other.strictPrecision);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -342,6 +348,9 @@ public final class StringFormatter implements Serializable {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return ToString.of(
@@ -353,8 +362,8 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Get the {@code Locale}.</p>
-	 * @return the {@code Locale}
+	 * <p>Get the {@link Locale}.</p>
+	 * @return the {@link Locale}
 	 * @since 1.0.0
 	 */
 	public Locale getLocale() {

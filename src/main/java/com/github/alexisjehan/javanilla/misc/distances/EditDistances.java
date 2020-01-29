@@ -37,6 +37,10 @@ public enum EditDistances implements EditDistance {
 	 * @since 1.0.0
 	 */
 	LCS {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final CharSequence charSequence1, final int length1, final CharSequence charSequence2, final int length2) {
 			final var lengths = new int[length1 + 1][length2 + 1];
@@ -57,6 +61,10 @@ public enum EditDistances implements EditDistance {
 	 * @since 1.0.0
 	 */
 	HAMMING {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final CharSequence charSequence1, final int length1, final CharSequence charSequence2, final int length2) {
 			Ensure.equalTo("length2", length2, length1);
@@ -73,6 +81,9 @@ public enum EditDistances implements EditDistance {
 		}
 	};
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final double calculate(final CharSequence charSequence1, final CharSequence charSequence2) {
 		Ensure.notNull("charSequence1", charSequence1);
@@ -81,11 +92,11 @@ public enum EditDistances implements EditDistance {
 	}
 
 	/**
-	 * <p>Calculate an edit distance between both {@code CharSequence}s which have been validated.</p>
-	 * @param charSequence1 the first {@code CharSequence}
-	 * @param length1 the length of the first {@code CharSequence}
-	 * @param charSequence2 the second {@code CharSequence}
-	 * @param length2 the length of the second {@code CharSequence}
+	 * <p>Calculate an edit distance between both {@link CharSequence}s which have been validated.</p>
+	 * @param charSequence1 the first {@link CharSequence}
+	 * @param length1 the length of the first {@link CharSequence}
+	 * @param charSequence2 the second {@link CharSequence}
+	 * @param length2 the length of the second {@link CharSequence}
 	 * @return the calculated edit distance
 	 * @since 1.0.0
 	 */

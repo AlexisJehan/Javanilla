@@ -99,12 +99,12 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Iterable} and its elements are not {@code null}.</p>
-	 * @param name the name of the {@code Iterable}
-	 * @param iterable the {@code Iterable} to validate
-	 * @param <I> the {@code Iterable} type
-	 * @return the validated {@code Iterable}
-	 * @throws NullPointerException if the name, the {@code Iterable} or any of its elements is {@code null}
+	 * <p>Ensure the {@link Iterable} and its elements are not {@code null}.</p>
+	 * @param name the name of the {@link Iterable}
+	 * @param iterable the {@link Iterable} to validate
+	 * @param <I> the {@link Iterable} type
+	 * @return the validated {@link Iterable}
+	 * @throws NullPointerException if the name, the {@link Iterable} or any of its elements is {@code null}
 	 * @since 1.3.0
 	 */
 	public static <I extends Iterable<?>> I notNullAndNotNullElements(final String name, final I iterable) {
@@ -116,13 +116,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code CharSequence} is not {@code null} and not empty.</p>
-	 * @param name the name of the {@code CharSequence}
-	 * @param charSequence the {@code CharSequence} to validate
-	 * @param <C> the {@code CharSequence} type
-	 * @return the validated {@code CharSequence}
-	 * @throws NullPointerException if the name or the {@code CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the {@code CharSequence} is empty
+	 * <p>Ensure the {@link CharSequence} is not {@code null} and not empty.</p>
+	 * @param name the name of the {@link CharSequence}
+	 * @param charSequence the {@link CharSequence} to validate
+	 * @param <C> the {@link CharSequence} type
+	 * @return the validated {@link CharSequence}
+	 * @throws NullPointerException if the name or the {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the {@link CharSequence} is empty
 	 * @since 1.3.0
 	 */
 	public static <C extends CharSequence> C notNullAndNotEmpty(final String name, final C charSequence) {
@@ -270,13 +270,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Object} array is not {@code null} and not empty.</p>
-	 * @param name the name of the {@code Object} array
-	 * @param array the {@code Object} array to validate
+	 * <p>Ensure the {@link Object} array is not {@code null} and not empty.</p>
+	 * @param name the name of the {@link Object} array
+	 * @param array the {@link Object} array to validate
 	 * @param <E> the element type
 	 * @return the validated array
-	 * @throws NullPointerException if the name or the {@code Object} array is {@code null}
-	 * @throws IllegalArgumentException if the {@code Object} array is empty
+	 * @throws NullPointerException if the name or the {@link Object} array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} array is empty
 	 * @since 1.3.0
 	 */
 	public static <E> E[] notNullAndNotEmpty(final String name, final E[] array) {
@@ -288,13 +288,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Collection} is not {@code null} and not empty.</p>
-	 * @param name the name of the {@code Collection}
-	 * @param collection the {@code Collection} to validate
-	 * @param <C> the {@code Collection} type
-	 * @return the validated {@code Collection}
-	 * @throws NullPointerException if the name or the {@code Collection} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Collection} is empty
+	 * <p>Ensure the {@link Collection} is not {@code null} and not empty.</p>
+	 * @param name the name of the {@link Collection}
+	 * @param collection the {@link Collection} to validate
+	 * @param <C> the {@link Collection} type
+	 * @return the validated {@link Collection}
+	 * @throws NullPointerException if the name or the {@link Collection} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Collection} is empty
 	 * @since 1.3.0
 	 */
 	public static <C extends Collection<?>> C notNullAndNotEmpty(final String name, final C collection) {
@@ -306,13 +306,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Map} is not {@code null} and not empty.</p>
-	 * @param name the name of the {@code Map}
-	 * @param map the {@code Map} to validate
-	 * @param <M> the {@code Map} type
-	 * @return the validated {@code Map}
-	 * @throws NullPointerException if the name or the {@code Map} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Map} is empty
+	 * <p>Ensure the {@link Map} is not {@code null} and not empty.</p>
+	 * @param name the name of the {@link Map}
+	 * @param map the {@link Map} to validate
+	 * @param <M> the {@link Map} type
+	 * @return the validated {@link Map}
+	 * @throws NullPointerException if the name or the {@link Map} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Map} is empty
 	 * @since 1.3.0
 	 */
 	public static <M extends Map<?, ?>> M notNullAndNotEmpty(final String name, final M map) {
@@ -324,13 +324,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Bag} is not {@code null} and not empty.</p>
-	 * @param name the name of the {@code Bag}
-	 * @param bag the {@code Bag} to validate
-	 * @param <B> the {@code Bag} type
-	 * @return the validated {@code Bag}
-	 * @throws NullPointerException if the name or the {@code Bag} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Bag} is empty
+	 * <p>Ensure the {@link Bag} is not {@code null} and not empty.</p>
+	 * @param name the name of the {@link Bag}
+	 * @param bag the {@link Bag} to validate
+	 * @param <B> the {@link Bag} type
+	 * @return the validated {@link Bag}
+	 * @throws NullPointerException if the name or the {@link Bag} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Bag} is empty
 	 * @since 1.3.0
 	 */
 	public static <B extends Bag<?>> B notNullAndNotEmpty(final String name, final B bag) {
@@ -342,13 +342,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Iterator} is not {@code null} and not empty.</p>
-	 * @param name the name of the {@code Iterator}
-	 * @param iterator the {@code Iterator} to validate
-	 * @param <I> the {@code Iterator} type
-	 * @return the validated {@code Iterator}
-	 * @throws NullPointerException if the name or the {@code Iterator} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Iterator} is empty
+	 * <p>Ensure the {@link Iterator} is not {@code null} and not empty.</p>
+	 * @param name the name of the {@link Iterator}
+	 * @param iterator the {@link Iterator} to validate
+	 * @param <I> the {@link Iterator} type
+	 * @return the validated {@link Iterator}
+	 * @throws NullPointerException if the name or the {@link Iterator} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Iterator} is empty
 	 * @since 1.3.0
 	 */
 	public static <I extends Iterator<?>> I notNullAndNotEmpty(final String name, final I iterator) {
@@ -360,13 +360,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code CharSequence} is not {@code null} and not blank.</p>
-	 * @param name the name of the {@code CharSequence}
-	 * @param charSequence the {@code CharSequence} to validate
-	 * @param <C> the {@code CharSequence} type
-	 * @return the validated {@code CharSequence}
-	 * @throws NullPointerException if the name or the {@code CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the {@code CharSequence} is blank
+	 * <p>Ensure the {@link CharSequence} is not {@code null} and not blank.</p>
+	 * @param name the name of the {@link CharSequence}
+	 * @param charSequence the {@link CharSequence} to validate
+	 * @param <C> the {@link CharSequence} type
+	 * @return the validated {@link CharSequence}
+	 * @throws NullPointerException if the name or the {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the {@link CharSequence} is blank
 	 * @since 1.3.0
 	 */
 	@SuppressWarnings("deprecation")
@@ -379,14 +379,14 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code CharSequence} is not {@code null} and matches the given {@code Pattern}.</p>
-	 * @param name the name of the {@code CharSequence}
-	 * @param charSequence the {@code CharSequence} to validate
-	 * @param pattern the {@code Pattern}
-	 * @param <C> the {@code CharSequence} type
-	 * @return the validated {@code CharSequence}
-	 * @throws NullPointerException if the name, the {@code CharSequence} or the {@code Pattern} is {@code null}
-	 * @throws IllegalArgumentException if the {@code CharSequence} does not match the {@code Pattern}
+	 * <p>Ensure the {@link CharSequence} is not {@code null} and matches the given {@link Pattern}.</p>
+	 * @param name the name of the {@link CharSequence}
+	 * @param charSequence the {@link CharSequence} to validate
+	 * @param pattern the {@link Pattern}
+	 * @param <C> the {@link CharSequence} type
+	 * @return the validated {@link CharSequence}
+	 * @throws NullPointerException if the name, the {@link CharSequence} or the {@link Pattern} is {@code null}
+	 * @throws IllegalArgumentException if the {@link CharSequence} does not match the {@link Pattern}
 	 * @since 1.4.0
 	 */
 	public static <C extends CharSequence> C notNullAndMatches(final String name, final C charSequence, final Pattern pattern) {
@@ -399,13 +399,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code InputStream} is not {@code null} and has mark supported.</p>
-	 * @param name the name of the {@code InputStream}
-	 * @param inputStream the {@code InputStream} to validate
-	 * @param <I> the {@code InputStream} type
-	 * @return the validated {@code InputStream}
-	 * @throws NullPointerException if the name or the {@code InputStream} is {@code null}
-	 * @throws IllegalArgumentException if the {@code InputStream} does not have mark supported
+	 * <p>Ensure the {@link InputStream} is not {@code null} and has mark supported.</p>
+	 * @param name the name of the {@link InputStream}
+	 * @param inputStream the {@link InputStream} to validate
+	 * @param <I> the {@link InputStream} type
+	 * @return the validated {@link InputStream}
+	 * @throws NullPointerException if the name or the {@link InputStream} is {@code null}
+	 * @throws IllegalArgumentException if the {@link InputStream} does not have mark supported
 	 * @since 1.3.0
 	 */
 	public static <I extends InputStream> I notNullAndMarkSupported(final String name, final I inputStream) {
@@ -417,13 +417,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Reader} is not {@code null} and has mark supported.</p>
-	 * @param name the name of the {@code Reader}
-	 * @param reader the {@code Reader} to validate
-	 * @param <R> the {@code Reader} type
-	 * @return the validated {@code Reader}
-	 * @throws NullPointerException if the name or the {@code Reader} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Reader} does not have mark supported
+	 * <p>Ensure the {@link Reader} is not {@code null} and has mark supported.</p>
+	 * @param name the name of the {@link Reader}
+	 * @param reader the {@link Reader} to validate
+	 * @param <R> the {@link Reader} type
+	 * @return the validated {@link Reader}
+	 * @throws NullPointerException if the name or the {@link Reader} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Reader} does not have mark supported
 	 * @since 1.3.0
 	 */
 	public static <R extends Reader> R notNullAndMarkSupported(final String name, final R reader) {
@@ -435,13 +435,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Path} is not {@code null} and exists.</p>
-	 * @param name the name of the {@code Path}
-	 * @param path the {@code Path} to validate
-	 * @param <P> the {@code Path} type
-	 * @return the validated {@code Path}
-	 * @throws NullPointerException if the name or the {@code Path} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Path} does not exist
+	 * <p>Ensure the {@link Path} is not {@code null} and exists.</p>
+	 * @param name the name of the {@link Path}
+	 * @param path the {@link Path} to validate
+	 * @param <P> the {@link Path} type
+	 * @return the validated {@link Path}
+	 * @throws NullPointerException if the name or the {@link Path} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Path} does not exist
 	 * @since 1.3.0
 	 */
 	public static <P extends Path> P notNullAndExists(final String name, final P path) {
@@ -453,13 +453,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Path} is not {@code null}, exists and is a file.</p>
-	 * @param name the name of the {@code Path}
-	 * @param path the {@code Path} to validate
-	 * @param <P> the {@code Path} type
-	 * @return the validated {@code Path}
-	 * @throws NullPointerException if the name or the {@code Path} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Path} does not exist or is not a file
+	 * <p>Ensure the {@link Path} is not {@code null}, exists and is a file.</p>
+	 * @param name the name of the {@link Path}
+	 * @param path the {@link Path} to validate
+	 * @param <P> the {@link Path} type
+	 * @return the validated {@link Path}
+	 * @throws NullPointerException if the name or the {@link Path} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Path} does not exist or is not a file
 	 * @since 1.3.0
 	 */
 	public static <P extends Path> P notNullAndFile(final String name, final P path) {
@@ -471,13 +471,13 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Path} is not {@code null}, exists and is a directory.</p>
-	 * @param name the name of the {@code Path}
-	 * @param path the {@code Path} to validate
-	 * @param <P> the {@code Path} type
-	 * @return the validated {@code Path}
-	 * @throws NullPointerException if the name or the {@code Path} is {@code null}
-	 * @throws IllegalArgumentException if the {@code Path} does not exist or is not a directory
+	 * <p>Ensure the {@link Path} is not {@code null}, exists and is a directory.</p>
+	 * @param name the name of the {@link Path}
+	 * @param path the {@link Path} to validate
+	 * @param <P> the {@link Path} type
+	 * @return the validated {@link Path}
+	 * @throws NullPointerException if the name or the {@link Path} is {@code null}
+	 * @throws IllegalArgumentException if the {@link Path} does not exist or is not a directory
 	 * @since 1.3.0
 	 */
 	public static <P extends Path> P notNullAndDirectory(final String name, final P path) {
@@ -1287,14 +1287,14 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Comparable} value is not {@code null} and lower than the other one.</p>
-	 * @param name the name of the {@code Comparable} value
-	 * @param value the {@code Comparable} value to validate
-	 * @param other the other {@code Comparable} value
-	 * @param <C> the {@code Comparable} value type
-	 * @return the validated {@code Comparable} value
-	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
-	 * @throws IllegalArgumentException if the {@code Comparable} value is greater than or equal to the other one
+	 * <p>Ensure the {@link Comparable} value is not {@code null} and lower than the other one.</p>
+	 * @param name the name of the {@link Comparable} value
+	 * @param value the {@link Comparable} value to validate
+	 * @param other the other {@link Comparable} value
+	 * @param <C> the {@link Comparable} value type
+	 * @return the validated {@link Comparable} value
+	 * @throws NullPointerException if the name, the {@link Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@link Comparable} value is greater than or equal to the other one
 	 * @since 1.3.1
 	 */
 	public static <C extends Comparable<C>> C notNullAndLowerThan(final String name, final C value, final C other) {
@@ -1433,14 +1433,14 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Comparable} value is not {@code null} and lower than or equal to the other one.</p>
-	 * @param name the name of the {@code Comparable} value
-	 * @param value the {@code Comparable} value to validate
-	 * @param other the other {@code Comparable} value
-	 * @param <C> the {@code Comparable} value type
-	 * @return the validated {@code Comparable} value
-	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
-	 * @throws IllegalArgumentException if the {@code Comparable} value is greater than the other one
+	 * <p>Ensure the {@link Comparable} value is not {@code null} and lower than or equal to the other one.</p>
+	 * @param name the name of the {@link Comparable} value
+	 * @param value the {@link Comparable} value to validate
+	 * @param other the other {@link Comparable} value
+	 * @param <C> the {@link Comparable} value type
+	 * @return the validated {@link Comparable} value
+	 * @throws NullPointerException if the name, the {@link Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@link Comparable} value is greater than the other one
 	 * @since 1.3.1
 	 */
 	public static <C extends Comparable<C>> C notNullAndLowerThanOrEqualTo(final String name, final C value, final C other) {
@@ -1579,14 +1579,14 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Comparable} value is not {@code null} and greater than the other one.</p>
-	 * @param name the name of the {@code Comparable} value
-	 * @param value the {@code Comparable} value to validate
-	 * @param other the other {@code Comparable} value
-	 * @param <C> the {@code Comparable} value type
-	 * @return the validated {@code Comparable} value
-	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
-	 * @throws IllegalArgumentException if the {@code Comparable} value is lower than or equal to the other one
+	 * <p>Ensure the {@link Comparable} value is not {@code null} and greater than the other one.</p>
+	 * @param name the name of the {@link Comparable} value
+	 * @param value the {@link Comparable} value to validate
+	 * @param other the other {@link Comparable} value
+	 * @param <C> the {@link Comparable} value type
+	 * @return the validated {@link Comparable} value
+	 * @throws NullPointerException if the name, the {@link Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@link Comparable} value is lower than or equal to the other one
 	 * @since 1.3.1
 	 */
 	public static <C extends Comparable<C>> C notNullAndGreaterThan(final String name, final C value, final C other) {
@@ -1725,14 +1725,14 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Comparable} value is not {@code null} and greater than or equal to the other one.</p>
-	 * @param name the name of the {@code Comparable} value
-	 * @param value the {@code Comparable} value to validate
-	 * @param other the other {@code Comparable} value
-	 * @param <C> the {@code Comparable} value type
-	 * @return the validated {@code Comparable} value
-	 * @throws NullPointerException if the name, the {@code Comparable} value or the other one is {@code null}
-	 * @throws IllegalArgumentException if the {@code Comparable} value is lower than the other one
+	 * <p>Ensure the {@link Comparable} value is not {@code null} and greater than or equal to the other one.</p>
+	 * @param name the name of the {@link Comparable} value
+	 * @param value the {@link Comparable} value to validate
+	 * @param other the other {@link Comparable} value
+	 * @param <C> the {@link Comparable} value type
+	 * @return the validated {@link Comparable} value
+	 * @throws NullPointerException if the name, the {@link Comparable} value or the other one is {@code null}
+	 * @throws IllegalArgumentException if the {@link Comparable} value is lower than the other one
 	 * @since 1.3.1
 	 */
 	public static <C extends Comparable<C>> C notNullAndGreaterThanOrEqualTo(final String name, final C value, final C other) {
@@ -1878,15 +1878,15 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code Comparable} value is not {@code null} and between both other ones.</p>
-	 * @param name the name of the {@code Comparable} value
-	 * @param value the {@code Comparable} value to validate
-	 * @param from the from {@code Comparable} value
-	 * @param to the to {@code Comparable} value
-	 * @param <C> the {@code Comparable} value type
-	 * @return the validated {@code Comparable} value
-	 * @throws NullPointerException if the name, the {@code Comparable} value, or any of both other ones is {@code null}
-	 * @throws IllegalArgumentException if the {@code Comparable} value is not between both other ones
+	 * <p>Ensure the {@link Comparable} value is not {@code null} and between both other ones.</p>
+	 * @param name the name of the {@link Comparable} value
+	 * @param value the {@link Comparable} value to validate
+	 * @param from the from {@link Comparable} value
+	 * @param to the to {@link Comparable} value
+	 * @param <C> the {@link Comparable} value type
+	 * @return the validated {@link Comparable} value
+	 * @throws NullPointerException if the name, the {@link Comparable} value, or any of both other ones is {@code null}
+	 * @throws IllegalArgumentException if the {@link Comparable} value is not between both other ones
 	 * @since 1.3.1
 	 */
 	public static <C extends Comparable<C>> C notNullAndBetween(final String name, final C value, final C from, final C to) {

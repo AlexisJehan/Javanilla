@@ -132,10 +132,10 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code Object} values.</p>
-	 * @param value1 the first {@code Object} value or {@code null}
-	 * @param value2 the second {@code Object} value or {@code null}
-	 * @return {@code true} if both {@code Object} values are equal
+	 * <p>Check the equality between {@link Object} values.</p>
+	 * @param value1 the first {@link Object} value or {@code null}
+	 * @param value2 the second {@link Object} value or {@code null}
+	 * @return {@code true} if both {@link Object} values are equal
 	 * @since 1.3.0
 	 */
 	public static boolean equals(final Object value1, final Object value2) {
@@ -231,10 +231,10 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code Object} arrays.</p>
-	 * @param array1 the first {@code Object} array or {@code null}
-	 * @param array2 the second {@code Object} array or {@code null}
-	 * @return {@code true} if both {@code Object} arrays are equal
+	 * <p>Check the equality between {@link Object} arrays.</p>
+	 * @param array1 the first {@link Object} array or {@code null}
+	 * @param array2 the second {@link Object} array or {@code null}
+	 * @return {@code true} if both {@link Object} arrays are equal
 	 * @since 1.3.0
 	 */
 	public static boolean equals(final Object[] array1, final Object[] array2) {

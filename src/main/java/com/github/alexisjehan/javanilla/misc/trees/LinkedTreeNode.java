@@ -43,13 +43,13 @@ import java.util.stream.Collectors;
 public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	/**
-	 * <p>Parent {@code TreeNode} or {@code null}.</p>
+	 * <p>Parent {@link TreeNode} or {@code null}.</p>
 	 * @since 1.2.0
 	 */
 	private final TreeNode<V> parent;
 
 	/**
-	 * <p>{@code List} of children {@code TreeNode}s.</p>
+	 * <p>{@link List} of children {@link TreeNode}s.</p>
 	 * @since 1.2.0
 	 */
 	private final List<TreeNode<V>> children = new LinkedList<>();
@@ -61,8 +61,8 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	private V value;
 
 	/**
-	 * <p>Constructor of a new tree with his root {@code TreeNode} having the given value.</p>
-	 * @param value the value of the root {@code TreeNode}
+	 * <p>Constructor of a new tree with his root {@link TreeNode} having the given value.</p>
+	 * @param value the value of the root {@link TreeNode}
 	 * @since 1.2.0
 	 */
 	public LinkedTreeNode(final V value) {
@@ -70,9 +70,9 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	}
 
 	/**
-	 * <p>Private constructor of a {@code TreeNode}.</p>
-	 * @param parent the parent of the {@code TreeNode} or {@code null}
-	 * @param value the value of the {@code TreeNode}
+	 * <p>Private constructor of a {@link TreeNode}.</p>
+	 * @param parent the parent of the {@link TreeNode} or {@code null}
+	 * @param value the value of the {@link TreeNode}
 	 * @since 1.2.0
 	 */
 	private LinkedTreeNode(final LinkedTreeNode<V> parent, final V value) {
@@ -80,6 +80,9 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 		this.value = value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public TreeNode<V> extend(final V value) {
 		final var child = new LinkedTreeNode<>(this, value);
@@ -87,6 +90,9 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 		return child;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean remove(final TreeNode<V> descendant) {
 		Ensure.notNull("descendant", descendant);
@@ -101,31 +107,49 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void clear() {
 		children.clear();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public V getValue() {
 		return value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setValue(final V value) {
 		this.value = value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Optional<TreeNode<V>> optionalParent() {
 		return Optional.ofNullable(parent);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<TreeNode<V>> children() {
 		return List.copyOf(children);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -139,6 +163,9 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 				&& Equals.equals(children(), other.children());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -147,6 +174,9 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return value + (!children.isEmpty() ? "{" + children.stream().map(TreeNode::toString).collect(Collectors.joining(", ")) + "}" : Strings.EMPTY);

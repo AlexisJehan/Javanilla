@@ -42,7 +42,7 @@ import java.io.Serializable;
 public final class LevenshteinDistance implements EditDistance, Serializable {
 
 	/**
-	 * <p>{@code LevenshteinDistance} instance with default parameters.</p>
+	 * <p>{@link LevenshteinDistance} instance with default parameters.</p>
 	 * @since 1.3.0
 	 */
 	public static final LevenshteinDistance DEFAULT = new LevenshteinDistance(1.0d, 1.0d, 1.0d);
@@ -88,6 +88,9 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 		this.substitutionCost = substitutionCost;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double calculate(final CharSequence charSequence1, final CharSequence charSequence2) {
 		Ensure.notNull("charSequence1", charSequence1);
@@ -126,6 +129,9 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 		return cost1[length2];
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -140,6 +146,9 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 				&& Equals.equals(substitutionCost, other.substitutionCost);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -149,6 +158,9 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return ToString.of(

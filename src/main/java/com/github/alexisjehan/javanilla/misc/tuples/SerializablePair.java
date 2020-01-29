@@ -29,7 +29,7 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import java.io.Serializable;
 
 /**
- * <p>A {@code SerializablePair} is an immutable tuple that is composed of two {@link Serializable} elements.</p>
+ * <p>A {@link SerializablePair} is an immutable tuple that is composed of two {@link Serializable} elements.</p>
  * <p><b>Note</b>: This class is serializable.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
@@ -47,21 +47,21 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	private static final long serialVersionUID = 8271847837522821498L;
 
 	/**
-	 * <p>First {@code Serializable} element.</p>
+	 * <p>First {@link Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second {@code Serializable} element.</p>
+	 * <p>Second {@link Serializable} element.</p>
 	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
 	 * <p>Standard constructor.</p>
-	 * @param first the first {@code Serializable} element or {@code null}
-	 * @param second the second {@code Serializable} element or {@code null}
+	 * @param first the first {@link Serializable} element or {@code null}
+	 * @param second the second {@link Serializable} element or {@code null}
 	 * @since 1.0.0
 	 */
 	public SerializablePair(final F first, final S second) {
@@ -69,6 +69,9 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 		this.second = second;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -82,6 +85,9 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 				&& Equals.equals(second, other.second);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -90,14 +96,17 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "[" + first + ", " + second + "]";
 	}
 
 	/**
-	 * <p>Converts the current {@code SerializablePair} to a {@code Pair}.</p>
-	 * @return the converted {@code Pair}
+	 * <p>Converts the current {@link SerializablePair} to a {@link Pair}.</p>
+	 * @return the converted {@link Pair}
 	 * @since 1.0.0
 	 */
 	public Pair<F, S> toPair() {
@@ -105,8 +114,8 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Get the first {@code Serializable} element of the {@code SerializablePair}.</p>
-	 * @return the first {@code Serializable} element
+	 * <p>Get the first {@link Serializable} element of the {@link SerializablePair}.</p>
+	 * @return the first {@link Serializable} element
 	 * @since 1.0.0
 	 */
 	public F getFirst() {
@@ -114,8 +123,8 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Get the second {@code Serializable} element of the {@code SerializablePair}.</p>
-	 * @return the second {@code Serializable} element
+	 * <p>Get the second {@link Serializable} element of the {@link SerializablePair}.</p>
+	 * @return the second {@link Serializable} element
 	 * @since 1.0.0
 	 */
 	public S getSecond() {
@@ -124,11 +133,11 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 
 	/**
 	 * <p>Vanilla constructor.</p>
-	 * @param first the first {@code Serializable} element or {@code null}
-	 * @param second the second {@code Serializable} element or {@code null}
+	 * @param first the first {@link Serializable} element or {@code null}
+	 * @param second the second {@link Serializable} element or {@code null}
 	 * @param <F> the type of the first serializable element
 	 * @param <S> the type of the second serializable element
-	 * @return the constructed {@code SerializablePair}
+	 * @return the constructed {@link SerializablePair}
 	 * @since 1.0.0
 	 */
 	public static <F extends Serializable, S extends Serializable> SerializablePair<F, S> of(final F first, final S second) {

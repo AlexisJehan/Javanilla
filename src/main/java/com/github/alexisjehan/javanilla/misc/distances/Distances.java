@@ -37,6 +37,10 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	MANHATTAN {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			var distance = 0.0d;
@@ -53,6 +57,10 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	EUCLIDEAN {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			if (1 == vector1.length) {
@@ -69,6 +77,10 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	SQUARED_EUCLIDEAN {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			var distance = 0.0d;
@@ -86,6 +98,10 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	CHEBYSHEV {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			var distance = 0.0d;
@@ -102,6 +118,10 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	HAMMING {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			var distance = 0.0d;
@@ -114,6 +134,9 @@ public enum Distances implements Distance {
 		}
 	};
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final double calculate(final double[] vector1, final double[] vector2) {
 		Ensure.notNullAndNotEmpty("vector1", vector1);

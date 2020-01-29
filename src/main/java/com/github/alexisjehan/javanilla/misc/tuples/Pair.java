@@ -27,7 +27,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * <p>A {@code Pair} is an immutable tuple that is composed of two elements.</p>
+ * <p>A {@link Pair} is an immutable tuple that is composed of two elements.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <F> the type of the first element
@@ -59,6 +59,9 @@ public final class Pair<F, S> {
 		this.second = second;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
@@ -72,6 +75,9 @@ public final class Pair<F, S> {
 				&& Equals.equals(second, other.second);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return HashCode.of(
@@ -80,13 +86,16 @@ public final class Pair<F, S> {
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "[" + first + ", " + second + "]";
 	}
 
 	/**
-	 * <p>Get the first element of the {@code Pair}.</p>
+	 * <p>Get the first element of the {@link Pair}.</p>
 	 * @return the first element
 	 * @since 1.0.0
 	 */
@@ -95,7 +104,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Get the second element of the {@code Pair}.</p>
+	 * <p>Get the second element of the {@link Pair}.</p>
 	 * @return the second element
 	 * @since 1.0.0
 	 */
@@ -109,7 +118,7 @@ public final class Pair<F, S> {
 	 * @param second the second element or {@code null}
 	 * @param <F> the type of the first element
 	 * @param <S> the type of the second element
-	 * @return the constructed {@code Pair}
+	 * @return the constructed {@link Pair}
 	 * @since 1.0.0
 	 */
 	public static <F, S> Pair<F, S> of(final F first, final S second) {
