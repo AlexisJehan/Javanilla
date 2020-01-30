@@ -38,8 +38,8 @@ final class SingleTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(single).isEqualTo(single);
-		assertThat(single).isNotEqualTo(1);
+		assertThat(single.equals(single)).isTrue();
+		assertThat(single).isNotEqualTo(new Object());
 		assertThat(Single.of(UNIQUE)).satisfies(otherSingle -> {
 			assertThat(single).isNotSameAs(otherSingle);
 			assertThat(single).isEqualTo(otherSingle);

@@ -39,8 +39,8 @@ final class IndexedElementTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(indexedElement).isEqualTo(indexedElement);
-		assertThat(indexedElement).isNotEqualTo(1);
+		assertThat(indexedElement.equals(indexedElement)).isTrue();
+		assertThat(indexedElement).isNotEqualTo(new Object());
 		assertThat(new IndexedElement<>(INDEX, ELEMENT)).satisfies(otherIndexedElement -> {
 			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isEqualTo(otherIndexedElement);

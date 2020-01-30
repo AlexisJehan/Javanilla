@@ -589,10 +589,10 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
 
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.NaN);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.NaN);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.NaN);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.NaN);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
 	}
 
 	@Test
@@ -648,10 +648,10 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
 
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.NaN);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.NaN);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.NaN);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.NaN);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
 	}
 
 	@Test

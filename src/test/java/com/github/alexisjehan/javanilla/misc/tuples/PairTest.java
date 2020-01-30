@@ -39,8 +39,8 @@ final class PairTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(pair).isEqualTo(pair);
-		assertThat(pair).isNotEqualTo(1);
+		assertThat(pair.equals(pair)).isTrue();
+		assertThat(pair).isNotEqualTo(new Object());
 		assertThat(Pair.of(FIRST, SECOND)).satisfies(otherPair -> {
 			assertThat(pair).isNotSameAs(otherPair);
 			assertThat(pair).isEqualTo(otherPair);

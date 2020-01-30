@@ -41,8 +41,8 @@ final class SerializableTripleTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(serializableTriple).isEqualTo(serializableTriple);
-		assertThat(serializableTriple).isNotEqualTo(1);
+		assertThat(serializableTriple.equals(serializableTriple)).isTrue();
+		assertThat(serializableTriple).isNotEqualTo(new Object());
 		assertThat(SerializableTriple.of(FIRST, SECOND, THIRD)).satisfies(otherSerializableTriple -> {
 			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
 			assertThat(serializableTriple).isEqualTo(otherSerializableTriple);

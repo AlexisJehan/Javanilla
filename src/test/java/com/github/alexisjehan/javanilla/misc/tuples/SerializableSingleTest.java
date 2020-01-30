@@ -39,8 +39,8 @@ final class SerializableSingleTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(serializableSingle).isEqualTo(serializableSingle);
-		assertThat(serializableSingle).isNotEqualTo(1);
+		assertThat(serializableSingle.equals(serializableSingle)).isTrue();
+		assertThat(serializableSingle).isNotEqualTo(new Object());
 		assertThat(SerializableSingle.of(UNIQUE)).satisfies(otherSerializableSingle -> {
 			assertThat(serializableSingle).isNotSameAs(otherSerializableSingle);
 			assertThat(serializableSingle).isEqualTo(otherSerializableSingle);

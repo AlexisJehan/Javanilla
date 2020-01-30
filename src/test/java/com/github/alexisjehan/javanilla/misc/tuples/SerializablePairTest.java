@@ -40,8 +40,8 @@ final class SerializablePairTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(serializablePair).isEqualTo(serializablePair);
-		assertThat(serializablePair).isNotEqualTo(1);
+		assertThat(serializablePair.equals(serializablePair)).isTrue();
+		assertThat(serializablePair).isNotEqualTo(new Object());
 		assertThat(SerializablePair.of(FIRST, SECOND)).satisfies(otherSerializablePair -> {
 			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
 			assertThat(serializablePair).isEqualTo(otherSerializablePair);

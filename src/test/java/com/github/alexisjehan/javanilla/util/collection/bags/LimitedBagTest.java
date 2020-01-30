@@ -74,8 +74,8 @@ final class LimitedBagTest extends AbstractBagTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(limitedBag).isEqualTo(limitedBag);
-		assertThat(limitedBag).isNotEqualTo(1);
+		assertThat(limitedBag.equals(limitedBag)).isTrue();
+		assertThat(limitedBag).isNotEqualTo(new Object());
 		assertThat(new LimitedBag<>(new MapBag<>(COLLECTION), LIMIT)).satisfies(otherBag -> {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isEqualTo(otherBag);

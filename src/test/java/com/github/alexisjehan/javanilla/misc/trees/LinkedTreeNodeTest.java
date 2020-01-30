@@ -42,8 +42,8 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 	void testEqualsHashCodeToString() {
 		final var treeNode = new LinkedTreeNode<>("foo").extend("foo1");
 		treeNode.extend("foo11");
-		assertThat(treeNode).isEqualTo(treeNode);
-		assertThat(treeNode).isNotEqualTo(1);
+		assertThat(treeNode.equals(treeNode)).isTrue();
+		assertThat(treeNode).isNotEqualTo(new Object());
 		assertThat((Object) new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
 			((TreeNode<String>) otherTreeNode).extend("foo11");
 			assertThat(treeNode).isNotSameAs(otherTreeNode);

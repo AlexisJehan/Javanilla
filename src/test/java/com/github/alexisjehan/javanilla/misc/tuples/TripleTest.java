@@ -40,8 +40,8 @@ final class TripleTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(triple).isEqualTo(triple);
-		assertThat(triple).isNotEqualTo(1);
+		assertThat(triple.equals(triple)).isTrue();
+		assertThat(triple).isNotEqualTo(new Object());
 		assertThat(Triple.of(FIRST, SECOND, THIRD)).satisfies(otherTriple -> {
 			assertThat(triple).isNotSameAs(otherTriple);
 			assertThat(triple).isEqualTo(otherTriple);

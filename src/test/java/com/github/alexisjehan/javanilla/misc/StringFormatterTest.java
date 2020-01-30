@@ -354,8 +354,8 @@ final class StringFormatterTest {
 
 	@Test
 	void testEqualsHashCodeToString() {
-		assertThat(stringFormatter).isEqualTo(stringFormatter);
-		assertThat(stringFormatter).isNotEqualTo(1);
+		assertThat(stringFormatter.equals(stringFormatter)).isTrue();
+		assertThat(stringFormatter).isNotEqualTo(new Object());
 		assertThat(new StringFormatter(LOCALE, FLOAT_PRECISION, STRICT_PRECISION)).satisfies(otherStringFormatter -> {
 			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isEqualTo(otherStringFormatter);

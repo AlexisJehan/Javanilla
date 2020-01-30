@@ -234,9 +234,9 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testEqualsHashCode() {
-		assertThat(nullableOptional).isEqualTo(nullableOptional);
-		assertThat(nullableOptional).isNotEqualTo(1);
+	void testEqualsHashCodeToString() {
+		assertThat(nullableOptional.equals(nullableOptional)).isTrue();
+		assertThat(nullableOptional).isNotEqualTo(new Object());
 		assertThat(NullableOptional.of(VALUE)).satisfies(otherNullableOptional -> {
 			assertThat(nullableOptional).isNotSameAs(otherNullableOptional);
 			assertThat(nullableOptional).isEqualTo(otherNullableOptional);
