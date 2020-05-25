@@ -81,17 +81,17 @@ final class InputStreamsTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	void testNullToEmpty() {
-		assertThat(InputStreams.nullToEmpty(null)).hasSameContentAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).hasSameContentAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToEmpty(InputStreams.of(BYTES))).hasSameContentAs(InputStreams.of(BYTES));
+		assertThat(InputStreams.nullToEmpty(null)).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.nullToEmpty(InputStreams.of(BYTES))).hasBinaryContent(BYTES);
 	}
 
 	@Test
 	@SuppressWarnings("deprecation")
 	void testNullToDefault() {
-		assertThat(InputStreams.nullToDefault(null, InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.singleton((byte) 0));
-		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.EMPTY);
-		assertThat(InputStreams.nullToDefault(InputStreams.of(BYTES), InputStreams.singleton((byte) 0))).hasSameContentAs(InputStreams.of(BYTES));
+		assertThat(InputStreams.nullToDefault(null, InputStreams.singleton((byte) 0))).hasBinaryContent(ByteArrays.singleton((byte) 0));
+		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.nullToDefault(InputStreams.of(BYTES), InputStreams.singleton((byte) 0))).hasBinaryContent(BYTES);
 	}
 
 	@Test
@@ -182,11 +182,10 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testConcat() {
-		assertThat(InputStreams.concat()).hasSameContentAs(InputStreams.EMPTY);
-		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]))).hasSameContentAs(InputStreams.singleton(BYTES[0]));
-		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasSameContentAs(InputStreams.of(BYTES));
+		assertThat(InputStreams.concat()).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
+		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(BYTES);
 	}
 
 	@Test
@@ -197,12 +196,11 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testJoin() {
-		assertThat(InputStreams.join(ByteArrays.EMPTY, InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasSameContentAs(InputStreams.of(BYTES));
-		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).hasSameContentAs(InputStreams.EMPTY);
-		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]))).hasSameContentAs(InputStreams.singleton(BYTES[0]));
-		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasSameContentAs(InputStreams.of(BYTES[0], (byte) 0, BYTES[1], (byte) 0, BYTES[2]));
+		assertThat(InputStreams.join(ByteArrays.EMPTY, InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(BYTES);
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(ByteArrays.of(BYTES[0], (byte) 0, BYTES[1], (byte) 0, BYTES[2]));
 	}
 
 	@Test
@@ -260,7 +258,7 @@ final class InputStreamsTest {
 		final var tmpFile = tmpDirectory.resolve("testOfPath");
 		Files.write(tmpFile, ByteArrays.of(BYTES));
 		try (final var inputStream = InputStreams.of(tmpFile)) {
-			assertThat(inputStream).hasSameContentAs(InputStreams.of(BYTES));
+			assertThat(inputStream).hasBinaryContent(BYTES);
 		}
 	}
 
