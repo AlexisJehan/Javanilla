@@ -165,7 +165,7 @@ final class CharArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(CharArrays.indexOf(CharArrays.EMPTY, 'a')).isEqualTo(-1);
-		assertThat(CharArrays.indexOf(CharArrays.of('a', 'b', 'a'), 'a')).isEqualTo(0);
+		assertThat(CharArrays.indexOf(CharArrays.of('a', 'b', 'a'), 'a')).isZero();
 		assertThat(CharArrays.indexOf(CharArrays.of('a', 'b', 'a'), 'b')).isEqualTo(1);
 		assertThat(CharArrays.indexOf(CharArrays.of('a', 'b', 'a'), 'a', 1)).isEqualTo(2);
 		assertThat(CharArrays.indexOf(CharArrays.of('a', 'b', 'a'), 'b', 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class CharArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(CharArrays.frequency(CharArrays.EMPTY, 'a')).isEqualTo(0);
+		assertThat(CharArrays.frequency(CharArrays.EMPTY, 'a')).isZero();
 		assertThat(CharArrays.frequency(CharArrays.of('a', 'b', 'a'), 'a')).isEqualTo(2);
 		assertThat(CharArrays.frequency(CharArrays.of('a', 'b', 'a'), 'b')).isEqualTo(1);
 	}

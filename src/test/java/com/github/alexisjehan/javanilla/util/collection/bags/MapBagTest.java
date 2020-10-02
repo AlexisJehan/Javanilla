@@ -64,7 +64,7 @@ final class MapBagTest extends AbstractBagTest {
 				)
 		);
 		assertThat(mapBag.count("foo")).isEqualTo(10);
-		assertThat(mapBag.count("bar")).isEqualTo(0);
+		assertThat(mapBag.count("bar")).isZero();
 	}
 
 	@Test

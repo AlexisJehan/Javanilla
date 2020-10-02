@@ -24,7 +24,6 @@
 package com.github.alexisjehan.javanilla.io;
 
 import com.github.alexisjehan.javanilla.misc.tuples.SerializablePair;
-import com.github.alexisjehan.javanilla.misc.tuples.SerializableSingle;
 import com.github.alexisjehan.javanilla.misc.tuples.Single;
 import org.junit.jupiter.api.Test;
 
@@ -51,20 +50,17 @@ final class SerializablesTest {
 		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
 
 		// Serializable containing a non-serializable attribute
+		final var exceptionSerializable = new ArrayList<>(List.of(Single.of("bar")));
 		assertThatExceptionOfType(SerializationException.class)
-				.isThrownBy(() -> Serializables.serialize(new ArrayList<>(List.of(Single.of("bar")))))
-				.withCauseInstanceOf(NotSerializableException.class);
+				.isThrownBy(() -> Serializables.serialize(exceptionSerializable))
+				.withRootCauseExactlyInstanceOf(NotSerializableException.class);
 
-		// Different type used for serialization and deserialization
-		assertThatExceptionOfType(ClassCastException.class)
-				.isThrownBy(() -> Serializables.<SerializableSingle<String>>deserialize(Serializables.serialize(SERIALIZABLE)).getUnique());
-
-		// Corruption
-		final var serializedSerializable = Serializables.serialize(SERIALIZABLE);
-		serializedSerializable[0] = (byte) 1;
+		// Serialized corrupted
+		final var exceptionSerialized = Serializables.serialize(SERIALIZABLE);
+		exceptionSerialized[0] = (byte) 1;
 		assertThatExceptionOfType(SerializationException.class)
-				.isThrownBy(() -> Serializables.deserialize(serializedSerializable))
-				.withCauseInstanceOf(StreamCorruptedException.class);
+				.isThrownBy(() -> Serializables.deserialize(exceptionSerialized))
+				.withRootCauseExactlyInstanceOf(StreamCorruptedException.class);
 	}
 
 	@Test

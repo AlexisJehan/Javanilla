@@ -47,7 +47,7 @@ final class SerializableFunctionTest {
 	void testCompose() {
 		final var fooSerializableFunction = (SerializableFunction<Integer, Integer>) t -> t + 1;
 		final var barSerializableFunction = (SerializableFunction<Integer, Integer>) t -> -t;
-		assertThat(fooSerializableFunction.compose(barSerializableFunction).apply(1)).isEqualTo(0);
+		assertThat(fooSerializableFunction.compose(barSerializableFunction).apply(1)).isZero();
 		assertThat(fooSerializableFunction.compose(barSerializableFunction).apply(3)).isEqualTo(-2);
 		assertThat(barSerializableFunction.compose(fooSerializableFunction).apply(1)).isEqualTo(-2);
 		assertThat(barSerializableFunction.compose(fooSerializableFunction).apply(3)).isEqualTo(-4);
@@ -65,7 +65,7 @@ final class SerializableFunctionTest {
 		final var barSerializableFunction = (SerializableFunction<Integer, Integer>) t -> -t;
 		assertThat(fooSerializableFunction.andThen(barSerializableFunction).apply(1)).isEqualTo(-2);
 		assertThat(fooSerializableFunction.andThen(barSerializableFunction).apply(3)).isEqualTo(-4);
-		assertThat(barSerializableFunction.andThen(fooSerializableFunction).apply(1)).isEqualTo(0);
+		assertThat(barSerializableFunction.andThen(fooSerializableFunction).apply(1)).isZero();
 		assertThat(barSerializableFunction.andThen(fooSerializableFunction).apply(3)).isEqualTo(-2);
 	}
 

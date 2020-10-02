@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.misc.trees;
 
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,35 +39,34 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	void testEqualsHashCodeToString() {
 		final var treeNode = new LinkedTreeNode<>("foo").extend("foo1");
 		treeNode.extend("foo11");
 		assertThat(treeNode.equals(treeNode)).isTrue();
 		assertThat(treeNode).isNotEqualTo(new Object());
-		assertThat((Object) new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
-			((TreeNode<String>) otherTreeNode).extend("foo11");
+		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
+			otherTreeNode.extend("foo11");
 			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isEqualTo(otherTreeNode);
 			assertThat(treeNode).hasSameHashCodeAs(otherTreeNode);
 			assertThat(treeNode).hasToString(otherTreeNode.toString());
 		});
-		assertThat((Object) new LinkedTreeNode<>("foo").extend("bar1")).satisfies(otherTreeNode -> {
-			((TreeNode<String>) otherTreeNode).extend("foo11");
+		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("bar1")).satisfies(otherTreeNode -> {
+			otherTreeNode.extend("foo11");
 			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isNotEqualTo(otherTreeNode);
 			assertThat(treeNode.hashCode()).isNotEqualTo(otherTreeNode.hashCode());
 			assertThat(treeNode.toString()).isNotEqualTo(otherTreeNode.toString());
 		});
-		assertThat((Object) new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
-			((TreeNode<String>) otherTreeNode).extend("bar11");
+		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
+			otherTreeNode.extend("bar11");
 			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isNotEqualTo(otherTreeNode);
 			assertThat(treeNode.hashCode()).isNotEqualTo(otherTreeNode.hashCode());
 			assertThat(treeNode.toString()).isNotEqualTo(otherTreeNode.toString());
 		});
-		assertThat((Object) new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
-			((TreeNode<String>) otherTreeNode).extend("foo11").extend("foo111");
+		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
+			otherTreeNode.extend("foo11").extend("foo111");
 			assertThat(treeNode).isNotSameAs(otherTreeNode);
 			assertThat(treeNode).isNotEqualTo(otherTreeNode);
 			assertThat(treeNode.hashCode()).isNotEqualTo(otherTreeNode.hashCode());

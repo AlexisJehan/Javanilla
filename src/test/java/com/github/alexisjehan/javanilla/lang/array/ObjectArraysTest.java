@@ -71,7 +71,7 @@ final class ObjectArraysTest {
 
 	@Test
 	void testEmptyToNull() {
-		assertThat(ObjectArrays.emptyToNull(null)).isNull();
+		assertThat(ObjectArrays.<Integer>emptyToNull(null)).isNull();
 		assertThat(ObjectArrays.emptyToNull(ObjectArrays.empty(Integer.class))).isNull();
 		assertThat(ObjectArrays.emptyToNull(ObjectArrays.of(VALUES))).containsExactly(VALUES);
 	}
@@ -171,7 +171,7 @@ final class ObjectArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(ObjectArrays.indexOf(ObjectArrays.empty(Integer.class), 1)).isEqualTo(-1);
-		assertThat(ObjectArrays.indexOf(ObjectArrays.of(1, null, 1), 1)).isEqualTo(0);
+		assertThat(ObjectArrays.indexOf(ObjectArrays.of(1, null, 1), 1)).isZero();
 		assertThat(ObjectArrays.indexOf(ObjectArrays.of(1, null, 1), null)).isEqualTo(1);
 		assertThat(ObjectArrays.indexOf(ObjectArrays.of(1, null, 1), 1, 1)).isEqualTo(2);
 		assertThat(ObjectArrays.indexOf(ObjectArrays.of(1, null, 1), null, 2)).isEqualTo(-1);
@@ -202,7 +202,7 @@ final class ObjectArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(ObjectArrays.frequency(ObjectArrays.empty(Integer.class), 1)).isEqualTo(0);
+		assertThat(ObjectArrays.frequency(ObjectArrays.empty(Integer.class), 1)).isZero();
 		assertThat(ObjectArrays.frequency(ObjectArrays.of(1, null, 1), 1)).isEqualTo(2);
 		assertThat(ObjectArrays.frequency(ObjectArrays.of(1, null, 1), null)).isEqualTo(1);
 	}
@@ -394,7 +394,7 @@ final class ObjectArraysTest {
 
 	@Test
 	void testOf() {
-		assertThat(ObjectArrays.of()).isEmpty();
+		assertThat(ObjectArrays.<Integer>of()).isEmpty();
 		assertThat(ObjectArrays.of(VALUES)).containsExactly(VALUES);
 	}
 

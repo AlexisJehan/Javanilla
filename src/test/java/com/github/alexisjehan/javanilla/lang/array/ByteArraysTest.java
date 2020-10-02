@@ -167,7 +167,7 @@ final class ByteArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(ByteArrays.indexOf(ByteArrays.EMPTY, (byte) 1)).isEqualTo(-1);
-		assertThat(ByteArrays.indexOf(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 1)).isEqualTo(0);
+		assertThat(ByteArrays.indexOf(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 1)).isZero();
 		assertThat(ByteArrays.indexOf(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 2)).isEqualTo(1);
 		assertThat(ByteArrays.indexOf(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 1, 1)).isEqualTo(2);
 		assertThat(ByteArrays.indexOf(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 2, 2)).isEqualTo(-1);
@@ -198,7 +198,7 @@ final class ByteArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(ByteArrays.frequency(ByteArrays.EMPTY, (byte) 1)).isEqualTo(0);
+		assertThat(ByteArrays.frequency(ByteArrays.EMPTY, (byte) 1)).isZero();
 		assertThat(ByteArrays.frequency(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 1)).isEqualTo(2);
 		assertThat(ByteArrays.frequency(ByteArrays.of((byte) 1, (byte) 2, (byte) 1), (byte) 2)).isEqualTo(1);
 	}
@@ -476,9 +476,9 @@ final class ByteArraysTest {
 
 	@Test
 	void testOfIntAndToInt() {
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0))).isEqualTo(0);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0);
-		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0);
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0))).isZero();
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
 
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(-5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5);
@@ -515,9 +515,9 @@ final class ByteArraysTest {
 
 	@Test
 	void testOfLongAndToLong() {
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L))).isEqualTo(0L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0L);
-		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0L);
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L))).isZero();
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
 
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5L);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(-5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5L);
@@ -554,9 +554,9 @@ final class ByteArraysTest {
 
 	@Test
 	void testOfFloatAndToFloat() {
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f))).isEqualTo(0.0f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0.0f);
-		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0.0f);
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f))).isZero();
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
 
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5f);
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(-5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5.5f);
@@ -613,9 +613,9 @@ final class ByteArraysTest {
 
 	@Test
 	void testOfDoubleAndToDouble() {
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d))).isEqualTo(0.0d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(0.0d);
-		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(0.0d);
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d))).isZero();
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
 
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5d);
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(-5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5.5d);

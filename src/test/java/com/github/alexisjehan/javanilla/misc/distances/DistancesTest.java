@@ -38,7 +38,7 @@ final class DistancesTest {
 	@Test
 	void testCalculateManhattan() {
 		final var distance = Distances.MANHATTAN;
-		assertThat(distance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+		assertThat(distance.calculate(0.0d, 0.0d)).isZero();
 		assertThat(distance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(9.0d);
@@ -47,7 +47,7 @@ final class DistancesTest {
 	@Test
 	void testCalculateEuclidean() {
 		final var distance = Distances.EUCLIDEAN;
-		assertThat(distance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+		assertThat(distance.calculate(0.0d, 0.0d)).isZero();
 		assertThat(distance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(Math.sqrt(45.0d));
@@ -56,7 +56,7 @@ final class DistancesTest {
 	@Test
 	void testCalculateSquaredEuclidean() {
 		final var distance = Distances.SQUARED_EUCLIDEAN;
-		assertThat(distance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+		assertThat(distance.calculate(0.0d, 0.0d)).isZero();
 		assertThat(distance.calculate(0.0d, 10.0d)).isEqualTo(100.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(9.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(45.0d);
@@ -65,7 +65,7 @@ final class DistancesTest {
 	@Test
 	void testCalculateChebyshev() {
 		final var distance = Distances.CHEBYSHEV;
-		assertThat(distance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+		assertThat(distance.calculate(0.0d, 0.0d)).isZero();
 		assertThat(distance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(6.0d);
@@ -74,7 +74,7 @@ final class DistancesTest {
 	@Test
 	void testCalculateHamming() {
 		final var distance = Distances.HAMMING;
-		assertThat(distance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+		assertThat(distance.calculate(0.0d, 0.0d)).isZero();
 		assertThat(distance.calculate(0.0d, 10.0d)).isEqualTo(1.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(1.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(2.0d);

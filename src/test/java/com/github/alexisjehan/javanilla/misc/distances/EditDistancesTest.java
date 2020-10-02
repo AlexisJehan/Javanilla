@@ -39,19 +39,19 @@ final class EditDistancesTest {
 	void testCalculateLcs() {
 		final var editDistance = EditDistances.LCS;
 		assertThat(editDistance.calculate("a", "a")).isEqualTo(1.0d);
-		assertThat(editDistance.calculate("ab", Strings.EMPTY)).isEqualTo(0.0d);
-		assertThat(editDistance.calculate(Strings.EMPTY, "ab")).isEqualTo(0.0d);
+		assertThat(editDistance.calculate("ab", Strings.EMPTY)).isZero();
+		assertThat(editDistance.calculate(Strings.EMPTY, "ab")).isZero();
 		assertThat(editDistance.calculate("ab", "abc")).isEqualTo(2.0d);
 		assertThat(editDistance.calculate("ab", "a")).isEqualTo(1.0d);
 		assertThat(editDistance.calculate("ab", "ac")).isEqualTo(1.0d);
-		assertThat(editDistance.calculate("foo", "bar")).isEqualTo(0.0d);
+		assertThat(editDistance.calculate("foo", "bar")).isZero();
 		assertThat(editDistance.calculate("The quick brown fox jumps over the lazy dog", "The five boxing wizards jump quickly")).isEqualTo(18.0d);
 	}
 
 	@Test
 	void testCalculateHamming() {
 		final var editDistance = EditDistances.HAMMING;
-		assertThat(editDistance.calculate("a", "a")).isEqualTo(0.0d);
+		assertThat(editDistance.calculate("a", "a")).isZero();
 		assertThat(editDistance.calculate("ab", "ac")).isEqualTo(1.0d);
 		assertThat(editDistance.calculate("foo", "bar")).isEqualTo(3.0d);
 	}

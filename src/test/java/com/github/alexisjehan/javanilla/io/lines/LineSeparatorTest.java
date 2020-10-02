@@ -58,12 +58,12 @@ final class LineSeparatorTest {
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 		}
 		try (final var reader = new StringReader("foo\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -71,13 +71,13 @@ final class LineSeparatorTest {
 		try (final var reader = new StringReader("\rfoo\n\nbar\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("\rfoo");
+			assertThat(builder).hasToString("\rfoo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("bar\r");
+			assertThat(builder).hasToString("bar\r");
 		}
 	}
 
@@ -96,12 +96,12 @@ final class LineSeparatorTest {
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 		}
 		try (final var reader = new StringReader("foo\r\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -109,24 +109,24 @@ final class LineSeparatorTest {
 		try (final var reader = new StringReader("\rfoo\r\n\r\nbar\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("\rfoo");
+			assertThat(builder).hasToString("\rfoo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("bar\n");
+			assertThat(builder).hasToString("bar\n");
 		}
 		try (final var reader = new StringReader("\nfoo\r\n\r\nbar\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("\nfoo");
+			assertThat(builder).hasToString("\nfoo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("bar\r");
+			assertThat(builder).hasToString("bar\r");
 		}
 	}
 
@@ -145,12 +145,12 @@ final class LineSeparatorTest {
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 		}
 		try (final var reader = new StringReader("foo\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -158,13 +158,13 @@ final class LineSeparatorTest {
 		try (final var reader = new StringReader("\nfoo\r\rbar\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("\nfoo");
+			assertThat(builder).hasToString("\nfoo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("bar\n");
+			assertThat(builder).hasToString("bar\n");
 		}
 	}
 
@@ -183,12 +183,12 @@ final class LineSeparatorTest {
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 		}
 		try (final var reader = new StringReader("foo\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -199,13 +199,13 @@ final class LineSeparatorTest {
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("foo");
+			assertThat(builder).hasToString("foo");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
-			assertThat(builder.toString()).isEqualTo("bar");
+			assertThat(builder).hasToString("bar");
 			builder.setLength(0);
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();

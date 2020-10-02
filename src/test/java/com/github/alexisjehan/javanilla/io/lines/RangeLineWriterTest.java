@@ -53,8 +53,8 @@ final class RangeLineWriterTest {
 	void testWrite() throws IOException {
 		try (final var writer = new StringWriter()) {
 			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(0L);
+				assertThat(rangeLineWriter.getFromIndex()).isZero();
+				assertThat(rangeLineWriter.getToIndex()).isZero();
 				rangeLineWriter.write(LINES[0]);
 				rangeLineWriter.write(LINES[1]);
 				rangeLineWriter.write(LINES[2]);
@@ -75,7 +75,7 @@ final class RangeLineWriterTest {
 		}
 		try (final var writer = new StringWriter()) {
 			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeLineWriter.getFromIndex()).isZero();
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.write(LINES[0]);
 				rangeLineWriter.write(LINES[1]);
@@ -101,8 +101,8 @@ final class RangeLineWriterTest {
 	void testNewLine() throws IOException {
 		try (final var writer = new StringWriter()) {
 			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeLineWriter.getToIndex()).isEqualTo(0L);
+				assertThat(rangeLineWriter.getFromIndex()).isZero();
+				assertThat(rangeLineWriter.getToIndex()).isZero();
 				rangeLineWriter.newLine();
 				rangeLineWriter.newLine();
 				rangeLineWriter.newLine();
@@ -123,7 +123,7 @@ final class RangeLineWriterTest {
 		}
 		try (final var writer = new StringWriter()) {
 			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
-				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeLineWriter.getFromIndex()).isZero();
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.newLine();
 				rangeLineWriter.newLine();

@@ -52,8 +52,8 @@ final class RangeOutputStreamTest {
 	void testWriteByte() throws IOException {
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 0L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(0L);
+				assertThat(rangeOutputStream.getFromIndex()).isZero();
+				assertThat(rangeOutputStream.getToIndex()).isZero();
 				rangeOutputStream.write(BYTES[0]);
 				rangeOutputStream.write(BYTES[1]);
 				rangeOutputStream.write(BYTES[2]);
@@ -72,7 +72,7 @@ final class RangeOutputStreamTest {
 		}
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 10L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeOutputStream.getFromIndex()).isZero();
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(BYTES[0]);
 				rangeOutputStream.write(BYTES[1]);
@@ -96,8 +96,8 @@ final class RangeOutputStreamTest {
 	void testWriteBytes() throws IOException {
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 0L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
-				assertThat(rangeOutputStream.getToIndex()).isEqualTo(0L);
+				assertThat(rangeOutputStream.getFromIndex()).isZero();
+				assertThat(rangeOutputStream.getToIndex()).isZero();
 				rangeOutputStream.write(BYTES, 0, 0);
 				rangeOutputStream.write(BYTES, 0, 2);
 				rangeOutputStream.write(BYTES, 2, 1);
@@ -116,7 +116,7 @@ final class RangeOutputStreamTest {
 		}
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 10L)) {
-				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(0L);
+				assertThat(rangeOutputStream.getFromIndex()).isZero();
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(BYTES, 0, 0);
 				rangeOutputStream.write(BYTES, 0, 2);

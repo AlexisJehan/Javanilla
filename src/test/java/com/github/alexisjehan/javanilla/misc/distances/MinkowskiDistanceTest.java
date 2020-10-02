@@ -55,19 +55,19 @@ final class MinkowskiDistanceTest {
 	@Test
 	void testCalculate() {
 		assertThat(new MinkowskiDistance(1)).satisfies(minkowskiDistance -> {
-			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isZero();
 			assertThat(minkowskiDistance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
 			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
 			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0d)).isEqualTo(9.0d);
 		});
 		assertThat(new MinkowskiDistance(2)).satisfies(minkowskiDistance -> {
-			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isZero();
 			assertThat(minkowskiDistance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
 			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
 			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isCloseTo(6.708d, offset(0.001d));
 		});
 		assertThat(new MinkowskiDistance(3)).satisfies(minkowskiDistance -> {
-			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isEqualTo(0.0d);
+			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isZero();
 			assertThat(minkowskiDistance.calculate(0.0d, 10.0d)).isCloseTo(10.0d, offset(0.1d));
 			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
 			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isCloseTo(6.240d, offset(0.001d));

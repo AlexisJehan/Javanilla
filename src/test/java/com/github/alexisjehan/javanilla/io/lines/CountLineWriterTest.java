@@ -48,7 +48,7 @@ final class CountLineWriterTest {
 	@SuppressWarnings("deprecation")
 	void testWrite() throws IOException {
 		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
-			assertThat(countLineWriter.getCount()).isEqualTo(0L);
+			assertThat(countLineWriter.getCount()).isZero();
 			countLineWriter.write(LINES[0]);
 			assertThat(countLineWriter.getCount()).isEqualTo(1L);
 			countLineWriter.write(LINES[1]);
@@ -63,7 +63,7 @@ final class CountLineWriterTest {
 	@SuppressWarnings("deprecation")
 	void testNewLine() throws IOException {
 		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
-			assertThat(countLineWriter.getCount()).isEqualTo(0L);
+			assertThat(countLineWriter.getCount()).isZero();
 			countLineWriter.newLine();
 			assertThat(countLineWriter.getCount()).isEqualTo(1L);
 			countLineWriter.newLine();

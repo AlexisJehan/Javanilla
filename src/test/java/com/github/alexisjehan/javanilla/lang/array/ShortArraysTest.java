@@ -165,7 +165,7 @@ final class ShortArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(ShortArrays.indexOf(ShortArrays.EMPTY, (short) 1)).isEqualTo(-1);
-		assertThat(ShortArrays.indexOf(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 1)).isEqualTo(0);
+		assertThat(ShortArrays.indexOf(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 1)).isZero();
 		assertThat(ShortArrays.indexOf(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 2)).isEqualTo(1);
 		assertThat(ShortArrays.indexOf(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 1, 1)).isEqualTo(2);
 		assertThat(ShortArrays.indexOf(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 2, 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class ShortArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(ShortArrays.frequency(ShortArrays.EMPTY, (short) 1)).isEqualTo(0);
+		assertThat(ShortArrays.frequency(ShortArrays.EMPTY, (short) 1)).isZero();
 		assertThat(ShortArrays.frequency(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 1)).isEqualTo(2);
 		assertThat(ShortArrays.frequency(ShortArrays.of((short) 1, (short) 2, (short) 1), (short) 2)).isEqualTo(1);
 	}

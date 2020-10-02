@@ -50,7 +50,7 @@ final class LimitedBagTest extends AbstractBagTest {
 		final var limitedBag = new LimitedBag<>(new MapBag<>(List.of("foo", "foo", "bar", "bar", "fooo")), LIMIT);
 		assertThat(limitedBag.count("foo")).isEqualTo(2L);
 		assertThat(limitedBag.count("bar")).isEqualTo(2L);
-		assertThat(limitedBag.count("fooo")).isEqualTo(0L);
+		assertThat(limitedBag.count("fooo")).isZero();
 		assertThat(limitedBag.getLimit()).isEqualTo(LIMIT);
 	}
 
@@ -70,7 +70,7 @@ final class LimitedBagTest extends AbstractBagTest {
 		limitedBag.add("bar", 2L);
 		assertThat(limitedBag.count("bar")).isEqualTo(4L);
 		limitedBag.add("fooo", 3L);
-		assertThat(limitedBag.count("foo")).isEqualTo(0L);
+		assertThat(limitedBag.count("foo")).isZero();
 	}
 
 	@Test
@@ -89,7 +89,7 @@ final class LimitedBagTest extends AbstractBagTest {
 			assertThat(limitedBag).hasSameHashCodeAs(otherBag);
 			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
 		});
-		assertThat(new MapBag<>(COLLECTION)).satisfies(otherBag -> {
+		assertThat((Bag<String>) new MapBag<>(COLLECTION)).satisfies(otherBag -> {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isEqualTo(otherBag);
 			assertThat(limitedBag).hasSameHashCodeAs(otherBag);

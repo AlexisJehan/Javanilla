@@ -47,7 +47,7 @@ final class CountInputStreamTest {
 	@Test
 	void testReadByte() throws IOException {
 		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
 			assertThat(countInputStream.read()).isEqualTo(BYTES[1]);
@@ -63,9 +63,9 @@ final class CountInputStreamTest {
 	void testReadBuffer() throws IOException {
 		final var buffer = new byte[2];
 		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			assertThat(countInputStream.read(buffer, 0, 0)).isEqualTo(0);
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.getCount()).isZero();
+			assertThat(countInputStream.read(buffer, 0, 0)).isZero();
+			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read(buffer, 0, 2)).isEqualTo(2);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
 			assertThat(countInputStream.read(buffer, 0, 2)).isEqualTo(1);
@@ -90,10 +90,10 @@ final class CountInputStreamTest {
 	@Test
 	void testSkip() throws IOException {
 		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
-			assertThat(countInputStream.skip(-1L)).isEqualTo(0L);
-			assertThat(countInputStream.skip(0L)).isEqualTo(0L);
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.getCount()).isZero();
+			assertThat(countInputStream.skip(-1L)).isZero();
+			assertThat(countInputStream.skip(0L)).isZero();
+			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.skip(2L)).isEqualTo(2L);
 			assertThat(countInputStream.getCount()).isEqualTo(2L);
 			assertThat(countInputStream.skip(2L)).isEqualTo(1L);
@@ -104,7 +104,7 @@ final class CountInputStreamTest {
 	@Test
 	void testMarkReset() throws IOException {
 		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of(BYTES)))) {
-			assertThat(countInputStream.getCount()).isEqualTo(0L);
+			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
 			countInputStream.mark(2);

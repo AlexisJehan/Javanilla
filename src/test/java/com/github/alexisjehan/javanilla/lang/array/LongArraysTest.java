@@ -165,7 +165,7 @@ final class LongArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(LongArrays.indexOf(LongArrays.EMPTY, 1L)).isEqualTo(-1);
-		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 1L)).isEqualTo(0);
+		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 1L)).isZero();
 		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 2L)).isEqualTo(1);
 		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 1L, 1)).isEqualTo(2);
 		assertThat(LongArrays.indexOf(LongArrays.of(1L, 2L, 1L), 2L, 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class LongArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(LongArrays.frequency(LongArrays.EMPTY, 1L)).isEqualTo(0);
+		assertThat(LongArrays.frequency(LongArrays.EMPTY, 1L)).isZero();
 		assertThat(LongArrays.frequency(LongArrays.of(1L, 2L, 1L), 1L)).isEqualTo(2);
 		assertThat(LongArrays.frequency(LongArrays.of(1L, 2L, 1L), 2L)).isEqualTo(1);
 	}

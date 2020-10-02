@@ -58,7 +58,7 @@ final class ThrowableFunctionTest {
 		final var exceptionThrowableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> {
 			throw new IOException();
 		};
-		assertThat(fooThrowableFunction.compose(barThrowableFunction).apply(1)).isEqualTo(0);
+		assertThat(fooThrowableFunction.compose(barThrowableFunction).apply(1)).isZero();
 		assertThat(fooThrowableFunction.compose(barThrowableFunction).apply(3)).isEqualTo(-2);
 		assertThat(barThrowableFunction.compose(fooThrowableFunction).apply(1)).isEqualTo(-2);
 		assertThat(barThrowableFunction.compose(fooThrowableFunction).apply(3)).isEqualTo(-4);
@@ -83,7 +83,7 @@ final class ThrowableFunctionTest {
 		};
 		assertThat(fooThrowableFunction.andThen(barThrowableFunction).apply(1)).isEqualTo(-2);
 		assertThat(fooThrowableFunction.andThen(barThrowableFunction).apply(3)).isEqualTo(-4);
-		assertThat(barThrowableFunction.andThen(fooThrowableFunction).apply(1)).isEqualTo(0);
+		assertThat(barThrowableFunction.andThen(fooThrowableFunction).apply(1)).isZero();
 		assertThat(barThrowableFunction.andThen(fooThrowableFunction).apply(3)).isEqualTo(-2);
 		assertThatIOException().isThrownBy(() -> fooThrowableFunction.andThen(exceptionThrowableFunction).apply(1));
 		assertThatIOException().isThrownBy(() -> fooThrowableFunction.andThen(exceptionThrowableFunction).apply(3));

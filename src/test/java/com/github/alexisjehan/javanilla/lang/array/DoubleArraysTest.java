@@ -165,7 +165,7 @@ final class DoubleArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(DoubleArrays.indexOf(DoubleArrays.EMPTY, 1.0d)).isEqualTo(-1);
-		assertThat(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 1.0d), 1.0d)).isEqualTo(0);
+		assertThat(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 1.0d), 1.0d)).isZero();
 		assertThat(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 1.0d), 2.0d)).isEqualTo(1);
 		assertThat(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 1.0d), 1.0d, 1)).isEqualTo(2);
 		assertThat(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 1.0d), 2.0d, 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class DoubleArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(DoubleArrays.frequency(DoubleArrays.EMPTY, 1.0d)).isEqualTo(0);
+		assertThat(DoubleArrays.frequency(DoubleArrays.EMPTY, 1.0d)).isZero();
 		assertThat(DoubleArrays.frequency(DoubleArrays.of(1.0d, 2.0d, 1.0d), 1.0d)).isEqualTo(2);
 		assertThat(DoubleArrays.frequency(DoubleArrays.of(1.0d, 2.0d, 1.0d), 2.0d)).isEqualTo(1);
 	}

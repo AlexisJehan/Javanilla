@@ -57,18 +57,18 @@ final class ReadersTest {
 			assertThat(emptyReader.read(CharBuffer.wrap(buffer))).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.read((CharBuffer) null));
 			assertThat(emptyReader.read()).isEqualTo(-1);
-			assertThat(emptyReader.read(CharArrays.EMPTY)).isEqualTo(0);
+			assertThat(emptyReader.read(CharArrays.EMPTY)).isZero();
 			assertThat(emptyReader.read(buffer)).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.read((char[]) null));
-			assertThat(emptyReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(emptyReader.read(buffer, 0, 0)).isZero();
 			assertThat(emptyReader.read(buffer, 0, 1)).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, -1, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, 3, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, 0, -1));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyReader.read(buffer, 0, 3));
-			assertThat(emptyReader.skip(1)).isEqualTo(0);
-			assertThat(emptyReader.transferTo(Writers.EMPTY)).isEqualTo(0L);
+			assertThat(emptyReader.skip(1)).isZero();
+			assertThat(emptyReader.transferTo(Writers.EMPTY)).isZero();
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.transferTo(null));
 		}
 	}
@@ -167,7 +167,7 @@ final class ReadersTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	void testLength() throws IOException {
-		assertThat(Readers.length(Readers.EMPTY)).isEqualTo(0L);
+		assertThat(Readers.length(Readers.EMPTY)).isZero();
 		assertThat(Readers.length(Readers.of(CHARS))).isEqualTo(CHARS.length);
 	}
 
@@ -194,7 +194,7 @@ final class ReadersTest {
 	void testConcatSequenceReader() throws IOException {
 		final var buffer = new char[2];
 		try (final var concatReader = Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]))) {
-			assertThat(concatReader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(concatReader.read(buffer, 0, 0)).isZero();
 			assertThatNullPointerException().isThrownBy(() -> concatReader.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, -1, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 3, 2));

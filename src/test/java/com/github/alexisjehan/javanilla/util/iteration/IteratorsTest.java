@@ -194,7 +194,7 @@ final class IteratorsTest {
 		final var list = new ArrayList<>(List.of(ELEMENTS));
 		final var filterIterator = Iterators.filter(list.iterator(), element -> ELEMENTS[0].equals(element));
 		while (filterIterator.hasNext()) {
-			assertThat(ELEMENTS[0].equals(filterIterator.next())).isTrue();
+			assertThat(ELEMENTS[0]).isEqualTo(filterIterator.next());
 			filterIterator.remove();
 		}
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(filterIterator::next);
@@ -272,11 +272,11 @@ final class IteratorsTest {
 
 	@Test
 	void testLength() {
-		assertThat(Iterators.length(Collections.emptyIterator())).isEqualTo(0L);
+		assertThat(Iterators.length(Collections.emptyIterator())).isZero();
 		assertThat(Iterators.length(Iterators.singleton(ELEMENTS[0]))).isEqualTo(1L);
 		final var iterator = Iterators.of(ELEMENTS);
 		assertThat(Iterators.length(iterator)).isEqualTo(3L);
-		assertThat(Iterators.length(iterator)).isEqualTo(0L);
+		assertThat(Iterators.length(iterator)).isZero();
 	}
 
 	@Test
@@ -287,14 +287,14 @@ final class IteratorsTest {
 	@Test
 	void testTransferTo() {
 		final var list = new ArrayList<>();
-		assertThat(Iterators.transferTo(Collections.emptyIterator(), list)).isEqualTo(0L);
+		assertThat(Iterators.transferTo(Collections.emptyIterator(), list)).isZero();
 		assertThat(list).isEmpty();
 		assertThat(Iterators.transferTo(Iterators.singleton(ELEMENTS[0]), list)).isEqualTo(1L);
 		assertThat(list).containsExactly(ELEMENTS[0]);
 		final var iterator = Iterators.of(ELEMENTS);
 		assertThat(Iterators.transferTo(iterator, list)).isEqualTo(3L);
 		assertThat(list).containsExactly(ELEMENTS[0], ELEMENTS[0], ELEMENTS[1], ELEMENTS[2]);
-		assertThat(Iterators.transferTo(iterator, list)).isEqualTo(0L);
+		assertThat(Iterators.transferTo(iterator, list)).isZero();
 		assertThat(list).containsExactly(ELEMENTS[0], ELEMENTS[0], ELEMENTS[1], ELEMENTS[2]);
 	}
 
@@ -554,7 +554,7 @@ final class IteratorsTest {
 		try (final var reader = Iterators.toReader(Iterators.of((int) 'a', (int) 'b', (int) 'c', (int) 'd'))) {
 			assertThat(reader.read()).isEqualTo('a');
 			final var buffer = new char[2];
-			assertThat(reader.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(reader.read(buffer, 0, 0)).isZero();
 			assertThat(reader.read(buffer, 0, 2)).isEqualTo(2);
 			assertThatNullPointerException().isThrownBy(() -> reader.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> reader.read(buffer, -1, 2));

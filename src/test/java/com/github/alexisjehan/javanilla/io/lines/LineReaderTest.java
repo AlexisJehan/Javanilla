@@ -120,40 +120,40 @@ final class LineReaderTest {
 	@Test
 	void testSkip() throws IOException {
 		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar"), LineSeparator.DEFAULT)) {
-			assertThat(lineReader.skip(0L)).isEqualTo(0L);
+			assertThat(lineReader.skip(0L)).isZero();
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(3L)).isEqualTo(2L);
-			assertThat(lineReader.skip(1L)).isEqualTo(0L);
+			assertThat(lineReader.skip(1L)).isZero();
 		}
 		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar\n"), LineSeparator.DEFAULT)) {
-			assertThat(lineReader.skip(0L)).isEqualTo(0L);
+			assertThat(lineReader.skip(0L)).isZero();
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(3L)).isEqualTo(2L);
-			assertThat(lineReader.skip(1L)).isEqualTo(0L);
+			assertThat(lineReader.skip(1L)).isZero();
 		}
 		try (final var lineReader = new LineReader(new StringReader("foo\r\nbar\r\n"), LineSeparator.DEFAULT)) {
-			assertThat(lineReader.skip(0L)).isEqualTo(0L);
+			assertThat(lineReader.skip(0L)).isZero();
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(4L)).isEqualTo(3L);
-			assertThat(lineReader.skip(1L)).isEqualTo(0L);
+			assertThat(lineReader.skip(1L)).isZero();
 		}
 		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar"), LineSeparator.DEFAULT, false)) {
-			assertThat(lineReader.skip(0L)).isEqualTo(0L);
+			assertThat(lineReader.skip(0L)).isZero();
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(3L)).isEqualTo(2L);
-			assertThat(lineReader.skip(1L)).isEqualTo(0L);
+			assertThat(lineReader.skip(1L)).isZero();
 		}
 		try (final var lineReader = new LineReader(new StringReader("foo\n\rbar\n"), LineSeparator.DEFAULT, false)) {
-			assertThat(lineReader.skip(0L)).isEqualTo(0L);
+			assertThat(lineReader.skip(0L)).isZero();
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(4L)).isEqualTo(3L);
-			assertThat(lineReader.skip(1L)).isEqualTo(0L);
+			assertThat(lineReader.skip(1L)).isZero();
 		}
 		try (final var lineReader = new LineReader(new StringReader("foo\r\nbar\r\n"), LineSeparator.DEFAULT, false)) {
-			assertThat(lineReader.skip(0L)).isEqualTo(0L);
+			assertThat(lineReader.skip(0L)).isZero();
 			assertThat(lineReader.skip(1L)).isEqualTo(1L);
 			assertThat(lineReader.skip(5L)).isEqualTo(4L);
-			assertThat(lineReader.skip(1L)).isEqualTo(0L);
+			assertThat(lineReader.skip(1L)).isZero();
 		}
 	}
 
@@ -167,7 +167,7 @@ final class LineReaderTest {
 	void testTransferTo() throws IOException {
 		try (final var writer = new StringWriter()) {
 			try (final var lineReader = new LineReader(Readers.EMPTY, LineSeparator.DEFAULT)) {
-				assertThat(lineReader.transferTo(new LineWriter(writer))).isEqualTo(0L);
+				assertThat(lineReader.transferTo(new LineWriter(writer))).isZero();
 			}
 			assertThat(writer.toString()).isEmpty();
 		}
@@ -175,7 +175,7 @@ final class LineReaderTest {
 			try (final var lineReader = new LineReader(Readers.of(String.join("\n", LINES)), LineSeparator.DEFAULT)) {
 				assertThat(lineReader.transferTo(new LineWriter(writer))).isEqualTo(3L);
 			}
-			assertThat(writer.toString()).isEqualTo(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
+			assertThat(writer).hasToString(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
 		}
 	}
 

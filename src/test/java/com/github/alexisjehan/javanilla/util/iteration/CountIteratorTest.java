@@ -49,7 +49,7 @@ final class CountIteratorTest {
 	@Test
 	void testNext() {
 		final var countIterator = new CountIterator<>(Iterators.of(ELEMENTS));
-		assertThat(countIterator.getCount()).isEqualTo(0L);
+		assertThat(countIterator.getCount()).isZero();
 		assertThat(countIterator.hasNext()).isTrue();
 		assertThat(countIterator.next()).isEqualTo(ELEMENTS[0]);
 		assertThat(countIterator.getCount()).isEqualTo(1L);
@@ -68,7 +68,7 @@ final class CountIteratorTest {
 	void testRemove() {
 		final var list = new ArrayList<>(List.of(ELEMENTS));
 		final var countIterator = new CountIterator<>(list.iterator());
-		assertThat(countIterator.getCount()).isEqualTo(0L);
+		assertThat(countIterator.getCount()).isZero();
 		countIterator.next();
 		assertThat(countIterator.getCount()).isEqualTo(1L);
 		assertThat(list).containsExactly(ELEMENTS);

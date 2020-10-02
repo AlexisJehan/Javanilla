@@ -165,7 +165,7 @@ final class FloatArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(FloatArrays.indexOf(FloatArrays.EMPTY, 1.0f)).isEqualTo(-1);
-		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f)).isEqualTo(0);
+		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f)).isZero();
 		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f)).isEqualTo(1);
 		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f, 1)).isEqualTo(2);
 		assertThat(FloatArrays.indexOf(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f, 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class FloatArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(FloatArrays.frequency(FloatArrays.EMPTY, 1.0f)).isEqualTo(0);
+		assertThat(FloatArrays.frequency(FloatArrays.EMPTY, 1.0f)).isZero();
 		assertThat(FloatArrays.frequency(FloatArrays.of(1.0f, 2.0f, 1.0f), 1.0f)).isEqualTo(2);
 		assertThat(FloatArrays.frequency(FloatArrays.of(1.0f, 2.0f, 1.0f), 2.0f)).isEqualTo(1);
 	}

@@ -41,19 +41,19 @@ abstract class AbstractTreeNodeTest {
 	@Test
 	void testExtend() {
 		final var fooNode = newTreeNode("foo");
-		assertThat(fooNode.degree()).isEqualTo(0L);
+		assertThat(fooNode.degree()).isZero();
 		final var foo1Node = fooNode.extend("foo1");
 		assertThat(fooNode.degree()).isEqualTo(1L);
-		assertThat(foo1Node.degree()).isEqualTo(0L);
+		assertThat(foo1Node.degree()).isZero();
 		final var foo2Node = fooNode.extend("foo2");
 		assertThat(fooNode.degree()).isEqualTo(2L);
-		assertThat(foo1Node.degree()).isEqualTo(0L);
-		assertThat(foo2Node.degree()).isEqualTo(0L);
+		assertThat(foo1Node.degree()).isZero();
+		assertThat(foo2Node.degree()).isZero();
 		final var foo11Node = foo1Node.extend("foo11");
 		assertThat(fooNode.degree()).isEqualTo(2L);
 		assertThat(foo1Node.degree()).isEqualTo(1L);
-		assertThat(foo2Node.degree()).isEqualTo(0L);
-		assertThat(foo11Node.degree()).isEqualTo(0L);
+		assertThat(foo2Node.degree()).isZero();
+		assertThat(foo11Node.degree()).isZero();
 	}
 
 	@Test
@@ -91,7 +91,7 @@ abstract class AbstractTreeNodeTest {
 		fooNode.extend("foo1");
 		assertThat(fooNode.degree()).isEqualTo(1L);
 		fooNode.clear();
-		assertThat(fooNode.degree()).isEqualTo(0L);
+		assertThat(fooNode.degree()).isZero();
 	}
 
 	@Test
@@ -298,7 +298,8 @@ abstract class AbstractTreeNodeTest {
 		assertThat(foo21Node.descendantsDepthFirst()).isEmpty();
 		assertThat(foo111Node.descendantsDepthFirst()).isEmpty();
 		assertThat(barNode.descendantsDepthFirst()).isEmpty();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> barNode.descendantsDepthFirst().iterator().next());
+		final var exceptionIterator = barNode.descendantsDepthFirst().iterator();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(exceptionIterator::next);
 	}
 
 	@Test
@@ -321,7 +322,8 @@ abstract class AbstractTreeNodeTest {
 		assertThat(foo21Node.descendantsBreadthFirst()).isEmpty();
 		assertThat(foo111Node.descendantsBreadthFirst()).isEmpty();
 		assertThat(barNode.descendantsBreadthFirst()).isEmpty();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> barNode.descendantsBreadthFirst().iterator().next());
+		final var exceptionIterator = barNode.descendantsBreadthFirst().iterator();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(exceptionIterator::next);
 	}
 
 	@Test
@@ -344,7 +346,8 @@ abstract class AbstractTreeNodeTest {
 		assertThat(foo21Node.ancestors()).containsExactly(foo2Node, fooNode);
 		assertThat(foo111Node.ancestors()).containsExactly(foo11Node, foo1Node, fooNode);
 		assertThat(barNode.ancestors()).isEmpty();
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> barNode.ancestors().iterator().next());
+		final var exceptionIterator = barNode.ancestors().iterator();
+		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(exceptionIterator::next);
 	}
 
 	@Test
@@ -361,12 +364,12 @@ abstract class AbstractTreeNodeTest {
 		assertThat(fooNode.degree()).isEqualTo(3L);
 		assertThat(foo1Node.degree()).isEqualTo(2L);
 		assertThat(foo2Node.degree()).isEqualTo(1L);
-		assertThat(foo3Node.degree()).isEqualTo(0L);
+		assertThat(foo3Node.degree()).isZero();
 		assertThat(foo11Node.degree()).isEqualTo(1L);
-		assertThat(foo12Node.degree()).isEqualTo(0L);
-		assertThat(foo21Node.degree()).isEqualTo(0L);
-		assertThat(foo111Node.degree()).isEqualTo(0L);
-		assertThat(barNode.degree()).isEqualTo(0L);
+		assertThat(foo12Node.degree()).isZero();
+		assertThat(foo21Node.degree()).isZero();
+		assertThat(foo111Node.degree()).isZero();
+		assertThat(barNode.degree()).isZero();
 	}
 
 	@Test
@@ -380,7 +383,7 @@ abstract class AbstractTreeNodeTest {
 		final var foo21Node = foo2Node.extend("foo21");
 		final var foo111Node = foo11Node.extend("foo111");
 		final var barNode = newTreeNode("bar");
-		assertThat(fooNode.depth()).isEqualTo(0L);
+		assertThat(fooNode.depth()).isZero();
 		assertThat(foo1Node.depth()).isEqualTo(1L);
 		assertThat(foo2Node.depth()).isEqualTo(1L);
 		assertThat(foo3Node.depth()).isEqualTo(1L);
@@ -388,7 +391,7 @@ abstract class AbstractTreeNodeTest {
 		assertThat(foo12Node.depth()).isEqualTo(2L);
 		assertThat(foo21Node.depth()).isEqualTo(2L);
 		assertThat(foo111Node.depth()).isEqualTo(3L);
-		assertThat(barNode.depth()).isEqualTo(0L);
+		assertThat(barNode.depth()).isZero();
 	}
 
 	@Test

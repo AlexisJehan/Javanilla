@@ -165,7 +165,7 @@ final class IntArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(IntArrays.indexOf(IntArrays.EMPTY, 1)).isEqualTo(-1);
-		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 1)).isEqualTo(0);
+		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 1)).isZero();
 		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 2)).isEqualTo(1);
 		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 1, 1)).isEqualTo(2);
 		assertThat(IntArrays.indexOf(IntArrays.of(1, 2, 1), 2, 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class IntArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(IntArrays.frequency(IntArrays.EMPTY, 1)).isEqualTo(0);
+		assertThat(IntArrays.frequency(IntArrays.EMPTY, 1)).isZero();
 		assertThat(IntArrays.frequency(IntArrays.of(1, 2, 1), 1)).isEqualTo(2);
 		assertThat(IntArrays.frequency(IntArrays.of(1, 2, 1), 2)).isEqualTo(1);
 	}

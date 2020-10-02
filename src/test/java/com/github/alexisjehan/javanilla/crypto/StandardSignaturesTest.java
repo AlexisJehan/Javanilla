@@ -60,12 +60,9 @@ final class StandardSignaturesTest {
 	void testGetInstanceUnreachable() throws NoSuchMethodException {
 		final var method = StandardSignatures.class.getDeclaredMethod("getInstance", String.class);
 		method.setAccessible(true);
-		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> {
-			try {
-				method.invoke(null, "?");
-			} catch (final InvocationTargetException e) {
-				throw e.getTargetException();
-			}
-		}).withCauseInstanceOf(NoSuchAlgorithmException.class);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

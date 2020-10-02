@@ -55,10 +55,10 @@ final class InputStreamsTest {
 		final var buffer = new byte[2];
 		try (final var emptyInputStream = InputStreams.EMPTY) {
 			assertThat(emptyInputStream.read()).isEqualTo(-1);
-			assertThat(emptyInputStream.read(ByteArrays.EMPTY)).isEqualTo(0);
+			assertThat(emptyInputStream.read(ByteArrays.EMPTY)).isZero();
 			assertThat(emptyInputStream.read(buffer)).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.read(null));
-			assertThat(emptyInputStream.read(buffer, 0, 0)).isEqualTo(0);
+			assertThat(emptyInputStream.read(buffer, 0, 0)).isZero();
 			assertThat(emptyInputStream.read(buffer, 0, 1)).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, -1, 2));
@@ -66,14 +66,14 @@ final class InputStreamsTest {
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, 0, -1));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.read(buffer, 0, 3));
 			assertThat(emptyInputStream.readAllBytes()).isEmpty();
-			assertThat(emptyInputStream.readNBytes(buffer, 0, 1)).isEqualTo(0);
+			assertThat(emptyInputStream.readNBytes(buffer, 0, 1)).isZero();
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.readNBytes(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, -1, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, 3, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, -1));
 			assertThatIllegalArgumentException().isThrownBy(() -> emptyInputStream.readNBytes(buffer, 0, 3));
-			assertThat(emptyInputStream.skip(1)).isEqualTo(0);
-			assertThat(emptyInputStream.transferTo(OutputStreams.EMPTY)).isEqualTo(0L);
+			assertThat(emptyInputStream.skip(1)).isZero();
+			assertThat(emptyInputStream.transferTo(OutputStreams.EMPTY)).isZero();
 			assertThatNullPointerException().isThrownBy(() -> emptyInputStream.transferTo(null));
 		}
 	}
@@ -81,8 +81,8 @@ final class InputStreamsTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	void testNullToEmpty() {
-		assertThat(InputStreams.nullToEmpty(null)).hasBinaryContent(ByteArrays.EMPTY);
-		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.nullToEmpty(null)).isEmpty();
+		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).isEmpty();
 		assertThat(InputStreams.nullToEmpty(InputStreams.of(BYTES))).hasBinaryContent(BYTES);
 	}
 
@@ -90,7 +90,7 @@ final class InputStreamsTest {
 	@SuppressWarnings("deprecation")
 	void testNullToDefault() {
 		assertThat(InputStreams.nullToDefault(null, InputStreams.singleton((byte) 0))).hasBinaryContent(ByteArrays.singleton((byte) 0));
-		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).isEmpty();
 		assertThat(InputStreams.nullToDefault(InputStreams.of(BYTES), InputStreams.singleton((byte) 0))).hasBinaryContent(BYTES);
 	}
 
@@ -172,7 +172,7 @@ final class InputStreamsTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	void testLength() throws IOException {
-		assertThat(InputStreams.length(InputStreams.EMPTY)).isEqualTo(0L);
+		assertThat(InputStreams.length(InputStreams.EMPTY)).isZero();
 		assertThat(InputStreams.length(InputStreams.of(BYTES))).isEqualTo(BYTES.length);
 	}
 
@@ -183,7 +183,7 @@ final class InputStreamsTest {
 
 	@Test
 	void testConcat() {
-		assertThat(InputStreams.concat()).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.concat()).isEmpty();
 		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
 		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(BYTES);
 	}
@@ -198,7 +198,7 @@ final class InputStreamsTest {
 	@Test
 	void testJoin() {
 		assertThat(InputStreams.join(ByteArrays.EMPTY, InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(BYTES);
-		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).hasBinaryContent(ByteArrays.EMPTY);
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).isEmpty();
 		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
 		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(ByteArrays.of(BYTES[0], (byte) 0, BYTES[1], (byte) 0, BYTES[2]));
 	}

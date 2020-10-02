@@ -80,7 +80,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join("\n", LINES[0], LINES[1], LINES[2]));
+			assertThat(writer).hasToString(String.join("\n", LINES[0], LINES[1], LINES[2]));
 		}
 		try (final var writer = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(writer, LineSeparator.LF, true)) {
@@ -89,7 +89,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join("\n", LINES[0], LINES[1], LINES[2]) + "\n");
+			assertThat(writer).hasToString(String.join("\n", LINES[0], LINES[1], LINES[2]) + "\n");
 		}
 	}
 
@@ -102,7 +102,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join("\r\n", LINES[0], LINES[1], LINES[2]));
+			assertThat(writer).hasToString(String.join("\r\n", LINES[0], LINES[1], LINES[2]));
 		}
 		try (final var writer = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR_LF, true)) {
@@ -111,7 +111,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join("\r\n", LINES[0], LINES[1], LINES[2]) + "\r\n");
+			assertThat(writer).hasToString(String.join("\r\n", LINES[0], LINES[1], LINES[2]) + "\r\n");
 		}
 	}
 
@@ -124,7 +124,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join("\r", LINES[0], LINES[1], LINES[2]));
+			assertThat(writer).hasToString(String.join("\r", LINES[0], LINES[1], LINES[2]));
 		}
 		try (final var writer = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR, true)) {
@@ -133,7 +133,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join("\r", LINES[0], LINES[1], LINES[2]) + "\r");
+			assertThat(writer).hasToString(String.join("\r", LINES[0], LINES[1], LINES[2]) + "\r");
 		}
 	}
 
@@ -146,7 +146,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
+			assertThat(writer).hasToString(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
 		}
 		try (final var writer = new StringWriter()) {
 			try (final var lineWriter = new LineWriter(writer, LineSeparator.DEFAULT, true)) {
@@ -155,7 +155,7 @@ final class LineWriterTest {
 				lineWriter.write(LINES[2]);
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]) + System.lineSeparator());
+			assertThat(writer).hasToString(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]) + System.lineSeparator());
 		}
 	}
 
@@ -172,7 +172,7 @@ final class LineWriterTest {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo("\n");
+			assertThat(writer).hasToString("\n");
 		}
 	}
 
@@ -183,7 +183,7 @@ final class LineWriterTest {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo("\r\n");
+			assertThat(writer).hasToString("\r\n");
 		}
 	}
 
@@ -194,7 +194,7 @@ final class LineWriterTest {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo("\r");
+			assertThat(writer).hasToString("\r");
 		}
 	}
 
@@ -205,7 +205,7 @@ final class LineWriterTest {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
-			assertThat(writer.toString()).isEqualTo(System.lineSeparator());
+			assertThat(writer).hasToString(System.lineSeparator());
 		}
 	}
 }

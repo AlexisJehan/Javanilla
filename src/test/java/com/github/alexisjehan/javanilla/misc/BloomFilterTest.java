@@ -116,7 +116,7 @@ final class BloomFilterTest {
 	@Test
 	void testCalculateFalsePositiveRate() {
 		assertThat(BloomFilter.calculateFalsePositiveRate(1, 3, 100)).isEqualTo(1.0d);
-		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 0)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 0)).isZero();
 		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 100)).isBetween(0.0d, 1.0d);
 	}
 
@@ -136,11 +136,11 @@ final class BloomFilterTest {
 
 	@Test
 	void testCalculateOptimalLength() {
-		assertThat(BloomFilter.calculateOptimalLength(0, 1.0d)).isEqualTo(0.0d);
-		assertThat(BloomFilter.calculateOptimalLength(1, 1.0d)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateOptimalLength(0, 1.0d)).isZero();
+		assertThat(BloomFilter.calculateOptimalLength(1, 1.0d)).isZero();
 		assertThat(BloomFilter.calculateOptimalLength(100, 0.0d)).isEqualTo(Double.POSITIVE_INFINITY);
 		assertThat(BloomFilter.calculateOptimalLength(100, 0.5d)).isBetween(0.0d, Double.POSITIVE_INFINITY);
-		assertThat(BloomFilter.calculateOptimalLength(100, 1.0d)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateOptimalLength(100, 1.0d)).isZero();
 	}
 
 	@Test
@@ -152,7 +152,7 @@ final class BloomFilterTest {
 
 	@Test
 	void testCalculateOptimalNumberOfHashFunctions() {
-		assertThat(BloomFilter.calculateOptimalNumberOfHashFunctions(10, 0)).isEqualTo(0.0d);
+		assertThat(BloomFilter.calculateOptimalNumberOfHashFunctions(10, 0)).isZero();
 		assertThat(BloomFilter.calculateOptimalNumberOfHashFunctions(10, 1)).isGreaterThan(0.0d);
 	}
 

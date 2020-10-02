@@ -40,7 +40,7 @@ abstract class AbstractBagTest {
 	@Test
 	void testAdd() {
 		final var bag = newBag();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 		bag.add("foo");
 		assertThat(bag.count("foo")).isEqualTo(1L);
 		bag.add("foo", 0L);
@@ -57,9 +57,9 @@ abstract class AbstractBagTest {
 	@Test
 	void testRemove() {
 		final var bag = newBag();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 		assertThat(bag.remove("foo")).isFalse();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 		bag.add("foo", 10L);
 		assertThat(bag.count("foo")).isEqualTo(10L);
 		assertThat(bag.remove("foo")).isTrue();
@@ -67,7 +67,7 @@ abstract class AbstractBagTest {
 		assertThat(bag.remove("foo", 0L)).isFalse();
 		assertThat(bag.count("foo")).isEqualTo(9L);
 		assertThat(bag.remove("foo", 10L)).isTrue();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 	}
 
 	@Test
@@ -78,30 +78,30 @@ abstract class AbstractBagTest {
 	@Test
 	void testRemoveAll() {
 		final var bag = newBag();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 		assertThat(bag.removeAll("foo")).isFalse();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 		bag.add("foo", 10L);
 		assertThat(bag.count("foo")).isEqualTo(10L);
 		assertThat(bag.removeAll("foo")).isTrue();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 	}
 
 	@Test
 	void testClear() {
 		final var bag = newBag();
-		assertThat(bag.count("foo")).isEqualTo(0L);
-		assertThat(bag.count("bar")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
+		assertThat(bag.count("bar")).isZero();
 		bag.clear();
-		assertThat(bag.count("foo")).isEqualTo(0L);
-		assertThat(bag.count("bar")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
+		assertThat(bag.count("bar")).isZero();
 		bag.add("foo", 10L);
 		bag.add("bar", 5L);
 		assertThat(bag.count("foo")).isEqualTo(10L);
 		assertThat(bag.count("bar")).isEqualTo(5L);
 		bag.clear();
-		assertThat(bag.count("foo")).isEqualTo(0L);
-		assertThat(bag.count("bar")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
+		assertThat(bag.count("bar")).isZero();
 	}
 
 	@Test
@@ -192,17 +192,17 @@ abstract class AbstractBagTest {
 	@Test
 	void testCount() {
 		final var bag = newBag();
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 		bag.add("foo");
 		assertThat(bag.count("foo")).isEqualTo(1L);
 		bag.remove("foo");
-		assertThat(bag.count("foo")).isEqualTo(0L);
+		assertThat(bag.count("foo")).isZero();
 	}
 
 	@Test
 	void testDistinct() {
 		final var bag = newBag();
-		assertThat(bag.distinct()).isEqualTo(0L);
+		assertThat(bag.distinct()).isZero();
 		bag.add("foo");
 		assertThat(bag.distinct()).isEqualTo(1L);
 		bag.add("foo", 2L);
@@ -210,13 +210,13 @@ abstract class AbstractBagTest {
 		bag.add("bar");
 		assertThat(bag.distinct()).isEqualTo(2L);
 		bag.clear();
-		assertThat(bag.distinct()).isEqualTo(0L);
+		assertThat(bag.distinct()).isZero();
 	}
 
 	@Test
 	void testSize() {
 		final var bag = newBag();
-		assertThat(bag.size()).isEqualTo(0L);
+		assertThat(bag.size()).isZero();
 		bag.add("foo");
 		assertThat(bag.size()).isEqualTo(1L);
 		bag.add("foo", 2L);
@@ -224,7 +224,7 @@ abstract class AbstractBagTest {
 		bag.add("bar");
 		assertThat(bag.size()).isEqualTo(4L);
 		bag.clear();
-		assertThat(bag.size()).isEqualTo(0L);
+		assertThat(bag.size()).isZero();
 	}
 
 	@Test

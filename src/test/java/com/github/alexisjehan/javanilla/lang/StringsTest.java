@@ -425,8 +425,8 @@ final class StringsTest {
 
 	@Test
 	void testFrequencyChar() {
-		assertThat(Strings.frequency(Strings.EMPTY, 'a')).isEqualTo(0);
-		assertThat(Strings.frequency("foo", 'a')).isEqualTo(0);
+		assertThat(Strings.frequency(Strings.EMPTY, 'a')).isZero();
+		assertThat(Strings.frequency("foo", 'a')).isZero();
 		assertThat(Strings.frequency("foo", 'f')).isEqualTo(1);
 		assertThat(Strings.frequency("foo", 'o')).isEqualTo(2);
 	}
@@ -438,11 +438,11 @@ final class StringsTest {
 
 	@Test
 	void testFrequencyCharSequence() {
-		assertThat(Strings.frequency(Strings.EMPTY, "foo")).isEqualTo(0);
-		assertThat(Strings.frequency("foo", "bar")).isEqualTo(0);
+		assertThat(Strings.frequency(Strings.EMPTY, "foo")).isZero();
+		assertThat(Strings.frequency("foo", "bar")).isZero();
 		assertThat(Strings.frequency("foo", "foo")).isEqualTo(1);
 		assertThat(Strings.frequency("foofoo", "foo")).isEqualTo(2);
-		assertThat(Strings.frequency("foofoo", "ou")).isEqualTo(0);
+		assertThat(Strings.frequency("foofoo", "ou")).isZero();
 	}
 
 	@Test

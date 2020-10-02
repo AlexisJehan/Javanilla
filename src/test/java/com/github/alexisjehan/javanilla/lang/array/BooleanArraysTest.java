@@ -165,7 +165,7 @@ final class BooleanArraysTest {
 	@Test
 	void testIndexOf() {
 		assertThat(BooleanArrays.indexOf(BooleanArrays.EMPTY, true)).isEqualTo(-1);
-		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), true)).isEqualTo(0);
+		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), true)).isZero();
 		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), false)).isEqualTo(1);
 		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), true, 1)).isEqualTo(2);
 		assertThat(BooleanArrays.indexOf(BooleanArrays.of(true, false, true), false, 2)).isEqualTo(-1);
@@ -196,7 +196,7 @@ final class BooleanArraysTest {
 
 	@Test
 	void testFrequency() {
-		assertThat(BooleanArrays.frequency(BooleanArrays.EMPTY, true)).isEqualTo(0);
+		assertThat(BooleanArrays.frequency(BooleanArrays.EMPTY, true)).isZero();
 		assertThat(BooleanArrays.frequency(BooleanArrays.of(true, false, true), true)).isEqualTo(2);
 		assertThat(BooleanArrays.frequency(BooleanArrays.of(true, false, true), false)).isEqualTo(1);
 	}

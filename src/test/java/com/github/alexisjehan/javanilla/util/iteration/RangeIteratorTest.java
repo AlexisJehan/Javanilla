@@ -24,6 +24,7 @@
 package com.github.alexisjehan.javanilla.util.iteration;
 
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -50,41 +51,40 @@ final class RangeIteratorTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	void testNext() {
-		assertThat((Object) new RangeIterator<>(Iterators.of(ELEMENTS), 0L, 0L)).satisfies(rangeIterator -> {
-			assertThat(((RangeIterator<Integer>) rangeIterator).getFromIndex()).isEqualTo(0L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).getToIndex()).isEqualTo(0L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isTrue();
-			assertThat(((RangeIterator<Integer>) rangeIterator).next()).isEqualTo(ELEMENTS[0]);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isFalse();
-			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(((RangeIterator<Integer>) rangeIterator)::next);
-		});
-		assertThat((Object) new RangeIterator<>(Iterators.of(ELEMENTS), 1L, 1L)).satisfies(rangeIterator -> {
-			assertThat(((RangeIterator<Integer>) rangeIterator).getFromIndex()).isEqualTo(1L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).getToIndex()).isEqualTo(1L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isTrue();
-			assertThat(((RangeIterator<Integer>) rangeIterator).next()).isEqualTo(ELEMENTS[1]);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isFalse();
-			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(((RangeIterator<Integer>) rangeIterator)::next);
-		});
-		assertThat((Object) new RangeIterator<>(Iterators.of(ELEMENTS), 0L, 10L)).satisfies(rangeIterator -> {
-			assertThat(((RangeIterator<Integer>) rangeIterator).getFromIndex()).isEqualTo(0L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).getToIndex()).isEqualTo(10L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isTrue();
-			assertThat(((RangeIterator<Integer>) rangeIterator).next()).isEqualTo(ELEMENTS[0]);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isTrue();
-			assertThat(((RangeIterator<Integer>) rangeIterator).next()).isEqualTo(ELEMENTS[1]);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isTrue();
-			assertThat(((RangeIterator<Integer>) rangeIterator).next()).isEqualTo(ELEMENTS[2]);
-			assertThat(((RangeIterator<Integer>) rangeIterator).hasNext()).isFalse();
-			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(((RangeIterator<Integer>) rangeIterator)::next);
-		});
-		assertThat(new RangeIterator<>(Iterators.of(ELEMENTS), 10L, 10L)).satisfies(rangeIterator -> {
-			assertThat(((RangeIterator<Integer>) rangeIterator).getFromIndex()).isEqualTo(10L);
-			assertThat(((RangeIterator<Integer>) rangeIterator).getToIndex()).isEqualTo(10L);
+		AssertionsForClassTypes.assertThat(new RangeIterator<>(Iterators.of(ELEMENTS), 0L, 0L)).satisfies(rangeIterator -> {
+			assertThat(rangeIterator.getFromIndex()).isZero();
+			assertThat(rangeIterator.getToIndex()).isZero();
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(ELEMENTS[0]);
 			assertThat(rangeIterator.hasNext()).isFalse();
-			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(((RangeIterator<Integer>) rangeIterator)::next);
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		});
+		AssertionsForClassTypes.assertThat(new RangeIterator<>(Iterators.of(ELEMENTS), 1L, 1L)).satisfies(rangeIterator -> {
+			assertThat(rangeIterator.getFromIndex()).isEqualTo(1L);
+			assertThat(rangeIterator.getToIndex()).isEqualTo(1L);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(ELEMENTS[1]);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		});
+		AssertionsForClassTypes.assertThat(new RangeIterator<>(Iterators.of(ELEMENTS), 0L, 10L)).satisfies(rangeIterator -> {
+			assertThat(rangeIterator.getFromIndex()).isZero();
+			assertThat(rangeIterator.getToIndex()).isEqualTo(10L);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(ELEMENTS[0]);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(ELEMENTS[1]);
+			assertThat(rangeIterator.hasNext()).isTrue();
+			assertThat(rangeIterator.next()).isEqualTo(ELEMENTS[2]);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
+		});
+		AssertionsForClassTypes.assertThat(new RangeIterator<>(Iterators.of(ELEMENTS), 10L, 10L)).satisfies(rangeIterator -> {
+			assertThat(rangeIterator.getFromIndex()).isEqualTo(10L);
+			assertThat(rangeIterator.getToIndex()).isEqualTo(10L);
+			assertThat(rangeIterator.hasNext()).isFalse();
+			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(rangeIterator::next);
 		});
 	}
 

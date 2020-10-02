@@ -47,7 +47,7 @@ final class CountLineReaderTest {
 	@Test
 	void testRead() throws IOException {
 		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(String.join("\n", LINES))))) {
-			assertThat(countLineReader.getCount()).isEqualTo(0L);
+			assertThat(countLineReader.getCount()).isZero();
 			assertThat(countLineReader.read()).isEqualTo(LINES[0]);
 			assertThat(countLineReader.getCount()).isEqualTo(1L);
 			assertThat(countLineReader.read()).isEqualTo(LINES[1]);
@@ -62,10 +62,10 @@ final class CountLineReaderTest {
 	@Test
 	void testSkip() throws IOException {
 		try (final var countLineReader = new CountLineReader(new LineReader(Readers.of(String.join("\n", LINES))))) {
-			assertThat(countLineReader.getCount()).isEqualTo(0L);
-			assertThat(countLineReader.skip(-1L)).isEqualTo(0L);
-			assertThat(countLineReader.skip(0L)).isEqualTo(0L);
-			assertThat(countLineReader.getCount()).isEqualTo(0L);
+			assertThat(countLineReader.getCount()).isZero();
+			assertThat(countLineReader.skip(-1L)).isZero();
+			assertThat(countLineReader.skip(0L)).isZero();
+			assertThat(countLineReader.getCount()).isZero();
 			assertThat(countLineReader.skip(2L)).isEqualTo(2L);
 			assertThat(countLineReader.getCount()).isEqualTo(2L);
 			assertThat(countLineReader.skip(2L)).isEqualTo(1L);

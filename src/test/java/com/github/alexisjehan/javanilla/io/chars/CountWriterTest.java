@@ -48,7 +48,7 @@ final class CountWriterTest {
 	@SuppressWarnings("deprecation")
 	void testWriteChar() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
-			assertThat(countWriter.getCount()).isEqualTo(0L);
+			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(CHARS[0]);
 			assertThat(countWriter.getCount()).isEqualTo(1L);
 			countWriter.write(CHARS[1]);
@@ -62,9 +62,9 @@ final class CountWriterTest {
 	@SuppressWarnings("deprecation")
 	void testWriteChars() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
-			assertThat(countWriter.getCount()).isEqualTo(0L);
+			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(CHARS, 0, 0);
-			assertThat(countWriter.getCount()).isEqualTo(0L);
+			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(CHARS, 0, 2);
 			assertThat(countWriter.getCount()).isEqualTo(2L);
 		}
@@ -86,9 +86,9 @@ final class CountWriterTest {
 	@SuppressWarnings("deprecation")
 	void testWriteString() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
-			assertThat(countWriter.getCount()).isEqualTo(0L);
+			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(new String(CHARS), 0, 0);
-			assertThat(countWriter.getCount()).isEqualTo(0L);
+			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(new String(CHARS), 0, 2);
 			assertThat(countWriter.getCount()).isEqualTo(2L);
 		}

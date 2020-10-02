@@ -45,11 +45,11 @@ final class ComparatorsTest {
 		assertThat(Comparator.<String>naturalOrder().compare("foo11", "foo2")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo11", "foo2")).isEqualTo(1);
 
-		assertThat(Comparators.NUMBER_AWARE.compare(null, null)).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare(null, null)).isZero();
 		assertThat(Comparators.NUMBER_AWARE.compare(null, "foo1")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo2", null)).isEqualTo(1);
 
-		assertThat(Comparators.NUMBER_AWARE.compare(Strings.EMPTY, Strings.EMPTY)).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare(Strings.EMPTY, Strings.EMPTY)).isZero();
 		assertThat(Comparators.NUMBER_AWARE.compare(Strings.EMPTY, "foo1")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo2", Strings.EMPTY)).isEqualTo(1);
 
@@ -63,13 +63,13 @@ final class ComparatorsTest {
 		assertThat(Comparators.NUMBER_AWARE.compare("foo0*0", "foo0*1")).isEqualTo(-1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo0*1", "foo0*0")).isEqualTo(1);
 
-		assertThat(Comparators.NUMBER_AWARE.compare("foo010", "foo010")).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare("foo010", "foo010")).isZero();
 		assertThat(Comparators.NUMBER_AWARE.compare("foo010a", "foo010")).isEqualTo(1);
 		assertThat(Comparators.NUMBER_AWARE.compare("foo010", "foo010a")).isEqualTo(-1);
 
 		// Avoid internal cache
-		assertThat(Comparators.NUMBER_AWARE.compare(new StringBuilder("foo"), new StringBuilder("foo"))).isEqualTo(0);
-		assertThat(Comparators.NUMBER_AWARE.compare(new StringBuilder("foo010"), new StringBuilder("foo010"))).isEqualTo(0);
+		assertThat(Comparators.NUMBER_AWARE.compare(new StringBuilder("foo"), new StringBuilder("foo"))).isZero();
+		assertThat(Comparators.NUMBER_AWARE.compare(new StringBuilder("foo010"), new StringBuilder("foo010"))).isZero();
 	}
 
 	@Test
@@ -80,11 +80,11 @@ final class ComparatorsTest {
 			}
 			return i1 - i2;
 		}).satisfies(comparator -> {
-			assertThat(comparator.compare(0, 0)).isEqualTo(0);
+			assertThat(comparator.compare(0, 0)).isZero();
 			assertThat(comparator.compare(0, 10)).isEqualTo(-10);
 			assertThat(comparator.compare(10, 0)).isEqualTo(10);
 			assertThat(Comparators.normalize(comparator)).satisfies(normalizedComparator -> {
-				assertThat(normalizedComparator.compare(0, 0)).isEqualTo(0);
+				assertThat(normalizedComparator.compare(0, 0)).isZero();
 				assertThat(normalizedComparator.compare(0, 10)).isEqualTo(-1);
 				assertThat(normalizedComparator.compare(10, 0)).isEqualTo(1);
 			});

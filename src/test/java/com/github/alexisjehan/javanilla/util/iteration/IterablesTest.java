@@ -178,7 +178,7 @@ final class IterablesTest {
 		for (var i = 0; i < 2; ++i) {
 			final var filterIterator = filterIterable.iterator();
 			while (filterIterator.hasNext()) {
-				assertThat(ELEMENTS[0].equals(filterIterator.next())).isTrue();
+				assertThat(ELEMENTS[0]).isEqualTo(filterIterator.next());
 				filterIterator.remove();
 			}
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(filterIterator::next);
@@ -241,10 +241,10 @@ final class IterablesTest {
 
 	@Test
 	void testLength() {
-		assertThat(Iterables.length(List.of())).isEqualTo(0L);
+		assertThat(Iterables.length(List.of())).isZero();
 		assertThat(Iterables.length(List.of(ELEMENTS[0]))).isEqualTo(1L);
 		assertThat(Iterables.length(List.of(ELEMENTS))).isEqualTo(3L);
-		assertThat(Iterables.length(Iterables.empty())).isEqualTo(0L);
+		assertThat(Iterables.length(Iterables.empty())).isZero();
 		assertThat(Iterables.length(Iterables.singleton(ELEMENTS[0]))).isEqualTo(1L);
 		final var iterable = Iterables.of(ELEMENTS);
 		for (var i = 0; i < 2; ++i) {
@@ -260,14 +260,14 @@ final class IterablesTest {
 	@Test
 	void testTransferTo() {
 		final var list = new ArrayList<>();
-		assertThat(Iterables.transferTo(List.of(), list)).isEqualTo(0L);
+		assertThat(Iterables.transferTo(List.of(), list)).isZero();
 		assertThat(list).isEmpty();
 		assertThat(Iterables.transferTo(List.of(ELEMENTS[0]), list)).isEqualTo(1L);
 		assertThat(list).containsExactly(ELEMENTS[0]);
 		assertThat(Iterables.transferTo(List.of(ELEMENTS), list)).isEqualTo(3L);
 		assertThat(list).containsExactly(ELEMENTS[0], ELEMENTS[0], ELEMENTS[1], ELEMENTS[2]);
 		list.clear();
-		assertThat(Iterables.transferTo(Iterables.empty(), list)).isEqualTo(0L);
+		assertThat(Iterables.transferTo(Iterables.empty(), list)).isZero();
 		assertThat(list).isEmpty();
 		assertThat(Iterables.transferTo(Iterables.singleton(ELEMENTS[0]), list)).isEqualTo(1L);
 		assertThat(list).containsExactly(ELEMENTS[0]);

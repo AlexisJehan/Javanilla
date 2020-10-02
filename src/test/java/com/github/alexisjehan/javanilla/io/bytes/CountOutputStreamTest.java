@@ -48,7 +48,7 @@ final class CountOutputStreamTest {
 	@SuppressWarnings("deprecation")
 	void testWriteByte() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
-			assertThat(countOutputStream.getCount()).isEqualTo(0L);
+			assertThat(countOutputStream.getCount()).isZero();
 			countOutputStream.write(BYTES[0]);
 			assertThat(countOutputStream.getCount()).isEqualTo(1L);
 			countOutputStream.write(BYTES[1]);
@@ -62,9 +62,9 @@ final class CountOutputStreamTest {
 	@SuppressWarnings("deprecation")
 	void testWriteBytes() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
-			assertThat(countOutputStream.getCount()).isEqualTo(0L);
+			assertThat(countOutputStream.getCount()).isZero();
 			countOutputStream.write(BYTES, 0, 0);
-			assertThat(countOutputStream.getCount()).isEqualTo(0L);
+			assertThat(countOutputStream.getCount()).isZero();
 			countOutputStream.write(BYTES, 0, 2);
 			assertThat(countOutputStream.getCount()).isEqualTo(2L);
 		}

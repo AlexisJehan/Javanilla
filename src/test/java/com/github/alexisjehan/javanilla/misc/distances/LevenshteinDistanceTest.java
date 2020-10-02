@@ -68,7 +68,7 @@ final class LevenshteinDistanceTest {
 	@Test
 	void testCalculate() {
 		assertThat(LevenshteinDistance.DEFAULT).satisfies(levenshteinDistance -> {
-			assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
+			assertThat(levenshteinDistance.calculate("a", "a")).isZero();
 			assertThat(levenshteinDistance.calculate("ab", Strings.EMPTY)).isEqualTo(2.0d);
 			assertThat(levenshteinDistance.calculate(Strings.EMPTY, "ab")).isEqualTo(2.0d);
 			assertThat(levenshteinDistance.calculate("ab", "abc")).isEqualTo(1.0d);
@@ -78,7 +78,7 @@ final class LevenshteinDistanceTest {
 			assertThat(levenshteinDistance.calculate("The quick brown fox jumps over the lazy dog", "The five boxing wizards jump quickly")).isEqualTo(31.0d);
 		});
 		assertThat(new LevenshteinDistance(1.0d, 2.0d, 3.0d)).satisfies(levenshteinDistance -> {
-			assertThat(levenshteinDistance.calculate("a", "a")).isEqualTo(0.0d);
+			assertThat(levenshteinDistance.calculate("a", "a")).isZero();
 			assertThat(levenshteinDistance.calculate("ab", Strings.EMPTY)).isEqualTo(4.0d);
 			assertThat(levenshteinDistance.calculate(Strings.EMPTY, "ab")).isEqualTo(2.0d);
 			assertThat(levenshteinDistance.calculate("ab", "abc")).isEqualTo(1.0d);
