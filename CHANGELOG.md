@@ -2,6 +2,9 @@
 
 ## 1.6.0 _(in progress)_
 
+**util.collection.bags.LimitedBag**
+- Added the _getLimit()_ method
+
 
 ## 1.5.0 _(2020-01-23)_
 
@@ -436,7 +439,7 @@ _notNullAndBetween()_ methods
 - Changed _min()_ and _max()_ methods return type to _NullableOptional_
 - Fixed _equals()_ and _hashCode()_ implementations
 
-**util.collection.bags.Limited**
+**util.collection.bags.LimitedBag**
 - Fixed _equals()_ and _hashCode()_ implementations
 
 **util.collection.bags.MapBag**

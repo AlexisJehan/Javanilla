@@ -81,4 +81,13 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	public String toString() {
 		return super.toString() + "[" + limit + "]";
 	}
+
+	/**
+	 * <p>Get the limit.</p>
+	 * @return the limit
+	 * @since 1.6.0
+	 */
+	public int getLimit() {
+		return limit;
+	}
 }

@@ -47,10 +47,11 @@ final class LimitedBagTest extends AbstractBagTest {
 
 	@Test
 	void testConstructor() {
-		final var limitedBag = new LimitedBag<>(new MapBag<>(List.of("foo", "foo", "bar", "bar", "fooo")), 2);
+		final var limitedBag = new LimitedBag<>(new MapBag<>(List.of("foo", "foo", "bar", "bar", "fooo")), LIMIT);
 		assertThat(limitedBag.count("foo")).isEqualTo(2L);
 		assertThat(limitedBag.count("bar")).isEqualTo(2L);
 		assertThat(limitedBag.count("fooo")).isEqualTo(0L);
+		assertThat(limitedBag.getLimit()).isEqualTo(LIMIT);
 	}
 
 	@Test
@@ -112,5 +113,10 @@ final class LimitedBagTest extends AbstractBagTest {
 			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
 			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
 		});
+	}
+
+	@Test
+	void testGetLimit() {
+		assertThat(limitedBag.getLimit()).isEqualTo(LIMIT);
 	}
 }
