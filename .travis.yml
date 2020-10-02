@@ -11,10 +11,14 @@ jdk:
   - openjdk11
   - openjdk12
   - openjdk13
+  - openjdk14
+  - openjdk15
   - openjdk-ea
   - oraclejdk11
   - oraclejdk12
   - oraclejdk13
+  - oraclejdk14
+  - oraclejdk15
   - oraclejdk-ea
 
 after_success:
