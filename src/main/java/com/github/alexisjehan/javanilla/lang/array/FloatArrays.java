@@ -621,9 +621,7 @@ public final class FloatArrays {
 			return ObjectArrays.empty(Float.class);
 		}
 		final var boxedArray = new Float[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 }

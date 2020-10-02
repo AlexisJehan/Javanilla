@@ -159,58 +159,58 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 * @since 1.2.0
 	 */
 	default Iterable<TreeNode<V>> descendantsDepthFirst() {
-		return () -> new Iterator<>() {
+		return () -> {
+			final var iterator = new Iterator<TreeNode<V>>() {
 
-			/**
-			 * <p>Queue of descendants nodes.</p>
-			 * @since 1.2.0
-			 */
-			private final Deque<TreeNode<V>> deque = new LinkedList<>(children());
+				/**
+				 * <p>Queue of descendants nodes.</p>
+				 * @since 1.2.0
+				 */
+				private final Deque<TreeNode<V>> deque = new LinkedList<>(children());
 
-			/**
-			 * <p>Next node or {@code null}.</p>
-			 * @since 1.2.0
-			 */
-			private TreeNode<V> next;
+				/**
+				 * <p>Next node or {@code null}.</p>
+				 * @since 1.2.0
+				 */
+				private TreeNode<V> next;
 
-			{
-				prepareNext();
-			}
-
-			/**
-			 * <p>Prepare the next node.</p>
-			 * @since 1.2.0
-			 */
-			private void prepareNext() {
-				next = deque.poll();
-				if (null != next) {
-					final var listIterator = next.children().listIterator((int) next.degree());
-					while (listIterator.hasPrevious()) {
-						deque.push(listIterator.previous());
+				/**
+				 * <p>Prepare the next node.</p>
+				 * @since 1.2.0
+				 */
+				private void prepareNext() {
+					next = deque.poll();
+					if (null != next) {
+						final var listIterator = next.children().listIterator((int) next.degree());
+						while (listIterator.hasPrevious()) {
+							deque.push(listIterator.previous());
+						}
 					}
 				}
-			}
 
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public boolean hasNext() {
-				return null != next;
-			}
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public TreeNode<V> next() {
-				if (!hasNext()) {
-					throw new NoSuchElementException();
+				/**
+				 * {@inheritDoc}
+				 */
+				@Override
+				public boolean hasNext() {
+					return null != next;
 				}
-				final var current = next;
-				prepareNext();
-				return current;
-			}
+
+				/**
+				 * {@inheritDoc}
+				 */
+				@Override
+				public TreeNode<V> next() {
+					if (!hasNext()) {
+						throw new NoSuchElementException();
+					}
+					final var current = next;
+					prepareNext();
+					return current;
+				}
+			};
+			iterator.prepareNext();
+			return iterator;
 		};
 	}
 
@@ -220,55 +220,55 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 * @since 1.2.0
 	 */
 	default Iterable<TreeNode<V>> descendantsBreadthFirst() {
-		return () -> new Iterator<>() {
+		return () -> {
+			final var iterator = new Iterator<TreeNode<V>>() {
 
-			/**
-			 * <p>Queue of descendants nodes.</p>
-			 * @since 1.2.0
-			 */
-			private final Queue<TreeNode<V>> queue = new LinkedList<>(children());
+				/**
+				 * <p>Queue of descendants nodes.</p>
+				 * @since 1.2.0
+				 */
+				private final Queue<TreeNode<V>> queue = new LinkedList<>(children());
 
-			/**
-			 * <p>Next node or {@code null}.</p>
-			 * @since 1.2.0
-			 */
-			private TreeNode<V> next;
+				/**
+				 * <p>Next node or {@code null}.</p>
+				 * @since 1.2.0
+				 */
+				private TreeNode<V> next;
 
-			{
-				prepareNext();
-			}
-
-			/**
-			 * <p>Prepare the next node.</p>
-			 * @since 1.2.0
-			 */
-			private void prepareNext() {
-				next = queue.poll();
-				if (null != next) {
-					queue.addAll(next.children());
+				/**
+				 * <p>Prepare the next node.</p>
+				 * @since 1.2.0
+				 */
+				private void prepareNext() {
+					next = queue.poll();
+					if (null != next) {
+						queue.addAll(next.children());
+					}
 				}
-			}
 
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public boolean hasNext() {
-				return null != next;
-			}
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public TreeNode<V> next() {
-				if (!hasNext()) {
-					throw new NoSuchElementException();
+				/**
+				 * {@inheritDoc}
+				 */
+				@Override
+				public boolean hasNext() {
+					return null != next;
 				}
-				final var current = next;
-				prepareNext();
-				return current;
-			}
+
+				/**
+				 * {@inheritDoc}
+				 */
+				@Override
+				public TreeNode<V> next() {
+					if (!hasNext()) {
+						throw new NoSuchElementException();
+					}
+					final var current = next;
+					prepareNext();
+					return current;
+				}
+			};
+			iterator.prepareNext();
+			return iterator;
 		};
 	}
 

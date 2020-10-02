@@ -78,6 +78,22 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public boolean equals(final Object object) {
+		return super.equals(object);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String toString() {
 		return super.toString() + "[" + limit + "]";
 	}

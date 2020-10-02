@@ -621,9 +621,7 @@ public final class ShortArrays {
 			return ObjectArrays.empty(Short.class);
 		}
 		final var boxedArray = new Short[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 }

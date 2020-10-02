@@ -622,9 +622,7 @@ public final class DoubleArrays {
 			return ObjectArrays.empty(Double.class);
 		}
 		final var boxedArray = new Double[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 }

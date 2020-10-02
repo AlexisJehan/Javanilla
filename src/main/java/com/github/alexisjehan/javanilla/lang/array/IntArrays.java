@@ -621,9 +621,7 @@ public final class IntArrays {
 			return ObjectArrays.empty(Integer.class);
 		}
 		final var boxedArray = new Integer[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 }

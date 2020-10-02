@@ -625,9 +625,7 @@ public final class BooleanArrays {
 			return ObjectArrays.empty(Boolean.class);
 		}
 		final var boxedArray = new Boolean[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 }

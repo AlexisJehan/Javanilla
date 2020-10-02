@@ -635,9 +635,7 @@ public final class ByteArrays {
 			return ObjectArrays.empty(Byte.class);
 		}
 		final var boxedArray = new Byte[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 

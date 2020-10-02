@@ -621,9 +621,7 @@ public final class CharArrays {
 			return ObjectArrays.empty(Character.class);
 		}
 		final var boxedArray = new Character[array.length];
-		for (var i = 0; i < boxedArray.length; ++i) {
-			boxedArray[i] = array[i];
-		}
+		Arrays.setAll(boxedArray, i -> array[i]);
 		return boxedArray;
 	}
 }
