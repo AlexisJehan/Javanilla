@@ -5,6 +5,42 @@
 **util.collection.bags.LimitedBag**
 - Added the _getLimit()_ method
 
+**lang.array.BooleanArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.ByteArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.CharArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.DoubleArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.FloatArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.IntArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.LongArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.ObjectArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
+**lang.array.ShortArrays**
+- Added the _shuffle(short[], Random)_ method
+- Deprecated the _shuffle(short[])_ method
+
 
 ## 1.5.0 _(2020-01-23)_
 

@@ -31,6 +31,7 @@ import com.github.alexisjehan.javanilla.misc.quality.ToString;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -335,16 +336,32 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code byte} array using the Fisher-Yates algorithm.</p>
+	 * <p>Shuffle values in the given {@code byte} array following the Fisher-Yates algorithm.</p>
 	 * @param array the {@code byte} array to shuffle
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
+	 * @deprecated for security purposes, use {@link #shuffle(byte[], Random)} with
+	 *             {@link java.security.SecureRandom} instead
 	 */
+	@Deprecated(since = "1.6.0")
 	public static void shuffle(final byte[] array) {
+		shuffle(array, ThreadLocalRandom.current());
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@code byte} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.</p>
+	 * @param array the {@code byte} array to shuffle
+	 * @param random the {@code Random} object to use
+	 * @throws NullPointerException if the {@code byte} array or the {@code Random} object is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.6.0
+	 */
+	public static void shuffle(final byte[] array, final Random random) {
 		Ensure.notNull("array", array);
+		Ensure.notNull("random", random);
 		if (1 < array.length) {
-			final var random = ThreadLocalRandom.current();
 			for (var i = 0; i < array.length; ++i) {
 				swap(array, i, random.nextInt(i + 1));
 			}

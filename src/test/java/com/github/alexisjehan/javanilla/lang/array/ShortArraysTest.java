@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -206,20 +207,23 @@ final class ShortArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testShuffle() {
 		assertThat(ShortArrays.singleton((short) 1)).satisfies(array -> {
 			ShortArrays.shuffle(array);
 			assertThat(array).containsExactly((short) 1);
 		});
 		assertThat(ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2)).satisfies(array -> {
-			ShortArrays.shuffle(array);
+			ShortArrays.shuffle(array, new Random());
 			assertThat(array).containsExactlyInAnyOrder((short) 1, (short) 2, (short) 1, (short) 2);
 		});
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testShuffleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(ShortArrays.of(VALUES), null));
 	}
 
 	@Test

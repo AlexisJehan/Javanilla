@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.ByteOrder;
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -208,20 +209,23 @@ final class ByteArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testShuffle() {
 		assertThat(ByteArrays.singleton((byte) 1)).satisfies(array -> {
 			ByteArrays.shuffle(array);
 			assertThat(array).containsExactly((byte) 1);
 		});
 		assertThat(ByteArrays.of((byte) 1, (byte) 2, (byte) 1, (byte) 2)).satisfies(array -> {
-			ByteArrays.shuffle(array);
+			ByteArrays.shuffle(array, new Random());
 			assertThat(array).containsExactlyInAnyOrder((byte) 1, (byte) 2, (byte) 1, (byte) 2);
 		});
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testShuffleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.shuffle(null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.shuffle(ByteArrays.of(VALUES), null));
 	}
 
 	@Test
