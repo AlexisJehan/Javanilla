@@ -30,9 +30,9 @@ import com.github.alexisjehan.javanilla.io.lines.LineWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public final class LineSeparatorExample {
+public final class LineExample {
 
-	private LineSeparatorExample() {
+	private LineExample() {
 		// Not available
 	}
 
