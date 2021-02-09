@@ -52,20 +52,20 @@ final class SerializableTripleTest {
 		assertThat(SerializableTriple.of(null, SECOND, THIRD)).satisfies(otherSerializableTriple -> {
 			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
 			assertThat(serializableTriple).isNotEqualTo(otherSerializableTriple);
-			assertThat(serializableTriple.hashCode()).isNotEqualTo(otherSerializableTriple.hashCode());
-			assertThat(serializableTriple.toString()).isNotEqualTo(otherSerializableTriple.toString());
+			assertThat(serializableTriple).doesNotHaveSameHashCodeAs(otherSerializableTriple);
+			assertThat(serializableTriple).doesNotHaveToString(otherSerializableTriple.toString());
 		});
 		assertThat(SerializableTriple.of(FIRST, null, THIRD)).satisfies(otherSerializableTriple -> {
 			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
 			assertThat(serializableTriple).isNotEqualTo(otherSerializableTriple);
-			assertThat(serializableTriple.hashCode()).isNotEqualTo(otherSerializableTriple.hashCode());
-			assertThat(serializableTriple.toString()).isNotEqualTo(otherSerializableTriple.toString());
+			assertThat(serializableTriple).doesNotHaveSameHashCodeAs(otherSerializableTriple);
+			assertThat(serializableTriple).doesNotHaveToString(otherSerializableTriple.toString());
 		});
 		assertThat(SerializableTriple.of(FIRST, SECOND, 3)).satisfies(otherSerializableTriple -> {
 			assertThat(serializableTriple).isNotSameAs(otherSerializableTriple);
 			assertThat(serializableTriple).isNotEqualTo(otherSerializableTriple);
-			assertThat(serializableTriple.hashCode()).isNotEqualTo(otherSerializableTriple.hashCode());
-			assertThat(serializableTriple.toString()).isNotEqualTo(otherSerializableTriple.toString());
+			assertThat(serializableTriple).doesNotHaveSameHashCodeAs(otherSerializableTriple);
+			assertThat(serializableTriple).doesNotHaveToString(otherSerializableTriple.toString());
 		});
 	}
 

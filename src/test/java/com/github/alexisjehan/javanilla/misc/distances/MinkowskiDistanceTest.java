@@ -95,8 +95,8 @@ final class MinkowskiDistanceTest {
 		assertThat(new MinkowskiDistance(2)).satisfies(otherMinkowskiDistance -> {
 			assertThat(minkowskiDistance).isNotSameAs(otherMinkowskiDistance);
 			assertThat(minkowskiDistance).isNotEqualTo(otherMinkowskiDistance);
-			assertThat(minkowskiDistance.hashCode()).isNotEqualTo(otherMinkowskiDistance.hashCode());
-			assertThat(minkowskiDistance.toString()).isNotEqualTo(otherMinkowskiDistance.toString());
+			assertThat(minkowskiDistance).doesNotHaveSameHashCodeAs(otherMinkowskiDistance);
+			assertThat(minkowskiDistance).doesNotHaveToString(otherMinkowskiDistance.toString());
 		});
 	}
 

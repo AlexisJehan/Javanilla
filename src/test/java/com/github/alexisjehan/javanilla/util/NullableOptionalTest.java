@@ -246,14 +246,14 @@ final class NullableOptionalTest {
 		assertThat(NullableOptional.of(1)).satisfies(otherNullableOptional -> {
 			assertThat(nullableOptional).isNotSameAs(otherNullableOptional);
 			assertThat(nullableOptional).isNotEqualTo(otherNullableOptional);
-			assertThat(nullableOptional.hashCode()).isNotEqualTo(otherNullableOptional.hashCode());
-			assertThat(nullableOptional.toString()).isNotEqualTo(otherNullableOptional.toString());
+			assertThat(nullableOptional).doesNotHaveSameHashCodeAs(otherNullableOptional);
+			assertThat(nullableOptional).doesNotHaveToString(otherNullableOptional.toString());
 		});
 		assertThat(NullableOptional.empty()).satisfies(otherNullableOptional -> {
 			assertThat(nullableOptional).isNotSameAs(otherNullableOptional);
 			assertThat(nullableOptional).isNotEqualTo(otherNullableOptional);
-			assertThat(nullableOptional.hashCode()).isNotEqualTo(otherNullableOptional.hashCode());
-			assertThat(nullableOptional.toString()).isNotEqualTo(otherNullableOptional.toString());
+			assertThat(nullableOptional).doesNotHaveSameHashCodeAs(otherNullableOptional);
+			assertThat(nullableOptional).doesNotHaveToString(otherNullableOptional.toString());
 		});
 	}
 

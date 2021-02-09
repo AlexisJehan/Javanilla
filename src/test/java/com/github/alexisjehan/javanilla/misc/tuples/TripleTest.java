@@ -51,20 +51,20 @@ final class TripleTest {
 		assertThat(Triple.of(null, SECOND, THIRD)).satisfies(otherTriple -> {
 			assertThat(triple).isNotSameAs(otherTriple);
 			assertThat(triple).isNotEqualTo(otherTriple);
-			assertThat(triple.hashCode()).isNotEqualTo(otherTriple.hashCode());
-			assertThat(triple.toString()).isNotEqualTo(otherTriple.toString());
+			assertThat(triple).doesNotHaveSameHashCodeAs(otherTriple);
+			assertThat(triple).doesNotHaveToString(otherTriple.toString());
 		});
 		assertThat(Triple.of(FIRST, null, THIRD)).satisfies(otherTriple -> {
 			assertThat(triple).isNotSameAs(otherTriple);
 			assertThat(triple).isNotEqualTo(otherTriple);
-			assertThat(triple.hashCode()).isNotEqualTo(otherTriple.hashCode());
-			assertThat(triple.toString()).isNotEqualTo(otherTriple.toString());
+			assertThat(triple).doesNotHaveSameHashCodeAs(otherTriple);
+			assertThat(triple).doesNotHaveToString(otherTriple.toString());
 		});
 		assertThat(Triple.of(FIRST, SECOND, 3)).satisfies(otherTriple -> {
 			assertThat(triple).isNotSameAs(otherTriple);
 			assertThat(triple).isNotEqualTo(otherTriple);
-			assertThat(triple.hashCode()).isNotEqualTo(otherTriple.hashCode());
-			assertThat(triple.toString()).isNotEqualTo(otherTriple.toString());
+			assertThat(triple).doesNotHaveSameHashCodeAs(otherTriple);
+			assertThat(triple).doesNotHaveToString(otherTriple.toString());
 		});
 	}
 

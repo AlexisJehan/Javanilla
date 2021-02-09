@@ -49,8 +49,8 @@ final class SingleTest {
 		assertThat(Single.of(null)).satisfies(otherSingle -> {
 			assertThat(single).isNotSameAs(otherSingle);
 			assertThat(single).isNotEqualTo(otherSingle);
-			assertThat(single.hashCode()).isNotEqualTo(otherSingle.hashCode());
-			assertThat(single.toString()).isNotEqualTo(otherSingle.toString());
+			assertThat(single).doesNotHaveSameHashCodeAs(otherSingle);
+			assertThat(single).doesNotHaveToString(otherSingle.toString());
 		});
 	}
 

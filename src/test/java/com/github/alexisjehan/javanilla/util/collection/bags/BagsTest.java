@@ -83,8 +83,8 @@ final class BagsTest {
 		assertThat(Bags.singleton("foo", 5L)).satisfies(otherBag -> {
 			assertThat(emptyBag).isNotSameAs(otherBag);
 			assertThat(emptyBag).isNotEqualTo(otherBag);
-			assertThat(emptyBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(emptyBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(emptyBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(emptyBag).doesNotHaveToString(otherBag.toString());
 		});
 	}
 
@@ -227,14 +227,14 @@ final class BagsTest {
 		assertThat(Bags.singleton(null, QUANTITY)).satisfies(otherBag -> {
 			assertThat(singletonBag).isNotSameAs(otherBag);
 			assertThat(singletonBag).isNotEqualTo(otherBag);
-			assertThat(singletonBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(singletonBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(singletonBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(singletonBag).doesNotHaveToString(otherBag.toString());
 		});
 		assertThat(Bags.singleton(ELEMENT, 0L)).satisfies(otherBag -> {
 			assertThat(singletonBag).isNotSameAs(otherBag);
 			assertThat(singletonBag).isNotEqualTo(otherBag);
-			assertThat(singletonBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(singletonBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(singletonBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(singletonBag).doesNotHaveToString(otherBag.toString());
 		});
 	}
 

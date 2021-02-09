@@ -365,20 +365,20 @@ final class StringFormatterTest {
 		assertThat(new StringFormatter(Locale.FRANCE, FLOAT_PRECISION, STRICT_PRECISION)).satisfies(otherStringFormatter -> {
 			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
-			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
-			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
+			assertThat(stringFormatter).doesNotHaveSameHashCodeAs(otherStringFormatter);
+			assertThat(stringFormatter).doesNotHaveToString(otherStringFormatter.toString());
 		});
 		assertThat(new StringFormatter(LOCALE, 5, STRICT_PRECISION)).satisfies(otherStringFormatter -> {
 			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
-			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
-			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
+			assertThat(stringFormatter).doesNotHaveSameHashCodeAs(otherStringFormatter);
+			assertThat(stringFormatter).doesNotHaveToString(otherStringFormatter.toString());
 		});
 		assertThat(new StringFormatter(LOCALE, FLOAT_PRECISION, true)).satisfies(otherStringFormatter -> {
 			assertThat(stringFormatter).isNotSameAs(otherStringFormatter);
 			assertThat(stringFormatter).isNotEqualTo(otherStringFormatter);
-			assertThat(stringFormatter.hashCode()).isNotEqualTo(otherStringFormatter.hashCode());
-			assertThat(stringFormatter.toString()).isNotEqualTo(otherStringFormatter.toString());
+			assertThat(stringFormatter).doesNotHaveSameHashCodeAs(otherStringFormatter);
+			assertThat(stringFormatter).doesNotHaveToString(otherStringFormatter.toString());
 		});
 	}
 

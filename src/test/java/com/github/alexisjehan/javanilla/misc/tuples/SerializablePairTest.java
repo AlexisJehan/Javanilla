@@ -51,14 +51,14 @@ final class SerializablePairTest {
 		assertThat(SerializablePair.of(null, SECOND)).satisfies(otherSerializablePair -> {
 			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
 			assertThat(serializablePair).isNotEqualTo(otherSerializablePair);
-			assertThat(serializablePair.hashCode()).isNotEqualTo(otherSerializablePair.hashCode());
-			assertThat(serializablePair.toString()).isNotEqualTo(otherSerializablePair.toString());
+			assertThat(serializablePair).doesNotHaveSameHashCodeAs(otherSerializablePair);
+			assertThat(serializablePair).doesNotHaveToString(otherSerializablePair.toString());
 		});
 		assertThat(SerializablePair.of(FIRST, 2)).satisfies(otherSerializablePair -> {
 			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
 			assertThat(serializablePair).isNotEqualTo(otherSerializablePair);
-			assertThat(serializablePair.hashCode()).isNotEqualTo(otherSerializablePair.hashCode());
-			assertThat(serializablePair.toString()).isNotEqualTo(otherSerializablePair.toString());
+			assertThat(serializablePair).doesNotHaveSameHashCodeAs(otherSerializablePair);
+			assertThat(serializablePair).doesNotHaveToString(otherSerializablePair.toString());
 		});
 	}
 

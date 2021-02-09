@@ -50,14 +50,14 @@ final class PairTest {
 		assertThat(Pair.of(null, SECOND)).satisfies(otherPair -> {
 			assertThat(pair).isNotSameAs(otherPair);
 			assertThat(pair).isNotEqualTo(otherPair);
-			assertThat(pair.hashCode()).isNotEqualTo(otherPair.hashCode());
-			assertThat(pair.toString()).isNotEqualTo(otherPair.toString());
+			assertThat(pair).doesNotHaveSameHashCodeAs(otherPair);
+			assertThat(pair).doesNotHaveToString(otherPair.toString());
 		});
 		assertThat(Pair.of(FIRST, 2)).satisfies(otherPair -> {
 			assertThat(pair).isNotSameAs(otherPair);
 			assertThat(pair).isNotEqualTo(otherPair);
-			assertThat(pair.hashCode()).isNotEqualTo(otherPair.hashCode());
-			assertThat(pair.toString()).isNotEqualTo(otherPair.toString());
+			assertThat(pair).doesNotHaveSameHashCodeAs(otherPair);
+			assertThat(pair).doesNotHaveToString(otherPair.toString());
 		});
 	}
 

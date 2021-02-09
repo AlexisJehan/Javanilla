@@ -95,26 +95,26 @@ final class MapBagTest extends AbstractBagTest {
 		assertThat(new MapBag<>(List.of("foo", "bar", "bar"))).satisfies(otherBag -> {
 			assertThat(mapBag).isNotSameAs(otherBag);
 			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(mapBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
 		});
 		assertThat(new MapBag<>(List.of("foo"))).satisfies(otherBag -> {
 			assertThat(mapBag).isNotSameAs(otherBag);
 			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(mapBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
 		});
 		assertThat(new MapBag<>(List.of("fooo", "bar"))).satisfies(otherBag -> {
 			assertThat(mapBag).isNotSameAs(otherBag);
 			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(mapBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
 		});
 		assertThat(new MapBag<>(List.of("bar", "bar"))).satisfies(otherBag -> {
 			assertThat(mapBag).isNotSameAs(otherBag);
 			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(mapBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
 		});
 	}
 }

@@ -87,31 +87,31 @@ final class LimitedBagTest extends AbstractBagTest {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isEqualTo(otherBag);
 			assertThat(limitedBag).hasSameHashCodeAs(otherBag);
-			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(limitedBag).doesNotHaveToString(otherBag.toString()); // Custom implementation
 		});
 		assertThat((Bag<String>) new MapBag<>(COLLECTION)).satisfies(otherBag -> {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isEqualTo(otherBag);
 			assertThat(limitedBag).hasSameHashCodeAs(otherBag);
-			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString()); // Custom implementation
+			assertThat(limitedBag).doesNotHaveToString(otherBag.toString()); // Custom implementation
 		});
 		assertThat(new LimitedBag<>(new MapBag<>(List.of("foo")), LIMIT)).satisfies(otherBag -> {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isNotEqualTo(otherBag);
-			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(limitedBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(limitedBag).doesNotHaveToString(otherBag.toString());
 		});
 		assertThat(new LimitedBag<>(new MapBag<>(List.of("fooo", "bar")), LIMIT)).satisfies(otherBag -> {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isNotEqualTo(otherBag);
-			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(limitedBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(limitedBag).doesNotHaveToString(otherBag.toString());
 		});
 		assertThat(new LimitedBag<>(new MapBag<>(List.of("bar", "bar")), LIMIT)).satisfies(otherBag -> {
 			assertThat(limitedBag).isNotSameAs(otherBag);
 			assertThat(limitedBag).isNotEqualTo(otherBag);
-			assertThat(limitedBag.hashCode()).isNotEqualTo(otherBag.hashCode());
-			assertThat(limitedBag.toString()).isNotEqualTo(otherBag.toString());
+			assertThat(limitedBag).doesNotHaveSameHashCodeAs(otherBag);
+			assertThat(limitedBag).doesNotHaveToString(otherBag.toString());
 		});
 	}
 

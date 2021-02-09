@@ -50,14 +50,14 @@ final class IndexedElementTest {
 		assertThat(new IndexedElement<>(2L, ELEMENT)).satisfies(otherIndexedElement -> {
 			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
-			assertThat(indexedElement.hashCode()).isNotEqualTo(otherIndexedElement.hashCode());
-			assertThat(indexedElement.toString()).isNotEqualTo(otherIndexedElement.toString());
+			assertThat(indexedElement).doesNotHaveSameHashCodeAs(otherIndexedElement);
+			assertThat(indexedElement).doesNotHaveToString(otherIndexedElement.toString());
 		});
 		assertThat(new IndexedElement<>(INDEX, "bar")).satisfies(otherIndexedElement -> {
 			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
 			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
-			assertThat(indexedElement.hashCode()).isNotEqualTo(otherIndexedElement.hashCode());
-			assertThat(indexedElement.toString()).isNotEqualTo(otherIndexedElement.toString());
+			assertThat(indexedElement).doesNotHaveSameHashCodeAs(otherIndexedElement);
+			assertThat(indexedElement).doesNotHaveToString(otherIndexedElement.toString());
 		});
 	}
 

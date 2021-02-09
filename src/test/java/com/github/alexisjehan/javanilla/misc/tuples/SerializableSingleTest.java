@@ -50,8 +50,8 @@ final class SerializableSingleTest {
 		assertThat(SerializableSingle.of(null)).satisfies(otherSerializableSingle -> {
 			assertThat(serializableSingle).isNotSameAs(otherSerializableSingle);
 			assertThat(serializableSingle).isNotEqualTo(otherSerializableSingle);
-			assertThat(serializableSingle.hashCode()).isNotEqualTo(otherSerializableSingle.hashCode());
-			assertThat(serializableSingle.toString()).isNotEqualTo(otherSerializableSingle.toString());
+			assertThat(serializableSingle).doesNotHaveSameHashCodeAs(otherSerializableSingle);
+			assertThat(serializableSingle).doesNotHaveToString(otherSerializableSingle.toString());
 		});
 	}
 

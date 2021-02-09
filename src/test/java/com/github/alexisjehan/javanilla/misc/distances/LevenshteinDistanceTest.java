@@ -108,20 +108,20 @@ final class LevenshteinDistanceTest {
 		assertThat(new LevenshteinDistance(2.0d, DELETION_COST, SUBSTITUTION_COST)).satisfies(otherLevenshteinDistance -> {
 			assertThat(levenshteinDistance).isNotSameAs(otherLevenshteinDistance);
 			assertThat(levenshteinDistance).isNotEqualTo(otherLevenshteinDistance);
-			assertThat(levenshteinDistance.hashCode()).isNotEqualTo(otherLevenshteinDistance.hashCode());
-			assertThat(levenshteinDistance.toString()).isNotEqualTo(otherLevenshteinDistance.toString());
+			assertThat(levenshteinDistance).doesNotHaveSameHashCodeAs(otherLevenshteinDistance);
+			assertThat(levenshteinDistance).doesNotHaveToString(otherLevenshteinDistance.toString());
 		});
 		assertThat(new LevenshteinDistance(INSERTION_COST, 3.0d, SUBSTITUTION_COST)).satisfies(otherLevenshteinDistance -> {
 			assertThat(levenshteinDistance).isNotSameAs(otherLevenshteinDistance);
 			assertThat(levenshteinDistance).isNotEqualTo(otherLevenshteinDistance);
-			assertThat(levenshteinDistance.hashCode()).isNotEqualTo(otherLevenshteinDistance.hashCode());
-			assertThat(levenshteinDistance.toString()).isNotEqualTo(otherLevenshteinDistance.toString());
+			assertThat(levenshteinDistance).doesNotHaveSameHashCodeAs(otherLevenshteinDistance);
+			assertThat(levenshteinDistance).doesNotHaveToString(otherLevenshteinDistance.toString());
 		});
 		assertThat(new LevenshteinDistance(INSERTION_COST, DELETION_COST, 4.0d)).satisfies(otherLevenshteinDistance -> {
 			assertThat(levenshteinDistance).isNotSameAs(otherLevenshteinDistance);
 			assertThat(levenshteinDistance).isNotEqualTo(otherLevenshteinDistance);
-			assertThat(levenshteinDistance.hashCode()).isNotEqualTo(otherLevenshteinDistance.hashCode());
-			assertThat(levenshteinDistance.toString()).isNotEqualTo(otherLevenshteinDistance.toString());
+			assertThat(levenshteinDistance).doesNotHaveSameHashCodeAs(otherLevenshteinDistance);
+			assertThat(levenshteinDistance).doesNotHaveToString(otherLevenshteinDistance.toString());
 		});
 	}
 
