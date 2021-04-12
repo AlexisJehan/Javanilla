@@ -171,13 +171,13 @@ final class OutputStreamsTest {
 			try (final var writer = OutputStreams.toWriter(outputStream)) {
 				writer.write(new String(BYTES));
 			}
-			assertThat(new String(outputStream.toByteArray())).isEqualTo(new String(BYTES));
+			assertThat(outputStream.toString()).isEqualTo(new String(BYTES));
 		}
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
 				writer.write(new String(BYTES));
 			}
-			assertThat(new String(outputStream.toByteArray(), StandardCharsets.ISO_8859_1)).isEqualTo(new String(BYTES));
+			assertThat(outputStream.toString(StandardCharsets.ISO_8859_1)).isEqualTo(new String(BYTES));
 		}
 
 		// Not the same charset
@@ -185,7 +185,7 @@ final class OutputStreamsTest {
 			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.UTF_16)) {
 				writer.write(new String(BYTES));
 			}
-			assertThat(new String(outputStream.toByteArray(), StandardCharsets.UTF_8)).isNotEqualTo(new String(BYTES));
+			assertThat(outputStream.toString(StandardCharsets.UTF_8)).isNotEqualTo(new String(BYTES));
 		}
 	}
 
