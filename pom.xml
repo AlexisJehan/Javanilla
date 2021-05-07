@@ -159,7 +159,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.6</version>
+				<version>0.8.7</version>
 				<configuration>
 					<excludes>
 						<exclude>**/examples/**</exclude>
@@ -184,7 +184,7 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>4.0</version>
+				<version>4.1</version>
 				<configuration>
 					<header>LICENSE.txt</header>
 					<includes>
