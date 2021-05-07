@@ -45,7 +45,7 @@ final class SerializableRunnableTest {
 			adder.increment();
 		}
 
-		public int getValue() {
+		private int getValue() {
 			return adder.intValue();
 		}
 	}
@@ -60,7 +60,7 @@ final class SerializableRunnableTest {
 			adder.increment();
 		}
 
-		public int getValue() {
+		private int getValue() {
 			return adder.intValue();
 		}
 	}

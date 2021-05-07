@@ -48,7 +48,7 @@ final class ThrowableRunnableTest {
 			adder.increment();
 		}
 
-		public int getValue() {
+		private int getValue() {
 			return adder.intValue();
 		}
 	}
@@ -62,7 +62,7 @@ final class ThrowableRunnableTest {
 			adder.increment();
 		}
 
-		public int getValue() {
+		private int getValue() {
 			return adder.intValue();
 		}
 	}
