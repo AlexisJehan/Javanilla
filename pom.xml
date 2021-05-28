@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.7.1</version>
+			<version>5.7.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -123,7 +123,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.3.0</version>
 				<configuration>
 					<additionalOptions>-html5</additionalOptions>
 					<excludePackageNames>examples</excludePackageNames>
@@ -140,7 +140,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>gpg-sign</id>
