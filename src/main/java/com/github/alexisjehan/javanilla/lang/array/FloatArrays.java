@@ -325,10 +325,10 @@ public final class FloatArrays {
 	 * <p>Shuffle values in the given {@code float} array following the Fisher-Yates algorithm.</p>
 	 * @param array the {@code float} array to shuffle
 	 * @throws NullPointerException if the {@code float} array is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
 	 * @deprecated for security purposes, use {@link #shuffle(float[], Random)} with
 	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
 	 */
 	@Deprecated(since = "1.6.0")
 	public static void shuffle(final float[] array) {

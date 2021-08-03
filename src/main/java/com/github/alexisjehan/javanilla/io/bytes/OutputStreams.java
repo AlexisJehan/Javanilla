@@ -45,8 +45,8 @@ public final class OutputStreams {
 
 	/**
 	 * <p>An empty {@link OutputStream} that writes nothing.</p>
-	 * @since 1.0.0
 	 * @deprecated since Java 11, use {@code OutputStream#nullOutputStream()} instead
+	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final OutputStream EMPTY = new OutputStream() {

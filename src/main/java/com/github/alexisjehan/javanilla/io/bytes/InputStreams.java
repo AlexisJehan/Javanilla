@@ -50,8 +50,8 @@ public final class InputStreams {
 
 	/**
 	 * <p>An empty {@link InputStream} that returns no byte.</p>
-	 * @since 1.0.0
 	 * @deprecated since Java 11, use {@code InputStream#nullInputStream()} instead
+	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.4.0")
 	public static final InputStream EMPTY = new InputStream() {

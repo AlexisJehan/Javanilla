@@ -329,10 +329,10 @@ public final class BooleanArrays {
 	 * <p>Shuffle values in the given {@code boolean} array following the Fisher-Yates algorithm.</p>
 	 * @param array the {@code boolean} array to shuffle
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
 	 * @deprecated for security purposes, use {@link #shuffle(boolean[], Random)} with
 	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
 	 */
 	@Deprecated(since = "1.6.0")
 	public static void shuffle(final boolean[] array) {
