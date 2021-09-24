@@ -111,7 +111,7 @@ final class ThrowablesTest {
 	@Test
 	void testGetOptionalRootCause() {
 		assertThat(new IOException()).satisfies(rootException -> {
-			final var exception = new UncheckedIOException((IOException) rootException);
+			final var exception = new UncheckedIOException(rootException);
 			assertThat(Throwables.getOptionalRootCause(rootException)).isEmpty();
 			assertThat(Throwables.getOptionalRootCause(exception)).hasValue(rootException);
 			assertThat(Throwables.getOptionalRootCause(new RuntimeException(exception))).hasValue(rootException);
@@ -120,7 +120,7 @@ final class ThrowablesTest {
 		// Cycle
 		assertThat(new IOException()).satisfies(rootException -> {
 			@SuppressWarnings("serial")
-			final var exception = new RuntimeException(new UncheckedIOException((IOException) rootException)) {
+			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
 				@Override
 				public Throwable getCause() {
 					return this;
@@ -138,14 +138,14 @@ final class ThrowablesTest {
 	@Test
 	void testGetCauses() {
 		assertThat(new IOException()).satisfies(rootException -> {
-			final var exception = new UncheckedIOException((IOException) rootException);
+			final var exception = new UncheckedIOException(rootException);
 			assertThat(Throwables.getCauses(new RuntimeException(exception))).containsExactly(exception, rootException);
 		});
 
 		// Cycle
 		assertThat(new IOException()).satisfies(rootException -> {
 			@SuppressWarnings("serial")
-			final var exception = new RuntimeException(new UncheckedIOException((IOException) rootException)) {
+			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
 				@Override
 				public Throwable getCause() {
 					return this;
