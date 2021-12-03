@@ -128,13 +128,14 @@ public final class Sets {
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
 	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
+	 * @deprecated use {@link #unify(Set[])} instead
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
+	@Deprecated(since = "1.6.0")
 	@SuppressWarnings("varargs")
 	public static <E> Set<E> union(final Set<? extends E>... sets) {
-		Ensure.notNullAndNotNullElements("sets", sets);
-		return union(List.of(sets));
+		return unify(sets);
 	}
 
 	/**
@@ -143,10 +144,39 @@ public final class Sets {
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
 	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
+	 * @deprecated use {@link #unify(Collection)} instead
 	 * @since 1.3.0
 	 */
-	@SuppressWarnings("unchecked")
+	@Deprecated(since = "1.6.0")
 	public static <E> Set<E> union(final Collection<? extends Set<? extends E>> sets) {
+		return unify(sets);
+	}
+
+	/**
+	 * <p>Unify multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} array to unify
+	 * @param <E> the type of elements maintained by the set
+	 * @return the union {@link Set}
+	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
+	 * @since 1.6.0
+	 */
+	@SafeVarargs
+	@SuppressWarnings("varargs")
+	public static <E> Set<E> unify(final Set<? extends E>... sets) {
+		Ensure.notNullAndNotNullElements("sets", sets);
+		return unify(List.of(sets));
+	}
+
+	/**
+	 * <p>Unify multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} {@link Collection} to unify
+	 * @param <E> the type of elements maintained by the set
+	 * @return the union {@link Set}
+	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
+	 * @since 1.6.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> Set<E> unify(final Collection<? extends Set<? extends E>> sets) {
 		Ensure.notNullAndNotNullElements("sets", sets);
 		final var size = sets.size();
 		if (0 == size) {

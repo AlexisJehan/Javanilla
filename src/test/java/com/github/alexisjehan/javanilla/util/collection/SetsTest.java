@@ -96,6 +96,7 @@ final class SetsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testUnion() {
 		assertThat(Sets.union()).isEmpty();
 		assertThat(Sets.union(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
@@ -104,11 +105,28 @@ final class SetsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testUnionInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>) null));
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Collection<Set<Integer>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Sets.union(Collections.singleton(null)));
+	}
+
+	@Test
+	void testUnify() {
+		assertThat(Sets.unify()).isEmpty();
+		assertThat(Sets.unify(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
+		assertThat(Sets.unify(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2]))).containsExactlyInAnyOrder(ELEMENTS);
+		assertThat(Sets.unify(Set.of(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2])))).containsExactlyInAnyOrder(ELEMENTS);
+	}
+
+	@Test
+	void testUnifyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Sets.unify((Set<Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.unify((Set<Integer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.unify((Collection<Set<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.unify(Collections.singleton(null)));
 	}
 
 	@Test

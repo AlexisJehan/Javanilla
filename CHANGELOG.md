@@ -2,44 +2,48 @@
 
 ## 1.6.0 _(in progress)_
 
-**util.collection.bags.LimitedBag**
-- Added the _getLimit()_ method
-
 **lang.array.BooleanArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(boolean[], Random)_ method
+- Deprecated the _shuffle(boolean[])_ method
 
 **lang.array.ByteArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(byte[], Random)_ method
+- Deprecated the _shuffle(byte[])_ method
 
 **lang.array.CharArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(char[], Random)_ method
+- Deprecated the _shuffle(char[])_ method
 
 **lang.array.DoubleArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(double[], Random)_ method
+- Deprecated the _shuffle(double[])_ method
 
 **lang.array.FloatArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(float[], Random)_ method
+- Deprecated the _shuffle(float[])_ method
 
 **lang.array.IntArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(int[], Random)_ method
+- Deprecated the _shuffle(int[])_ method
 
 **lang.array.LongArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(long[], Random)_ method
+- Deprecated the _shuffle(long[])_ method
 
 **lang.array.ObjectArrays**
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _shuffle(short[])_ method
+- Added the _shuffle(Object[], Random)_ method
+- Deprecated the _shuffle(Object[])_ method
 
 **lang.array.ShortArrays**
 - Added the _shuffle(short[], Random)_ method
 - Deprecated the _shuffle(short[])_ method
+
+**util.collection.Sets**
+- Added _unify(Set[])_ and _unify(Collection)_ methods
+- Deprecated _union(Set[])_ and _union(Collection)_ methods
+
+**util.collection.bags.LimitedBag**
+- Added the _getLimit()_ method
 
 
 ## 1.5.0 _(2020-01-23)_
@@ -51,7 +55,7 @@
 - Added the _CaseStyle_ class
 
 **misc.StringFormatter**
-- Fixed the _formatPercent_ method
+- Fixed the _formatPercent()_ method
 
 **misc.quality.Ensure**
 - Added _multipleOf()_ methods
