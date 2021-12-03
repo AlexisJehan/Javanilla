@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -335,13 +336,15 @@ final class IntArraysTest {
 		assertThat(IntArrays.concat()).isEmpty();
 		assertThat(IntArrays.concat(IntArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(IntArrays.concat(IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(IntArrays.concat(List.of(IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.concat((int[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.concat((List<int[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.concat((int[]) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.concat((List<int[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -350,14 +353,16 @@ final class IntArraysTest {
 		assertThat(IntArrays.join(IntArrays.singleton(0))).isEmpty();
 		assertThat(IntArrays.join(IntArrays.singleton(0), IntArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(IntArrays.join(IntArrays.singleton(0), IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0, VALUES[1]);
+		assertThat(IntArrays.join(IntArrays.singleton(0), List.of(IntArrays.singleton(VALUES[0]), IntArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(null, IntArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (int[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (List<int[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (int[]) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), (List<int[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.join(IntArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

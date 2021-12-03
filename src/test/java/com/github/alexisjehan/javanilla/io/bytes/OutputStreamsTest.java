@@ -33,7 +33,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIOException;
@@ -156,13 +158,34 @@ final class OutputStreamsTest {
 			}
 			assertThat(fooOutputStream.toByteArray()).containsExactly(BYTES[0], BYTES[0], BYTES[1], BYTES[2], BYTES[0]);
 		}
+		try (final var fooOutputStream = new ByteArrayOutputStream()) {
+			try (final var barOutputStream = new ByteArrayOutputStream()) {
+				try (final var teeOutputStream = OutputStreams.tee(Set.of(fooOutputStream, barOutputStream))) {
+					teeOutputStream.write(BYTES[0]);
+					teeOutputStream.write(ByteArrays.EMPTY);
+					teeOutputStream.write(BYTES);
+					assertThatNullPointerException().isThrownBy(() -> teeOutputStream.write(null));
+					teeOutputStream.write(BYTES, 0, 0);
+					teeOutputStream.write(BYTES, 0, 1);
+					assertThatNullPointerException().isThrownBy(() -> teeOutputStream.write(null, 0, 2));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeOutputStream.write(BYTES, 0, 4));
+					teeOutputStream.flush();
+				}
+				assertThat(barOutputStream.toByteArray()).containsExactly(BYTES[0], BYTES[0], BYTES[1], BYTES[2], BYTES[0]);
+			}
+			assertThat(fooOutputStream.toByteArray()).containsExactly(BYTES[0], BYTES[0], BYTES[1], BYTES[2], BYTES[0]);
+		}
 	}
 
 	@Test
 	void testTeeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((OutputStream[]) null));
-		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((List<OutputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((OutputStream) null));
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((List<OutputStream>) null));
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee(Collections.singleton(null)));
 	}
 
 	@Test
@@ -171,7 +194,7 @@ final class OutputStreamsTest {
 			try (final var writer = OutputStreams.toWriter(outputStream)) {
 				writer.write(new String(BYTES));
 			}
-			assertThat(outputStream.toString()).isEqualTo(new String(BYTES));
+			assertThat(outputStream).hasToString(new String(BYTES));
 		}
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {

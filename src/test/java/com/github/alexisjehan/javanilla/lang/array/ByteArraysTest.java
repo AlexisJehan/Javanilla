@@ -27,6 +27,7 @@ import com.github.alexisjehan.javanilla.lang.Strings;
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteOrder;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -337,13 +338,15 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.concat()).isEmpty();
 		assertThat(ByteArrays.concat(ByteArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(ByteArrays.concat(ByteArrays.singleton(VALUES[0]), ByteArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(ByteArrays.concat(List.of(ByteArrays.singleton(VALUES[0]), ByteArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((byte[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((List<byte[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((byte[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat((List<byte[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -352,14 +355,16 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0))).isEmpty();
 		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0), ByteArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0), ByteArrays.singleton(VALUES[0]), ByteArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], (byte) 0, VALUES[1]);
+		assertThat(ByteArrays.join(ByteArrays.singleton((byte) 0), List.of(ByteArrays.singleton(VALUES[0]), ByteArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], (byte) 0, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(null, ByteArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.of(VALUES), (byte[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.of(VALUES), (List<byte[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.of(VALUES), (byte[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.of(VALUES), (List<byte[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.join(ByteArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

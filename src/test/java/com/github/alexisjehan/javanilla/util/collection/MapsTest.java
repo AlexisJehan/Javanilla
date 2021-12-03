@@ -106,6 +106,7 @@ final class MapsTest {
 	void testPutAllInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Maps.putAll(null, ENTRIES));
 		assertThatNullPointerException().isThrownBy(() -> Maps.putAll(Map.ofEntries(), (Map.Entry<String, Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.putAll(Map.ofEntries(), (Map.Entry<String, Integer>) null));
 	}
 
 	@Test
@@ -118,5 +119,6 @@ final class MapsTest {
 	@Test
 	void testOfOrderedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Maps.ofOrdered((Map.Entry<String, Integer>[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Maps.ofOrdered((Map.Entry<String, Integer>) null));
 	}
 }

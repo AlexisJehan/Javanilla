@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -335,13 +336,15 @@ final class ShortArraysTest {
 		assertThat(ShortArrays.concat()).isEmpty();
 		assertThat(ShortArrays.concat(ShortArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(ShortArrays.concat(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(ShortArrays.concat(List.of(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((List<short[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((List<short[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -350,14 +353,16 @@ final class ShortArraysTest {
 		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0))).isEmpty();
 		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], (short) 0, VALUES[1]);
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), List.of(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], (short) 0, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(null, ShortArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (short[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (List<short[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (short[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (List<short[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

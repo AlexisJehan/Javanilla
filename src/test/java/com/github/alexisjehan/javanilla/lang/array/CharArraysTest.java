@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -335,13 +336,15 @@ final class CharArraysTest {
 		assertThat(CharArrays.concat()).isEmpty();
 		assertThat(CharArrays.concat(CharArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(CharArrays.concat(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(CharArrays.concat(List.of(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((List<char[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((List<char[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -350,14 +353,16 @@ final class CharArraysTest {
 		assertThat(CharArrays.join(CharArrays.singleton('-'))).isEmpty();
 		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], '-', VALUES[1]);
+		assertThat(CharArrays.join(CharArrays.singleton('-'), List.of(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], '-', VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(null, CharArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (char[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (List<char[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (char[]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (List<char[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

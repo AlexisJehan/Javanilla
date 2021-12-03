@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -335,13 +336,15 @@ final class LongArraysTest {
 		assertThat(LongArrays.concat()).isEmpty();
 		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(LongArrays.concat(List.of(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((long[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((List<long[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((long[]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((List<long[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -350,14 +353,16 @@ final class LongArraysTest {
 		assertThat(LongArrays.join(LongArrays.singleton(0L))).isEmpty();
 		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0L, VALUES[1]);
+		assertThat(LongArrays.join(LongArrays.singleton(0L), List.of(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0L, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(null, LongArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (List<long[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (List<long[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

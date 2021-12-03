@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -335,13 +336,15 @@ final class FloatArraysTest {
 		assertThat(FloatArrays.concat()).isEmpty();
 		assertThat(FloatArrays.concat(FloatArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(FloatArrays.concat(FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(FloatArrays.concat(List.of(FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.concat((float[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.concat((List<float[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.concat((float[]) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.concat((List<float[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -350,14 +353,16 @@ final class FloatArraysTest {
 		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f))).isEmpty();
 		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), FloatArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0.0f, VALUES[1]);
+		assertThat(FloatArrays.join(FloatArrays.singleton(0.0f), List.of(FloatArrays.singleton(VALUES[0]), FloatArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0.0f, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(null, FloatArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (float[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (List<float[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (float[]) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), (List<float[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.join(FloatArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

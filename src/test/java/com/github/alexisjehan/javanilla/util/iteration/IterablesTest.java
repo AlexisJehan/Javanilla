@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -327,13 +328,15 @@ final class IterablesTest {
 		assertThat(Iterables.concat()).isEmpty();
 		assertThat(Iterables.concat(Iterables.singleton(ELEMENTS[0]))).containsExactly(ELEMENTS[0]);
 		assertThat(Iterables.concat(Iterables.singleton(ELEMENTS[0]), Iterables.singleton(ELEMENTS[1]), Iterables.singleton(ELEMENTS[2]))).containsExactly(ELEMENTS);
+		assertThat(Iterables.concat(List.of(Iterables.singleton(ELEMENTS[0]), Iterables.singleton(ELEMENTS[1]), Iterables.singleton(ELEMENTS[2])))).containsExactly(ELEMENTS);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((Iterable<Integer>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((List<Iterable<Integer>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((Iterable<Integer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.concat((List<Iterable<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -342,14 +345,16 @@ final class IterablesTest {
 		assertThat(Iterables.join(ObjectArrays.singleton(0))).isEmpty();
 		assertThat(Iterables.join(ObjectArrays.singleton(0), Iterables.singleton(ELEMENTS[0]))).containsExactly(ELEMENTS[0]);
 		assertThat(Iterables.join(ObjectArrays.singleton(0), Iterables.singleton(ELEMENTS[0]), Iterables.singleton(ELEMENTS[1]), Iterables.singleton(ELEMENTS[2]))).containsExactly(ELEMENTS[0], 0, ELEMENTS[1], 0, ELEMENTS[2]);
+		assertThat(Iterables.join(ObjectArrays.singleton(0), List.of(Iterables.singleton(ELEMENTS[0]), Iterables.singleton(ELEMENTS[1]), Iterables.singleton(ELEMENTS[2])))).containsExactly(ELEMENTS[0], 0, ELEMENTS[1], 0, ELEMENTS[2]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.join(null, Iterables.of(ELEMENTS)));
 		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (Iterable<Integer>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (List<Iterable<Integer>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (Iterable<Integer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), (List<Iterable<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Iterables.join(ObjectArrays.singleton(0), Collections.singletonList(null)));
 	}
 
 	@Test

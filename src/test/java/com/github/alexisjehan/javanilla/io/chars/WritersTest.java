@@ -33,7 +33,9 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIOException;
@@ -204,13 +206,55 @@ final class WritersTest {
 			}
 			assertThat(fooWriter.toCharArray()).containsExactly(CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0]);
 		}
+		try (final var fooWriter = new CharArrayWriter()) {
+			try (final var barWriter = new CharArrayWriter()) {
+				try (final var teeWriter = Writers.tee(Set.of(fooWriter, barWriter))) {
+					teeWriter.write(CHARS[0]);
+					teeWriter.write(CharArrays.EMPTY);
+					teeWriter.write(CHARS);
+					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((char[]) null));
+					teeWriter.write(CHARS, 0, 0);
+					teeWriter.write(CHARS, 0, 1);
+					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((char[]) null, 0, 2));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(CHARS, 0, 4));
+					teeWriter.write(Strings.EMPTY);
+					teeWriter.write(new String(CHARS));
+					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((String) null));
+					teeWriter.write(new String(CHARS), 0, 0);
+					teeWriter.write(new String(CHARS), 0, 1);
+					assertThatNullPointerException().isThrownBy(() -> teeWriter.write((String) null, 0, 2));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(new String(CHARS), -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(new String(CHARS), 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(new String(CHARS), 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.write(new String(CHARS), 0, 4));
+					assertThat(teeWriter.append(Strings.EMPTY)).isSameAs(teeWriter);
+					assertThat(teeWriter.append(new String(CHARS))).isSameAs(teeWriter);
+					assertThatNullPointerException().isThrownBy(() -> teeWriter.append(null));
+					assertThat(teeWriter.append(new String(CHARS), 0, 0)).isSameAs(teeWriter);
+					assertThat(teeWriter.append(new String(CHARS), 0, 1)).isSameAs(teeWriter);
+					assertThatNullPointerException().isThrownBy(() -> teeWriter.append(null, 0, 2));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(new String(CHARS), -1, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(new String(CHARS), 4, 3));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(new String(CHARS), 0, -1));
+					assertThatIllegalArgumentException().isThrownBy(() -> teeWriter.append(new String(CHARS), 0, 4));
+					assertThat(teeWriter.append(CHARS[0])).isSameAs(teeWriter);
+					teeWriter.flush();
+				}
+				assertThat(barWriter.toCharArray()).containsExactly(CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0]);
+			}
+			assertThat(fooWriter.toCharArray()).containsExactly(CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0]);
+		}
 	}
 
 	@Test
 	void testTeeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Writers.tee((Writer[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Writers.tee((List<Writer>) null));
 		assertThatNullPointerException().isThrownBy(() -> Writers.tee((Writer) null));
+		assertThatNullPointerException().isThrownBy(() -> Writers.tee((List<Writer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Writers.tee(Collections.singleton(null)));
 	}
 
 	@Test

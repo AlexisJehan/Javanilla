@@ -27,6 +27,7 @@ import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -99,13 +100,15 @@ final class SetsTest {
 		assertThat(Sets.union()).isEmpty();
 		assertThat(Sets.union(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
 		assertThat(Sets.union(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2]))).containsExactlyInAnyOrder(ELEMENTS);
+		assertThat(Sets.union(Set.of(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2])))).containsExactlyInAnyOrder(ELEMENTS);
 	}
 
 	@Test
 	void testUnionInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.union((Collection<Set<Integer>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.union((Collection<Set<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.union(Collections.singleton(null)));
 	}
 
 	@Test
@@ -113,13 +116,15 @@ final class SetsTest {
 		assertThat(Sets.intersect()).isEmpty();
 		assertThat(Sets.intersect(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
 		assertThat(Sets.intersect(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2]))).containsExactlyInAnyOrder(ELEMENTS[1]);
+		assertThat(Sets.intersect(Set.of(Set.of(ELEMENTS[0], ELEMENTS[1]), Set.of(ELEMENTS[1], ELEMENTS[2])))).containsExactlyInAnyOrder(ELEMENTS[1]);
 	}
 
 	@Test
 	void testIntersectInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Set<Integer>[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Collection<Set<Integer>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Set<Integer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.intersect((Collection<Set<Integer>>) null));
+		assertThatNullPointerException().isThrownBy(() -> Sets.intersect(Collections.singleton(null)));
 	}
 
 	@Test

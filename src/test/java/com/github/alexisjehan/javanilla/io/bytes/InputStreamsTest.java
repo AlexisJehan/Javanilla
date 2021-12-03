@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -186,13 +187,15 @@ final class InputStreamsTest {
 		assertThat(InputStreams.concat()).isEmpty();
 		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
 		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(BYTES);
+		assertThat(InputStreams.concat(List.of(InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2])))).hasBinaryContent(BYTES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((InputStream[]) null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((List<InputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((InputStream) null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat((List<InputStream>) null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -201,14 +204,16 @@ final class InputStreamsTest {
 		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0))).isEmpty();
 		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
 		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2]))).hasBinaryContent(ByteArrays.of(BYTES[0], (byte) 0, BYTES[1], (byte) 0, BYTES[2]));
+		assertThat(InputStreams.join(ByteArrays.singleton((byte) 0), List.of(InputStreams.singleton(BYTES[0]), InputStreams.singleton(BYTES[1]), InputStreams.singleton(BYTES[2])))).hasBinaryContent(ByteArrays.of(BYTES[0], (byte) 0, BYTES[1], (byte) 0, BYTES[2]));
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(null, InputStreams.of(BYTES)));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (InputStream[]) null));
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (List<InputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (InputStream) null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (List<InputStream>) null));
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), Collections.singletonList(null)));
 	}
 
 	@Test

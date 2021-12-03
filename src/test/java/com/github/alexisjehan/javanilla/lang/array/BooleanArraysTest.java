@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang.array;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -335,13 +336,15 @@ final class BooleanArraysTest {
 		assertThat(BooleanArrays.concat()).isEmpty();
 		assertThat(BooleanArrays.concat(BooleanArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(BooleanArrays.concat(BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(BooleanArrays.concat(List.of(BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1])))).containsExactly(VALUES);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.concat((boolean[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.concat((List<boolean[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.concat((boolean[]) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.concat((List<boolean[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -350,14 +353,16 @@ final class BooleanArraysTest {
 		assertThat(BooleanArrays.join(BooleanArrays.singleton(false))).isEmpty();
 		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), BooleanArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
 		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], false, VALUES[1]);
+		assertThat(BooleanArrays.join(BooleanArrays.singleton(false), List.of(BooleanArrays.singleton(VALUES[0]), BooleanArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], false, VALUES[1]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(null, BooleanArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (boolean[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (List<boolean[]>) null));
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (boolean[]) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), (List<boolean[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.join(BooleanArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test

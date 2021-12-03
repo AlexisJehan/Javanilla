@@ -35,6 +35,7 @@ import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -181,13 +182,15 @@ final class ReadersTest {
 		assertThat(Readers.toChars(Readers.concat())).isEmpty();
 		assertThat(Readers.toChars(Readers.concat(Readers.singleton(CHARS[0])))).containsExactly(CHARS[0]);
 		assertThat(Readers.toChars(Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2])))).containsExactly(CHARS);
+		assertThat(Readers.toChars(Readers.concat(List.of(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]))))).containsExactly(CHARS);
 	}
 
 	@Test
 	void testConcatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.concat((Reader[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Readers.concat((List<Reader>) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.concat((Reader) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.concat((List<Reader>) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.concat(Collections.singletonList(null)));
 	}
 
 	@Test
@@ -215,14 +218,16 @@ final class ReadersTest {
 		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-')))).isEmpty();
 		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton(CHARS[0])))).containsExactly(CHARS[0]);
 		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2])))).containsExactly(CHARS[0], '-', CHARS[1], '-', CHARS[2]);
+		assertThat(Readers.toChars(Readers.join(CharArrays.singleton('-'), List.of(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]))))).containsExactly(CHARS[0], '-', CHARS[1], '-', CHARS[2]);
 	}
 
 	@Test
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(null, Readers.of(CHARS)));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (List<Reader>) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (List<Reader>) null));
+		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), Collections.singletonList(null)));
 	}
 
 	@Test
