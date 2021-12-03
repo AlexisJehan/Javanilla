@@ -478,9 +478,9 @@ public final class LongArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code long} arrays.</p>
-	 * @param arrays the {@code long} array array to concatenate
+	 * @param arrays {@code long} arrays to concatenate
 	 * @return the concatenated {@code long} array
-	 * @throws NullPointerException if the {@code long} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code long} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static long[] concat(final long[]... arrays) {
@@ -516,9 +516,9 @@ public final class LongArrays {
 	/**
 	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
 	 * @param separator the {@code long} array separator
-	 * @param arrays the {@code long} array array to join
+	 * @param arrays {@code long} arrays to join
 	 * @return the joined {@code long} array
-	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array array or any of them is
+	 * @throws NullPointerException if the {@code long} array separator, {@code long} arrays or any of them is
 	 *         {@code null}
 	 * @since 1.0.0
 	 */

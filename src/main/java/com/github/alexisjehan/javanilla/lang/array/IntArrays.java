@@ -478,9 +478,9 @@ public final class IntArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code int} arrays.</p>
-	 * @param arrays the {@code int} array array to concatenate
+	 * @param arrays {@code int} arrays to concatenate
 	 * @return the concatenated {@code int} array
-	 * @throws NullPointerException if the {@code int} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code int} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static int[] concat(final int[]... arrays) {
@@ -516,9 +516,9 @@ public final class IntArrays {
 	/**
 	 * <p>Join multiple {@code int} arrays using an {@code int} array separator.</p>
 	 * @param separator the {@code int} array separator
-	 * @param arrays the {@code int} array array to join
+	 * @param arrays {@code int} arrays to join
 	 * @return the joined {@code int} array
-	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array array or any of them is
+	 * @throws NullPointerException if the {@code int} array separator, {@code int} arrays or any of them is
 	 *         {@code null}
 	 * @since 1.0.0
 	 */

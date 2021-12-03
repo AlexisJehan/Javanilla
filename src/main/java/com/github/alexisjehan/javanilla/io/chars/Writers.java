@@ -190,7 +190,7 @@ public final class Writers {
 	/**
 	 * <p>Decorate a {@link Writer} so that its {@link Writer#close()} method has no effect.</p>
 	 * @param writer the {@link Writer} to decorate
-	 * @return an uncloseable {@link Writer}
+	 * @return a {@link Writer} that cannot be closed
 	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -373,7 +373,7 @@ public final class Writers {
 	 * <p>Create a {@link BufferedWriter} from a {@link Path} using {@link Charset#defaultCharset()}.</p>
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedWriter}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
@@ -386,7 +386,7 @@ public final class Writers {
 	 * @param path the {@link Path} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link BufferedWriter}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.2.0
 	 */

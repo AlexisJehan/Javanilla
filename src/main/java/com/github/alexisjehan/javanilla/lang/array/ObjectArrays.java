@@ -508,11 +508,11 @@ public final class ObjectArrays {
 	/**
 	 * <p>Concatenate multiple {@link Object} arrays.</p>
 	 * @param classType the {@link Class} type
-	 * @param arrays the {@link Object} array array to concatenate
+	 * @param arrays {@link Object} arrays to concatenate
 	 * @param <E> the {@link Object} type
 	 * @return the concatenated {@link Object} array
-	 * @throws NullPointerException if the {@link Object} {@link Class} type, the {@link Object} array array or any of
-	 *         them is {@code null}
+	 * @throws NullPointerException if the {@link Object} {@link Class} type, {@link Object} arrays or any of them is
+	 *         {@code null}
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
@@ -556,11 +556,11 @@ public final class ObjectArrays {
 	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
 	 * @param classType the {@link Class} type
 	 * @param separator the {@link Object} array separator
-	 * @param arrays the {@link Object} array array to join
+	 * @param arrays {@link Object} arrays to join
 	 * @param <E> the {@link Object} type
 	 * @return the joined {@link Object} array
-	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array separator, the {@link Object}
-	 *         array array or any of them is {@code null}
+	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array separator, {@link Object} arrays
+	 *         or any of them is {@code null}
 	 * @deprecated use {@link #join(Object[], Object[][])} instead
 	 * @since 1.2.0
 	 */
@@ -570,23 +570,6 @@ public final class ObjectArrays {
 	public static <E> E[] join(final Class<E> classType, final E[] separator, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
 		return join(classType, separator, List.of(arrays));
-	}
-
-	/**
-	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
-	 * @param separator the {@link Object} array separator
-	 * @param arrays the {@link Object} array array to join
-	 * @param <E> the {@link Object} type
-	 * @return the joined {@link Object} array
-	 * @throws NullPointerException if the {@link Object} array separator, the {@link Object} array array or any of them
-	 *         is {@code null}
-	 * @since 1.4.0
-	 */
-	@SafeVarargs
-	@SuppressWarnings("varargs")
-	public static <E> E[] join(final E[] separator, final E[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return join(separator, List.of(arrays));
 	}
 
 	/**
@@ -630,6 +613,23 @@ public final class ObjectArrays {
 			offset += array.length;
 		}
 		return result;
+	}
+
+	/**
+	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * @param separator the {@link Object} array separator
+	 * @param arrays {@link Object} arrays to join
+	 * @param <E> the {@link Object} type
+	 * @return the joined {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array separator, {@link Object} arrays or any of them is
+	 *         {@code null}
+	 * @since 1.4.0
+	 */
+	@SafeVarargs
+	@SuppressWarnings("varargs")
+	public static <E> E[] join(final E[] separator, final E[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(separator, List.of(arrays));
 	}
 
 	/**

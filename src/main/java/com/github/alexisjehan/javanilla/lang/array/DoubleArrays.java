@@ -479,9 +479,9 @@ public final class DoubleArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code double} arrays.</p>
-	 * @param arrays the {@code double} array array to concatenate
+	 * @param arrays {@code double} arrays to concatenate
 	 * @return the concatenated {@code double} array
-	 * @throws NullPointerException if the {@code double} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code double} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static double[] concat(final double[]... arrays) {
@@ -517,10 +517,10 @@ public final class DoubleArrays {
 	/**
 	 * <p>Join multiple {@code double} arrays using a {@code double} array separator.</p>
 	 * @param separator the {@code double} array separator
-	 * @param arrays the {@code double} array array to join
+	 * @param arrays {@code double} arrays to join
 	 * @return the joined {@code double} array
-	 * @throws NullPointerException if the {@code double} array separator, the {@code double} array array or any of them
-	 *         is {@code null}
+	 * @throws NullPointerException if the {@code double} array separator, {@code double} arrays or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static double[] join(final double[] separator, final double[]... arrays) {

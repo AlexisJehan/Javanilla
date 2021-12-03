@@ -78,7 +78,7 @@ public final class Readers {
 
 		/**
 		 * <p>Close the current {@link Reader} if set then peek the next one.</p>
-		 * @throws IOException might occurs with I/O operations
+		 * @throws IOException might occur with I/O operations
 		 * @since 1.0.0
 		 */
 		private void nextReader() throws IOException {
@@ -277,7 +277,7 @@ public final class Readers {
 	/**
 	 * <p>Decorate a {@link Reader} so that its {@link Reader#close()} method has no effect.</p>
 	 * @param reader the {@link Reader} to decorate
-	 * @return an uncloseable {@link Reader}
+	 * @return a {@link Reader} that cannot be closed
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -301,7 +301,7 @@ public final class Readers {
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Reader} does not end.</p>
 	 * @param reader the {@link Reader} to read
 	 * @return the length from the current position
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -432,7 +432,7 @@ public final class Readers {
 	 * <p>Create a {@link BufferedReader} from a {@link Path} using {@link Charset#defaultCharset()}.</p>
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedReader}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
@@ -445,7 +445,7 @@ public final class Readers {
 	 * @param path the {@link Path} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link BufferedReader}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.2.0
 	 */
@@ -461,7 +461,7 @@ public final class Readers {
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Reader} is too large.</p>
 	 * @param reader the {@link Reader} to convert
 	 * @return the created {@code char} array
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -479,7 +479,7 @@ public final class Readers {
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Reader} is too large.</p>
 	 * @param reader the {@link Reader} to convert
 	 * @return the created {@link String}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */

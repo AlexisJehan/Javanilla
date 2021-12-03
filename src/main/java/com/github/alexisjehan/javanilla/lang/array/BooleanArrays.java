@@ -482,9 +482,9 @@ public final class BooleanArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code boolean} arrays.</p>
-	 * @param arrays the {@code boolean} array array to concatenate
+	 * @param arrays {@code boolean} arrays to concatenate
 	 * @return the concatenated {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code boolean} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean[] concat(final boolean[]... arrays) {
@@ -520,10 +520,10 @@ public final class BooleanArrays {
 	/**
 	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
 	 * @param separator the {@code boolean} array separator
-	 * @param arrays the {@code boolean} array array to join
+	 * @param arrays {@code boolean} arrays to join
 	 * @return the joined {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array array or any of
-	 *         them is {@code null}
+	 * @throws NullPointerException if the {@code boolean} array separator, {@code boolean} arrays or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static boolean[] join(final boolean[] separator, final boolean[]... arrays) {

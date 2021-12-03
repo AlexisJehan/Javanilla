@@ -478,9 +478,9 @@ public final class CharArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code char} arrays.</p>
-	 * @param arrays the {@code char} array array to concatenate
+	 * @param arrays {@code char} arrays to concatenate
 	 * @return the concatenated {@code char} array
-	 * @throws NullPointerException if the {@code char} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code char} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static char[] concat(final char[]... arrays) {
@@ -516,9 +516,9 @@ public final class CharArrays {
 	/**
 	 * <p>Join multiple {@code char} arrays using a {@code char} array separator.</p>
 	 * @param separator the {@code char} array separator
-	 * @param arrays the {@code char} array array to join
+	 * @param arrays {@code char} arrays to join
 	 * @return the joined {@code char} array
-	 * @throws NullPointerException if the {@code char} array separator, the {@code char} array array or any of them is
+	 * @throws NullPointerException if the {@code char} array separator, {@code char} arrays or any of them is
 	 *         {@code null}
 	 * @since 1.0.0
 	 */

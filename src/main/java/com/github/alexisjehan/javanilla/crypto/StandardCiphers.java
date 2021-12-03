@@ -43,7 +43,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "AES/CBC/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "AES/CBC/NoPadding" {@link Cipher} instance
+	 * @return an "AES/CBC/NoPadding" {@link Cipher} instance
 	 * @since 1.0.0
 	 */
 	public static Cipher getAesCbcInstance() {
@@ -52,7 +52,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "AES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return a "AES/CBC/PKCS5Padding" {@link Cipher} instance
+	 * @return an "AES/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.0.0
 	 */
 	public static Cipher getAesCbcPkcs5Instance() {
@@ -61,7 +61,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "AES/ECB/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "AES/ECB/NoPadding" {@link Cipher} instance
+	 * @return an "AES/ECB/NoPadding" {@link Cipher} instance
 	 * @since 1.0.0
 	 */
 	public static Cipher getAesEcbInstance() {
@@ -70,7 +70,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "AES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return a "AES/ECB/PKCS5Padding" {@link Cipher} instance
+	 * @return an "AES/ECB/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.0.0
 	 */
 	public static Cipher getAesEcbPkcs5Instance() {
@@ -79,7 +79,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "AES/GCM/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "AES/GCM/NoPadding" {@link Cipher} instance
+	 * @return an "AES/GCM/NoPadding" {@link Cipher} instance
 	 * @since 1.3.1
 	 */
 	public static Cipher getAesGcmInstance() {

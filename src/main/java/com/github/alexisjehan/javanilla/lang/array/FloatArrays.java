@@ -478,9 +478,9 @@ public final class FloatArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code float} arrays.</p>
-	 * @param arrays the {@code float} array array to concatenate
+	 * @param arrays {@code float} arrays to concatenate
 	 * @return the concatenated {@code float} array
-	 * @throws NullPointerException if the {@code float} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code float} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static float[] concat(final float[]... arrays) {
@@ -516,10 +516,10 @@ public final class FloatArrays {
 	/**
 	 * <p>Join multiple {@code float} arrays using a {@code float} array separator.</p>
 	 * @param separator the {@code float} array separator
-	 * @param arrays the {@code float} array array to join
+	 * @param arrays {@code float} arrays to join
 	 * @return the joined {@code float} array
-	 * @throws NullPointerException if the {@code float} array separator, the {@code float} array array or any of them
-	 *         is {@code null}
+	 * @throws NullPointerException if the {@code float} array separator, {@code float} arrays or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static float[] join(final float[] separator, final float[]... arrays) {

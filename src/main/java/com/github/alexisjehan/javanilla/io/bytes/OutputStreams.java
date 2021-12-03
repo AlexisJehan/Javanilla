@@ -128,7 +128,7 @@ public final class OutputStreams {
 	/**
 	 * <p>Decorate an {@link OutputStream} so that its {@link OutputStream#close()} method has no effect.</p>
 	 * @param outputStream the {@link OutputStream} to decorate
-	 * @return an uncloseable {@link OutputStream}
+	 * @return an {@link OutputStream} that cannot be closed
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -266,7 +266,7 @@ public final class OutputStreams {
 	 * <p><b>Warning</b>: If the file of the {@link Path} already exists its content is erased.</p>
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedOutputStream}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */

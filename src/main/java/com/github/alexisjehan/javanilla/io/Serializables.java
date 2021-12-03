@@ -51,7 +51,7 @@ public final class Serializables {
 	 * <p>Serialize the given {@link Serializable} to a {@code byte} array.</p>
 	 * @param serializable the {@link Serializable} or {@code null}
 	 * @return a {@code byte} array that contains the serialized data
-	 * @throws SerializationException might occurs with serialization operations
+	 * @throws SerializationException might occur with serialization operations
 	 * @since 1.0.0
 	 */
 	public static byte[] serialize(final Serializable serializable) {
@@ -65,7 +65,7 @@ public final class Serializables {
 	 * @param outputStream the {@link OutputStream} to write into
 	 * @param serializable the {@link Serializable} or {@code null}
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
-	 * @throws SerializationException might occurs with serialization or I/O operations
+	 * @throws SerializationException might occur with serialization or I/O operations
 	 * @since 1.0.0
 	 */
 	public static void serialize(final OutputStream outputStream, final Serializable serializable) {
@@ -83,7 +83,7 @@ public final class Serializables {
 	 * @param <S> the type of the {@link Serializable}
 	 * @return a new {@link Serializable} from the serialized data
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @throws SerializationException might occurs with serialization operations
+	 * @throws SerializationException might occur with serialization operations
 	 * @since 1.0.0
 	 */
 	public static <S extends Serializable> S deserialize(final byte[] bytes) {
@@ -97,7 +97,7 @@ public final class Serializables {
 	 * @param <S> the type of the {@link Serializable}
 	 * @return a new {@link Serializable} from the serialized data
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
-	 * @throws SerializationException might occurs with serialization or I/O operations
+	 * @throws SerializationException might occur with serialization or I/O operations
 	 * @since 1.0.0
 	 */
 	@SuppressWarnings("unchecked")

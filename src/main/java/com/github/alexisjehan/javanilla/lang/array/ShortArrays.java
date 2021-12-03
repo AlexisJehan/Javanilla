@@ -478,9 +478,9 @@ public final class ShortArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code short} arrays.</p>
-	 * @param arrays the {@code short} array array to concatenate
+	 * @param arrays {@code short} arrays to concatenate
 	 * @return the concatenated {@code short} array
-	 * @throws NullPointerException if the {@code short} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code short} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static short[] concat(final short[]... arrays) {
@@ -516,10 +516,10 @@ public final class ShortArrays {
 	/**
 	 * <p>Join multiple {@code short} arrays using a {@code short} array separator.</p>
 	 * @param separator the {@code short} array separator
-	 * @param arrays the {@code short} array array to join
+	 * @param arrays {@code short} arrays to join
 	 * @return the joined {@code short} array
-	 * @throws NullPointerException if the {@code short} array separator, the {@code short} array array or any of them
-	 *         is {@code null}
+	 * @throws NullPointerException if the {@code short} array separator, {@code short} arrays or any of them is
+	 *         {@code null}
 	 * @since 1.0.0
 	 */
 	public static short[] join(final short[] separator, final short[]... arrays) {

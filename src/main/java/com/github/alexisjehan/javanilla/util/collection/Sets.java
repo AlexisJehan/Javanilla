@@ -123,8 +123,8 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Union multiple {@link Set}s.</p>
-	 * @param sets the {@link Set} array to union
+	 * <p>Unify multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} array to unify
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
 	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
@@ -138,8 +138,8 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Union multiple {@link Set}s.</p>
-	 * @param sets the {@link Set} {@link Collection} to union
+	 * <p>Unify multiple {@link Set}s.</p>
+	 * @param sets the {@link Set} {@link Collection} to unify
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
 	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
@@ -166,7 +166,7 @@ public final class Sets {
 	 * <p>Intersect multiple {@link Set}s.</p>
 	 * @param sets the {@link Set} array to intersect
 	 * @param <E> the type of elements maintained by the set
-	 * @return the intersect {@link Set}
+	 * @return the intersection {@link Set}
 	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
 	 * @since 1.3.0
 	 */
@@ -179,9 +179,9 @@ public final class Sets {
 
 	/**
 	 * <p>Intersect multiple {@link Set}s.</p>
-	 * @param sets the {@link Set} {@link Collection} to concatenate
+	 * @param sets the {@link Set} {@link Collection} to intersect
 	 * @param <E> the type of elements maintained by the set
-	 * @return the intersect {@link Set}
+	 * @return the intersection {@link Set}
 	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
 	 * @since 1.3.0
 	 */

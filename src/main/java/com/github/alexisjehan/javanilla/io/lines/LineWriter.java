@@ -83,7 +83,7 @@ public class LineWriter implements Closeable {
 	/**
 	 * <p>Constructor with the given {@link Path} and the default {@link LineSeparator}.</p>
 	 * @param path the {@link Path} of the file to write to
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -96,7 +96,7 @@ public class LineWriter implements Closeable {
 	 * terminating new line should be appended on close.</p>
 	 * @param path the {@link Path} of the file to write to
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -109,8 +109,8 @@ public class LineWriter implements Closeable {
 	 * appended on close.</p>
 	 * @param path the {@link Path} of the file to write to
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
-	 * @throws IOException might occurs with I/O operations
+	 * @param appendTerminatingNewLine whether a terminating new line should be appended on close
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -122,7 +122,7 @@ public class LineWriter implements Closeable {
 	 * <p>Constructor with given {@link Path}, {@link Charset} and the default {@link LineSeparator}.</p>
 	 * @param path the {@link Path} of the file to write to
 	 * @param charset the {@link Charset} to use
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -136,7 +136,7 @@ public class LineWriter implements Closeable {
 	 * @param path the {@link Path} of the file to write to
 	 * @param charset the {@link Charset} to use
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path}, the {@link Charset} or the {@link LineSeparator} is
 	 *         {@code null}
 	 * @since 1.0.0
@@ -151,8 +151,8 @@ public class LineWriter implements Closeable {
 	 * @param path the {@link Path} of the file to write to
 	 * @param charset the {@link Charset} to use
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
-	 * @throws IOException might occurs with I/O operations
+	 * @param appendTerminatingNewLine whether a terminating new line should be appended on close
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path}, the {@link Charset} or the {@link LineSeparator} is
 	 *         {@code null}
 	 * @since 1.0.0
@@ -188,7 +188,7 @@ public class LineWriter implements Closeable {
 	 * be appended on close.</p>
 	 * @param writer the {@link Writer} to write to
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @param appendTerminatingNewLine whether or not a terminating new line should be appended on close
+	 * @param appendTerminatingNewLine whether a terminating new line should be appended on close
 	 * @throws NullPointerException if the {@link Writer} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -203,7 +203,7 @@ public class LineWriter implements Closeable {
 	/**
 	 * <p>Writes a line.</p>
 	 * @param line the {@link String} line to write
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the line is {@code null}
 	 * @since 1.0.0
 	 */
@@ -219,7 +219,7 @@ public class LineWriter implements Closeable {
 
 	/**
 	 * <p>Writes a new line whose representation is based on the {@link LineSeparator} type.</p>
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @since 1.0.0
 	 */
 	public void newLine() throws IOException {
@@ -228,7 +228,7 @@ public class LineWriter implements Closeable {
 
 	/**
 	 * <p>Flush the delegated {@link Writer}.</p>
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @since 1.0.0
 	 */
 	public void flush() throws IOException {

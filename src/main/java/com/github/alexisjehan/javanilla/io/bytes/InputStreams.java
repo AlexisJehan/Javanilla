@@ -192,7 +192,7 @@ public final class InputStreams {
 	/**
 	 * <p>Decorate an {@link InputStream} so that its {@link InputStream#close()} method has no effect.</p>
 	 * @param inputStream the {@link InputStream} to decorate
-	 * @return an uncloseable {@link InputStream}
+	 * @return an {@link InputStream} that cannot be closed
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -216,7 +216,7 @@ public final class InputStreams {
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link InputStream} does not end.</p>
 	 * @param inputStream the {@link InputStream} to read
 	 * @return the length from the current position
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -360,7 +360,7 @@ public final class InputStreams {
 	 * <p>Create a {@link BufferedInputStream} from a {@link Path}.</p>
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedInputStream}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.2.0
 	 */
@@ -375,7 +375,7 @@ public final class InputStreams {
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
 	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@code byte} array
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -390,7 +390,7 @@ public final class InputStreams {
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
 	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@link String}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -405,7 +405,7 @@ public final class InputStreams {
 	 * @param inputStream the {@link InputStream} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link String}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link InputStream} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */

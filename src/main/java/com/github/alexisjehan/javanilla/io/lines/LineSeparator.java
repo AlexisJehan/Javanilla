@@ -166,7 +166,7 @@ public enum LineSeparator {
 	 * @param reader the {@link Reader} to read from
 	 * @param builder the {@link StringBuilder} to write the line to
 	 * @return the {@code int} value of the last read {@code char}
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @since 1.0.0
 	 */
 	abstract int read(final Reader reader, final StringBuilder builder) throws IOException;
@@ -186,7 +186,7 @@ public enum LineSeparator {
 	 * reading a sample.</p>
 	 * @param path the {@link Path} of the file to analyze
 	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -200,7 +200,7 @@ public enum LineSeparator {
 	 * @param path the {@link Path} of the file to analyze
 	 * @param charset the {@link Charset} to use
 	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -217,7 +217,7 @@ public enum LineSeparator {
 	 * <p><b>Note</b>: The {@link Reader} need to support {@link Reader#mark(int)}.</p>
 	 * @param reader the {@link Reader} to analyze
 	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @throws IllegalArgumentException if the {@link Reader} does not support {@link Reader#mark(int)}
 	 * @since 1.0.0

@@ -90,7 +90,7 @@ public class LineReader implements Closeable {
 	/**
 	 * <p>Constructor with the given {@link Path}, detecting the {@link LineSeparator}.</p>
 	 * @param path the {@link Path} of the file to read from
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -103,7 +103,7 @@ public class LineReader implements Closeable {
 	 * terminating new line should be ignored.</p>
 	 * @param path the {@link Path} of the file to read from
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -116,8 +116,8 @@ public class LineReader implements Closeable {
 	 * ignored.</p>
 	 * @param path the {@link Path} of the file to read from
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @param ignoreTerminatingNewLine whether or not a terminating new line should be ignored
-	 * @throws IOException might occurs with I/O operations
+	 * @param ignoreTerminatingNewLine whether a terminating new line should be ignored
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -129,7 +129,7 @@ public class LineReader implements Closeable {
 	 * <p>Constructor with given {@link Path} and {@link Charset}, detecting the {@link LineSeparator}.</p>
 	 * @param path the {@link Path} of the file to read from
 	 * @param charset the {@link Charset} to use
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -143,7 +143,7 @@ public class LineReader implements Closeable {
 	 * @param path the {@link Path} of the file to read from
 	 * @param charset the {@link Charset} to use
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path}, the {@link Charset} or the {@link LineSeparator} is
 	 *         {@code null}
 	 * @since 1.0.0
@@ -158,8 +158,8 @@ public class LineReader implements Closeable {
 	 * @param path the {@link Path} of the file to read from
 	 * @param charset the {@link Charset} to use
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @param ignoreTerminatingNewLine whether or not a terminating new line should be ignored
-	 * @throws IOException might occurs with I/O operations
+	 * @param ignoreTerminatingNewLine whether a terminating new line should be ignored
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path}, the {@link Charset} or the {@link LineSeparator} is
 	 *         {@code null}
 	 * @since 1.0.0
@@ -172,7 +172,7 @@ public class LineReader implements Closeable {
 	 * <p>Constructor with the given {@link Reader}, detecting the {@link LineSeparator}.</p>
 	 * <p><b>Note</b>: The {@link Reader} need to support {@link Reader#mark(int)}.</p>
 	 * @param reader the {@link Reader} to read from
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @throws IllegalArgumentException if the {@link Reader} does not support {@link Reader#mark(int)}
 	 * @since 1.0.0
@@ -198,7 +198,7 @@ public class LineReader implements Closeable {
 	 * be ignored.</p>
 	 * @param reader the {@link Reader} to read from
 	 * @param lineSeparator the {@link LineSeparator} type
-	 * @param ignoreTerminatingNewLine whether or not a terminating new line should be ignored
+	 * @param ignoreTerminatingNewLine whether a terminating new line should be ignored
 	 * @throws NullPointerException if the {@link Reader} or the {@link LineSeparator} is {@code null}
 	 * @since 1.0.0
 	 */
@@ -214,7 +214,7 @@ public class LineReader implements Closeable {
 	 * <p>Read a line.</p>
 	 * <p><b>Warning</b>: Can produce a memory overflow if the line is too large.</p>
 	 * @return a read {@link String} line or {@code null} if there is no more line to read
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @since 1.0.0
 	 */
 	public String read() throws IOException {
@@ -238,7 +238,7 @@ public class LineReader implements Closeable {
 	 * <p><b>Warning</b>: Can produce a memory overflow if any line is too large.</p>
 	 * @param number the number of lines to attempt to skip
 	 * @return the actual number of lines skipped
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws IllegalArgumentException if the number is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -260,7 +260,7 @@ public class LineReader implements Closeable {
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link LineReader} does not end.</p>
 	 * @param lineWriter the {@link LineWriter} to write lines to
 	 * @return the number of lines transferred
-	 * @throws IOException might occurs with I/O operations
+	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link LineWriter} is {@code null}
 	 * @since 1.0.0
 	 */

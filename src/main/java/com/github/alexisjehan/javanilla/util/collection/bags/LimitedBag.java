@@ -45,7 +45,7 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 * <p>Constructor with a {@link Bag} to decorate and a limit.</p>
 	 * @param bag the {@link Bag} to decorate
 	 * @param limit the maximum number of distinct elements to be contained
-	 * @throws IllegalArgumentException if the limit if lower than {@code 2}
+	 * @throws IllegalArgumentException if the limit is lower than {@code 2}
 	 * @since 1.0.0
 	 */
 	public LimitedBag(final Bag<E> bag, final int limit) {

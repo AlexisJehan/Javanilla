@@ -799,7 +799,7 @@ public final class Strings {
 	 * <p>Split a {@link CharSequence} using a {@code char} separator.</p>
 	 * @param separator the {@code char} separator
 	 * @param charSequence the {@link CharSequence} to split
-	 * @return a {@link List} of splitted {@link String}s
+	 * @return a {@link List} of split {@link String}s
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
 	 * @since 1.3.1
 	 */
@@ -811,8 +811,8 @@ public final class Strings {
 	 * <p>Split a {@link CharSequence} using a {@code char} separator with a limit.</p>
 	 * @param separator the {@code char} separator
 	 * @param charSequence the {@link CharSequence} to split
-	 * @param limit the maximum number of splitted {@link String}s
-	 * @return a {@link List} of splitted {@link String}s
+	 * @param limit the maximum number of split {@link String}s
+	 * @return a {@link List} of split {@link String}s
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the limit is lower than {@code 2}
 	 * @since 1.4.0
@@ -844,7 +844,7 @@ public final class Strings {
 	 * <p><b>Note</b>: This implementation in not based on regular expressions unlike the standard Java one.</p>
 	 * @param separator the {@link CharSequence} separator
 	 * @param charSequence the {@link CharSequence} to split
-	 * @return a {@link List} of splitted {@link String}s
+	 * @return a {@link List} of split {@link String}s
 	 * @throws NullPointerException if the {@link CharSequence} separator or the {@link CharSequence} is {@code null}
 	 * @since 1.3.1
 	 */
@@ -857,8 +857,8 @@ public final class Strings {
 	 * <p><b>Note</b>: This implementation in not based on regular expressions unlike the standard Java one.</p>
 	 * @param separator the {@link CharSequence} separator
 	 * @param charSequence the {@link CharSequence} to split
-	 * @param limit the maximum number of splitted {@link String}s
-	 * @return a {@link List} of splitted {@link String}s
+	 * @param limit the maximum number of split {@link String}s
+	 * @return a {@link List} of split {@link String}s
 	 * @throws NullPointerException if the {@link CharSequence} separator or the {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the limit is lower than {@code 2}
 	 * @since 1.4.0

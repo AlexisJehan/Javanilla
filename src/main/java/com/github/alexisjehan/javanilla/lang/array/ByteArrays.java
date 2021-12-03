@@ -492,9 +492,9 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Concatenate multiple {@code byte} arrays.</p>
-	 * @param arrays the {@code byte} array array to concatenate
+	 * @param arrays {@code byte} arrays to concatenate
 	 * @return the concatenated {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array array or any of them is {@code null}
+	 * @throws NullPointerException if {@code byte} arrays or any of them is {@code null}
 	 * @since 1.0.0
 	 */
 	public static byte[] concat(final byte[]... arrays) {
@@ -530,9 +530,9 @@ public final class ByteArrays {
 	/**
 	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
 	 * @param separator the {@code byte} array separator
-	 * @param arrays the {@code byte} array array to join
+	 * @param arrays {@code byte} arrays to join
 	 * @return the joined {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array array or any of them is
+	 * @throws NullPointerException if the {@code byte} array separator, {@code byte} arrays or any of them is
 	 *         {@code null}
 	 * @since 1.0.0
 	 */
