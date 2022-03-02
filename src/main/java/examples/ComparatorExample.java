@@ -25,6 +25,9 @@ package examples;
 
 import com.github.alexisjehan.javanilla.util.Comparators;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public final class ComparatorExample {
 
 	private ComparatorExample() {
@@ -32,8 +35,9 @@ public final class ComparatorExample {
 	}
 
 	public static void main(final String... args) {
-		System.out.println("foo10".compareTo("foo2")); // Prints -1
-		System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
+		System.out.println(Stream.of("foo2", "foo1", "foo10").sorted().collect(Collectors.toList())); // Prints [foo1, foo10, foo2]
+		System.out.println(Stream.of("foo2", "foo1", "foo10").sorted(Comparators.NUMBER_AWARE).collect(Collectors.toList())); // Prints [foo1, foo2, foo10]
+
 		System.out.println("foo".compareTo("bar")); // Prints 4
 		System.out.println(Comparators.normalize(String::compareTo).compare("foo", "bar")); // Prints 1
 	}

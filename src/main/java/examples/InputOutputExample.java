@@ -29,8 +29,6 @@ import com.github.alexisjehan.javanilla.io.bytes.RangeOutputStream;
 import com.github.alexisjehan.javanilla.util.iteration.Iterables;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public final class InputOutputExample {
 
@@ -39,9 +37,12 @@ public final class InputOutputExample {
 	}
 
 	public static void main(final String... args) throws IOException {
-		final var optionalInputStream = (InputStream) null;
-		final var fileOutputStream = (OutputStream) null;
-		final var sampleOutputStream = (OutputStream) null;
+		@SuppressWarnings("deprecation")
+		final var optionalInputStream = InputStreams.EMPTY;
+		@SuppressWarnings("deprecation")
+		final var fileOutputStream = OutputStreams.EMPTY;
+		@SuppressWarnings("deprecation")
+		final var sampleOutputStream = OutputStreams.EMPTY;
 
 		// Read from an optional InputStream and then from another one which gives 0x00 and 0xff bytes
 		final var concatInputStream = InputStreams.concat(
@@ -57,7 +58,7 @@ public final class InputOutputExample {
 				new RangeOutputStream(sampleOutputStream, fromIndex, toIndex) // Write only the 100 firsts bytes
 		);
 
-		// Wrap the InputStream to be used in a foreach-style loop for a better readability
+		// Wrap the InputStream so that it could be used in a foreach-style loop for a better readability
 		for (final var i : Iterables.wrap(concatInputStream)) {
 			teeOutputStream.write(i);
 		}

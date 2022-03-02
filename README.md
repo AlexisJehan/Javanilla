@@ -53,7 +53,7 @@ final var teeOutputStream = OutputStreams.tee(
 		new RangeOutputStream(sampleOutputStream, fromIndex, toIndex) // Write only the 100 firsts bytes
 );
 
-// Wrap the InputStream to be used in a foreach-style loop for a better readability
+// Wrap the InputStream so that it could be used in a foreach-style loop for a better readability
 for (final var i : Iterables.wrap(concatInputStream)) {
 	teeOutputStream.write(i);
 }
@@ -62,13 +62,15 @@ teeOutputStream.flush();
 
 Convert line separators from an _Unix_ file to a _Windows_ one using _LineReader_ and _LineWriter_:
 ```java
+// Convert a String with Unix line separators to the Windows format removing the extra new line
+final var unixFilePath = Readers.of("foo\nbar\n");
 final var ignoreTerminatingNewLine = true;
 try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
 	final var appendTerminatingNewLine = false;
 	try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
 		// Transfers all lines from the LineReader to the LineWriter
 		final var transferred = lineReader.transferTo(lineWriter);
-		System.out.println(transferred + " lines transferred");
+		System.out.println(transferred); // Prints 2
 	}
 }
 ```
@@ -77,20 +79,28 @@ try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignor
 _String_ and _CharSequence_ utility tools:
 ```java
 System.out.println(Strings.blankToEmpty("   ")); // Prints an empty String
+
 System.out.println(Strings.quote("A quoted String with an escaped \" double quote")); // Prints "A quoted String with an escaped \" double quote"
-final var times = 5;
-System.out.println(Strings.repeat("xX", times)); // Prints "xXxXxXxXxX"
+
 final var size = 5;
-System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
+final var padding = 'o';
+System.out.println(Strings.padLeft("foo", size, padding)); // Prints oofoo
+
 final var suffix = 'o';
-System.out.println(Strings.removeEnd("foo", suffix)); // Prints "fo"
+System.out.println(Strings.removeEnd("foo", suffix)); // Prints fo
+
 final var target = 'o';
 final var replacement = 'r';
-System.out.println(Strings.replaceLast("foo", target, replacement)); // Prints "for"
-System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
-System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
+System.out.println(Strings.replaceLast("foo", target, replacement)); // Prints for
+
+System.out.println(Strings.concatMerge("Once upon a time […]", "[…] the end")); // Prints Once upon a time […] the end
+
+System.out.println(Strings.isHexadecimal("foo")); // Prints false
+System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes()))); // Prints true
+
 final var withPadding = true;
-System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
+System.out.println(Strings.isBase64("foo", withPadding)); // Prints false
+System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding)); // Prints true
 ```
 
 _Throwable_ utility tools:
@@ -105,7 +115,7 @@ try {
 		throw new IOException("A checked Exception inside a lambda");
 	});
 } catch (final UncheckedIOException e) {
-	System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
+	System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints A checked Exception inside a lambda
 }
 ```
 
@@ -113,33 +123,34 @@ Primitive and generic arrays utility tools:
 ```java
 IntArrays.of(1, 2, 3); // Similar to new int[] {1, 2, 3};
 ObjectArrays.of("foo", "bar"); // Similar to new String[] {"foo", "bar"};
-LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)); // 1, 2, 3, 4, 5, 6
+
+System.out.println(Arrays.toString(LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)))); // Prints [1, 2, 3, 4, 5, 6]
 final var separator = CharArrays.singleton(' ');
-CharArrays.join(separator, CharArrays.of('f', 'o', 'o'), CharArrays.of('b', 'a', 'r')); // 'f', 'o', 'o', ' ', 'b', 'a', 'r'
-FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
-FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True
-DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2.0d); // 1
-ByteArrays.toHexadecimalString(
-		ByteArrays.concat(
-				ByteArrays.of((byte) 0x00, (byte) 0xff),
-				ByteArrays.ofDouble(3.14d, ByteOrder.BIG_ENDIAN),
-				ByteArrays.ofHexadecimalString("0xff"),
-				"foo".getBytes()
-		)
-); // 00ff40091eb851eb851fff666f6f
+System.out.println(Arrays.toString(CharArrays.join(separator, "foo".toCharArray(), "bar".toCharArray()))); // Prints [f, o, o,  , b, a, r]
+
+System.out.println(FloatArrays.containsAll(FloatArrays.of(1.0f, 1.0f, 2.0f), 1.0f, 0.0f)); // Prints false
+System.out.println(FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 1.0f, 2.0f)); // Prints true
+System.out.println(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1.0d)); // Prints 0
+System.out.println(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)); // Prints -1
+
+System.out.println(ByteArrays.toHexadecimalString(ByteArrays.concat(ByteArrays.singleton((byte) 0x00), ByteArrays.ofHexadecimalString("ff")))); // Prints 00ff
 ```
 
 ### Misc examples
 Print values as pretty strings using _StringFormatter_:
 ```java
-final var floatPrecision = 3; // Up to 3 digits after the floating point
+final var floatPrecision = 3;
 final var stringFormatter = new StringFormatter(Locale.US, floatPrecision);
+
 System.out.println(stringFormatter.format(1_234_567L)); // Prints 1,234,567
-System.out.println(stringFormatter.formatBytes(1_300_000L)); // Prints 1.24MiB
-System.out.println(stringFormatter.formatBytes(1_300_000L, StringFormatter.BytePrefix.SI)); // Prints 1.3MB
+
+System.out.println(stringFormatter.formatBytes(1_234_567L)); // Prints 1.177MiB
+System.out.println(stringFormatter.formatBytes(1_234_567L, StringFormatter.BytePrefix.SI)); // Prints 1.235MB
+
 final var progression = 1.0d;
 final var total = 3.0d;
 System.out.println(stringFormatter.formatPercent(progression, total)); // Prints 33.333%
+
 System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
 ```
 
@@ -149,18 +160,19 @@ final var x1 = 0.0d;
 final var y1 = 0.0d;
 final var x2 = 1.0d;
 final var y2 = 2.0d;
-System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3
+System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3.0
 final var order = 1;
-System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3
-System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
-System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
+System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3.0
+System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1.0
+System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3.0
 ```
 
 ### Util examples
 New _Comparator_ implementation:
 ```java
-System.out.println("foo10".compareTo("foo2")); // Prints -1
-System.out.println(Comparators.NUMBER_AWARE.compare("foo10", "foo2")); // Prints 1
+System.out.println(Stream.of("foo2", "foo1", "foo10").sorted().collect(Collectors.toList())); // Prints [foo1, foo10, foo2]
+System.out.println(Stream.of("foo2", "foo1", "foo10").sorted(Comparators.NUMBER_AWARE).collect(Collectors.toList())); // Prints [foo1, foo2, foo10]
+
 System.out.println("foo".compareTo("bar")); // Prints 4
 System.out.println(Comparators.normalize(String::compareTo).compare("foo", "bar")); // Prints 1
 ```
@@ -172,13 +184,14 @@ bag.add("foo");
 final var quantity = 5L;
 bag.add("bar", quantity);
 System.out.println(bag.count("foo")); // Prints 1
+System.out.println(bag.count("bar")); // Prints 5
 System.out.println(bag.distinct()); // Prints 2
 System.out.println(bag.size()); // Prints 6
 ```
 
 _Iterator_ utility tools:
 ```java
-// Iterator to iterate over groups of integers
+// Iterator to iterate over elements grouping them
 final var batchSize = 3;
 final var batchIterator = new BatchIterator<>(
 		Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
@@ -188,10 +201,11 @@ final var batchIterator = new BatchIterator<>(
 // Iterator that counts iterated groups
 final var countIterator = new CountIterator<>(batchIterator);
 
-// Wrap the Iterator to be used in a foreach-style loop for a better readability
+// Wrap the Iterator so that it could be used in a foreach-style loop for a better readability
 for (final var list : Iterables.wrap(countIterator)) {
 	System.out.println(list); // Prints [1, 2, 3], [4, 5, 6], [7, 8, 9] and [10]
 }
+
 System.out.println(countIterator.getCount()); // Prints 4
 ```
 

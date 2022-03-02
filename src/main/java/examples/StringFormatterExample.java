@@ -34,14 +34,18 @@ public final class StringFormatterExample {
 	}
 
 	public static void main(final String... args) {
-		final var floatPrecision = 3; // Up to 3 digits after the floating point
+		final var floatPrecision = 3;
 		final var stringFormatter = new StringFormatter(Locale.US, floatPrecision);
+
 		System.out.println(stringFormatter.format(1_234_567L)); // Prints 1,234,567
-		System.out.println(stringFormatter.formatBytes(1_300_000L)); // Prints 1.24MiB
-		System.out.println(stringFormatter.formatBytes(1_300_000L, StringFormatter.BytePrefix.SI)); // Prints 1.3MB
+
+		System.out.println(stringFormatter.formatBytes(1_234_567L)); // Prints 1.177MiB
+		System.out.println(stringFormatter.formatBytes(1_234_567L, StringFormatter.BytePrefix.SI)); // Prints 1.235MB
+
 		final var progression = 1.0d;
 		final var total = 3.0d;
 		System.out.println(stringFormatter.formatPercent(progression, total)); // Prints 33.333%
+
 		System.out.println(stringFormatter.formatCurrency(123.456789d)); // Prints $123.457
 	}
 }

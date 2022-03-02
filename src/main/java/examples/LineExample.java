@@ -23,12 +23,13 @@
  */
 package examples;
 
+import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.io.chars.Writers;
 import com.github.alexisjehan.javanilla.io.lines.LineReader;
 import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
 import com.github.alexisjehan.javanilla.io.lines.LineWriter;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 public final class LineExample {
 
@@ -37,16 +38,18 @@ public final class LineExample {
 	}
 
 	public static void main(final String... args) throws IOException {
-		final var unixFilePath = (Path) null;
-		final var windowsFilePath = (Path) null;
+		@SuppressWarnings("deprecation")
+		final var windowsFilePath = Writers.EMPTY;
 
+		// Convert a String with Unix line separators to the Windows format removing the extra new line
+		final var unixFilePath = Readers.of("foo\nbar\n");
 		final var ignoreTerminatingNewLine = true;
 		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
 			final var appendTerminatingNewLine = false;
 			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
 				// Transfers all lines from the LineReader to the LineWriter
 				final var transferred = lineReader.transferTo(lineWriter);
-				System.out.println(transferred + " lines transferred");
+				System.out.println(transferred); // Prints 2
 			}
 		}
 	}

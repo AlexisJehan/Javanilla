@@ -35,7 +35,7 @@ public final class IteratorExample {
 	}
 
 	public static void main(final String... args) {
-		// Iterator to iterate over groups of integers
+		// Iterator to iterate over elements grouping them
 		final var batchSize = 3;
 		final var batchIterator = new BatchIterator<>(
 				Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
@@ -45,10 +45,11 @@ public final class IteratorExample {
 		// Iterator that counts iterated groups
 		final var countIterator = new CountIterator<>(batchIterator);
 
-		// Wrap the Iterator to be used in a foreach-style loop for a better readability
+		// Wrap the Iterator so that it could be used in a foreach-style loop for a better readability
 		for (final var list : Iterables.wrap(countIterator)) {
 			System.out.println(list); // Prints [1, 2, 3], [4, 5, 6], [7, 8, 9] and [10]
 		}
+
 		System.out.println(countIterator.getCount()); // Prints 4
 	}
 }

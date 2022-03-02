@@ -34,22 +34,29 @@ public final class StringExample {
 		// Not available
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void main(final String... args) {
 		System.out.println(Strings.blankToEmpty("   ")); // Prints an empty String
+
 		System.out.println(Strings.quote("A quoted String with an escaped \" double quote")); // Prints "A quoted String with an escaped \" double quote"
-		final var times = 5;
-		System.out.println(Strings.repeat("xX", times)); // Prints "xXxXxXxXxX"
+
 		final var size = 5;
-		System.out.println(Strings.padLeft("foo", size)); // Prints "  foo"
+		final var padding = 'o';
+		System.out.println(Strings.padLeft("foo", size, padding)); // Prints oofoo
+
 		final var suffix = 'o';
-		System.out.println(Strings.removeEnd("foo", suffix)); // Prints "fo"
+		System.out.println(Strings.removeEnd("foo", suffix)); // Prints fo
+
 		final var target = 'o';
 		final var replacement = 'r';
-		System.out.println(Strings.replaceLast("foo", target, replacement)); // Prints "for"
-		System.out.println(Strings.concatMerge("Once upon a time ...", "... the end")); // Prints "Once upon a time ... the end"
-		System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes())) ? "yes" : "no"); // Prints "yes"
+		System.out.println(Strings.replaceLast("foo", target, replacement)); // Prints for
+
+		System.out.println(Strings.concatMerge("Once upon a time […]", "[…] the end")); // Prints Once upon a time […] the end
+
+		System.out.println(Strings.isHexadecimal("foo")); // Prints false
+		System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes()))); // Prints true
+
 		final var withPadding = true;
-		System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding) ? "yes" : "no"); // Prints "yes"
+		System.out.println(Strings.isBase64("foo", withPadding)); // Prints false
+		System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding)); // Prints true
 	}
 }

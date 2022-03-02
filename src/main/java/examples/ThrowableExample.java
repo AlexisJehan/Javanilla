@@ -45,7 +45,7 @@ public final class ThrowableExample {
 				throw new IOException("A checked Exception inside a lambda");
 			});
 		} catch (final UncheckedIOException e) {
-			System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints "A checked Exception inside a lambda"
+			System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints A checked Exception inside a lambda
 		}
 	}
 }

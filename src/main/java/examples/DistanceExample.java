@@ -39,10 +39,10 @@ public final class DistanceExample {
 		final var y1 = 0.0d;
 		final var x2 = 1.0d;
 		final var y2 = 2.0d;
-		System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3
+		System.out.println(Distances.MANHATTAN.calculate(x1, y1, x2, y2)); // Prints 3.0
 		final var order = 1;
-		System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3
-		System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1
-		System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3
+		System.out.println(new MinkowskiDistance(order).calculate(x1, y1, x2, y2)); // Prints 3.0
+		System.out.println(EditDistances.HAMMING.calculate("foo", "for")); // Prints 1.0
+		System.out.println(LevenshteinDistance.DEFAULT.calculate("append", "apple")); // Prints 3.0
 	}
 }

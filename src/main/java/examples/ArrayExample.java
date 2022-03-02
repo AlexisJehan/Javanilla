@@ -31,7 +31,7 @@ import com.github.alexisjehan.javanilla.lang.array.IntArrays;
 import com.github.alexisjehan.javanilla.lang.array.LongArrays;
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 
-import java.nio.ByteOrder;
+import java.util.Arrays;
 
 public final class ArrayExample {
 
@@ -42,19 +42,16 @@ public final class ArrayExample {
 	public static void main(final String... args) {
 		IntArrays.of(1, 2, 3); // Similar to new int[] {1, 2, 3};
 		ObjectArrays.of("foo", "bar"); // Similar to new String[] {"foo", "bar"};
-		LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)); // 1, 2, 3, 4, 5, 6
+
+		System.out.println(Arrays.toString(LongArrays.concat(LongArrays.of(1L, 2L, 3L), LongArrays.of(4L, 5L, 6L)))); // Prints [1, 2, 3, 4, 5, 6]
 		final var separator = CharArrays.singleton(' ');
-		CharArrays.join(separator, CharArrays.of('f', 'o', 'o'), CharArrays.of('b', 'a', 'r')); // 'f', 'o', 'o', ' ', 'b', 'a', 'r'
-		FloatArrays.containsAll(FloatArrays.of(0.0f, 1.0f, 2.0f), 2.0f, 3.0f); // False
-		FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 2.0f, 3.0f); // True
-		DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2.0d); // 1
-		ByteArrays.toHexadecimalString(
-				ByteArrays.concat(
-						ByteArrays.of((byte) 0x00, (byte) 0xff),
-						ByteArrays.ofDouble(3.14d, ByteOrder.BIG_ENDIAN),
-						ByteArrays.ofHexadecimalString("0xff"),
-						"foo".getBytes()
-				)
-		); // 00ff40091eb851eb851fff666f6f
+		System.out.println(Arrays.toString(CharArrays.join(separator, "foo".toCharArray(), "bar".toCharArray()))); // Prints [f, o, o,  , b, a, r]
+
+		System.out.println(FloatArrays.containsAll(FloatArrays.of(1.0f, 1.0f, 2.0f), 1.0f, 0.0f)); // Prints false
+		System.out.println(FloatArrays.containsAll(FloatArrays.of(1.0f, 2.0f, 3.0f), 1.0f, 2.0f)); // Prints true
+		System.out.println(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1.0d)); // Prints 0
+		System.out.println(DoubleArrays.indexOf(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)); // Prints -1
+
+		System.out.println(ByteArrays.toHexadecimalString(ByteArrays.concat(ByteArrays.singleton((byte) 0x00), ByteArrays.ofHexadecimalString("ff")))); // Prints 00ff
 	}
 }

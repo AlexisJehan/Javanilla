@@ -37,6 +37,7 @@ public final class BagExample {
 		final var quantity = 5L;
 		bag.add("bar", quantity);
 		System.out.println(bag.count("foo")); // Prints 1
+		System.out.println(bag.count("bar")); // Prints 5
 		System.out.println(bag.distinct()); // Prints 2
 		System.out.println(bag.size()); // Prints 6
 	}
