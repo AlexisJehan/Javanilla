@@ -26,5 +26,5 @@
  * @deprecated use {@link com.github.alexisjehan.javanilla.standard} instead
  * @since 1.0.0
  */
-@Deprecated(since = "1.6.0")
+//@Deprecated(since = "1.6.0")
 package com.github.alexisjehan.javanilla.crypto;
