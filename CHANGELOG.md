@@ -2,6 +2,12 @@
 
 ## 1.6.0 _(in progress)_
 
+**lang.Throwables**
+- Added the _isCheckedException(Throwable)_ method
+- Added the _isUncheckedException(Throwable)_ method
+- Deprecated the _isChecked(Throwable)_ method
+- Deprecated the _isUnchecked(Throwable)_ method
+
 **lang.array.BooleanArrays**
 - Added the _shuffle(boolean[], Random)_ method
 - Deprecated the _shuffle(boolean[])_ method

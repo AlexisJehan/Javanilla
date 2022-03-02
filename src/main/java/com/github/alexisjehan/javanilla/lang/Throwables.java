@@ -54,11 +54,24 @@ public final class Throwables {
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @deprecated use {@link #isCheckedException(Throwable)} instead
 	 * @since 1.1.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static boolean isChecked(final Throwable throwable) {
+		return isCheckedException(throwable);
+	}
+
+	/**
+	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static boolean isCheckedException(final Throwable throwable) {
 		Ensure.notNull("throwable", throwable);
-		return throwable instanceof Exception && !isUnchecked(throwable);
+		return throwable instanceof Exception && !isUncheckedException(throwable);
 	}
 
 	/**
@@ -66,9 +79,22 @@ public final class Throwables {
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @deprecated use {@link #isUncheckedException(Throwable)} instead
 	 * @since 1.1.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static boolean isUnchecked(final Throwable throwable) {
+		return isUncheckedException(throwable);
+	}
+
+	/**
+	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static boolean isUncheckedException(final Throwable throwable) {
 		Ensure.notNull("throwable", throwable);
 		return throwable instanceof RuntimeException;
 	}
