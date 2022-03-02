@@ -21,21 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.crypto;
+package com.github.alexisjehan.javanilla.standard.security;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <p>A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests} instead
- * @since 1.0.0
+ * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/MessageDigest.html">https://docs.oracle.com/javase/10/docs/api/java/security/MessageDigest.html</a>
+ * @since 1.6.0
  */
-@Deprecated(since = "1.6.0")
 public final class StandardMessageDigests {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 */
 	private StandardMessageDigests() {
 		// Not available
@@ -44,33 +44,41 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "MD5" {@link MessageDigest} instance.</p>
 	 * @return a "MD5" {@link MessageDigest} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests#getMd5Instance()} instead
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static MessageDigest getMd5Instance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests.getMd5Instance();
+		return getInstance("MD5");
 	}
 
 	/**
 	 * <p>Get a new "SHA-1" {@link MessageDigest} instance.</p>
 	 * @return a "SHA-1" {@link MessageDigest} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests#getSha1Instance()} instead
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static MessageDigest getSha1Instance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests.getSha1Instance();
+		return getInstance("SHA-1");
 	}
 
 	/**
 	 * <p>Get a new "SHA-256" {@link MessageDigest} instance.</p>
 	 * @return a "SHA-256" {@link MessageDigest} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests#getSha256Instance()} instead
-	 * @since 1.0.0
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static MessageDigest getSha256Instance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests.getSha256Instance();
+		return getInstance("SHA-256");
+	}
+
+	/**
+	 * <p>Get a new {@link MessageDigest} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link MessageDigest} algorithm
+	 * @return a {@link MessageDigest} instance of the provided algorithm
+	 * @since 1.6.0
+	 */
+	private static MessageDigest getInstance(final String algorithm) {
+		try {
+			return MessageDigest.getInstance(algorithm);
+		} catch (final NoSuchAlgorithmException e) {
+			throw new AssertionError(e);
+		}
 	}
 }

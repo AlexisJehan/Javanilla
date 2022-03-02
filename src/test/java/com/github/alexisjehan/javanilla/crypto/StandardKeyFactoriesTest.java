@@ -25,15 +25,12 @@ package com.github.alexisjehan.javanilla.crypto;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.security.NoSuchAlgorithmException;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * <p>{@link StandardKeyFactories} unit tests.</p>
  */
+@SuppressWarnings("deprecation")
 final class StandardKeyFactoriesTest {
 
 	@Test
@@ -49,15 +46,5 @@ final class StandardKeyFactoriesTest {
 	@Test
 	void testGetRsaInstance() {
 		assertThat(StandardKeyFactories.getRsaInstance().getAlgorithm()).isEqualTo("RSA");
-	}
-
-	@Test
-	void testGetInstanceUnreachable() throws NoSuchMethodException {
-		final var method = StandardKeyFactories.class.getDeclaredMethod("getInstance", String.class);
-		method.setAccessible(true);
-		assertThatExceptionOfType(InvocationTargetException.class)
-				.isThrownBy(() -> method.invoke(null, "?"))
-				.withCauseExactlyInstanceOf(AssertionError.class)
-				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

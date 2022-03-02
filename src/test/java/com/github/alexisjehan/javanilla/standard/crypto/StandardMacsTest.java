@@ -21,38 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.lang;
+package com.github.alexisjehan.javanilla.standard.crypto;
 
-import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * <p>{@link UncheckedInterruptedException} unit tests.</p>
+ * <p>{@link StandardMacs} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class UncheckedInterruptedExceptionTest {
-
-	private static final InterruptedException CAUSE = new InterruptedException();
-
-	private final UncheckedInterruptedException uncheckedInterruptedException = new UncheckedInterruptedException(CAUSE);
+final class StandardMacsTest {
 
 	@Test
-	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> {
-			throw new UncheckedInterruptedException(null);
-		});
+	void testGetHmacMd5Instance() {
+		assertThat(StandardMacs.getHmacMd5Instance().getAlgorithm()).isEqualTo("HmacMD5");
 	}
 
 	@Test
-	void testGetCause() {
-		assertThat(uncheckedInterruptedException.getCause()).isEqualTo(CAUSE);
+	void testGetHmacSha1Instance() {
+		assertThat(StandardMacs.getHmacSha1Instance().getAlgorithm()).isEqualTo("HmacSHA1");
 	}
 
 	@Test
-	void testSerializable() {
-		assertThat(Serializables.<UncheckedInterruptedException>deserialize(Serializables.serialize(uncheckedInterruptedException))).hasSameClassAs(uncheckedInterruptedException);
+	void testGetHmacSha256Instance() {
+		assertThat(StandardMacs.getHmacSha256Instance().getAlgorithm()).isEqualTo("HmacSHA256");
+	}
+
+	@Test
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardMacs.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

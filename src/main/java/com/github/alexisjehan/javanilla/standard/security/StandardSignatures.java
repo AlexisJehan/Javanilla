@@ -21,21 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.crypto;
+package com.github.alexisjehan.javanilla.standard.security;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 
 /**
  * <p>A {@link Signature} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures} instead
- * @since 1.3.1
+ * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/Signature.html">https://docs.oracle.com/javase/10/docs/api/java/security/Signature.html</a>
+ * @since 1.6.0
  */
-@Deprecated(since = "1.6.0")
 public final class StandardSignatures {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
 	private StandardSignatures() {
 		// Not available
@@ -44,44 +44,50 @@ public final class StandardSignatures {
 	/**
 	 * <p>Get a new "SHA1withDSA" {@link Signature} instance.</p>
 	 * @return a "SHA1withDSA" {@link Signature} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha1WithDsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha1WithDsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha1WithDsaInstance();
+		return getInstance("SHA1withDSA");
 	}
 
 	/**
 	 * <p>Get a new "SHA256withDSA" {@link Signature} instance.</p>
 	 * @return a "SHA256withDSA" {@link Signature} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha256WithDsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha256WithDsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha256WithDsaInstance();
+		return getInstance("SHA256withDSA");
 	}
 
 	/**
 	 * <p>Get a new "SHA1withRSA" {@link Signature} instance.</p>
 	 * @return a "SHA1withRSA" {@link Signature} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha1WithRsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha1WithRsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha1WithRsaInstance();
+		return getInstance("SHA1withRSA");
 	}
 
 	/**
 	 * <p>Get a new "SHA256withRSA" {@link Signature} instance.</p>
 	 * @return a "SHA256withRSA" {@link Signature} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha256WithRsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha256WithRsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha256WithRsaInstance();
+		return getInstance("SHA256withRSA");
+	}
+
+	/**
+	 * <p>Get a new {@link Signature} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link Signature} algorithm
+	 * @return a {@link Signature} instance of the provided algorithm
+	 * @since 1.6.0
+	 */
+	private static Signature getInstance(final String algorithm) {
+		try {
+			return Signature.getInstance(algorithm);
+		} catch (final NoSuchAlgorithmException e) {
+			throw new AssertionError(e);
+		}
 	}
 }

@@ -21,16 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.crypto;
+package com.github.alexisjehan.javanilla.standard.security;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * <p>{@link StandardSignatures} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
 final class StandardSignaturesTest {
 
 	@Test
@@ -51,5 +54,15 @@ final class StandardSignaturesTest {
 	@Test
 	void testGetSha256WithRsaInstance() {
 		assertThat(StandardSignatures.getSha256WithRsaInstance().getAlgorithm()).isEqualTo("SHA256withRSA");
+	}
+
+	@Test
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardSignatures.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

@@ -21,38 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.lang;
+package com.github.alexisjehan.javanilla.standard.security;
 
-import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * <p>{@link UncheckedInterruptedException} unit tests.</p>
+ * <p>{@link StandardMessageDigests} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class UncheckedInterruptedExceptionTest {
-
-	private static final InterruptedException CAUSE = new InterruptedException();
-
-	private final UncheckedInterruptedException uncheckedInterruptedException = new UncheckedInterruptedException(CAUSE);
+final class StandardMessageDigestsTest {
 
 	@Test
-	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> {
-			throw new UncheckedInterruptedException(null);
-		});
+	void testGetMd5Instance() {
+		assertThat(StandardMessageDigests.getMd5Instance().getAlgorithm()).isEqualTo("MD5");
 	}
 
 	@Test
-	void testGetCause() {
-		assertThat(uncheckedInterruptedException.getCause()).isEqualTo(CAUSE);
+	void testGetSha1Instance() {
+		assertThat(StandardMessageDigests.getSha1Instance().getAlgorithm()).isEqualTo("SHA-1");
 	}
 
 	@Test
-	void testSerializable() {
-		assertThat(Serializables.<UncheckedInterruptedException>deserialize(Serializables.serialize(uncheckedInterruptedException))).hasSameClassAs(uncheckedInterruptedException);
+	void testGetSha256Instance() {
+		assertThat(StandardMessageDigests.getSha256Instance().getAlgorithm()).isEqualTo("SHA-256");
+	}
+
+	@Test
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardMessageDigests.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

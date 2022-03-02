@@ -21,38 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.lang;
-
-import com.github.alexisjehan.javanilla.io.Serializables;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
-
 /**
- * <p>{@link UncheckedInterruptedException} unit tests.</p>
+ * <p>Standard {@link javax.crypto} components available on every implementation of the Java platform.</p>
+ * @since 1.6.0
  */
-@SuppressWarnings("deprecation")
-final class UncheckedInterruptedExceptionTest {
-
-	private static final InterruptedException CAUSE = new InterruptedException();
-
-	private final UncheckedInterruptedException uncheckedInterruptedException = new UncheckedInterruptedException(CAUSE);
-
-	@Test
-	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> {
-			throw new UncheckedInterruptedException(null);
-		});
-	}
-
-	@Test
-	void testGetCause() {
-		assertThat(uncheckedInterruptedException.getCause()).isEqualTo(CAUSE);
-	}
-
-	@Test
-	void testSerializable() {
-		assertThat(Serializables.<UncheckedInterruptedException>deserialize(Serializables.serialize(uncheckedInterruptedException))).hasSameClassAs(uncheckedInterruptedException);
-	}
-}
+package com.github.alexisjehan.javanilla.standard.crypto;

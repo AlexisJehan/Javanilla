@@ -21,30 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.crypto;
+package com.github.alexisjehan.javanilla.standard.crypto;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * <p>{@link StandardMacs} unit tests.</p>
+ * <p>{@link StandardKeyGenerators} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class StandardMacsTest {
+final class StandardKeyGeneratorsTest {
 
 	@Test
-	void testGetHmacMd5Instance() {
-		assertThat(StandardMacs.getHmacMd5Instance().getAlgorithm()).isEqualTo("HmacMD5");
+	void testGetAesInstance() {
+		assertThat(StandardKeyGenerators.getAesInstance().getAlgorithm()).isEqualTo("AES");
+	}
+
+	@Test
+	void testGetDesInstance() {
+		assertThat(StandardKeyGenerators.getDesInstance().getAlgorithm()).isEqualTo("DES");
+	}
+
+	@Test
+	void testGetDesedeInstance() {
+		assertThat(StandardKeyGenerators.getDesedeInstance().getAlgorithm()).isEqualTo("DESede");
 	}
 
 	@Test
 	void testGetHmacSha1Instance() {
-		assertThat(StandardMacs.getHmacSha1Instance().getAlgorithm()).isEqualTo("HmacSHA1");
+		assertThat(StandardKeyGenerators.getHmacSha1Instance().getAlgorithm()).isEqualTo("HmacSHA1");
 	}
 
 	@Test
 	void testGetHmacSha256Instance() {
-		assertThat(StandardMacs.getHmacSha256Instance().getAlgorithm()).isEqualTo("HmacSHA256");
+		assertThat(StandardKeyGenerators.getHmacSha256Instance().getAlgorithm()).isEqualTo("HmacSHA256");
+	}
+
+	@Test
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardKeyGenerators.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

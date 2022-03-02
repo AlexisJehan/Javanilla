@@ -21,38 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.lang;
+package com.github.alexisjehan.javanilla.standard.security;
 
-import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * <p>{@link UncheckedInterruptedException} unit tests.</p>
+ * <p>{@link StandardKeyPairGenerators} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class UncheckedInterruptedExceptionTest {
-
-	private static final InterruptedException CAUSE = new InterruptedException();
-
-	private final UncheckedInterruptedException uncheckedInterruptedException = new UncheckedInterruptedException(CAUSE);
+final class StandardKeyPairGeneratorsTest {
 
 	@Test
-	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> {
-			throw new UncheckedInterruptedException(null);
-		});
+	void testGetDiffieHellmanInstance() {
+		assertThat(StandardKeyPairGenerators.getDiffieHellmanInstance().getAlgorithm()).isEqualTo("DiffieHellman");
 	}
 
 	@Test
-	void testGetCause() {
-		assertThat(uncheckedInterruptedException.getCause()).isEqualTo(CAUSE);
+	void testGetDsaInstance() {
+		assertThat(StandardKeyPairGenerators.getDsaInstance().getAlgorithm()).isEqualTo("DSA");
 	}
 
 	@Test
-	void testSerializable() {
-		assertThat(Serializables.<UncheckedInterruptedException>deserialize(Serializables.serialize(uncheckedInterruptedException))).hasSameClassAs(uncheckedInterruptedException);
+	void testGetRsaInstance() {
+		assertThat(StandardKeyPairGenerators.getRsaInstance().getAlgorithm()).isEqualTo("RSA");
+	}
+
+	@Test
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardKeyPairGenerators.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

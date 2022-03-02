@@ -21,21 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.crypto;
+package com.github.alexisjehan.javanilla.standard.security;
 
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <p>A {@link KeyPairGenerator} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators} instead
- * @since 1.3.1
+ * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/KeyPairGenerator.html">https://docs.oracle.com/javase/10/docs/api/java/security/KeyPairGenerator.html</a>
+ * @since 1.6.0
  */
-@Deprecated(since = "1.6.0")
 public final class StandardKeyPairGenerators {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
 	private StandardKeyPairGenerators() {
 		// Not available
@@ -44,33 +44,41 @@ public final class StandardKeyPairGenerators {
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>
 	 * @return a "DiffieHellman" {@link KeyPairGenerator} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators#getDiffieHellmanInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyPairGenerator getDiffieHellmanInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators.getDiffieHellmanInstance();
+		return getInstance("DiffieHellman");
 	}
 
 	/**
 	 * <p>Get a new "DSA" {@link KeyPairGenerator} instance.</p>
 	 * @return a "DSA" {@link KeyPairGenerator} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators#getDsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyPairGenerator getDsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators.getDsaInstance();
+		return getInstance("DSA");
 	}
 
 	/**
 	 * <p>Get a new "RSA" {@link KeyPairGenerator} instance.</p>
 	 * @return a "RSA" {@link KeyPairGenerator} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators#getRsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyPairGenerator getRsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators.getRsaInstance();
+		return getInstance("RSA");
+	}
+
+	/**
+	 * <p>Get a new {@link KeyPairGenerator} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link KeyPairGenerator} algorithm
+	 * @return a {@link KeyPairGenerator} instance of the provided algorithm
+	 * @since 1.6.0
+	 */
+	private static KeyPairGenerator getInstance(final String algorithm) {
+		try {
+			return KeyPairGenerator.getInstance(algorithm);
+		} catch (final NoSuchAlgorithmException e) {
+			throw new AssertionError(e);
+		}
 	}
 }

@@ -25,15 +25,12 @@ package com.github.alexisjehan.javanilla.crypto;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.security.NoSuchAlgorithmException;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * <p>{@link StandardCiphers} unit tests.</p>
  */
+@SuppressWarnings("deprecation")
 final class StandardCiphersTest {
 
 	@Test
@@ -114,15 +111,5 @@ final class StandardCiphersTest {
 	@Test
 	void testGetRsaEcbOaepSha256AndMgf1Instance() {
 		assertThat(StandardCiphers.getRsaEcbOaepSha256AndMgf1Instance().getAlgorithm()).isEqualTo("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
-	}
-
-	@Test
-	void testGetInstanceUnreachable() throws NoSuchMethodException {
-		final var method = StandardCiphers.class.getDeclaredMethod("getInstance", String.class);
-		method.setAccessible(true);
-		assertThatExceptionOfType(InvocationTargetException.class)
-				.isThrownBy(() -> method.invoke(null, "?"))
-				.withCauseExactlyInstanceOf(AssertionError.class)
-				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

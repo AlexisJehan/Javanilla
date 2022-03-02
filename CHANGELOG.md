@@ -2,6 +2,10 @@
 
 ## 1.6.0 _(in progress)_
 
+**crypto**
+- Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_,
+_StandardMessageDigests_ and _StandardSignatures_ classes
+
 **lang.Throwables**
 - Added the _isCheckedException(Throwable)_ method
 - Added the _isUncheckedException(Throwable)_ method
@@ -47,6 +51,21 @@
 **util.collection.Sets**
 - Added _unify(Set[])_ and _unify(Collection)_ methods
 - Deprecated _union(Set[])_ and _union(Collection)_ methods
+
+**standard.crypto**
+- Added _StandardCiphers_, _StandardKeyAgreements_, _StandardKeyGenerators_, _StandardMacs_ and
+_StandardSecretKeyFactories_ classes
+
+**standard.net.ssl**
+- Added _StandardSslContexts_ and _StandardTrustManagerFactories_ classes
+
+**standard.security**
+- Added _StandardAlgorithmParameterGenerators_, _StandardAlgorithmParameters_, _StandardKeyFactories_,
+_StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _StandardSignatures_ classes
+
+**standard.security.cert**
+- Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and
+_StandardCertStores_ classes
 
 **util.collection.bags.LimitedBag**
 - Added the _getLimit()_ method
@@ -287,9 +306,11 @@ _notNullAndBetween()_ methods
 **lang.Strings**
 - Added _nullToEmpty(String)_, _emptyToNull(String)_, _blankToNull(String)_ and _blankToEmpty(String)_ methods
 - Added the _isEmpty()_ method
-- Added _isBoolean()_, _isShort()_, _isInt()_, _isLong()_, _isFloat()_, _isDouble()_, _isBinary()_, _isOctal()_ and _isDecimal()_ methods
+- Added _isBoolean()_, _isShort()_, _isInt()_, _isLong()_, _isFloat()_, _isDouble()_, _isBinary()_, _isOctal()_ and
+_isDecimal()_ methods
 - Changed _isBase64(CharSequence, boolean)_ and _isBase64Url(CharSequence, boolean)_ methods
-- Added _quote(char)_, _quote(char, char, char)_, _unquoteChar(CharSequence)_ and _unquoteChar(CharSequence, char, char)_  methods
+- Added _quote(char)_, _quote(char, char, char)_, _unquoteChar(CharSequence)_ and
+_unquoteChar(CharSequence, char, char)_  methods
 - Removed _quote(Object)_ and _quote(Object, char, char)_ methods
 
 **lang.array.BooleanArrays**

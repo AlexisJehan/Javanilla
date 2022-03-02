@@ -21,38 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.lang;
+package com.github.alexisjehan.javanilla.standard.security.cert;
 
-import com.github.alexisjehan.javanilla.io.Serializables;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertStoreParameters;
+import java.security.cert.CollectionCertStoreParameters;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNullPointerException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * <p>{@link UncheckedInterruptedException} unit tests.</p>
+ * <p>{@link StandardCertStores} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class UncheckedInterruptedExceptionTest {
-
-	private static final InterruptedException CAUSE = new InterruptedException();
-
-	private final UncheckedInterruptedException uncheckedInterruptedException = new UncheckedInterruptedException(CAUSE);
+final class StandardCertStoresTest {
 
 	@Test
-	void testConstructorInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> {
-			throw new UncheckedInterruptedException(null);
-		});
+	void testGetInstanceCollection() {
+		assertThat(StandardCertStores.getInstance(new CollectionCertStoreParameters()).getType()).isEqualTo("Collection");
 	}
 
 	@Test
-	void testGetCause() {
-		assertThat(uncheckedInterruptedException.getCause()).isEqualTo(CAUSE);
-	}
-
-	@Test
-	void testSerializable() {
-		assertThat(Serializables.<UncheckedInterruptedException>deserialize(Serializables.serialize(uncheckedInterruptedException))).hasSameClassAs(uncheckedInterruptedException);
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardCertStores.class.getDeclaredMethod("getInstance", String.class, CertStoreParameters.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?", null))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

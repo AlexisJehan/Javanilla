@@ -21,21 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.crypto;
+package com.github.alexisjehan.javanilla.standard.security;
 
 import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <p>A {@link KeyFactory} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories} instead
- * @since 1.3.1
+ * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/KeyFactory.html">https://docs.oracle.com/javase/10/docs/api/java/security/KeyFactory.html</a>
+ * @since 1.6.0
  */
-@Deprecated(since = "1.6.0")
 public final class StandardKeyFactories {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
 	private StandardKeyFactories() {
 		// Not available
@@ -44,33 +44,41 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>
 	 * @return a "DiffieHellman" {@link KeyFactory} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDiffieHellmanInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyFactory getDiffieHellmanInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories.getDiffieHellmanInstance();
+		return getInstance("DiffieHellman");
 	}
 
 	/**
 	 * <p>Get a new "DSA" {@link KeyFactory} instance.</p>
 	 * @return a "DSA" {@link KeyFactory} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyFactory getDsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories.getDsaInstance();
+		return getInstance("DSA");
 	}
 
 	/**
 	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
 	 * @return a "RSA" {@link KeyFactory} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getRsaInstance()} instead
-	 * @since 1.3.1
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyFactory getRsaInstance() {
-		return com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories.getRsaInstance();
+		return getInstance("RSA");
+	}
+
+	/**
+	 * <p>Get a new {@link KeyFactory} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link KeyFactory} algorithm
+	 * @return a {@link KeyFactory} instance of the provided algorithm
+	 * @since 1.6.0
+	 */
+	private static KeyFactory getInstance(final String algorithm) {
+		try {
+			return KeyFactory.getInstance(algorithm);
+		} catch (final NoSuchAlgorithmException e) {
+			throw new AssertionError(e);
+		}
 	}
 }
