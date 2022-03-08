@@ -110,21 +110,21 @@ final class IterablesTest {
 	void testNullToEmptyOfInt() {
 		assertThat(Iterables.nullToEmpty((PrimitiveIterable.OfInt) null)).isEmpty();
 		assertThat(Iterables.nullToEmpty(Iterables.EMPTY_INT)).isEmpty();
-		assertThat(Iterables.nullToEmpty(Iterables.ofInt(INT_ELEMENTS))).containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
+		assertThat(Iterables.nullToEmpty(Iterables.ofInts(INT_ELEMENTS))).containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 	}
 
 	@Test
 	void testNullToEmptyOfLong() {
 		assertThat(Iterables.nullToEmpty((PrimitiveIterable.OfLong) null)).isEmpty();
 		assertThat(Iterables.nullToEmpty(Iterables.EMPTY_LONG)).isEmpty();
-		assertThat(Iterables.nullToEmpty(Iterables.ofLong(LONG_ELEMENTS))).containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
+		assertThat(Iterables.nullToEmpty(Iterables.ofLongs(LONG_ELEMENTS))).containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 	}
 
 	@Test
 	void testNullToEmptyOfDouble() {
 		assertThat(Iterables.nullToEmpty((PrimitiveIterable.OfDouble) null)).isEmpty();
 		assertThat(Iterables.nullToEmpty(Iterables.EMPTY_DOUBLE)).isEmpty();
-		assertThat(Iterables.nullToEmpty(Iterables.ofDouble(DOUBLE_ELEMENTS))).containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
+		assertThat(Iterables.nullToEmpty(Iterables.ofDoubles(DOUBLE_ELEMENTS))).containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 	}
 
 	@Test
@@ -358,7 +358,8 @@ final class IterablesTest {
 	}
 
 	@Test
-	void testSingletonInt() {
+	@SuppressWarnings("deprecation")
+	void testSingletonIntLegacy() {
 		final var iterable = Iterables.singletonInt(INT_ELEMENTS[0]);
 		for (var i = 0; i < 2; ++i) {
 			assertThat(iterable).containsExactly(INT_ELEMENTS[0]);
@@ -366,7 +367,16 @@ final class IterablesTest {
 	}
 
 	@Test
-	void testSingletonLong() {
+	void testSingletonInt() {
+		final var iterable = Iterables.singleton(INT_ELEMENTS[0]);
+		for (var i = 0; i < 2; ++i) {
+			assertThat(iterable).containsExactly(INT_ELEMENTS[0]);
+		}
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testSingletonLongLegacy() {
 		final var iterable = Iterables.singletonLong(LONG_ELEMENTS[0]);
 		for (var i = 0; i < 2; ++i) {
 			assertThat(iterable).containsExactly(LONG_ELEMENTS[0]);
@@ -374,8 +384,25 @@ final class IterablesTest {
 	}
 
 	@Test
-	void testSingletonDouble() {
+	void testSingletonLong() {
+		final var iterable = Iterables.singleton(LONG_ELEMENTS[0]);
+		for (var i = 0; i < 2; ++i) {
+			assertThat(iterable).containsExactly(LONG_ELEMENTS[0]);
+		}
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testSingletonDoubleLegacy() {
 		final var iterable = Iterables.singletonDouble(DOUBLE_ELEMENTS[0]);
+		for (var i = 0; i < 2; ++i) {
+			assertThat(iterable).containsExactly(DOUBLE_ELEMENTS[0]);
+		}
+	}
+
+	@Test
+	void testSingletonDouble() {
+		final var iterable = Iterables.singleton(DOUBLE_ELEMENTS[0]);
 		for (var i = 0; i < 2; ++i) {
 			assertThat(iterable).containsExactly(DOUBLE_ELEMENTS[0]);
 		}
@@ -390,6 +417,7 @@ final class IterablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfInt() {
 		assertThat(Iterables.ofInt()).isEmpty();
 		final var iterable = Iterables.ofInt(INT_ELEMENTS);
@@ -399,11 +427,27 @@ final class IterablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.ofInt((int[]) null));
 	}
 
 	@Test
+	void testOfInts() {
+		assertThat(Iterables.ofInts()).isEmpty();
+		final var iterable = Iterables.ofInts(INT_ELEMENTS);
+		for (var i = 0; i < 2; ++i) {
+			assertThat(iterable.iterator()).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
+		}
+	}
+
+	@Test
+	void testOfIntsInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterables.ofInts((int[]) null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
 	void testOfLong() {
 		assertThat(Iterables.ofLong()).isEmpty();
 		final var iterable = Iterables.ofLong(LONG_ELEMENTS);
@@ -413,11 +457,27 @@ final class IterablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.ofLong((long[]) null));
 	}
 
 	@Test
+	void testOfLongs() {
+		assertThat(Iterables.ofLongs()).isEmpty();
+		final var iterable = Iterables.ofLongs(LONG_ELEMENTS);
+		for (var i = 0; i < 2; ++i) {
+			assertThat(iterable.iterator()).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
+		}
+	}
+
+	@Test
+	void testOfLongsInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterables.ofLongs((long[]) null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
 	void testOfDouble() {
 		assertThat(Iterables.ofDouble()).isEmpty();
 		final var iterable = Iterables.ofDouble(DOUBLE_ELEMENTS);
@@ -427,8 +487,23 @@ final class IterablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.ofDouble((double[]) null));
+	}
+
+	@Test
+	void testOfDoubles() {
+		assertThat(Iterables.ofDoubles()).isEmpty();
+		final var iterable = Iterables.ofDoubles(DOUBLE_ELEMENTS);
+		for (var i = 0; i < 2; ++i) {
+			assertThat(iterable.iterator()).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
+		}
+	}
+
+	@Test
+	void testOfDoublesInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterables.ofDoubles((double[]) null));
 	}
 
 	@Test
@@ -537,7 +612,7 @@ final class IterablesTest {
 
 	@Test
 	void testWrapPrimitiveIteratorOfInt() {
-		final var iterable = Iterables.wrap(Iterables.ofInt(INT_ELEMENTS).iterator());
+		final var iterable = Iterables.wrap(Iterables.ofInts(INT_ELEMENTS).iterator());
 		assertThat(iterable.iterator()).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
@@ -549,7 +624,7 @@ final class IterablesTest {
 
 	@Test
 	void testWrapPrimitiveIteratorOfLong() {
-		final var iterable = Iterables.wrap(Iterables.ofLong(LONG_ELEMENTS).iterator());
+		final var iterable = Iterables.wrap(Iterables.ofLongs(LONG_ELEMENTS).iterator());
 		assertThat(iterable.iterator()).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}
@@ -561,7 +636,7 @@ final class IterablesTest {
 
 	@Test
 	void testWrapPrimitiveIteratorOfDouble() {
-		final var iterable = Iterables.wrap(Iterables.ofDouble(DOUBLE_ELEMENTS).iterator());
+		final var iterable = Iterables.wrap(Iterables.ofDoubles(DOUBLE_ELEMENTS).iterator());
 		assertThat(iterable.iterator()).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(iterable::iterator);
 	}

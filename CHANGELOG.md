@@ -21,10 +21,10 @@ _StandardMessageDigests_ and _StandardSignatures_ classes
 
 **lang.array.ByteArrays**
 - Added the _shuffle(byte[], Random)_ method
-- Deprecated the _shuffle(byte[])_ method
 - Added _of(boolean)_, _of(short)_, _of(short, ByteOrder)_, _of(char)_, _of(char, ByteOrder)_, _of(int)_,
-_of(int, ByteOrder)_, _of(long)_, _of(long, ByteOrder)_, _of(float)_, _of(float, ByteOrder)_, _of(double)_ and
-_of(double, ByteOrder)_ methods
+  _of(int, ByteOrder)_, _of(long)_, _of(long, ByteOrder)_, _of(float)_, _of(float, ByteOrder)_, _of(double)_ and
+  _of(double, ByteOrder)_ methods
+- Deprecated the _shuffle(byte[])_ method
 - Deprecated _ofBoolean(boolean)_, _ofShort(short)_, _ofShort(short, ByteOrder)_, _ofChar(char)_,
 _ofChar(char, ByteOrder)_, _ofInt(int)_, _ofInt(int, ByteOrder)_, _ofLong(long)_, _ofLong(long, ByteOrder)_,
 _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(double, ByteOrder)_ methods
@@ -78,6 +78,18 @@ _StandardCertStores_ classes
 
 **util.collection.bags.LimitedBag**
 - Added the _getLimit()_ method
+
+**util.iteration.Iterables**
+- Added _singleton(int)_, _singleton(long)_ and _singleton(double)_ methods
+- Added _ofInts(int...)_, _ofLongs(long...)_ and _ofDoubles(double...)_ methods
+- Deprecated _singletonInt(int)_, _singletonLong(long)_ and _singletonDouble(double)_ methods
+- Deprecated _ofInt(int...)_, _ofLong(long...)_ and _ofDouble(double...)_ methods
+
+**util.iteration.Iterators**
+- Added _singleton(int)_, _singleton(long)_ and _singleton(double)_ methods
+- Added _ofInts(int...)_, _ofLongs(long...)_ and _ofDoubles(double...)_ methods
+- Deprecated _singletonInt(int)_, _singletonLong(long)_ and _singletonDouble(double)_ methods
+- Deprecated _ofInt(int...)_, _ofLong(long...)_ and _ofDouble(double...)_ methods
 
 
 ## 1.5.0 _(2020-01-23)_

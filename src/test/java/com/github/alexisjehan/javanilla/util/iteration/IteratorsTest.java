@@ -93,21 +93,21 @@ final class IteratorsTest {
 	void testNullToEmptyOfInt() {
 		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfInt) null)).toIterable().isEmpty();
 		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_INT)).toIterable().isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.ofInt(INT_ELEMENTS))).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
+		assertThat(Iterators.nullToEmpty(Iterators.ofInts(INT_ELEMENTS))).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 	}
 
 	@Test
 	void testNullToEmptyOfLong() {
 		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfLong) null)).toIterable().isEmpty();
 		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_LONG)).toIterable().isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.ofLong(LONG_ELEMENTS))).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
+		assertThat(Iterators.nullToEmpty(Iterators.ofLongs(LONG_ELEMENTS))).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 	}
 
 	@Test
 	void testNullToEmptyOfDouble() {
 		assertThat(Iterators.nullToEmpty((PrimitiveIterator.OfDouble) null)).toIterable().isEmpty();
 		assertThat(Iterators.nullToEmpty(Iterators.EMPTY_DOUBLE)).toIterable().isEmpty();
-		assertThat(Iterators.nullToEmpty(Iterators.ofDouble(DOUBLE_ELEMENTS))).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
+		assertThat(Iterators.nullToEmpty(Iterators.ofDoubles(DOUBLE_ELEMENTS))).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 	}
 
 	@Test
@@ -404,18 +404,36 @@ final class IteratorsTest {
 	}
 
 	@Test
-	void testSingletonInt() {
+	@SuppressWarnings("deprecation")
+	void testSingletonIntLegacy() {
 		assertThat(Iterators.singletonInt(INT_ELEMENTS[0])).toIterable().containsExactly(INT_ELEMENTS[0]);
 	}
 
 	@Test
-	void testSingletonLong() {
+	void testSingletonInt() {
+		assertThat(Iterators.singleton(INT_ELEMENTS[0])).toIterable().containsExactly(INT_ELEMENTS[0]);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testSingletonLongLegacy() {
 		assertThat(Iterators.singletonLong(LONG_ELEMENTS[0])).toIterable().containsExactly(LONG_ELEMENTS[0]);
 	}
 
 	@Test
-	void testSingletonDouble() {
+	void testSingletonLong() {
+		assertThat(Iterators.singleton(LONG_ELEMENTS[0])).toIterable().containsExactly(LONG_ELEMENTS[0]);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testSingletonDoubleLegacy() {
 		assertThat(Iterators.singletonDouble(DOUBLE_ELEMENTS[0])).toIterable().containsExactly(DOUBLE_ELEMENTS[0]);
+	}
+
+	@Test
+	void testSingletonDouble() {
+		assertThat(Iterators.singleton(DOUBLE_ELEMENTS[0])).toIterable().containsExactly(DOUBLE_ELEMENTS[0]);
 	}
 
 	@Test
@@ -424,36 +442,75 @@ final class IteratorsTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfInt() {
 		assertThat(Iterators.ofInt()).toIterable().isEmpty();
 		assertThat(Iterators.ofInt(INT_ELEMENTS)).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofInt((int[]) null));
 	}
 
 	@Test
+	void testOfInts() {
+		assertThat(Iterators.ofInts()).toIterable().isEmpty();
+		assertThat(Iterators.ofInts(INT_ELEMENTS)).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
+	}
+
+	@Test
+	void testOfIntsInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.ofInts((int[]) null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
 	void testOfLong() {
 		assertThat(Iterators.ofLong()).toIterable().isEmpty();
 		assertThat(Iterators.ofLong(LONG_ELEMENTS)).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofLong((long[]) null));
 	}
 
 	@Test
+	void testOfLongs() {
+		assertThat(Iterators.ofLongs()).toIterable().isEmpty();
+		assertThat(Iterators.ofLongs(LONG_ELEMENTS)).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
+	}
+
+	@Test
+	void testOfLongsInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.ofLongs((long[]) null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
 	void testOfDouble() {
 		assertThat(Iterators.ofDouble()).toIterable().isEmpty();
 		assertThat(Iterators.ofDouble(DOUBLE_ELEMENTS)).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testOfDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofDouble((double[]) null));
+	}
+
+	@Test
+	void testOfDoubles() {
+		assertThat(Iterators.ofDoubles()).toIterable().isEmpty();
+		assertThat(Iterators.ofDoubles(DOUBLE_ELEMENTS)).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
+	}
+
+	@Test
+	void testOfDoublesInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Iterators.ofDoubles((double[]) null));
 	}
 
 	@Test

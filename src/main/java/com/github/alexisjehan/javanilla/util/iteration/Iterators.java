@@ -763,30 +763,30 @@ public final class Iterators {
 	 * <p>Create a {@link PrimitiveIterator.OfInt} from a single {@code int} element.</p>
 	 * @param element the {@code int} element to convert
 	 * @return the created {@link PrimitiveIterator.OfInt}
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	public static PrimitiveIterator.OfInt singletonInt(final int element) {
-		return ofInt(element);
+	public static PrimitiveIterator.OfInt singleton(final int element) {
+		return ofInts(element);
 	}
 
 	/**
 	 * <p>Create a {@link PrimitiveIterator.OfLong} from a single {@code long} element.</p>
 	 * @param element the {@code long} element to convert
 	 * @return the created {@link PrimitiveIterator.OfLong}
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	public static PrimitiveIterator.OfLong singletonLong(final long element) {
-		return ofLong(element);
+	public static PrimitiveIterator.OfLong singleton(final long element) {
+		return ofLongs(element);
 	}
 
 	/**
 	 * <p>Create a singleton {@link PrimitiveIterator.OfDouble} from a single {@code double} element.</p>
 	 * @param element the {@code double} element to convert
 	 * @return the created {@link PrimitiveIterator.OfDouble}
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	public static PrimitiveIterator.OfDouble singletonDouble(final double element) {
-		return ofDouble(element);
+	public static PrimitiveIterator.OfDouble singleton(final double element) {
+		return ofDoubles(element);
 	}
 
 	/**
@@ -801,13 +801,62 @@ public final class Iterators {
 	}
 
 	/**
+	 * <p>Create a {@link PrimitiveIterator.OfInt} from a single {@code int} element.</p>
+	 * @param element the {@code int} element to convert
+	 * @return the created {@link PrimitiveIterator.OfInt}
+	 * @deprecated since 1.6.0, use {@link #singleton(int)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static PrimitiveIterator.OfInt singletonInt(final int element) {
+		return singleton(element);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterator.OfLong} from a single {@code long} element.</p>
+	 * @param element the {@code long} element to convert
+	 * @return the created {@link PrimitiveIterator.OfLong}
+	 * @deprecated since 1.6.0, use {@link #singleton(long)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static PrimitiveIterator.OfLong singletonLong(final long element) {
+		return singleton(element);
+	}
+
+	/**
+	 * <p>Create a singleton {@link PrimitiveIterator.OfDouble} from a single {@code double} element.</p>
+	 * @param element the {@code double} element to convert
+	 * @return the created {@link PrimitiveIterator.OfDouble}
+	 * @deprecated since 1.6.0, use {@link #singleton(double)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static PrimitiveIterator.OfDouble singletonDouble(final double element) {
+		return singleton(element);
+	}
+
+	/**
 	 * <p>Create a {@link PrimitiveIterator.OfInt} from multiple {@code int} elements.</p>
 	 * @param elements the {@code int} elements array to convert
 	 * @return the created {@link PrimitiveIterator.OfInt}
 	 * @throws NullPointerException if the {@code int} elements array is {@code null}
+	 * @deprecated since 1.6.0, use {@link #ofInts(int...)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static PrimitiveIterator.OfInt ofInt(final int... elements) {
+		return ofInts(elements);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterator.OfInt} from multiple {@code int} elements.</p>
+	 * @param elements the {@code int} elements array to convert
+	 * @return the created {@link PrimitiveIterator.OfInt}
+	 * @throws NullPointerException if the {@code int} elements array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static PrimitiveIterator.OfInt ofInts(final int... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_INT;
@@ -820,9 +869,22 @@ public final class Iterators {
 	 * @param elements the {@code long} elements array to convert
 	 * @return the created {@link PrimitiveIterator.OfLong}
 	 * @throws NullPointerException if the {@code long} elements array is {@code null}
+	 * @deprecated since 1.6.0, use {@link #ofLongs(long...)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static PrimitiveIterator.OfLong ofLong(final long... elements) {
+		return ofLongs(elements);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterator.OfLong} from multiple {@code long} elements.</p>
+	 * @param elements the {@code long} elements array to convert
+	 * @return the created {@link PrimitiveIterator.OfLong}
+	 * @throws NullPointerException if the {@code long} elements array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static PrimitiveIterator.OfLong ofLongs(final long... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_LONG;
@@ -835,9 +897,22 @@ public final class Iterators {
 	 * @param elements the {@code double} elements array to convert
 	 * @return the created {@link PrimitiveIterator.OfDouble}
 	 * @throws NullPointerException if the {@code double} elements array is {@code null}
+	 * @deprecated since 1.6.0, use {@link #ofDoubles(double...)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static PrimitiveIterator.OfDouble ofDouble(final double... elements) {
+		return ofDoubles(elements);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterator.OfDouble} from multiple {@code double} elements.</p>
+	 * @param elements the {@code double} elements array to convert
+	 * @return the created {@link PrimitiveIterator.OfDouble}
+	 * @throws NullPointerException if the {@code double} elements array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static PrimitiveIterator.OfDouble ofDoubles(final double... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_DOUBLE;

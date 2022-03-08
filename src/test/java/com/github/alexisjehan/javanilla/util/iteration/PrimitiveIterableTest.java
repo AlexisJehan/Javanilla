@@ -51,7 +51,7 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfInt() {
-		final var primitiveIterable = Iterables.ofInt(INT_ELEMENTS);
+		final var primitiveIterable = Iterables.ofInts(INT_ELEMENTS);
 		for (var i = 0; i < 2; ++i) {
 			assertThat(primitiveIterable).containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 		}
@@ -59,7 +59,7 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfIntForEach() {
-		final var primitiveIterable = Iterables.ofInt(INT_ELEMENTS);
+		final var primitiveIterable = Iterables.ofInts(INT_ELEMENTS);
 		final var adder = new LongAdder();
 		primitiveIterable.forEach((IntConsumer) adder::add);
 		assertThat(adder.intValue()).isEqualTo(IntStream.of(INT_ELEMENTS).sum());
@@ -72,7 +72,7 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfLong() {
-		final var primitiveIterable = Iterables.ofLong(LONG_ELEMENTS);
+		final var primitiveIterable = Iterables.ofLongs(LONG_ELEMENTS);
 		for (var i = 0; i < 2; ++i) {
 			assertThat(primitiveIterable).containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 		}
@@ -80,7 +80,7 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfLongForEach() {
-		final var primitiveIterable = Iterables.ofLong(LONG_ELEMENTS);
+		final var primitiveIterable = Iterables.ofLongs(LONG_ELEMENTS);
 		final var adder = new LongAdder();
 		primitiveIterable.forEach((LongConsumer) adder::add);
 		assertThat(adder.longValue()).isEqualTo(LongStream.of(LONG_ELEMENTS).sum());
@@ -93,7 +93,7 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfDouble() {
-		final var primitiveIterable = Iterables.ofDouble(DOUBLE_ELEMENTS);
+		final var primitiveIterable = Iterables.ofDoubles(DOUBLE_ELEMENTS);
 		for (var i = 0; i < 2; ++i) {
 			assertThat(primitiveIterable).containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 		}
@@ -101,7 +101,7 @@ final class PrimitiveIterableTest {
 
 	@Test
 	void testOfDoubleForEach() {
-		final var primitiveIterable = Iterables.ofDouble(DOUBLE_ELEMENTS);
+		final var primitiveIterable = Iterables.ofDoubles(DOUBLE_ELEMENTS);
 		final var adder = new DoubleAdder();
 		primitiveIterable.forEach((DoubleConsumer) adder::add);
 		assertThat(adder.doubleValue()).isEqualTo(DoubleStream.of(DOUBLE_ELEMENTS).sum());

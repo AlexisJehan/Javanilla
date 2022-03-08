@@ -357,30 +357,30 @@ public final class Iterables {
 	 * <p>Create a {@link PrimitiveIterable.OfInt} from a single {@code int} element.</p>
 	 * @param element the {@code int} element to convert
 	 * @return the created {@link PrimitiveIterable.OfInt}
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	public static PrimitiveIterable.OfInt singletonInt(final int element) {
-		return ofInt(element);
+	public static PrimitiveIterable.OfInt singleton(final int element) {
+		return ofInts(element);
 	}
 
 	/**
 	 * <p>Create a {@link PrimitiveIterable.OfLong} from a single {@code long} element.</p>
 	 * @param element the {@code long} element to convert
 	 * @return the created {@link PrimitiveIterable.OfLong}
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	public static PrimitiveIterable.OfLong singletonLong(final long element) {
-		return ofLong(element);
+	public static PrimitiveIterable.OfLong singleton(final long element) {
+		return ofLongs(element);
 	}
 
 	/**
 	 * <p>Create a {@link PrimitiveIterable.OfDouble} from a single {@code double} element.</p>
 	 * @param element the {@code double} element to convert
 	 * @return the created {@link PrimitiveIterable.OfDouble}
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	public static PrimitiveIterable.OfDouble singletonDouble(final double element) {
-		return ofDouble(element);
+	public static PrimitiveIterable.OfDouble singleton(final double element) {
+		return ofDoubles(element);
 	}
 
 	/**
@@ -395,18 +395,67 @@ public final class Iterables {
 	}
 
 	/**
+	 * <p>Create a {@link PrimitiveIterable.OfInt} from a single {@code int} element.</p>
+	 * @param element the {@code int} element to convert
+	 * @return the created {@link PrimitiveIterable.OfInt}
+	 * @deprecated since 1.6.0, use {@link #singleton(int)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static PrimitiveIterable.OfInt singletonInt(final int element) {
+		return singleton(element);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterable.OfLong} from a single {@code long} element.</p>
+	 * @param element the {@code long} element to convert
+	 * @return the created {@link PrimitiveIterable.OfLong}
+	 * @deprecated since 1.6.0, use {@link #singleton(long)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static PrimitiveIterable.OfLong singletonLong(final long element) {
+		return singleton(element);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterable.OfDouble} from a single {@code double} element.</p>
+	 * @param element the {@code double} element to convert
+	 * @return the created {@link PrimitiveIterable.OfDouble}
+	 * @deprecated since 1.6.0, use {@link #singleton(double)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static PrimitiveIterable.OfDouble singletonDouble(final double element) {
+		return singleton(element);
+	}
+
+	/**
 	 * <p>Create a {@link PrimitiveIterable.OfInt} from multiple {@code int} elements.</p>
 	 * @param elements the {@code int} elements array to convert
 	 * @return the created {@link PrimitiveIterable.OfInt}
 	 * @throws NullPointerException if the {@code int} elements array is {@code null}
+	 * @deprecated since 1.6.0, use {@link #ofInts(int...)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static PrimitiveIterable.OfInt ofInt(final int... elements) {
+		return ofInts(elements);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterable.OfInt} from multiple {@code int} elements.</p>
+	 * @param elements the {@code int} elements array to convert
+	 * @return the created {@link PrimitiveIterable.OfInt}
+	 * @throws NullPointerException if the {@code int} elements array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static PrimitiveIterable.OfInt ofInts(final int... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_INT;
 		}
-		return () -> Iterators.ofInt(elements);
+		return () -> Iterators.ofInts(elements);
 	}
 
 	/**
@@ -414,14 +463,27 @@ public final class Iterables {
 	 * @param elements the {@code long} elements array to convert
 	 * @return the created {@link PrimitiveIterable.OfLong}
 	 * @throws NullPointerException if the {@code long} elements array is {@code null}
+	 * @deprecated since 1.6.0, use {@link #ofLongs(long...)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static PrimitiveIterable.OfLong ofLong(final long... elements) {
+		return ofLongs(elements);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterable.OfLong} from multiple {@code long} elements.</p>
+	 * @param elements the {@code long} elements array to convert
+	 * @return the created {@link PrimitiveIterable.OfLong}
+	 * @throws NullPointerException if the {@code long} elements array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static PrimitiveIterable.OfLong ofLongs(final long... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_LONG;
 		}
-		return () -> Iterators.ofLong(elements);
+		return () -> Iterators.ofLongs(elements);
 	}
 
 	/**
@@ -429,14 +491,27 @@ public final class Iterables {
 	 * @param elements the {@code double} elements array to convert
 	 * @return the created {@link PrimitiveIterable.OfDouble}
 	 * @throws NullPointerException if the {@code double} elements array is {@code null}
+	 * @deprecated since 1.6.0, use {@link #ofDoubles(double...)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static PrimitiveIterable.OfDouble ofDouble(final double... elements) {
+		return ofDoubles(elements);
+	}
+
+	/**
+	 * <p>Create a {@link PrimitiveIterable.OfDouble} from multiple {@code double} elements.</p>
+	 * @param elements the {@code double} elements array to convert
+	 * @return the created {@link PrimitiveIterable.OfDouble}
+	 * @throws NullPointerException if the {@code double} elements array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static PrimitiveIterable.OfDouble ofDoubles(final double... elements) {
 		Ensure.notNull("elements", elements);
 		if (0 == elements.length) {
 			return EMPTY_DOUBLE;
 		}
-		return () -> Iterators.ofDouble(elements);
+		return () -> Iterators.ofDoubles(elements);
 	}
 
 	/**
