@@ -585,7 +585,7 @@ public final class ByteArrays {
 	 * @since 1.1.0
 	 */
 	public static byte[] singleton(final byte value) {
-		return of(value);
+		return of(new byte[] {value});
 	}
 
 	/**
@@ -623,6 +623,425 @@ public final class ByteArrays {
 	}
 
 	/**
+	 * <p>Create a {@code byte} array from a {@code boolean}.</p>
+	 * @param b the {@code boolean} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final boolean b) {
+		return singleton(b ? (byte) 1 : (byte) 0);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param s the {@code short} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final short s) {
+		return of(s, ByteOrder.nativeOrder());
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.</p>
+	 * @param s the {@code short} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final short s, final ByteOrder order) {
+		Ensure.notNull("order", order);
+		if (ByteOrder.BIG_ENDIAN.equals(order)) {
+			return of(
+					(byte) (s >> 8),
+					(byte) s
+			);
+		}
+		return of(
+				(byte) s,
+				(byte) (s >> 8)
+		);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param c the {@code char} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final char c) {
+		return of(c, ByteOrder.nativeOrder());
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.</p>
+	 * @param c the {@code char} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final char c, final ByteOrder order) {
+		Ensure.notNull("order", order);
+		if (ByteOrder.BIG_ENDIAN.equals(order)) {
+			return of((byte) (c >> 8), (byte) c);
+		}
+		return of((byte) c, (byte) (c >> 8));
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param i the {@code int} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final int i) {
+		return of(i, ByteOrder.nativeOrder());
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.</p>
+	 * @param i the {@code int} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final int i, final ByteOrder order) {
+		Ensure.notNull("order", order);
+		if (ByteOrder.BIG_ENDIAN.equals(order)) {
+			return of(
+					(byte) (i >> 24),
+					(byte) (i >> 16),
+					(byte) (i >> 8),
+					(byte) i
+			);
+		}
+		return of(
+				(byte) i,
+				(byte) (i >> 8),
+				(byte) (i >> 16),
+				(byte) (i >> 24)
+		);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param l the {@code long} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final long l) {
+		return of(l, ByteOrder.nativeOrder());
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.</p>
+	 * @param l the {@code long} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final long l, final ByteOrder order) {
+		Ensure.notNull("order", order);
+		if (ByteOrder.BIG_ENDIAN.equals(order)) {
+			return of(
+					(byte) (l >> 56),
+					(byte) (l >> 48),
+					(byte) (l >> 40),
+					(byte) (l >> 32),
+					(byte) (l >> 24),
+					(byte) (l >> 16),
+					(byte) (l >> 8),
+					(byte) l
+			);
+		}
+		return of(
+				(byte) l,
+				(byte) (l >> 8),
+				(byte) (l >> 16),
+				(byte) (l >> 24),
+				(byte) (l >> 32),
+				(byte) (l >> 40),
+				(byte) (l >> 48),
+				(byte) (l >> 56)
+		);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param f the {@code float} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final float f) {
+		return of(f, ByteOrder.nativeOrder());
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.</p>
+	 * @param f the {@code float} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final float f, final ByteOrder order) {
+		return ofInt(Float.floatToIntBits(f), order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param d the {@code double} to convert
+	 * @return the created {@code byte} array
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final double d) {
+		return of(d, ByteOrder.nativeOrder());
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.</p>
+	 * @param d the {@code double} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static byte[] of(final double d, final ByteOrder order) {
+		return ofLong(Double.doubleToLongBits(d), order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code boolean}.</p>
+	 * @param b the {@code boolean} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(boolean)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofBoolean(final boolean b) {
+		return of(b);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param s the {@code short} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(short)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofShort(final short s) {
+		return of(s);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.</p>
+	 * @param s the {@code short} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #of(short, ByteOrder)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofShort(final short s, final ByteOrder order) {
+		return of(s, order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param c the {@code char} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(char)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofChar(final char c) {
+		return of(c);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.</p>
+	 * @param c the {@code char} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #of(char, ByteOrder)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofChar(final char c, final ByteOrder order) {
+		return of(c, order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param i the {@code int} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(int)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofInt(final int i) {
+		return of(i);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.</p>
+	 * @param i the {@code int} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #of(int, ByteOrder)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofInt(final int i, final ByteOrder order) {
+		return of(i, order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param l the {@code long} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(long)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofLong(final long l) {
+		return of(l);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.</p>
+	 * @param l the {@code long} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #of(long, ByteOrder)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofLong(final long l, final ByteOrder order) {
+		return of(l, order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param f the {@code float} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(float)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofFloat(final float f) {
+		return of(f);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.</p>
+	 * @param f the {@code float} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #of(float, ByteOrder)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofFloat(final float f, final ByteOrder order) {
+		return of(f, order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.</p>
+	 * @param d the {@code double} to convert
+	 * @return the created {@code byte} array
+	 * @deprecated since 1.6.0, use {@link #of(double)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofDouble(final double d) {
+		return of(d);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.</p>
+	 * @param d the {@code double} to convert
+	 * @param order the {@link ByteOrder} to use
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #of(double, ByteOrder)} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static byte[] ofDouble(final double d, final ByteOrder order) {
+		return of(d, order);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a binary {@link CharSequence}.</p>
+	 * @param binaryCharSequence the binary {@link CharSequence} to convert
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the binary {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the binary {@link CharSequence} length is not a multiple of {@code 8} or if
+	 *         any {@code char} is not valid
+	 * @since 1.2.0
+	 */
+	public static byte[] ofBinaryString(final CharSequence binaryCharSequence) {
+		Ensure.notNull("binaryCharSequence", binaryCharSequence);
+		final var length = binaryCharSequence.length();
+		Ensure.multipleOf("binaryCharSequence length", length, 8);
+		if (0 == length) {
+			return EMPTY;
+		}
+		final var bytes = new byte[length / 8];
+		for (var i = 0; i < length; ++i) {
+			final var c = binaryCharSequence.charAt(i);
+			final var p = CharArrays.indexOf(BINARY_CHARS, c);
+			if (-1 == p) {
+				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (binary expected)");
+			}
+			bytes[i / 8] <<= 1;
+			bytes[i / 8] |= p;
+		}
+		return bytes;
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence}.</p>
+	 * <p><b>Note</b>: The hexadecimal {@link CharSequence} value case does not matter.</p>
+	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the hexadecimal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the hexadecimal {@link CharSequence} length is not a multiple of {@code 2} or
+	 *         if any {@code char} is not valid
+	 * @since 1.0.0
+	 */
+	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence) {
+		Ensure.notNull("hexadecimalCharSequence", hexadecimalCharSequence);
+		final var length = hexadecimalCharSequence.length();
+		Ensure.multipleOf("hexadecimalCharSequence length", length, 2);
+		if (0 == length) {
+			return EMPTY;
+		}
+		final var bytes = new byte[length / 2];
+		for (var i = 0; i < length; ++i) {
+			final var c = hexadecimalCharSequence.charAt(i);
+			final var p = CharArrays.indexOf(HEXADECIMAL_CHARS, Character.toLowerCase(c));
+			if (-1 == p) {
+				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
+			}
+			bytes[i / 2] <<= 4;
+			bytes[i / 2] |= p;
+		}
+		return bytes;
+	}
+
+	/**
 	 * <p>Convert a {@code byte} array to a boxed {@link Byte} array.</p>
 	 * @param array the {@code byte} array to convert
 	 * @return the created boxed {@link Byte} array
@@ -640,16 +1059,6 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code boolean}.</p>
-	 * @param b the {@code boolean} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofBoolean(final boolean b) {
-		return singleton(b ? (byte) 1 : (byte) 0);
-	}
-
-	/**
 	 * <p>Convert a {@code byte} array back to a {@code boolean} value.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code boolean} value
@@ -661,38 +1070,6 @@ public final class ByteArrays {
 		Ensure.notNull("bytes", bytes);
 		Ensure.equalTo("bytes length", bytes.length, 1);
 		return (byte) 1 == bytes[0];
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param s the {@code short} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofShort(final short s) {
-		return ofShort(s, ByteOrder.nativeOrder());
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.</p>
-	 * @param s the {@code short} to convert
-	 * @param order the {@link ByteOrder} to use
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] ofShort(final short s, final ByteOrder order) {
-		Ensure.notNull("order", order);
-		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of(
-					(byte) (s >> 8),
-					(byte) s
-			);
-		}
-		return of(
-				(byte) s,
-				(byte) (s >> 8)
-		);
 	}
 
 	/**
@@ -728,32 +1105,6 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param c the {@code char} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofChar(final char c) {
-		return ofChar(c, ByteOrder.nativeOrder());
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.</p>
-	 * @param c the {@code char} to convert
-	 * @param order the {@link ByteOrder} to use
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] ofChar(final char c, final ByteOrder order) {
-		Ensure.notNull("order", order);
-		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of((byte) (c >> 8), (byte) c);
-		}
-		return of((byte) c, (byte) (c >> 8));
-	}
-
-	/**
 	 * <p>Convert a {@code byte} array back to a {@code char} value using {@link ByteOrder#nativeOrder()}
 	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
@@ -783,42 +1134,6 @@ public final class ByteArrays {
 			return (char) ((bytes[0] & 0xff) << 8 | bytes[1] & 0xff);
 		}
 		return (char) (bytes[0] & 0xff | (bytes[1] & 0xff) << 8);
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param i the {@code int} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofInt(final int i) {
-		return ofInt(i, ByteOrder.nativeOrder());
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.</p>
-	 * @param i the {@code int} to convert
-	 * @param order the {@link ByteOrder} to use
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] ofInt(final int i, final ByteOrder order) {
-		Ensure.notNull("order", order);
-		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of(
-					(byte) (i >> 24),
-					(byte) (i >> 16),
-					(byte) (i >> 8),
-					(byte) i
-			);
-		}
-		return of(
-				(byte) i,
-				(byte) (i >> 8),
-				(byte) (i >> 16),
-				(byte) (i >> 24)
-		);
 	}
 
 	/**
@@ -857,50 +1172,6 @@ public final class ByteArrays {
 				| (bytes[1] & 0xff) << 8
 				| (bytes[2] & 0xff) << 16
 				| (bytes[3] & 0xff) << 24;
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param l the {@code long} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofLong(final long l) {
-		return ofLong(l, ByteOrder.nativeOrder());
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.</p>
-	 * @param l the {@code long} to convert
-	 * @param order the {@link ByteOrder} to use
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] ofLong(final long l, final ByteOrder order) {
-		Ensure.notNull("order", order);
-		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of(
-					(byte) (l >> 56),
-					(byte) (l >> 48),
-					(byte) (l >> 40),
-					(byte) (l >> 32),
-					(byte) (l >> 24),
-					(byte) (l >> 16),
-					(byte) (l >> 8),
-					(byte) l
-			);
-		}
-		return of(
-				(byte) l,
-				(byte) (l >> 8),
-				(byte) (l >> 16),
-				(byte) (l >> 24),
-				(byte) (l >> 32),
-				(byte) (l >> 40),
-				(byte) (l >> 48),
-				(byte) (l >> 56)
-		);
 	}
 
 	/**
@@ -950,28 +1221,6 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param f the {@code float} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofFloat(final float f) {
-		return ofFloat(f, ByteOrder.nativeOrder());
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.</p>
-	 * @param f the {@code float} to convert
-	 * @param order the {@link ByteOrder} to use
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] ofFloat(final float f, final ByteOrder order) {
-		return ofInt(Float.floatToIntBits(f), order);
-	}
-
-	/**
 	 * <p>Convert a {@code byte} array back to a {@code float} value using {@link ByteOrder#nativeOrder()}
 	 * {@link ByteOrder}.</p>
 	 * @param bytes the {@code byte} array to convert
@@ -995,28 +1244,6 @@ public final class ByteArrays {
 	 */
 	public static float toFloat(final byte[] bytes, final ByteOrder order) {
 		return Float.intBitsToFloat(toInt(bytes, order));
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.</p>
-	 * @param d the {@code double} to convert
-	 * @return the created {@code byte} array
-	 * @since 1.0.0
-	 */
-	public static byte[] ofDouble(final double d) {
-		return ofDouble(d, ByteOrder.nativeOrder());
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.</p>
-	 * @param d the {@code double} to convert
-	 * @param order the {@link ByteOrder} to use
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the {@link ByteOrder} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] ofDouble(final double d, final ByteOrder order) {
-		return ofLong(Double.doubleToLongBits(d), order);
 	}
 
 	/**
@@ -1046,35 +1273,6 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a binary {@link CharSequence}.</p>
-	 * @param binaryCharSequence the binary {@link CharSequence} to convert
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the binary {@link CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the binary {@link CharSequence} length is not a multiple of {@code 8} or if
-	 *         any {@code char} is not valid
-	 * @since 1.2.0
-	 */
-	public static byte[] ofBinaryString(final CharSequence binaryCharSequence) {
-		Ensure.notNull("binaryCharSequence", binaryCharSequence);
-		final var length = binaryCharSequence.length();
-		Ensure.multipleOf("binaryCharSequence length", length, 8);
-		if (0 == length) {
-			return EMPTY;
-		}
-		final var bytes = new byte[length / 8];
-		for (var i = 0; i < length; ++i) {
-			final var c = binaryCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(BINARY_CHARS, c);
-			if (-1 == p) {
-				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (binary expected)");
-			}
-			bytes[i / 8] <<= 1;
-			bytes[i / 8] |= p;
-		}
-		return bytes;
-	}
-
-	/**
 	 * <p>Convert a {@code byte} array to a binary {@link String} value.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted binary {@link String} value
@@ -1099,36 +1297,6 @@ public final class ByteArrays {
 			binaryChars[8 * i + 7] = BINARY_CHARS[v & 0x01];
 		}
 		return new String(binaryChars);
-	}
-
-	/**
-	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence}.</p>
-	 * <p><b>Note</b>: The hexadecimal {@link CharSequence} value case does not matter.</p>
-	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
-	 * @return the created {@code byte} array
-	 * @throws NullPointerException if the hexadecimal {@link CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the hexadecimal {@link CharSequence} length is not a multiple of {@code 2} or
-	 *         if any {@code char} is not valid
-	 * @since 1.0.0
-	 */
-	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence) {
-		Ensure.notNull("hexadecimalCharSequence", hexadecimalCharSequence);
-		final var length = hexadecimalCharSequence.length();
-		Ensure.multipleOf("hexadecimalCharSequence length", length, 2);
-		if (0 == length) {
-			return EMPTY;
-		}
-		final var bytes = new byte[length / 2];
-		for (var i = 0; i < length; ++i) {
-			final var c = hexadecimalCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(HEXADECIMAL_CHARS, Character.toLowerCase(c));
-			if (-1 == p) {
-				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
-			}
-			bytes[i / 2] <<= 4;
-			bytes[i / 2] |= p;
-		}
-		return bytes;
 	}
 
 	/**

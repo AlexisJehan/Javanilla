@@ -402,9 +402,16 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfBooleanAndToBoolean() {
+	@SuppressWarnings("deprecation")
+	void testOfBooleanAndToBooleanLegacy() {
 		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(false))).isFalse();
 		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(true))).isTrue();
+	}
+
+	@Test
+	void testOfBooleanAndToBoolean() {
+		assertThat(ByteArrays.toBoolean(ByteArrays.of(false))).isFalse();
+		assertThat(ByteArrays.toBoolean(ByteArrays.of(true))).isTrue();
 	}
 
 	@Test
@@ -414,7 +421,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfShortAndToShort() {
+	@SuppressWarnings("deprecation")
+	void testOfShortAndToShortLegacy() {
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0))).isEqualTo((short) 0);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) 0);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) 0);
@@ -441,19 +449,53 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfShortInvalid() {
+	void testOfShortAndToShort() {
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 0))).isEqualTo((short) 0);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) 0);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) 0);
+
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) -5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) -5);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) -5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) -5);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) -5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((short) -5);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) -5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo((short) -5);
+
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) 5);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) 5);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((short) 5);
+		assertThat(ByteArrays.toShort(ByteArrays.of((short) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo((short) 5);
+
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Short.MIN_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Short.MIN_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MIN_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MIN_VALUE);
+
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Short.MAX_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Short.MAX_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
+		assertThat(ByteArrays.toShort(ByteArrays.of(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testOfShortInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofShort((short) 0, null));
+	}
+
+	@Test
+	void testOfShortInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((short) 0, null));
 	}
 
 	@Test
 	void testToShortInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toShort(ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(ByteArrays.ofShort((short) 0), null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toShort(ByteArrays.of((short) 0), null));
 	}
 
 	@Test
-	void testOfCharAndToChar() {
+	@SuppressWarnings("deprecation")
+	void testOfCharAndToCharLegacy() {
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE))).isEqualTo(Character.MIN_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MIN_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MIN_VALUE);
@@ -468,19 +510,41 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfCharInvalid() {
+	void testOfCharAndToChar() {
+		assertThat(ByteArrays.toChar(ByteArrays.of(Character.MIN_VALUE))).isEqualTo(Character.MIN_VALUE);
+		assertThat(ByteArrays.toChar(ByteArrays.of(Character.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MIN_VALUE);
+		assertThat(ByteArrays.toChar(ByteArrays.of(Character.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MIN_VALUE);
+
+		assertThat(ByteArrays.toChar(ByteArrays.of((char) 5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((char) 5);
+		assertThat(ByteArrays.toChar(ByteArrays.of((char) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((char) 5);
+		assertThat(ByteArrays.toChar(ByteArrays.of((char) 5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo((char) 5);
+		assertThat(ByteArrays.toChar(ByteArrays.of((char) 5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo((char) 5);
+
+		assertThat(ByteArrays.toChar(ByteArrays.of(Character.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MAX_VALUE);
+		assertThat(ByteArrays.toChar(ByteArrays.of(Character.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MAX_VALUE);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testOfCharInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofChar((char) 0, null));
+	}
+
+	@Test
+	void testOfCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((char) 0, null));
 	}
 
 	@Test
 	void testToCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toChar(ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(ByteArrays.ofChar((char) 0), null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toChar(ByteArrays.of((char) 0), null));
 	}
 
 	@Test
-	void testOfIntAndToInt() {
+	@SuppressWarnings("deprecation")
+	void testOfIntAndToIntLegacy() {
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0))).isZero();
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -507,19 +571,53 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfIntInvalid() {
+	void testOfIntAndToInt() {
+		assertThat(ByteArrays.toInt(ByteArrays.of(0))).isZero();
+		assertThat(ByteArrays.toInt(ByteArrays.of(0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toInt(ByteArrays.of(0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
+
+		assertThat(ByteArrays.toInt(ByteArrays.of(-5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5);
+		assertThat(ByteArrays.toInt(ByteArrays.of(-5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5);
+		assertThat(ByteArrays.toInt(ByteArrays.of(-5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5);
+		assertThat(ByteArrays.toInt(ByteArrays.of(-5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5);
+
+		assertThat(ByteArrays.toInt(ByteArrays.of(5, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5);
+		assertThat(ByteArrays.toInt(ByteArrays.of(5, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5);
+		assertThat(ByteArrays.toInt(ByteArrays.of(5, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5);
+		assertThat(ByteArrays.toInt(ByteArrays.of(5, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5);
+
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Integer.MIN_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Integer.MIN_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MIN_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MIN_VALUE);
+
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Integer.MAX_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Integer.MAX_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
+		assertThat(ByteArrays.toInt(ByteArrays.of(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testOfIntInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofInt(0, null));
+	}
+
+	@Test
+	void testOfIntInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0, null));
 	}
 
 	@Test
 	void testToIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toInt(ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(ByteArrays.ofInt(0), null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toInt(ByteArrays.of(0), null));
 	}
 
 	@Test
-	void testOfLongAndToLong() {
+	@SuppressWarnings("deprecation")
+	void testOfLongAndToLongLegacy() {
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L))).isZero();
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -546,19 +644,53 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfLongInvalid() {
+	void testOfLongAndToLong() {
+		assertThat(ByteArrays.toLong(ByteArrays.of(0L))).isZero();
+		assertThat(ByteArrays.toLong(ByteArrays.of(0L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toLong(ByteArrays.of(0L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
+
+		assertThat(ByteArrays.toLong(ByteArrays.of(-5L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5L);
+		assertThat(ByteArrays.toLong(ByteArrays.of(-5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5L);
+		assertThat(ByteArrays.toLong(ByteArrays.of(-5L, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5L);
+		assertThat(ByteArrays.toLong(ByteArrays.of(-5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5L);
+
+		assertThat(ByteArrays.toLong(ByteArrays.of(5L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5L);
+		assertThat(ByteArrays.toLong(ByteArrays.of(5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5L);
+		assertThat(ByteArrays.toLong(ByteArrays.of(5L, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5L);
+		assertThat(ByteArrays.toLong(ByteArrays.of(5L, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5L);
+
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Long.MIN_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Long.MIN_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MIN_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MIN_VALUE);
+
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Long.MAX_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Long.MAX_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
+		assertThat(ByteArrays.toLong(ByteArrays.of(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testOfLongInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofLong(0L, null));
+	}
+
+	@Test
+	void testOfLongInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0L, null));
 	}
 
 	@Test
 	void testToLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toLong(ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(ByteArrays.ofLong(0L), null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toLong(ByteArrays.of(0L), null));
 	}
 
 	@Test
-	void testOfFloatAndToFloat() {
+	@SuppressWarnings("deprecation")
+	void testOfFloatAndToFloatLegacy() {
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f))).isZero();
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -605,19 +737,73 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfFloatInvalid() {
+	void testOfFloatAndToFloat() {
+		assertThat(ByteArrays.toFloat(ByteArrays.of(0.0f))).isZero();
+		assertThat(ByteArrays.toFloat(ByteArrays.of(0.0f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toFloat(ByteArrays.of(0.0f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(-5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(-5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(-5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(-5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5.5f);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(5.5f, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5.5f);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(5.5f, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5.5f);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MIN_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.MIN_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MIN_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MIN_VALUE);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.NEGATIVE_INFINITY);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MIN_NORMAL);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.MIN_NORMAL);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MIN_NORMAL);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MIN_NORMAL);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.POSITIVE_INFINITY);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Float.MAX_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Float.MAX_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Float.MAX_VALUE);
+
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
+		assertThat(ByteArrays.toFloat(ByteArrays.of(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testOfFloatInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofFloat(0.0f, null));
+	}
+
+	@Test
+	void testOfFloatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0.0f, null));
 	}
 
 	@Test
 	void testToFloatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toFloat(ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(ByteArrays.ofFloat(0.0f), null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toFloat(ByteArrays.of(0.0f), null));
 	}
 
 	@Test
-	void testOfDoubleAndToDouble() {
+	@SuppressWarnings("deprecation")
+	void testOfDoubleAndToDoubleLegacy() {
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d))).isZero();
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -664,15 +850,68 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOfDoubleInvalid() {
+	void testOfDoubleAndToDouble() {
+		assertThat(ByteArrays.toDouble(ByteArrays.of(0.0d))).isZero();
+		assertThat(ByteArrays.toDouble(ByteArrays.of(0.0d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
+		assertThat(ByteArrays.toDouble(ByteArrays.of(0.0d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(-5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(-5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(-5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(-5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(-5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(-5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(-5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(-5.5d);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(5.5d, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(5.5d);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(5.5d, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(5.5d);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MIN_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.MIN_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MIN_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MIN_VALUE);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NEGATIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.NEGATIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NEGATIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.NEGATIVE_INFINITY);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MIN_NORMAL);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.MIN_NORMAL);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_NORMAL, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MIN_NORMAL);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MIN_NORMAL, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MIN_NORMAL);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.POSITIVE_INFINITY, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.POSITIVE_INFINITY);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.POSITIVE_INFINITY, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.POSITIVE_INFINITY);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Double.MAX_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Double.MAX_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Double.MAX_VALUE);
+
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
+		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testOfDoubleInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofDouble(0.0d, null));
+	}
+
+	@Test
+	void testOfDoubleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0.0d, null));
 	}
 
 	@Test
 	void testToDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDouble(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.EMPTY));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.ofDouble(0.0d), null));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDouble(ByteArrays.of(0.0d), null));
 	}
 
 	@Test
