@@ -133,7 +133,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Vanilla constructor.</p>
+	 * <p>Handy constructor.</p>
 	 * @param first the first element or {@code null}
 	 * @param second the second element or {@code null}
 	 * @param third the third element or {@code null}

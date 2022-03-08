@@ -132,7 +132,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Vanilla constructor.</p>
+	 * <p>Handy constructor.</p>
 	 * @param first the first {@link Serializable} element or {@code null}
 	 * @param second the second {@link Serializable} element or {@code null}
 	 * @param <F> the type of the first serializable element

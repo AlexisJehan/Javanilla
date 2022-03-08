@@ -27,7 +27,7 @@ import javax.crypto.Mac;
 
 /**
  * <p>A {@link Mac} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs} instead
+ * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs} instead
  * @since 1.1.0
  */
 @Deprecated(since = "1.6.0")
@@ -44,7 +44,7 @@ public final class StandardMacs {
 	/**
 	 * <p>Get a new "HmacMD5" {@link Mac} instance.</p>
 	 * @return a "HmacMD5" {@link Mac} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacMd5Instance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacMd5Instance()} instead
 	 * @since 1.1.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -55,7 +55,7 @@ public final class StandardMacs {
 	/**
 	 * <p>Get a new "HmacSHA1" {@link Mac} instance.</p>
 	 * @return a "HmacSHA1" {@link Mac} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacSha1Instance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacSha1Instance()} instead
 	 * @since 1.1.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -66,7 +66,7 @@ public final class StandardMacs {
 	/**
 	 * <p>Get a new "HmacSHA256" {@link Mac} instance.</p>
 	 * @return a "HmacSHA256" {@link Mac} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacSha256Instance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacSha256Instance()} instead
 	 * @since 1.1.0
 	 */
 	@Deprecated(since = "1.6.0")

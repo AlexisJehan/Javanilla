@@ -349,7 +349,7 @@ public final class ObjectArrays {
 	 * <p>Shuffle values in the given {@link Object} array following the Fisher-Yates algorithm.</p>
 	 * @param array the {@link Object} array to shuffle
 	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @deprecated for security purposes, use {@link #shuffle(Object[], Random)} with
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(Object[], Random)} with
 	 *             {@link java.security.SecureRandom} instead
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
@@ -561,12 +561,12 @@ public final class ObjectArrays {
 	 * @return the joined {@link Object} array
 	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array separator, {@link Object} arrays
 	 *         or any of them is {@code null}
-	 * @deprecated use {@link #join(Object[], Object[][])} instead
+	 * @deprecated since 1.4.0, use {@link #join(Object[], Object[][])} instead
 	 * @since 1.2.0
 	 */
 	@SafeVarargs
 	@SuppressWarnings("varargs")
-	@Deprecated(since = "1.4.0", forRemoval = true)
+	@Deprecated(since = "1.4.0")
 	public static <E> E[] join(final Class<E> classType, final E[] separator, final E[]... arrays) {
 		Ensure.notNullAndNotNullElements("arrays", arrays);
 		return join(classType, separator, List.of(arrays));
@@ -581,11 +581,11 @@ public final class ObjectArrays {
 	 * @return the joined {@link Object} array
 	 * @throws NullPointerException if the {@link Class} type, the {@link Object} array separator, the {@link Object}
 	 *         array {@link List} or any of them is {@code null}
-	 * @deprecated use {@link #join(Object[], List)} instead
+	 * @deprecated since 1.4.0, use {@link #join(Object[], List)} instead
 	 * @since 1.2.0
 	 */
 	@SuppressWarnings("unchecked")
-	@Deprecated(since = "1.4.0", forRemoval = true)
+	@Deprecated(since = "1.4.0")
 	public static <E> E[] join(final Class<E> classType, final E[] separator, final List<E[]> arrays) {
 		Ensure.notNull("classType", classType);
 		Ensure.notNull("separator", separator);

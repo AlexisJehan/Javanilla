@@ -27,7 +27,7 @@ import javax.crypto.Cipher;
 
 /**
  * <p>A {@link Cipher} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers} instead
+ * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers} instead
  * @since 1.0.0
  */
 @Deprecated(since = "1.6.0")
@@ -44,7 +44,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/CBC/NoPadding" {@link Cipher} instance.</p>
 	 * @return an "AES/CBC/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesCbcNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesCbcNoPaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -55,7 +55,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return an "AES/CBC/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesCbcPkcs5PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesCbcPkcs5PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -66,7 +66,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/ECB/NoPadding" {@link Cipher} instance.</p>
 	 * @return an "AES/ECB/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesEcbNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesEcbNoPaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -77,7 +77,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return an "AES/ECB/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesEcbPkcs5PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesEcbPkcs5PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -88,7 +88,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/GCM/NoPadding" {@link Cipher} instance.</p>
 	 * @return an "AES/GCM/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesGcmNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getAesGcmNoPaddingInstance()} instead
 	 * @since 1.3.1
 	 */
 	@Deprecated(since = "1.6.0")
@@ -99,7 +99,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DES/CBC/NoPadding" {@link Cipher} instance.</p>
 	 * @return a "DES/CBC/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesCbcNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesCbcNoPaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -110,7 +110,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DES/CBC/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesCbcPkcs5PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesCbcPkcs5PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -121,7 +121,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DES/ECB/NoPadding" {@link Cipher} instance.</p>
 	 * @return a "DES/ECB/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesEcbNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesEcbNoPaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -132,7 +132,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DES/ECB/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesEcbPkcs5PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesEcbPkcs5PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -143,7 +143,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DESede/CBC/NoPadding" {@link Cipher} instance.</p>
 	 * @return a "DESede/CBC/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeCbcNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeCbcNoPaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -154,7 +154,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DESede/CBC/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DESede/CBC/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeCbcPkcs5PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeCbcPkcs5PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -165,7 +165,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DESede/ECB/NoPadding" {@link Cipher} instance.</p>
 	 * @return a "DESede/ECB/NoPadding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeEcbNoPaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeEcbNoPaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -176,7 +176,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DESede/ECB/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DESede/ECB/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeEcbPkcs5PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getDesedeEcbPkcs5PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -187,7 +187,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.</p>
 	 * @return a "RSA/ECB/PKCS1Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getRsaEcbPkcs1PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getRsaEcbPkcs1PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -198,7 +198,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
 	 * @return a "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getRsaEcbOaepWithSha1AndMgf1PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getRsaEcbOaepWithSha1AndMgf1PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -209,7 +209,7 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.</p>
 	 * @return a "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getRsaEcbOaepWithSha256AndMgf1PaddingInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardCiphers#getRsaEcbOaepWithSha256AndMgf1PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.6.0")

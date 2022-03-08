@@ -134,6 +134,17 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Wrap a {@link CharSequence} replacing a blank one by {@code null}.</p>
+	 * @param charSequence the {@link CharSequence} or {@code null}
+	 * @param <C> the {@link CharSequence} type
+	 * @return a non-blank {@link CharSequence} or {@code null}
+	 * @since 1.0.0
+	 */
+	public static <C extends CharSequence> C blankToNull(final C charSequence) {
+		return blankToDefault(charSequence, null);
+	}
+
+	/**
 	 * <p>Wrap a {@link CharSequence} replacing a blank one by an empty {@link CharSequence}.</p>
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @return a non-blank {@link CharSequence} or {@code null}
@@ -151,17 +162,6 @@ public final class Strings {
 	 */
 	public static String blankToEmpty(final String string) {
 		return blankToDefault(string, EMPTY);
-	}
-
-	/**
-	 * <p>Wrap a {@link CharSequence} replacing a blank one by {@code null}.</p>
-	 * @param charSequence the {@link CharSequence} or {@code null}
-	 * @param <C> the {@link CharSequence} type
-	 * @return a non-blank {@link CharSequence} or {@code null}
-	 * @since 1.0.0
-	 */
-	public static <C extends CharSequence> C blankToNull(final C charSequence) {
-		return blankToDefault(charSequence, null);
 	}
 
 	/**
@@ -199,7 +199,7 @@ public final class Strings {
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is blank
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @deprecated since Java 11, use {@code String#isBlank()} instead
+	 * @deprecated since 1.4.0, on Java 11, use {@code String#isBlank()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.4.0")
@@ -902,7 +902,7 @@ public final class Strings {
 	 * @param times the number of times to repeat
 	 * @return a {@link String} of the repeated {@code char}
 	 * @throws IllegalArgumentException if the number of times is lower than {@code 0}
-	 * @deprecated since Java 11, use {@code String#repeat(int)} instead
+	 * @deprecated since 1.4.0, on Java 11, use {@code String#repeat(int)} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.4.0")
@@ -929,7 +929,7 @@ public final class Strings {
 	 * @return a {@link String} of the repeated {@link CharSequence}
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the number of times is lower than {@code 0}
-	 * @deprecated since Java 11, use {@code String#repeat(int)} instead
+	 * @deprecated since 1.4.0, on Java 11, use {@code String#repeat(int)} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.4.0")

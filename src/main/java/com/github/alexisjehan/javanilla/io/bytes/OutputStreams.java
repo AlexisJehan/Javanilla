@@ -45,7 +45,7 @@ public final class OutputStreams {
 
 	/**
 	 * <p>An empty {@link OutputStream} that writes nothing.</p>
-	 * @deprecated since Java 11, use {@code OutputStream#nullOutputStream()} instead
+	 * @deprecated since 1.4.0, on Java 11, use {@code OutputStream#nullOutputStream()} instead
 	 * @since 1.0.0
 	 */
 	@Deprecated(since = "1.4.0")
@@ -237,6 +237,20 @@ public final class OutputStreams {
 	}
 
 	/**
+	 * <p>Create a {@link BufferedOutputStream} from a {@link Path}.</p>
+	 * <p><b>Warning</b>: If the file of the {@link Path} already exists its content is erased.</p>
+	 * @param path the {@link Path} to convert
+	 * @return the created {@link BufferedOutputStream}
+	 * @throws IOException might occur with I/O operations
+	 * @throws NullPointerException if the {@link Path} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static BufferedOutputStream of(final Path path) throws IOException {
+		Ensure.notNull("path", path);
+		return new BufferedOutputStream(Files.newOutputStream(path));
+	}
+
+	/**
 	 * <p>Convert an {@link OutputStream} to a {@link Writer} using {@link Charset#defaultCharset()}.</p>
 	 * @param outputStream the {@link OutputStream} to convert
 	 * @return the created {@link Writer}
@@ -259,19 +273,5 @@ public final class OutputStreams {
 		Ensure.notNull("outputStream", outputStream);
 		Ensure.notNull("charset", charset);
 		return new OutputStreamWriter(buffered(outputStream), charset);
-	}
-
-	/**
-	 * <p>Create a {@link BufferedOutputStream} from a {@link Path}.</p>
-	 * <p><b>Warning</b>: If the file of the {@link Path} already exists its content is erased.</p>
-	 * @param path the {@link Path} to convert
-	 * @return the created {@link BufferedOutputStream}
-	 * @throws IOException might occur with I/O operations
-	 * @throws NullPointerException if the {@link Path} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static BufferedOutputStream of(final Path path) throws IOException {
-		Ensure.notNull("path", path);
-		return new BufferedOutputStream(Files.newOutputStream(path));
 	}
 }

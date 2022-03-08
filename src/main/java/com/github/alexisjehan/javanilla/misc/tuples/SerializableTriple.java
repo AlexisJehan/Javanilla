@@ -152,7 +152,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Vanilla constructor.</p>
+	 * <p>Handy constructor.</p>
 	 * @param first the first {@link Serializable} element or {@code null}
 	 * @param second the second {@link Serializable} element or {@code null}
 	 * @param third the third {@link Serializable} element or {@code null}

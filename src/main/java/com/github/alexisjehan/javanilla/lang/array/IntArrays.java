@@ -325,7 +325,7 @@ public final class IntArrays {
 	 * <p>Shuffle values in the given {@code int} array following the Fisher-Yates algorithm.</p>
 	 * @param array the {@code int} array to shuffle
 	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @deprecated for security purposes, use {@link #shuffle(int[], Random)} with
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(int[], Random)} with
 	 *             {@link java.security.SecureRandom} instead
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0

@@ -110,7 +110,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Vanilla constructor.</p>
+	 * <p>Handy constructor.</p>
 	 * @param unique the unique {@link Serializable} element or {@code null}
 	 * @param <U> the type of the unique serializable element
 	 * @return the constructed {@link SerializableSingle}

@@ -27,7 +27,7 @@ import java.security.KeyFactory;
 
 /**
  * <p>A {@link KeyFactory} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories} instead
+ * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories} instead
  * @since 1.3.1
  */
 @Deprecated(since = "1.6.0")
@@ -44,7 +44,7 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>
 	 * @return a "DiffieHellman" {@link KeyFactory} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDiffieHellmanInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDiffieHellmanInstance()} instead
 	 * @since 1.3.1
 	 */
 	@Deprecated(since = "1.6.0")
@@ -55,7 +55,7 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "DSA" {@link KeyFactory} instance.</p>
 	 * @return a "DSA" {@link KeyFactory} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDsaInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDsaInstance()} instead
 	 * @since 1.3.1
 	 */
 	@Deprecated(since = "1.6.0")
@@ -66,7 +66,7 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
 	 * @return a "RSA" {@link KeyFactory} instance
-	 * @deprecated use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getRsaInstance()} instead
+	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getRsaInstance()} instead
 	 * @since 1.3.1
 	 */
 	@Deprecated(since = "1.6.0")

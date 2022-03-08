@@ -128,7 +128,7 @@ public final class Sets {
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
 	 * @throws NullPointerException if the {@link Set} array or any of them is {@code null}
-	 * @deprecated use {@link #unify(Set[])} instead
+	 * @deprecated since 1.6.0, use {@link #unify(Set[])} instead
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
@@ -144,7 +144,7 @@ public final class Sets {
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
 	 * @throws NullPointerException if the {@link Set} {@link Collection} or any of them is {@code null}
-	 * @deprecated use {@link #unify(Collection)} instead
+	 * @deprecated since 1.6.0, use {@link #unify(Collection)} instead
 	 * @since 1.3.0
 	 */
 	@Deprecated(since = "1.6.0")

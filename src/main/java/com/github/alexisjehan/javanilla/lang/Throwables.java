@@ -54,7 +54,7 @@ public final class Throwables {
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @deprecated use {@link #isCheckedException(Throwable)} instead
+	 * @deprecated since 1.6.0, use {@link #isCheckedException(Throwable)} instead
 	 * @since 1.1.0
 	 */
 	@Deprecated(since = "1.6.0")
@@ -79,7 +79,7 @@ public final class Throwables {
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @deprecated use {@link #isUncheckedException(Throwable)} instead
+	 * @deprecated since 1.6.0, use {@link #isUncheckedException(Throwable)} instead
 	 * @since 1.1.0
 	 */
 	@Deprecated(since = "1.6.0")

@@ -91,7 +91,7 @@ public final class Single<U> {
 	}
 
 	/**
-	 * <p>Vanilla constructor.</p>
+	 * <p>Handy constructor.</p>
 	 * @param unique the unique element or {@code null}
 	 * @param <U> the type of the unique element
 	 * @return the constructed {@link Single}

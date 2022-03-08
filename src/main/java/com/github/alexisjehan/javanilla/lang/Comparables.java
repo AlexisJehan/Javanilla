@@ -143,6 +143,6 @@ public final class Comparables {
 		Ensure.notNull("comparable", comparable);
 		Ensure.notNull("from", from);
 		Ensure.notNull("to", to);
-		return isGreaterThanOrEqualTo(comparable, from) && isLowerThanOrEqualTo(comparable, to);
+		return 0 <= comparable.compareTo(from) && 0 >= comparable.compareTo(to);
 	}
 }

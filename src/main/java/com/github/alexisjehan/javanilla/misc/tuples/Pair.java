@@ -113,7 +113,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Vanilla constructor.</p>
+	 * <p>Handy constructor.</p>
 	 * @param first the first element or {@code null}
 	 * @param second the second element or {@code null}
 	 * @param <F> the type of the first element
