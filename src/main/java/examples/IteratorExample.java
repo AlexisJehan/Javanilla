@@ -38,7 +38,7 @@ public final class IteratorExample {
 		// Iterator to iterate over elements grouping them
 		final var batchSize = 3;
 		final var batchIterator = new BatchIterator<>(
-				Iterators.ofInt(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+				Iterators.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
 				batchSize
 		);
 

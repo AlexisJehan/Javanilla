@@ -74,7 +74,7 @@ public final class BloomFilter<E> {
 				Arrays.stream(Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions))
 						.map(hashFunction -> (IntUnaryOperator) value -> {
 							hashFunction.reset();
-							hashFunction.update(ByteArrays.ofInt(value));
+							hashFunction.update(ByteArrays.of(value));
 							return (int) hashFunction.getValue();
 						})
 						.toArray(IntUnaryOperator[]::new)
