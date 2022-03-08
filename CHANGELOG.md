@@ -6,6 +6,9 @@
 - Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_,
 _StandardMessageDigests_ and _StandardSignatures_ classes
 
+**lang.Strings**
+- Added _of(byte...)_ and _of(Charset, byte...)_ methods
+
 **lang.Throwables**
 - Added the _isCheckedException(Throwable)_ method
 - Added the _isUncheckedException(Throwable)_ method

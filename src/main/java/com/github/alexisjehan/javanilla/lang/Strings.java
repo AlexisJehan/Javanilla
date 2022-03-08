@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.lang;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1413,6 +1414,34 @@ public final class Strings {
 			}
 		}
 		return start.toString() + end;
+	}
+
+	/**
+	 * <p>Create a {@link String} from multiple {@code byte}s.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @return the created {@link String}
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static String of(final byte... bytes) {
+		return of(Charset.defaultCharset(), bytes);
+	}
+
+	/**
+	 * <p>Create a {@link String} from multiple {@code byte}s using a custom {@link Charset}.</p>
+	 * @param charset the {@link Charset} to use
+	 * @param bytes the {@code byte} array to convert
+	 * @return the created {@link String}
+	 * @throws NullPointerException if the {@link Charset} or the {@code byte} array is {@code null}
+	 * @since 1.6.0
+	 */
+	public static String of(final Charset charset, final byte... bytes) {
+		Ensure.notNull("charset", charset);
+		Ensure.notNull("bytes", bytes);
+		if (0 == bytes.length) {
+			return EMPTY;
+		}
+		return new String(bytes, charset);
 	}
 
 	/**

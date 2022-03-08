@@ -23,8 +23,11 @@
  */
 package com.github.alexisjehan.javanilla.lang;
 
+import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
 import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
+
+import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -862,6 +865,22 @@ final class StringsTest {
 	void testConcatMergeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, STRING));
 		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(STRING, null));
+	}
+
+	@Test
+	void testOfBytes() {
+		assertThat(Strings.of(ByteArrays.EMPTY)).isEmpty();
+		assertThat(Strings.of("abc".getBytes())).isEqualTo("abc");
+		assertThat(Strings.of(StandardCharsets.ISO_8859_1, "abc".getBytes(StandardCharsets.ISO_8859_1))).isEqualTo("abc");
+
+		// Not the same charset
+		assertThat(Strings.of(StandardCharsets.ISO_8859_1, "abc".getBytes(StandardCharsets.UTF_16))).isNotEqualTo("abc");
+	}
+
+	@Test
+	void testOfBytesInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.of((byte[]) null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.of(null, "abc".getBytes()));
 	}
 
 	@Test
