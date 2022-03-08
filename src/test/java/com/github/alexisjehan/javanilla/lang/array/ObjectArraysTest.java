@@ -355,7 +355,7 @@ final class ObjectArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("removal")
+	@SuppressWarnings("deprecation")
 	void testJoin() {
 		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.empty(Integer.class), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
 		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0))).isEmpty();
@@ -371,7 +371,7 @@ final class ObjectArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("removal")
+	@SuppressWarnings("deprecation")
 	void testJoinInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Class<Integer>) null, ObjectArrays.of(VALUES), ObjectArrays.of(VALUES)));
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, null, ObjectArrays.of(VALUES)));

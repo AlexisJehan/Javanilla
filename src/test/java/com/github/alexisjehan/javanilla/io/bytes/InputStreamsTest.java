@@ -240,10 +240,11 @@ final class InputStreamsTest {
 	@Test
 	void testOfStringAndToString() throws IOException {
 		assertThat(InputStreams.toString(InputStreams.of(Strings.EMPTY))).isEmpty();
+		assertThat(InputStreams.toString(InputStreams.of(new String(BYTES)))).isEqualTo(new String(BYTES));
 		assertThat(InputStreams.toString(InputStreams.of(new String(BYTES, StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1))).isEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
 
 		// Not the same charset
-		assertThat(InputStreams.toString(InputStreams.of(new String(BYTES, StandardCharsets.UTF_8), StandardCharsets.UTF_16))).isNotEqualTo(new String(BYTES, StandardCharsets.UTF_8));
+		assertThat(InputStreams.toString(InputStreams.of(new String(BYTES, StandardCharsets.ISO_8859_1), StandardCharsets.UTF_16))).isNotEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
 	}
 
 	@Test
@@ -279,7 +280,7 @@ final class InputStreamsTest {
 		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String(BYTES, StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)))).isEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
 
 		// Not the same charset
-		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String(BYTES, StandardCharsets.UTF_8), StandardCharsets.UTF_16)))).isNotEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
+		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String(BYTES, StandardCharsets.ISO_8859_1), StandardCharsets.UTF_16)))).isNotEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
 	}
 
 	@Test

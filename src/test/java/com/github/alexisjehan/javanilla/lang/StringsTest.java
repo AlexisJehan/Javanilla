@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.lang;
 
+import com.github.alexisjehan.javanilla.lang.array.CharArrays;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -864,13 +865,13 @@ final class StringsTest {
 	}
 
 	@Test
-	void testOf() {
-		assertThat(Strings.of()).isEmpty();
-		assertThat(Strings.of('a', 'b', 'c')).isEqualTo("abc");
+	void testOfChars() {
+		assertThat(Strings.of(CharArrays.EMPTY)).isEmpty();
+		assertThat(Strings.of("abc".toCharArray())).isEqualTo("abc");
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfCharsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.of((char[]) null));
 	}
 

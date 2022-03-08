@@ -371,13 +371,13 @@ final class CharArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfChars() {
 		assertThat(CharArrays.of()).isEmpty();
 		assertThat(CharArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfCharsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.of((char[]) null));
 	}
 

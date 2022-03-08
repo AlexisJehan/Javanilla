@@ -371,13 +371,13 @@ final class IntArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfInts() {
 		assertThat(IntArrays.of()).isEmpty();
 		assertThat(IntArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfIntsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.of((int[]) null));
 	}
 

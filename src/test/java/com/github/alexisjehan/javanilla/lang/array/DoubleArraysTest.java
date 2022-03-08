@@ -371,13 +371,13 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfDoubles() {
 		assertThat(DoubleArrays.of()).isEmpty();
 		assertThat(DoubleArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfDoublesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.of((double[]) null));
 	}
 

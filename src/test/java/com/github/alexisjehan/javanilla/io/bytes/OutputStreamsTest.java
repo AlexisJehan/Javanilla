@@ -189,37 +189,6 @@ final class OutputStreamsTest {
 	}
 
 	@Test
-	void testToWriter() throws IOException {
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var writer = OutputStreams.toWriter(outputStream)) {
-				writer.write(new String(BYTES));
-			}
-			assertThat(outputStream).hasToString(new String(BYTES));
-		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
-				writer.write(new String(BYTES));
-			}
-			assertThat(outputStream.toString(StandardCharsets.ISO_8859_1)).isEqualTo(new String(BYTES));
-		}
-
-		// Not the same charset
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.UTF_16)) {
-				writer.write(new String(BYTES));
-			}
-			assertThat(outputStream.toString(StandardCharsets.UTF_8)).isNotEqualTo(new String(BYTES));
-		}
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testToWriterInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(null));
-		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(OutputStreams.EMPTY, null));
-	}
-
-	@Test
 	void testOf(@TempDir final Path tmpDirectory) throws IOException {
 		final var tmpFile = tmpDirectory.resolve("testOf");
 		try (final var outputStream = OutputStreams.of(tmpFile)) {
@@ -231,5 +200,36 @@ final class OutputStreamsTest {
 	@Test
 	void testOfInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.of(null));
+	}
+
+	@Test
+	void testToWriter() throws IOException {
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			try (final var writer = OutputStreams.toWriter(outputStream)) {
+				writer.write(new String(BYTES));
+			}
+			assertThat(outputStream).hasToString(new String(BYTES));
+		}
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
+				writer.write(new String(BYTES));
+			}
+			assertThat(outputStream.toString(StandardCharsets.ISO_8859_1)).isEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
+		}
+
+		// Not the same charset
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
+				writer.write(new String(BYTES));
+			}
+			assertThat(outputStream.toString(StandardCharsets.UTF_16)).isNotEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
+		}
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testToWriterInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(null));
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.toWriter(OutputStreams.EMPTY, null));
 	}
 }

@@ -371,13 +371,13 @@ final class LongArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfLongs() {
 		assertThat(LongArrays.of()).isEmpty();
 		assertThat(LongArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfLongsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> LongArrays.of((long[]) null));
 	}
 

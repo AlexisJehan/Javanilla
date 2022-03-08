@@ -32,7 +32,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.CharBuffer;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
@@ -254,10 +253,7 @@ final class ReadersTest {
 	@Test
 	void testOfStringAndToString() throws IOException {
 		assertThat(Readers.toString(Readers.of(Strings.EMPTY))).isEmpty();
-		assertThat(Readers.toString(Readers.of(new String(new String(CHARS).getBytes(), StandardCharsets.ISO_8859_1)))).isEqualTo(new String(new String(CHARS).getBytes(), StandardCharsets.ISO_8859_1));
-
-		// Not the same charset
-		assertThat(Readers.toString(Readers.of(new String(new String(CHARS).getBytes(), StandardCharsets.UTF_16)))).isNotEqualTo(new String(new String(CHARS).getBytes(), StandardCharsets.UTF_8));
+		assertThat(Readers.toString(Readers.of(new String(CHARS)))).isEqualTo(new String(CHARS));
 	}
 
 	@Test

@@ -371,13 +371,13 @@ final class FloatArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfFloats() {
 		assertThat(FloatArrays.of()).isEmpty();
 		assertThat(FloatArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfFloatsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.of((float[]) null));
 	}
 

@@ -373,13 +373,13 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfBytes() {
 		assertThat(ByteArrays.of()).isEmpty();
 		assertThat(ByteArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfBytesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((byte[]) null));
 	}
 

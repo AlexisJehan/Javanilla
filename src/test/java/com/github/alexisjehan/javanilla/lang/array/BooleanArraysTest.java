@@ -371,13 +371,13 @@ final class BooleanArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfBooleans() {
 		assertThat(BooleanArrays.of()).isEmpty();
 		assertThat(BooleanArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfBooleansInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.of((boolean[]) null));
 	}
 

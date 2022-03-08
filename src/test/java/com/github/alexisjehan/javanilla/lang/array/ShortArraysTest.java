@@ -371,13 +371,13 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	void testOf() {
+	void testOfShorts() {
 		assertThat(ShortArrays.of()).isEmpty();
 		assertThat(ShortArrays.of(VALUES)).containsExactly(VALUES);
 	}
 
 	@Test
-	void testOfInvalid() {
+	void testOfShortsInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.of((short[]) null));
 	}
 
