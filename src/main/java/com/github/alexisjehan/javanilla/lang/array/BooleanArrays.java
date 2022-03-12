@@ -110,7 +110,7 @@ public final class BooleanArrays {
 	 */
 	public static boolean[] add(final boolean[] array, final boolean value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -121,9 +121,25 @@ public final class BooleanArrays {
 	 * @return a {@code boolean} array with the added {@code boolean} value
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(boolean[], boolean, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static boolean[] add(final boolean[] array, final int index, final boolean value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
+	 * @param array the {@code boolean} array to add to
+	 * @param value the {@code boolean} value to add
+	 * @param index the index of the {@code boolean} value
+	 * @return a {@code boolean} array with the added {@code boolean} value
+	 * @throws NullPointerException if the {@code boolean} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static boolean[] add(final boolean[] array, final boolean value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new boolean[array.length + 1];

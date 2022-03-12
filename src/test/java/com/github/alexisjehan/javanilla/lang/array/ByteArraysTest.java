@@ -86,21 +86,38 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(ByteArrays.add(ByteArrays.EMPTY, (byte) 0)).containsExactly((byte) 0);
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 0, (byte) 0)).containsExactly((byte) 0, (byte) 1, (byte) 2, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 1, (byte) 0)).containsExactly((byte) 1, (byte) 0, (byte) 2, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 2, (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 0, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 3, (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(ByteArrays.add(ByteArrays.EMPTY, (byte) 0)).containsExactly((byte) 0);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0, 0)).containsExactly((byte) 0, (byte) 1, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0, 1)).containsExactly((byte) 1, (byte) 0, (byte) 2, (byte) 3);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0, 2)).containsExactly((byte) 1, (byte) 2, (byte) 0, (byte) 3);
+		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0, 3)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, 0, (byte) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), -1, (byte) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), 3, (byte) 0));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, (byte) 0));
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, 0, (byte) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), -1, (byte) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), 3, (byte) 0));
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, (byte) 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), (byte) 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), (byte) 0, 3));
 	}
 
 	@Test

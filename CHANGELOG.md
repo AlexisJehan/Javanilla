@@ -20,45 +20,63 @@ _StandardMessageDigests_ and _StandardSignatures_ classes
 - Deprecated the _isUnchecked(Throwable)_ method
 
 **lang.array.BooleanArrays**
+- Added the _add(boolean[], boolean, int)_ method
 - Added the _shuffle(boolean[], Random)_ method
+- Deprecated the _add(boolean[], int, boolean)_ method
 - Deprecated the _shuffle(boolean[])_ method
 
 **lang.array.ByteArrays**
+- Added the _add(byte[], byte, int)_ method
 - Added the _shuffle(byte[], Random)_ method
 - Added _of(boolean)_, _of(short)_, _of(short, ByteOrder)_, _of(char)_, _of(char, ByteOrder)_, _of(int)_,
   _of(int, ByteOrder)_, _of(long)_, _of(long, ByteOrder)_, _of(float)_, _of(float, ByteOrder)_, _of(double)_ and
   _of(double, ByteOrder)_ methods
+- Deprecated the _add(byte[], int, byte)_ method
 - Deprecated the _shuffle(byte[])_ method
 - Deprecated _ofBoolean(boolean)_, _ofShort(short)_, _ofShort(short, ByteOrder)_, _ofChar(char)_,
 _ofChar(char, ByteOrder)_, _ofInt(int)_, _ofInt(int, ByteOrder)_, _ofLong(long)_, _ofLong(long, ByteOrder)_,
 _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(double, ByteOrder)_ methods
 
 **lang.array.CharArrays**
+- Added the _add(char[], char, int)_ method
 - Added the _shuffle(char[], Random)_ method
+- Deprecated the _add(char[], int, char)_ method
 - Deprecated the _shuffle(char[])_ method
 
 **lang.array.DoubleArrays**
+- Added the _add(double[], double, int)_ method
 - Added the _shuffle(double[], Random)_ method
+- Deprecated the _add(double[], int, double)_ method
 - Deprecated the _shuffle(double[])_ method
 
 **lang.array.FloatArrays**
+- Added the _add(float[], float, int)_ method
 - Added the _shuffle(float[], Random)_ method
+- Deprecated the _add(float[], int, float)_ method
 - Deprecated the _shuffle(float[])_ method
 
 **lang.array.IntArrays**
+- Added the _addTemporary(int[], int, int)_ method
 - Added the _shuffle(int[], Random)_ method
+- Deprecated the _add(int[], int, int)_ method
 - Deprecated the _shuffle(int[])_ method
 
 **lang.array.LongArrays**
+- Added the _add(long[], long, int)_ method
 - Added the _shuffle(long[], Random)_ method
+- Deprecated the _add(long[], int, long)_ method
 - Deprecated the _shuffle(long[])_ method
 
 **lang.array.ObjectArrays**
+- Added the _add(Object[], Object, int)_ method
 - Added the _shuffle(Object[], Random)_ method
+- Deprecated the _add(Object[], int, Object)_ method
 - Deprecated the _shuffle(Object[])_ method
 
 **lang.array.ShortArrays**
+- Added the _add(short[], short, int)_ method
 - Added the _shuffle(short[], Random)_ method
+- Deprecated the _add(short[], int, short)_ method
 - Deprecated the _shuffle(short[])_ method
 
 **util.collection.Sets**

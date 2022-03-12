@@ -84,21 +84,38 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(ShortArrays.add(ShortArrays.EMPTY, (short) 0)).containsExactly((short) 0);
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 0, (short) 0)).containsExactly((short) 0, (short) 1, (short) 2, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 1, (short) 0)).containsExactly((short) 1, (short) 0, (short) 2, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 2, (short) 0)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 3, (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(ShortArrays.add(ShortArrays.EMPTY, (short) 0)).containsExactly((short) 0);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0, 0)).containsExactly((short) 0, (short) 1, (short) 2, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0, 1)).containsExactly((short) 1, (short) 0, (short) 2, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0, 2)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0, 3)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), -1, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), 3, (short) 0));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, (short) 0));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), -1, (short) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), 3, (short) 0));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, (short) 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), (short) 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), (short) 0, 3));
 	}
 
 	@Test

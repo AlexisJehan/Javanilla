@@ -134,7 +134,7 @@ public final class ObjectArrays {
 	 */
 	public static <E> E[] add(final E[] array, final E value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -146,9 +146,26 @@ public final class ObjectArrays {
 	 * @return an {@link Object} array with the added {@link Object} value
 	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(Object[], Object, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static <E> E[] add(final E[] array, final int index, final E value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add an {@link Object} value at the provided index of the given {@link Object} array.</p>
+	 * @param array the {@link Object} array to add to
+	 * @param value the {@link Object} value to add
+	 * @param index the index of the {@link Object} value
+	 * @param <E> the {@link Object} type
+	 * @return an {@link Object} array with the added {@link Object} value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static <E> E[] add(final E[] array, final E value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		@SuppressWarnings("unchecked")

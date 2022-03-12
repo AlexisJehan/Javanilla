@@ -90,21 +90,38 @@ final class ObjectArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0, (Integer) 0)).containsExactly(0, 1, 2, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 1, (Integer) 0)).containsExactly(1, 0, 2, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 2, (Integer) 0)).containsExactly(1, 2, 0, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 3, (Integer) 0)).containsExactly(1, 2, 3, 0);
+	}
+
+	@Test
 	void testAdd() {
 		assertThat(ObjectArrays.add(ObjectArrays.empty(Integer.class), 0)).containsExactly(0);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 1, 0)).containsExactly(1, 0, 2, 3);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 2, 0)).containsExactly(1, 2, 0, 3);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 3, 0)).containsExactly(1, 2, 3, 0);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), (Integer) 0, 0)).containsExactly(0, 1, 2, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), (Integer) 0, 1)).containsExactly(1, 0, 2, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), (Integer) 0, 2)).containsExactly(1, 2, 0, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), (Integer) 0, 3)).containsExactly(1, 2, 3, 0);
 		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0)).containsExactly(1, 2, 3, 0);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0, (Integer) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), -1, (Integer) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), 3, (Integer) 0));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), -1, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), 3, 0));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, (Integer) 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), (Integer) 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), (Integer) 0, 3));
 	}
 
 	@Test

@@ -84,21 +84,38 @@ final class IntArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(IntArrays.add(IntArrays.EMPTY, 0)).containsExactly(0);
+	@SuppressWarnings("removal")
+	void testAddLegacy() {
 		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
 		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 1, 0)).containsExactly(1, 0, 2, 3);
 		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 2, 0)).containsExactly(1, 2, 0, 3);
 		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 3, 0)).containsExactly(1, 2, 3, 0);
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(IntArrays.add(IntArrays.EMPTY, 0)).containsExactly(0);
+		assertThat(IntArrays.addTemporary(IntArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
+		assertThat(IntArrays.addTemporary(IntArrays.of(1, 2, 3), 0, 1)).containsExactly(1, 0, 2, 3);
+		assertThat(IntArrays.addTemporary(IntArrays.of(1, 2, 3), 0, 2)).containsExactly(1, 2, 0, 3);
+		assertThat(IntArrays.addTemporary(IntArrays.of(1, 2, 3), 0, 3)).containsExactly(1, 2, 3, 0);
 		assertThat(IntArrays.add(IntArrays.of(1, 2, 3), 0)).containsExactly(1, 2, 3, 0);
+	}
+
+	@Test
+	@SuppressWarnings("removal")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.of(VALUES), -1, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.of(VALUES), 3, 0));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0));
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.add(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.of(VALUES), -1, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.add(IntArrays.of(VALUES), 3, 0));
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.addTemporary(null, 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.addTemporary(IntArrays.of(VALUES), 0, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.addTemporary(IntArrays.of(VALUES), 0, 3));
 	}
 
 	@Test

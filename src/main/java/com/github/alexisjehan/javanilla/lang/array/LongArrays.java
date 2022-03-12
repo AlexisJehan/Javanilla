@@ -110,7 +110,7 @@ public final class LongArrays {
 	 */
 	public static long[] add(final long[] array, final long value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -121,9 +121,25 @@ public final class LongArrays {
 	 * @return a {@code long} array with the added {@code long} value
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(long[], long, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static long[] add(final long[] array, final int index, final long value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * @param array the {@code long} array to add to
+	 * @param value the {@code long} value to add
+	 * @param index the index of the {@code long} value
+	 * @return a {@code long} array with the added {@code long} value
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static long[] add(final long[] array, final long value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new long[array.length + 1];

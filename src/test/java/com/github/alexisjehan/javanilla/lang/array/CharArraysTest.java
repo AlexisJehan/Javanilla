@@ -84,21 +84,38 @@ final class CharArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(CharArrays.add(CharArrays.EMPTY, '-')).containsExactly('-');
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 0, '-')).containsExactly('-', 'a', 'b', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 1, '-')).containsExactly('a', '-', 'b', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 2, '-')).containsExactly('a', 'b', '-', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 3, '-')).containsExactly('a', 'b', 'c', '-');
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(CharArrays.add(CharArrays.EMPTY, '-')).containsExactly('-');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-', 0)).containsExactly('-', 'a', 'b', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-', 1)).containsExactly('a', '-', 'b', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-', 2)).containsExactly('a', 'b', '-', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-', 3)).containsExactly('a', 'b', 'c', '-');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-')).containsExactly('a', 'b', 'c', '-');
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), -1, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), 3, '-'));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, '-'));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), -1, '-'));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), 3, '-'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, '-', 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), '-', -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), '-', 3));
 	}
 
 	@Test

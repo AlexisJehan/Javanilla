@@ -110,7 +110,7 @@ public final class ShortArrays {
 	 */
 	public static short[] add(final short[] array, final short value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -121,9 +121,25 @@ public final class ShortArrays {
 	 * @return a {@code short} array with the added {@code short} value
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(short[], short, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static short[] add(final short[] array, final int index, final short value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add a {@code short} value at the provided index of the given {@code short} array.</p>
+	 * @param array the {@code short} array to add to
+	 * @param value the {@code short} value to add
+	 * @param index the index of the {@code short} value
+	 * @return a {@code short} array with the added {@code short} value
+	 * @throws NullPointerException if the {@code short} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static short[] add(final short[] array, final short value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new short[array.length + 1];

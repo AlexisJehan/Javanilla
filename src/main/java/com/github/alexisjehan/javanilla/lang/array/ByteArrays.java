@@ -124,7 +124,7 @@ public final class ByteArrays {
 	 */
 	public static byte[] add(final byte[] array, final byte value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -135,9 +135,25 @@ public final class ByteArrays {
 	 * @return a {@code byte} array with the added {@code byte} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(byte[], byte, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static byte[] add(final byte[] array, final int index, final byte value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add a {@code byte} value at the provided index of the given {@code byte} array.</p>
+	 * @param array the {@code byte} array to add to
+	 * @param value the {@code byte} value to add
+	 * @param index the index of the {@code byte} value
+	 * @return a {@code byte} array with the added {@code byte} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static byte[] add(final byte[] array, final byte value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new byte[array.length + 1];

@@ -84,21 +84,38 @@ final class FloatArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(FloatArrays.add(FloatArrays.EMPTY, 0.0f)).containsExactly(0.0f);
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
 		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0, 0.0f)).containsExactly(0.0f, 1.0f, 2.0f, 3.0f);
 		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 1, 0.0f)).containsExactly(1.0f, 0.0f, 2.0f, 3.0f);
 		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 2, 0.0f)).containsExactly(1.0f, 2.0f, 0.0f, 3.0f);
 		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 3, 0.0f)).containsExactly(1.0f, 2.0f, 3.0f, 0.0f);
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(FloatArrays.add(FloatArrays.EMPTY, 0.0f)).containsExactly(0.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0.0f, 0)).containsExactly(0.0f, 1.0f, 2.0f, 3.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0.0f, 1)).containsExactly(1.0f, 0.0f, 2.0f, 3.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0.0f, 2)).containsExactly(1.0f, 2.0f, 0.0f, 3.0f);
+		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0.0f, 3)).containsExactly(1.0f, 2.0f, 3.0f, 0.0f);
 		assertThat(FloatArrays.add(FloatArrays.of(1.0f, 2.0f, 3.0f), 0.0f)).containsExactly(1.0f, 2.0f, 3.0f, 0.0f);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0, 0.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), -1, 0.0f));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), 3, 0.0f));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0.0f));
-		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0, 0.0f));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), -1, 0.0f));
-		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), 3, 0.0f));
+		assertThatNullPointerException().isThrownBy(() -> FloatArrays.add(null, 0.0f, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), 0.0f, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> FloatArrays.add(FloatArrays.of(VALUES), 0.0f, 3));
 	}
 
 	@Test

@@ -84,21 +84,38 @@ final class BooleanArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(BooleanArrays.add(BooleanArrays.EMPTY, false)).containsExactly(false);
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 0, false)).containsExactly(false, true, true, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 1, false)).containsExactly(true, false, true, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 2, false)).containsExactly(true, true, false, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 3, false)).containsExactly(true, true, true, false);
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(BooleanArrays.add(BooleanArrays.EMPTY, false)).containsExactly(false);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false, 0)).containsExactly(false, true, true, true);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false, 1)).containsExactly(true, false, true, true);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false, 2)).containsExactly(true, true, false, true);
+		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false, 3)).containsExactly(true, true, true, false);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false)).containsExactly(true, true, true, false);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, 0, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), -1, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), 3, false));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, false));
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, 0, false));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), -1, false));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), 3, false));
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, false, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), false, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), false, 3));
 	}
 
 	@Test

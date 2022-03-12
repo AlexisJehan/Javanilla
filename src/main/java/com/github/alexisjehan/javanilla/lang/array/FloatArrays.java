@@ -110,7 +110,7 @@ public final class FloatArrays {
 	 */
 	public static float[] add(final float[] array, final float value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -121,9 +121,25 @@ public final class FloatArrays {
 	 * @return a {@code float} array with the added {@code float} value
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(float[], float, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static float[] add(final float[] array, final int index, final float value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add a {@code float} value at the provided index of the given {@code float} array.</p>
+	 * @param array the {@code float} array to add to
+	 * @param value the {@code float} value to add
+	 * @param index the index of the {@code float} value
+	 * @return a {@code float} array with the added {@code float} value
+	 * @throws NullPointerException if the {@code float} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static float[] add(final float[] array, final float value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new float[array.length + 1];

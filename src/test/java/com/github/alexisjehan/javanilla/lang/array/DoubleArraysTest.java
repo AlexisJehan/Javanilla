@@ -84,21 +84,38 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(DoubleArrays.add(DoubleArrays.EMPTY, 0.0d)).containsExactly(0.0d);
+	@SuppressWarnings("deprecation")
+	void testAddLegacy() {
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0, 0.0d)).containsExactly(0.0d, 1.0d, 2.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1, 0.0d)).containsExactly(1.0d, 0.0d, 2.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2, 0.0d)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 3, 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+	}
+
+	@Test
+	void testAdd() {
+		assertThat(DoubleArrays.add(DoubleArrays.EMPTY, 0.0d)).containsExactly(0.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d, 0)).containsExactly(0.0d, 1.0d, 2.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d, 1)).containsExactly(1.0d, 0.0d, 2.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d, 2)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d, 3)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testAddInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), -1, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 3, 0.0d));
 	}
 
 	@Test
 	void testAddInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0.0d));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), -1, 0.0d));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 3, 0.0d));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0.0d, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 0.0d, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 0.0d, 3));
 	}
 
 	@Test

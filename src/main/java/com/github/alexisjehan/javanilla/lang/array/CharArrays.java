@@ -110,7 +110,7 @@ public final class CharArrays {
 	 */
 	public static char[] add(final char[] array, final char value) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
+		return add(array, value, array.length);
 	}
 
 	/**
@@ -121,9 +121,25 @@ public final class CharArrays {
 	 * @return a {@code char} array with the added {@code char} value
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.6.0, use {@link #add(char[], char, int)} instead
 	 * @since 1.4.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static char[] add(final char[] array, final int index, final char value) {
+		return add(array, value, index);
+	}
+
+	/**
+	 * <p>Add a {@code char} value at the provided index of the given {@code char} array.</p>
+	 * @param array the {@code char} array to add to
+	 * @param value the {@code char} value to add
+	 * @param index the index of the {@code char} value
+	 * @return a {@code char} array with the added {@code char} value
+	 * @throws NullPointerException if the {@code char} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.6.0
+	 */
+	public static char[] add(final char[] array, final char value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new char[array.length + 1];
