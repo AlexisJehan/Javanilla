@@ -101,15 +101,150 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code boolean} array is empty.</p>
-	 * @param array the {@code boolean} array to test
-	 * @return {@code true} if the {@code boolean} array is empty
+	 * <p>Add a {@code boolean} value at the end of the given {@code boolean} array.</p>
+	 * @param array the {@code boolean} array to add to
+	 * @param value the {@code boolean} value to add
+	 * @return a {@code boolean} array with the added {@code boolean} value
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @since 1.2.0
+	 * @since 1.4.0
 	 */
-	public static boolean isEmpty(final boolean[] array) {
+	public static boolean[] add(final boolean[] array, final boolean value) {
 		Ensure.notNull("array", array);
-		return 0 == array.length;
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
+	 * @param array the {@code boolean} array to add to
+	 * @param index the index of the {@code boolean} value
+	 * @param value the {@code boolean} value to add
+	 * @return a {@code boolean} array with the added {@code boolean} value
+	 * @throws NullPointerException if the {@code boolean} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static boolean[] add(final boolean[] array, final int index, final boolean value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new boolean[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
+	 * @param array the {@code boolean} array to remove from
+	 * @param index the index of the {@code boolean} value
+	 * @return a {@code boolean} array with the removed {@code boolean} value
+	 * @throws NullPointerException if the {@code boolean} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code boolean} array is empty or if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static boolean[] remove(final boolean[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new boolean[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code boolean} arrays.</p>
+	 * @param arrays {@code boolean} arrays to concatenate
+	 * @return the concatenated {@code boolean} array
+	 * @throws NullPointerException if {@code boolean} arrays or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean[] concat(final boolean[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return concat(List.of(arrays));
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code boolean} arrays.</p>
+	 * @param arrays the {@code boolean} array {@link List} to concatenate
+	 * @return the concatenated {@code boolean} array
+	 * @throws NullPointerException if the {@code boolean} array {@link List} or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean[] concat(final List<boolean[]> arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new boolean[arrays.stream().mapToInt(array -> array.length).sum()];
+		var offset = 0;
+		for (final var array : arrays) {
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
+	 * @param separator the {@code boolean} array separator
+	 * @param arrays {@code boolean} arrays to join
+	 * @return the joined {@code boolean} array
+	 * @throws NullPointerException if the {@code boolean} array separator, {@code boolean} arrays or any of them is
+	 *         {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean[] join(final boolean[] separator, final boolean[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(separator, List.of(arrays));
+	}
+
+	/**
+	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
+	 * @param separator the {@code boolean} array separator
+	 * @param arrays the {@code boolean} array {@link List} to join
+	 * @return the joined {@code boolean} array
+	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array {@link List} or
+	 *         any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean[] join(final boolean[] separator, final List<boolean[]> arrays) {
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		if (isEmpty(separator)) {
+			return concat(arrays);
+		}
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new boolean[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
+		final var iterator = arrays.iterator();
+		var array = iterator.next();
+		System.arraycopy(array, 0, result, 0, array.length);
+		var offset = array.length;
+		while (iterator.hasNext()) {
+			System.arraycopy(separator, 0, result, offset, separator.length);
+			offset += separator.length;
+			array = iterator.next();
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
 	}
 
 	/**
@@ -326,39 +461,6 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code boolean} array following the Fisher-Yates algorithm.</p>
-	 * @param array the {@code boolean} array to shuffle
-	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(boolean[], Random)} with
-	 *             {@link java.security.SecureRandom} instead
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static void shuffle(final boolean[] array) {
-		shuffle(array, ThreadLocalRandom.current());
-	}
-
-	/**
-	 * <p>Shuffle values in the given {@code boolean} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
-	 * @param array the {@code boolean} array to shuffle
-	 * @param random the {@code Random} object to use
-	 * @throws NullPointerException if the {@code boolean} array or the {@code Random} object is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.6.0
-	 */
-	public static void shuffle(final boolean[] array, final Random random) {
-		Ensure.notNull("array", array);
-		Ensure.notNull("random", random);
-		if (1 < array.length) {
-			for (var i = 0; i < array.length; ++i) {
-				swap(array, i, random.nextInt(i + 1));
-			}
-		}
-	}
-
-	/**
 	 * <p>Reverse values in the given {@code boolean} array.</p>
 	 * @param array the {@code boolean} array to reverse
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
@@ -402,6 +504,39 @@ public final class BooleanArrays {
 	}
 
 	/**
+	 * <p>Shuffle values in the given {@code boolean} array following the Fisher-Yates algorithm.</p>
+	 * @param array the {@code boolean} array to shuffle
+	 * @throws NullPointerException if the {@code boolean} array is {@code null}
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(boolean[], Random)} with
+	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static void shuffle(final boolean[] array) {
+		shuffle(array, ThreadLocalRandom.current());
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@code boolean} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.</p>
+	 * @param array the {@code boolean} array to shuffle
+	 * @param random the {@code Random} object to use
+	 * @throws NullPointerException if the {@code boolean} array or the {@code Random} object is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.6.0
+	 */
+	public static void shuffle(final boolean[] array, final Random random) {
+		Ensure.notNull("array", array);
+		Ensure.notNull("random", random);
+		if (1 < array.length) {
+			for (var i = 0; i < array.length; ++i) {
+				swap(array, i, random.nextInt(i + 1));
+			}
+		}
+	}
+
+	/**
 	 * <p>Swap two values in the given {@code boolean} array using their indexes.</p>
 	 * @param array the {@code boolean} array to swap
 	 * @param index1 the index of the first value
@@ -422,150 +557,15 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Add a {@code boolean} value at the end of the given {@code boolean} array.</p>
-	 * @param array the {@code boolean} array to add to
-	 * @param value the {@code boolean} value to add
-	 * @return a {@code boolean} array with the added {@code boolean} value
+	 * <p>Tell if a {@code boolean} array is empty.</p>
+	 * @param array the {@code boolean} array to test
+	 * @return {@code true} if the {@code boolean} array is empty
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @since 1.4.0
+	 * @since 1.2.0
 	 */
-	public static boolean[] add(final boolean[] array, final boolean value) {
+	public static boolean isEmpty(final boolean[] array) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
-	}
-
-	/**
-	 * <p>Add a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
-	 * @param array the {@code boolean} array to add to
-	 * @param index the index of the {@code boolean} value
-	 * @param value the {@code boolean} value to add
-	 * @return a {@code boolean} array with the added {@code boolean} value
-	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static boolean[] add(final boolean[] array, final int index, final boolean value) {
-		Ensure.notNull("array", array);
-		Ensure.between("index", index, 0, array.length);
-		final var result = new boolean[array.length + 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		result[index] = value;
-		if (index < array.length) {
-			System.arraycopy(array, index, result, index + 1, array.length - index);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Remove a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
-	 * @param array the {@code boolean} array to remove from
-	 * @param index the index of the {@code boolean} value
-	 * @return a {@code boolean} array with the removed {@code boolean} value
-	 * @throws NullPointerException if the {@code boolean} array is {@code null}
-	 * @throws IllegalArgumentException if the {@code boolean} array is empty or if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static boolean[] remove(final boolean[] array, final int index) {
-		Ensure.notNullAndNotEmpty("array", array);
-		Ensure.between("index", index, 0, array.length - 1);
-		final var result = new boolean[array.length - 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		if (index < array.length - 1) {
-			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code boolean} arrays.</p>
-	 * @param arrays {@code boolean} arrays to concatenate
-	 * @return the concatenated {@code boolean} array
-	 * @throws NullPointerException if {@code boolean} arrays or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean[] concat(final boolean[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return concat(List.of(arrays));
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code boolean} arrays.</p>
-	 * @param arrays the {@code boolean} array {@link List} to concatenate
-	 * @return the concatenated {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array {@link List} or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean[] concat(final List<boolean[]> arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new boolean[arrays.stream().mapToInt(array -> array.length).sum()];
-		var offset = 0;
-		for (final var array : arrays) {
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
-	 * @param separator the {@code boolean} array separator
-	 * @param arrays {@code boolean} arrays to join
-	 * @return the joined {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array separator, {@code boolean} arrays or any of them is
-	 *         {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean[] join(final boolean[] separator, final boolean[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return join(separator, List.of(arrays));
-	}
-
-	/**
-	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
-	 * @param separator the {@code boolean} array separator
-	 * @param arrays the {@code boolean} array {@link List} to join
-	 * @return the joined {@code boolean} array
-	 * @throws NullPointerException if the {@code boolean} array separator, the {@code boolean} array {@link List} or
-	 *         any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean[] join(final boolean[] separator, final List<boolean[]> arrays) {
-		Ensure.notNull("separator", separator);
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		if (isEmpty(separator)) {
-			return concat(arrays);
-		}
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new boolean[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
-		final var iterator = arrays.iterator();
-		var array = iterator.next();
-		System.arraycopy(array, 0, result, 0, array.length);
-		var offset = array.length;
-		while (iterator.hasNext()) {
-			System.arraycopy(separator, 0, result, offset, separator.length);
-			offset += separator.length;
-			array = iterator.next();
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
+		return 0 == array.length;
 	}
 
 	/**

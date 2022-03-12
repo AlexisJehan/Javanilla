@@ -101,15 +101,150 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code long} array is empty.</p>
-	 * @param array the {@code long} array to test
-	 * @return {@code true} if the {@code long} array is empty
+	 * <p>Add a {@code long} value at the end of the given {@code long} array.</p>
+	 * @param array the {@code long} array to add to
+	 * @param value the {@code long} value to add
+	 * @return a {@code long} array with the added {@code long} value
 	 * @throws NullPointerException if the {@code long} array is {@code null}
-	 * @since 1.2.0
+	 * @since 1.4.0
 	 */
-	public static boolean isEmpty(final long[] array) {
+	public static long[] add(final long[] array, final long value) {
 		Ensure.notNull("array", array);
-		return 0 == array.length;
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * @param array the {@code long} array to add to
+	 * @param index the index of the {@code long} value
+	 * @param value the {@code long} value to add
+	 * @return a {@code long} array with the added {@code long} value
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static long[] add(final long[] array, final int index, final long value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new long[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * @param array the {@code long} array to remove from
+	 * @param index the index of the {@code long} value
+	 * @return a {@code long} array with the removed {@code long} value
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code long} array is empty or if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static long[] remove(final long[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new long[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code long} arrays.</p>
+	 * @param arrays {@code long} arrays to concatenate
+	 * @return the concatenated {@code long} array
+	 * @throws NullPointerException if {@code long} arrays or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static long[] concat(final long[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return concat(List.of(arrays));
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code long} arrays.</p>
+	 * @param arrays the {@code long} array {@link List} to concatenate
+	 * @return the concatenated {@code long} array
+	 * @throws NullPointerException if the {@code long} array {@link List} or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static long[] concat(final List<long[]> arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new long[arrays.stream().mapToInt(array -> array.length).sum()];
+		var offset = 0;
+		for (final var array : arrays) {
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
+	 * @param separator the {@code long} array separator
+	 * @param arrays {@code long} arrays to join
+	 * @return the joined {@code long} array
+	 * @throws NullPointerException if the {@code long} array separator, {@code long} arrays or any of them is
+	 *         {@code null}
+	 * @since 1.0.0
+	 */
+	public static long[] join(final long[] separator, final long[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(separator, List.of(arrays));
+	}
+
+	/**
+	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
+	 * @param separator the {@code long} array separator
+	 * @param arrays the {@code long} array {@link List} to join
+	 * @return the joined {@code long} array
+	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array {@link List} or any of
+	 *         them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static long[] join(final long[] separator, final List<long[]> arrays) {
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		if (isEmpty(separator)) {
+			return concat(arrays);
+		}
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new long[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
+		final var iterator = arrays.iterator();
+		var array = iterator.next();
+		System.arraycopy(array, 0, result, 0, array.length);
+		var offset = array.length;
+		while (iterator.hasNext()) {
+			System.arraycopy(separator, 0, result, offset, separator.length);
+			offset += separator.length;
+			array = iterator.next();
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
 	}
 
 	/**
@@ -322,39 +457,6 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code long} array following the Fisher-Yates algorithm.</p>
-	 * @param array the {@code long} array to shuffle
-	 * @throws NullPointerException if the {@code long} array is {@code null}
-	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(long[], Random)} with
-	 *             {@link java.security.SecureRandom} instead
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static void shuffle(final long[] array) {
-		shuffle(array, ThreadLocalRandom.current());
-	}
-
-	/**
-	 * <p>Shuffle values in the given {@code long} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
-	 * @param array the {@code long} array to shuffle
-	 * @param random the {@code Random} object to use
-	 * @throws NullPointerException if the {@code long} array or the {@code Random} object is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.6.0
-	 */
-	public static void shuffle(final long[] array, final Random random) {
-		Ensure.notNull("array", array);
-		Ensure.notNull("random", random);
-		if (1 < array.length) {
-			for (var i = 0; i < array.length; ++i) {
-				swap(array, i, random.nextInt(i + 1));
-			}
-		}
-	}
-
-	/**
 	 * <p>Reverse values in the given {@code long} array.</p>
 	 * @param array the {@code long} array to reverse
 	 * @throws NullPointerException if the {@code long} array is {@code null}
@@ -398,6 +500,39 @@ public final class LongArrays {
 	}
 
 	/**
+	 * <p>Shuffle values in the given {@code long} array following the Fisher-Yates algorithm.</p>
+	 * @param array the {@code long} array to shuffle
+	 * @throws NullPointerException if the {@code long} array is {@code null}
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(long[], Random)} with
+	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static void shuffle(final long[] array) {
+		shuffle(array, ThreadLocalRandom.current());
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@code long} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.</p>
+	 * @param array the {@code long} array to shuffle
+	 * @param random the {@code Random} object to use
+	 * @throws NullPointerException if the {@code long} array or the {@code Random} object is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.6.0
+	 */
+	public static void shuffle(final long[] array, final Random random) {
+		Ensure.notNull("array", array);
+		Ensure.notNull("random", random);
+		if (1 < array.length) {
+			for (var i = 0; i < array.length; ++i) {
+				swap(array, i, random.nextInt(i + 1));
+			}
+		}
+	}
+
+	/**
 	 * <p>Swap two values in the given {@code long} array using their indexes.</p>
 	 * @param array the {@code long} array to swap
 	 * @param index1 the index of the first value
@@ -418,150 +553,15 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Add a {@code long} value at the end of the given {@code long} array.</p>
-	 * @param array the {@code long} array to add to
-	 * @param value the {@code long} value to add
-	 * @return a {@code long} array with the added {@code long} value
+	 * <p>Tell if a {@code long} array is empty.</p>
+	 * @param array the {@code long} array to test
+	 * @return {@code true} if the {@code long} array is empty
 	 * @throws NullPointerException if the {@code long} array is {@code null}
-	 * @since 1.4.0
+	 * @since 1.2.0
 	 */
-	public static long[] add(final long[] array, final long value) {
+	public static boolean isEmpty(final long[] array) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
-	}
-
-	/**
-	 * <p>Add a {@code long} value at the provided index of the given {@code long} array.</p>
-	 * @param array the {@code long} array to add to
-	 * @param index the index of the {@code long} value
-	 * @param value the {@code long} value to add
-	 * @return a {@code long} array with the added {@code long} value
-	 * @throws NullPointerException if the {@code long} array is {@code null}
-	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static long[] add(final long[] array, final int index, final long value) {
-		Ensure.notNull("array", array);
-		Ensure.between("index", index, 0, array.length);
-		final var result = new long[array.length + 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		result[index] = value;
-		if (index < array.length) {
-			System.arraycopy(array, index, result, index + 1, array.length - index);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Remove a {@code long} value at the provided index of the given {@code long} array.</p>
-	 * @param array the {@code long} array to remove from
-	 * @param index the index of the {@code long} value
-	 * @return a {@code long} array with the removed {@code long} value
-	 * @throws NullPointerException if the {@code long} array is {@code null}
-	 * @throws IllegalArgumentException if the {@code long} array is empty or if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static long[] remove(final long[] array, final int index) {
-		Ensure.notNullAndNotEmpty("array", array);
-		Ensure.between("index", index, 0, array.length - 1);
-		final var result = new long[array.length - 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		if (index < array.length - 1) {
-			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code long} arrays.</p>
-	 * @param arrays {@code long} arrays to concatenate
-	 * @return the concatenated {@code long} array
-	 * @throws NullPointerException if {@code long} arrays or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static long[] concat(final long[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return concat(List.of(arrays));
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code long} arrays.</p>
-	 * @param arrays the {@code long} array {@link List} to concatenate
-	 * @return the concatenated {@code long} array
-	 * @throws NullPointerException if the {@code long} array {@link List} or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static long[] concat(final List<long[]> arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new long[arrays.stream().mapToInt(array -> array.length).sum()];
-		var offset = 0;
-		for (final var array : arrays) {
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
-	 * @param separator the {@code long} array separator
-	 * @param arrays {@code long} arrays to join
-	 * @return the joined {@code long} array
-	 * @throws NullPointerException if the {@code long} array separator, {@code long} arrays or any of them is
-	 *         {@code null}
-	 * @since 1.0.0
-	 */
-	public static long[] join(final long[] separator, final long[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return join(separator, List.of(arrays));
-	}
-
-	/**
-	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
-	 * @param separator the {@code long} array separator
-	 * @param arrays the {@code long} array {@link List} to join
-	 * @return the joined {@code long} array
-	 * @throws NullPointerException if the {@code long} array separator, the {@code long} array {@link List} or any of
-	 *         them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static long[] join(final long[] separator, final List<long[]> arrays) {
-		Ensure.notNull("separator", separator);
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		if (isEmpty(separator)) {
-			return concat(arrays);
-		}
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new long[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
-		final var iterator = arrays.iterator();
-		var array = iterator.next();
-		System.arraycopy(array, 0, result, 0, array.length);
-		var offset = array.length;
-		while (iterator.hasNext()) {
-			System.arraycopy(separator, 0, result, offset, separator.length);
-			offset += separator.length;
-			array = iterator.next();
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
+		return 0 == array.length;
 	}
 
 	/**

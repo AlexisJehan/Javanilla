@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -84,14 +84,71 @@ final class CharArraysTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertThat(CharArrays.isEmpty(CharArrays.EMPTY)).isTrue();
-		assertThat(CharArrays.isEmpty(CharArrays.of(VALUES))).isFalse();
+	void testAdd() {
+		assertThat(CharArrays.add(CharArrays.EMPTY, '-')).containsExactly('-');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 0, '-')).containsExactly('-', 'a', 'b', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 1, '-')).containsExactly('a', '-', 'b', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 2, '-')).containsExactly('a', 'b', '-', 'c');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 3, '-')).containsExactly('a', 'b', 'c', '-');
+		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-')).containsExactly('a', 'b', 'c', '-');
 	}
 
 	@Test
-	void testIsEmptyInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.isEmpty(null));
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, '-'));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), -1, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), 3, '-'));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(CharArrays.remove(CharArrays.singleton('a'), 0)).isEmpty();
+		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 0)).containsExactly('b', 'c');
+		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 1)).containsExactly('a', 'c');
+		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 2)).containsExactly('a', 'b');
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.of(VALUES), 2));
+	}
+
+	@Test
+	void testConcat() {
+		assertThat(CharArrays.concat()).isEmpty();
+		assertThat(CharArrays.concat(CharArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(CharArrays.concat(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(CharArrays.concat(List.of(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1])))).containsExactly(VALUES);
+	}
+
+	@Test
+	void testConcatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((List<char[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat(Collections.singletonList(null)));
+	}
+
+	@Test
+	void testJoin() {
+		assertThat(CharArrays.join(CharArrays.EMPTY, CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(CharArrays.join(CharArrays.singleton('-'))).isEmpty();
+		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], '-', VALUES[1]);
+		assertThat(CharArrays.join(CharArrays.singleton('-'), List.of(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], '-', VALUES[1]);
+	}
+
+	@Test
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(null, CharArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (char[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (char[]) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (List<char[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test
@@ -208,26 +265,6 @@ final class CharArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffle() {
-		assertThat(CharArrays.singleton('a')).satisfies(array -> {
-			CharArrays.shuffle(array);
-			assertThat(array).containsExactly('a');
-		});
-		assertThat(CharArrays.of('a', 'b', 'a', 'b')).satisfies(array -> {
-			CharArrays.shuffle(array, new Random());
-			assertThat(array).containsExactlyInAnyOrder('a', 'b', 'a', 'b');
-		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(CharArrays.of(VALUES), null));
-	}
-
-	@Test
 	void testReverse() {
 		assertThat(CharArrays.singleton('a')).satisfies(array -> {
 			CharArrays.reverse(array);
@@ -277,6 +314,35 @@ final class CharArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleLegacy() {
+		assertThat(CharArrays.singleton('a')).satisfies(array -> {
+			CharArrays.shuffle(array);
+			assertThat(array).containsExactly('a');
+		});
+	}
+
+	@Test
+	void testShuffle() {
+		assertThat(CharArrays.of('a', 'b', 'a', 'b')).satisfies(array -> {
+			CharArrays.shuffle(array, ThreadLocalRandom.current());
+			assertThat(array).containsExactlyInAnyOrder('a', 'b', 'a', 'b');
+		});
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(null));
+	}
+
+	@Test
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(null, ThreadLocalRandom.current()));
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(CharArrays.of(VALUES), null));
+	}
+
+	@Test
 	void testSwap() {
 		assertThat(CharArrays.singleton('a')).satisfies(array -> {
 			CharArrays.swap(array, 0, 0);
@@ -298,71 +364,14 @@ final class CharArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(CharArrays.add(CharArrays.EMPTY, '-')).containsExactly('-');
-		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 0, '-')).containsExactly('-', 'a', 'b', 'c');
-		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 1, '-')).containsExactly('a', '-', 'b', 'c');
-		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 2, '-')).containsExactly('a', 'b', '-', 'c');
-		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 3, '-')).containsExactly('a', 'b', 'c', '-');
-		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-')).containsExactly('a', 'b', 'c', '-');
+	void testIsEmpty() {
+		assertThat(CharArrays.isEmpty(CharArrays.EMPTY)).isTrue();
+		assertThat(CharArrays.isEmpty(CharArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
-	void testAddInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, '-'));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), -1, '-'));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), 3, '-'));
-	}
-
-	@Test
-	void testRemove() {
-		assertThat(CharArrays.remove(CharArrays.singleton('a'), 0)).isEmpty();
-		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 0)).containsExactly('b', 'c');
-		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 1)).containsExactly('a', 'c');
-		assertThat(CharArrays.remove(CharArrays.of('a', 'b', 'c'), 2)).containsExactly('a', 'b');
-	}
-
-	@Test
-	void testRemoveInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.remove(null, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.of(VALUES), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.remove(CharArrays.of(VALUES), 2));
-	}
-
-	@Test
-	void testConcat() {
-		assertThat(CharArrays.concat()).isEmpty();
-		assertThat(CharArrays.concat(CharArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(CharArrays.concat(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(CharArrays.concat(List.of(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1])))).containsExactly(VALUES);
-	}
-
-	@Test
-	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((char[]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat((List<char[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.concat(Collections.singletonList(null)));
-	}
-
-	@Test
-	void testJoin() {
-		assertThat(CharArrays.join(CharArrays.EMPTY, CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(CharArrays.join(CharArrays.singleton('-'))).isEmpty();
-		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(CharArrays.join(CharArrays.singleton('-'), CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], '-', VALUES[1]);
-		assertThat(CharArrays.join(CharArrays.singleton('-'), List.of(CharArrays.singleton(VALUES[0]), CharArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], '-', VALUES[1]);
-	}
-
-	@Test
-	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(null, CharArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (char[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (char[]) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), (List<char[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.join(CharArrays.of(VALUES), Collections.singletonList(null)));
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.isEmpty(null));
 	}
 
 	@Test
@@ -382,7 +391,7 @@ final class CharArraysTest {
 	}
 
 	@Test
-	void testOfBoxedToBoxed() {
+	void testOfBoxedAndToBoxed() {
 		assertThat(CharArrays.of(CharArrays.toBoxed(CharArrays.EMPTY))).isEmpty();
 		assertThat(CharArrays.of(CharArrays.toBoxed(CharArrays.of(VALUES)))).containsExactly(VALUES);
 		assertThat(CharArrays.toBoxed(CharArrays.of(VALUES))).isInstanceOf(Character[].class);

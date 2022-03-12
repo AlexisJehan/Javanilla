@@ -27,6 +27,9 @@ import com.github.alexisjehan.javanilla.misc.tuples.SerializablePair;
 import com.github.alexisjehan.javanilla.misc.tuples.Single;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.NotSerializableException;
 import java.io.StreamCorruptedException;
@@ -45,9 +48,21 @@ final class SerializablesTest {
 	private static final SerializablePair<String, Integer> SERIALIZABLE = SerializablePair.of("foo", 1);
 
 	@Test
-	void testSerializeDeserialize() {
+	void testSerializeAndDeserialize() throws IOException {
 		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(SERIALIZABLE))).isEqualTo(SERIALIZABLE);
 		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			Serializables.serialize(outputStream, SERIALIZABLE);
+			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isEqualTo(SERIALIZABLE);
+			}
+		}
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			Serializables.serialize(outputStream, null);
+			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isNull();
+			}
+		}
 
 		// Serializable containing a non-serializable attribute
 		final var exceptionSerializable = new ArrayList<>(List.of(Single.of("bar")));

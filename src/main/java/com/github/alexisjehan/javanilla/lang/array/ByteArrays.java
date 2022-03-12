@@ -115,15 +115,150 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code byte} array is empty.</p>
-	 * @param array the {@code byte} array to test
-	 * @return {@code true} if the {@code byte} array is empty
+	 * <p>Add a {@code byte} value at the end of the given {@code byte} array.</p>
+	 * @param array the {@code byte} array to add to
+	 * @param value the {@code byte} value to add
+	 * @return a {@code byte} array with the added {@code byte} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @since 1.2.0
+	 * @since 1.4.0
 	 */
-	public static boolean isEmpty(final byte[] array) {
+	public static byte[] add(final byte[] array, final byte value) {
 		Ensure.notNull("array", array);
-		return 0 == array.length;
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add a {@code byte} value at the provided index of the given {@code byte} array.</p>
+	 * @param array the {@code byte} array to add to
+	 * @param index the index of the {@code byte} value
+	 * @param value the {@code byte} value to add
+	 * @return a {@code byte} array with the added {@code byte} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static byte[] add(final byte[] array, final int index, final byte value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new byte[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove a {@code byte} value at the provided index of the given {@code byte} array.</p>
+	 * @param array the {@code byte} array to remove from
+	 * @param index the index of the {@code byte} value
+	 * @return a {@code byte} array with the removed {@code byte} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code byte} array is empty or if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static byte[] remove(final byte[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new byte[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code byte} arrays.</p>
+	 * @param arrays {@code byte} arrays to concatenate
+	 * @return the concatenated {@code byte} array
+	 * @throws NullPointerException if {@code byte} arrays or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static byte[] concat(final byte[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return concat(List.of(arrays));
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code byte} arrays.</p>
+	 * @param arrays the {@code byte} array {@link List} to concatenate
+	 * @return the concatenated {@code byte} array
+	 * @throws NullPointerException if the {@code byte} array {@link List} or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static byte[] concat(final List<byte[]> arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new byte[arrays.stream().mapToInt(array -> array.length).sum()];
+		var offset = 0;
+		for (final var array : arrays) {
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
+	 * @param separator the {@code byte} array separator
+	 * @param arrays {@code byte} arrays to join
+	 * @return the joined {@code byte} array
+	 * @throws NullPointerException if the {@code byte} array separator, {@code byte} arrays or any of them is
+	 *         {@code null}
+	 * @since 1.0.0
+	 */
+	public static byte[] join(final byte[] separator, final byte[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(separator, List.of(arrays));
+	}
+
+	/**
+	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
+	 * @param separator the {@code byte} array separator
+	 * @param arrays the {@code byte} array {@link List} to join
+	 * @return the joined {@code byte} array
+	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array {@link List} or any of
+	 *         them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static byte[] join(final byte[] separator, final List<byte[]> arrays) {
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		if (isEmpty(separator)) {
+			return concat(arrays);
+		}
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new byte[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
+		final var iterator = arrays.iterator();
+		var array = iterator.next();
+		System.arraycopy(array, 0, result, 0, array.length);
+		var offset = array.length;
+		while (iterator.hasNext()) {
+			System.arraycopy(separator, 0, result, offset, separator.length);
+			offset += separator.length;
+			array = iterator.next();
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
 	}
 
 	/**
@@ -336,39 +471,6 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code byte} array following the Fisher-Yates algorithm.</p>
-	 * @param array the {@code byte} array to shuffle
-	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(byte[], Random)} with
-	 *             {@link java.security.SecureRandom} instead
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static void shuffle(final byte[] array) {
-		shuffle(array, ThreadLocalRandom.current());
-	}
-
-	/**
-	 * <p>Shuffle values in the given {@code byte} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
-	 * @param array the {@code byte} array to shuffle
-	 * @param random the {@code Random} object to use
-	 * @throws NullPointerException if the {@code byte} array or the {@code Random} object is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.6.0
-	 */
-	public static void shuffle(final byte[] array, final Random random) {
-		Ensure.notNull("array", array);
-		Ensure.notNull("random", random);
-		if (1 < array.length) {
-			for (var i = 0; i < array.length; ++i) {
-				swap(array, i, random.nextInt(i + 1));
-			}
-		}
-	}
-
-	/**
 	 * <p>Reverse values in the given {@code byte} array.</p>
 	 * @param array the {@code byte} array to reverse
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -412,6 +514,39 @@ public final class ByteArrays {
 	}
 
 	/**
+	 * <p>Shuffle values in the given {@code byte} array following the Fisher-Yates algorithm.</p>
+	 * @param array the {@code byte} array to shuffle
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(byte[], Random)} with
+	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static void shuffle(final byte[] array) {
+		shuffle(array, ThreadLocalRandom.current());
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@code byte} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.</p>
+	 * @param array the {@code byte} array to shuffle
+	 * @param random the {@code Random} object to use
+	 * @throws NullPointerException if the {@code byte} array or the {@code Random} object is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.6.0
+	 */
+	public static void shuffle(final byte[] array, final Random random) {
+		Ensure.notNull("array", array);
+		Ensure.notNull("random", random);
+		if (1 < array.length) {
+			for (var i = 0; i < array.length; ++i) {
+				swap(array, i, random.nextInt(i + 1));
+			}
+		}
+	}
+
+	/**
 	 * <p>Swap two values in the given {@code byte} array using their indexes.</p>
 	 * @param array the {@code byte} array to swap
 	 * @param index1 the index of the first value
@@ -432,150 +567,15 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Add a {@code byte} value at the end of the given {@code byte} array.</p>
-	 * @param array the {@code byte} array to add to
-	 * @param value the {@code byte} value to add
-	 * @return a {@code byte} array with the added {@code byte} value
+	 * <p>Tell if a {@code byte} array is empty.</p>
+	 * @param array the {@code byte} array to test
+	 * @return {@code true} if the {@code byte} array is empty
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @since 1.4.0
+	 * @since 1.2.0
 	 */
-	public static byte[] add(final byte[] array, final byte value) {
+	public static boolean isEmpty(final byte[] array) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
-	}
-
-	/**
-	 * <p>Add a {@code byte} value at the provided index of the given {@code byte} array.</p>
-	 * @param array the {@code byte} array to add to
-	 * @param index the index of the {@code byte} value
-	 * @param value the {@code byte} value to add
-	 * @return a {@code byte} array with the added {@code byte} value
-	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static byte[] add(final byte[] array, final int index, final byte value) {
-		Ensure.notNull("array", array);
-		Ensure.between("index", index, 0, array.length);
-		final var result = new byte[array.length + 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		result[index] = value;
-		if (index < array.length) {
-			System.arraycopy(array, index, result, index + 1, array.length - index);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Remove a {@code byte} value at the provided index of the given {@code byte} array.</p>
-	 * @param array the {@code byte} array to remove from
-	 * @param index the index of the {@code byte} value
-	 * @return a {@code byte} array with the removed {@code byte} value
-	 * @throws NullPointerException if the {@code byte} array is {@code null}
-	 * @throws IllegalArgumentException if the {@code byte} array is empty or if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static byte[] remove(final byte[] array, final int index) {
-		Ensure.notNullAndNotEmpty("array", array);
-		Ensure.between("index", index, 0, array.length - 1);
-		final var result = new byte[array.length - 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		if (index < array.length - 1) {
-			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code byte} arrays.</p>
-	 * @param arrays {@code byte} arrays to concatenate
-	 * @return the concatenated {@code byte} array
-	 * @throws NullPointerException if {@code byte} arrays or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] concat(final byte[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return concat(List.of(arrays));
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code byte} arrays.</p>
-	 * @param arrays the {@code byte} array {@link List} to concatenate
-	 * @return the concatenated {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array {@link List} or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] concat(final List<byte[]> arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new byte[arrays.stream().mapToInt(array -> array.length).sum()];
-		var offset = 0;
-		for (final var array : arrays) {
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
-	 * @param separator the {@code byte} array separator
-	 * @param arrays {@code byte} arrays to join
-	 * @return the joined {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array separator, {@code byte} arrays or any of them is
-	 *         {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] join(final byte[] separator, final byte[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return join(separator, List.of(arrays));
-	}
-
-	/**
-	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
-	 * @param separator the {@code byte} array separator
-	 * @param arrays the {@code byte} array {@link List} to join
-	 * @return the joined {@code byte} array
-	 * @throws NullPointerException if the {@code byte} array separator, the {@code byte} array {@link List} or any of
-	 *         them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static byte[] join(final byte[] separator, final List<byte[]> arrays) {
-		Ensure.notNull("separator", separator);
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		if (isEmpty(separator)) {
-			return concat(arrays);
-		}
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new byte[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
-		final var iterator = arrays.iterator();
-		var array = iterator.next();
-		System.arraycopy(array, 0, result, 0, array.length);
-		var offset = array.length;
-		while (iterator.hasNext()) {
-			System.arraycopy(separator, 0, result, offset, separator.length);
-			offset += separator.length;
-			array = iterator.next();
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
+		return 0 == array.length;
 	}
 
 	/**
@@ -585,7 +585,7 @@ public final class ByteArrays {
 	 * @since 1.1.0
 	 */
 	public static byte[] singleton(final byte value) {
-		return of(new byte[] {value});
+		return new byte[] {value};
 	}
 
 	/**
@@ -1294,7 +1294,7 @@ public final class ByteArrays {
 			binaryChars[8 * i + 4] = BINARY_CHARS[v >>> 3 & 0b00000001];
 			binaryChars[8 * i + 5] = BINARY_CHARS[v >>> 2 & 0b00000001];
 			binaryChars[8 * i + 6] = BINARY_CHARS[v >>> 1 & 0b00000001];
-			binaryChars[8 * i + 7] = BINARY_CHARS[v & 0x01];
+			binaryChars[8 * i + 7] = BINARY_CHARS[v & 0b00000001];
 		}
 		return new String(binaryChars);
 	}
@@ -1312,12 +1312,12 @@ public final class ByteArrays {
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var hexChars = new char[2 * bytes.length];
+		final var hexadecimalChars = new char[2 * bytes.length];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var v = Byte.toUnsignedInt(bytes[i]);
-			hexChars[i * 2] = HEXADECIMAL_CHARS[v >>> 4 & 0b00001111];
-			hexChars[i * 2 + 1] = HEXADECIMAL_CHARS[v & 0b00001111];
+			hexadecimalChars[2 * i] = HEXADECIMAL_CHARS[v >>> 4 & 0b00001111];
+			hexadecimalChars[2 * i + 1] = HEXADECIMAL_CHARS[v & 0b00001111];
 		}
-		return new String(hexChars);
+		return new String(hexadecimalChars);
 	}
 }

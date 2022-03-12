@@ -124,339 +124,6 @@ final class StringsTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertThat(Strings.isEmpty(Strings.EMPTY)).isTrue();
-		assertThat(Strings.isEmpty(STRING)).isFalse();
-	}
-
-	@Test
-	void testIsEmptyInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isEmpty(null));
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testIsBlank() {
-		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isBlank(" ")).isTrue();
-		assertThat(Strings.isBlank(STRING)).isFalse();
-		assertThat(Strings.isBlank(" \t\n\r")).isTrue();
-		assertThat(Strings.isBlank(" \t\n\r" + STRING)).isFalse();
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testIsBlankInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBlank(null));
-	}
-
-	@Test
-	void testIsBoolean() {
-		assertThat(Strings.isBoolean(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isBoolean("foo")).isFalse();
-		assertThat(Strings.isBoolean("true")).isTrue();
-		assertThat(Strings.isBoolean("false")).isTrue();
-	}
-
-	@Test
-	void testIsBooleanInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBoolean(null));
-	}
-
-	@Test
-	void testIsShort() {
-		assertThat(Strings.isShort(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isShort("foo")).isFalse();
-		assertThat(Strings.isShort(Short.toString(Short.MAX_VALUE))).isTrue();
-		assertThat(Strings.isShort(Short.toString(Short.MIN_VALUE))).isTrue();
-		assertThat(Strings.isShort(Integer.toString(Short.MAX_VALUE + 1))).isFalse();
-		assertThat(Strings.isShort(Integer.toString(Short.MIN_VALUE - 1))).isFalse();
-	}
-
-	@Test
-	void testIsShortInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isShort(null));
-	}
-
-	@Test
-	void testIsInt() {
-		assertThat(Strings.isInt(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isInt("foo")).isFalse();
-		assertThat(Strings.isInt(Integer.toString(Integer.MAX_VALUE))).isTrue();
-		assertThat(Strings.isInt(Integer.toString(Integer.MIN_VALUE))).isTrue();
-		assertThat(Strings.isInt(Long.toString(Integer.MAX_VALUE + 1L))).isFalse();
-		assertThat(Strings.isInt(Long.toString(Integer.MIN_VALUE - 1L))).isFalse();
-	}
-
-	@Test
-	void testIsIntInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isInt(null));
-	}
-
-	@Test
-	void testIsLong() {
-		assertThat(Strings.isLong(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isLong("foo")).isFalse();
-		assertThat(Strings.isLong(Long.toString(Long.MAX_VALUE))).isTrue();
-		assertThat(Strings.isLong(Long.toString(Long.MIN_VALUE))).isTrue();
-		assertThat(Strings.isLong(Double.toString(Long.MAX_VALUE + 1.0d))).isFalse();
-		assertThat(Strings.isLong(Double.toString(Long.MIN_VALUE - 1.0d))).isFalse();
-	}
-
-	@Test
-	void testIsLongInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isLong(null));
-	}
-
-	@Test
-	void testIsFloat() {
-		assertThat(Strings.isFloat(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isFloat("foo")).isFalse();
-		assertThat(Strings.isFloat(Float.toString(Float.MAX_VALUE))).isTrue();
-		assertThat(Strings.isFloat(Float.toString(Float.MIN_VALUE))).isTrue();
-		assertThat(Strings.isFloat(Float.toString(Float.POSITIVE_INFINITY))).isTrue();
-		assertThat(Strings.isFloat(Float.toString(Float.NEGATIVE_INFINITY))).isTrue();
-		assertThat(Strings.isFloat(Float.toString(Float.NaN))).isTrue();
-	}
-
-	@Test
-	void testIsFloatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isFloat(null));
-	}
-
-	@Test
-	void testIsDouble() {
-		assertThat(Strings.isDouble(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isDouble("foo")).isFalse();
-		assertThat(Strings.isDouble(Double.toString(Double.MAX_VALUE))).isTrue();
-		assertThat(Strings.isDouble(Double.toString(Double.MIN_VALUE))).isTrue();
-		assertThat(Strings.isDouble(Double.toString(Double.POSITIVE_INFINITY))).isTrue();
-		assertThat(Strings.isDouble(Double.toString(Double.NEGATIVE_INFINITY))).isTrue();
-		assertThat(Strings.isDouble(Double.toString(Double.NaN))).isTrue();
-	}
-
-	@Test
-	void testIsDoubleInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isDouble(null));
-	}
-
-	@Test
-	void testIsBinary() {
-		assertThat(Strings.isBinary(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isBinary("foo")).isFalse();
-		assertThat(Strings.isBinary("0")).isTrue();
-		assertThat(Strings.isBinary("1")).isTrue();
-		assertThat(Strings.isBinary("!")).isFalse();
-		assertThat(Strings.isBinary("2")).isFalse();
-		assertThat(Strings.isBinary("01")).isTrue();
-		assertThat(Strings.isBinary("?1")).isFalse();
-	}
-
-	@Test
-	void testIsBinaryInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBinary(null));
-	}
-
-	@Test
-	void testIsOctal() {
-		assertThat(Strings.isOctal(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isOctal("foo")).isFalse();
-		assertThat(Strings.isOctal("0")).isTrue();
-		assertThat(Strings.isOctal("7")).isTrue();
-		assertThat(Strings.isOctal("!")).isFalse();
-		assertThat(Strings.isOctal("8")).isFalse();
-		assertThat(Strings.isOctal("07")).isTrue();
-		assertThat(Strings.isOctal("?7")).isFalse();
-	}
-
-	@Test
-	void testIsOctalInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isOctal(null));
-	}
-
-	@Test
-	void testIsDecimal() {
-		assertThat(Strings.isDecimal(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isDecimal("foo")).isFalse();
-		assertThat(Strings.isDecimal("0")).isTrue();
-		assertThat(Strings.isDecimal("9")).isTrue();
-		assertThat(Strings.isDecimal("!")).isFalse();
-		assertThat(Strings.isDecimal("a")).isFalse();
-		assertThat(Strings.isDecimal("09")).isTrue();
-		assertThat(Strings.isDecimal("?9")).isFalse();
-	}
-
-	@Test
-	void testIsDecimalInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isDecimal(null));
-	}
-
-	@Test
-	void testIsHexadecimal() {
-		assertThat(Strings.isHexadecimal(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isHexadecimal("foo")).isFalse();
-		assertThat(Strings.isHexadecimal("0")).isTrue();
-		assertThat(Strings.isHexadecimal("f")).isTrue();
-		assertThat(Strings.isHexadecimal("F")).isTrue();
-		assertThat(Strings.isHexadecimal("!")).isFalse();
-		assertThat(Strings.isHexadecimal("g")).isFalse();
-		assertThat(Strings.isHexadecimal("0f")).isTrue();
-		assertThat(Strings.isHexadecimal("?f")).isFalse();
-		assertThat(Strings.isHexadecimal("0xff")).isFalse();
-	}
-
-	@Test
-	void testIsHexadecimalInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isHexadecimal(null));
-	}
-
-	@Test
-	void testIsBase64() {
-		assertThat(Strings.isBase64(Strings.EMPTY, true)).isFalse();
-
-		// With padding
-		assertThat(Strings.isBase64("Zg", true)).isFalse();
-		assertThat(Strings.isBase64("Zg=", true)).isFalse();
-		assertThat(Strings.isBase64("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64("Zg===", true)).isFalse();
-		assertThat(Strings.isBase64("ZgZg", true)).isTrue();
-
-		// Without padding
-		assertThat(Strings.isBase64("Zg", false)).isTrue();
-		assertThat(Strings.isBase64("Zg=", false)).isFalse();
-		assertThat(Strings.isBase64("Zg==", false)).isFalse();
-		assertThat(Strings.isBase64("Zg===", false)).isFalse();
-		assertThat(Strings.isBase64("ZgZg", false)).isTrue();
-
-		assertThat(Strings.isBase64("Zg!?", true)).isFalse();
-		assertThat(Strings.isBase64("Zg|:", true)).isFalse();
-		assertThat(Strings.isBase64("==Zg", true)).isFalse();
-		assertThat(Strings.isBase64("Zg=+", true)).isFalse();
-		assertThat(Strings.isBase64("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64("Zm8=", true)).isTrue();
-		assertThat(Strings.isBase64("+/==", true)).isTrue();
-		assertThat(Strings.isBase64("-_==", true)).isFalse();
-	}
-
-	@Test
-	void testIsBase64Invalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64(null, true));
-	}
-
-	@Test
-	void testIsBase64Url() {
-		assertThat(Strings.isBase64Url(Strings.EMPTY, true)).isFalse();
-
-		// With padding
-		assertThat(Strings.isBase64Url("Zg", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg=", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64Url("Zg===", true)).isFalse();
-		assertThat(Strings.isBase64Url("ZgZg", true)).isTrue();
-
-		// Without padding
-		assertThat(Strings.isBase64Url("Zg", false)).isTrue();
-		assertThat(Strings.isBase64Url("Zg=", false)).isFalse();
-		assertThat(Strings.isBase64Url("Zg==", false)).isFalse();
-		assertThat(Strings.isBase64Url("Zg===", false)).isFalse();
-		assertThat(Strings.isBase64Url("ZgZg", false)).isTrue();
-
-		assertThat(Strings.isBase64Url("Zg!?", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg|:", true)).isFalse();
-		assertThat(Strings.isBase64Url("==Zg", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg=-", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64Url("Zm8=", true)).isTrue();
-		assertThat(Strings.isBase64Url("+/==", true)).isFalse();
-		assertThat(Strings.isBase64Url("-_==", true)).isTrue();
-	}
-
-	@Test
-	void testIsBase64UrlInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64Url(null, true));
-	}
-
-	@Test
-	void testContainsIgnoreCase() {
-		assertThat(Strings.containsIgnoreCase("foo", Strings.EMPTY)).isTrue();
-		assertThat(Strings.containsIgnoreCase("foo", "fooo")).isFalse();
-		assertThat(Strings.containsIgnoreCase("foo", "ou")).isFalse();
-		assertThat(Strings.containsIgnoreCase("foo", "bar")).isFalse();
-		assertThat(Strings.containsIgnoreCase("foo", "fo")).isTrue();
-		assertThat(Strings.containsIgnoreCase("foo", "FO")).isTrue();
-		assertThat(Strings.containsIgnoreCase("foo", "FOO")).isTrue();
-	}
-
-	@Test
-	void testContainsIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(STRING, null));
-	}
-
-	@Test
-	void testStartsWithIgnoreCase() {
-		assertThat(Strings.startsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
-		assertThat(Strings.startsWithIgnoreCase("foo", "fooo")).isFalse();
-		assertThat(Strings.startsWithIgnoreCase("foo", "ou")).isFalse();
-		assertThat(Strings.startsWithIgnoreCase("foo", "bar")).isFalse();
-		assertThat(Strings.startsWithIgnoreCase("foo", "fo")).isTrue();
-		assertThat(Strings.startsWithIgnoreCase("foo", "FO")).isTrue();
-		assertThat(Strings.startsWithIgnoreCase("foo", "FOO")).isTrue();
-	}
-
-	@Test
-	void testStartsWithIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(STRING, null));
-	}
-
-	@Test
-	void testEndsWithIgnoreCase() {
-		assertThat(Strings.endsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
-		assertThat(Strings.endsWithIgnoreCase("foo", "fooo")).isFalse();
-		assertThat(Strings.endsWithIgnoreCase("foo", "ou")).isFalse();
-		assertThat(Strings.endsWithIgnoreCase("foo", "bar")).isFalse();
-		assertThat(Strings.endsWithIgnoreCase("foo", "oo")).isTrue();
-		assertThat(Strings.endsWithIgnoreCase("foo", "OO")).isTrue();
-		assertThat(Strings.endsWithIgnoreCase("foo", "FOO")).isTrue();
-	}
-
-	@Test
-	void testEndsWithIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(STRING, null));
-	}
-
-	@Test
-	void testFrequencyChar() {
-		assertThat(Strings.frequency(Strings.EMPTY, 'a')).isZero();
-		assertThat(Strings.frequency("foo", 'a')).isZero();
-		assertThat(Strings.frequency("foo", 'f')).isEqualTo(1);
-		assertThat(Strings.frequency("foo", 'o')).isEqualTo(2);
-	}
-
-	@Test
-	void testFrequencyCharInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, 'a'));
-	}
-
-	@Test
-	void testFrequencyCharSequence() {
-		assertThat(Strings.frequency(Strings.EMPTY, "foo")).isZero();
-		assertThat(Strings.frequency("foo", "bar")).isZero();
-		assertThat(Strings.frequency("foo", "foo")).isEqualTo(1);
-		assertThat(Strings.frequency("foofoo", "foo")).isEqualTo(2);
-		assertThat(Strings.frequency("foofoo", "ou")).isZero();
-	}
-
-	@Test
-	void testFrequencyCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(STRING, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.frequency(STRING, Strings.EMPTY));
-	}
-
-	@Test
 	void testCapitalize() {
 		assertThat(Strings.capitalize(Strings.EMPTY)).isEmpty();
 		assertThat(Strings.capitalize("a")).isEqualTo("A");
@@ -865,6 +532,339 @@ final class StringsTest {
 	void testConcatMergeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, STRING));
 		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(STRING, null));
+	}
+
+	@Test
+	void testContainsIgnoreCase() {
+		assertThat(Strings.containsIgnoreCase("foo", Strings.EMPTY)).isTrue();
+		assertThat(Strings.containsIgnoreCase("foo", "fooo")).isFalse();
+		assertThat(Strings.containsIgnoreCase("foo", "ou")).isFalse();
+		assertThat(Strings.containsIgnoreCase("foo", "bar")).isFalse();
+		assertThat(Strings.containsIgnoreCase("foo", "fo")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foo", "FO")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foo", "FOO")).isTrue();
+	}
+
+	@Test
+	void testContainsIgnoreCaseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(STRING, null));
+	}
+
+	@Test
+	void testStartsWithIgnoreCase() {
+		assertThat(Strings.startsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("foo", "fooo")).isFalse();
+		assertThat(Strings.startsWithIgnoreCase("foo", "ou")).isFalse();
+		assertThat(Strings.startsWithIgnoreCase("foo", "bar")).isFalse();
+		assertThat(Strings.startsWithIgnoreCase("foo", "fo")).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("foo", "FO")).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("foo", "FOO")).isTrue();
+	}
+
+	@Test
+	void testStartsWithIgnoreCaseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(STRING, null));
+	}
+
+	@Test
+	void testEndsWithIgnoreCase() {
+		assertThat(Strings.endsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("foo", "fooo")).isFalse();
+		assertThat(Strings.endsWithIgnoreCase("foo", "ou")).isFalse();
+		assertThat(Strings.endsWithIgnoreCase("foo", "bar")).isFalse();
+		assertThat(Strings.endsWithIgnoreCase("foo", "oo")).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("foo", "OO")).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("foo", "FOO")).isTrue();
+	}
+
+	@Test
+	void testEndsWithIgnoreCaseInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(STRING, null));
+	}
+
+	@Test
+	void testFrequencyChar() {
+		assertThat(Strings.frequency(Strings.EMPTY, 'a')).isZero();
+		assertThat(Strings.frequency("foo", 'a')).isZero();
+		assertThat(Strings.frequency("foo", 'f')).isEqualTo(1);
+		assertThat(Strings.frequency("foo", 'o')).isEqualTo(2);
+	}
+
+	@Test
+	void testFrequencyCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, 'a'));
+	}
+
+	@Test
+	void testFrequencyCharSequence() {
+		assertThat(Strings.frequency(Strings.EMPTY, "foo")).isZero();
+		assertThat(Strings.frequency("foo", "bar")).isZero();
+		assertThat(Strings.frequency("foo", "foo")).isEqualTo(1);
+		assertThat(Strings.frequency("foofoo", "foo")).isEqualTo(2);
+		assertThat(Strings.frequency("foofoo", "ou")).isZero();
+	}
+
+	@Test
+	void testFrequencyCharSequenceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(STRING, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.frequency(STRING, Strings.EMPTY));
+	}
+
+	@Test
+	void testIsEmpty() {
+		assertThat(Strings.isEmpty(Strings.EMPTY)).isTrue();
+		assertThat(Strings.isEmpty(STRING)).isFalse();
+	}
+
+	@Test
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isEmpty(null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testIsBlank() {
+		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBlank(" ")).isTrue();
+		assertThat(Strings.isBlank(STRING)).isFalse();
+		assertThat(Strings.isBlank(" \t\n\r")).isTrue();
+		assertThat(Strings.isBlank(" \t\n\r" + STRING)).isFalse();
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testIsBlankInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBlank(null));
+	}
+
+	@Test
+	void testIsBoolean() {
+		assertThat(Strings.isBoolean(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBoolean("foo")).isFalse();
+		assertThat(Strings.isBoolean("true")).isTrue();
+		assertThat(Strings.isBoolean("false")).isTrue();
+	}
+
+	@Test
+	void testIsBooleanInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBoolean(null));
+	}
+
+	@Test
+	void testIsShort() {
+		assertThat(Strings.isShort(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isShort("foo")).isFalse();
+		assertThat(Strings.isShort(Short.toString(Short.MAX_VALUE))).isTrue();
+		assertThat(Strings.isShort(Short.toString(Short.MIN_VALUE))).isTrue();
+		assertThat(Strings.isShort(Integer.toString(Short.MAX_VALUE + 1))).isFalse();
+		assertThat(Strings.isShort(Integer.toString(Short.MIN_VALUE - 1))).isFalse();
+	}
+
+	@Test
+	void testIsShortInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isShort(null));
+	}
+
+	@Test
+	void testIsInt() {
+		assertThat(Strings.isInt(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isInt("foo")).isFalse();
+		assertThat(Strings.isInt(Integer.toString(Integer.MAX_VALUE))).isTrue();
+		assertThat(Strings.isInt(Integer.toString(Integer.MIN_VALUE))).isTrue();
+		assertThat(Strings.isInt(Long.toString(Integer.MAX_VALUE + 1L))).isFalse();
+		assertThat(Strings.isInt(Long.toString(Integer.MIN_VALUE - 1L))).isFalse();
+	}
+
+	@Test
+	void testIsIntInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isInt(null));
+	}
+
+	@Test
+	void testIsLong() {
+		assertThat(Strings.isLong(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isLong("foo")).isFalse();
+		assertThat(Strings.isLong(Long.toString(Long.MAX_VALUE))).isTrue();
+		assertThat(Strings.isLong(Long.toString(Long.MIN_VALUE))).isTrue();
+		assertThat(Strings.isLong(Double.toString(Long.MAX_VALUE + 1.0d))).isFalse();
+		assertThat(Strings.isLong(Double.toString(Long.MIN_VALUE - 1.0d))).isFalse();
+	}
+
+	@Test
+	void testIsLongInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isLong(null));
+	}
+
+	@Test
+	void testIsFloat() {
+		assertThat(Strings.isFloat(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isFloat("foo")).isFalse();
+		assertThat(Strings.isFloat(Float.toString(Float.MAX_VALUE))).isTrue();
+		assertThat(Strings.isFloat(Float.toString(Float.MIN_VALUE))).isTrue();
+		assertThat(Strings.isFloat(Float.toString(Float.POSITIVE_INFINITY))).isTrue();
+		assertThat(Strings.isFloat(Float.toString(Float.NEGATIVE_INFINITY))).isTrue();
+		assertThat(Strings.isFloat(Float.toString(Float.NaN))).isTrue();
+	}
+
+	@Test
+	void testIsFloatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isFloat(null));
+	}
+
+	@Test
+	void testIsDouble() {
+		assertThat(Strings.isDouble(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isDouble("foo")).isFalse();
+		assertThat(Strings.isDouble(Double.toString(Double.MAX_VALUE))).isTrue();
+		assertThat(Strings.isDouble(Double.toString(Double.MIN_VALUE))).isTrue();
+		assertThat(Strings.isDouble(Double.toString(Double.POSITIVE_INFINITY))).isTrue();
+		assertThat(Strings.isDouble(Double.toString(Double.NEGATIVE_INFINITY))).isTrue();
+		assertThat(Strings.isDouble(Double.toString(Double.NaN))).isTrue();
+	}
+
+	@Test
+	void testIsDoubleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isDouble(null));
+	}
+
+	@Test
+	void testIsBinary() {
+		assertThat(Strings.isBinary(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBinary("foo")).isFalse();
+		assertThat(Strings.isBinary("0")).isTrue();
+		assertThat(Strings.isBinary("1")).isTrue();
+		assertThat(Strings.isBinary("!")).isFalse();
+		assertThat(Strings.isBinary("2")).isFalse();
+		assertThat(Strings.isBinary("01")).isTrue();
+		assertThat(Strings.isBinary("?1")).isFalse();
+	}
+
+	@Test
+	void testIsBinaryInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBinary(null));
+	}
+
+	@Test
+	void testIsOctal() {
+		assertThat(Strings.isOctal(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isOctal("foo")).isFalse();
+		assertThat(Strings.isOctal("0")).isTrue();
+		assertThat(Strings.isOctal("7")).isTrue();
+		assertThat(Strings.isOctal("!")).isFalse();
+		assertThat(Strings.isOctal("8")).isFalse();
+		assertThat(Strings.isOctal("07")).isTrue();
+		assertThat(Strings.isOctal("?7")).isFalse();
+	}
+
+	@Test
+	void testIsOctalInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isOctal(null));
+	}
+
+	@Test
+	void testIsDecimal() {
+		assertThat(Strings.isDecimal(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isDecimal("foo")).isFalse();
+		assertThat(Strings.isDecimal("0")).isTrue();
+		assertThat(Strings.isDecimal("9")).isTrue();
+		assertThat(Strings.isDecimal("!")).isFalse();
+		assertThat(Strings.isDecimal("a")).isFalse();
+		assertThat(Strings.isDecimal("09")).isTrue();
+		assertThat(Strings.isDecimal("?9")).isFalse();
+	}
+
+	@Test
+	void testIsDecimalInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isDecimal(null));
+	}
+
+	@Test
+	void testIsHexadecimal() {
+		assertThat(Strings.isHexadecimal(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isHexadecimal("foo")).isFalse();
+		assertThat(Strings.isHexadecimal("0")).isTrue();
+		assertThat(Strings.isHexadecimal("f")).isTrue();
+		assertThat(Strings.isHexadecimal("F")).isTrue();
+		assertThat(Strings.isHexadecimal("!")).isFalse();
+		assertThat(Strings.isHexadecimal("g")).isFalse();
+		assertThat(Strings.isHexadecimal("0f")).isTrue();
+		assertThat(Strings.isHexadecimal("?f")).isFalse();
+		assertThat(Strings.isHexadecimal("0xff")).isFalse();
+	}
+
+	@Test
+	void testIsHexadecimalInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isHexadecimal(null));
+	}
+
+	@Test
+	void testIsBase64() {
+		assertThat(Strings.isBase64(Strings.EMPTY, true)).isFalse();
+
+		// With padding
+		assertThat(Strings.isBase64("Zg", true)).isFalse();
+		assertThat(Strings.isBase64("Zg=", true)).isFalse();
+		assertThat(Strings.isBase64("Zg==", true)).isTrue();
+		assertThat(Strings.isBase64("Zg===", true)).isFalse();
+		assertThat(Strings.isBase64("ZgZg", true)).isTrue();
+
+		// Without padding
+		assertThat(Strings.isBase64("Zg", false)).isTrue();
+		assertThat(Strings.isBase64("Zg=", false)).isFalse();
+		assertThat(Strings.isBase64("Zg==", false)).isFalse();
+		assertThat(Strings.isBase64("Zg===", false)).isFalse();
+		assertThat(Strings.isBase64("ZgZg", false)).isTrue();
+
+		assertThat(Strings.isBase64("Zg!?", true)).isFalse();
+		assertThat(Strings.isBase64("Zg|:", true)).isFalse();
+		assertThat(Strings.isBase64("==Zg", true)).isFalse();
+		assertThat(Strings.isBase64("Zg=+", true)).isFalse();
+		assertThat(Strings.isBase64("Zg==", true)).isTrue();
+		assertThat(Strings.isBase64("Zm8=", true)).isTrue();
+		assertThat(Strings.isBase64("+/==", true)).isTrue();
+		assertThat(Strings.isBase64("-_==", true)).isFalse();
+	}
+
+	@Test
+	void testIsBase64Invalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64(null, true));
+	}
+
+	@Test
+	void testIsBase64Url() {
+		assertThat(Strings.isBase64Url(Strings.EMPTY, true)).isFalse();
+
+		// With padding
+		assertThat(Strings.isBase64Url("Zg", true)).isFalse();
+		assertThat(Strings.isBase64Url("Zg=", true)).isFalse();
+		assertThat(Strings.isBase64Url("Zg==", true)).isTrue();
+		assertThat(Strings.isBase64Url("Zg===", true)).isFalse();
+		assertThat(Strings.isBase64Url("ZgZg", true)).isTrue();
+
+		// Without padding
+		assertThat(Strings.isBase64Url("Zg", false)).isTrue();
+		assertThat(Strings.isBase64Url("Zg=", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg==", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg===", false)).isFalse();
+		assertThat(Strings.isBase64Url("ZgZg", false)).isTrue();
+
+		assertThat(Strings.isBase64Url("Zg!?", true)).isFalse();
+		assertThat(Strings.isBase64Url("Zg|:", true)).isFalse();
+		assertThat(Strings.isBase64Url("==Zg", true)).isFalse();
+		assertThat(Strings.isBase64Url("Zg=-", true)).isFalse();
+		assertThat(Strings.isBase64Url("Zg==", true)).isTrue();
+		assertThat(Strings.isBase64Url("Zm8=", true)).isTrue();
+		assertThat(Strings.isBase64Url("+/==", true)).isFalse();
+		assertThat(Strings.isBase64Url("-_==", true)).isTrue();
+	}
+
+	@Test
+	void testIsBase64UrlInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64Url(null, true));
 	}
 
 	@Test

@@ -182,459 +182,6 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is empty.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is empty
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isEmpty(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		return 0 == charSequence.length();
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is blank.</p>
-	 * <p><b>Note</b>: A {@code char} is blank or not based on {@link Character#isWhitespace(char)}.</p>
-	 * <p><b>Note</b>: An empty {@link CharSequence} is not considered as blank.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is blank
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @deprecated since 1.4.0, on Java 11, use {@code String#isBlank()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.4.0")
-	public static boolean isBlank(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		for (var i = 0; i < length; ++i) {
-			if (!Character.isWhitespace(charSequence.charAt(i))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code boolean} representation compatible with
-	 * {@link Boolean#toString(boolean)}.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a {@code boolean} representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isBoolean(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		return "true".contentEquals(charSequence) || "false".contentEquals(charSequence);
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code short} representation compatible with
-	 * {@link Short#toString(short)}.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a {@code short} representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isShort(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
-			return false;
-		}
-		try {
-			Short.parseShort(charSequence.toString());
-		} catch (final NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is an {@code int} representation compatible with
-	 * {@link Integer#toString(int)}.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is an {@code int} representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isInt(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
-			return false;
-		}
-		try {
-			Integer.parseInt(charSequence, 0, charSequence.length(), 10);
-		} catch (final NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code long} representation compatible with
-	 * {@link Long#toString(long)}.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a {@code long} representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isLong(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
-			return false;
-		}
-		try {
-			Long.parseLong(charSequence, 0, charSequence.length(), 10);
-		} catch (final NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code float} representation compatible with
-	 * {@link Float#toString(float)}.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a {@code float} representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isFloat(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
-			return false;
-		}
-		try {
-			Float.parseFloat(charSequence.toString());
-		} catch (final NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code double} representation compatible with
-	 * {@link Double#toString(double)}.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a {@code double} representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isDouble(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
-			return false;
-		}
-		try {
-			Double.parseDouble(charSequence.toString());
-		} catch (final NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a binary representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a binary representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isBinary(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if ('0' != c && '1' != c) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is an octal representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is an octal representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isOctal(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if ('0' > c || '7' < c) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a decimal representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a decimal representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isDecimal(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if ('0' > c || '9' < c) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a hexadecimal representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
-	 * <p><b>Note</b>: The case does not matter.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a hexadecimal representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean isHexadecimal(final CharSequence charSequence) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if (('a' > c || 'f' < c) && ('A' > c || 'F' < c) && ('0' > c || '9' < c)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation with or without padding.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @param withPadding {@code true} if the base 64 representation must have padding
-	 * @return {@code true} if the {@link CharSequence} is a base 64 representation
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean isBase64(final CharSequence charSequence, final boolean withPadding) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		var padding = false;
-		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '+' != c && '/' != c) {
-				if (!withPadding || '=' != c || i < length - 2) {
-					return false;
-				} else if (!padding) {
-					padding = true;
-				}
-			} else if (padding) {
-				return false;
-			}
-		}
-		return !withPadding || 0 == length % 4;
-	}
-
-	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames with or without padding.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @param withPadding {@code true} if the base 64 representation for URLs and filenames must have padding
-	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and filenames
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static boolean isBase64Url(final CharSequence charSequence, final boolean withPadding) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return false;
-		}
-		var padding = false;
-		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '-' != c && '_' != c) {
-				if (!withPadding || '=' != c || i < length - 2) {
-					return false;
-				} else if (!padding) {
-					padding = true;
-				}
-			} else if (padding) {
-				return false;
-			}
-		}
-		return !withPadding || 0 == length % 4;
-	}
-
-	/**
-	 * <p>Test if a {@link CharSequence} contains a target {@link CharSequence} ignoring the case.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @param target the target {@link CharSequence}
-	 * @return {@code true} if the {@link CharSequence} contains the target {@link CharSequence} ignoring the case
-	 * @throws NullPointerException if the {@link CharSequence} or the target {@link CharSequence} is {@code null}
-	 * @since 1.3.0
-	 */
-	public static boolean containsIgnoreCase(final CharSequence charSequence, final CharSequence target) {
-		Ensure.notNull("charSequence", charSequence);
-		Ensure.notNull("target", target);
-		final var targetLength = target.length();
-		if (0 == targetLength) {
-			return true;
-		}
-		final var length = charSequence.length();
-		if (length < targetLength) {
-			return false;
-		}
-		for (var i = 0; i < length - targetLength + 1; ++i) {
-			if (Character.toLowerCase(charSequence.charAt(i)) == Character.toLowerCase(target.charAt(0))) {
-				var j = 1;
-				while (i + j < length && j < targetLength && Character.toLowerCase(charSequence.charAt(i + j)) == Character.toLowerCase(target.charAt(j))) {
-					++j;
-				}
-				if (j == targetLength) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * <p>Test if a {@link CharSequence} starts with a prefix {@link CharSequence} ignoring the case.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @param prefix the prefix {@link CharSequence}
-	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@link CharSequence} ignoring the case
-	 * @throws NullPointerException if the {@link CharSequence} or the prefix {@link CharSequence} is {@code null}
-	 * @since 1.3.0
-	 */
-	public static boolean startsWithIgnoreCase(final CharSequence charSequence, final CharSequence prefix) {
-		Ensure.notNull("charSequence", charSequence);
-		Ensure.notNull("prefix", prefix);
-		final var prefixLength = prefix.length();
-		if (0 == prefixLength) {
-			return true;
-		}
-		final var length = charSequence.length();
-		if (length < prefixLength) {
-			return false;
-		}
-		for (var i = 0; i < prefixLength; ++i) {
-			if (Character.toUpperCase(charSequence.charAt(i)) != Character.toUpperCase(prefix.charAt(i))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Test if a {@link CharSequence} ends with a suffix {@link CharSequence} ignoring the case.</p>
-	 * @param charSequence the {@link CharSequence} to test
-	 * @param suffix the suffix {@link CharSequence}
-	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@link CharSequence} ignoring the case
-	 * @throws NullPointerException if the {@link CharSequence} or the suffix {@link CharSequence} is {@code null}
-	 * @since 1.3.0
-	 */
-	public static boolean endsWithIgnoreCase(final CharSequence charSequence, final CharSequence suffix) {
-		Ensure.notNull("charSequence", charSequence);
-		Ensure.notNull("suffix", suffix);
-		final var suffixLength = suffix.length();
-		if (0 == suffixLength) {
-			return true;
-		}
-		final var length = charSequence.length();
-		if (length < suffixLength) {
-			return false;
-		}
-		final var offset = length - suffixLength;
-		for (var i = 0; i < suffixLength; ++i) {
-			if (Character.toUpperCase(charSequence.charAt(offset + i)) != Character.toUpperCase(suffix.charAt(i))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Calculate the number of occurrences of the target {@code char} in the {@link CharSequence}.</p>
-	 * @param charSequence the {@link CharSequence} to iterate
-	 * @param target the target {@code char} of the frequency to calculate
-	 * @return the frequency of the {@code char}
-	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
-	 * @since 1.3.0
-	 */
-	public static int frequency(final CharSequence charSequence, final char target) {
-		Ensure.notNull("charSequence", charSequence);
-		final var length = charSequence.length();
-		if (0 == length) {
-			return 0;
-		}
-		var frequency = 0;
-		for (var i = 0; i < length; ++i) {
-			if (target == charSequence.charAt(i)) {
-				++frequency;
-			}
-		}
-		return frequency;
-	}
-
-	/**
-	 * <p>Calculate the number of occurrences of the target {@link CharSequence} in the {@link CharSequence}.</p>
-	 * @param charSequence the {@link CharSequence} to iterate
-	 * @param target the target {@link CharSequence} of the frequency to calculate
-	 * @return the frequency of the {@link CharSequence}
-	 * @throws NullPointerException if the {@link CharSequence} or the target {@link CharSequence} is {@code null}
-	 * @throws IllegalArgumentException if the target {@link CharSequence} is empty
-	 * @since 1.3.0
-	 */
-	public static int frequency(final CharSequence charSequence, final CharSequence target) {
-		Ensure.notNull("charSequence", charSequence);
-		Ensure.notNullAndNotEmpty("target", target);
-		final var length = charSequence.length();
-		final var targetLength = target.length();
-		if (length < targetLength) {
-			return 0;
-		}
-		var frequency = 0;
-		for (var i = 0; i < length - targetLength + 1; ++i) {
-			if (charSequence.charAt(i) == target.charAt(0)) {
-				var j = 1;
-				while (i + j < length && j < targetLength && charSequence.charAt(i + j) == target.charAt(j)) {
-					++j;
-				}
-				if (j == targetLength) {
-					++frequency;
-				}
-			}
-		}
-		return frequency;
-	}
-
-	/**
 	 * <p>Capitalize a {@link CharSequence} so that the first {@code char} is in uppercase and the others in
 	 * lowercase.</p>
 	 * @param charSequence the {@link CharSequence} to capitalize
@@ -1414,6 +961,459 @@ public final class Strings {
 			}
 		}
 		return start.toString() + end;
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} contains a target {@link CharSequence} ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param target the target {@link CharSequence}
+	 * @return {@code true} if the {@link CharSequence} contains the target {@link CharSequence} ignoring the case
+	 * @throws NullPointerException if the {@link CharSequence} or the target {@link CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static boolean containsIgnoreCase(final CharSequence charSequence, final CharSequence target) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("target", target);
+		final var targetLength = target.length();
+		if (0 == targetLength) {
+			return true;
+		}
+		final var length = charSequence.length();
+		if (length < targetLength) {
+			return false;
+		}
+		for (var i = 0; i < length - targetLength + 1; ++i) {
+			if (Character.toLowerCase(charSequence.charAt(i)) == Character.toLowerCase(target.charAt(0))) {
+				var j = 1;
+				while (i + j < length && j < targetLength && Character.toLowerCase(charSequence.charAt(i + j)) == Character.toLowerCase(target.charAt(j))) {
+					++j;
+				}
+				if (j == targetLength) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} starts with a prefix {@link CharSequence} ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param prefix the prefix {@link CharSequence}
+	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@link CharSequence} ignoring the case
+	 * @throws NullPointerException if the {@link CharSequence} or the prefix {@link CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static boolean startsWithIgnoreCase(final CharSequence charSequence, final CharSequence prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("prefix", prefix);
+		final var prefixLength = prefix.length();
+		if (0 == prefixLength) {
+			return true;
+		}
+		final var length = charSequence.length();
+		if (length < prefixLength) {
+			return false;
+		}
+		for (var i = 0; i < prefixLength; ++i) {
+			if (Character.toUpperCase(charSequence.charAt(i)) != Character.toUpperCase(prefix.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} ends with a suffix {@link CharSequence} ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param suffix the suffix {@link CharSequence}
+	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@link CharSequence} ignoring the case
+	 * @throws NullPointerException if the {@link CharSequence} or the suffix {@link CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static boolean endsWithIgnoreCase(final CharSequence charSequence, final CharSequence suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("suffix", suffix);
+		final var suffixLength = suffix.length();
+		if (0 == suffixLength) {
+			return true;
+		}
+		final var length = charSequence.length();
+		if (length < suffixLength) {
+			return false;
+		}
+		final var offset = length - suffixLength;
+		for (var i = 0; i < suffixLength; ++i) {
+			if (Character.toUpperCase(charSequence.charAt(offset + i)) != Character.toUpperCase(suffix.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Calculate the number of occurrences of the target {@code char} in the {@link CharSequence}.</p>
+	 * @param charSequence the {@link CharSequence} to iterate
+	 * @param target the target {@code char} of the frequency to calculate
+	 * @return the frequency of the {@code char}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.3.0
+	 */
+	public static int frequency(final CharSequence charSequence, final char target) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return 0;
+		}
+		var frequency = 0;
+		for (var i = 0; i < length; ++i) {
+			if (target == charSequence.charAt(i)) {
+				++frequency;
+			}
+		}
+		return frequency;
+	}
+
+	/**
+	 * <p>Calculate the number of occurrences of the target {@link CharSequence} in the {@link CharSequence}.</p>
+	 * @param charSequence the {@link CharSequence} to iterate
+	 * @param target the target {@link CharSequence} of the frequency to calculate
+	 * @return the frequency of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} or the target {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the target {@link CharSequence} is empty
+	 * @since 1.3.0
+	 */
+	public static int frequency(final CharSequence charSequence, final CharSequence target) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNullAndNotEmpty("target", target);
+		final var length = charSequence.length();
+		final var targetLength = target.length();
+		if (length < targetLength) {
+			return 0;
+		}
+		var frequency = 0;
+		for (var i = 0; i < length - targetLength + 1; ++i) {
+			if (charSequence.charAt(i) == target.charAt(0)) {
+				var j = 1;
+				while (i + j < length && j < targetLength && charSequence.charAt(i + j) == target.charAt(j)) {
+					++j;
+				}
+				if (j == targetLength) {
+					++frequency;
+				}
+			}
+		}
+		return frequency;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is empty.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is empty
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isEmpty(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		return 0 == charSequence.length();
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is blank.</p>
+	 * <p><b>Note</b>: A {@code char} is blank or not based on {@link Character#isWhitespace(char)}.</p>
+	 * <p><b>Note</b>: An empty {@link CharSequence} is not considered as blank.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is blank
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @deprecated since 1.4.0, on Java 11, use {@code String#isBlank()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.4.0")
+	public static boolean isBlank(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			if (!Character.isWhitespace(charSequence.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a {@code boolean} representation compatible with
+	 * {@link Boolean#toString(boolean)}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a {@code boolean} representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isBoolean(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		return "true".contentEquals(charSequence) || "false".contentEquals(charSequence);
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a {@code short} representation compatible with
+	 * {@link Short#toString(short)}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a {@code short} representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isShort(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		try {
+			Short.parseShort(charSequence.toString());
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is an {@code int} representation compatible with
+	 * {@link Integer#toString(int)}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is an {@code int} representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isInt(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		try {
+			Integer.parseInt(charSequence, 0, charSequence.length(), 10);
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a {@code long} representation compatible with
+	 * {@link Long#toString(long)}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a {@code long} representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isLong(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		try {
+			Long.parseLong(charSequence, 0, charSequence.length(), 10);
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a {@code float} representation compatible with
+	 * {@link Float#toString(float)}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a {@code float} representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isFloat(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		try {
+			Float.parseFloat(charSequence.toString());
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a {@code double} representation compatible with
+	 * {@link Double#toString(double)}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a {@code double} representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isDouble(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		try {
+			Double.parseDouble(charSequence.toString());
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a binary representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a binary representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isBinary(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if ('0' != c && '1' != c) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is an octal representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is an octal representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isOctal(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if ('0' > c || '7' < c) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a decimal representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a decimal representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isDecimal(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if ('0' > c || '9' < c) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a hexadecimal representation.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * <p><b>Note</b>: The case does not matter.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a hexadecimal representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean isHexadecimal(final CharSequence charSequence) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if (('a' > c || 'f' < c) && ('A' > c || 'F' < c) && ('0' > c || '9' < c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation with or without padding.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param withPadding {@code true} if the base 64 representation must have padding
+	 * @return {@code true} if the {@link CharSequence} is a base 64 representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean isBase64(final CharSequence charSequence, final boolean withPadding) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		var padding = false;
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '+' != c && '/' != c) {
+				if (!withPadding || '=' != c || i < length - 2) {
+					return false;
+				} else if (!padding) {
+					padding = true;
+				}
+			} else if (padding) {
+				return false;
+			}
+		}
+		return !withPadding || 0 == length % 4;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames with or without padding.</p>
+	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param withPadding {@code true} if the base 64 representation for URLs and filenames must have padding
+	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and filenames
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static boolean isBase64Url(final CharSequence charSequence, final boolean withPadding) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		var padding = false;
+		for (var i = 0; i < length; ++i) {
+			final var c = charSequence.charAt(i);
+			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '-' != c && '_' != c) {
+				if (!withPadding || '=' != c || i < length - 2) {
+					return false;
+				} else if (!padding) {
+					padding = true;
+				}
+			} else if (padding) {
+				return false;
+			}
+		}
+		return !withPadding || 0 == length % 4;
 	}
 
 	/**

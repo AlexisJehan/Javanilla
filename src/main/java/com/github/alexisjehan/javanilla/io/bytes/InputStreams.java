@@ -211,22 +211,6 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Read an {@link InputStream} from the current position to the end and return the length.</p>
-	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link InputStream} does not end.</p>
-	 * @param inputStream the {@link InputStream} to read
-	 * @return the length from the current position
-	 * @throws IOException might occur with I/O operations
-	 * @throws NullPointerException if the {@link InputStream} is {@code null}
-	 * @since 1.0.0
-	 */
-	@SuppressWarnings("deprecation")
-	public static long length(final InputStream inputStream) throws IOException {
-		Ensure.notNull("inputStream", inputStream);
-		return inputStream.transferTo(OutputStreams.EMPTY);
-	}
-
-	/**
 	 * <p>Concatenate multiple {@link InputStream}s.</p>
 	 * @param inputStreams the {@link InputStream} array to concatenate
 	 * @return the concatenated {@link InputStream}
@@ -301,6 +285,22 @@ public final class InputStreams {
 			list.add(iterator.next());
 		}
 		return new SequenceInputStream(Collections.enumeration(list));
+	}
+
+	/**
+	 * <p>Read an {@link InputStream} from the current position to the end and return the length.</p>
+	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link InputStream} does not end.</p>
+	 * @param inputStream the {@link InputStream} to read
+	 * @return the length from the current position
+	 * @throws IOException might occur with I/O operations
+	 * @throws NullPointerException if the {@link InputStream} is {@code null}
+	 * @since 1.0.0
+	 */
+	@SuppressWarnings("deprecation")
+	public static long length(final InputStream inputStream) throws IOException {
+		Ensure.notNull("inputStream", inputStream);
+		return inputStream.transferTo(OutputStreams.EMPTY);
 	}
 
 	/**

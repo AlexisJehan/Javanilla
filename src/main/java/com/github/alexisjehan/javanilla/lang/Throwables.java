@@ -50,6 +50,27 @@ public final class Throwables {
 	}
 
 	/**
+	 * <p>Wrap and return a {@link Throwable} as an unchecked {@link Exception} if it was not already.</p>
+	 * @param throwable the {@link Throwable} to wrap
+	 * @return an unchecked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static RuntimeException unchecked(final Throwable throwable) {
+		Ensure.notNull("throwable", throwable);
+		if (throwable instanceof RuntimeException) {
+			return (RuntimeException) throwable;
+		} else if (throwable instanceof IOException) {
+			return new UncheckedIOException((IOException) throwable);
+		} else if (throwable instanceof SQLException) {
+			return new UncheckedSQLException((SQLException) throwable);
+		} else if (throwable instanceof InterruptedException) {
+			return new UncheckedInterruptedException((InterruptedException) throwable);
+		}
+		return new RuntimeException(throwable);
+	}
+
+	/**
 	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
@@ -123,27 +144,6 @@ public final class Throwables {
 	public static <T> T uncheck(final ThrowableSupplier<T, ?> throwableSupplier) {
 		Ensure.notNull("throwableSupplier", throwableSupplier);
 		return ThrowableSupplier.unchecked(throwableSupplier).get();
-	}
-
-	/**
-	 * <p>Wrap and return a {@link Throwable} as an unchecked {@link Exception} if it was not already.</p>
-	 * @param throwable the {@link Throwable} to wrap
-	 * @return an unchecked {@link Exception}
-	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static RuntimeException unchecked(final Throwable throwable) {
-		Ensure.notNull("throwable", throwable);
-		if (throwable instanceof RuntimeException) {
-			return (RuntimeException) throwable;
-		} else if (throwable instanceof IOException) {
-			return new UncheckedIOException((IOException) throwable);
-		} else if (throwable instanceof SQLException) {
-			return new UncheckedSQLException((SQLException) throwable);
-		} else if (throwable instanceof InterruptedException) {
-			return new UncheckedInterruptedException((InterruptedException) throwable);
-		}
-		return new RuntimeException(throwable);
 	}
 
 	/**

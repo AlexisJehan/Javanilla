@@ -165,18 +165,6 @@ final class ReadersTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testLength() throws IOException {
-		assertThat(Readers.length(Readers.EMPTY)).isZero();
-		assertThat(Readers.length(Readers.of(CHARS))).isEqualTo(CHARS.length);
-	}
-
-	@Test
-	void testLengthInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Readers.length(null));
-	}
-
-	@Test
 	void testConcat() throws IOException {
 		assertThat(Readers.toChars(Readers.concat())).isEmpty();
 		assertThat(Readers.toChars(Readers.concat(Readers.singleton(CHARS[0])))).containsExactly(CHARS[0]);
@@ -227,6 +215,18 @@ final class ReadersTest {
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (Reader) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), (List<Reader>) null));
 		assertThatNullPointerException().isThrownBy(() -> Readers.join(CharArrays.singleton('-'), Collections.singletonList(null)));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testLength() throws IOException {
+		assertThat(Readers.length(Readers.EMPTY)).isZero();
+		assertThat(Readers.length(Readers.of(CHARS))).isEqualTo(CHARS.length);
+	}
+
+	@Test
+	void testLengthInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Readers.length(null));
 	}
 
 	@Test

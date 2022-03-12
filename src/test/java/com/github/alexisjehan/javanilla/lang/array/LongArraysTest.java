@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -84,14 +84,71 @@ final class LongArraysTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertThat(LongArrays.isEmpty(LongArrays.EMPTY)).isTrue();
-		assertThat(LongArrays.isEmpty(LongArrays.of(VALUES))).isFalse();
+	void testAdd() {
+		assertThat(LongArrays.add(LongArrays.EMPTY, 0L)).containsExactly(0L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0, 0L)).containsExactly(0L, 1L, 2L, 3L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 1, 0L)).containsExactly(1L, 0L, 2L, 3L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 2, 0L)).containsExactly(1L, 2L, 0L, 3L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 3, 0L)).containsExactly(1L, 2L, 3L, 0L);
+		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0L)).containsExactly(1L, 2L, 3L, 0L);
 	}
 
 	@Test
-	void testIsEmptyInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.isEmpty(null));
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0L));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), -1, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), 3, 0L));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(LongArrays.remove(LongArrays.singleton(1L), 0)).isEmpty();
+		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 0)).containsExactly(2L, 3L);
+		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 1)).containsExactly(1L, 3L);
+		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 2)).containsExactly(1L, 2L);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.of(VALUES), 2));
+	}
+
+	@Test
+	void testConcat() {
+		assertThat(LongArrays.concat()).isEmpty();
+		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(LongArrays.concat(List.of(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1])))).containsExactly(VALUES);
+	}
+
+	@Test
+	void testConcatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((long[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((long[]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((List<long[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat(Collections.singletonList(null)));
+	}
+
+	@Test
+	void testJoin() {
+		assertThat(LongArrays.join(LongArrays.EMPTY, LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(LongArrays.join(LongArrays.singleton(0L))).isEmpty();
+		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0L, VALUES[1]);
+		assertThat(LongArrays.join(LongArrays.singleton(0L), List.of(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0L, VALUES[1]);
+	}
+
+	@Test
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(null, LongArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[]) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (List<long[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test
@@ -208,26 +265,6 @@ final class LongArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffle() {
-		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
-			LongArrays.shuffle(array);
-			assertThat(array).containsExactly(1L);
-		});
-		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
-			LongArrays.shuffle(array, new Random());
-			assertThat(array).containsExactlyInAnyOrder(1L, 2L, 1L, 2L);
-		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(LongArrays.of(VALUES), null));
-	}
-
-	@Test
 	void testReverse() {
 		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.reverse(array);
@@ -277,6 +314,35 @@ final class LongArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleLegacy() {
+		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
+			LongArrays.shuffle(array);
+			assertThat(array).containsExactly(1L);
+		});
+	}
+
+	@Test
+	void testShuffle() {
+		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
+			LongArrays.shuffle(array, ThreadLocalRandom.current());
+			assertThat(array).containsExactlyInAnyOrder(1L, 2L, 1L, 2L);
+		});
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(null));
+	}
+
+	@Test
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(null, ThreadLocalRandom.current()));
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(LongArrays.of(VALUES), null));
+	}
+
+	@Test
 	void testSwap() {
 		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.swap(array, 0, 0);
@@ -298,71 +364,14 @@ final class LongArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(LongArrays.add(LongArrays.EMPTY, 0L)).containsExactly(0L);
-		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0, 0L)).containsExactly(0L, 1L, 2L, 3L);
-		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 1, 0L)).containsExactly(1L, 0L, 2L, 3L);
-		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 2, 0L)).containsExactly(1L, 2L, 0L, 3L);
-		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 3, 0L)).containsExactly(1L, 2L, 3L, 0L);
-		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0L)).containsExactly(1L, 2L, 3L, 0L);
+	void testIsEmpty() {
+		assertThat(LongArrays.isEmpty(LongArrays.EMPTY)).isTrue();
+		assertThat(LongArrays.isEmpty(LongArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
-	void testAddInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0L));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0, 0L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), -1, 0L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), 3, 0L));
-	}
-
-	@Test
-	void testRemove() {
-		assertThat(LongArrays.remove(LongArrays.singleton(1L), 0)).isEmpty();
-		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 0)).containsExactly(2L, 3L);
-		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 1)).containsExactly(1L, 3L);
-		assertThat(LongArrays.remove(LongArrays.of(1L, 2L, 3L), 2)).containsExactly(1L, 2L);
-	}
-
-	@Test
-	void testRemoveInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.remove(null, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.of(VALUES), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.remove(LongArrays.of(VALUES), 2));
-	}
-
-	@Test
-	void testConcat() {
-		assertThat(LongArrays.concat()).isEmpty();
-		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(LongArrays.concat(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(LongArrays.concat(List.of(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1])))).containsExactly(VALUES);
-	}
-
-	@Test
-	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((long[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((long[]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat((List<long[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.concat(Collections.singletonList(null)));
-	}
-
-	@Test
-	void testJoin() {
-		assertThat(LongArrays.join(LongArrays.EMPTY, LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(LongArrays.join(LongArrays.singleton(0L))).isEmpty();
-		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(LongArrays.join(LongArrays.singleton(0L), LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0L, VALUES[1]);
-		assertThat(LongArrays.join(LongArrays.singleton(0L), List.of(LongArrays.singleton(VALUES[0]), LongArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0L, VALUES[1]);
-	}
-
-	@Test
-	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(null, LongArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (long[]) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), (List<long[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.join(LongArrays.of(VALUES), Collections.singletonList(null)));
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.isEmpty(null));
 	}
 
 	@Test
@@ -382,7 +391,7 @@ final class LongArraysTest {
 	}
 
 	@Test
-	void testOfBoxedToBoxed() {
+	void testOfBoxedAndToBoxed() {
 		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.EMPTY))).isEmpty();
 		assertThat(LongArrays.of(LongArrays.toBoxed(LongArrays.of(VALUES)))).containsExactly(VALUES);
 		assertThat(LongArrays.toBoxed(LongArrays.of(VALUES))).isInstanceOf(Long[].class);

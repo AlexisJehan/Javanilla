@@ -124,324 +124,6 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if an {@link Object} array is empty.</p>
-	 * @param array the {@link Object} array to test
-	 * @return {@code true} if the {@link Object} array is empty
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isEmpty(final Object[] array) {
-		Ensure.notNull("array", array);
-		return 0 == array.length;
-	}
-
-	/**
-	 * <p>Tell if the {@link Object} array contains any of given {@link Object} values at least one.</p>
-	 * @param array the {@link Object} array to test
-	 * @param values {@link Object} values to test
-	 * @return {@code true} if any of given {@link Object} values is contained at least once by the {@link Object} array
-	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@link Object} values array is empty
-	 * @since 1.0.0
-	 */
-	public static boolean containsAny(final Object[] array, final Object... values) {
-		Ensure.notNull("array", array);
-		Ensure.notNullAndNotEmpty("values", values);
-		if (isEmpty(array)) {
-			return false;
-		}
-		for (final var value : values) {
-			for (final var element : array) {
-				if (Equals.equals(value, element)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * <p>Tell if the {@link Object} array contains all of given {@link Object} values at least one.</p>
-	 * @param array the {@link Object} array to test
-	 * @param values {@link Object} values to test
-	 * @return {@code true} if all of given {@link Object} values are contained at least once by the {@link Object}
-	 *         array
-	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@link Object} values array is empty
-	 * @since 1.0.0
-	 */
-	public static boolean containsAll(final Object[] array, final Object... values) {
-		Ensure.notNull("array", array);
-		Ensure.notNullAndNotEmpty("values", values);
-		if (isEmpty(array)) {
-			return false;
-		}
-		for (final var value : values) {
-			var contained = false;
-			for (final var element : array) {
-				if (Equals.equals(value, element)) {
-					contained = true;
-					break;
-				}
-			}
-			if (!contained) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if the {@link Object} array contains each given {@link Object} value only once.</p>
-	 * @param array the {@link Object} array to test
-	 * @param values {@link Object} values to test
-	 * @return {@code true} if each of given {@link Object} values are contained only once by the {@link Object} array
-	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@link Object} values array is empty
-	 * @since 1.1.0
-	 */
-	public static boolean containsOnce(final Object[] array, final Object... values) {
-		Ensure.notNull("array", array);
-		Ensure.notNullAndNotEmpty("values", values);
-		if (isEmpty(array)) {
-			return false;
-		}
-		for (final var value : values) {
-			var contained = false;
-			for (final var element : array) {
-				if (Equals.equals(value, element)) {
-					if (contained) {
-						return false;
-					}
-					contained = true;
-				}
-			}
-			if (!contained) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Tell if the {@link Object} array contains only given {@link Object} values at least one.</p>
-	 * @param array the {@link Object} array to test
-	 * @param values {@link Object} values to test
-	 * @return {@code true} if given {@link Object} values are only values contained by the {@link Object} array
-	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
-	 * @throws IllegalArgumentException if the {@link Object} values array is empty
-	 * @since 1.0.0
-	 */
-	public static boolean containsOnly(final Object[] array, final Object... values) {
-		Ensure.notNull("array", array);
-		Ensure.notNullAndNotEmpty("values", values);
-		if (isEmpty(array)) {
-			return false;
-		}
-		for (final var element : array) {
-			var contained = false;
-			for (final var value : values) {
-				if (Equals.equals(value, element)) {
-					contained = true;
-					break;
-				}
-			}
-			if (!contained) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * <p>Get the first index of the {@link Object} value in the {@link Object} array.</p>
-	 * @param array the {@link Object} array to iterate
-	 * @param value the {@link Object} value to search
-	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int indexOf(final Object[] array, final Object value) {
-		return indexOf(array, value, 0);
-	}
-
-	/**
-	 * <p>Get the first index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
-	 * @param array the {@link Object} array to iterate
-	 * @param value the {@link Object} value to search
-	 * @param fromIndex the starting index
-	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @throws IllegalArgumentException if the starting index is not valid
-	 * @since 1.0.0
-	 */
-	public static int indexOf(final Object[] array, final Object value, final int fromIndex) {
-		Ensure.notNull("array", array);
-		if (!isEmpty(array)) {
-			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
-			for (var i = fromIndex; i < array.length; ++i) {
-				if (Equals.equals(value, array[i])) {
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
-
-	/**
-	 * <p>Get the last index of the {@link Object} value in the {@link Object} array.</p>
-	 * @param array the {@link Object} array to iterate
-	 * @param value the {@link Object} value to search
-	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int lastIndexOf(final Object[] array, final Object value) {
-		return lastIndexOf(array, value, 0);
-	}
-
-	/**
-	 * <p>Get the last index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
-	 * @param array the {@link Object} array to iterate
-	 * @param value the {@link Object} value to search
-	 * @param fromIndex the starting index
-	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @throws IllegalArgumentException if the starting index is not valid
-	 * @since 1.0.0
-	 */
-	public static int lastIndexOf(final Object[] array, final Object value, final int fromIndex) {
-		Ensure.notNull("array", array);
-		if (!isEmpty(array)) {
-			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
-			for (var i = array.length - 1; i > fromIndex; --i) {
-				if (Equals.equals(value, array[i])) {
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
-
-	/**
-	 * <p>Calculate the number of occurrences of the {@link Object} value in the {@link Object} array.</p>
-	 * @param array the {@link Object} array to iterate
-	 * @param value the {@link Object} value of the frequency to calculate
-	 * @return the frequency of the {@link Object} value
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @since 1.3.0
-	 */
-	public static int frequency(final Object[] array, final Object value) {
-		Ensure.notNull("array", array);
-		if (isEmpty(array)) {
-			return 0;
-		}
-		var frequency = 0;
-		for (final var element : array) {
-			if (Equals.equals(value, element)) {
-				++frequency;
-			}
-		}
-		return frequency;
-	}
-
-	/**
-	 * <p>Shuffle values in the given {@link Object} array following the Fisher-Yates algorithm.</p>
-	 * @param array the {@link Object} array to shuffle
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(Object[], Random)} with
-	 *             {@link java.security.SecureRandom} instead
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static void shuffle(final Object[] array) {
-		shuffle(array, ThreadLocalRandom.current());
-	}
-
-	/**
-	 * <p>Shuffle values in the given {@link Object} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
-	 * @param array the {@link Object} array to shuffle
-	 * @param random the {@code Random} object to use
-	 * @throws NullPointerException if the {@link Object} array or the {@code Random} object is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.6.0
-	 */
-	public static void shuffle(final Object[] array, final Random random) {
-		Ensure.notNull("array", array);
-		Ensure.notNull("random", random);
-		if (1 < array.length) {
-			for (var i = 0; i < array.length; ++i) {
-				swap(array, i, random.nextInt(i + 1));
-			}
-		}
-	}
-
-	/**
-	 * <p>Reverse values in the given {@link Object} array.</p>
-	 * @param array the {@link Object} array to reverse
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @since 1.2.0
-	 */
-	public static void reverse(final Object[] array) {
-		Ensure.notNull("array", array);
-		if (1 < array.length) {
-			for (var i = 0; i < array.length / 2; ++i) {
-				swap(array, i, array.length - i - 1);
-			}
-		}
-	}
-
-	/**
-	 * <p>Reorder values in the given {@link Object} array using provided indexes.</p>
-	 * @param array the {@link Object} array to reorder
-	 * @param indexes indexes to use
-	 * @throws NullPointerException if the {@link Object} array or the indexes array is {@code null}
-	 * @throws IllegalArgumentException if {@link Object} array is empty, if the {@link Object} array length is not
-	 *         equal to the indexes array length, if indexes are not distinct or if any index is not valid
-	 * @since 1.2.0
-	 */
-	public static void reorder(final Object[] array, final int... indexes) {
-		Ensure.notNullAndNotEmpty("array", array);
-		Ensure.notNull("indexes", indexes);
-		Ensure.equalTo("indexes length", indexes.length, array.length);
-		if (array.length != Arrays.stream(indexes).distinct().count()) {
-			throw new IllegalArgumentException("Invalid indexes: " + ToString.toString(indexes) + " (distinct expected)");
-		}
-		if (1 < array.length) {
-			for (var i = 0; i < array.length; ++i) {
-				var j = indexes[i];
-				Ensure.between("index", j, 0, array.length - 1);
-				while (j < i) {
-					j = indexes[j];
-				}
-				swap(array, i, j);
-			}
-		}
-	}
-
-	/**
-	 * <p>Swap two values in the given {@link Object} array using their indexes.</p>
-	 * @param array the {@link Object} array to swap
-	 * @param index1 the index of the first value
-	 * @param index2 the index of the second value
-	 * @throws NullPointerException if the {@link Object} array is {@code null}
-	 * @throws IllegalArgumentException if any index is not valid
-	 * @since 1.2.0
-	 */
-	public static void swap(final Object[] array, final int index1, final int index2) {
-		Ensure.notNull("array", array);
-		Ensure.between("index1", index1, 0, array.length - 1);
-		Ensure.between("index2", index2, 0, array.length - 1);
-		if (index1 != index2) {
-			final var value = array[index1];
-			array[index1] = array[index2];
-			array[index2] = value;
-		}
-	}
-
-	/**
 	 * <p>Add an {@link Object} value at the end of the given {@link Object} array.</p>
 	 * @param array the {@link Object} array to add to
 	 * @param value the {@link Object} value to add
@@ -670,6 +352,324 @@ public final class ObjectArrays {
 			offset += array.length;
 		}
 		return result;
+	}
+
+	/**
+	 * <p>Tell if the {@link Object} array contains any of given {@link Object} values at least one.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if any of given {@link Object} values is contained at least once by the {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
+	 * @since 1.0.0
+	 */
+	public static boolean containsAny(final Object[] array, final Object... values) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
+			return false;
+		}
+		for (final var value : values) {
+			for (final var element : array) {
+				if (Equals.equals(value, element)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * <p>Tell if the {@link Object} array contains all of given {@link Object} values at least one.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if all of given {@link Object} values are contained at least once by the {@link Object}
+	 *         array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
+	 * @since 1.0.0
+	 */
+	public static boolean containsAll(final Object[] array, final Object... values) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
+			return false;
+		}
+		for (final var value : values) {
+			var contained = false;
+			for (final var element : array) {
+				if (Equals.equals(value, element)) {
+					contained = true;
+					break;
+				}
+			}
+			if (!contained) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if the {@link Object} array contains each given {@link Object} value only once.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if each of given {@link Object} values are contained only once by the {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
+	 * @since 1.1.0
+	 */
+	public static boolean containsOnce(final Object[] array, final Object... values) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
+			return false;
+		}
+		for (final var value : values) {
+			var contained = false;
+			for (final var element : array) {
+				if (Equals.equals(value, element)) {
+					if (contained) {
+						return false;
+					}
+					contained = true;
+				}
+			}
+			if (!contained) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Tell if the {@link Object} array contains only given {@link Object} values at least one.</p>
+	 * @param array the {@link Object} array to test
+	 * @param values {@link Object} values to test
+	 * @return {@code true} if given {@link Object} values are only values contained by the {@link Object} array
+	 * @throws NullPointerException if the {@link Object} array or the {@link Object} values array is {@code null}
+	 * @throws IllegalArgumentException if the {@link Object} values array is empty
+	 * @since 1.0.0
+	 */
+	public static boolean containsOnly(final Object[] array, final Object... values) {
+		Ensure.notNull("array", array);
+		Ensure.notNullAndNotEmpty("values", values);
+		if (isEmpty(array)) {
+			return false;
+		}
+		for (final var element : array) {
+			var contained = false;
+			for (final var value : values) {
+				if (Equals.equals(value, element)) {
+					contained = true;
+					break;
+				}
+			}
+			if (!contained) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Get the first index of the {@link Object} value in the {@link Object} array.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
+	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int indexOf(final Object[] array, final Object value) {
+		return indexOf(array, value, 0);
+	}
+
+	/**
+	 * <p>Get the first index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
+	 * @param fromIndex the starting index
+	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @throws IllegalArgumentException if the starting index is not valid
+	 * @since 1.0.0
+	 */
+	public static int indexOf(final Object[] array, final Object value, final int fromIndex) {
+		Ensure.notNull("array", array);
+		if (!isEmpty(array)) {
+			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
+			for (var i = fromIndex; i < array.length; ++i) {
+				if (Equals.equals(value, array[i])) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * <p>Get the last index of the {@link Object} value in the {@link Object} array.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
+	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int lastIndexOf(final Object[] array, final Object value) {
+		return lastIndexOf(array, value, 0);
+	}
+
+	/**
+	 * <p>Get the last index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value to search
+	 * @param fromIndex the starting index
+	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @throws IllegalArgumentException if the starting index is not valid
+	 * @since 1.0.0
+	 */
+	public static int lastIndexOf(final Object[] array, final Object value, final int fromIndex) {
+		Ensure.notNull("array", array);
+		if (!isEmpty(array)) {
+			Ensure.between("fromIndex", fromIndex, 0, array.length - 1);
+			for (var i = array.length - 1; i > fromIndex; --i) {
+				if (Equals.equals(value, array[i])) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * <p>Calculate the number of occurrences of the {@link Object} value in the {@link Object} array.</p>
+	 * @param array the {@link Object} array to iterate
+	 * @param value the {@link Object} value of the frequency to calculate
+	 * @return the frequency of the {@link Object} value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @since 1.3.0
+	 */
+	public static int frequency(final Object[] array, final Object value) {
+		Ensure.notNull("array", array);
+		if (isEmpty(array)) {
+			return 0;
+		}
+		var frequency = 0;
+		for (final var element : array) {
+			if (Equals.equals(value, element)) {
+				++frequency;
+			}
+		}
+		return frequency;
+	}
+
+	/**
+	 * <p>Reverse values in the given {@link Object} array.</p>
+	 * @param array the {@link Object} array to reverse
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @since 1.2.0
+	 */
+	public static void reverse(final Object[] array) {
+		Ensure.notNull("array", array);
+		if (1 < array.length) {
+			for (var i = 0; i < array.length / 2; ++i) {
+				swap(array, i, array.length - i - 1);
+			}
+		}
+	}
+
+	/**
+	 * <p>Reorder values in the given {@link Object} array using provided indexes.</p>
+	 * @param array the {@link Object} array to reorder
+	 * @param indexes indexes to use
+	 * @throws NullPointerException if the {@link Object} array or the indexes array is {@code null}
+	 * @throws IllegalArgumentException if {@link Object} array is empty, if the {@link Object} array length is not
+	 *         equal to the indexes array length, if indexes are not distinct or if any index is not valid
+	 * @since 1.2.0
+	 */
+	public static void reorder(final Object[] array, final int... indexes) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.notNull("indexes", indexes);
+		Ensure.equalTo("indexes length", indexes.length, array.length);
+		if (array.length != Arrays.stream(indexes).distinct().count()) {
+			throw new IllegalArgumentException("Invalid indexes: " + ToString.toString(indexes) + " (distinct expected)");
+		}
+		if (1 < array.length) {
+			for (var i = 0; i < array.length; ++i) {
+				var j = indexes[i];
+				Ensure.between("index", j, 0, array.length - 1);
+				while (j < i) {
+					j = indexes[j];
+				}
+				swap(array, i, j);
+			}
+		}
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@link Object} array following the Fisher-Yates algorithm.</p>
+	 * @param array the {@link Object} array to shuffle
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(Object[], Random)} with
+	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static void shuffle(final Object[] array) {
+		shuffle(array, ThreadLocalRandom.current());
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@link Object} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.</p>
+	 * @param array the {@link Object} array to shuffle
+	 * @param random the {@code Random} object to use
+	 * @throws NullPointerException if the {@link Object} array or the {@code Random} object is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.6.0
+	 */
+	public static void shuffle(final Object[] array, final Random random) {
+		Ensure.notNull("array", array);
+		Ensure.notNull("random", random);
+		if (1 < array.length) {
+			for (var i = 0; i < array.length; ++i) {
+				swap(array, i, random.nextInt(i + 1));
+			}
+		}
+	}
+
+	/**
+	 * <p>Swap two values in the given {@link Object} array using their indexes.</p>
+	 * @param array the {@link Object} array to swap
+	 * @param index1 the index of the first value
+	 * @param index2 the index of the second value
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @throws IllegalArgumentException if any index is not valid
+	 * @since 1.2.0
+	 */
+	public static void swap(final Object[] array, final int index1, final int index2) {
+		Ensure.notNull("array", array);
+		Ensure.between("index1", index1, 0, array.length - 1);
+		Ensure.between("index2", index2, 0, array.length - 1);
+		if (index1 != index2) {
+			final var value = array[index1];
+			array[index1] = array[index2];
+			array[index2] = value;
+		}
+	}
+
+	/**
+	 * <p>Tell if an {@link Object} array is empty.</p>
+	 * @param array the {@link Object} array to test
+	 * @return {@code true} if the {@link Object} array is empty
+	 * @throws NullPointerException if the {@link Object} array is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isEmpty(final Object[] array) {
+		Ensure.notNull("array", array);
+		return 0 == array.length;
 	}
 
 	/**

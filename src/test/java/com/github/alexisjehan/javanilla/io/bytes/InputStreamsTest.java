@@ -171,18 +171,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testLength() throws IOException {
-		assertThat(InputStreams.length(InputStreams.EMPTY)).isZero();
-		assertThat(InputStreams.length(InputStreams.of(BYTES))).isEqualTo(BYTES.length);
-	}
-
-	@Test
-	void testLengthInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> InputStreams.length(null));
-	}
-
-	@Test
 	void testConcat() {
 		assertThat(InputStreams.concat()).isEmpty();
 		assertThat(InputStreams.concat(InputStreams.singleton(BYTES[0]))).hasBinaryContent(ByteArrays.singleton(BYTES[0]));
@@ -214,6 +202,18 @@ final class InputStreamsTest {
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (InputStream) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), (List<InputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> InputStreams.join(ByteArrays.singleton((byte) 0), Collections.singletonList(null)));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testLength() throws IOException {
+		assertThat(InputStreams.length(InputStreams.EMPTY)).isZero();
+		assertThat(InputStreams.length(InputStreams.of(BYTES))).isEqualTo(BYTES.length);
+	}
+
+	@Test
+	void testLengthInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> InputStreams.length(null));
 	}
 
 	@Test

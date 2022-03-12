@@ -42,6 +42,22 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class ThrowablesTest {
 
 	@Test
+	void testUnchecked() {
+		assertThat(Throwables.unchecked(new IOException())).isInstanceOf(UncheckedIOException.class);
+		assertThat(Throwables.unchecked(new SQLException())).isInstanceOf(UncheckedSQLException.class);
+		assertThat(Throwables.unchecked(new InterruptedException())).isInstanceOf(UncheckedInterruptedException.class);
+		assertThat(Throwables.unchecked(new CloneNotSupportedException())).isInstanceOf(RuntimeException.class);
+		assertThat(Throwables.unchecked(new Exception())).isInstanceOf(RuntimeException.class);
+		assertThat(Throwables.unchecked(new RuntimeException())).isInstanceOf(RuntimeException.class);
+	}
+	@Test
+	void testUncheckedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> {
+			throw Throwables.unchecked(null);
+		});
+	}
+
+	@Test
 	@SuppressWarnings("deprecation")
 	void testIsChecked() {
 		assertThat(Throwables.isChecked(new Exception())).isTrue();
@@ -117,23 +133,6 @@ final class ThrowablesTest {
 	@Test
 	void testUncheckThrowableSupplierInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<Integer, IOException>) null));
-	}
-
-	@Test
-	void testUnchecked() {
-		assertThat(Throwables.unchecked(new IOException())).isInstanceOf(UncheckedIOException.class);
-		assertThat(Throwables.unchecked(new SQLException())).isInstanceOf(UncheckedSQLException.class);
-		assertThat(Throwables.unchecked(new InterruptedException())).isInstanceOf(UncheckedInterruptedException.class);
-		assertThat(Throwables.unchecked(new CloneNotSupportedException())).isInstanceOf(RuntimeException.class);
-		assertThat(Throwables.unchecked(new Exception())).isInstanceOf(RuntimeException.class);
-		assertThat(Throwables.unchecked(new RuntimeException())).isInstanceOf(RuntimeException.class);
-	}
-
-	@Test
-	void testUncheckedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> {
-			throw Throwables.unchecked(null);
-		});
 	}
 
 	@Test

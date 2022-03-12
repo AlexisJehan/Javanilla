@@ -101,15 +101,150 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Tell if an {@code int} array is empty.</p>
-	 * @param array the {@code int} array to test
-	 * @return {@code true} if the {@code int} array is empty
+	 * <p>Add an {@code int} value at the end of the given {@code int} array.</p>
+	 * @param array the {@code int} array to add to
+	 * @param value the {@code int} value to add
+	 * @return an {@code int} array with the added {@code int} value
 	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @since 1.2.0
+	 * @since 1.4.0
 	 */
-	public static boolean isEmpty(final int[] array) {
+	public static int[] add(final int[] array, final int value) {
 		Ensure.notNull("array", array);
-		return 0 == array.length;
+		return add(array, array.length, value);
+	}
+
+	/**
+	 * <p>Add an {@code int} value at the provided index of the given {@code int} array.</p>
+	 * @param array the {@code int} array to add to
+	 * @param index the index of the {@code int} value
+	 * @param value the {@code int} value to add
+	 * @return an {@code int} array with the added {@code int} value
+	 * @throws NullPointerException if the {@code int} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static int[] add(final int[] array, final int index, final int value) {
+		Ensure.notNull("array", array);
+		Ensure.between("index", index, 0, array.length);
+		final var result = new int[array.length + 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		result[index] = value;
+		if (index < array.length) {
+			System.arraycopy(array, index, result, index + 1, array.length - index);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Remove an {@code int} value at the provided index of the given {@code int} array.</p>
+	 * @param array the {@code int} array to remove from
+	 * @param index the index of the {@code int} value
+	 * @return an {@code int} array with the removed {@code int} value
+	 * @throws NullPointerException if the {@code int} array is {@code null}
+	 * @throws IllegalArgumentException if the {@code int} array is empty or if the index is not valid
+	 * @since 1.4.0
+	 */
+	public static int[] remove(final int[] array, final int index) {
+		Ensure.notNullAndNotEmpty("array", array);
+		Ensure.between("index", index, 0, array.length - 1);
+		final var result = new int[array.length - 1];
+		if (0 < index) {
+			System.arraycopy(array, 0, result, 0, index);
+		}
+		if (index < array.length - 1) {
+			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code int} arrays.</p>
+	 * @param arrays {@code int} arrays to concatenate
+	 * @return the concatenated {@code int} array
+	 * @throws NullPointerException if {@code int} arrays or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int[] concat(final int[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return concat(List.of(arrays));
+	}
+
+	/**
+	 * <p>Concatenate multiple {@code int} arrays.</p>
+	 * @param arrays the {@code int} array {@link List} to concatenate
+	 * @return the concatenated {@code int} array
+	 * @throws NullPointerException if the {@code int} array {@link List} or any of them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int[] concat(final List<int[]> arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new int[arrays.stream().mapToInt(array -> array.length).sum()];
+		var offset = 0;
+		for (final var array : arrays) {
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
+	}
+
+	/**
+	 * <p>Join multiple {@code int} arrays using an {@code int} array separator.</p>
+	 * @param separator the {@code int} array separator
+	 * @param arrays {@code int} arrays to join
+	 * @return the joined {@code int} array
+	 * @throws NullPointerException if the {@code int} array separator, {@code int} arrays or any of them is
+	 *         {@code null}
+	 * @since 1.0.0
+	 */
+	public static int[] join(final int[] separator, final int[]... arrays) {
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		return join(separator, List.of(arrays));
+	}
+
+	/**
+	 * <p>Join multiple {@code int} arrays using an {@code int} array separator.</p>
+	 * @param separator the {@code int} array separator
+	 * @param arrays the {@code int} array {@link List} to join
+	 * @return the joined {@code int} array
+	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array {@link List} or any of
+	 *         them is {@code null}
+	 * @since 1.0.0
+	 */
+	public static int[] join(final int[] separator, final List<int[]> arrays) {
+		Ensure.notNull("separator", separator);
+		Ensure.notNullAndNotNullElements("arrays", arrays);
+		if (isEmpty(separator)) {
+			return concat(arrays);
+		}
+		final var size = arrays.size();
+		if (0 == size) {
+			return EMPTY;
+		}
+		if (1 == size) {
+			return arrays.get(0);
+		}
+		final var result = new int[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
+		final var iterator = arrays.iterator();
+		var array = iterator.next();
+		System.arraycopy(array, 0, result, 0, array.length);
+		var offset = array.length;
+		while (iterator.hasNext()) {
+			System.arraycopy(separator, 0, result, offset, separator.length);
+			offset += separator.length;
+			array = iterator.next();
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
 	}
 
 	/**
@@ -322,39 +457,6 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code int} array following the Fisher-Yates algorithm.</p>
-	 * @param array the {@code int} array to shuffle
-	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(int[], Random)} with
-	 *             {@link java.security.SecureRandom} instead
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.2.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static void shuffle(final int[] array) {
-		shuffle(array, ThreadLocalRandom.current());
-	}
-
-	/**
-	 * <p>Shuffle values in the given {@code int} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
-	 * @param array the {@code int} array to shuffle
-	 * @param random the {@code Random} object to use
-	 * @throws NullPointerException if the {@code int} array or the {@code Random} object is {@code null}
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
-	 * @since 1.6.0
-	 */
-	public static void shuffle(final int[] array, final Random random) {
-		Ensure.notNull("array", array);
-		Ensure.notNull("random", random);
-		if (1 < array.length) {
-			for (var i = 0; i < array.length; ++i) {
-				swap(array, i, random.nextInt(i + 1));
-			}
-		}
-	}
-
-	/**
 	 * <p>Reverse values in the given {@code int} array.</p>
 	 * @param array the {@code int} array to reverse
 	 * @throws NullPointerException if the {@code int} array is {@code null}
@@ -398,6 +500,39 @@ public final class IntArrays {
 	}
 
 	/**
+	 * <p>Shuffle values in the given {@code int} array following the Fisher-Yates algorithm.</p>
+	 * @param array the {@code int} array to shuffle
+	 * @throws NullPointerException if the {@code int} array is {@code null}
+	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(int[], Random)} with
+	 *             {@link java.security.SecureRandom} instead
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.2.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static void shuffle(final int[] array) {
+		shuffle(array, ThreadLocalRandom.current());
+	}
+
+	/**
+	 * <p>Shuffle values in the given {@code int} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.</p>
+	 * @param array the {@code int} array to shuffle
+	 * @param random the {@code Random} object to use
+	 * @throws NullPointerException if the {@code int} array or the {@code Random} object is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
+	 * @since 1.6.0
+	 */
+	public static void shuffle(final int[] array, final Random random) {
+		Ensure.notNull("array", array);
+		Ensure.notNull("random", random);
+		if (1 < array.length) {
+			for (var i = 0; i < array.length; ++i) {
+				swap(array, i, random.nextInt(i + 1));
+			}
+		}
+	}
+
+	/**
 	 * <p>Swap two values in the given {@code int} array using their indexes.</p>
 	 * @param array the {@code int} array to swap
 	 * @param index1 the index of the first value
@@ -418,150 +553,15 @@ public final class IntArrays {
 	}
 
 	/**
-	 * <p>Add an {@code int} value at the end of the given {@code int} array.</p>
-	 * @param array the {@code int} array to add to
-	 * @param value the {@code int} value to add
-	 * @return an {@code int} array with the added {@code int} value
+	 * <p>Tell if an {@code int} array is empty.</p>
+	 * @param array the {@code int} array to test
+	 * @return {@code true} if the {@code int} array is empty
 	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @since 1.4.0
+	 * @since 1.2.0
 	 */
-	public static int[] add(final int[] array, final int value) {
+	public static boolean isEmpty(final int[] array) {
 		Ensure.notNull("array", array);
-		return add(array, array.length, value);
-	}
-
-	/**
-	 * <p>Add an {@code int} value at the provided index of the given {@code int} array.</p>
-	 * @param array the {@code int} array to add to
-	 * @param index the index of the {@code int} value
-	 * @param value the {@code int} value to add
-	 * @return an {@code int} array with the added {@code int} value
-	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static int[] add(final int[] array, final int index, final int value) {
-		Ensure.notNull("array", array);
-		Ensure.between("index", index, 0, array.length);
-		final var result = new int[array.length + 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		result[index] = value;
-		if (index < array.length) {
-			System.arraycopy(array, index, result, index + 1, array.length - index);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Remove an {@code int} value at the provided index of the given {@code int} array.</p>
-	 * @param array the {@code int} array to remove from
-	 * @param index the index of the {@code int} value
-	 * @return an {@code int} array with the removed {@code int} value
-	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @throws IllegalArgumentException if the {@code int} array is empty or if the index is not valid
-	 * @since 1.4.0
-	 */
-	public static int[] remove(final int[] array, final int index) {
-		Ensure.notNullAndNotEmpty("array", array);
-		Ensure.between("index", index, 0, array.length - 1);
-		final var result = new int[array.length - 1];
-		if (0 < index) {
-			System.arraycopy(array, 0, result, 0, index);
-		}
-		if (index < array.length - 1) {
-			System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code int} arrays.</p>
-	 * @param arrays {@code int} arrays to concatenate
-	 * @return the concatenated {@code int} array
-	 * @throws NullPointerException if {@code int} arrays or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int[] concat(final int[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return concat(List.of(arrays));
-	}
-
-	/**
-	 * <p>Concatenate multiple {@code int} arrays.</p>
-	 * @param arrays the {@code int} array {@link List} to concatenate
-	 * @return the concatenated {@code int} array
-	 * @throws NullPointerException if the {@code int} array {@link List} or any of them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int[] concat(final List<int[]> arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new int[arrays.stream().mapToInt(array -> array.length).sum()];
-		var offset = 0;
-		for (final var array : arrays) {
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
-	}
-
-	/**
-	 * <p>Join multiple {@code int} arrays using an {@code int} array separator.</p>
-	 * @param separator the {@code int} array separator
-	 * @param arrays {@code int} arrays to join
-	 * @return the joined {@code int} array
-	 * @throws NullPointerException if the {@code int} array separator, {@code int} arrays or any of them is
-	 *         {@code null}
-	 * @since 1.0.0
-	 */
-	public static int[] join(final int[] separator, final int[]... arrays) {
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		return join(separator, List.of(arrays));
-	}
-
-	/**
-	 * <p>Join multiple {@code int} arrays using an {@code int} array separator.</p>
-	 * @param separator the {@code int} array separator
-	 * @param arrays the {@code int} array {@link List} to join
-	 * @return the joined {@code int} array
-	 * @throws NullPointerException if the {@code int} array separator, the {@code int} array {@link List} or any of
-	 *         them is {@code null}
-	 * @since 1.0.0
-	 */
-	public static int[] join(final int[] separator, final List<int[]> arrays) {
-		Ensure.notNull("separator", separator);
-		Ensure.notNullAndNotNullElements("arrays", arrays);
-		if (isEmpty(separator)) {
-			return concat(arrays);
-		}
-		final var size = arrays.size();
-		if (0 == size) {
-			return EMPTY;
-		}
-		if (1 == size) {
-			return arrays.get(0);
-		}
-		final var result = new int[arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length];
-		final var iterator = arrays.iterator();
-		var array = iterator.next();
-		System.arraycopy(array, 0, result, 0, array.length);
-		var offset = array.length;
-		while (iterator.hasNext()) {
-			System.arraycopy(separator, 0, result, offset, separator.length);
-			offset += separator.length;
-			array = iterator.next();
-			System.arraycopy(array, 0, result, offset, array.length);
-			offset += array.length;
-		}
-		return result;
+		return 0 == array.length;
 	}
 
 	/**

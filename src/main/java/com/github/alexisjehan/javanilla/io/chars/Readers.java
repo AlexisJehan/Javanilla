@@ -296,22 +296,6 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Read the {@link Reader} from the current position to the end and return the length.</p>
-	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Reader} does not end.</p>
-	 * @param reader the {@link Reader} to read
-	 * @return the length from the current position
-	 * @throws IOException might occur with I/O operations
-	 * @throws NullPointerException if the {@link Reader} is {@code null}
-	 * @since 1.0.0
-	 */
-	@SuppressWarnings("deprecation")
-	public static long length(final Reader reader) throws IOException {
-		Ensure.notNull("reader", reader);
-		return reader.transferTo(Writers.EMPTY);
-	}
-
-	/**
 	 * <p>Concatenate multiple {@link Reader}s.</p>
 	 * @param readers the {@link Reader} array to concatenate
 	 * @return the concatenated {@link Reader}
@@ -386,6 +370,22 @@ public final class Readers {
 			list.add(iterator.next());
 		}
 		return new SequenceReader(list.iterator());
+	}
+
+	/**
+	 * <p>Read the {@link Reader} from the current position to the end and return the length.</p>
+	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Reader} does not end.</p>
+	 * @param reader the {@link Reader} to read
+	 * @return the length from the current position
+	 * @throws IOException might occur with I/O operations
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
+	 * @since 1.0.0
+	 */
+	@SuppressWarnings("deprecation")
+	public static long length(final Reader reader) throws IOException {
+		Ensure.notNull("reader", reader);
+		return reader.transferTo(Writers.EMPTY);
 	}
 
 	/**

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -90,14 +90,93 @@ final class ObjectArraysTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertThat(ObjectArrays.isEmpty(ObjectArrays.empty(Integer.class))).isTrue();
-		assertThat(ObjectArrays.isEmpty(ObjectArrays.of(VALUES))).isFalse();
+	void testAdd() {
+		assertThat(ObjectArrays.add(ObjectArrays.empty(Integer.class), 0)).containsExactly(0);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 1, 0)).containsExactly(1, 0, 2, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 2, 0)).containsExactly(1, 2, 0, 3);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 3, 0)).containsExactly(1, 2, 3, 0);
+		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0)).containsExactly(1, 2, 3, 0);
 	}
 
 	@Test
-	void testIsEmptyInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.isEmpty(null));
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), -1, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), 3, 0));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(ObjectArrays.remove(ObjectArrays.singleton(1), 0)).isEmpty();
+		assertThat(ObjectArrays.remove(ObjectArrays.of(1, 2, 3), 0)).containsExactly(2, 3);
+		assertThat(ObjectArrays.remove(ObjectArrays.of(1, 2, 3), 1)).containsExactly(1, 3);
+		assertThat(ObjectArrays.remove(ObjectArrays.of(1, 2, 3), 2)).containsExactly(1, 2);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.remove(ObjectArrays.empty(Integer.class), 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.remove(ObjectArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.remove(ObjectArrays.of(VALUES), 2));
+	}
+
+	@Test
+	void testConcat() {
+		assertThat(ObjectArrays.concat(Integer.class)).isEmpty();
+		assertThat(ObjectArrays.concat(Integer.class, ObjectArrays.singleton(Integer.class, VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(ObjectArrays.concat(Integer.class, ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
+		assertThat(ObjectArrays.concat(Integer.class, List.of(ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1])))).containsExactly(VALUES);
+	}
+
+	@Test
+	void testConcatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(null, ObjectArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, (Integer[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, (Integer[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, (List<Integer[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, Collections.singletonList(null)));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testJoinLegacy() {
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.empty(Integer.class), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0))).isEmpty();
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES[0], 0, VALUES[1]);
+		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), List.of(ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1])))).containsExactly(VALUES[0], 0, VALUES[1]);
+	}
+
+	@Test
+	void testJoin() {
+		assertThat(ObjectArrays.join(ObjectArrays.empty(Integer.class), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
+		assertThat(ObjectArrays.join(ObjectArrays.singleton(0))).isEmpty();
+		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES[0], 0, VALUES[1]);
+		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), List.of(ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1])))).containsExactly(VALUES[0], 0, VALUES[1]);
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testJoinInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Class<Integer>) null, ObjectArrays.of(VALUES), ObjectArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, null, ObjectArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), (Integer[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), (Integer[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), (List<Integer[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), Collections.singletonList(null)));
+	}
+
+	@Test
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Integer[]) null, ObjectArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), (Integer[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), (Integer[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), (List<Integer[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test
@@ -214,26 +293,6 @@ final class ObjectArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffle() {
-		assertThat(ObjectArrays.singleton(1)).satisfies(array -> {
-			ObjectArrays.shuffle(array);
-			assertThat(array).containsExactly(1);
-		});
-		assertThat(ObjectArrays.of(1, 2, 1, 2)).satisfies(array -> {
-			ObjectArrays.shuffle(array, new Random());
-			assertThat(array).containsExactlyInAnyOrder(1, 2, 1, 2);
-		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.shuffle(null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.shuffle(ObjectArrays.of(VALUES), null));
-	}
-
-	@Test
 	void testReverse() {
 		assertThat(ObjectArrays.singleton(1)).satisfies(array -> {
 			ObjectArrays.reverse(array);
@@ -283,6 +342,35 @@ final class ObjectArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleLegacy() {
+		assertThat(ObjectArrays.singleton(1)).satisfies(array -> {
+			ObjectArrays.shuffle(array);
+			assertThat(array).containsExactly(1);
+		});
+	}
+
+	@Test
+	void testShuffle() {
+		assertThat(ObjectArrays.of(1, 2, 1, 2)).satisfies(array -> {
+			ObjectArrays.shuffle(array, ThreadLocalRandom.current());
+			assertThat(array).containsExactlyInAnyOrder(1, 2, 1, 2);
+		});
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.shuffle(null));
+	}
+
+	@Test
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.shuffle(null, ThreadLocalRandom.current()));
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.shuffle(ObjectArrays.of(VALUES), null));
+	}
+
+	@Test
 	void testSwap() {
 		assertThat(ObjectArrays.singleton(1)).satisfies(array -> {
 			ObjectArrays.swap(array, 0, 0);
@@ -304,87 +392,14 @@ final class ObjectArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(ObjectArrays.add(ObjectArrays.empty(Integer.class), 0)).containsExactly(0);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 1, 0)).containsExactly(1, 0, 2, 3);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 2, 0)).containsExactly(1, 2, 0, 3);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 3, 0)).containsExactly(1, 2, 3, 0);
-		assertThat(ObjectArrays.add(ObjectArrays.of(1, 2, 3), 0)).containsExactly(1, 2, 3, 0);
+	void testIsEmpty() {
+		assertThat(ObjectArrays.isEmpty(ObjectArrays.empty(Integer.class))).isTrue();
+		assertThat(ObjectArrays.isEmpty(ObjectArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
-	void testAddInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.add(null, 0, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), -1, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.add(ObjectArrays.of(VALUES), 3, 0));
-	}
-
-	@Test
-	void testRemove() {
-		assertThat(ObjectArrays.remove(ObjectArrays.singleton(1), 0)).isEmpty();
-		assertThat(ObjectArrays.remove(ObjectArrays.of(1, 2, 3), 0)).containsExactly(2, 3);
-		assertThat(ObjectArrays.remove(ObjectArrays.of(1, 2, 3), 1)).containsExactly(1, 3);
-		assertThat(ObjectArrays.remove(ObjectArrays.of(1, 2, 3), 2)).containsExactly(1, 2);
-	}
-
-	@Test
-	void testRemoveInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.remove(null, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.remove(ObjectArrays.empty(Integer.class), 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.remove(ObjectArrays.of(VALUES), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> ObjectArrays.remove(ObjectArrays.of(VALUES), 2));
-	}
-
-	@Test
-	void testConcat() {
-		assertThat(ObjectArrays.concat(Integer.class)).isEmpty();
-		assertThat(ObjectArrays.concat(Integer.class, ObjectArrays.singleton(Integer.class, VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(ObjectArrays.concat(Integer.class, ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
-		assertThat(ObjectArrays.concat(Integer.class, List.of(ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1])))).containsExactly(VALUES);
-	}
-
-	@Test
-	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(null, ObjectArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, (Integer[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, (Integer[]) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, (List<Integer[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.concat(Integer.class, Collections.singletonList(null)));
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testJoin() {
-		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.empty(Integer.class), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
-		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0))).isEmpty();
-		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES[0], 0, VALUES[1]);
-		assertThat(ObjectArrays.join(Integer.class, ObjectArrays.singleton(0), List.of(ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1])))).containsExactly(VALUES[0], 0, VALUES[1]);
-
-		assertThat(ObjectArrays.join(ObjectArrays.empty(Integer.class), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES);
-		assertThat(ObjectArrays.join(ObjectArrays.singleton(0))).isEmpty();
-		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1]))).containsExactly(VALUES[0], 0, VALUES[1]);
-		assertThat(ObjectArrays.join(ObjectArrays.singleton(0), List.of(ObjectArrays.singleton(Integer.class, VALUES[0]), ObjectArrays.singleton(Integer.class, VALUES[1])))).containsExactly(VALUES[0], 0, VALUES[1]);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Class<Integer>) null, ObjectArrays.of(VALUES), ObjectArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, null, ObjectArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), (Integer[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), (Integer[]) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), (List<Integer[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(Integer.class, ObjectArrays.of(VALUES), Collections.singletonList(null)));
-
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join((Integer[]) null, ObjectArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), (Integer[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), (Integer[]) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), (List<Integer[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.join(ObjectArrays.of(VALUES), Collections.singletonList(null)));
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.isEmpty(null));
 	}
 
 	@Test

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -84,14 +84,71 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertThat(DoubleArrays.isEmpty(DoubleArrays.EMPTY)).isTrue();
-		assertThat(DoubleArrays.isEmpty(DoubleArrays.of(VALUES))).isFalse();
+	void testAdd() {
+		assertThat(DoubleArrays.add(DoubleArrays.EMPTY, 0.0d)).containsExactly(0.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0, 0.0d)).containsExactly(0.0d, 1.0d, 2.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1, 0.0d)).containsExactly(1.0d, 0.0d, 2.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2, 0.0d)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 3, 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
 	}
 
 	@Test
-	void testIsEmptyInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.isEmpty(null));
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0.0d));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), -1, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 3, 0.0d));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(DoubleArrays.remove(DoubleArrays.singleton(1.0d), 0)).isEmpty();
+		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0)).containsExactly(2.0d, 3.0d);
+		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1)).containsExactly(1.0d, 3.0d);
+		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2)).containsExactly(1.0d, 2.0d);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.of(VALUES), 2));
+	}
+
+	@Test
+	void testConcat() {
+		assertThat(DoubleArrays.concat()).isEmpty();
+		assertThat(DoubleArrays.concat(DoubleArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(DoubleArrays.concat(DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(DoubleArrays.concat(List.of(DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1])))).containsExactly(VALUES);
+	}
+
+	@Test
+	void testConcatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat((double[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat((double[]) null));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat((List<double[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat(Collections.singletonList(null)));
+	}
+
+	@Test
+	void testJoin() {
+		assertThat(DoubleArrays.join(DoubleArrays.EMPTY, DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d))).isEmpty();
+		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d), DoubleArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d), DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0.0d, VALUES[1]);
+		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d), List.of(DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0.0d, VALUES[1]);
+	}
+
+	@Test
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(null, DoubleArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), (double[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), (double[]) null));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), (List<double[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test
@@ -208,26 +265,6 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffle() {
-		assertThat(DoubleArrays.singleton(1.0d)).satisfies(array -> {
-			DoubleArrays.shuffle(array);
-			assertThat(array).containsExactly(1.0d);
-		});
-		assertThat(DoubleArrays.of(1.0d, 2.0d, 1.0d, 2.0d)).satisfies(array -> {
-			DoubleArrays.shuffle(array, new Random());
-			assertThat(array).containsExactlyInAnyOrder(1.0d, 2.0d, 1.0d, 2.0d);
-		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(DoubleArrays.of(VALUES), null));
-	}
-
-	@Test
 	void testReverse() {
 		assertThat(DoubleArrays.singleton(1.0d)).satisfies(array -> {
 			DoubleArrays.reverse(array);
@@ -277,6 +314,35 @@ final class DoubleArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleLegacy() {
+		assertThat(DoubleArrays.singleton(1.0d)).satisfies(array -> {
+			DoubleArrays.shuffle(array);
+			assertThat(array).containsExactly(1.0d);
+		});
+	}
+
+	@Test
+	void testShuffle() {
+		assertThat(DoubleArrays.of(1.0d, 2.0d, 1.0d, 2.0d)).satisfies(array -> {
+			DoubleArrays.shuffle(array, ThreadLocalRandom.current());
+			assertThat(array).containsExactlyInAnyOrder(1.0d, 2.0d, 1.0d, 2.0d);
+		});
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(null));
+	}
+
+	@Test
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(null, ThreadLocalRandom.current()));
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(DoubleArrays.of(VALUES), null));
+	}
+
+	@Test
 	void testSwap() {
 		assertThat(DoubleArrays.singleton(1.0d)).satisfies(array -> {
 			DoubleArrays.swap(array, 0, 0);
@@ -298,71 +364,14 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(DoubleArrays.add(DoubleArrays.EMPTY, 0.0d)).containsExactly(0.0d);
-		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0, 0.0d)).containsExactly(0.0d, 1.0d, 2.0d, 3.0d);
-		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1, 0.0d)).containsExactly(1.0d, 0.0d, 2.0d, 3.0d);
-		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2, 0.0d)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
-		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 3, 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
-		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+	void testIsEmpty() {
+		assertThat(DoubleArrays.isEmpty(DoubleArrays.EMPTY)).isTrue();
+		assertThat(DoubleArrays.isEmpty(DoubleArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
-	void testAddInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0.0d));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), -1, 0.0d));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 3, 0.0d));
-	}
-
-	@Test
-	void testRemove() {
-		assertThat(DoubleArrays.remove(DoubleArrays.singleton(1.0d), 0)).isEmpty();
-		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0)).containsExactly(2.0d, 3.0d);
-		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1)).containsExactly(1.0d, 3.0d);
-		assertThat(DoubleArrays.remove(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2)).containsExactly(1.0d, 2.0d);
-	}
-
-	@Test
-	void testRemoveInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.remove(null, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.of(VALUES), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.remove(DoubleArrays.of(VALUES), 2));
-	}
-
-	@Test
-	void testConcat() {
-		assertThat(DoubleArrays.concat()).isEmpty();
-		assertThat(DoubleArrays.concat(DoubleArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(DoubleArrays.concat(DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(DoubleArrays.concat(List.of(DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1])))).containsExactly(VALUES);
-	}
-
-	@Test
-	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat((double[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat((double[]) null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat((List<double[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.concat(Collections.singletonList(null)));
-	}
-
-	@Test
-	void testJoin() {
-		assertThat(DoubleArrays.join(DoubleArrays.EMPTY, DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d))).isEmpty();
-		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d), DoubleArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d), DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], 0.0d, VALUES[1]);
-		assertThat(DoubleArrays.join(DoubleArrays.singleton(0.0d), List.of(DoubleArrays.singleton(VALUES[0]), DoubleArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], 0.0d, VALUES[1]);
-	}
-
-	@Test
-	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(null, DoubleArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), (double[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), (double[]) null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), (List<double[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.join(DoubleArrays.of(VALUES), Collections.singletonList(null)));
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.isEmpty(null));
 	}
 
 	@Test
@@ -382,7 +391,7 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	void testOfBoxedToBoxed() {
+	void testOfBoxedAndToBoxed() {
 		assertThat(DoubleArrays.of(DoubleArrays.toBoxed(DoubleArrays.EMPTY))).isEmpty();
 		assertThat(DoubleArrays.of(DoubleArrays.toBoxed(DoubleArrays.of(VALUES)))).containsExactly(VALUES);
 		assertThat(DoubleArrays.toBoxed(DoubleArrays.of(VALUES))).isInstanceOf(Double[].class);

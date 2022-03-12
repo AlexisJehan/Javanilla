@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -84,14 +84,71 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	void testIsEmpty() {
-		assertThat(ShortArrays.isEmpty(ShortArrays.EMPTY)).isTrue();
-		assertThat(ShortArrays.isEmpty(ShortArrays.of(VALUES))).isFalse();
+	void testAdd() {
+		assertThat(ShortArrays.add(ShortArrays.EMPTY, (short) 0)).containsExactly((short) 0);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 0, (short) 0)).containsExactly((short) 0, (short) 1, (short) 2, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 1, (short) 0)).containsExactly((short) 1, (short) 0, (short) 2, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 2, (short) 0)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 3, (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
 	}
 
 	@Test
-	void testIsEmptyInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.isEmpty(null));
+	void testAddInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, (short) 0));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), -1, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), 3, (short) 0));
+	}
+
+	@Test
+	void testRemove() {
+		assertThat(ShortArrays.remove(ShortArrays.singleton((short) 1), 0)).isEmpty();
+		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 0)).containsExactly((short) 2, (short) 3);
+		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 1)).containsExactly((short) 1, (short) 3);
+		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 2)).containsExactly((short) 1, (short) 2);
+	}
+
+	@Test
+	void testRemoveInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.remove(null, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.EMPTY, 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.of(VALUES), -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.of(VALUES), 2));
+	}
+
+	@Test
+	void testConcat() {
+		assertThat(ShortArrays.concat()).isEmpty();
+		assertThat(ShortArrays.concat(ShortArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(ShortArrays.concat(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(ShortArrays.concat(List.of(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1])))).containsExactly(VALUES);
+	}
+
+	@Test
+	void testConcatInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((List<short[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat(Collections.singletonList(null)));
+	}
+
+	@Test
+	void testJoin() {
+		assertThat(ShortArrays.join(ShortArrays.EMPTY, ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES);
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0))).isEmpty();
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], (short) 0, VALUES[1]);
+		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), List.of(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], (short) 0, VALUES[1]);
+	}
+
+	@Test
+	void testJoinInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(null, ShortArrays.of(VALUES)));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (short[][]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (short[]) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (List<short[]>) null));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), Collections.singletonList(null)));
 	}
 
 	@Test
@@ -208,26 +265,6 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffle() {
-		assertThat(ShortArrays.singleton((short) 1)).satisfies(array -> {
-			ShortArrays.shuffle(array);
-			assertThat(array).containsExactly((short) 1);
-		});
-		assertThat(ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2)).satisfies(array -> {
-			ShortArrays.shuffle(array, new Random());
-			assertThat(array).containsExactlyInAnyOrder((short) 1, (short) 2, (short) 1, (short) 2);
-		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(ShortArrays.of(VALUES), null));
-	}
-
-	@Test
 	void testReverse() {
 		assertThat(ShortArrays.singleton((short) 1)).satisfies(array -> {
 			ShortArrays.reverse(array);
@@ -277,6 +314,35 @@ final class ShortArraysTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleLegacy() {
+		assertThat(ShortArrays.singleton((short) 1)).satisfies(array -> {
+			ShortArrays.shuffle(array);
+			assertThat(array).containsExactly((short) 1);
+		});
+	}
+
+	@Test
+	void testShuffle() {
+		assertThat(ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2)).satisfies(array -> {
+			ShortArrays.shuffle(array, ThreadLocalRandom.current());
+			assertThat(array).containsExactlyInAnyOrder((short) 1, (short) 2, (short) 1, (short) 2);
+		});
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testShuffleInvalidLegacy() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null));
+	}
+
+	@Test
+	void testShuffleInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null, ThreadLocalRandom.current()));
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(ShortArrays.of(VALUES), null));
+	}
+
+	@Test
 	void testSwap() {
 		assertThat(ShortArrays.singleton((short) 1)).satisfies(array -> {
 			ShortArrays.swap(array, 0, 0);
@@ -298,71 +364,14 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	void testAdd() {
-		assertThat(ShortArrays.add(ShortArrays.EMPTY, (short) 0)).containsExactly((short) 0);
-		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 0, (short) 0)).containsExactly((short) 0, (short) 1, (short) 2, (short) 3);
-		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 1, (short) 0)).containsExactly((short) 1, (short) 0, (short) 2, (short) 3);
-		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 2, (short) 0)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
-		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 3, (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
-		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+	void testIsEmpty() {
+		assertThat(ShortArrays.isEmpty(ShortArrays.EMPTY)).isTrue();
+		assertThat(ShortArrays.isEmpty(ShortArrays.of(VALUES))).isFalse();
 	}
 
 	@Test
-	void testAddInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, (short) 0));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), -1, (short) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), 3, (short) 0));
-	}
-
-	@Test
-	void testRemove() {
-		assertThat(ShortArrays.remove(ShortArrays.singleton((short) 1), 0)).isEmpty();
-		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 0)).containsExactly((short) 2, (short) 3);
-		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 1)).containsExactly((short) 1, (short) 3);
-		assertThat(ShortArrays.remove(ShortArrays.of((short) 1, (short) 2, (short) 3), 2)).containsExactly((short) 1, (short) 2);
-	}
-
-	@Test
-	void testRemoveInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.remove(null, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.EMPTY, 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.of(VALUES), -1));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.remove(ShortArrays.of(VALUES), 2));
-	}
-
-	@Test
-	void testConcat() {
-		assertThat(ShortArrays.concat()).isEmpty();
-		assertThat(ShortArrays.concat(ShortArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(ShortArrays.concat(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(ShortArrays.concat(List.of(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1])))).containsExactly(VALUES);
-	}
-
-	@Test
-	void testConcatInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((short[]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat((List<short[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.concat(Collections.singletonList(null)));
-	}
-
-	@Test
-	void testJoin() {
-		assertThat(ShortArrays.join(ShortArrays.EMPTY, ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES);
-		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0))).isEmpty();
-		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton(VALUES[0]))).containsExactly(VALUES[0]);
-		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1]))).containsExactly(VALUES[0], (short) 0, VALUES[1]);
-		assertThat(ShortArrays.join(ShortArrays.singleton((short) 0), List.of(ShortArrays.singleton(VALUES[0]), ShortArrays.singleton(VALUES[1])))).containsExactly(VALUES[0], (short) 0, VALUES[1]);
-	}
-
-	@Test
-	void testJoinInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(null, ShortArrays.of(VALUES)));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (short[][]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (short[]) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), (List<short[]>) null));
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.join(ShortArrays.of(VALUES), Collections.singletonList(null)));
+	void testIsEmptyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.isEmpty(null));
 	}
 
 	@Test
@@ -382,7 +391,7 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	void testOfBoxedToBoxed() {
+	void testOfBoxedAndToBoxed() {
 		assertThat(ShortArrays.of(ShortArrays.toBoxed(ShortArrays.EMPTY))).isEmpty();
 		assertThat(ShortArrays.of(ShortArrays.toBoxed(ShortArrays.of(VALUES)))).containsExactly(VALUES);
 		assertThat(ShortArrays.toBoxed(ShortArrays.of(VALUES))).isInstanceOf(Short[].class);
