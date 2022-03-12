@@ -1,10 +1,10 @@
 ![Javanilla](logo.png)
 # Javanilla
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla.svg)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla/latest)
-[![Javadoc](http://www.javadoc.io/badge/com.github.alexisjehan/javanilla.svg)](http://www.javadoc.io/doc/com.github.alexisjehan/javanilla)
-[![Travis](https://img.shields.io/travis/alexisjehan/javanilla.svg)](https://travis-ci.org/alexisjehan/javanilla)
-[![Codecov](https://img.shields.io/codecov/c/github/alexisjehan/javanilla.svg)](https://codecov.io/gh/alexisjehan/javanilla)
-[![License](https://img.shields.io/github/license/alexisjehan/javanilla.svg)](https://github.com/alexisjehan/javanilla/blob/master/LICENSE.txt)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla.svg)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla)
+[![Javadoc](https://javadoc.io/badge/com.github.alexisjehan/javanilla.svg)](https://javadoc.io/doc/com.github.alexisjehan/javanilla)
+[![Travis CI](https://img.shields.io/travis/com/AlexisJehan/Javanilla.svg)](https://travis-ci.com/github/AlexisJehan/Javanilla)
+[![Codecov](https://img.shields.io/codecov/c/github/AlexisJehan/Javanilla.svg)](https://codecov.io/gh/AlexisJehan/Javanilla)
+[![License](https://img.shields.io/github/license/AlexisJehan/Javanilla.svg)](LICENSE.txt)
 
 A _Java 10+_ lightweight utility library to enhance the Java standard API.
 
