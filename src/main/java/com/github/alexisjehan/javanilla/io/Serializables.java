@@ -56,7 +56,7 @@ public final class Serializables {
 	 */
 	public static byte[] serialize(final Serializable serializable) {
 		final var byteArrayOutputStream = new ByteArrayOutputStream();
-		serialize(byteArrayOutputStream, serializable);
+		serialize(serializable, byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	}
 
@@ -66,9 +66,23 @@ public final class Serializables {
 	 * @param serializable the {@link Serializable} or {@code null}
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @throws SerializationException might occur with serialization or I/O operations
+	 * @deprecated since 1.6.0, use {@link #serialize(Serializable, OutputStream)} instead
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.6.0")
 	public static void serialize(final OutputStream outputStream, final Serializable serializable) {
+		serialize(serializable, outputStream);
+	}
+
+	/**
+	 * <p>Serialize the given {@link Serializable} to an {@link OutputStream}.</p>
+	 * @param serializable the {@link Serializable} or {@code null}
+	 * @param outputStream the {@link OutputStream} to write into
+	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
+	 * @throws SerializationException might occur with serialization or I/O operations
+	 * @since 1.6.0
+	 */
+	public static void serialize(final Serializable serializable, final OutputStream outputStream) {
 		Ensure.notNull("outputStream", outputStream);
 		try (final var objectOutputStream = new ObjectOutputStream(outputStream)) {
 			objectOutputStream.writeObject(serializable);

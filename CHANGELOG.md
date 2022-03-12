@@ -6,6 +6,10 @@
 - Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_,
 _StandardMessageDigests_ and _StandardSignatures_ classes
 
+**io.Serializables**
+- Added the _serialize(Serializable, OutputStream)_ method
+- Deprecated the _serialize(OutputStream, Serializable)_ method
+
 **lang.Strings**
 - Added _of(byte...)_ and _of(Charset, byte...)_ methods
 

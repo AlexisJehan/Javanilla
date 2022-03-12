@@ -48,9 +48,8 @@ final class SerializablesTest {
 	private static final SerializablePair<String, Integer> SERIALIZABLE = SerializablePair.of("foo", 1);
 
 	@Test
-	void testSerializeAndDeserialize() throws IOException {
-		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(SERIALIZABLE))).isEqualTo(SERIALIZABLE);
-		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
+	@SuppressWarnings("deprecation")
+	void testSerializeAndDeserializeLegacy() throws IOException {
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(outputStream, SERIALIZABLE);
 			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
@@ -59,6 +58,24 @@ final class SerializablesTest {
 		}
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(outputStream, null);
+			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isNull();
+			}
+		}
+	}
+
+	@Test
+	void testSerializeAndDeserialize() throws IOException {
+		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(SERIALIZABLE))).isEqualTo(SERIALIZABLE);
+		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			Serializables.serialize(SERIALIZABLE, outputStream);
+			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isEqualTo(SERIALIZABLE);
+			}
+		}
+		try (final var outputStream = new ByteArrayOutputStream()) {
+			Serializables.serialize(null, outputStream);
 			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
 				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isNull();
 			}
@@ -79,8 +96,14 @@ final class SerializablesTest {
 	}
 
 	@Test
-	void testSerializeInvalid() {
+	@SuppressWarnings("deprecation")
+	void testSerializeInvalidLegacy() {
 		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(null, SERIALIZABLE));
+	}
+
+	@Test
+	void testSerializeInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(SERIALIZABLE, null));
 	}
 
 	@Test
