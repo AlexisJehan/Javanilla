@@ -24,13 +24,11 @@
 package com.github.alexisjehan.javanilla.lang;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-import com.github.alexisjehan.javanilla.sql.UncheckedSQLException;
 import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableRunnable;
 import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableSupplier;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,10 +60,6 @@ public final class Throwables {
 			return (RuntimeException) throwable;
 		} else if (throwable instanceof IOException) {
 			return new UncheckedIOException((IOException) throwable);
-		} else if (throwable instanceof SQLException) {
-			return new UncheckedSQLException((SQLException) throwable);
-		} else if (throwable instanceof InterruptedException) {
-			return new UncheckedInterruptedException((InterruptedException) throwable);
 		}
 		return new RuntimeException(throwable);
 	}

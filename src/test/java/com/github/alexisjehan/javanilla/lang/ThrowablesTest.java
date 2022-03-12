@@ -23,14 +23,12 @@
  */
 package com.github.alexisjehan.javanilla.lang;
 
-import com.github.alexisjehan.javanilla.sql.UncheckedSQLException;
 import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableRunnable;
 import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableSupplier;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -43,13 +41,11 @@ final class ThrowablesTest {
 
 	@Test
 	void testUnchecked() {
-		assertThat(Throwables.unchecked(new IOException())).isInstanceOf(UncheckedIOException.class);
-		assertThat(Throwables.unchecked(new SQLException())).isInstanceOf(UncheckedSQLException.class);
-		assertThat(Throwables.unchecked(new InterruptedException())).isInstanceOf(UncheckedInterruptedException.class);
-		assertThat(Throwables.unchecked(new CloneNotSupportedException())).isInstanceOf(RuntimeException.class);
-		assertThat(Throwables.unchecked(new Exception())).isInstanceOf(RuntimeException.class);
 		assertThat(Throwables.unchecked(new RuntimeException())).isInstanceOf(RuntimeException.class);
+		assertThat(Throwables.unchecked(new IOException())).isInstanceOf(UncheckedIOException.class);
+		assertThat(Throwables.unchecked(new Exception())).isInstanceOf(RuntimeException.class);
 	}
+
 	@Test
 	void testUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> {

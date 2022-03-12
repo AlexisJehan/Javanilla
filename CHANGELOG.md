@@ -10,12 +10,16 @@ _StandardMessageDigests_ and _StandardSignatures_ classes
 - Added the _serialize(Serializable, OutputStream)_ method
 - Deprecated the _serialize(OutputStream, Serializable)_ method
 
+**lang**
+- Deprecated the _UncheckedInterruptedException_ class
+
 **lang.Strings**
 - Added _of(byte...)_ and _of(Charset, byte...)_ methods
 
 **lang.Throwables**
 - Added the _isCheckedException(Throwable)_ method
 - Added the _isUncheckedException(Throwable)_ method
+- Modified the _unchecked(Throwable)_ method
 - Deprecated the _isChecked(Throwable)_ method
 - Deprecated the _isUnchecked(Throwable)_ method
 
@@ -79,9 +83,9 @@ _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(
 - Deprecated the _add(short[], int, short)_ method
 - Deprecated the _shuffle(short[])_ method
 
-**util.collection.Sets**
-- Added _unify(Set[])_ and _unify(Collection)_ methods
-- Deprecated _union(Set[])_ and _union(Collection)_ methods
+**sql**
+- Deprecated the package
+- Deprecated the _UncheckedSQLException_ class
 
 **standard.crypto**
 - Added _StandardCiphers_, _StandardKeyAgreements_, _StandardKeyGenerators_, _StandardMacs_ and
@@ -97,6 +101,10 @@ _StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _
 **standard.security.cert**
 - Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and
 _StandardCertStores_ classes
+
+**util.collection.Sets**
+- Added _unify(Set[])_ and _unify(Collection)_ methods
+- Deprecated _union(Set[])_ and _union(Collection)_ methods
 
 **util.collection.bags.LimitedBag**
 - Added the _getLimit()_ method

@@ -30,8 +30,10 @@ import java.sql.SQLException;
 /**
  * <p>Wrapped {@link SQLException} as an unchecked exception.</p>
  * <p><b>Note</b>: This class is serializable.</p>
+ * @deprecated since 1.6.0, should not be used anymore
  * @since 1.0.0
  */
+@Deprecated(since = "1.6.0")
 public final class UncheckedSQLException extends RuntimeException {
 
 	/**

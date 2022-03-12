@@ -28,8 +28,10 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 /**
  * <p>Wrapped {@link InterruptedException} as an unchecked exception.</p>
  * <p><b>Note</b>: This class is serializable.</p>
+ * @deprecated since 1.6.0, should not be used anymore
  * @since 1.0.0
  */
+@Deprecated(since = "1.6.0")
 public final class UncheckedInterruptedException extends RuntimeException {
 
 	/**
