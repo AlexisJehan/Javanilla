@@ -155,7 +155,7 @@ final class RangeReaderTest {
 	}
 
 	@Test
-	void testMarkReset() throws IOException {
+	void testMarkAndReset() throws IOException {
 		try (final var rangeReader = new RangeReader(Readers.of(CHARS), 0L, 0L)) {
 			rangeReader.mark(2);
 			assertThat(rangeReader.read()).isEqualTo(CHARS[0]);

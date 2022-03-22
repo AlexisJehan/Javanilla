@@ -102,7 +102,7 @@ final class CountInputStreamTest {
 	}
 
 	@Test
-	void testMarkReset() throws IOException {
+	void testMarkAndReset() throws IOException {
 		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of(BYTES)))) {
 			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);

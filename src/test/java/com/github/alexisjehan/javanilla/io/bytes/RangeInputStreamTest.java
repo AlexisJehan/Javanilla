@@ -155,7 +155,7 @@ final class RangeInputStreamTest {
 	}
 
 	@Test
-	void testMarkReset() throws IOException {
+	void testMarkAndReset() throws IOException {
 		try (final var rangeInputStream = new RangeInputStream(InputStreams.of(BYTES), 0L, 0L)) {
 			rangeInputStream.mark(2);
 			assertThat(rangeInputStream.read()).isEqualTo(BYTES[0]);

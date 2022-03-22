@@ -69,7 +69,7 @@ final class BloomFilterTest {
 	}
 
 	@Test
-	void testAddMightContains() {
+	void testAddAndMightContains() {
 		assertThat(new BloomFilter<>(LENGTH, hashFunction)).satisfies(bloomFilter -> {
 			assertThat(bloomFilter.mightContains("foo")).isFalse();
 			assertThat(bloomFilter.mightContains("bar")).isFalse();
@@ -114,17 +114,17 @@ final class BloomFilterTest {
 	}
 
 	@Test
-	void testCalculateFalsePositiveRate() {
-		assertThat(BloomFilter.calculateFalsePositiveRate(1, 3, 100)).isEqualTo(1.0d);
-		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 0)).isZero();
-		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 100)).isBetween(0.0d, 1.0d);
-	}
-
-	@Test
 	void testGetters() {
 		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunction);
 		assertThat(bloomFilter.getLength()).isEqualTo(LENGTH);
 		assertThat(bloomFilter.getNumberOfHashFunctions()).isEqualTo(1);
+	}
+
+	@Test
+	void testCalculateFalsePositiveRate() {
+		assertThat(BloomFilter.calculateFalsePositiveRate(1, 3, 100)).isEqualTo(1.0d);
+		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 0)).isZero();
+		assertThat(BloomFilter.calculateFalsePositiveRate(10, 3, 100)).isBetween(0.0d, 1.0d);
 	}
 
 	@Test

@@ -54,7 +54,7 @@ final class StandardCiphersTest {
 	}
 
 	@Test
-	void testGetAesGsmInstance() {
+	void testGetAesGcmInstance() {
 		assertThat(StandardCiphers.getAesGcmInstance().getAlgorithm()).isEqualTo("AES/GCM/NoPadding");
 	}
 

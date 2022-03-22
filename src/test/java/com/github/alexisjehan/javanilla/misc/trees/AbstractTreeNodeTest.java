@@ -205,14 +205,6 @@ abstract class AbstractTreeNodeTest {
 	}
 
 	@Test
-	void testGetValueSetValue() {
-		final var fooNode = newTreeNode("foo");
-		assertThat(fooNode.getValue()).isEqualTo("foo");
-		fooNode.setValue("bar");
-		assertThat(fooNode.getValue()).isEqualTo("bar");
-	}
-
-	@Test
 	void testSiblings() {
 		final var fooNode = newTreeNode("foo");
 		final var foo1Node = fooNode.extend("foo1");
@@ -414,5 +406,13 @@ abstract class AbstractTreeNodeTest {
 		assertThat(foo21Node.iterator()).toIterable().isEmpty();
 		assertThat(foo111Node.iterator()).toIterable().isEmpty();
 		assertThat(barNode.iterator()).toIterable().isEmpty();
+	}
+
+	@Test
+	void testGetValueAndSetValue() {
+		final var fooNode = newTreeNode("foo");
+		assertThat(fooNode.getValue()).isEqualTo("foo");
+		fooNode.setValue("bar");
+		assertThat(fooNode.getValue()).isEqualTo("bar");
 	}
 }

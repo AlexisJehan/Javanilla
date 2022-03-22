@@ -102,7 +102,7 @@ final class CountReaderTest {
 	}
 
 	@Test
-	void testMarkReset() throws IOException {
+	void testMarkAndReset() throws IOException {
 		try (final var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isZero();
 			assertThat(countReader.read()).isEqualTo(CHARS[0]);

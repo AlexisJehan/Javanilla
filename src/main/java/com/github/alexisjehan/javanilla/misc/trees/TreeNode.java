@@ -109,20 +109,6 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	List<TreeNode<V>> children();
 
 	/**
-	 * <p>Get the value of the current node.</p>
-	 * @return the value of the current node
-	 * @since 1.2.0
-	 */
-	V getValue();
-
-	/**
-	 * <p>Set the value of the current node.</p>
-	 * @param value the new value of the current node
-	 * @since 1.2.0
-	 */
-	void setValue(final V value);
-
-	/**
 	 * <p>Create an {@link Iterable} of siblings {@link TreeNode}s of the current node.</p>
 	 * @return an {@link Iterable} of siblings {@link TreeNode}s
 	 * @since 1.2.0
@@ -348,4 +334,18 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	default Iterator<TreeNode<V>> iterator() {
 		return descendantsDepthFirst().iterator();
 	}
+
+	/**
+	 * <p>Get the value of the current node.</p>
+	 * @return the value of the current node
+	 * @since 1.2.0
+	 */
+	V getValue();
+
+	/**
+	 * <p>Set the value of the current node.</p>
+	 * @param value the new value of the current node
+	 * @since 1.2.0
+	 */
+	void setValue(final V value);
 }

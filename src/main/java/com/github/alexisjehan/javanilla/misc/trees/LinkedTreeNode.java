@@ -119,22 +119,6 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public V getValue() {
-		return value;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setValue(final V value) {
-		this.value = value;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Optional<TreeNode<V>> optionalParent() {
 		return Optional.ofNullable(parent);
 	}
@@ -145,6 +129,22 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	@Override
 	public List<TreeNode<V>> children() {
 		return List.copyOf(children);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public V getValue() {
+		return value;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setValue(final V value) {
+		this.value = value;
 	}
 
 	/**

@@ -47,7 +47,7 @@ final class ObjectArraysTest {
 	}
 
 	@Test
-	void testEmptyNull() {
+	void testEmptyInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ObjectArrays.empty(null));
 	}
 

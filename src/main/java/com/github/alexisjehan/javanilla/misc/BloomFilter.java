@@ -60,22 +60,21 @@ public final class BloomFilter<E> {
 	private final BitSet bits;
 
 	/**
-	 * <p>Constructor with a length and multiple {@link Checksum} hash functions.</p>
+	 * <p>Constructor with a length and multiple {@link Checksum}s.</p>
 	 * @param length the length of the Bloom Filter
-	 * @param hashFunctions the {@link Checksum} hash functions array used by the Bloom Filter
-	 * @throws NullPointerException if the {@link Checksum} hash functions array or any of them is {@code null}
-	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link Checksum} hash functions
-	 *         array is empty
+	 * @param checksums the {@link Checksum} array used by the Bloom Filter
+	 * @throws NullPointerException if the {@link Checksum} array or any of them is {@code null}
+	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link Checksum} array is empty
 	 * @since 1.2.0
 	 */
-	public BloomFilter(final int length, final Checksum... hashFunctions) {
+	public BloomFilter(final int length, final Checksum... checksums) {
 		this(
 				length,
-				Arrays.stream(Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions))
-						.map(hashFunction -> (IntUnaryOperator) value -> {
-							hashFunction.reset();
-							hashFunction.update(ByteArrays.of(value));
-							return (int) hashFunction.getValue();
+				Arrays.stream(Ensure.notNullAndNotNullElements("checksums", checksums))
+						.map(checksum -> (IntUnaryOperator) value -> {
+							checksum.reset();
+							checksum.update(ByteArrays.of(value));
+							return (int) checksum.getValue();
 						})
 						.toArray(IntUnaryOperator[]::new)
 		);
@@ -135,6 +134,7 @@ public final class BloomFilter<E> {
 
 	/**
 	 * <p>Test if an element might be contained by the Bloom Filter or absolutely not.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending of hash functions implementations.</p>
 	 * @param element the element to test
 	 * @return {@code true} if the element might be contained by the Bloom Filter
 	 * @since 1.2.0
@@ -176,50 +176,50 @@ public final class BloomFilter<E> {
 
 	/**
 	 * <p>Calculate the false positive rate (p).</p>
-	 * @param m the length of the Bloom Filter
-	 * @param k the number of hash functions used by the Bloom Filter
-	 * @param n the expected number of elements to be added
+	 * @param length the length of the Bloom Filter
+	 * @param numberOfHashFunctions the number of hash functions used by the Bloom Filter
+	 * @param expectedNumberOfElements the expected number of elements to be added
 	 * @return the false positive rate (p)
 	 * @throws IllegalArgumentException if the length, the number of hash functions or the expected number of elements
 	 *         is not valid
 	 * @since 1.2.0
 	 */
-	public static double calculateFalsePositiveRate(final int m, final int k, final int n) {
-		Ensure.greaterThanOrEqualTo("m", m, 1);
-		Ensure.greaterThanOrEqualTo("k", k, 1);
-		Ensure.greaterThanOrEqualTo("n", n, 0);
-		return Math.pow(1.0d - Math.exp(-k * n / (double) m), k);
+	public static double calculateFalsePositiveRate(final int length, final int numberOfHashFunctions, final int expectedNumberOfElements) {
+		Ensure.greaterThanOrEqualTo("length", length, 1);
+		Ensure.greaterThanOrEqualTo("numberOfHashFunctions", numberOfHashFunctions, 1);
+		Ensure.greaterThanOrEqualTo("expectedNumberOfElements", expectedNumberOfElements, 0);
+		return Math.pow(1.0d - Math.exp(-numberOfHashFunctions * expectedNumberOfElements / (double) length), numberOfHashFunctions);
 	}
 
 	/**
 	 * <p>Calculate the optimal length of the Bloom Filter (m).</p>
-	 * @param n the expected number of elements to be added
-	 * @param p the acceptable false positive rate (between {@code 0} and {@code 1})
+	 * @param expectedNumberOfElements the expected number of elements to be added
+	 * @param acceptableFalsePositiveRate the acceptable false positive rate (between {@code 0} and {@code 1})
 	 * @return the optimal length (m)
 	 * @throws IllegalArgumentException if the expected number of elements or the acceptable false positive rate is not
 	 *         valid
 	 * @since 1.2.0
 	 */
-	public static double calculateOptimalLength(final int n, final double p) {
-		Ensure.greaterThanOrEqualTo("n", n, 0);
-		Ensure.between("p", p, 0.0d, 1.0d);
-		return Math.abs(-n * Math.log(p) / Math.pow(Math.log(2.0d), 2.0d));
+	public static double calculateOptimalLength(final int expectedNumberOfElements, final double acceptableFalsePositiveRate) {
+		Ensure.greaterThanOrEqualTo("expectedNumberOfElements", expectedNumberOfElements, 0);
+		Ensure.between("acceptableFalsePositiveRate", acceptableFalsePositiveRate, 0.0d, 1.0d);
+		return Math.abs(-expectedNumberOfElements * Math.log(acceptableFalsePositiveRate) / Math.pow(Math.log(2.0d), 2.0d));
 	}
 
 	/**
 	 * <p>Calculate the optimal number of hash functions used by the Bloom Filter (k).</p>
-	 * @param m the length of the Bloom Filter
-	 * @param n the expected number of elements to be added
+	 * @param length the length of the Bloom Filter
+	 * @param expectedNumberOfElements the expected number of elements to be added
 	 * @return the optimal number of hash functions (k)
 	 * @throws IllegalArgumentException if the length or the expected number of elements is not valid
 	 * @since 1.2.0
 	 */
-	public static double calculateOptimalNumberOfHashFunctions(final int m, final int n) {
-		Ensure.greaterThanOrEqualTo("m", m, 1);
-		Ensure.greaterThanOrEqualTo("n", n, 0);
-		if (0 == n) {
+	public static double calculateOptimalNumberOfHashFunctions(final int length, final int expectedNumberOfElements) {
+		Ensure.greaterThanOrEqualTo("length", length, 1);
+		Ensure.greaterThanOrEqualTo("expectedNumberOfElements", expectedNumberOfElements, 0);
+		if (0 == expectedNumberOfElements) {
 			return 0.0d;
 		}
-		return m / (double) n * Math.log(2.0d);
+		return length / (double) expectedNumberOfElements * Math.log(2.0d);
 	}
 }
