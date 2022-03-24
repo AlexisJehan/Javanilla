@@ -112,8 +112,10 @@ final class ThrowableFunctionTest {
 		};
 		assertThat(ThrowableFunction.unchecked(throwableFunction).apply(1)).isEqualTo(2);
 		assertThat(ThrowableFunction.unchecked(throwableFunction).apply(3)).isEqualTo(4);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableFunction.unchecked(exceptionThrowableFunction).apply(1));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableFunction.unchecked(exceptionThrowableFunction).apply(3));
+		assertThat(ThrowableFunction.unchecked(exceptionThrowableFunction)).satisfies(uncheckedExceptionThrowableFunction -> {
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableFunction.apply(1));
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableFunction.apply(3));
+		});
 	}
 
 	@Test

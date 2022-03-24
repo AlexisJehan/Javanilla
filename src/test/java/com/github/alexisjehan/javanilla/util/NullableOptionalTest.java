@@ -49,7 +49,9 @@ final class NullableOptionalTest {
 	void testGet() {
 		assertThat(NullableOptional.of(null).get()).isNull();
 		assertThat(NullableOptional.of(1).get()).isEqualTo(1);
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> NullableOptional.empty().get());
+		assertThat(NullableOptional.empty()).satisfies(
+				nullableOptional -> assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(nullableOptional::get)
+		);
 	}
 
 	@Test
@@ -218,7 +220,9 @@ final class NullableOptionalTest {
 	void testOrElseThrow() {
 		assertThat(NullableOptional.of(null).orElseThrow()).isNull();
 		assertThat(NullableOptional.of(1).orElseThrow()).isEqualTo(1);
-		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() -> NullableOptional.empty().orElseThrow());
+		assertThat(NullableOptional.empty()).satisfies(
+				nullableOptional -> assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(nullableOptional::orElseThrow)
+		);
 	}
 
 	@Test
@@ -234,7 +238,7 @@ final class NullableOptionalTest {
 	}
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(nullableOptional.equals(nullableOptional)).isTrue();
 		assertThat(nullableOptional).isNotEqualTo(new Object());
 		assertThat(NullableOptional.of(VALUE)).satisfies(otherNullableOptional -> {

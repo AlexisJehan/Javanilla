@@ -353,7 +353,7 @@ final class StringFormatterTest {
 	}
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(stringFormatter.equals(stringFormatter)).isTrue();
 		assertThat(stringFormatter).isNotEqualTo(new Object());
 		assertThat(new StringFormatter(LOCALE, FLOAT_PRECISION, STRICT_PRECISION)).satisfies(otherStringFormatter -> {

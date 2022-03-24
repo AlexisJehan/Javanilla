@@ -135,8 +135,10 @@ final class ThrowablePredicateTest {
 		};
 		assertThat(ThrowablePredicate.unchecked(throwablePredicate).test(1)).isFalse();
 		assertThat(ThrowablePredicate.unchecked(throwablePredicate).test(3)).isTrue();
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowablePredicate.unchecked(exceptionThrowablePredicate).test(1));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowablePredicate.unchecked(exceptionThrowablePredicate).test(3));
+		assertThat(ThrowablePredicate.unchecked(exceptionThrowablePredicate)).satisfies(uncheckedExceptionThrowablePredicate -> {
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowablePredicate.test(1));
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowablePredicate.test(3));
+		});
 	}
 
 	@Test

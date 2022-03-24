@@ -321,18 +321,6 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Tell if an {@link Iterator} is empty.</p>
-	 * @param iterator the {@link Iterator} to test
-	 * @return {@code true} if the {@link Iterator} is empty
-	 * @throws NullPointerException if the {@link Iterator} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static boolean isEmpty(final Iterator<?> iterator) {
-		Ensure.notNull("iterator", iterator);
-		return !iterator.hasNext();
-	}
-
-	/**
 	 * <p>Decorate an {@link Iterator} so that its {@link Iterator#remove()} method is not available.</p>
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param <E> the element type
@@ -353,6 +341,49 @@ public final class Iterators {
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
+			}
+		};
+	}
+
+	/**
+	 * <p>Decorate an {@link Iterator} so that it returns {@link IndexedElement}s composed of the index from the current
+	 * position and the element.</p>
+	 * @param iterator the {@link Iterator} to decorate
+	 * @param <E> the element type
+	 * @return the indexed {@link Iterator}
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <E> Iterator<IndexedElement<E>> index(final Iterator<? extends E> iterator) {
+		Ensure.notNull("iterator", iterator);
+		if (!iterator.hasNext()) {
+			return Collections.emptyIterator();
+		}
+		return new Iterator<>() {
+
+			/**
+			 * <p>Current index.</p>
+			 * @since 1.2.0
+			 */
+			private long index = 0L;
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public boolean hasNext() {
+				return iterator.hasNext();
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			public IndexedElement<E> next() {
+				if (!hasNext()) {
+					throw new NoSuchElementException();
+				}
+				return new IndexedElement<>(index++, iterator.next());
 			}
 		};
 	}
@@ -477,202 +508,6 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Decorate an {@link Iterator} so that it returns {@link IndexedElement}s composed of the index from the current
-	 * position and the element.</p>
-	 * @param iterator the {@link Iterator} to decorate
-	 * @param <E> the element type
-	 * @return the indexed {@link Iterator}
-	 * @throws NullPointerException if the {@link Iterator} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static <E> Iterator<IndexedElement<E>> index(final Iterator<? extends E> iterator) {
-		Ensure.notNull("iterator", iterator);
-		if (!iterator.hasNext()) {
-			return Collections.emptyIterator();
-		}
-		return new Iterator<>() {
-
-			/**
-			 * <p>Current index.</p>
-			 * @since 1.2.0
-			 */
-			private long index = 0L;
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public boolean hasNext() {
-				return iterator.hasNext();
-			}
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			public IndexedElement<E> next() {
-				if (!hasNext()) {
-					throw new NoSuchElementException();
-				}
-				return new IndexedElement<>(index++, iterator.next());
-			}
-		};
-	}
-
-	/**
-	 * <p>Decorate an {@link Iterator} from the given {@link Supplier} which iterates until an excluded element.</p>
-	 * <p><b>Warning</b>: Could result in an infinite loop if the excluded element is never supplied.</p>
-	 * @param supplier the {@link Supplier} to decorate
-	 * @param excludedElement the excluded element or {@code null}
-	 * @param <E> the element type
-	 * @return the wrapping {@link Iterator}
-	 * @throws NullPointerException if the {@link Supplier} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static <E> Iterator<E> until(final Supplier<? extends E> supplier, final E excludedElement) {
-		Ensure.notNull("supplier", supplier);
-		return new PreparedIterator<>() {
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			protected boolean isValid(final E next) {
-				return !Equals.equals(next, excludedElement);
-			}
-
-			/**
-			 * {@inheritDoc}
-			 */
-			@Override
-			protected E prepareNext() {
-				return supplier.get();
-			}
-		};
-	}
-
-	/**
-	 * <p>Iterate an {@link Iterator} from the current position to the end and return the length.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
-	 * @param iterator the {@link Iterator} to iterate
-	 * @return the length from the current position
-	 * @throws NullPointerException if the {@link Iterator} is {@code null}
-	 * @since 1.1.0
-	 */
-	public static long length(final Iterator<?> iterator) {
-		Ensure.notNull("iterator", iterator);
-		var length = 0L;
-		while (iterator.hasNext()) {
-			iterator.next();
-			++length;
-		}
-		return length;
-	}
-
-	/**
-	 * <p>Transfer {@link Iterator} elements from the current position to a {@link Collection}.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Iterator} is too large.</p>
-	 * @param iterator the {@link Iterator} to get elements from
-	 * @param collection the {@link Collection} to add elements to
-	 * @param <E> the element type
-	 * @return the number of elements transferred
-	 * @throws NullPointerException if the {@link Iterator} or the {@link Collection} is {@code null}
-	 * @since 1.0.0
-	 */
-	public static <E> long transferTo(final Iterator<? extends E> iterator, final Collection<? super E> collection) {
-		Ensure.notNull("iterator", iterator);
-		Ensure.notNull("collection", collection);
-		var transferred = 0L;
-		while (iterator.hasNext()) {
-			collection.add(iterator.next());
-			++transferred;
-		}
-		return transferred;
-	}
-
-	/**
-	 * <p>Optionally get the first element of an {@link Iterator} from the current position.</p>
-	 * @param iterator the {@link Iterator} to get the first element from
-	 * @param <E> the element type
-	 * @return a {@link NullableOptional} containing the first element if the {@link Iterator} is not empty
-	 * @throws NullPointerException if the {@link Iterator} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static <E> NullableOptional<E> getOptionalFirst(final Iterator<? extends E> iterator) {
-		Ensure.notNull("iterator", iterator);
-		if (!iterator.hasNext()) {
-			return NullableOptional.empty();
-		}
-		return NullableOptional.of(iterator.next());
-	}
-
-	/**
-	 * <p>Optionally get the last element of an {@link Iterator} from the current position.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
-	 * @param iterator the {@link Iterator} to get the last element from
-	 * @param <E> the element type
-	 * @return a {@link NullableOptional} containing the last element if the {@link Iterator} is not empty
-	 * @throws NullPointerException if the {@link Iterator} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static <E> NullableOptional<E> getOptionalLast(final Iterator<? extends E> iterator) {
-		Ensure.notNull("iterator", iterator);
-		if (!iterator.hasNext()) {
-			return NullableOptional.empty();
-		}
-		var element = iterator.next();
-		while (iterator.hasNext()) {
-			element = iterator.next();
-		}
-		return NullableOptional.of(element);
-	}
-
-	/**
-	 * <p>Iterate and remove elements from an {@link Iterator} if they are contained by the {@link Collection}.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
-	 * @param iterator the {@link Iterator} to remove elements from
-	 * @param collection the {@link Collection} that contains elements to remove
-	 * @param <E> the element type
-	 * @return {@code true} if at least one element has been removed
-	 * @throws NullPointerException if the {@link Iterator} or the {@link Collection} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static <E> boolean removeAll(final Iterator<? extends E> iterator, final Collection<? super E> collection) {
-		Ensure.notNull("iterator", iterator);
-		Ensure.notNull("collection", collection);
-		if (collection.isEmpty()) {
-			return false;
-		}
-		return removeIf(iterator, collection::contains);
-	}
-
-	/**
-	 * <p>Iterate and remove elements from an {@link Iterator} based on the given filter {@link Predicate}.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
-	 * @param iterator the {@link Iterator} to remove elements from
-	 * @param filter the filter {@link Predicate}
-	 * @param <E> the element type
-	 * @return {@code true} if at least one element has been removed
-	 * @throws NullPointerException if the {@link Iterator} or the filter {@link Predicate} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static <E> boolean removeIf(final Iterator<? extends E> iterator, final Predicate<? super E> filter) {
-		Ensure.notNull("iterator", iterator);
-		Ensure.notNull("filter", filter);
-		if (!iterator.hasNext()) {
-			return false;
-		}
-		var result = false;
-		do {
-			if (filter.test(iterator.next())) {
-				iterator.remove();
-				result = true;
-			}
-		} while (iterator.hasNext());
-		return result;
-	}
-
-	/**
 	 * <p>Concatenate multiple {@link Iterator}s.</p>
 	 * @param iterators the {@link Iterator} array to concatenate
 	 * @param <E> the element type
@@ -757,6 +592,171 @@ public final class Iterators {
 			list.add(iterator.next());
 		}
 		return new SequenceIterator<>(list.iterator());
+	}
+
+	/**
+	 * <p>Decorate an {@link Iterator} from the given {@link Supplier} which iterates until an excluded element.</p>
+	 * <p><b>Warning</b>: Could result in an infinite loop if the excluded element is never supplied.</p>
+	 * @param supplier the {@link Supplier} to decorate
+	 * @param excludedElement the excluded element or {@code null}
+	 * @param <E> the element type
+	 * @return the wrapping {@link Iterator}
+	 * @throws NullPointerException if the {@link Supplier} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static <E> Iterator<E> until(final Supplier<? extends E> supplier, final E excludedElement) {
+		Ensure.notNull("supplier", supplier);
+		return new PreparedIterator<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			protected boolean isValid(final E next) {
+				return !Equals.equals(next, excludedElement);
+			}
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			protected E prepareNext() {
+				return supplier.get();
+			}
+		};
+	}
+
+	/**
+	 * <p>Iterate and remove elements from an {@link Iterator} if they are contained by the {@link Collection}.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
+	 * @param iterator the {@link Iterator} to remove elements from
+	 * @param collection the {@link Collection} that contains elements to remove
+	 * @param <E> the element type
+	 * @return {@code true} if at least one element has been removed
+	 * @throws NullPointerException if the {@link Iterator} or the {@link Collection} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <E> boolean removeAll(final Iterator<? extends E> iterator, final Collection<? super E> collection) {
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("collection", collection);
+		if (collection.isEmpty()) {
+			return false;
+		}
+		return removeIf(iterator, collection::contains);
+	}
+
+	/**
+	 * <p>Iterate and remove elements from an {@link Iterator} based on the given filter {@link Predicate}.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
+	 * @param iterator the {@link Iterator} to remove elements from
+	 * @param filter the filter {@link Predicate}
+	 * @param <E> the element type
+	 * @return {@code true} if at least one element has been removed
+	 * @throws NullPointerException if the {@link Iterator} or the filter {@link Predicate} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <E> boolean removeIf(final Iterator<? extends E> iterator, final Predicate<? super E> filter) {
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("filter", filter);
+		if (!iterator.hasNext()) {
+			return false;
+		}
+		var result = false;
+		do {
+			if (filter.test(iterator.next())) {
+				iterator.remove();
+				result = true;
+			}
+		} while (iterator.hasNext());
+		return result;
+	}
+
+	/**
+	 * <p>Iterate an {@link Iterator} from the current position to the end and return the length.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
+	 * @param iterator the {@link Iterator} to iterate
+	 * @return the length from the current position
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static long length(final Iterator<?> iterator) {
+		Ensure.notNull("iterator", iterator);
+		var length = 0L;
+		while (iterator.hasNext()) {
+			iterator.next();
+			++length;
+		}
+		return length;
+	}
+
+	/**
+	 * <p>Transfer {@link Iterator} elements from the current position to a {@link Collection}.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Iterator} is too large.</p>
+	 * @param iterator the {@link Iterator} to get elements from
+	 * @param collection the {@link Collection} to add elements to
+	 * @param <E> the element type
+	 * @return the number of elements transferred
+	 * @throws NullPointerException if the {@link Iterator} or the {@link Collection} is {@code null}
+	 * @since 1.0.0
+	 */
+	public static <E> long transferTo(final Iterator<? extends E> iterator, final Collection<? super E> collection) {
+		Ensure.notNull("iterator", iterator);
+		Ensure.notNull("collection", collection);
+		var transferred = 0L;
+		while (iterator.hasNext()) {
+			collection.add(iterator.next());
+			++transferred;
+		}
+		return transferred;
+	}
+
+	/**
+	 * <p>Optionally get the first element of an {@link Iterator} from the current position.</p>
+	 * @param iterator the {@link Iterator} to get the first element from
+	 * @param <E> the element type
+	 * @return a {@link NullableOptional} containing the first element if the {@link Iterator} is not empty
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <E> NullableOptional<E> getOptionalFirst(final Iterator<? extends E> iterator) {
+		Ensure.notNull("iterator", iterator);
+		if (!iterator.hasNext()) {
+			return NullableOptional.empty();
+		}
+		return NullableOptional.of(iterator.next());
+	}
+
+	/**
+	 * <p>Optionally get the last element of an {@link Iterator} from the current position.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
+	 * @param iterator the {@link Iterator} to get the last element from
+	 * @param <E> the element type
+	 * @return a {@link NullableOptional} containing the last element if the {@link Iterator} is not empty
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <E> NullableOptional<E> getOptionalLast(final Iterator<? extends E> iterator) {
+		Ensure.notNull("iterator", iterator);
+		if (!iterator.hasNext()) {
+			return NullableOptional.empty();
+		}
+		var element = iterator.next();
+		while (iterator.hasNext()) {
+			element = iterator.next();
+		}
+		return NullableOptional.of(element);
+	}
+
+	/**
+	 * <p>Tell if an {@link Iterator} is empty.</p>
+	 * @param iterator the {@link Iterator} to test
+	 * @return {@code true} if the {@link Iterator} is empty
+	 * @throws NullPointerException if the {@link Iterator} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static boolean isEmpty(final Iterator<?> iterator) {
+		Ensure.notNull("iterator", iterator);
+		return !iterator.hasNext();
 	}
 
 	/**

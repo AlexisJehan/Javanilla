@@ -55,7 +55,9 @@ final class ThrowableSupplierTest {
 			throw new IOException();
 		};
 		assertThat(ThrowableSupplier.unchecked(throwableSupplier).get()).isEqualTo(1);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableSupplier.unchecked(exceptionThrowableSupplier).get());
+		assertThat(ThrowableSupplier.unchecked(exceptionThrowableSupplier)).satisfies(
+				uncheckedExceptionThrowableSupplier -> assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(uncheckedExceptionThrowableSupplier::get)
+		);
 	}
 
 	@Test

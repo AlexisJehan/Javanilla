@@ -96,7 +96,7 @@ final class LevenshteinDistanceTest {
 	}
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(levenshteinDistance.equals(levenshteinDistance)).isTrue();
 		assertThat(levenshteinDistance).isNotEqualTo(new Object());
 		assertThat(new LevenshteinDistance(INSERTION_COST, DELETION_COST, SUBSTITUTION_COST)).satisfies(otherLevenshteinDistance -> {

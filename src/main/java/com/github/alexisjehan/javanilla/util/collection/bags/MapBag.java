@@ -286,27 +286,6 @@ public final class MapBag<E> implements Bag<E> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<E> toSet() {
-		return map.keySet();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<E, Long> toMap() {
-		return map.entrySet().stream().collect(
-				Collectors.toMap(
-						Map.Entry::getKey,
-						e -> e.getValue().longValue()
-				)
-		);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
 			return true;
@@ -352,5 +331,26 @@ public final class MapBag<E> implements Bag<E> {
 	@Override
 	public String toString() {
 		return map.toString();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Set<E> toSet() {
+		return map.keySet();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<E, Long> toMap() {
+		return map.entrySet().stream().collect(
+				Collectors.toMap(
+						Map.Entry::getKey,
+						e -> e.getValue().longValue()
+				)
+		);
 	}
 }

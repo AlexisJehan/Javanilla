@@ -187,22 +187,6 @@ public abstract class FilterBag<E> implements Bag<E> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<E> toSet() {
-		return bag.toSet();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<E, Long> toMap() {
-		return bag.toMap();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean equals(final Object object) {
 		return bag.equals(object);
 	}
@@ -221,5 +205,21 @@ public abstract class FilterBag<E> implements Bag<E> {
 	@Override
 	public String toString() {
 		return bag.toString();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Set<E> toSet() {
+		return bag.toSet();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<E, Long> toMap() {
+		return bag.toMap();
 	}
 }

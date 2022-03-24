@@ -37,7 +37,7 @@ final class SingleTest {
 	private final Single<Integer> single = new Single<>(UNIQUE);
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(single.equals(single)).isTrue();
 		assertThat(single).isNotEqualTo(new Object());
 		assertThat(Single.of(UNIQUE)).satisfies(otherSingle -> {

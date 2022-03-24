@@ -40,7 +40,7 @@ final class SerializableTripleTest {
 	private final SerializableTriple<Integer, Integer, Integer> serializableTriple = new SerializableTriple<>(FIRST, SECOND, THIRD);
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(serializableTriple.equals(serializableTriple)).isTrue();
 		assertThat(serializableTriple).isNotEqualTo(new Object());
 		assertThat(SerializableTriple.of(FIRST, SECOND, THIRD)).satisfies(otherSerializableTriple -> {

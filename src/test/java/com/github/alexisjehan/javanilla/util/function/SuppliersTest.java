@@ -141,7 +141,7 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testCacheTimes() {
+	void testCacheInt() {
 		assertThat(Suppliers.cache(new Supplier<>() {
 			private final LongAdder adder = new LongAdder();
 
@@ -175,7 +175,7 @@ final class SuppliersTest {
 	}
 
 	@Test
-	void testCacheTimesInvalid() {
+	void testCacheIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Suppliers.cache(null, 1));
 		assertThatIllegalArgumentException().isThrownBy(() -> Suppliers.cache(() -> 1, -1));
 	}

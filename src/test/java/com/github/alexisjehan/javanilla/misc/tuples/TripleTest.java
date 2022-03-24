@@ -39,7 +39,7 @@ final class TripleTest {
 	private final Triple<Integer, Integer, Integer> triple = new Triple<>(FIRST, SECOND, THIRD);
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(triple.equals(triple)).isTrue();
 		assertThat(triple).isNotEqualTo(new Object());
 		assertThat(Triple.of(FIRST, SECOND, THIRD)).satisfies(otherTriple -> {

@@ -99,44 +99,6 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Optionally get the first element of a {@link List}.</p>
-	 * @param list the {@link List} to get the first element from
-	 * @param <E> the type of elements in the list
-	 * @return a {@link NullableOptional} containing the first element if the {@link List} is not empty
-	 * @throws NullPointerException if the {@link List} is {@code null}
-	 * @since 1.1.0
-	 */
-	public static <E> NullableOptional<E> getOptionalFirst(final List<E> list) {
-		Ensure.notNull("list", list);
-		if (list.isEmpty()) {
-			return NullableOptional.empty();
-		}
-		if (list instanceof LinkedList) {
-			return NullableOptional.of(((LinkedList<E>) list).getFirst());
-		}
-		return NullableOptional.of(list.get(0));
-	}
-
-	/**
-	 * <p>Optionally get the last element of a {@link List}.</p>
-	 * @param list the {@link List} to get the last element from
-	 * @param <E> the type of elements in the list
-	 * @return a {@link NullableOptional} containing the last element if the {@link List} is not empty
-	 * @throws NullPointerException if the {@link List} is {@code null}
-	 * @since 1.1.0
-	 */
-	public static <E> NullableOptional<E> getOptionalLast(final List<E> list) {
-		Ensure.notNull("list", list);
-		if (list.isEmpty()) {
-			return NullableOptional.empty();
-		}
-		if (list instanceof LinkedList) {
-			return NullableOptional.of(((LinkedList<E>) list).getLast());
-		}
-		return NullableOptional.of(list.get(list.size() - 1));
-	}
-
-	/**
 	 * <p>Concatenate multiple {@link List}s.</p>
 	 * @param lists the {@link List} array to concatenate
 	 * @param <E> the type of elements in the list
@@ -221,5 +183,43 @@ public final class Lists {
 			list.addAll(iterator.next());
 		}
 		return list;
+	}
+
+	/**
+	 * <p>Optionally get the first element of a {@link List}.</p>
+	 * @param list the {@link List} to get the first element from
+	 * @param <E> the type of elements in the list
+	 * @return a {@link NullableOptional} containing the first element if the {@link List} is not empty
+	 * @throws NullPointerException if the {@link List} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> NullableOptional<E> getOptionalFirst(final List<E> list) {
+		Ensure.notNull("list", list);
+		if (list.isEmpty()) {
+			return NullableOptional.empty();
+		}
+		if (list instanceof LinkedList) {
+			return NullableOptional.of(((LinkedList<E>) list).getFirst());
+		}
+		return NullableOptional.of(list.get(0));
+	}
+
+	/**
+	 * <p>Optionally get the last element of a {@link List}.</p>
+	 * @param list the {@link List} to get the last element from
+	 * @param <E> the type of elements in the list
+	 * @return a {@link NullableOptional} containing the last element if the {@link List} is not empty
+	 * @throws NullPointerException if the {@link List} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static <E> NullableOptional<E> getOptionalLast(final List<E> list) {
+		Ensure.notNull("list", list);
+		if (list.isEmpty()) {
+			return NullableOptional.empty();
+		}
+		if (list instanceof LinkedList) {
+			return NullableOptional.of(((LinkedList<E>) list).getLast());
+		}
+		return NullableOptional.of(list.get(list.size() - 1));
 	}
 }

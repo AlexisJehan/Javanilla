@@ -65,7 +65,7 @@ final class BagsTest {
 	}
 
 	@Test
-	void testEmptyEqualsHashCodeToString() {
+	void testEmptyEqualsAndHashCodeAndToString() {
 		assertThat(emptyBag.equals(emptyBag)).isTrue();
 		assertThat(emptyBag).isNotEqualTo(new Object());
 		assertThat(Bags.empty()).satisfies(otherBag -> {
@@ -209,7 +209,7 @@ final class BagsTest {
 	}
 
 	@Test
-	void testSingletonEqualsHashCodeToString() {
+	void testSingletonEqualsAndHashCodeAndToString() {
 		assertThat(singletonBag.equals(singletonBag)).isTrue();
 		assertThat(singletonBag).isNotEqualTo(new Object());
 		assertThat(Bags.singleton(ELEMENT, QUANTITY)).satisfies(otherBag -> {

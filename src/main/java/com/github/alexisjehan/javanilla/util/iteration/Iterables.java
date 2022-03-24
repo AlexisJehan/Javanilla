@@ -154,6 +154,20 @@ public final class Iterables {
 	}
 
 	/**
+	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that they return {@link IndexedElement}s
+	 * composed of the index and the element.</p>
+	 * @param iterable the {@link Iterable} to decorate
+	 * @param <E> the element type
+	 * @return the indexed {@link Iterable}
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
+	 * @since 1.2.0
+	 */
+	public static <E> Iterable<IndexedElement<E>> index(final Iterable<? extends E> iterable) {
+		Ensure.notNull("iterable", iterable);
+		return () -> Iterators.index(iterable.iterator());
+	}
+
+	/**
 	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that their elements are filtered using the given
 	 * {@link Predicate}.</p>
 	 * @param iterable the {@link Iterable} to decorate
@@ -184,93 +198,6 @@ public final class Iterables {
 		Ensure.notNull("iterable", iterable);
 		Ensure.notNull("mapper", mapper);
 		return () -> Iterators.map(iterable.iterator(), mapper);
-	}
-
-	/**
-	 * <p>Decorate an {@link Iterable} which gives {@link Iterator}s so that they return {@link IndexedElement}s
-	 * composed of the index and the element.</p>
-	 * @param iterable the {@link Iterable} to decorate
-	 * @param <E> the element type
-	 * @return the indexed {@link Iterable}
-	 * @throws NullPointerException if the {@link Iterable} is {@code null}
-	 * @since 1.2.0
-	 */
-	public static <E> Iterable<IndexedElement<E>> index(final Iterable<? extends E> iterable) {
-		Ensure.notNull("iterable", iterable);
-		return () -> Iterators.index(iterable.iterator());
-	}
-
-	/**
-	 * <p>Iterate an {@link Iterable} to the end and return the length.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterable} does not end.</p>
-	 * @param iterable the {@link Iterable} to iterate
-	 * @return the length
-	 * @throws NullPointerException if the {@link Iterable} is {@code null}
-	 * @since 1.1.0
-	 */
-	public static long length(final Iterable<?> iterable) {
-		Ensure.notNull("iterable", iterable);
-		if (iterable instanceof Collection) {
-			return ((Collection<?>) iterable).size();
-		}
-		return Iterators.length(iterable.iterator());
-	}
-
-	/**
-	 * <p>Transfer {@link Iterable} elements to a {@link Collection}.</p>
-	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Iterable} is too large.</p>
-	 * @param iterable the {@link Iterable} to get elements from
-	 * @param collection the {@link Collection} to add elements to
-	 * @param <E> the element type
-	 * @return the number of elements transferred
-	 * @throws NullPointerException if the {@link Iterable} or the {@link Collection} is {@code null}
-	 * @since 1.0.0
-	 */
-	@SuppressWarnings("unchecked")
-	public static <E> long transferTo(final Iterable<? extends E> iterable, final Collection<? super E> collection) {
-		Ensure.notNull("iterable", iterable);
-		Ensure.notNull("collection", collection);
-		if (iterable instanceof Collection) {
-			final var iterableCollection = (Collection<? extends E>) iterable;
-			collection.addAll(iterableCollection);
-			return iterableCollection.size();
-		}
-		return Iterators.transferTo(iterable.iterator(), collection);
-	}
-
-	/**
-	 * <p>Optionally get the first element of an {@link Iterable}.</p>
-	 * @param iterable the {@link Iterable} to get the first element from
-	 * @param <E> the element type
-	 * @return a {@link NullableOptional} containing the first element if the {@link Iterable} is not empty
-	 * @throws NullPointerException if the {@link Iterable} is {@code null}
-	 * @since 1.2.0
-	 */
-	@SuppressWarnings("unchecked")
-	public static <E> NullableOptional<E> getOptionalFirst(final Iterable<? extends E> iterable) {
-		Ensure.notNull("iterable", iterable);
-		if (iterable instanceof List) {
-			return Lists.getOptionalFirst((List<E>) iterable);
-		}
-		return Iterators.getOptionalFirst(iterable.iterator());
-	}
-
-	/**
-	 * <p>Optionally get the last element of an {@link Iterable}.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterable} does not end.</p>
-	 * @param iterable the {@link Iterable} to get the last element from
-	 * @param <E> the element type
-	 * @return a {@link NullableOptional} containing the last element if the {@link Iterable} is not empty
-	 * @throws NullPointerException if the {@link Iterable} is {@code null}
-	 * @since 1.2.0
-	 */
-	@SuppressWarnings("unchecked")
-	public static <E> NullableOptional<E> getOptionalLast(final Iterable<? extends E> iterable) {
-		Ensure.notNull("iterable", iterable);
-		if (iterable instanceof List) {
-			return Lists.getOptionalLast((List<E>) iterable);
-		}
-		return Iterators.getOptionalLast(iterable.iterator());
 	}
 
 	/**
@@ -351,6 +278,79 @@ public final class Iterables {
 			return (Iterable<E>) iterables.get(0);
 		}
 		return () -> Iterators.join(separator, iterables.stream().map(Iterable::iterator).collect(Collectors.toList()));
+	}
+
+	/**
+	 * <p>Iterate an {@link Iterable} to the end and return the length.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterable} does not end.</p>
+	 * @param iterable the {@link Iterable} to iterate
+	 * @return the length
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
+	 * @since 1.1.0
+	 */
+	public static long length(final Iterable<?> iterable) {
+		Ensure.notNull("iterable", iterable);
+		if (iterable instanceof Collection) {
+			return ((Collection<?>) iterable).size();
+		}
+		return Iterators.length(iterable.iterator());
+	}
+
+	/**
+	 * <p>Transfer {@link Iterable} elements to a {@link Collection}.</p>
+	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Iterable} is too large.</p>
+	 * @param iterable the {@link Iterable} to get elements from
+	 * @param collection the {@link Collection} to add elements to
+	 * @param <E> the element type
+	 * @return the number of elements transferred
+	 * @throws NullPointerException if the {@link Iterable} or the {@link Collection} is {@code null}
+	 * @since 1.0.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> long transferTo(final Iterable<? extends E> iterable, final Collection<? super E> collection) {
+		Ensure.notNull("iterable", iterable);
+		Ensure.notNull("collection", collection);
+		if (iterable instanceof Collection) {
+			final var iterableCollection = (Collection<? extends E>) iterable;
+			collection.addAll(iterableCollection);
+			return iterableCollection.size();
+		}
+		return Iterators.transferTo(iterable.iterator(), collection);
+	}
+
+	/**
+	 * <p>Optionally get the first element of an {@link Iterable}.</p>
+	 * @param iterable the {@link Iterable} to get the first element from
+	 * @param <E> the element type
+	 * @return a {@link NullableOptional} containing the first element if the {@link Iterable} is not empty
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
+	 * @since 1.2.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> NullableOptional<E> getOptionalFirst(final Iterable<? extends E> iterable) {
+		Ensure.notNull("iterable", iterable);
+		if (iterable instanceof List) {
+			return Lists.getOptionalFirst((List<E>) iterable);
+		}
+		return Iterators.getOptionalFirst(iterable.iterator());
+	}
+
+	/**
+	 * <p>Optionally get the last element of an {@link Iterable}.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterable} does not end.</p>
+	 * @param iterable the {@link Iterable} to get the last element from
+	 * @param <E> the element type
+	 * @return a {@link NullableOptional} containing the last element if the {@link Iterable} is not empty
+	 * @throws NullPointerException if the {@link Iterable} is {@code null}
+	 * @since 1.2.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E> NullableOptional<E> getOptionalLast(final Iterable<? extends E> iterable) {
+		Ensure.notNull("iterable", iterable);
+		if (iterable instanceof List) {
+			return Lists.getOptionalLast((List<E>) iterable);
+		}
+		return Iterators.getOptionalLast(iterable.iterator());
 	}
 
 	/**

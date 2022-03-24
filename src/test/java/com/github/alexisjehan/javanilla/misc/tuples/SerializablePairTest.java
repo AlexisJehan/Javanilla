@@ -39,7 +39,7 @@ final class SerializablePairTest {
 	private final SerializablePair<Integer, Integer> serializablePair = new SerializablePair<>(FIRST, SECOND);
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(serializablePair.equals(serializablePair)).isTrue();
 		assertThat(serializablePair).isNotEqualTo(new Object());
 		assertThat(SerializablePair.of(FIRST, SECOND)).satisfies(otherSerializablePair -> {

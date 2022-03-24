@@ -83,7 +83,7 @@ final class MinkowskiDistanceTest {
 	}
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(minkowskiDistance.equals(minkowskiDistance)).isTrue();
 		assertThat(minkowskiDistance).isNotEqualTo(new Object());
 		assertThat(new MinkowskiDistance(ORDER)).satisfies(otherMinkowskiDistance -> {

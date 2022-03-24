@@ -77,8 +77,10 @@ final class ThrowableBiFunctionTest {
 		};
 		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction).apply(1, 2)).isEqualTo(3);
 		assertThat(ThrowableBiFunction.unchecked(throwableBiFunction).apply(3, 3)).isEqualTo(6);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiFunction.unchecked(exceptionThrowableBiFunction).apply(1, 2));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiFunction.unchecked(exceptionThrowableBiFunction).apply(3, 3));
+		assertThat(ThrowableBiFunction.unchecked(exceptionThrowableBiFunction)).satisfies(uncheckedExceptionThrowableBiFunction -> {
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableBiFunction.apply(1, 2));
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableBiFunction.apply(3, 3));
+		});
 	}
 
 	@Test

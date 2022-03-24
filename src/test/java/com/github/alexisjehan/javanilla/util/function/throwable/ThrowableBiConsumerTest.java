@@ -97,8 +97,10 @@ final class ThrowableBiConsumerTest {
 		ThrowableBiConsumer.unchecked(throwableBiConsumer).accept(list, 3);
 		assertThat(list).containsExactly(2, 4);
 		list.clear();
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiConsumer.unchecked(exceptionThrowableBiConsumer).accept(list, 1));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiConsumer.unchecked(exceptionThrowableBiConsumer).accept(list, 3));
+		assertThat(ThrowableBiConsumer.unchecked(exceptionThrowableBiConsumer)).satisfies(uncheckedExceptionThrowableBiConsumer -> {
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableBiConsumer.accept(list, 1));
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableBiConsumer.accept(list, 3));
+		});
 		assertThat(list).isEmpty();
 	}
 

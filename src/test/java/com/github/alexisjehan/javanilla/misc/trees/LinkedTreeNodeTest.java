@@ -39,7 +39,7 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 	}
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		final var treeNode = new LinkedTreeNode<>("foo").extend("foo1");
 		treeNode.extend("foo11");
 		assertThat(treeNode.equals(treeNode)).isTrue();

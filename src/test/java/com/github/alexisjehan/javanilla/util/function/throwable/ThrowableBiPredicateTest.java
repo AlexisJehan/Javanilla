@@ -125,8 +125,10 @@ final class ThrowableBiPredicateTest {
 		};
 		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate).test(1, 2)).isFalse();
 		assertThat(ThrowableBiPredicate.unchecked(throwableBiPredicate).test(3, 3)).isTrue();
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiPredicate.unchecked(exceptionThrowableBiPredicate).test(1, 2));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableBiPredicate.unchecked(exceptionThrowableBiPredicate).test(3, 3));
+		assertThat(ThrowableBiPredicate.unchecked(exceptionThrowableBiPredicate)).satisfies(uncheckedExceptionThrowableBiPredicate -> {
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableBiPredicate.test(1, 2));
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableBiPredicate.test(3, 3));
+		});
 	}
 
 	@Test

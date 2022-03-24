@@ -805,7 +805,7 @@ public final class ByteArrays {
 	 * @since 1.6.0
 	 */
 	public static byte[] of(final float f, final ByteOrder order) {
-		return ofInt(Float.floatToIntBits(f), order);
+		return of(Float.floatToIntBits(f), order);
 	}
 
 	/**
@@ -827,7 +827,7 @@ public final class ByteArrays {
 	 * @since 1.6.0
 	 */
 	public static byte[] of(final double d, final ByteOrder order) {
-		return ofLong(Double.doubleToLongBits(d), order);
+		return of(Double.doubleToLongBits(d), order);
 	}
 
 	/**

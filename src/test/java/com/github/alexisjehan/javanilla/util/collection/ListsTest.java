@@ -81,32 +81,6 @@ final class ListsTest {
 	}
 
 	@Test
-	void testGetOptionalFirst() {
-		assertThat(Lists.getOptionalFirst(List.of()).isEmpty()).isTrue();
-		assertThat(Lists.getOptionalFirst(Collections.singletonList(null)).get()).isNull();
-		assertThat(Lists.getOptionalFirst(new LinkedList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[0]);
-		assertThat(Lists.getOptionalFirst(new ArrayList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[0]);
-	}
-
-	@Test
-	void testGetOptionalFirstInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.getOptionalFirst(null));
-	}
-
-	@Test
-	void testGetOptionalLast() {
-		assertThat(Lists.getOptionalLast(List.of()).isEmpty()).isTrue();
-		assertThat(Lists.getOptionalLast(Collections.singletonList(null)).get()).isNull();
-		assertThat(Lists.getOptionalLast(new LinkedList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[2]);
-		assertThat(Lists.getOptionalLast(new ArrayList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[2]);
-	}
-
-	@Test
-	void testGetOptionalLastInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Lists.getOptionalLast(null));
-	}
-
-	@Test
 	void testConcat() {
 		assertThat(Lists.concat()).isEmpty();
 		assertThat(Lists.concat(List.of(ELEMENTS[0]))).containsExactly(ELEMENTS[0]);
@@ -138,5 +112,31 @@ final class ListsTest {
 		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<Integer>) null));
 		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), (List<List<Integer>>) null));
 		assertThatNullPointerException().isThrownBy(() -> Lists.join(ObjectArrays.singleton(0), Collections.singletonList(null)));
+	}
+
+	@Test
+	void testGetOptionalFirst() {
+		assertThat(Lists.getOptionalFirst(List.of()).isEmpty()).isTrue();
+		assertThat(Lists.getOptionalFirst(Collections.singletonList(null)).get()).isNull();
+		assertThat(Lists.getOptionalFirst(new LinkedList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[0]);
+		assertThat(Lists.getOptionalFirst(new ArrayList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[0]);
+	}
+
+	@Test
+	void testGetOptionalFirstInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.getOptionalFirst(null));
+	}
+
+	@Test
+	void testGetOptionalLast() {
+		assertThat(Lists.getOptionalLast(List.of()).isEmpty()).isTrue();
+		assertThat(Lists.getOptionalLast(Collections.singletonList(null)).get()).isNull();
+		assertThat(Lists.getOptionalLast(new LinkedList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[2]);
+		assertThat(Lists.getOptionalLast(new ArrayList<>(List.of(ELEMENTS))).get()).isEqualTo(ELEMENTS[2]);
+	}
+
+	@Test
+	void testGetOptionalLastInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Lists.getOptionalLast(null));
 	}
 }

@@ -35,8 +35,8 @@ public final class Comparators {
 
 	/**
 	 * <p>A {@link CharSequence} {@link Comparator} that takes numbers into consideration.</p>
-	 * <p><b>Example</b>: {@code ["example2", "example1", "example11"]} would be sorted like
-	 * {@code ["example1", "example2", "example11"]} and not {@code ["example1", "example11", "example2"]}.</p>
+	 * <p><b>Example</b>: {@code ["example2", "example1", "example10"]} would be sorted like
+	 * {@code ["example1", "example2", "example10"]} and not {@code ["example1", "example10", "example2"]}.</p>
 	 * @since 1.0.0
 	 */
 	public static final Comparator<CharSequence> NUMBER_AWARE = (charSequence1, charSequence2) -> {

@@ -79,16 +79,6 @@ final class BagTest extends AbstractBagTest {
 			}
 
 			@Override
-			public Set<E> toSet() {
-				return delegate.toSet();
-			}
-
-			@Override
-			public Map<E, Long> toMap() {
-				return delegate.toMap();
-			}
-
-			@Override
 			public boolean equals(final Object object) {
 				return delegate.equals(object);
 			}
@@ -101,6 +91,16 @@ final class BagTest extends AbstractBagTest {
 			@Override
 			public String toString() {
 				return delegate.toString();
+			}
+
+			@Override
+			public Set<E> toSet() {
+				return delegate.toSet();
+			}
+
+			@Override
+			public Map<E, Long> toMap() {
+				return delegate.toMap();
 			}
 		};
 	}

@@ -95,8 +95,10 @@ final class ThrowableConsumerTest {
 		ThrowableConsumer.unchecked(throwableConsumer).accept(list);
 		assertThat(list).containsExactly(1, 2);
 		list.clear();
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableConsumer.unchecked(exceptionThrowableConsumer).accept(list));
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> ThrowableConsumer.unchecked(exceptionThrowableConsumer).accept(list));
+		assertThat(ThrowableConsumer.unchecked(exceptionThrowableConsumer)).satisfies(uncheckedExceptionThrowableConsumer -> {
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableConsumer.accept(list));
+			assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> uncheckedExceptionThrowableConsumer.accept(list));
+		});
 		assertThat(list).isEmpty();
 	}
 

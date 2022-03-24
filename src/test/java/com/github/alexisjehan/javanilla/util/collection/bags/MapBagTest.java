@@ -83,7 +83,7 @@ final class MapBagTest extends AbstractBagTest {
 	}
 
 	@Test
-	void testEqualsHashCodeToString() {
+	void testEqualsAndHashCodeAndToString() {
 		assertThat(mapBag.equals(mapBag)).isTrue();
 		assertThat(mapBag).isNotEqualTo(new Object());
 		assertThat(new MapBag<>(COLLECTION)).satisfies(otherBag -> {
