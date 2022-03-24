@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.6.0 _(in progress)_
+## 1.7.0 _(in progress)_
+
+…
+
+
+## 1.6.0 _(2022-03-24)_
 
 **crypto**
 - Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_,

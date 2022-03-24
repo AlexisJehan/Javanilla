@@ -20,14 +20,14 @@ To include and use Javanilla, you need to add the following dependency into your
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.5.0</version>
+	<version>1.6.0</version>
 </dependency>
 ```
 
 Or if you are using _Gradle_:
 ```xml
 dependencies {
-	compile "com.github.alexisjehan:javanilla:1.5.0"
+	compile "com.github.alexisjehan:javanilla:1.6.0"
 }
 ```
 
