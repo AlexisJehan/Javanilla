@@ -210,22 +210,22 @@ System.out.println(countIterator.getCount()); // Prints 4
 ```
 
 ## Recurrent functions availability
-|                | InputStreams | OutputStreams | Readers  | Writers       | Strings  | ???Arrays  |
-| :------------: | :----------: | :-----------: | :------: | :-----------: | :------: | :--------: |
-| EMPTY          | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
-| nullToEmpty    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
-| nullToDefault  | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
-| emptyToNull    |              |               |          |               | &#x2713; | &#x2713;   |
-| emptyToDefault |              |               |          |               | &#x2713; | &#x2713;   |
-| isEmpty        |              |               |          |               | &#x2713; | &#x2713;   |
-| buffered       | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |            |
-| uncloseable    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |            |
-| length         | &#x2713;     |               | &#x2713; |               |          |            |
-| concat         | &#x2713;     |               | &#x2713; |               |          | &#x2713;   |
-| join           | &#x2713;     |               | &#x2713; |               |          | &#x2713;   |
-| tee            |              | &#x2713;      |          | &#x2713;      |          |            |
-| singleton      | &#x2713;     |               | &#x2713; |               |          | &#x2713;   |
-| of             | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;   |
+|                | InputStreams | OutputStreams | Readers  | Writers       | Strings  | \*Arrays  |
+| :------------: | :----------: | :-----------: | :------: | :-----------: | :------: | :-------: |
+| EMPTY          | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
+| nullToEmpty    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
+| nullToDefault  | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
+| emptyToNull    |              |               |          |               | &#x2713; | &#x2713;  |
+| emptyToDefault |              |               |          |               | &#x2713; | &#x2713;  |
+| isEmpty        |              |               |          |               | &#x2713; | &#x2713;  |
+| buffered       | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |           |
+| uncloseable    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |           |
+| length         | &#x2713;     |               | &#x2713; |               |          |           |
+| concat         | &#x2713;     |               | &#x2713; |               |          | &#x2713;  |
+| join           | &#x2713;     |               | &#x2713; |               |          | &#x2713;  |
+| tee            |              | &#x2713;      |          | &#x2713;      |          |           |
+| singleton      | &#x2713;     |               | &#x2713; |               |          | &#x2713;  |
+| of             | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
 
 |                | Lists    | Sets        | Maps        | Bags     | Iterables | Iterators |
 | :------------: | :------: | :---------: | :---------: | :------: | :-------: | :-------: |
@@ -240,7 +240,8 @@ System.out.println(countIterator.getCount()); // Prints 4
 | concat         | &#x2713; |             |             |          | &#x2713;  | &#x2713;  |
 | join           | &#x2713; |             |             |          | &#x2713;  | &#x2713;  |
 | singleton      |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
-| of             |          | _ofOrdered_ | _ofOrdered_ | &#x2713; | &#x2713;  | &#x2713;  |
+| of             |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
+| ofOrdered      |          | &#x2713;    | &#x2713;    |          |           |           |
 
 ## Maven phases and goals
 Compile, test and install the JAR in the local Maven repository:
