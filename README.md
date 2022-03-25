@@ -31,7 +31,7 @@ dependencies {
 }
 ```
 
-Also the Javadoc can be accessed [here](http://www.javadoc.io/doc/com.github.alexisjehan/javanilla).
+Also the Javadoc can be accessed [here](https://javadoc.io/doc/com.github.alexisjehan/javanilla).
 
 ## Examples
 Here are non-exhaustives examples of how you can use Javanilla.

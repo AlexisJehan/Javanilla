@@ -9,7 +9,7 @@
 
 	<name>Javanilla</name>
 	<description>A Java 10+ lightweight utility library to enhance the Java standard API.</description>
-	<url>https://github.com/alexisjehan/javanilla</url>
+	<url>https://github.com/AlexisJehan/Javanilla</url>
 	<inceptionYear>2018</inceptionYear>
 	<licenses>
 		<license>
@@ -20,23 +20,31 @@
 	</licenses>
 	<organization>
 		<name>Alexis Jehan</name>
-		<url>https://github.com/alexisjehan</url>
+		<url>https://github.com/AlexisJehan</url>
 	</organization>
 	<developers>
 		<developer>
 			<id>alexisjehan</id>
 			<name>Alexis Jehan</name>
-			<email>alexis.jehan2@gmail.com</email>
+			<email>alexis.jehan@outlook.com</email>
 			<organization>Alexis Jehan</organization>
-			<organizationUrl>https://github.com/alexisjehan</organizationUrl>
+			<organizationUrl>https://github.com/AlexisJehan</organizationUrl>
 		</developer>
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:alexisjehan/javanilla.git</connection>
-		<developerConnection>scm:git:git@github.com:alexisjehan/javanilla.git</developerConnection>
-		<url>https://github.com/alexisjehan/javanilla</url>
+		<connection>scm:git:git@github.com:AlexisJehan/Javanilla.git</connection>
+		<developerConnection>scm:git:git@github.com:AlexisJehan/Javanilla.git</developerConnection>
+		<url>https://github.com/AlexisJehan/Javanilla</url>
 	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/AlexisJehan/Javanilla/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.com/github/AlexisJehan/Javanilla</url>
+	</ciManagement>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -47,14 +55,6 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<issueManagement>
-		<system>Github</system>
-		<url>https://github.com/alexisjehan/javanilla/issues</url>
-	</issueManagement>
-	<ciManagement>
-		<system>Travis CI</system>
-		<url>https://travis-ci.org/alexisjehan/javanilla</url>
-	</ciManagement>
 
 	<properties>
 		<maven.compiler.source>10</maven.compiler.source>

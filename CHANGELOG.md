@@ -145,7 +145,7 @@ _StandardCertStores_ classes
 ## 1.4.2 _(2019-12-06)_
 
 **misc.StringFormatter**
-- Fixed the _formatBytes()_ method (The most copied StackOverflow snippet of all time is flawed!)
+- Fixed the _formatBytes()_ method ([The most copied StackOverflow snippet of all time is flawed!](https://programming.guide/worlds-most-copied-so-snippet.html))
 
 
 ## 1.4.1 _(2019-04-19)_
