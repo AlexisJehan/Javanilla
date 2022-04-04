@@ -2,8 +2,8 @@
 # Javanilla
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla.svg)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla)
 [![Javadoc](https://javadoc.io/badge/com.github.alexisjehan/javanilla.svg)](https://javadoc.io/doc/com.github.alexisjehan/javanilla)
-[![Travis CI](https://img.shields.io/travis/com/AlexisJehan/Javanilla.svg)](https://travis-ci.com/github/AlexisJehan/Javanilla)
-[![Codecov](https://img.shields.io/codecov/c/github/AlexisJehan/Javanilla.svg)](https://codecov.io/gh/AlexisJehan/Javanilla)
+[![Build](https://img.shields.io/github/workflow/status/AlexisJehan/Javanilla/CI.svg)](https://github.com/AlexisJehan/Javanilla/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/AlexisJehan/Javanilla.svg)](https://codecov.io/gh/AlexisJehan/Javanilla)
 [![License](https://img.shields.io/github/license/AlexisJehan/Javanilla.svg)](LICENSE.txt)
 
 A _Java 10+_ lightweight utility library to enhance the Java standard API.
