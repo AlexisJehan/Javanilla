@@ -54,58 +54,6 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testIsChecked() {
-		assertThat(Throwables.isChecked(new Exception())).isTrue();
-		assertThat(Throwables.isChecked(new RuntimeException())).isFalse();
-		assertThat(Throwables.isChecked(new Error())).isFalse();
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testIsCheckedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.isChecked(null));
-	}
-
-	@Test
-	void testIsCheckedException() {
-		assertThat(Throwables.isCheckedException(new Exception())).isTrue();
-		assertThat(Throwables.isCheckedException(new RuntimeException())).isFalse();
-		assertThat(Throwables.isCheckedException(new Error())).isFalse();
-	}
-
-	@Test
-	void testIsCheckedExceptionInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.isCheckedException(null));
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testIsUnchecked() {
-		assertThat(Throwables.isUnchecked(new Exception())).isFalse();
-		assertThat(Throwables.isUnchecked(new RuntimeException())).isTrue();
-		assertThat(Throwables.isUnchecked(new Error())).isFalse();
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testIsUncheckedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.isUnchecked(null));
-	}
-
-	@Test
-	void testIsUncheckedException() {
-		assertThat(Throwables.isUncheckedException(new Exception())).isFalse();
-		assertThat(Throwables.isUncheckedException(new RuntimeException())).isTrue();
-		assertThat(Throwables.isUncheckedException(new Error())).isFalse();
-	}
-
-	@Test
-	void testIsUncheckedExceptionInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Throwables.isUncheckedException(null));
-	}
-
-	@Test
 	void testUncheckThrowableRunnable() {
 		Throwables.uncheck(() -> {});
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck(() -> {
@@ -114,6 +62,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testUncheckThrowableRunnableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableRunnable<IOException>) null));
 	}
@@ -181,5 +130,57 @@ final class ThrowablesTest {
 	@Test
 	void testGetCausesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.getCauses(null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testIsChecked() {
+		assertThat(Throwables.isChecked(new Exception())).isTrue();
+		assertThat(Throwables.isChecked(new RuntimeException())).isFalse();
+		assertThat(Throwables.isChecked(new Error())).isFalse();
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testIsCheckedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.isChecked(null));
+	}
+
+	@Test
+	void testIsCheckedException() {
+		assertThat(Throwables.isCheckedException(new Exception())).isTrue();
+		assertThat(Throwables.isCheckedException(new RuntimeException())).isFalse();
+		assertThat(Throwables.isCheckedException(new Error())).isFalse();
+	}
+
+	@Test
+	void testIsCheckedExceptionInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.isCheckedException(null));
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testIsUnchecked() {
+		assertThat(Throwables.isUnchecked(new Exception())).isFalse();
+		assertThat(Throwables.isUnchecked(new RuntimeException())).isTrue();
+		assertThat(Throwables.isUnchecked(new Error())).isFalse();
+	}
+
+	@Test
+	@SuppressWarnings("deprecation")
+	void testIsUncheckedInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.isUnchecked(null));
+	}
+
+	@Test
+	void testIsUncheckedException() {
+		assertThat(Throwables.isUncheckedException(new Exception())).isFalse();
+		assertThat(Throwables.isUncheckedException(new RuntimeException())).isTrue();
+		assertThat(Throwables.isUncheckedException(new Error())).isFalse();
+	}
+
+	@Test
+	void testIsUncheckedExceptionInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.isUncheckedException(null));
 	}
 }

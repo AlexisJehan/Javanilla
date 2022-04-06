@@ -65,56 +65,6 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
-	 * @param throwable the {@link Throwable} to test
-	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
-	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @deprecated since 1.6.0, use {@link #isCheckedException(Throwable)} instead
-	 * @since 1.1.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static boolean isChecked(final Throwable throwable) {
-		return isCheckedException(throwable);
-	}
-
-	/**
-	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
-	 * @param throwable the {@link Throwable} to test
-	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
-	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @since 1.6.0
-	 */
-	public static boolean isCheckedException(final Throwable throwable) {
-		Ensure.notNull("throwable", throwable);
-		return throwable instanceof Exception && !isUncheckedException(throwable);
-	}
-
-	/**
-	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
-	 * @param throwable the {@link Throwable} to test
-	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
-	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @deprecated since 1.6.0, use {@link #isUncheckedException(Throwable)} instead
-	 * @since 1.1.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static boolean isUnchecked(final Throwable throwable) {
-		return isUncheckedException(throwable);
-	}
-
-	/**
-	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
-	 * @param throwable the {@link Throwable} to test
-	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
-	 * @throws NullPointerException if the {@link Throwable} is {@code null}
-	 * @since 1.6.0
-	 */
-	public static boolean isUncheckedException(final Throwable throwable) {
-		Ensure.notNull("throwable", throwable);
-		return throwable instanceof RuntimeException;
-	}
-
-	/**
 	 * <p>Execute the given {@link ThrowableRunnable} converting any thrown {@link Throwable} to an unchecked
 	 * {@link Exception}.</p>
 	 * @param throwableRunnable the {@link ThrowableRunnable} to execute
@@ -179,5 +129,55 @@ public final class Throwables {
 			causes.add(cause);
 		}
 		return causes;
+	}
+
+	/**
+	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #isCheckedException(Throwable)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static boolean isChecked(final Throwable throwable) {
+		return isCheckedException(throwable);
+	}
+
+	/**
+	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static boolean isCheckedException(final Throwable throwable) {
+		Ensure.notNull("throwable", throwable);
+		return throwable instanceof Exception && !isUncheckedException(throwable);
+	}
+
+	/**
+	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @deprecated since 1.6.0, use {@link #isUncheckedException(Throwable)} instead
+	 * @since 1.1.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static boolean isUnchecked(final Throwable throwable) {
+		return isUncheckedException(throwable);
+	}
+
+	/**
+	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
+	 * @param throwable the {@link Throwable} to test
+	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @since 1.6.0
+	 */
+	public static boolean isUncheckedException(final Throwable throwable) {
+		Ensure.notNull("throwable", throwable);
+		return throwable instanceof RuntimeException;
 	}
 }
