@@ -2,7 +2,8 @@
 
 ## 1.7.0 _(in progress)_
 
-…
+**lang.array.IntArrays**
+- Removed the _add(int[], int, int)_ method
 
 
 ## 1.6.0 _(2022-03-24)_

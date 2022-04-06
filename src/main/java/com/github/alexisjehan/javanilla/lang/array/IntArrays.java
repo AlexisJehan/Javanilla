@@ -116,22 +116,6 @@ public final class IntArrays {
 	/**
 	 * <p>Add an {@code int} value at the provided index of the given {@code int} array.</p>
 	 * @param array the {@code int} array to add to
-	 * @param index the index of the {@code int} value
-	 * @param value the {@code int} value to add
-	 * @return an {@code int} array with the added {@code int} value
-	 * @throws NullPointerException if the {@code int} array is {@code null}
-	 * @throws IllegalArgumentException if the index is not valid
-	 * @deprecated since 1.6.0, use {@link #addTemporary(int[], int, int)} instead
-	 * @since 1.4.0
-	 */
-	@Deprecated(since = "1.6.0", forRemoval = true)
-	public static int[] add(final int[] array, final int index, final int value) {
-		return addTemporary(array, value, index);
-	}
-
-	/**
-	 * <p>Add an {@code int} value at the provided index of the given {@code int} array.</p>
-	 * @param array the {@code int} array to add to
 	 * @param value the {@code int} value to add
 	 * @param index the index of the {@code int} value
 	 * @return an {@code int} array with the added {@code int} value
