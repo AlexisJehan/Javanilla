@@ -23,6 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.util.function.throwable;
 
+import com.github.alexisjehan.javanilla.util.function.Procedure;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -35,17 +36,16 @@ import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
- * <p>{@link ThrowableRunnable} unit tests.</p>
+ * <p>{@link ThrowableProcedure} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class ThrowableRunnableTest {
+final class ThrowableProcedureTest {
 
-	private static final class FooRunnable implements Runnable {
+	private static final class FooProcedure implements Procedure {
 
 		private final LongAdder adder = new LongAdder();
 
 		@Override
-		public void run() {
+		public void execute() {
 			adder.increment();
 		}
 
@@ -54,12 +54,12 @@ final class ThrowableRunnableTest {
 		}
 	}
 
-	private static final class FooThrowableRunnable implements ThrowableRunnable<IOException> {
+	private static final class FooThrowableProcedure implements ThrowableProcedure<IOException> {
 
 		private final LongAdder adder = new LongAdder();
 
 		@Override
-		public void run() {
+		public void execute() {
 			adder.increment();
 		}
 
@@ -70,49 +70,49 @@ final class ThrowableRunnableTest {
 
 	@Test
 	void testRun() {
-		final var throwableRunnable = new FooThrowableRunnable();
-		final var exceptionThrowableRunnable = (ThrowableRunnable<IOException>) () -> {
+		final var throwableProcedure = new FooThrowableProcedure();
+		final var exceptionThrowableProcedure = (ThrowableProcedure<IOException>) () -> {
 			throw new IOException();
 		};
-		throwableRunnable.run();
-		throwableRunnable.run();
-		assertThat(throwableRunnable.getValue()).isEqualTo(2);
-		assertThatIOException().isThrownBy(exceptionThrowableRunnable::run);
+		throwableProcedure.execute();
+		throwableProcedure.execute();
+		assertThat(throwableProcedure.getValue()).isEqualTo(2);
+		assertThatIOException().isThrownBy(exceptionThrowableProcedure::execute);
 	}
 
 	@Test
 	void testUnchecked() {
-		final var throwableRunnable = new FooThrowableRunnable();
-		final var runnable = ThrowableRunnable.unchecked(throwableRunnable);
-		final var exceptionRunnable = ThrowableRunnable.unchecked(() -> {
+		final var throwableProcedure = new FooThrowableProcedure();
+		final var procedure = ThrowableProcedure.unchecked(throwableProcedure);
+		final var exceptionProcedure = ThrowableProcedure.unchecked(() -> {
 			throw new IOException();
 		});
-		runnable.run();
-		runnable.run();
-		assertThat(throwableRunnable.getValue()).isEqualTo(2);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(exceptionRunnable::run);
+		procedure.execute();
+		procedure.execute();
+		assertThat(throwableProcedure.getValue()).isEqualTo(2);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(exceptionProcedure::execute);
 	}
 
 	@Test
 	void testUncheckedInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ThrowableRunnable.unchecked(null));
+		assertThatNullPointerException().isThrownBy(() -> ThrowableProcedure.unchecked(null));
 	}
 
 	@Test
 	void testOf() throws Throwable {
-		final var runnable = new FooRunnable();
-		final var throwableRunnable = ThrowableRunnable.of(runnable);
-		final var exceptionThrowableRunnable = ThrowableRunnable.of(() -> {
+		final var procedure = new FooProcedure();
+		final var throwableProcedure = ThrowableProcedure.of(procedure);
+		final var exceptionThrowableProcedure = ThrowableProcedure.of(() -> {
 			throw new UncheckedIOException(new IOException());
 		});
-		throwableRunnable.run();
-		throwableRunnable.run();
-		assertThat(runnable.getValue()).isEqualTo(2);
-		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(exceptionThrowableRunnable::run);
+		throwableProcedure.execute();
+		throwableProcedure.execute();
+		assertThat(procedure.getValue()).isEqualTo(2);
+		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(exceptionThrowableProcedure::execute);
 	}
 
 	@Test
 	void testOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> ThrowableRunnable.of(null));
+		assertThatNullPointerException().isThrownBy(() -> ThrowableProcedure.of(null));
 	}
 }

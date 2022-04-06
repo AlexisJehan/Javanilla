@@ -21,30 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.alexisjehan.javanilla.util.function.serializable;
-
-import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-
-import java.io.Serializable;
+package com.github.alexisjehan.javanilla.util.function;
 
 /**
- * <p>Interface for a {@link Runnable} that is {@link Serializable}.</p>
- * @deprecated since 1.7.0, use {@link SerializableProcedure} instead
- * @since 1.4.0
+ * <p>Represents an operation that takes no input argument and returns no result. Unlike {@link Runnable}, it is not
+ * intended to be executed by a thread.</p>
+ * <p>This is a functional interface whose functional method is {@link #execute()}.</p>
+ * @since 1.7.0
  */
 @FunctionalInterface
-@Deprecated(since = "1.7.0")
-public interface SerializableRunnable extends Runnable, Serializable {
+public interface Procedure {
 
 	/**
-	 * <p>Create a {@link SerializableRunnable} from the given {@link Runnable}.</p>
-	 * @param runnable the {@link Runnable} to convert
-	 * @return the created {@link SerializableRunnable}
-	 * @throws NullPointerException if the {@link Runnable} is {@code null}
-	 * @since 1.4.0
+	 * <p>Performs this operation.</p>
+	 * @since 1.7.0
 	 */
-	static SerializableRunnable of(final Runnable runnable) {
-		Ensure.notNull("runnable", runnable);
-		return runnable::run;
-	}
+	void execute();
 }

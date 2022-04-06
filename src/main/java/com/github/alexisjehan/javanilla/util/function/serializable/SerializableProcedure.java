@@ -24,27 +24,26 @@
 package com.github.alexisjehan.javanilla.util.function.serializable;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.util.function.Procedure;
 
 import java.io.Serializable;
 
 /**
- * <p>Interface for a {@link Runnable} that is {@link Serializable}.</p>
- * @deprecated since 1.7.0, use {@link SerializableProcedure} instead
- * @since 1.4.0
+ * <p>Interface for a {@link Procedure} that is {@link Serializable}.</p>
+ * @since 1.7.0
  */
 @FunctionalInterface
-@Deprecated(since = "1.7.0")
-public interface SerializableRunnable extends Runnable, Serializable {
+public interface SerializableProcedure extends Procedure, Serializable {
 
 	/**
-	 * <p>Create a {@link SerializableRunnable} from the given {@link Runnable}.</p>
-	 * @param runnable the {@link Runnable} to convert
-	 * @return the created {@link SerializableRunnable}
-	 * @throws NullPointerException if the {@link Runnable} is {@code null}
-	 * @since 1.4.0
+	 * <p>Create a {@link SerializableProcedure} from the given {@link Procedure}.</p>
+	 * @param procedure the {@link Procedure} to convert
+	 * @return the created {@link SerializableProcedure}
+	 * @throws NullPointerException if the {@link Procedure} is {@code null}
+	 * @since 1.7.0
 	 */
-	static SerializableRunnable of(final Runnable runnable) {
-		Ensure.notNull("runnable", runnable);
-		return runnable::run;
+	static SerializableProcedure of(final Procedure procedure) {
+		Ensure.notNull("procedure", procedure);
+		return procedure::execute;
 	}
 }

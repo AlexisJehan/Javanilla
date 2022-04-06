@@ -24,6 +24,7 @@
 package com.github.alexisjehan.javanilla.util.function.serializable;
 
 import com.github.alexisjehan.javanilla.io.Serializables;
+import com.github.alexisjehan.javanilla.util.function.Procedure;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.LongAdder;
@@ -32,17 +33,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 /**
- * <p>{@link SerializableRunnable} unit tests.</p>
+ * <p>{@link SerializableProcedure} unit tests.</p>
  */
-@SuppressWarnings("deprecation")
-final class SerializableRunnableTest {
+final class SerializableProcedureTest {
 
-	private static final class FooRunnable implements Runnable {
+	private static final class FooProcedure implements Procedure {
 
 		private final LongAdder adder = new LongAdder();
 
 		@Override
-		public void run() {
+		public void execute() {
 			adder.increment();
 		}
 
@@ -52,12 +52,12 @@ final class SerializableRunnableTest {
 	}
 
 	@SuppressWarnings("serial")
-	private static final class FooSerializableRunnable implements SerializableRunnable {
+	private static final class FooSerializableProcedure implements SerializableProcedure {
 
 		private final LongAdder adder = new LongAdder();
 
 		@Override
-		public void run() {
+		public void execute() {
 			adder.increment();
 		}
 
@@ -68,35 +68,35 @@ final class SerializableRunnableTest {
 
 	@Test
 	void testRun() {
-		final var serializableRunnable = new FooSerializableRunnable();
-		serializableRunnable.run();
-		serializableRunnable.run();
-		assertThat(serializableRunnable.getValue()).isEqualTo(2);
+		final var serializableProcedure = new FooSerializableProcedure();
+		serializableProcedure.execute();
+		serializableProcedure.execute();
+		assertThat(serializableProcedure.getValue()).isEqualTo(2);
 	}
 
 	@Test
 	void testOf() {
-		final var runnable = new FooRunnable();
-		final var serializableRunnable = SerializableRunnable.of(runnable);
-		serializableRunnable.run();
-		serializableRunnable.run();
-		assertThat(runnable.getValue()).isEqualTo(2);
+		final var procedure = new FooProcedure();
+		final var serializableProcedure = SerializableProcedure.of(procedure);
+		serializableProcedure.execute();
+		serializableProcedure.execute();
+		assertThat(procedure.getValue()).isEqualTo(2);
 	}
 
 	@Test
 	void testOfInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> SerializableRunnable.of(null));
+		assertThatNullPointerException().isThrownBy(() -> SerializableProcedure.of(null));
 	}
 
 	@Test
 	void testSerializable() {
-		final var deserializedSerializableRunnable = Serializables.<FooSerializableRunnable>deserialize(
+		final var deserializedSerializableProcedure = Serializables.<FooSerializableProcedure>deserialize(
 				Serializables.serialize(
-						new FooSerializableRunnable()
+						new FooSerializableProcedure()
 				)
 		);
-		deserializedSerializableRunnable.run();
-		deserializedSerializableRunnable.run();
-		assertThat(deserializedSerializableRunnable.getValue()).isEqualTo(2);
+		deserializedSerializableProcedure.execute();
+		deserializedSerializableProcedure.execute();
+		assertThat(deserializedSerializableProcedure.getValue()).isEqualTo(2);
 	}
 }

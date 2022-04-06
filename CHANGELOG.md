@@ -5,6 +5,17 @@
 **lang.array.IntArrays**
 - Removed the _add(int[], int, int)_ method
 
+**util.function**
+- Added the _Procedure_ class
+
+**util.function.serializable**
+- Added the _SerializableProcedure_ class
+- Deprecated the _SerializableRunnable_ class
+
+**util.function.throwable**
+- Added the _ThrowableProcedure_ class
+- Deprecated the _ThrowableRunnable_ class
+
 
 ## 1.6.0 _(2022-03-24)_
 

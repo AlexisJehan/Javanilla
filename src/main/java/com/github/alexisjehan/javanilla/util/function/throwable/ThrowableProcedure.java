@@ -25,38 +25,37 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import com.github.alexisjehan.javanilla.util.function.Procedure;
 
 /**
- * <p>Interface for a {@link Runnable} that may throw a {@link Throwable}.</p>
+ * <p>Interface for a {@link Procedure} that may throw a {@link Throwable}.</p>
  * @param <X> the type of the {@link Throwable}
- * @deprecated since 1.7.0, use {@link ThrowableProcedure} instead
- * @since 1.0.0
+ * @since 1.7.0
  */
 @FunctionalInterface
-@Deprecated(since = "1.7.0")
-public interface ThrowableRunnable<X extends Throwable> {
+public interface ThrowableProcedure<X extends Throwable> {
 
 	/**
-	 * <p>Take any action whatsoever.</p>
+	 * <p>Performs this operation.</p>
 	 * @throws X may throw a {@link Throwable}
-	 * @since 1.0.0
+	 * @since 1.7.0
 	 */
-	void run() throws X;
+	void execute() throws X;
 
 	/**
-	 * <p>Converts the given {@link ThrowableRunnable} to a {@link Runnable} that may throw an unchecked
+	 * <p>Converts the given {@link ThrowableProcedure} to a {@link Procedure} that may throw an unchecked
 	 * {@link Throwable}.</p>
-	 * @param throwableRunnable the {@link ThrowableRunnable} to convert
+	 * @param throwableProcedure the {@link ThrowableProcedure} to convert
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the converted {@link Runnable}
-	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
-	 * @since 1.0.0
+	 * @return the converted {@link Procedure}
+	 * @throws NullPointerException if the {@link ThrowableProcedure} is {@code null}
+	 * @since 1.7.0
 	 */
-	static <X extends Throwable> Runnable unchecked(final ThrowableRunnable<? extends X> throwableRunnable) {
-		Ensure.notNull("throwableRunnable", throwableRunnable);
+	static <X extends Throwable> Procedure unchecked(final ThrowableProcedure<? extends X> throwableProcedure) {
+		Ensure.notNull("throwableProcedure", throwableProcedure);
 		return () -> {
 			try {
-				throwableRunnable.run();
+				throwableProcedure.execute();
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
 			}
@@ -64,15 +63,15 @@ public interface ThrowableRunnable<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@link ThrowableRunnable} from the given {@link Runnable}.</p>
-	 * @param runnable the {@link Runnable} to convert
+	 * <p>Create a {@link ThrowableProcedure} from the given {@link Procedure}.</p>
+	 * @param procedure the {@link Procedure} to convert
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the created {@link ThrowableRunnable}
-	 * @throws NullPointerException if the {@link Runnable} is {@code null}
-	 * @since 1.0.0
+	 * @return the created {@link ThrowableProcedure}
+	 * @throws NullPointerException if the {@link Procedure} is {@code null}
+	 * @since 1.7.0
 	 */
-	static <X extends Throwable> ThrowableRunnable<X> of(final Runnable runnable) {
-		Ensure.notNull("runnable", runnable);
-		return runnable::run;
+	static <X extends Throwable> ThrowableProcedure<X> of(final Procedure procedure) {
+		Ensure.notNull("procedure", procedure);
+		return procedure::execute;
 	}
 }
