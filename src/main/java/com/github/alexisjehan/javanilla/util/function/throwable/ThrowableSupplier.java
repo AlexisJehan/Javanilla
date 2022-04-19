@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.function.Supplier;
 
@@ -62,6 +63,36 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 				return throwableSupplier.get();
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableSupplier} to a {@link Supplier} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableSupplier the {@link ThrowableSupplier} to convert
+	 * @param <T> the type of results supplied by this supplier
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Supplier}
+	 * @throws NullPointerException if the {@link ThrowableSupplier} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, X extends Throwable> Supplier<T> sneaky(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
+		Ensure.notNull("throwableSupplier", throwableSupplier);
+		return new Supplier<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public T get() {
+				try {
+					return throwableSupplier.get();
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+					throw new AssertionError(e);
+				}
 			}
 		};
 	}

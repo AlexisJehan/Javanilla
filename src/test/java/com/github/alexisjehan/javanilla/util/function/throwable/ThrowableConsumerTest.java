@@ -108,6 +108,29 @@ final class ThrowableConsumerTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> t.add(t.size() + 1);
+		final var exceptionThrowableConsumer = (ThrowableConsumer<List<Integer>, IOException>) t -> {
+			throw new IOException();
+		};
+		final var list = new ArrayList<Integer>();
+		ThrowableConsumer.sneaky(throwableConsumer).accept(list);
+		ThrowableConsumer.sneaky(throwableConsumer).accept(list);
+		assertThat(list).containsExactly(1, 2);
+		list.clear();
+		assertThat(ThrowableConsumer.sneaky(exceptionThrowableConsumer)).satisfies(sneakyExceptionThrowableConsumer -> {
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableConsumer.accept(list));
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableConsumer.accept(list));
+		});
+		assertThat(list).isEmpty();
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableConsumer.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwableConsumer = ThrowableConsumer.of((Consumer<List<Integer>>) t -> t.add(t.size() + 1));
 		final var list = new ArrayList<Integer>();

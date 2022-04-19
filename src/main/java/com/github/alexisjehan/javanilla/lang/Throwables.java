@@ -69,8 +69,10 @@ public final class Throwables {
 	 * {@link Exception}.</p>
 	 * @param throwableRunnable the {@link ThrowableRunnable} to execute
 	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
+	 * @deprecated since 1.7.0, should not be used anymore
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.7.0")
 	public static void uncheck(final ThrowableRunnable<?> throwableRunnable) {
 		Ensure.notNull("throwableRunnable", throwableRunnable);
 		ThrowableRunnable.unchecked(throwableRunnable).run();
@@ -83,11 +85,27 @@ public final class Throwables {
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the supplied result
 	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
+	 * @deprecated since 1.7.0, should not be used anymore
 	 * @since 1.0.0
 	 */
+	@Deprecated(since = "1.7.0")
 	public static <T> T uncheck(final ThrowableSupplier<T, ?> throwableSupplier) {
 		Ensure.notNull("throwableSupplier", throwableSupplier);
 		return ThrowableSupplier.unchecked(throwableSupplier).get();
+	}
+
+	/**
+	 * <p>Sneaky throw the given {@link Throwable}.</p>
+	 * @param throwable the {@link Throwable} to sneaky throw
+	 * @param <E> the type of the {@link Throwable}
+	 * @throws E the given {@link Throwable}
+	 * @throws NullPointerException if the {@link Throwable} is {@code null}
+	 * @since 1.7.0
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E extends Throwable> void sneakyThrow(final Throwable throwable) throws E {
+		Ensure.notNull("throwable", throwable);
+		throw (E) throwable;
 	}
 
 	/**

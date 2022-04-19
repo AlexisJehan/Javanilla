@@ -110,6 +110,29 @@ final class ThrowableBiConsumerTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> t.add(u + 1);
+		final var exceptionThrowableBiConsumer = (ThrowableBiConsumer<List<Integer>, Integer, IOException>) (t, u) -> {
+			throw new IOException();
+		};
+		final var list = new ArrayList<Integer>();
+		ThrowableBiConsumer.sneaky(throwableBiConsumer).accept(list, 1);
+		ThrowableBiConsumer.sneaky(throwableBiConsumer).accept(list, 3);
+		assertThat(list).containsExactly(2, 4);
+		list.clear();
+		assertThat(ThrowableBiConsumer.sneaky(exceptionThrowableBiConsumer)).satisfies(sneakyExceptionThrowableBiConsumer -> {
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableBiConsumer.accept(list, 1));
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableBiConsumer.accept(list, 3));
+		});
+		assertThat(list).isEmpty();
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableBiConsumer.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwableBiConsumer = ThrowableBiConsumer.of((BiConsumer<List<Integer>, Integer>) (t, u) -> t.add(u + 1));
 		final var list = new ArrayList<Integer>();

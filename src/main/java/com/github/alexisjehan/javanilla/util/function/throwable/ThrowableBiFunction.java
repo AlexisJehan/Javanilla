@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.function.BiFunction;
 
@@ -83,6 +84,38 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 				return throwableBiFunction.apply(t, u);
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableBiFunction} to a {@link BiFunction} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableBiFunction the {@link ThrowableBiFunction} to convert
+	 * @param <T> the type of the first argument to the function
+	 * @param <U> the type of the second argument to the function
+	 * @param <R> the type of the result of the function
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link BiFunction}
+	 * @throws NullPointerException if the {@link ThrowableBiFunction} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, U, R, X extends Throwable> BiFunction<T, U, R> sneaky(final ThrowableBiFunction<? super T, ? super U, ? extends R, ? extends X> throwableBiFunction) {
+		Ensure.notNull("throwableBiFunction", throwableBiFunction);
+		return new BiFunction<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public R apply(final T t, final U u) {
+				try {
+					return throwableBiFunction.apply(t, u);
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+					throw new AssertionError(e);
+				}
 			}
 		};
 	}

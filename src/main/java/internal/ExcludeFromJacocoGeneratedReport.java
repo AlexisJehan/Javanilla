@@ -21,34 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package examples;
+package internal;
 
-import com.github.alexisjehan.javanilla.lang.Throwables;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+@Retention(RetentionPolicy.RUNTIME)
+@Target({
+		ElementType.TYPE,
+		ElementType.METHOD,
+		ElementType.CONSTRUCTOR
+})
+public @interface ExcludeFromJacocoGeneratedReport {
 
-public final class ThrowableExample {
-
-	private ThrowableExample() {
-		// Not available
-	}
-
-	public static void main(final String... args) {
-		// Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
-		final var millis = 5_000L;
-		ThrowableProcedure.unchecked(() -> Thread.sleep(millis)).execute();
-
-		// Still no try/catch required, but this time keep the original checked exception
-		ThrowableSupplier.sneaky(() -> {
-			throw new IOException("A checked Exception inside a lambda");
-		});
-
-		try {
-			throw new UncheckedIOException(new IOException());
-		} catch (final Exception e) {
-			System.out.println(Throwables.isUncheckedException(e)); // Prints true
-			System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getClass().getName()); // Prints java.io.IOException
-		}
-	}
 }

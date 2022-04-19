@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.function.Consumer;
 
@@ -79,6 +80,35 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 				throwableConsumer.accept(t);
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableConsumer} to a {@link Consumer} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableConsumer the {@link ThrowableConsumer} to convert
+	 * @param <T> the type of the input to the operation
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Consumer}
+	 * @throws NullPointerException if the {@link ThrowableConsumer} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, X extends Throwable> Consumer<T> sneaky(final ThrowableConsumer<? super T, ? extends X> throwableConsumer) {
+		Ensure.notNull("throwableConsumer", throwableConsumer);
+		return new Consumer<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public void accept(final T t) {
+				try {
+					throwableConsumer.accept(t);
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+				}
 			}
 		};
 	}

@@ -89,6 +89,25 @@ final class ThrowableBiFunctionTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableBiFunction = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) Integer::sum;
+		final var exceptionThrowableBiFunction = (ThrowableBiFunction<Integer, Integer, Integer, IOException>) (t, u) -> {
+			throw new IOException();
+		};
+		assertThat(ThrowableBiFunction.sneaky(throwableBiFunction).apply(1, 2)).isEqualTo(3);
+		assertThat(ThrowableBiFunction.sneaky(throwableBiFunction).apply(3, 3)).isEqualTo(6);
+		assertThat(ThrowableBiFunction.sneaky(exceptionThrowableBiFunction)).satisfies(sneakyExceptionThrowableBiFunction -> {
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableBiFunction.apply(1, 2));
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableBiFunction.apply(3, 3));
+		});
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableBiFunction.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwableBiFunction = ThrowableBiFunction.of(Integer::sum);
 		assertThat(throwableBiFunction.apply(1, 2)).isEqualTo(3);

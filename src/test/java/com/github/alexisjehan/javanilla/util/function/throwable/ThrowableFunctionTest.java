@@ -124,6 +124,25 @@ final class ThrowableFunctionTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> t + 1;
+		final var exceptionThrowableFunction = (ThrowableFunction<Integer, Integer, IOException>) t -> {
+			throw new IOException();
+		};
+		assertThat(ThrowableFunction.sneaky(throwableFunction).apply(1)).isEqualTo(2);
+		assertThat(ThrowableFunction.sneaky(throwableFunction).apply(3)).isEqualTo(4);
+		assertThat(ThrowableFunction.sneaky(exceptionThrowableFunction)).satisfies(sneakyExceptionThrowableFunction -> {
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableFunction.apply(1));
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableFunction.apply(3));
+		});
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableFunction.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwableFunction = ThrowableFunction.of((Function<Integer, Integer>) t -> t + 1);
 		assertThat(throwableFunction.apply(1)).isEqualTo(2);

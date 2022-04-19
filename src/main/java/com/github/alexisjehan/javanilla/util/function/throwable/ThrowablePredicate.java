@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -116,6 +117,36 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 				return throwablePredicate.test(t);
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowablePredicate} to a {@link Predicate} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwablePredicate the {@link ThrowablePredicate} to convert
+	 * @param <T> the type of the input to the predicate
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Predicate}
+	 * @throws NullPointerException if the {@link ThrowablePredicate} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, X extends Throwable> Predicate<T> sneaky(final ThrowablePredicate<? super T, ? extends X> throwablePredicate) {
+		Ensure.notNull("throwablePredicate", throwablePredicate);
+		return new Predicate<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public boolean test(final T t) {
+				try {
+					return throwablePredicate.test(t);
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+					throw new AssertionError(e);
+				}
 			}
 		};
 	}

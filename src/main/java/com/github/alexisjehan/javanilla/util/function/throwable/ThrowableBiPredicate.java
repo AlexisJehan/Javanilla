@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.function.BiPredicate;
 
@@ -103,6 +104,37 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 				return throwableBiPredicate.test(t, u);
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableBiPredicate} to a {@link BiPredicate} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableBiPredicate the {@link ThrowableBiPredicate} to convert
+	 * @param <T> the type of the first argument to the predicate
+	 * @param <U> the type of the second argument the predicate
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link BiPredicate}
+	 * @throws NullPointerException if the {@link ThrowableBiPredicate} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, U, X extends Throwable> BiPredicate<T, U> sneaky(final ThrowableBiPredicate<? super T, ? super U, ? extends X> throwableBiPredicate) {
+		Ensure.notNull("throwableBiPredicate", throwableBiPredicate);
+		return new BiPredicate<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public boolean test(final T t, final U u) {
+				try {
+					return throwableBiPredicate.test(t, u);
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+					throw new AssertionError(e);
+				}
 			}
 		};
 	}

@@ -126,7 +126,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<additionalOptions>-html5</additionalOptions>
-					<excludePackageNames>examples</excludePackageNames>
+					<excludePackageNames>examples,internal</excludePackageNames>
 				</configuration>
 				<executions>
 					<execution>
@@ -163,6 +163,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/examples/**</exclude>
+						<exclude>**/internal/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

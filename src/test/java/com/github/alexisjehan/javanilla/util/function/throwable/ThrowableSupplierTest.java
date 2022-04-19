@@ -66,6 +66,23 @@ final class ThrowableSupplierTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableSupplier = (ThrowableSupplier<Integer, IOException>) () -> 1;
+		final var exceptionThrowableSupplier = (ThrowableSupplier<Integer, IOException>) () -> {
+			throw new IOException();
+		};
+		assertThat(ThrowableSupplier.sneaky(throwableSupplier).get()).isEqualTo(1);
+		assertThat(ThrowableSupplier.sneaky(exceptionThrowableSupplier)).satisfies(
+				sneakyExceptionThrowableSupplier -> assertThatExceptionOfType(IOException.class).isThrownBy(sneakyExceptionThrowableSupplier::get)
+		);
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableSupplier.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwableSupplier = ThrowableSupplier.of(() -> 1);
 		assertThat(throwableSupplier.get()).isEqualTo(1);

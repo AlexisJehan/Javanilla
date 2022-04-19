@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.function.Function;
 
@@ -105,6 +106,37 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 				return throwableFunction.apply(t);
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableFunction} to a {@link Function} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableFunction the {@link ThrowableFunction} to convert
+	 * @param <T> the type of the input to the function
+	 * @param <R> the type of the result of the function
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Function}
+	 * @throws NullPointerException if the {@link ThrowableFunction} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, R, X extends Throwable> Function<T, R> sneaky(final ThrowableFunction<? super T, ? extends R, ? extends X> throwableFunction) {
+		Ensure.notNull("throwableFunction", throwableFunction);
+		return new Function<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public R apply(final T t) {
+				try {
+					return throwableFunction.apply(t);
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+					throw new AssertionError(e);
+				}
 			}
 		};
 	}

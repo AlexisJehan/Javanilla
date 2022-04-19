@@ -2,6 +2,10 @@
 
 ## 1.7.0 _(in progress)_
 
+**lang.Throwables**
+- Added the _sneakyThrow(Throwable)_ method
+- Deprecated _uncheck(ThrowableRunnable)_ and _uncheck(ThrowableSupplier)_ methods
+
 **lang.array.IntArrays**
 - Removed the _add(int[], int, int)_ method
 
@@ -15,6 +19,27 @@
 **util.function.throwable**
 - Added the _ThrowableProcedure_ class
 - Deprecated the _ThrowableRunnable_ class
+
+**util.function.throwable.ThrowableBiConsumer**
+- Added the _sneaky(ThrowableBiConsumer)_ method
+
+**util.function.throwable.ThrowableBiFunction**
+- Added the _sneaky(ThrowableBiFunction)_ method
+
+**util.function.throwable.ThrowableBiPredicate**
+- Added the _sneaky(ThrowableBiPredicate)_ method
+
+**util.function.throwable.ThrowableConsumer**
+- Added the _sneaky(ThrowableConsumer)_ method
+
+**util.function.throwable.ThrowableFunction**
+- Added the _sneaky(ThrowableFunction)_ method
+
+**util.function.throwable.ThrowablePredicate**
+- Added the _sneaky(ThrowablePredicate)_ method
+
+**util.function.throwable.ThrowableSupplier**
+- Added the _sneaky(ThrowableSupplier)_ method
 
 
 ## 1.6.0 _(2022-03-24)_

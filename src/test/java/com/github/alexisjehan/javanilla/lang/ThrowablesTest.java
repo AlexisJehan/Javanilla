@@ -54,6 +54,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testUncheckThrowableRunnable() {
 		Throwables.uncheck(() -> {});
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck(() -> {
@@ -68,6 +69,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testUncheckThrowableSupplier() {
 		Throwables.uncheck(() -> true);
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<?, IOException>) () -> {
@@ -76,8 +78,19 @@ final class ThrowablesTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	void testUncheckThrowableSupplierInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<Integer, IOException>) null));
+	}
+
+	@Test
+	void testSneakyThrow() {
+		assertThatExceptionOfType(IOException.class).isThrownBy(() -> Throwables.sneakyThrow(new IOException()));
+	}
+
+	@Test
+	void testSneakyThrowInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Throwables.sneakyThrow(null));
 	}
 
 	@Test

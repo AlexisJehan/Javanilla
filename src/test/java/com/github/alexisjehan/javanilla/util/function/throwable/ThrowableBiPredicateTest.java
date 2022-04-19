@@ -137,6 +137,25 @@ final class ThrowableBiPredicateTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> t >= u;
+		final var exceptionThrowableBiPredicate = (ThrowableBiPredicate<Integer, Integer, IOException>) (t, u) -> {
+			throw new IOException();
+		};
+		assertThat(ThrowableBiPredicate.sneaky(throwableBiPredicate).test(1, 2)).isFalse();
+		assertThat(ThrowableBiPredicate.sneaky(throwableBiPredicate).test(3, 3)).isTrue();
+		assertThat(ThrowableBiPredicate.sneaky(exceptionThrowableBiPredicate)).satisfies(sneakyExceptionThrowableBiPredicate -> {
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableBiPredicate.test(1, 2));
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowableBiPredicate.test(3, 3));
+		});
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableBiPredicate.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwableBiPredicate = ThrowableBiPredicate.of((BiPredicate<Integer, Integer>) (t, u) -> t >= u);
 		assertThat(throwableBiPredicate.test(1, 2)).isFalse();

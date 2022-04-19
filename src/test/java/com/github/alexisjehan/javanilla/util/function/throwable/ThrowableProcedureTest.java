@@ -99,6 +99,24 @@ final class ThrowableProcedureTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwableProcedure = new FooThrowableProcedure();
+		final var procedure = ThrowableProcedure.sneaky(throwableProcedure);
+		final var exceptionProcedure = ThrowableProcedure.sneaky(() -> {
+			throw new IOException();
+		});
+		procedure.execute();
+		procedure.execute();
+		assertThat(throwableProcedure.getValue()).isEqualTo(2);
+		assertThatExceptionOfType(IOException.class).isThrownBy(exceptionProcedure::execute);
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowableProcedure.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var procedure = new FooProcedure();
 		final var throwableProcedure = ThrowableProcedure.of(procedure);

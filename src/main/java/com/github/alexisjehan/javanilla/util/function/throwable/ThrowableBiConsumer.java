@@ -25,6 +25,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 import java.util.function.BiConsumer;
 
@@ -82,6 +83,36 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 				throwableBiConsumer.accept(t, u);
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableBiConsumer} to a {@link BiConsumer} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableBiConsumer the {@link ThrowableBiConsumer} to convert
+	 * @param <T> the type of the first argument to the operation
+	 * @param <U> the type of the second argument to the operation
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link BiConsumer}
+	 * @throws NullPointerException if the {@link ThrowableBiConsumer} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <T, U, X extends Throwable> BiConsumer<T, U> sneaky(final ThrowableBiConsumer<? super T, ? super U, ? extends X> throwableBiConsumer) {
+		Ensure.notNull("throwableBiConsumer", throwableBiConsumer);
+		return new BiConsumer<>() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public void accept(final T t, final U u) {
+				try {
+					throwableBiConsumer.accept(t, u);
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+				}
 			}
 		};
 	}

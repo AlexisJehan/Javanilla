@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.util.function.throwable;
 import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.util.function.Procedure;
+import internal.ExcludeFromJacocoGeneratedReport;
 
 /**
  * <p>Interface for a {@link Procedure} that may throw a {@link Throwable}.</p>
@@ -58,6 +59,34 @@ public interface ThrowableProcedure<X extends Throwable> {
 				throwableProcedure.execute();
 			} catch (final Throwable e) {
 				throw Throwables.unchecked(e);
+			}
+		};
+	}
+
+	/**
+	 * <p>Converts the given {@link ThrowableProcedure} to a {@link Procedure} that may throw a sneaky
+	 * {@link Throwable}.</p>
+	 * @param throwableProcedure the {@link ThrowableProcedure} to convert
+	 * @param <X> the type of the {@link Throwable}
+	 * @return the converted {@link Procedure}
+	 * @throws NullPointerException if the {@link ThrowableProcedure} is {@code null}
+	 * @since 1.7.0
+	 */
+	static <X extends Throwable> Procedure sneaky(final ThrowableProcedure<? extends X> throwableProcedure) {
+		Ensure.notNull("throwableProcedure", throwableProcedure);
+		return new Procedure() {
+
+			/**
+			 * {@inheritDoc}
+			 */
+			@Override
+			@ExcludeFromJacocoGeneratedReport
+			public void execute() {
+				try {
+					throwableProcedure.execute();
+				} catch (final Throwable e) {
+					Throwables.sneakyThrow(e);
+				}
 			}
 		};
 	}

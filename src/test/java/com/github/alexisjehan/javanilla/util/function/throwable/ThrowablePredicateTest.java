@@ -147,6 +147,25 @@ final class ThrowablePredicateTest {
 	}
 
 	@Test
+	void testSneaky() {
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
+			throw new IOException();
+		};
+		assertThat(ThrowablePredicate.sneaky(throwablePredicate).test(1)).isFalse();
+		assertThat(ThrowablePredicate.sneaky(throwablePredicate).test(3)).isTrue();
+		assertThat(ThrowablePredicate.sneaky(exceptionThrowablePredicate)).satisfies(sneakyExceptionThrowablePredicate -> {
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowablePredicate.test(1));
+			assertThatExceptionOfType(IOException.class).isThrownBy(() -> sneakyExceptionThrowablePredicate.test(3));
+		});
+	}
+
+	@Test
+	void testSneakyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ThrowablePredicate.sneaky(null));
+	}
+
+	@Test
 	void testOf() throws Throwable {
 		final var throwablePredicate = ThrowablePredicate.of((Predicate<Integer>) t -> t >= 2);
 		assertThat(throwablePredicate.test(1)).isFalse();
