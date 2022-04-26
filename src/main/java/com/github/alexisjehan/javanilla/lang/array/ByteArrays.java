@@ -47,16 +47,10 @@ public final class ByteArrays {
 	public static final byte[] EMPTY = {};
 
 	/**
-	 * <p>{@code char} array used for binary {@link String} conversion.</p>
-	 * @since 1.2.0
+	 * <p>{@code char} array used for binary, octal, decimal and hexadecimal {@link String} conversion.</p>
+	 * @since 1.7.0
 	 */
-	private static final char[] BINARY_CHARS = {'0', '1'};
-
-	/**
-	 * <p>{@code char} array used for hexadecimal {@link String} conversion.</p>
-	 * @since 1.0.0
-	 */
-	private static final char[] HEXADECIMAL_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+	private static final char[] BASE_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
 	 * <p>Constructor not available.</p>
@@ -673,11 +667,12 @@ public final class ByteArrays {
 					(byte) (s >> 8),
 					(byte) s
 			);
+		} else {
+			return of(
+					(byte) s,
+					(byte) (s >> 8)
+			);
 		}
-		return of(
-				(byte) s,
-				(byte) (s >> 8)
-		);
 	}
 
 	/**
@@ -701,9 +696,16 @@ public final class ByteArrays {
 	public static byte[] of(final char c, final ByteOrder order) {
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return of((byte) (c >> 8), (byte) c);
+			return of(
+					(byte) (c >> 8),
+					(byte) c
+			);
+		} else {
+			return of(
+					(byte) c,
+					(byte) (c >> 8)
+			);
 		}
-		return of((byte) c, (byte) (c >> 8));
 	}
 
 	/**
@@ -733,13 +735,14 @@ public final class ByteArrays {
 					(byte) (i >> 8),
 					(byte) i
 			);
+		} else {
+			return of(
+					(byte) i,
+					(byte) (i >> 8),
+					(byte) (i >> 16),
+					(byte) (i >> 24)
+			);
 		}
-		return of(
-				(byte) i,
-				(byte) (i >> 8),
-				(byte) (i >> 16),
-				(byte) (i >> 24)
-		);
 	}
 
 	/**
@@ -773,17 +776,18 @@ public final class ByteArrays {
 					(byte) (l >> 8),
 					(byte) l
 			);
+		} else {
+			return of(
+					(byte) l,
+					(byte) (l >> 8),
+					(byte) (l >> 16),
+					(byte) (l >> 24),
+					(byte) (l >> 32),
+					(byte) (l >> 40),
+					(byte) (l >> 48),
+					(byte) (l >> 56)
+			);
 		}
-		return of(
-				(byte) l,
-				(byte) (l >> 8),
-				(byte) (l >> 16),
-				(byte) (l >> 24),
-				(byte) (l >> 32),
-				(byte) (l >> 40),
-				(byte) (l >> 48),
-				(byte) (l >> 56)
-		);
 	}
 
 	/**
@@ -1017,7 +1021,7 @@ public final class ByteArrays {
 		final var bytes = new byte[length / 8];
 		for (var i = 0; i < length; ++i) {
 			final var c = binaryCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(BINARY_CHARS, c);
+			final var p = CharArrays.indexOf(BASE_CHARS, c);
 			if (-1 == p) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (binary expected)");
 			}
@@ -1047,7 +1051,7 @@ public final class ByteArrays {
 		final var bytes = new byte[length / 2];
 		for (var i = 0; i < length; ++i) {
 			final var c = hexadecimalCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(HEXADECIMAL_CHARS, Character.toLowerCase(c));
+			final var p = CharArrays.indexOf(BASE_CHARS, Character.toLowerCase(c));
 			if (-1 == p) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
 			}
@@ -1115,9 +1119,12 @@ public final class ByteArrays {
 		Ensure.equalTo("bytes length", bytes.length, Short.BYTES);
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return (short) ((bytes[0] & 0xff) << 8 | bytes[1] & 0xff);
+			return (short) ((bytes[0] & 0xff) << 8
+					| bytes[1] & 0xff);
+		} else {
+			return (short) (bytes[0] & 0xff
+					| (bytes[1] & 0xff) << 8);
 		}
-		return (short) (bytes[0] & 0xff | (bytes[1] & 0xff) << 8);
 	}
 
 	/**
@@ -1147,9 +1154,12 @@ public final class ByteArrays {
 		Ensure.equalTo("bytes length", bytes.length, Character.BYTES);
 		Ensure.notNull("order", order);
 		if (ByteOrder.BIG_ENDIAN.equals(order)) {
-			return (char) ((bytes[0] & 0xff) << 8 | bytes[1] & 0xff);
+			return (char) ((bytes[0] & 0xff) << 8
+					| bytes[1] & 0xff);
+		} else {
+			return (char) (bytes[0] & 0xff
+					| (bytes[1] & 0xff) << 8);
 		}
-		return (char) (bytes[0] & 0xff | (bytes[1] & 0xff) << 8);
 	}
 
 	/**
@@ -1183,11 +1193,12 @@ public final class ByteArrays {
 					| (bytes[1] & 0xff) << 16
 					| (bytes[2] & 0xff) << 8
 					| bytes[3] & 0xff;
+		} else {
+			return bytes[0] & 0xff
+					| (bytes[1] & 0xff) << 8
+					| (bytes[2] & 0xff) << 16
+					| (bytes[3] & 0xff) << 24;
 		}
-		return bytes[0] & 0xff
-				| (bytes[1] & 0xff) << 8
-				| (bytes[2] & 0xff) << 16
-				| (bytes[3] & 0xff) << 24;
 	}
 
 	/**
@@ -1225,15 +1236,16 @@ public final class ByteArrays {
 					| ((long) bytes[5] & 0xff) << 16
 					| ((long) bytes[6] & 0xff) << 8
 					| (long) bytes[7] & 0xff;
+		} else {
+			return (long) bytes[0] & 0xff
+					| ((long) bytes[1] & 0xff) << 8
+					| ((long) bytes[2] & 0xff) << 16
+					| ((long) bytes[3] & 0xff) << 24
+					| ((long) bytes[4] & 0xff) << 32
+					| ((long) bytes[5] & 0xff) << 40
+					| ((long) bytes[6] & 0xff) << 48
+					| ((long) bytes[7] & 0xff) << 56;
 		}
-		return (long) bytes[0] & 0xff
-				| ((long) bytes[1] & 0xff) << 8
-				| ((long) bytes[2] & 0xff) << 16
-				| ((long) bytes[3] & 0xff) << 24
-				| ((long) bytes[4] & 0xff) << 32
-				| ((long) bytes[5] & 0xff) << 40
-				| ((long) bytes[6] & 0xff) << 48
-				| ((long) bytes[7] & 0xff) << 56;
 	}
 
 	/**
@@ -1303,14 +1315,14 @@ public final class ByteArrays {
 		final var binaryChars = new char[8 * bytes.length];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var v = Byte.toUnsignedInt(bytes[i]);
-			binaryChars[8 * i] = BINARY_CHARS[v >>> 7 & 0b00000001];
-			binaryChars[8 * i + 1] = BINARY_CHARS[v >>> 6 & 0b00000001];
-			binaryChars[8 * i + 2] = BINARY_CHARS[v >>> 5 & 0b00000001];
-			binaryChars[8 * i + 3] = BINARY_CHARS[v >>> 4 & 0b00000001];
-			binaryChars[8 * i + 4] = BINARY_CHARS[v >>> 3 & 0b00000001];
-			binaryChars[8 * i + 5] = BINARY_CHARS[v >>> 2 & 0b00000001];
-			binaryChars[8 * i + 6] = BINARY_CHARS[v >>> 1 & 0b00000001];
-			binaryChars[8 * i + 7] = BINARY_CHARS[v & 0b00000001];
+			binaryChars[8 * i] = BASE_CHARS[v >>> 7 & 0b00000001];
+			binaryChars[8 * i + 1] = BASE_CHARS[v >>> 6 & 0b00000001];
+			binaryChars[8 * i + 2] = BASE_CHARS[v >>> 5 & 0b00000001];
+			binaryChars[8 * i + 3] = BASE_CHARS[v >>> 4 & 0b00000001];
+			binaryChars[8 * i + 4] = BASE_CHARS[v >>> 3 & 0b00000001];
+			binaryChars[8 * i + 5] = BASE_CHARS[v >>> 2 & 0b00000001];
+			binaryChars[8 * i + 6] = BASE_CHARS[v >>> 1 & 0b00000001];
+			binaryChars[8 * i + 7] = BASE_CHARS[v & 0b00000001];
 		}
 		return new String(binaryChars);
 	}
@@ -1331,8 +1343,8 @@ public final class ByteArrays {
 		final var hexadecimalChars = new char[2 * bytes.length];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var v = Byte.toUnsignedInt(bytes[i]);
-			hexadecimalChars[2 * i] = HEXADECIMAL_CHARS[v >>> 4 & 0b00001111];
-			hexadecimalChars[2 * i + 1] = HEXADECIMAL_CHARS[v & 0b00001111];
+			hexadecimalChars[2 * i] = BASE_CHARS[v >>> 4 & 0b00001111];
+			hexadecimalChars[2 * i + 1] = BASE_CHARS[v & 0b00001111];
 		}
 		return new String(hexadecimalChars);
 	}

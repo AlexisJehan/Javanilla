@@ -1263,7 +1263,6 @@ public final class Strings {
 
 	/**
 	 * <p>Tell if a {@link CharSequence} is a binary representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a binary representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1286,7 +1285,6 @@ public final class Strings {
 
 	/**
 	 * <p>Tell if a {@link CharSequence} is an octal representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is an octal representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1309,7 +1307,6 @@ public final class Strings {
 
 	/**
 	 * <p>Tell if a {@link CharSequence} is a decimal representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a decimal representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1332,7 +1329,6 @@ public final class Strings {
 
 	/**
 	 * <p>Tell if a {@link CharSequence} is a hexadecimal representation.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
 	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a hexadecimal representation
@@ -1346,8 +1342,8 @@ public final class Strings {
 			return false;
 		}
 		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if (('a' > c || 'f' < c) && ('A' > c || 'F' < c) && ('0' > c || '9' < c)) {
+			final var c = Character.toLowerCase(charSequence.charAt(i));
+			if (('0' > c || '9' < c) && ('a' > c || 'f' < c)) {
 				return false;
 			}
 		}
@@ -1355,8 +1351,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation with or without padding.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation with padding or not.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withPadding {@code true} if the base 64 representation must have padding
 	 * @return {@code true} if the {@link CharSequence} is a base 64 representation
@@ -1371,9 +1366,9 @@ public final class Strings {
 		}
 		var padding = false;
 		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '+' != c && '/' != c) {
-				if (!withPadding || '=' != c || i < length - 2) {
+			final var c = Character.toLowerCase(charSequence.charAt(i));
+			if (('0' > c || '9' < c) && ('a' > c || 'z' < c) && '+' != c && '/' != c) {
+				if (!withPadding || '=' != c || i + 2 < length) {
 					return false;
 				} else if (!padding) {
 					padding = true;
@@ -1386,8 +1381,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames with or without padding.</p>
-	 * <p><b>Note</b>: Whitespaces are not allowed.</p>
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames with padding or not.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withPadding {@code true} if the base 64 representation for URLs and filenames must have padding
 	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and filenames
@@ -1402,9 +1396,9 @@ public final class Strings {
 		}
 		var padding = false;
 		for (var i = 0; i < length; ++i) {
-			final var c = charSequence.charAt(i);
-			if (('a' > c || 'z' < c) && ('A' > c || 'Z' < c) && ('0' > c || '9' < c) && '-' != c && '_' != c) {
-				if (!withPadding || '=' != c || i < length - 2) {
+			final var c = Character.toLowerCase(charSequence.charAt(i));
+			if (('0' > c || '9' < c) && ('a' > c || 'z' < c) && '-' != c && '_' != c) {
+				if (!withPadding || '=' != c || i + 2 < length) {
 					return false;
 				} else if (!padding) {
 					padding = true;

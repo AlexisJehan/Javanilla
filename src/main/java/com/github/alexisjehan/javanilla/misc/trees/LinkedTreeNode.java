@@ -135,22 +135,6 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public V getValue() {
-		return value;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setValue(final V value) {
-		this.value = value;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean equals(final Object object) {
 		if (this == object) {
 			return true;
@@ -180,5 +164,21 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	@Override
 	public String toString() {
 		return value + (!children.isEmpty() ? "{" + children.stream().map(TreeNode::toString).collect(Collectors.joining(", ")) + "}" : Strings.EMPTY);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public V getValue() {
+		return value;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setValue(final V value) {
+		this.value = value;
 	}
 }

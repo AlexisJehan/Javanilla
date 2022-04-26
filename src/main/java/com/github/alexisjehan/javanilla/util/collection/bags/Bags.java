@@ -163,22 +163,6 @@ public final class Bags {
 		 * {@inheritDoc}
 		 */
 		@Override
-		public Set<E> toSet() {
-			return Collections.singleton(element);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public Map<E, Long> toMap() {
-			return Collections.singletonMap(element, quantity);
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
 		public boolean equals(final Object object) {
 			if (this == object) {
 				return true;
@@ -209,6 +193,22 @@ public final class Bags {
 		@Override
 		public String toString() {
 			return "{" + element + "=" + quantity + "}";
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public Set<E> toSet() {
+			return Collections.singleton(element);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public Map<E, Long> toMap() {
+			return Collections.singletonMap(element, quantity);
 		}
 	}
 
@@ -310,22 +310,6 @@ public final class Bags {
 		 * {@inheritDoc}
 		 */
 		@Override
-		public Set<Object> toSet() {
-			return Set.of();
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public Map<Object, Long> toMap() {
-			return Map.of();
-		}
-
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
 		public boolean equals(final Object object) {
 			if (this == object) {
 				return true;
@@ -350,6 +334,22 @@ public final class Bags {
 		@Override
 		public String toString() {
 			return "{}";
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public Set<Object> toSet() {
+			return Set.of();
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public Map<Object, Long> toMap() {
+			return Map.of();
 		}
 	};
 
