@@ -53,6 +53,12 @@ public final class ByteArrays {
 	private static final char[] BASE_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
+	 * <p>Default value for using spacing or not.</p>
+	 * @since 1.7.0
+	 */
+	private static final boolean DEFAULT_WITH_SPACING = false;
+
+	/**
 	 * <p>Constructor not available.</p>
 	 * @since 1.0.0
 	 */
@@ -1012,21 +1018,139 @@ public final class ByteArrays {
 	 * @since 1.2.0
 	 */
 	public static byte[] ofBinaryString(final CharSequence binaryCharSequence) {
+		return ofBinaryString(binaryCharSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a binary {@link CharSequence} with spacing or not.</p>
+	 * @param binaryCharSequence the binary {@link CharSequence} to convert
+	 * @param withSpacing {@code true} if the binary {@link String} value has spacing
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the binary {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the binary {@link CharSequence} length is not a multiple of {@code 8} or if
+	 *         any {@code char} is not valid
+	 * @since 1.7.0
+	 */
+	public static byte[] ofBinaryString(final CharSequence binaryCharSequence, final boolean withSpacing) {
 		Ensure.notNull("binaryCharSequence", binaryCharSequence);
 		final var length = binaryCharSequence.length();
-		Ensure.multipleOf("binaryCharSequence length", length, 8);
 		if (0 == length) {
 			return EMPTY;
 		}
-		final var bytes = new byte[length / 8];
+		Ensure.multipleOf("binaryCharSequence length", length + (withSpacing ? 1 : 0), 8 + (withSpacing ? 1 : 0));
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (8 + (withSpacing ? 1 : 0))];
 		for (var i = 0; i < length; ++i) {
 			final var c = binaryCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(BASE_CHARS, c);
-			if (-1 == p) {
+			if (withSpacing && 0 == (i + 1) % 9) {
+				if (' ' != c) {
+					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
+				}
+				continue;
+			}
+			final var b = CharArrays.indexOf(BASE_CHARS, c);
+			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (binary expected)");
 			}
-			bytes[i / 8] <<= 1;
-			bytes[i / 8] |= p;
+			bytes[i / (8 + (withSpacing ? 1 : 0))] <<= 1;
+			bytes[i / (8 + (withSpacing ? 1 : 0))] |= b;
+		}
+		return bytes;
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from an octal {@link CharSequence}.</p>
+	 * @param octalCharSequence the octal {@link CharSequence} to convert
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the octal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the octal {@link CharSequence} length is not a multiple of {@code 3} or if
+	 *         any {@code char} is not valid
+	 * @since 1.7.0
+	 */
+	public static byte[] ofOctalString(final CharSequence octalCharSequence) {
+		return ofOctalString(octalCharSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from an octal {@link CharSequence} with spacing or not.</p>
+	 * @param octalCharSequence the octal {@link CharSequence} to convert
+	 * @param withSpacing {@code true} if the octal {@link String} value has spacing
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the octal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the octal {@link CharSequence} length is not a multiple of {@code 3} or if
+	 *         any {@code char} is not valid
+	 * @since 1.7.0
+	 */
+	public static byte[] ofOctalString(final CharSequence octalCharSequence, final boolean withSpacing) {
+		Ensure.notNull("octalCharSequence", octalCharSequence);
+		final var length = octalCharSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		Ensure.multipleOf("octalCharSequence length", length + (withSpacing ? 1 : 0), 3 + (withSpacing ? 1 : 0));
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (3 + (withSpacing ? 1 : 0))];
+		for (var i = 0; i < length; ++i) {
+			final var c = octalCharSequence.charAt(i);
+			if (withSpacing && 0 == (i + 1) % 4) {
+				if (' ' != c) {
+					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
+				}
+				continue;
+			}
+			final var b = CharArrays.indexOf(BASE_CHARS, c);
+			if (-1 == b) {
+				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (octal expected)");
+			}
+			bytes[i / (3 + (withSpacing ? 1 : 0))] <<= 3;
+			bytes[i / (3 + (withSpacing ? 1 : 0))] |= b;
+		}
+		return bytes;
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a decimal {@link CharSequence}.</p>
+	 * @param decimalCharSequence the decimal {@link CharSequence} to convert
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the decimal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the decimal {@link CharSequence} length is not a multiple of {@code 3} or if
+	 *         any {@code char} is not valid
+	 * @since 1.7.0
+	 */
+	public static byte[] ofDecimalString(final CharSequence decimalCharSequence) {
+		return ofDecimalString(decimalCharSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a decimal {@link CharSequence} with spacing or not.</p>
+	 * @param decimalCharSequence the decimal {@link CharSequence} to convert
+	 * @param withSpacing {@code true} if the decimal {@link String} value has spacing
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the decimal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the decimal {@link CharSequence} length is not a multiple of {@code 3} or if
+	 *         any {@code char} is not valid
+	 * @since 1.7.0
+	 */
+	public static byte[] ofDecimalString(final CharSequence decimalCharSequence, final boolean withSpacing) {
+		Ensure.notNull("decimalCharSequence", decimalCharSequence);
+		final var length = decimalCharSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		Ensure.multipleOf("decimalCharSequence length", length + (withSpacing ? 1 : 0), 3 + (withSpacing ? 1 : 0));
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (3 + (withSpacing ? 1 : 0))];
+		for (var i = 0; i < length; ++i) {
+			final var c = decimalCharSequence.charAt(i);
+			if (withSpacing && 0 == (i + 1) % 4) {
+				if (' ' != c) {
+					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
+				}
+				continue;
+			}
+			final var b = CharArrays.indexOf(BASE_CHARS, c);
+			if (-1 == b) {
+				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (decimal expected)");
+			}
+			bytes[i / (3 + (withSpacing ? 1 : 0))] *= 10;
+			bytes[i / (3 + (withSpacing ? 1 : 0))] += b;
 		}
 		return bytes;
 	}
@@ -1042,21 +1166,42 @@ public final class ByteArrays {
 	 * @since 1.0.0
 	 */
 	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence) {
+		return ofHexadecimalString(hexadecimalCharSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence} with spacing or not.</p>
+	 * <p><b>Note</b>: The hexadecimal {@link CharSequence} value case does not matter.</p>
+	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
+	 * @param withSpacing {@code true} if the hexadecimal {@link String} value has spacing
+	 * @return the created {@code byte} array
+	 * @throws NullPointerException if the hexadecimal {@link CharSequence} is {@code null}
+	 * @throws IllegalArgumentException if the hexadecimal {@link CharSequence} length is not a multiple of {@code 2} or
+	 *         if any {@code char} is not valid
+	 * @since 1.7.0
+	 */
+	public static byte[] ofHexadecimalString(final CharSequence hexadecimalCharSequence, final boolean withSpacing) {
 		Ensure.notNull("hexadecimalCharSequence", hexadecimalCharSequence);
 		final var length = hexadecimalCharSequence.length();
-		Ensure.multipleOf("hexadecimalCharSequence length", length, 2);
 		if (0 == length) {
 			return EMPTY;
 		}
-		final var bytes = new byte[length / 2];
+		Ensure.multipleOf("hexadecimalCharSequence length", length + (withSpacing ? 1 : 0), 2 + (withSpacing ? 1 : 0));
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (2 + (withSpacing ? 1 : 0))];
 		for (var i = 0; i < length; ++i) {
 			final var c = hexadecimalCharSequence.charAt(i);
-			final var p = CharArrays.indexOf(BASE_CHARS, Character.toLowerCase(c));
-			if (-1 == p) {
+			if (withSpacing && 0 == (i + 1) % 3) {
+				if (' ' != c) {
+					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
+				}
+				continue;
+			}
+			final var b = CharArrays.indexOf(BASE_CHARS, Character.toLowerCase(c));
+			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
 			}
-			bytes[i / 2] <<= 4;
-			bytes[i / 2] |= p;
+			bytes[i / (2 + (withSpacing ? 1 : 0))] <<= 4;
+			bytes[i / (2 + (withSpacing ? 1 : 0))] |= b;
 		}
 		return bytes;
 	}
@@ -1308,23 +1453,112 @@ public final class ByteArrays {
 	 * @since 1.2.0
 	 */
 	public static String toBinaryString(final byte[] bytes) {
+		return toBinaryString(bytes, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Convert a {@code byte} array to a binary {@link String} value with spacing or not.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @param withSpacing {@code true} if the binary {@link String} value must have spacing
+	 * @return the converted binary {@link String} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String toBinaryString(final byte[] bytes, final boolean withSpacing) {
 		Ensure.notNull("bytes", bytes);
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var binaryChars = new char[8 * bytes.length];
+		final var chars = new char[(8 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
 		for (var i = 0; i < bytes.length; ++i) {
-			final var v = Byte.toUnsignedInt(bytes[i]);
-			binaryChars[8 * i] = BASE_CHARS[v >>> 7 & 0b00000001];
-			binaryChars[8 * i + 1] = BASE_CHARS[v >>> 6 & 0b00000001];
-			binaryChars[8 * i + 2] = BASE_CHARS[v >>> 5 & 0b00000001];
-			binaryChars[8 * i + 3] = BASE_CHARS[v >>> 4 & 0b00000001];
-			binaryChars[8 * i + 4] = BASE_CHARS[v >>> 3 & 0b00000001];
-			binaryChars[8 * i + 5] = BASE_CHARS[v >>> 2 & 0b00000001];
-			binaryChars[8 * i + 6] = BASE_CHARS[v >>> 1 & 0b00000001];
-			binaryChars[8 * i + 7] = BASE_CHARS[v & 0b00000001];
+			final var b = Byte.toUnsignedInt(bytes[i]);
+			chars[(8 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b >>> 7 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b >>> 6 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 2] = BASE_CHARS[b >>> 5 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 3] = BASE_CHARS[b >>> 4 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 4] = BASE_CHARS[b >>> 3 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 5] = BASE_CHARS[b >>> 2 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 6] = BASE_CHARS[b >>> 1 & 0b00000001];
+			chars[(8 + (withSpacing ? 1 : 0)) * i + 7] = BASE_CHARS[b & 0b00000001];
+			if (withSpacing && i + 1 < bytes.length) {
+				chars[9 * i + 8] = ' ';
+			}
 		}
-		return new String(binaryChars);
+		return new String(chars);
+	}
+
+	/**
+	 * <p>Convert a {@code byte} array to an octal {@link String} value.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @return the converted octal {@link String} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String toOctalString(final byte[] bytes) {
+		return toOctalString(bytes, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Convert a {@code byte} array to an octal {@link String} value with spacing or not.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @param withSpacing {@code true} if the octal {@link String} value must have spacing
+	 * @return the converted octal {@link String} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String toOctalString(final byte[] bytes, final boolean withSpacing) {
+		Ensure.notNull("bytes", bytes);
+		if (isEmpty(bytes)) {
+			return Strings.EMPTY;
+		}
+		final var chars = new char[(3 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
+		for (var i = 0; i < bytes.length; ++i) {
+			final var b = Byte.toUnsignedInt(bytes[i]);
+			chars[(3 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b >>> 6 & 0007];
+			chars[(3 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b >>> 3 & 0007];
+			chars[(3 + (withSpacing ? 1 : 0)) * i + 2] = BASE_CHARS[b & 0007];
+			if (withSpacing && i + 1 < bytes.length) {
+				chars[4 * i + 3] = ' ';
+			}
+		}
+		return new String(chars);
+	}
+
+	/**
+	 * <p>Convert a {@code byte} array to a decimal {@link String} value.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @return the converted decimal {@link String} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String toDecimalString(final byte[] bytes) {
+		return toDecimalString(bytes, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Convert a {@code byte} array to a decimal {@link String} value with spacing or not.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @param withSpacing {@code true} if the decimal {@link String} value must have spacing
+	 * @return the converted decimal {@link String} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String toDecimalString(final byte[] bytes, final boolean withSpacing) {
+		Ensure.notNull("bytes", bytes);
+		if (isEmpty(bytes)) {
+			return Strings.EMPTY;
+		}
+		final var chars = new char[(3 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
+		for (var i = 0; i < bytes.length; ++i) {
+			final var b = Byte.toUnsignedInt(bytes[i]);
+			chars[(3 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b / 100 % 10];
+			chars[(3 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b / 10 % 10];
+			chars[(3 + (withSpacing ? 1 : 0)) * i + 2] = BASE_CHARS[b % 10];
+			if (withSpacing && i + 1 < bytes.length) {
+				chars[4 * i + 3] = ' ';
+			}
+		}
+		return new String(chars);
 	}
 
 	/**
@@ -1336,16 +1570,32 @@ public final class ByteArrays {
 	 * @since 1.0.0
 	 */
 	public static String toHexadecimalString(final byte[] bytes) {
+		return toHexadecimalString(bytes, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Convert a {@code byte} array to a hexadecimal {@link String} value with spacing or not.</p>
+	 * <p><b>Note</b>: The hexadecimal {@link String} value will be in lowercase.</p>
+	 * @param bytes the {@code byte} array to convert
+	 * @param withSpacing {@code true} if the hexadecimal {@link String} value must have spacing
+	 * @return the converted hexadecimal {@link String} value
+	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String toHexadecimalString(final byte[] bytes, final boolean withSpacing) {
 		Ensure.notNull("bytes", bytes);
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var hexadecimalChars = new char[2 * bytes.length];
+		final var chars = new char[(2 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
 		for (var i = 0; i < bytes.length; ++i) {
-			final var v = Byte.toUnsignedInt(bytes[i]);
-			hexadecimalChars[2 * i] = BASE_CHARS[v >>> 4 & 0b00001111];
-			hexadecimalChars[2 * i + 1] = BASE_CHARS[v & 0b00001111];
+			final var b = Byte.toUnsignedInt(bytes[i]);
+			chars[(2 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b >>> 4 & 0x0f];
+			chars[(2 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b & 0x0f];
+			if (withSpacing && i + 1 < bytes.length) {
+				chars[3 * i + 2] = ' ';
+			}
 		}
-		return new String(hexadecimalChars);
+		return new String(chars);
 	}
 }

@@ -943,9 +943,15 @@ final class ByteArraysTest {
 	@Test
 	void testOfBinaryString() {
 		assertThat(ByteArrays.ofBinaryString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofBinaryString(Strings.EMPTY, true)).isEqualTo(ByteArrays.EMPTY);
 		assertThat(ByteArrays.ofBinaryString("00000000")).isEqualTo(ByteArrays.singleton((byte) 0b00000000));
+		assertThat(ByteArrays.ofBinaryString("00000000", true)).isEqualTo(ByteArrays.singleton((byte) 0b00000000));
 		assertThat(ByteArrays.ofBinaryString("11111111")).isEqualTo(ByteArrays.singleton((byte) 0b11111111));
-		assertThat(ByteArrays.ofBinaryString("0101010110101010")).isEqualTo(ByteArrays.of((byte) 0b01010101, (byte) 0b10101010));
+		assertThat(ByteArrays.ofBinaryString("11111111", true)).isEqualTo(ByteArrays.singleton((byte) 0b11111111));
+		assertThat(ByteArrays.ofBinaryString("0000111111110000")).isEqualTo(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000));
+		assertThat(ByteArrays.ofBinaryString("00001111 11110000", true)).isEqualTo(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000));
+		assertThat(ByteArrays.ofBinaryString("00001111111100001111000000001111")).isEqualTo(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000, (byte) 0b11110000, (byte) 0b00001111));
+		assertThat(ByteArrays.ofBinaryString("00001111 11110000 11110000 00001111", true)).isEqualTo(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000, (byte) 0b11110000, (byte) 0b00001111));
 	}
 
 	@Test
@@ -953,15 +959,72 @@ final class ByteArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofBinaryString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000"));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000?"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("00000000 11111111"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("00000000?11111111", true));
+	}
+
+	@Test
+	void testOfOctalString() {
+		assertThat(ByteArrays.ofOctalString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofOctalString(Strings.EMPTY, true)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofOctalString("000")).isEqualTo(ByteArrays.singleton((byte) 0000));
+		assertThat(ByteArrays.ofOctalString("000", true)).isEqualTo(ByteArrays.singleton((byte) 0000));
+		assertThat(ByteArrays.ofOctalString("377")).isEqualTo(ByteArrays.singleton((byte) 0377));
+		assertThat(ByteArrays.ofOctalString("377", true)).isEqualTo(ByteArrays.singleton((byte) 0377));
+		assertThat(ByteArrays.ofOctalString("017360")).isEqualTo(ByteArrays.of((byte) 0017, (byte) 0360));
+		assertThat(ByteArrays.ofOctalString("017 360", true)).isEqualTo(ByteArrays.of((byte) 0017, (byte) 0360));
+		assertThat(ByteArrays.ofOctalString("017360360017")).isEqualTo(ByteArrays.of((byte) 0017, (byte) 0360, (byte) 0360, (byte) 0017));
+		assertThat(ByteArrays.ofOctalString("017 360 360 017", true)).isEqualTo(ByteArrays.of((byte) 0017, (byte) 0360, (byte) 0360, (byte) 0017));
+	}
+
+	@Test
+	void testOfOctalStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofOctalString(null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00?"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("000 377"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("000?377", true));
+	}
+
+	@Test
+	void testOfDecimalString() {
+		assertThat(ByteArrays.ofDecimalString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofDecimalString(Strings.EMPTY, true)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofDecimalString("000")).isEqualTo(ByteArrays.singleton((byte) 0));
+		assertThat(ByteArrays.ofDecimalString("000", true)).isEqualTo(ByteArrays.singleton((byte) 0));
+		assertThat(ByteArrays.ofDecimalString("255")).isEqualTo(ByteArrays.singleton((byte) 255));
+		assertThat(ByteArrays.ofDecimalString("255", true)).isEqualTo(ByteArrays.singleton((byte) 255));
+		assertThat(ByteArrays.ofDecimalString("015240")).isEqualTo(ByteArrays.of((byte) 15, (byte) 240));
+		assertThat(ByteArrays.ofDecimalString("015 240", true)).isEqualTo(ByteArrays.of((byte) 15, (byte) 240));
+		assertThat(ByteArrays.ofDecimalString("015240240015")).isEqualTo(ByteArrays.of((byte) 15, (byte) 240, (byte) 240, (byte) 15));
+		assertThat(ByteArrays.ofDecimalString("015 240 240 015", true)).isEqualTo(ByteArrays.of((byte) 15, (byte) 240, (byte) 240, (byte) 15));
+	}
+
+	@Test
+	void testOfDecimalStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofDecimalString(null));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00?"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("000 255"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("000?255", true));
 	}
 
 	@Test
 	void testOfHexadecimalString() {
 		assertThat(ByteArrays.ofHexadecimalString(Strings.EMPTY)).isEqualTo(ByteArrays.EMPTY);
+		assertThat(ByteArrays.ofHexadecimalString(Strings.EMPTY, true)).isEqualTo(ByteArrays.EMPTY);
 		assertThat(ByteArrays.ofHexadecimalString("00")).isEqualTo(ByteArrays.singleton((byte) 0x00));
+		assertThat(ByteArrays.ofHexadecimalString("00", true)).isEqualTo(ByteArrays.singleton((byte) 0x00));
 		assertThat(ByteArrays.ofHexadecimalString("ff")).isEqualTo(ByteArrays.singleton((byte) 0xff));
+		assertThat(ByteArrays.ofHexadecimalString("ff", true)).isEqualTo(ByteArrays.singleton((byte) 0xff));
 		assertThat(ByteArrays.ofHexadecimalString("FF")).isEqualTo(ByteArrays.singleton((byte) 0xff));
+		assertThat(ByteArrays.ofHexadecimalString("FF", true)).isEqualTo(ByteArrays.singleton((byte) 0xff));
 		assertThat(ByteArrays.ofHexadecimalString("0ff0")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
+		assertThat(ByteArrays.ofHexadecimalString("0f f0", true)).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
+		assertThat(ByteArrays.ofHexadecimalString("0ff0f00f")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
+		assertThat(ByteArrays.ofHexadecimalString("0f f0 f0 0f", true)).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
+		assertThat(ByteArrays.ofHexadecimalString("0FF0F00F")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
+		assertThat(ByteArrays.ofHexadecimalString("0F F0 F0 0F", true)).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
 	}
 
 	@Test
@@ -969,14 +1032,22 @@ final class ByteArraysTest {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofHexadecimalString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0"));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0?"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00 ff"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00?ff", true));
 	}
 
 	@Test
 	void testToBinaryString() {
 		assertThat(ByteArrays.toBinaryString(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.toBinaryString(ByteArrays.EMPTY, true)).isEmpty();
 		assertThat(ByteArrays.toBinaryString(ByteArrays.singleton((byte) 0b00000000))).isEqualTo("00000000");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.singleton((byte) 0b00000000), true)).isEqualTo("00000000");
 		assertThat(ByteArrays.toBinaryString(ByteArrays.singleton((byte) 0b11111111))).isEqualTo("11111111");
-		assertThat(ByteArrays.toBinaryString(ByteArrays.of((byte) 0b01010101, (byte) 0b10101010))).isEqualTo("0101010110101010");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.singleton((byte) 0b11111111), true)).isEqualTo("11111111");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000))).isEqualTo("0000111111110000");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000), true)).isEqualTo("00001111 11110000");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000, (byte) 0b11110000, (byte) 0b00001111))).isEqualTo("00001111111100001111000000001111");
+		assertThat(ByteArrays.toBinaryString(ByteArrays.of((byte) 0b00001111, (byte) 0b11110000, (byte) 0b11110000, (byte) 0b00001111), true)).isEqualTo("00001111 11110000 11110000 00001111");
 	}
 
 	@Test
@@ -985,11 +1056,55 @@ final class ByteArraysTest {
 	}
 
 	@Test
+	void testToOctalString() {
+		assertThat(ByteArrays.toOctalString(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.toOctalString(ByteArrays.EMPTY, true)).isEmpty();
+		assertThat(ByteArrays.toOctalString(ByteArrays.singleton((byte) 0000))).isEqualTo("000");
+		assertThat(ByteArrays.toOctalString(ByteArrays.singleton((byte) 0000), true)).isEqualTo("000");
+		assertThat(ByteArrays.toOctalString(ByteArrays.singleton((byte) 0377))).isEqualTo("377");
+		assertThat(ByteArrays.toOctalString(ByteArrays.singleton((byte) 0377), true)).isEqualTo("377");
+		assertThat(ByteArrays.toOctalString(ByteArrays.of((byte) 0017, (byte) 0360))).isEqualTo("017360");
+		assertThat(ByteArrays.toOctalString(ByteArrays.of((byte) 0017, (byte) 0360), true)).isEqualTo("017 360");
+		assertThat(ByteArrays.toOctalString(ByteArrays.of((byte) 0017, (byte) 0360, (byte) 0360, (byte) 0017))).isEqualTo("017360360017");
+		assertThat(ByteArrays.toOctalString(ByteArrays.of((byte) 0017, (byte) 0360, (byte) 0360, (byte) 0017), true)).isEqualTo("017 360 360 017");
+	}
+
+	@Test
+	void testToOctalStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toOctalString(null));
+	}
+
+	@Test
+	void testToDecimalString() {
+		assertThat(ByteArrays.toDecimalString(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.toDecimalString(ByteArrays.EMPTY, true)).isEmpty();
+		assertThat(ByteArrays.toDecimalString(ByteArrays.singleton((byte) 0))).isEqualTo("000");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.singleton((byte) 0), true)).isEqualTo("000");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.singleton((byte) 255))).isEqualTo("255");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.singleton((byte) 255), true)).isEqualTo("255");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.of((byte) 15, (byte) 240))).isEqualTo("015240");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.of((byte) 15, (byte) 240), true)).isEqualTo("015 240");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.of((byte) 15, (byte) 240, (byte) 240, (byte) 15))).isEqualTo("015240240015");
+		assertThat(ByteArrays.toDecimalString(ByteArrays.of((byte) 15, (byte) 240, (byte) 240, (byte) 15), true)).isEqualTo("015 240 240 015");
+	}
+
+	@Test
+	void testToDecimalStringInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.toDecimalString(null));
+	}
+
+	@Test
 	void testToHexadecimalString() {
 		assertThat(ByteArrays.toHexadecimalString(ByteArrays.EMPTY)).isEmpty();
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.EMPTY, true)).isEmpty();
 		assertThat(ByteArrays.toHexadecimalString(ByteArrays.singleton((byte) 0x00))).isEqualTo("00");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.singleton((byte) 0x00), true)).isEqualTo("00");
 		assertThat(ByteArrays.toHexadecimalString(ByteArrays.singleton((byte) 0xff))).isEqualTo("ff");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.singleton((byte) 0xff), true)).isEqualTo("ff");
 		assertThat(ByteArrays.toHexadecimalString(ByteArrays.of((byte) 0x0f, (byte) 0xf0))).isEqualTo("0ff0");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.of((byte) 0x0f, (byte) 0xf0), true)).isEqualTo("0f f0");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f))).isEqualTo("0ff0f00f");
+		assertThat(ByteArrays.toHexadecimalString(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f), true)).isEqualTo("0f f0 f0 0f");
 	}
 
 	@Test

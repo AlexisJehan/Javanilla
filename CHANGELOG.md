@@ -6,6 +6,12 @@
 - Added the _sneakyThrow(Throwable)_ method
 - Deprecated _uncheck(ThrowableRunnable)_ and _uncheck(ThrowableSupplier)_ methods
 
+**lang.array.ByteArrays**
+- Added _ofOctalString(CharSequence)_ and _ofDecimalString(CharSequence)_ methods
+- Added _ofBinaryString(CharSequence, boolean)_, _ofOctalString(CharSequence, boolean)_, _ofDecimalString(CharSequence, boolean)_ and _ofHexadecimalString(CharSequence, boolean)_ methods
+- Added _toOctalString(CharSequence)_ and _toDecimalString(CharSequence)_ methods
+- Added _toBinaryString(CharSequence, boolean)_, _toOctalString(CharSequence, boolean)_, _toDecimalString(CharSequence, boolean)_ and _toHexadecimalString(CharSequence, boolean)_ methods
+
 **lang.array.IntArrays**
 - Removed the _add(int[], int, int)_ method
 
