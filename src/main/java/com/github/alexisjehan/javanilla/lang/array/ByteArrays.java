@@ -1024,7 +1024,7 @@ public final class ByteArrays {
 	/**
 	 * <p>Create a {@code byte} array from a binary {@link CharSequence} with spacing or not.</p>
 	 * @param binaryCharSequence the binary {@link CharSequence} to convert
-	 * @param withSpacing {@code true} if the binary {@link String} value has spacing
+	 * @param withSpacing {@code true} if the binary {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the binary {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the binary {@link CharSequence} length is not a multiple of {@code 8} or if
@@ -1037,11 +1037,11 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("binaryCharSequence length", length + (withSpacing ? 1 : 0), 8 + (withSpacing ? 1 : 0));
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (8 + (withSpacing ? 1 : 0))];
+		Ensure.multipleOf("binaryCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 9 : 8);
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 9 : 8)];
 		for (var i = 0; i < length; ++i) {
 			final var c = binaryCharSequence.charAt(i);
-			if (withSpacing && 0 == (i + 1) % 9) {
+			if (withSpacing && 8 == i % 9) {
 				if (' ' != c) {
 					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
 				}
@@ -1051,8 +1051,8 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (binary expected)");
 			}
-			bytes[i / (8 + (withSpacing ? 1 : 0))] <<= 1;
-			bytes[i / (8 + (withSpacing ? 1 : 0))] |= b;
+			bytes[i / (withSpacing ? 9 : 8)] <<= 1;
+			bytes[i / (withSpacing ? 9 : 8)] |= b;
 		}
 		return bytes;
 	}
@@ -1073,7 +1073,7 @@ public final class ByteArrays {
 	/**
 	 * <p>Create a {@code byte} array from an octal {@link CharSequence} with spacing or not.</p>
 	 * @param octalCharSequence the octal {@link CharSequence} to convert
-	 * @param withSpacing {@code true} if the octal {@link String} value has spacing
+	 * @param withSpacing {@code true} if the octal {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the octal {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the octal {@link CharSequence} length is not a multiple of {@code 3} or if
@@ -1086,11 +1086,11 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("octalCharSequence length", length + (withSpacing ? 1 : 0), 3 + (withSpacing ? 1 : 0));
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (3 + (withSpacing ? 1 : 0))];
+		Ensure.multipleOf("octalCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 4 : 3);
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 4 : 3)];
 		for (var i = 0; i < length; ++i) {
 			final var c = octalCharSequence.charAt(i);
-			if (withSpacing && 0 == (i + 1) % 4) {
+			if (withSpacing && 3 == i % 4) {
 				if (' ' != c) {
 					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
 				}
@@ -1100,8 +1100,8 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (octal expected)");
 			}
-			bytes[i / (3 + (withSpacing ? 1 : 0))] <<= 3;
-			bytes[i / (3 + (withSpacing ? 1 : 0))] |= b;
+			bytes[i / (withSpacing ? 4 : 3)] <<= 3;
+			bytes[i / (withSpacing ? 4 : 3)] |= b;
 		}
 		return bytes;
 	}
@@ -1122,7 +1122,7 @@ public final class ByteArrays {
 	/**
 	 * <p>Create a {@code byte} array from a decimal {@link CharSequence} with spacing or not.</p>
 	 * @param decimalCharSequence the decimal {@link CharSequence} to convert
-	 * @param withSpacing {@code true} if the decimal {@link String} value has spacing
+	 * @param withSpacing {@code true} if the decimal {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the decimal {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the decimal {@link CharSequence} length is not a multiple of {@code 3} or if
@@ -1135,11 +1135,11 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("decimalCharSequence length", length + (withSpacing ? 1 : 0), 3 + (withSpacing ? 1 : 0));
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (3 + (withSpacing ? 1 : 0))];
+		Ensure.multipleOf("decimalCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 4 : 3);
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 4 : 3)];
 		for (var i = 0; i < length; ++i) {
 			final var c = decimalCharSequence.charAt(i);
-			if (withSpacing && 0 == (i + 1) % 4) {
+			if (withSpacing && 3 == i % 4) {
 				if (' ' != c) {
 					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
 				}
@@ -1149,15 +1149,15 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (decimal expected)");
 			}
-			bytes[i / (3 + (withSpacing ? 1 : 0))] *= 10;
-			bytes[i / (3 + (withSpacing ? 1 : 0))] += b;
+			bytes[i / (withSpacing ? 4 : 3)] *= 10;
+			bytes[i / (withSpacing ? 4 : 3)] += b;
 		}
 		return bytes;
 	}
 
 	/**
 	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence}.</p>
-	 * <p><b>Note</b>: The hexadecimal {@link CharSequence} value case does not matter.</p>
+	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the hexadecimal {@link CharSequence} is {@code null}
@@ -1171,9 +1171,9 @@ public final class ByteArrays {
 
 	/**
 	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence} with spacing or not.</p>
-	 * <p><b>Note</b>: The hexadecimal {@link CharSequence} value case does not matter.</p>
+	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
-	 * @param withSpacing {@code true} if the hexadecimal {@link String} value has spacing
+	 * @param withSpacing {@code true} if the hexadecimal {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the hexadecimal {@link CharSequence} is {@code null}
 	 * @throws IllegalArgumentException if the hexadecimal {@link CharSequence} length is not a multiple of {@code 2} or
@@ -1186,11 +1186,11 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("hexadecimalCharSequence length", length + (withSpacing ? 1 : 0), 2 + (withSpacing ? 1 : 0));
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (2 + (withSpacing ? 1 : 0))];
+		Ensure.multipleOf("hexadecimalCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 3 : 2);
+		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 3 : 2)];
 		for (var i = 0; i < length; ++i) {
 			final var c = hexadecimalCharSequence.charAt(i);
-			if (withSpacing && 0 == (i + 1) % 3) {
+			if (withSpacing && 2 == i % 3) {
 				if (' ' != c) {
 					throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (space expected)");
 				}
@@ -1200,8 +1200,8 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
 			}
-			bytes[i / (2 + (withSpacing ? 1 : 0))] <<= 4;
-			bytes[i / (2 + (withSpacing ? 1 : 0))] |= b;
+			bytes[i / (withSpacing ? 3 : 2)] <<= 4;
+			bytes[i / (withSpacing ? 3 : 2)] |= b;
 		}
 		return bytes;
 	}
@@ -1469,17 +1469,17 @@ public final class ByteArrays {
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var chars = new char[(8 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
+		final var chars = new char[(withSpacing ? 9 : 8) * bytes.length - (withSpacing ? 1 : 0)];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var b = Byte.toUnsignedInt(bytes[i]);
-			chars[(8 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b >>> 7 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b >>> 6 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 2] = BASE_CHARS[b >>> 5 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 3] = BASE_CHARS[b >>> 4 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 4] = BASE_CHARS[b >>> 3 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 5] = BASE_CHARS[b >>> 2 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 6] = BASE_CHARS[b >>> 1 & 0b00000001];
-			chars[(8 + (withSpacing ? 1 : 0)) * i + 7] = BASE_CHARS[b & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i] = BASE_CHARS[b >>> 7 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 1] = BASE_CHARS[b >>> 6 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 2] = BASE_CHARS[b >>> 5 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 3] = BASE_CHARS[b >>> 4 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 4] = BASE_CHARS[b >>> 3 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 5] = BASE_CHARS[b >>> 2 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 6] = BASE_CHARS[b >>> 1 & 0b00000001];
+			chars[(withSpacing ? 9 : 8) * i + 7] = BASE_CHARS[b & 0b00000001];
 			if (withSpacing && i + 1 < bytes.length) {
 				chars[9 * i + 8] = ' ';
 			}
@@ -1511,12 +1511,12 @@ public final class ByteArrays {
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var chars = new char[(3 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
+		final var chars = new char[(withSpacing ? 4 : 3) * bytes.length - (withSpacing ? 1 : 0)];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var b = Byte.toUnsignedInt(bytes[i]);
-			chars[(3 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b >>> 6 & 0007];
-			chars[(3 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b >>> 3 & 0007];
-			chars[(3 + (withSpacing ? 1 : 0)) * i + 2] = BASE_CHARS[b & 0007];
+			chars[(withSpacing ? 4 : 3) * i] = BASE_CHARS[b >>> 6 & 0007];
+			chars[(withSpacing ? 4 : 3) * i + 1] = BASE_CHARS[b >>> 3 & 0007];
+			chars[(withSpacing ? 4 : 3) * i + 2] = BASE_CHARS[b & 0007];
 			if (withSpacing && i + 1 < bytes.length) {
 				chars[4 * i + 3] = ' ';
 			}
@@ -1548,12 +1548,12 @@ public final class ByteArrays {
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var chars = new char[(3 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
+		final var chars = new char[(withSpacing ? 4 : 3) * bytes.length - (withSpacing ? 1 : 0)];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var b = Byte.toUnsignedInt(bytes[i]);
-			chars[(3 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b / 100 % 10];
-			chars[(3 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b / 10 % 10];
-			chars[(3 + (withSpacing ? 1 : 0)) * i + 2] = BASE_CHARS[b % 10];
+			chars[(withSpacing ? 4 : 3) * i] = BASE_CHARS[b / 100 % 10];
+			chars[(withSpacing ? 4 : 3) * i + 1] = BASE_CHARS[b / 10 % 10];
+			chars[(withSpacing ? 4 : 3) * i + 2] = BASE_CHARS[b % 10];
 			if (withSpacing && i + 1 < bytes.length) {
 				chars[4 * i + 3] = ' ';
 			}
@@ -1587,11 +1587,11 @@ public final class ByteArrays {
 		if (isEmpty(bytes)) {
 			return Strings.EMPTY;
 		}
-		final var chars = new char[(2 + (withSpacing ? 1 : 0)) * bytes.length - (withSpacing ? 1 : 0)];
+		final var chars = new char[(withSpacing ? 3 : 2) * bytes.length - (withSpacing ? 1 : 0)];
 		for (var i = 0; i < bytes.length; ++i) {
 			final var b = Byte.toUnsignedInt(bytes[i]);
-			chars[(2 + (withSpacing ? 1 : 0)) * i] = BASE_CHARS[b >>> 4 & 0x0f];
-			chars[(2 + (withSpacing ? 1 : 0)) * i + 1] = BASE_CHARS[b & 0x0f];
+			chars[(withSpacing ? 3 : 2) * i] = BASE_CHARS[b >>> 4 & 0x0f];
+			chars[(withSpacing ? 3 : 2) * i + 1] = BASE_CHARS[b & 0x0f];
 			if (withSpacing && i + 1 < bytes.length) {
 				chars[3 * i + 2] = ' ';
 			}

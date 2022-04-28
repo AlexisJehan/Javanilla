@@ -958,8 +958,12 @@ final class ByteArraysTest {
 	void testOfBinaryStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofBinaryString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000?"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("00000000 11111111"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000!"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000!", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000~"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("0000000~", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("00000000?11111111"));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofBinaryString("00000000?11111111", true));
 	}
 
@@ -981,8 +985,12 @@ final class ByteArraysTest {
 	void testOfOctalStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofOctalString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00?"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("000 377"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00!"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00!", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00~"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("00~", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("000?377"));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofOctalString("000?377", true));
 	}
 
@@ -1004,8 +1012,12 @@ final class ByteArraysTest {
 	void testOfDecimalStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofDecimalString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00?"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("000 255"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00!"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00!", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00~"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("00~", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("000?255"));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofDecimalString("000?255", true));
 	}
 
@@ -1021,6 +1033,8 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.ofHexadecimalString("FF", true)).isEqualTo(ByteArrays.singleton((byte) 0xff));
 		assertThat(ByteArrays.ofHexadecimalString("0ff0")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
 		assertThat(ByteArrays.ofHexadecimalString("0f f0", true)).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
+		assertThat(ByteArrays.ofHexadecimalString("0FF0")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
+		assertThat(ByteArrays.ofHexadecimalString("0F F0", true)).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0));
 		assertThat(ByteArrays.ofHexadecimalString("0ff0f00f")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
 		assertThat(ByteArrays.ofHexadecimalString("0f f0 f0 0f", true)).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
 		assertThat(ByteArrays.ofHexadecimalString("0FF0F00F")).isEqualTo(ByteArrays.of((byte) 0x0f, (byte) 0xf0, (byte) 0xf0, (byte) 0x0f));
@@ -1031,9 +1045,15 @@ final class ByteArraysTest {
 	void testOfHexadecimalStringInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofHexadecimalString(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0?"));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00 ff"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0!"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0!", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0~"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("0~", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00?ff"));
 		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00?ff", true));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00?FF"));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.ofHexadecimalString("00?FF", true));
 	}
 
 	@Test
