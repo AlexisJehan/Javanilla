@@ -66,6 +66,18 @@ public final class Strings {
 	private static final char DEFAULT_PADDING = ' ';
 
 	/**
+	 * <p>Default value for using spacing or not.</p>
+	 * @since 1.7.0
+	 */
+	private static final boolean DEFAULT_WITH_SPACING = false;
+
+	/**
+	 * <p>Default value for using padding or not.</p>
+	 * @since 1.7.0
+	 */
+	private static final boolean DEFAULT_WITH_PADDING = true;
+
+	/**
 	 * <p>Constructor not available.</p>
 	 * @since 1.0.0
 	 */
@@ -1269,14 +1281,26 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isBinary(final CharSequence charSequence) {
+		return isBinary(charSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a binary representation with spacing or not.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param withSpacing {@code true} if the binary representation must have spacing
+	 * @return {@code true} if the {@link CharSequence} is a binary representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean isBinary(final CharSequence charSequence, final boolean withSpacing) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
+		if (0 == length || withSpacing ? 8 != length % 9 : 0 != length % 8) {
 			return false;
 		}
 		for (var i = 0; i < length; ++i) {
 			final var c = charSequence.charAt(i);
-			if ('0' != c && '1' != c) {
+			if (withSpacing && 8 == i % 9 ? ' ' != c : '0' != c && '1' != c) {
 				return false;
 			}
 		}
@@ -1291,14 +1315,26 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isOctal(final CharSequence charSequence) {
+		return isOctal(charSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is an octal representation with spacing or not.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param withSpacing {@code true} if the octal representation must have spacing
+	 * @return {@code true} if the {@link CharSequence} is an octal representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean isOctal(final CharSequence charSequence, final boolean withSpacing) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
+		if (0 == length || withSpacing ? 3 != length % 4 : 0 != length % 3) {
 			return false;
 		}
 		for (var i = 0; i < length; ++i) {
 			final var c = charSequence.charAt(i);
-			if ('0' > c || '7' < c) {
+			if (withSpacing && 3 == i % 4 ? ' ' != c : '0' > c || '7' < c) {
 				return false;
 			}
 		}
@@ -1313,14 +1349,26 @@ public final class Strings {
 	 * @since 1.2.0
 	 */
 	public static boolean isDecimal(final CharSequence charSequence) {
+		return isDecimal(charSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a decimal representation with spacing or not.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param withSpacing {@code true} if the decimal representation must have spacing
+	 * @return {@code true} if the {@link CharSequence} is a decimal representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean isDecimal(final CharSequence charSequence, final boolean withSpacing) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
+		if (0 == length || withSpacing ? 3 != length % 4 : 0 != length % 3) {
 			return false;
 		}
 		for (var i = 0; i < length; ++i) {
 			final var c = charSequence.charAt(i);
-			if ('0' > c || '9' < c) {
+			if (withSpacing && 3 == i % 4 ? ' ' != c : '0' > c || '9' < c) {
 				return false;
 			}
 		}
@@ -1336,18 +1384,42 @@ public final class Strings {
 	 * @since 1.0.0
 	 */
 	public static boolean isHexadecimal(final CharSequence charSequence) {
+		return isHexadecimal(charSequence, DEFAULT_WITH_SPACING);
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a hexadecimal representation with spacing or not.</p>
+	 * <p><b>Note</b>: The case does not matter.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param withSpacing {@code true} if the hexadecimal representation must have spacing
+	 * @return {@code true} if the {@link CharSequence} is a hexadecimal representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean isHexadecimal(final CharSequence charSequence, final boolean withSpacing) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
+		if (0 == length || withSpacing ? 2 != length % 3 : 0 != length % 2) {
 			return false;
 		}
 		for (var i = 0; i < length; ++i) {
 			final var c = Character.toLowerCase(charSequence.charAt(i));
-			if (('0' > c || '9' < c) && ('a' > c || 'f' < c)) {
+			if (withSpacing && 2 == i % 3 ? ' ' != c : ('0' > c || '9' < c) && ('a' > c || 'f' < c)) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a base 64 representation
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean isBase64(final CharSequence charSequence) {
+		return isBase64(charSequence, DEFAULT_WITH_PADDING);
 	}
 
 	/**
@@ -1361,7 +1433,7 @@ public final class Strings {
 	public static boolean isBase64(final CharSequence charSequence, final boolean withPadding) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
+		if (0 == length || withPadding && 0 != length % 4) {
 			return false;
 		}
 		var padding = false;
@@ -1377,7 +1449,18 @@ public final class Strings {
 				return false;
 			}
 		}
-		return !withPadding || 0 == length % 4;
+		return true;
+	}
+
+	/**
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and filenames
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean isBase64Url(final CharSequence charSequence) {
+		return isBase64Url(charSequence, DEFAULT_WITH_PADDING);
 	}
 
 	/**
@@ -1391,7 +1474,7 @@ public final class Strings {
 	public static boolean isBase64Url(final CharSequence charSequence, final boolean withPadding) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
+		if (0 == length || withPadding && 0 != length % 4) {
 			return false;
 		}
 		var padding = false;
@@ -1407,7 +1490,7 @@ public final class Strings {
 				return false;
 			}
 		}
-		return !withPadding || 0 == length % 4;
+		return true;
 	}
 
 	/**

@@ -55,8 +55,7 @@ public final class StringExample {
 		System.out.println(Strings.isHexadecimal("foo")); // Prints false
 		System.out.println(Strings.isHexadecimal(ByteArrays.toHexadecimalString("foo".getBytes()))); // Prints true
 
-		final var withPadding = true;
-		System.out.println(Strings.isBase64("foo", withPadding)); // Prints false
-		System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()), withPadding)); // Prints true
+		System.out.println(Strings.isBase64("foo")); // Prints false
+		System.out.println(Strings.isBase64(Base64.getEncoder().encodeToString("foo".getBytes()))); // Prints true
 	}
 }

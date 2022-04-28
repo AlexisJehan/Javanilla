@@ -2,6 +2,10 @@
 
 ## 1.7.0 _(in progress)_
 
+**lang.Strings**
+- Added _isBinary(CharSequence, boolean)_, _isOctal(CharSequence, boolean)_, _isDecimal(CharSequence, boolean)_ and _isHexadecimal(CharSequence, boolean)_ methods
+- Added _isBase64(CharSequence)_ and _isBase64Url(CharSequence)_ methods
+
 **lang.Throwables**
 - Added the _sneakyThrow(Throwable)_ method
 - Deprecated _uncheck(ThrowableRunnable)_ and _uncheck(ThrowableSupplier)_ methods

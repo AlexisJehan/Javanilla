@@ -733,14 +733,24 @@ final class StringsTest {
 
 	@Test
 	void testIsBinary() {
+		assertThat(Strings.isBinary("00000000")).isTrue();
+		assertThat(Strings.isBinary("00000000", true)).isTrue();
+		assertThat(Strings.isBinary("11111111")).isTrue();
+		assertThat(Strings.isBinary("11111111", true)).isTrue();
+		assertThat(Strings.isBinary("0000111111110000")).isTrue();
+		assertThat(Strings.isBinary("00001111 11110000", true)).isTrue();
+		assertThat(Strings.isBinary("00001111111100001111000000001111")).isTrue();
+		assertThat(Strings.isBinary("00001111 11110000 11110000 00001111", true)).isTrue();
 		assertThat(Strings.isBinary(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isBinary("foo")).isFalse();
-		assertThat(Strings.isBinary("0")).isTrue();
-		assertThat(Strings.isBinary("1")).isTrue();
-		assertThat(Strings.isBinary("!")).isFalse();
-		assertThat(Strings.isBinary("2")).isFalse();
-		assertThat(Strings.isBinary("01")).isTrue();
-		assertThat(Strings.isBinary("?1")).isFalse();
+		assertThat(Strings.isBinary(Strings.EMPTY, true)).isFalse();
+		assertThat(Strings.isBinary("0000000")).isFalse();
+		assertThat(Strings.isBinary("0000000", true)).isFalse();
+		assertThat(Strings.isBinary("0000000!")).isFalse();
+		assertThat(Strings.isBinary("0000000!", true)).isFalse();
+		assertThat(Strings.isBinary("0000000~")).isFalse();
+		assertThat(Strings.isBinary("0000000~", true)).isFalse();
+		assertThat(Strings.isBinary("00000000?11111111")).isFalse();
+		assertThat(Strings.isBinary("00000000?11111111", true)).isFalse();
 	}
 
 	@Test
@@ -750,14 +760,24 @@ final class StringsTest {
 
 	@Test
 	void testIsOctal() {
+		assertThat(Strings.isOctal("000")).isTrue();
+		assertThat(Strings.isOctal("000", true)).isTrue();
+		assertThat(Strings.isOctal("377")).isTrue();
+		assertThat(Strings.isOctal("377", true)).isTrue();
+		assertThat(Strings.isOctal("017360")).isTrue();
+		assertThat(Strings.isOctal("017 360", true)).isTrue();
+		assertThat(Strings.isOctal("017360360017")).isTrue();
+		assertThat(Strings.isOctal("017 360 360 017", true)).isTrue();
 		assertThat(Strings.isOctal(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isOctal("foo")).isFalse();
-		assertThat(Strings.isOctal("0")).isTrue();
-		assertThat(Strings.isOctal("7")).isTrue();
-		assertThat(Strings.isOctal("!")).isFalse();
-		assertThat(Strings.isOctal("8")).isFalse();
-		assertThat(Strings.isOctal("07")).isTrue();
-		assertThat(Strings.isOctal("?7")).isFalse();
+		assertThat(Strings.isOctal(Strings.EMPTY, true)).isFalse();
+		assertThat(Strings.isOctal("00")).isFalse();
+		assertThat(Strings.isOctal("00", true)).isFalse();
+		assertThat(Strings.isOctal("00!")).isFalse();
+		assertThat(Strings.isOctal("00!", true)).isFalse();
+		assertThat(Strings.isOctal("00~")).isFalse();
+		assertThat(Strings.isOctal("00~", true)).isFalse();
+		assertThat(Strings.isOctal("000?377")).isFalse();
+		assertThat(Strings.isOctal("000?377", true)).isFalse();
 	}
 
 	@Test
@@ -767,14 +787,24 @@ final class StringsTest {
 
 	@Test
 	void testIsDecimal() {
+		assertThat(Strings.isDecimal("000")).isTrue();
+		assertThat(Strings.isDecimal("000", true)).isTrue();
+		assertThat(Strings.isDecimal("255")).isTrue();
+		assertThat(Strings.isDecimal("255", true)).isTrue();
+		assertThat(Strings.isDecimal("015240")).isTrue();
+		assertThat(Strings.isDecimal("015 240", true)).isTrue();
+		assertThat(Strings.isDecimal("015240240015")).isTrue();
+		assertThat(Strings.isDecimal("015 240 240 015", true)).isTrue();
 		assertThat(Strings.isDecimal(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isDecimal("foo")).isFalse();
-		assertThat(Strings.isDecimal("0")).isTrue();
-		assertThat(Strings.isDecimal("9")).isTrue();
-		assertThat(Strings.isDecimal("!")).isFalse();
-		assertThat(Strings.isDecimal("a")).isFalse();
-		assertThat(Strings.isDecimal("09")).isTrue();
-		assertThat(Strings.isDecimal("?9")).isFalse();
+		assertThat(Strings.isDecimal(Strings.EMPTY, true)).isFalse();
+		assertThat(Strings.isDecimal("00")).isFalse();
+		assertThat(Strings.isDecimal("00", true)).isFalse();
+		assertThat(Strings.isDecimal("00!")).isFalse();
+		assertThat(Strings.isDecimal("00!", true)).isFalse();
+		assertThat(Strings.isDecimal("00~")).isFalse();
+		assertThat(Strings.isDecimal("00~", true)).isFalse();
+		assertThat(Strings.isDecimal("000?255")).isFalse();
+		assertThat(Strings.isDecimal("000?255", true)).isFalse();
 	}
 
 	@Test
@@ -784,16 +814,32 @@ final class StringsTest {
 
 	@Test
 	void testIsHexadecimal() {
+		assertThat(Strings.isHexadecimal("00")).isTrue();
+		assertThat(Strings.isHexadecimal("00", true)).isTrue();
+		assertThat(Strings.isHexadecimal("ff")).isTrue();
+		assertThat(Strings.isHexadecimal("ff", true)).isTrue();
+		assertThat(Strings.isHexadecimal("FF")).isTrue();
+		assertThat(Strings.isHexadecimal("FF", true)).isTrue();
+		assertThat(Strings.isHexadecimal("0ff0")).isTrue();
+		assertThat(Strings.isHexadecimal("0f f0", true)).isTrue();
+		assertThat(Strings.isHexadecimal("0FF0")).isTrue();
+		assertThat(Strings.isHexadecimal("0F F0", true)).isTrue();
+		assertThat(Strings.isHexadecimal("0ff0f00f")).isTrue();
+		assertThat(Strings.isHexadecimal("0f f0 f0 0f", true)).isTrue();
+		assertThat(Strings.isHexadecimal("0FF0F00F")).isTrue();
+		assertThat(Strings.isHexadecimal("0F F0 F0 0F", true)).isTrue();
 		assertThat(Strings.isHexadecimal(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isHexadecimal("foo")).isFalse();
-		assertThat(Strings.isHexadecimal("0")).isTrue();
-		assertThat(Strings.isHexadecimal("f")).isTrue();
-		assertThat(Strings.isHexadecimal("F")).isTrue();
-		assertThat(Strings.isHexadecimal("!")).isFalse();
-		assertThat(Strings.isHexadecimal("g")).isFalse();
-		assertThat(Strings.isHexadecimal("0f")).isTrue();
-		assertThat(Strings.isHexadecimal("?f")).isFalse();
-		assertThat(Strings.isHexadecimal("0xff")).isFalse();
+		assertThat(Strings.isHexadecimal(Strings.EMPTY, true)).isFalse();
+		assertThat(Strings.isHexadecimal("0")).isFalse();
+		assertThat(Strings.isHexadecimal("0", true)).isFalse();
+		assertThat(Strings.isHexadecimal("0!")).isFalse();
+		assertThat(Strings.isHexadecimal("0!", true)).isFalse();
+		assertThat(Strings.isHexadecimal("0~")).isFalse();
+		assertThat(Strings.isHexadecimal("0~", true)).isFalse();
+		assertThat(Strings.isHexadecimal("00?ff")).isFalse();
+		assertThat(Strings.isHexadecimal("00?ff", true)).isFalse();
+		assertThat(Strings.isHexadecimal("00?FF")).isFalse();
+		assertThat(Strings.isHexadecimal("00?FF", true)).isFalse();
 	}
 
 	@Test
@@ -803,14 +849,14 @@ final class StringsTest {
 
 	@Test
 	void testIsBase64() {
-		assertThat(Strings.isBase64(Strings.EMPTY, true)).isFalse();
+		assertThat(Strings.isBase64(Strings.EMPTY)).isFalse();
 
 		// With padding
-		assertThat(Strings.isBase64("Zg", true)).isFalse();
-		assertThat(Strings.isBase64("Zg=", true)).isFalse();
-		assertThat(Strings.isBase64("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64("Zg===", true)).isFalse();
-		assertThat(Strings.isBase64("ZgZg", true)).isTrue();
+		assertThat(Strings.isBase64("Zg")).isFalse();
+		assertThat(Strings.isBase64("Zg=")).isFalse();
+		assertThat(Strings.isBase64("Zg==")).isTrue();
+		assertThat(Strings.isBase64("Zg===")).isFalse();
+		assertThat(Strings.isBase64("ZgZg")).isTrue();
 
 		// Without padding
 		assertThat(Strings.isBase64("Zg", false)).isTrue();
@@ -819,31 +865,31 @@ final class StringsTest {
 		assertThat(Strings.isBase64("Zg===", false)).isFalse();
 		assertThat(Strings.isBase64("ZgZg", false)).isTrue();
 
-		assertThat(Strings.isBase64("Zg!?", true)).isFalse();
-		assertThat(Strings.isBase64("Zg|:", true)).isFalse();
-		assertThat(Strings.isBase64("==Zg", true)).isFalse();
-		assertThat(Strings.isBase64("Zg=+", true)).isFalse();
-		assertThat(Strings.isBase64("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64("Zm8=", true)).isTrue();
-		assertThat(Strings.isBase64("+/==", true)).isTrue();
-		assertThat(Strings.isBase64("-_==", true)).isFalse();
+		assertThat(Strings.isBase64("Zg!?")).isFalse();
+		assertThat(Strings.isBase64("Zg|:")).isFalse();
+		assertThat(Strings.isBase64("==Zg")).isFalse();
+		assertThat(Strings.isBase64("Zg=+")).isFalse();
+		assertThat(Strings.isBase64("Zg==")).isTrue();
+		assertThat(Strings.isBase64("Zm8=")).isTrue();
+		assertThat(Strings.isBase64("+/==")).isTrue();
+		assertThat(Strings.isBase64("-_==")).isFalse();
 	}
 
 	@Test
 	void testIsBase64Invalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64(null, true));
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64(null));
 	}
 
 	@Test
 	void testIsBase64Url() {
-		assertThat(Strings.isBase64Url(Strings.EMPTY, true)).isFalse();
+		assertThat(Strings.isBase64Url(Strings.EMPTY)).isFalse();
 
 		// With padding
-		assertThat(Strings.isBase64Url("Zg", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg=", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64Url("Zg===", true)).isFalse();
-		assertThat(Strings.isBase64Url("ZgZg", true)).isTrue();
+		assertThat(Strings.isBase64Url("Zg")).isFalse();
+		assertThat(Strings.isBase64Url("Zg=")).isFalse();
+		assertThat(Strings.isBase64Url("Zg==")).isTrue();
+		assertThat(Strings.isBase64Url("Zg===")).isFalse();
+		assertThat(Strings.isBase64Url("ZgZg")).isTrue();
 
 		// Without padding
 		assertThat(Strings.isBase64Url("Zg", false)).isTrue();
@@ -852,19 +898,19 @@ final class StringsTest {
 		assertThat(Strings.isBase64Url("Zg===", false)).isFalse();
 		assertThat(Strings.isBase64Url("ZgZg", false)).isTrue();
 
-		assertThat(Strings.isBase64Url("Zg!?", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg|:", true)).isFalse();
-		assertThat(Strings.isBase64Url("==Zg", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg=-", true)).isFalse();
-		assertThat(Strings.isBase64Url("Zg==", true)).isTrue();
-		assertThat(Strings.isBase64Url("Zm8=", true)).isTrue();
-		assertThat(Strings.isBase64Url("+/==", true)).isFalse();
-		assertThat(Strings.isBase64Url("-_==", true)).isTrue();
+		assertThat(Strings.isBase64Url("Zg!?")).isFalse();
+		assertThat(Strings.isBase64Url("Zg|:")).isFalse();
+		assertThat(Strings.isBase64Url("==Zg")).isFalse();
+		assertThat(Strings.isBase64Url("Zg=-")).isFalse();
+		assertThat(Strings.isBase64Url("Zg==")).isTrue();
+		assertThat(Strings.isBase64Url("Zm8=")).isTrue();
+		assertThat(Strings.isBase64Url("+/==")).isFalse();
+		assertThat(Strings.isBase64Url("-_==")).isTrue();
 	}
 
 	@Test
 	void testIsBase64UrlInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64Url(null, true));
+		assertThatNullPointerException().isThrownBy(() -> Strings.isBase64Url(null));
 	}
 
 	@Test
