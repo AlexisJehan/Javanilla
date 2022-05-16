@@ -492,7 +492,23 @@ final class StringsTest {
 	}
 
 	@Test
-	void testRemoveStartIgnoreCase() {
+	void testRemoveStartIgnoreCaseChar() {
+		assertThat(Strings.removeStartIgnoreCase(Strings.EMPTY, 'x')).isEmpty();
+		assertThat(Strings.removeStartIgnoreCase("foo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("xfoo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("xfoo", 'X')).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("Xfoo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("Xfoo", 'X')).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("xxfoo", 'x')).isEqualTo("xfoo");
+	}
+
+	@Test
+	void testRemoveStartIgnoreCaseCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(null, 'x'));
+	}
+
+	@Test
+	void testRemoveStartIgnoreCaseCharSequence() {
 		assertThat(Strings.removeStartIgnoreCase(Strings.EMPTY, "xX")).isEmpty();
 		assertThat(Strings.removeStartIgnoreCase("foo", Strings.EMPTY)).isEqualTo("foo");
 		assertThat(Strings.removeStartIgnoreCase("foo", "xX")).isEqualTo("foo");
@@ -505,7 +521,7 @@ final class StringsTest {
 	}
 
 	@Test
-	void testRemoveStartIgnoreCaseInvalid() {
+	void testRemoveStartIgnoreCaseCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(null, "xX"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase("foo", null));
 	}
@@ -546,7 +562,23 @@ final class StringsTest {
 	}
 
 	@Test
-	void testRemoveEndIgnoreCase() {
+	void testRemoveEndIgnoreCaseChar() {
+		assertThat(Strings.removeEndIgnoreCase(Strings.EMPTY, 'x')).isEmpty();
+		assertThat(Strings.removeEndIgnoreCase("foo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("foox", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("foox", 'X')).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooX", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooX", 'X')).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooxx", 'x')).isEqualTo("foox");
+	}
+
+	@Test
+	void testRemoveEndIgnoreCaseCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(null, 'x'));
+	}
+
+	@Test
+	void testRemoveEndIgnoreCaseCharSequence() {
 		assertThat(Strings.removeEndIgnoreCase(Strings.EMPTY, "xX")).isEmpty();
 		assertThat(Strings.removeEndIgnoreCase("foo", Strings.EMPTY)).isEqualTo("foo");
 		assertThat(Strings.removeEndIgnoreCase("foo", "xX")).isEqualTo("foo");
@@ -559,7 +591,7 @@ final class StringsTest {
 	}
 
 	@Test
-	void testRemoveEndIgnoreCaseInvalid() {
+	void testRemoveEndIgnoreCaseCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(null, "xX"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase("foo", null));
 	}
@@ -581,7 +613,37 @@ final class StringsTest {
 	}
 
 	@Test
-	void testContainsIgnoreCase() {
+	void testContains() {
+		assertThat(Strings.contains(Strings.EMPTY, 'x')).isFalse();
+		assertThat(Strings.contains("foo", 'x')).isFalse();
+		assertThat(Strings.contains("foxo", 'x')).isTrue();
+		assertThat(Strings.contains("foxo", 'X')).isFalse();
+		assertThat(Strings.contains("foXo", 'x')).isFalse();
+		assertThat(Strings.contains("foXo", 'X')).isTrue();
+	}
+
+	@Test
+	void testContainsInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.contains(null, 'x'));
+	}
+
+	@Test
+	void testContainsIgnoreCaseChar() {
+		assertThat(Strings.containsIgnoreCase(Strings.EMPTY, 'x')).isFalse();
+		assertThat(Strings.containsIgnoreCase("foo", 'x')).isFalse();
+		assertThat(Strings.containsIgnoreCase("foxo", 'x')).isTrue();
+		assertThat(Strings.containsIgnoreCase("foxo", 'X')).isTrue();
+		assertThat(Strings.containsIgnoreCase("foXo", 'x')).isTrue();
+		assertThat(Strings.containsIgnoreCase("foXo", 'X')).isTrue();
+	}
+
+	@Test
+	void testContainsIgnoreCaseCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, 'x'));
+	}
+
+	@Test
+	void testContainsIgnoreCaseCharSequence() {
 		assertThat(Strings.containsIgnoreCase(Strings.EMPTY, "xX")).isFalse();
 		assertThat(Strings.containsIgnoreCase("foo", Strings.EMPTY)).isTrue();
 		assertThat(Strings.containsIgnoreCase("foo", "xX")).isFalse();
@@ -595,13 +657,43 @@ final class StringsTest {
 	}
 
 	@Test
-	void testContainsIgnoreCaseInvalid() {
+	void testContainsIgnoreCaseCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, "xX"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase("foo", null));
 	}
 
 	@Test
-	void testStartsWithIgnoreCase() {
+	void testStartsWith() {
+		assertThat(Strings.startsWith(Strings.EMPTY, 'x')).isFalse();
+		assertThat(Strings.startsWith("foo", 'x')).isFalse();
+		assertThat(Strings.startsWith("xfoo", 'x')).isTrue();
+		assertThat(Strings.startsWith("xfoo", 'X')).isFalse();
+		assertThat(Strings.startsWith("Xfoo", 'x')).isFalse();
+		assertThat(Strings.startsWith("Xfoo", 'X')).isTrue();
+	}
+
+	@Test
+	void testStartsWithInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWith(null, 'x'));
+	}
+
+	@Test
+	void testStartsWithIgnoreCaseChar() {
+		assertThat(Strings.startsWithIgnoreCase(Strings.EMPTY, 'x')).isFalse();
+		assertThat(Strings.startsWithIgnoreCase("foo", 'x')).isFalse();
+		assertThat(Strings.startsWithIgnoreCase("xfoo", 'x')).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("xfoo", 'X')).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("Xfoo", 'x')).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("Xfoo", 'X')).isTrue();
+	}
+
+	@Test
+	void testStartsWithIgnoreCaseCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, 'x'));
+	}
+
+	@Test
+	void testStartsWithIgnoreCaseCharSequence() {
 		assertThat(Strings.startsWithIgnoreCase(Strings.EMPTY, "xX")).isFalse();
 		assertThat(Strings.startsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
 		assertThat(Strings.startsWithIgnoreCase("foo", "xX")).isFalse();
@@ -612,13 +704,43 @@ final class StringsTest {
 	}
 
 	@Test
-	void testStartsWithIgnoreCaseInvalid() {
+	void testStartsWithIgnoreCaseCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, "xX"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase("foo", null));
 	}
 
 	@Test
-	void testEndsWithIgnoreCase() {
+	void testEndsWith() {
+		assertThat(Strings.endsWith(Strings.EMPTY, 'x')).isFalse();
+		assertThat(Strings.endsWith("foo", 'x')).isFalse();
+		assertThat(Strings.endsWith("foox", 'x')).isTrue();
+		assertThat(Strings.endsWith("foox", 'X')).isFalse();
+		assertThat(Strings.endsWith("fooX", 'x')).isFalse();
+		assertThat(Strings.endsWith("fooX", 'X')).isTrue();
+	}
+
+	@Test
+	void testEndsWithInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWith(null, 'x'));
+	}
+
+	@Test
+	void testEndsWithIgnoreCaseChar() {
+		assertThat(Strings.endsWithIgnoreCase(Strings.EMPTY, 'x')).isFalse();
+		assertThat(Strings.endsWithIgnoreCase("foo", 'x')).isFalse();
+		assertThat(Strings.endsWithIgnoreCase("foox", 'x')).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("foox", 'X')).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("fooX", 'x')).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("fooX", 'X')).isTrue();
+	}
+
+	@Test
+	void testEndsWithIgnoreCaseCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, 'x'));
+	}
+
+	@Test
+	void testEndsWithIgnoreCaseCharSequence() {
 		assertThat(Strings.endsWithIgnoreCase(Strings.EMPTY, "xX")).isFalse();
 		assertThat(Strings.endsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
 		assertThat(Strings.endsWithIgnoreCase("foo", "xX")).isFalse();
@@ -629,7 +751,7 @@ final class StringsTest {
 	}
 
 	@Test
-	void testEndsWithIgnoreCaseInvalid() {
+	void testEndsWithIgnoreCaseCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, "xX"));
 		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase("foo", null));
 	}

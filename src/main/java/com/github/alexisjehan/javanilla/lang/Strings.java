@@ -872,6 +872,26 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Remove the prefix {@code char} if the {@link CharSequence} starts with it ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to remove from
+	 * @param prefix the prefix {@code char}
+	 * @return a stripped {@link String} of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String removeStartIgnoreCase(final CharSequence charSequence, final char prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		if (Character.toLowerCase(prefix) == Character.toLowerCase(charSequence.charAt(0))) {
+			return charSequence.subSequence(1, length).toString();
+		}
+		return charSequence.toString();
+	}
+
+	/**
 	 * <p>Remove the prefix {@link CharSequence} if the {@link CharSequence} starts with it ignoring the case.</p>
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param prefix the prefix {@link CharSequence}
@@ -946,6 +966,26 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Remove the suffix {@code char} if the {@link CharSequence} ends with it ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to remove from
+	 * @param suffix the suffix {@code char}
+	 * @return a stripped {@link String} of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static String removeEndIgnoreCase(final CharSequence charSequence, final char suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		if (Character.toLowerCase(suffix) == Character.toLowerCase(charSequence.charAt(length - 1))) {
+			return charSequence.subSequence(0, length - 1).toString();
+		}
+		return charSequence.toString();
+	}
+
+	/**
 	 * <p>Remove the suffix {@link CharSequence} if the {@link CharSequence} ends with it ignoring the case.</p>
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param suffix the suffix {@link CharSequence}
@@ -1007,6 +1047,44 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Test if a {@link CharSequence} contains a target {@code char}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param target the target {@code char}
+	 * @return {@code true} if the {@link CharSequence} contains the target {@code char}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean contains(final CharSequence charSequence, final char target) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		for (var i = 0; i < length; ++i) {
+			if (target == charSequence.charAt(i)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} contains a target {@code char} ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param target the target {@code char}
+	 * @return {@code true} if the {@link CharSequence} contains the target {@code char} ignoring the case
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean containsIgnoreCase(final CharSequence charSequence, final char target) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		for (var i = 0; i < length; ++i) {
+			if (Character.toLowerCase(target) == Character.toLowerCase(charSequence.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * <p>Test if a {@link CharSequence} contains a target {@link CharSequence} ignoring the case.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param target the target {@link CharSequence}
@@ -1040,6 +1118,38 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Test if a {@link CharSequence} starts with a prefix {@code char}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param prefix the prefix {@code char}
+	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@code char}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean startsWith(final CharSequence charSequence, final char prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		return prefix == charSequence.charAt(0);
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} starts with a prefix {@code char} ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param prefix the prefix {@code char}
+	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@code char} ignoring the case
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean startsWithIgnoreCase(final CharSequence charSequence, final char prefix) {
+		Ensure.notNull("charSequence", charSequence);
+		if (0 == charSequence.length()) {
+			return false;
+		}
+		return Character.toLowerCase(prefix) == Character.toLowerCase(charSequence.charAt(0));
+	}
+
+	/**
 	 * <p>Test if a {@link CharSequence} starts with a prefix {@link CharSequence} ignoring the case.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param prefix the prefix {@link CharSequence}
@@ -1064,6 +1174,40 @@ public final class Strings {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} ends with a suffix {@code char}.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param suffix the suffix {@code char}
+	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@code char}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean endsWith(final CharSequence charSequence, final char suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		return suffix == charSequence.charAt(length - 1);
+	}
+
+	/**
+	 * <p>Test if a {@link CharSequence} ends with a suffix {@code char} ignoring the case.</p>
+	 * @param charSequence the {@link CharSequence} to test
+	 * @param suffix the suffix {@code char}
+	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@code char} ignoring the case
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.7.0
+	 */
+	public static boolean endsWithIgnoreCase(final CharSequence charSequence, final char suffix) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return false;
+		}
+		return Character.toLowerCase(suffix) == Character.toLowerCase(charSequence.charAt(length - 1));
 	}
 
 	/**

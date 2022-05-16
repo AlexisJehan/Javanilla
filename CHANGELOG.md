@@ -3,6 +3,7 @@
 ## 1.7.0 _(in progress)_
 
 **lang.Strings**
+- Added _removeStartIgnoreCase(CharSequence, char)_, _removeEndIgnoreCase(CharSequence, char)_, _contains(CharSequence, char)_, _containsIgnoreCase(CharSequence, char)_, _startsWith(CharSequence, char)_, _startsWithIgnoreCase(CharSequence, char)_, _endsWith(CharSequence, char)_ and _endsWithIgnoreCase(CharSequence, char)_
 - Added _isBinary(CharSequence, boolean)_, _isOctal(CharSequence, boolean)_, _isDecimal(CharSequence, boolean)_ and _isHexadecimal(CharSequence, boolean)_ methods
 - Added _isBase64(CharSequence)_ and _isBase64Url(CharSequence)_ methods
 
