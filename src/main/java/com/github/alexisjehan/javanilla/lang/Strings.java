@@ -717,6 +717,9 @@ public final class Strings {
 	public static String replaceFirst(final CharSequence charSequence, final char target, final char replacement) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		for (var i = 0; i < length; ++i) {
 			if (target == charSequence.charAt(i)) {
 				return charSequence.subSequence(0, i) + Character.toString(replacement) + charSequence.subSequence(i + 1, length);
@@ -740,14 +743,17 @@ public final class Strings {
 		Ensure.notNull("target", target);
 		Ensure.notNull("replacement", replacement);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		final var targetLength = target.length();
 		if (0 == targetLength || length < targetLength) {
 			return charSequence.toString();
 		}
 		for (var i = 0; i < length - targetLength + 1; ++i) {
-			if (charSequence.charAt(i) == target.charAt(0)) {
+			if (target.charAt(0) == charSequence.charAt(i)) {
 				var j = 1;
-				while (i + j < length && j < targetLength && charSequence.charAt(i + j) == target.charAt(j)) {
+				while (i + j < length && j < targetLength && target.charAt(j) == charSequence.charAt(i + j)) {
 					++j;
 				}
 				if (j == targetLength) {
@@ -771,6 +777,9 @@ public final class Strings {
 	public static String replaceLast(final CharSequence charSequence, final char target, final char replacement) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		for (var i = length - 1; i >= 0; --i) {
 			if (target == charSequence.charAt(i)) {
 				return charSequence.subSequence(0, i) + Character.toString(replacement) + charSequence.subSequence(i + 1, length);
@@ -794,14 +803,17 @@ public final class Strings {
 		Ensure.notNull("target", target);
 		Ensure.notNull("replacement", replacement);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		final var targetLength = target.length();
 		if (0 == targetLength || length < targetLength) {
 			return charSequence.toString();
 		}
 		for (var i = length - 1; i >= 0; --i) {
-			if (charSequence.charAt(i) == target.charAt(targetLength - 1)) {
+			if (target.charAt(targetLength - 1) == charSequence.charAt(i)) {
 				var j = 1;
-				while (i - j >= 0 && j < targetLength && charSequence.charAt(i - j) == target.charAt(targetLength - j - 1)) {
+				while (i - j >= 0 && j < targetLength && target.charAt(targetLength - j - 1) == charSequence.charAt(i - j)) {
 					++j;
 				}
 				if (j == targetLength) {
@@ -822,8 +834,12 @@ public final class Strings {
 	 */
 	public static String removeStart(final CharSequence charSequence, final char prefix) {
 		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		if (prefix == charSequence.charAt(0)) {
-			return charSequence.subSequence(1, charSequence.length()).toString();
+			return charSequence.subSequence(1, length).toString();
 		}
 		return charSequence.toString();
 	}
@@ -840,6 +856,9 @@ public final class Strings {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.notNull("prefix", prefix);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		final var prefixLength = prefix.length();
 		if (0 == prefixLength || length < prefixLength) {
 			return charSequence.toString();
@@ -864,6 +883,9 @@ public final class Strings {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.notNull("prefix", prefix);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		final var prefixLength = prefix.length();
 		if (0 == prefixLength || length < prefixLength) {
 			return charSequence.toString();
@@ -887,6 +909,9 @@ public final class Strings {
 	public static String removeEnd(final CharSequence charSequence, final char suffix) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		if (suffix == charSequence.charAt(length - 1)) {
 			return charSequence.subSequence(0, length - 1).toString();
 		}
@@ -905,6 +930,9 @@ public final class Strings {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.notNull("suffix", suffix);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		final var suffixLength = suffix.length();
 		if (0 == suffixLength || length < suffixLength) {
 			return charSequence.toString();
@@ -929,6 +957,9 @@ public final class Strings {
 		Ensure.notNull("charSequence", charSequence);
 		Ensure.notNull("suffix", suffix);
 		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
 		final var suffixLength = suffix.length();
 		if (0 == suffixLength || length < suffixLength) {
 			return charSequence.toString();
@@ -995,9 +1026,9 @@ public final class Strings {
 			return false;
 		}
 		for (var i = 0; i < length - targetLength + 1; ++i) {
-			if (Character.toLowerCase(charSequence.charAt(i)) == Character.toLowerCase(target.charAt(0))) {
+			if (Character.toLowerCase(target.charAt(0)) == Character.toLowerCase(charSequence.charAt(i))) {
 				var j = 1;
-				while (i + j < length && j < targetLength && Character.toLowerCase(charSequence.charAt(i + j)) == Character.toLowerCase(target.charAt(j))) {
+				while (i + j < length && j < targetLength && Character.toLowerCase(target.charAt(j)) == Character.toLowerCase(charSequence.charAt(i + j))) {
 					++j;
 				}
 				if (j == targetLength) {
@@ -1028,7 +1059,7 @@ public final class Strings {
 			return false;
 		}
 		for (var i = 0; i < prefixLength; ++i) {
-			if (Character.toUpperCase(charSequence.charAt(i)) != Character.toUpperCase(prefix.charAt(i))) {
+			if (Character.toLowerCase(charSequence.charAt(i)) != Character.toLowerCase(prefix.charAt(i))) {
 				return false;
 			}
 		}
@@ -1056,7 +1087,7 @@ public final class Strings {
 		}
 		final var offset = length - suffixLength;
 		for (var i = 0; i < suffixLength; ++i) {
-			if (Character.toUpperCase(charSequence.charAt(offset + i)) != Character.toUpperCase(suffix.charAt(i))) {
+			if (Character.toLowerCase(charSequence.charAt(offset + i)) != Character.toLowerCase(suffix.charAt(i))) {
 				return false;
 			}
 		}
@@ -1074,9 +1105,6 @@ public final class Strings {
 	public static int frequency(final CharSequence charSequence, final char target) {
 		Ensure.notNull("charSequence", charSequence);
 		final var length = charSequence.length();
-		if (0 == length) {
-			return 0;
-		}
 		var frequency = 0;
 		for (var i = 0; i < length; ++i) {
 			if (target == charSequence.charAt(i)) {
@@ -1105,9 +1133,9 @@ public final class Strings {
 		}
 		var frequency = 0;
 		for (var i = 0; i < length - targetLength + 1; ++i) {
-			if (charSequence.charAt(i) == target.charAt(0)) {
+			if (target.charAt(0) == charSequence.charAt(i)) {
 				var j = 1;
-				while (i + j < length && j < targetLength && charSequence.charAt(i + j) == target.charAt(j)) {
+				while (i + j < length && j < targetLength && target.charAt(j) == charSequence.charAt(i + j)) {
 					++j;
 				}
 				if (j == targetLength) {
@@ -1199,11 +1227,12 @@ public final class Strings {
 	 */
 	public static boolean isInt(final CharSequence charSequence) {
 		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
+		final var length = charSequence.length();
+		if (0 == length) {
 			return false;
 		}
 		try {
-			Integer.parseInt(charSequence, 0, charSequence.length(), 10);
+			Integer.parseInt(charSequence, 0, length, 10);
 		} catch (final NumberFormatException e) {
 			return false;
 		}
@@ -1220,11 +1249,12 @@ public final class Strings {
 	 */
 	public static boolean isLong(final CharSequence charSequence) {
 		Ensure.notNull("charSequence", charSequence);
-		if (0 == charSequence.length()) {
+		final var length = charSequence.length();
+		if (0 == length) {
 			return false;
 		}
 		try {
-			Long.parseLong(charSequence, 0, charSequence.length(), 10);
+			Long.parseLong(charSequence, 0, length, 10);
 		} catch (final NumberFormatException e) {
 			return false;
 		}

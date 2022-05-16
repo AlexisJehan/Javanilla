@@ -38,8 +38,6 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
  */
 final class StringsTest {
 
-	private static final String STRING = "abc";
-
 	@Test
 	void testEmpty() {
 		assertThat(Strings.EMPTY).isEmpty();
@@ -49,78 +47,82 @@ final class StringsTest {
 	void testNullToEmptyCharSequence() {
 		assertThat(Strings.nullToEmpty((CharSequence) null)).isEmpty();
 		assertThat(Strings.nullToEmpty((CharSequence) Strings.EMPTY)).isEmpty();
-		assertThat(Strings.nullToEmpty((CharSequence) STRING)).isEqualTo(STRING);
+		assertThat(Strings.nullToEmpty((CharSequence) "foo")).isEqualTo("foo");
 	}
 
 	@Test
 	void testNullToEmptyString() {
 		assertThat(Strings.nullToEmpty(null)).isEmpty();
 		assertThat(Strings.nullToEmpty(Strings.EMPTY)).isEmpty();
-		assertThat(Strings.nullToEmpty(STRING)).isEqualTo(STRING);
+		assertThat(Strings.nullToEmpty("foo")).isEqualTo("foo");
 	}
 
 	@Test
 	void testNullToDefault() {
-		assertThat(Strings.nullToDefault(null, "-")).isEqualTo("-");
-		assertThat(Strings.nullToDefault(Strings.EMPTY, "-")).isEmpty();
-		assertThat(Strings.nullToDefault(STRING, "-")).isEqualTo(STRING);
+		assertThat(Strings.nullToDefault(null, "bar")).isEqualTo("bar");
+		assertThat(Strings.nullToDefault(Strings.EMPTY, "bar")).isEmpty();
+		assertThat(Strings.nullToDefault("foo", "bar")).isEqualTo("foo");
 	}
 
 	@Test
 	void testNullToDefaultInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.nullToDefault(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.nullToDefault("foo", null));
 	}
 
 	@Test
 	void testEmptyToNull() {
 		assertThat(Strings.emptyToNull((CharSequence) null)).isNull();
 		assertThat(Strings.emptyToNull(Strings.EMPTY)).isNull();
-		assertThat(Strings.emptyToNull(STRING)).isEqualTo(STRING);
+		assertThat(Strings.emptyToNull("foo")).isEqualTo("foo");
 	}
 
 	@Test
 	void testEmptyToDefault() {
-		assertThat(Strings.emptyToDefault(null, "-")).isNull();
-		assertThat(Strings.emptyToDefault(Strings.EMPTY, "-")).isEqualTo("-");
-		assertThat(Strings.emptyToDefault(STRING, "-")).isEqualTo(STRING);
+		assertThat(Strings.emptyToDefault(null, "bar")).isNull();
+		assertThat(Strings.emptyToDefault(Strings.EMPTY, "bar")).isEqualTo("bar");
+		assertThat(Strings.emptyToDefault("foo", "bar")).isEqualTo("foo");
 	}
 
 	@Test
 	void testEmptyToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.emptyToDefault(STRING, Strings.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.emptyToDefault("foo", Strings.EMPTY));
 	}
 
 	@Test
 	void testBlankToNull() {
 		assertThat(Strings.blankToNull((CharSequence) null)).isNull();
+		assertThat(Strings.blankToNull(Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToNull(" ")).isNull();
-		assertThat(Strings.blankToNull(STRING)).isEqualTo(STRING);
+		assertThat(Strings.blankToNull("foo")).isEqualTo("foo");
 	}
 
 	@Test
 	void testBlankToEmptyCharSequence() {
 		assertThat(Strings.blankToEmpty((CharSequence) null)).isNull();
+		assertThat(Strings.blankToEmpty((CharSequence) Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToEmpty((CharSequence) " ")).isEmpty();
-		assertThat(Strings.blankToEmpty((CharSequence) STRING)).isEqualTo(STRING);
+		assertThat(Strings.blankToEmpty((CharSequence) "foo")).isEqualTo("foo");
 	}
 
 	@Test
 	void testBlankToEmptyString() {
 		assertThat(Strings.blankToEmpty(null)).isNull();
+		assertThat(Strings.blankToEmpty(Strings.EMPTY)).isEmpty();
 		assertThat(Strings.blankToEmpty(" ")).isEmpty();
-		assertThat(Strings.blankToEmpty(STRING)).isEqualTo(STRING);
+		assertThat(Strings.blankToEmpty("foo")).isEqualTo("foo");
 	}
 
 	@Test
 	void testBlankToDefault() {
-		assertThat(Strings.blankToDefault(null, "-")).isNull();
-		assertThat(Strings.blankToDefault(" ", "-")).isEqualTo("-");
-		assertThat(Strings.blankToDefault(STRING, "-")).isEqualTo(STRING);
+		assertThat(Strings.blankToDefault(null, "bar")).isNull();
+		assertThat(Strings.blankToDefault(Strings.EMPTY, "bar")).isEmpty();
+		assertThat(Strings.blankToDefault(" ", "bar")).isEqualTo("bar");
+		assertThat(Strings.blankToDefault("foo", "bar")).isEqualTo("foo");
 	}
 
 	@Test
 	void testBlankToDefaultInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.blankToDefault(STRING, " "));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.blankToDefault("foo", " "));
 	}
 
 	@Test
@@ -139,7 +141,7 @@ final class StringsTest {
 
 	@Test
 	void testQuoteChar() {
-		assertThat(Strings.quote('f')).isEqualTo("'f'");
+		assertThat(Strings.quote('a')).isEqualTo("'a'");
 		assertThat(Strings.quote('\\')).isEqualTo("'\\\\'");
 		assertThat(Strings.quote('\\', '\'', '\'')).isEqualTo("'\\'");
 		assertThat(Strings.quote('\'', '\'', '\'')).isEqualTo("''''");
@@ -170,7 +172,7 @@ final class StringsTest {
 
 	@Test
 	void testUnquoteChar() {
-		assertThat(Strings.unquoteChar("'f'")).isEqualTo('f');
+		assertThat(Strings.unquoteChar("'a'")).isEqualTo('a');
 		assertThat(Strings.unquoteChar("'\\\\'")).isEqualTo('\\');
 		assertThat(Strings.unquoteChar("'\\'", '\'', '\'')).isEqualTo('\\');
 		assertThat(Strings.unquoteChar("''''", '\'', '\'')).isEqualTo('\'');
@@ -179,15 +181,15 @@ final class StringsTest {
 	@Test
 	void testUnquoteCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.unquoteChar(null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("f"));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("\"f'"));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("'f\""));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("'fo'"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("a"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("\"a'"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("'a\""));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquoteChar("'foo'"));
 	}
 
 	@Test
 	void testUnquote() {
-		assertThat(Strings.unquote("\"\"")).isEqualTo(Strings.EMPTY);
+		assertThat(Strings.unquote("\"\"")).isEmpty();
 		assertThat(Strings.unquote("\"foo\"")).isEqualTo("foo");
 		assertThat(Strings.unquote("\"f\\\"oo\"")).isEqualTo("f\"oo");
 		assertThat(Strings.unquote("\"f\\\\oo\"")).isEqualTo("f\\oo");
@@ -201,7 +203,8 @@ final class StringsTest {
 	@Test
 	void testUnquoteInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.unquote(null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("f"));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote(Strings.EMPTY));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("foo"));
 		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("'foo\""));
 		assertThatIllegalArgumentException().isThrownBy(() -> Strings.unquote("\"foo'"));
 	}
@@ -223,7 +226,7 @@ final class StringsTest {
 	@Test
 	void testSplitCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.split('x', null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split('x', STRING, 1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split('x', "foo", 1));
 	}
 
 	@Test
@@ -246,138 +249,152 @@ final class StringsTest {
 
 	@Test
 	void testSplitCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.split(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.split(STRING, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split(STRING, STRING, 1));
+		assertThatNullPointerException().isThrownBy(() -> Strings.split(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.split("xX", null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.split("xX", "foo", 1));
 	}
 
 	@Test
 	@SuppressWarnings("deprecation")
 	void testRepeatChar() {
-		assertThat(Strings.repeat('x', 0)).isEmpty();
-		assertThat(Strings.repeat('x', 1)).isEqualTo("x");
-		assertThat(Strings.repeat('x', 3)).isEqualTo("xxx");
+		assertThat(Strings.repeat('a', 0)).isEmpty();
+		assertThat(Strings.repeat('a', 1)).isEqualTo("a");
+		assertThat(Strings.repeat('a', 3)).isEqualTo("aaa");
 	}
 
 	@Test
 	@SuppressWarnings("deprecation")
 	void testRepeatCharInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat('x', -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat('a', -1));
 	}
 
 	@Test
 	@SuppressWarnings("deprecation")
 	void testRepeatCharSequence() {
 		assertThat(Strings.repeat(Strings.EMPTY, 3)).isEmpty();
-		assertThat(Strings.repeat("xX", 0)).isEmpty();
-		assertThat(Strings.repeat("xX", 1)).isEqualTo("xX");
-		assertThat(Strings.repeat("xX", 3)).isEqualTo("xXxXxX");
+		assertThat(Strings.repeat("foo", 0)).isEmpty();
+		assertThat(Strings.repeat("foo", 1)).isEqualTo("foo");
+		assertThat(Strings.repeat("foo", 3)).isEqualTo("foofoofoo");
 	}
 
 	@Test
 	@SuppressWarnings("deprecation")
 	void testRepeatCharSequenceInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.repeat(null, 1));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat(STRING, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.repeat("foo", -1));
 	}
 
 	@Test
 	void testPadLeftChar() {
 		assertThat(Strings.padLeft(Strings.EMPTY, 2)).isEqualTo("  ");
+		assertThat(Strings.padLeft(Strings.EMPTY, 2, 'x')).isEqualTo("xx");
+		assertThat(Strings.padLeft("foo", 2)).isEqualTo("foo");
+		assertThat(Strings.padLeft("foo", 2, 'x')).isEqualTo("foo");
 		assertThat(Strings.padLeft("foo", 10)).isEqualTo("       foo");
 		assertThat(Strings.padLeft("foo", 10, 'x')).isEqualTo("xxxxxxxfoo");
-		assertThat(Strings.padLeft("foo", 2, 'x')).isEqualTo("foo");
+		assertThat(Strings.padLeft("foo", 11)).isEqualTo("        foo");
+		assertThat(Strings.padLeft("foo", 11, 'x')).isEqualTo("xxxxxxxxfoo");
 	}
 
 	@Test
 	void testPadLeftCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(null, 1, 'x'));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft(STRING, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft("foo", -1));
 	}
 
 	@Test
 	void testPadLeftCharSequence() {
 		assertThat(Strings.padLeft(Strings.EMPTY, 2, "xX")).isEqualTo("xX");
-		assertThat(Strings.padLeft(Strings.EMPTY, 2, "xXx")).isEqualTo("xX");
-		assertThat(Strings.padLeft("foo", 10, "xX")).isEqualTo("xXxXxXxfoo");
-		assertThat(Strings.padLeft("foo", 11, "xX")).isEqualTo("xXxXxXxXfoo");
+		assertThat(Strings.padLeft(Strings.EMPTY, 2, "xXxX")).isEqualTo("xX");
+		assertThat(Strings.padLeft("foo", 2, Strings.EMPTY)).isEqualTo("foo");
 		assertThat(Strings.padLeft("foo", 2, "xX")).isEqualTo("foo");
 		assertThat(Strings.padLeft("foo", 10, Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.padLeft("foo", 10, "xX")).isEqualTo("xXxXxXxfoo");
+		assertThat(Strings.padLeft("foo", 11, "xX")).isEqualTo("xXxXxXxXfoo");
 	}
 
 	@Test
 	void testPadLeftCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(null, 1, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(STRING, 1, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft(STRING, -1, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft(null, 1, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padLeft("foo", 1, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padLeft("foo", -1, "xX"));
 	}
 
 	@Test
 	void testPadRightChar() {
+		assertThat(Strings.padRight(Strings.EMPTY, 2)).isEqualTo("  ");
 		assertThat(Strings.padRight(Strings.EMPTY, 2, 'x')).isEqualTo("xx");
+		assertThat(Strings.padRight("foo", 2)).isEqualTo("foo");
+		assertThat(Strings.padRight("foo", 2, 'x')).isEqualTo("foo");
 		assertThat(Strings.padRight("foo", 10)).isEqualTo("foo       ");
 		assertThat(Strings.padRight("foo", 10, 'x')).isEqualTo("fooxxxxxxx");
-		assertThat(Strings.padRight("foo", 2, 'x')).isEqualTo("foo");
+		assertThat(Strings.padRight("foo", 11)).isEqualTo("foo        ");
+		assertThat(Strings.padRight("foo", 11, 'x')).isEqualTo("fooxxxxxxxx");
 	}
 
 	@Test
 	void testPadRightCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(null, 1, 'x'));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight(STRING, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight("foo", -1));
 	}
 
 	@Test
 	void testPadRightCharSequence() {
 		assertThat(Strings.padRight(Strings.EMPTY, 2, "xX")).isEqualTo("xX");
-		assertThat(Strings.padRight(Strings.EMPTY, 2, "xXx")).isEqualTo("xX");
-		assertThat(Strings.padRight("foo", 10, "xX")).isEqualTo("fooxXxXxXx");
-		assertThat(Strings.padRight("foo", 11, "xX")).isEqualTo("fooxXxXxXxX");
+		assertThat(Strings.padRight(Strings.EMPTY, 2, "xXxX")).isEqualTo("xX");
+		assertThat(Strings.padRight("foo", 2, Strings.EMPTY)).isEqualTo("foo");
 		assertThat(Strings.padRight("foo", 2, "xX")).isEqualTo("foo");
 		assertThat(Strings.padRight("foo", 10, Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.padRight("foo", 10, "xX")).isEqualTo("fooxXxXxXx");
+		assertThat(Strings.padRight("foo", 11, "xX")).isEqualTo("fooxXxXxXxX");
 	}
 
 	@Test
 	void testPadRightCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(null, 1, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(STRING, 1, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight(STRING, -1, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padRight(null, 1, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padRight("foo", 1, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padRight("foo", -1, "xX"));
 	}
 
 	@Test
 	void testPadBothChar() {
+		assertThat(Strings.padBoth(Strings.EMPTY, 2)).isEqualTo("  ");
 		assertThat(Strings.padBoth(Strings.EMPTY, 2, 'x')).isEqualTo("xx");
-		assertThat(Strings.padBoth("foo", 10)).isEqualTo("   foo    ");
-		assertThat(Strings.padBoth("foo", 11)).isEqualTo("    foo    ");
-		assertThat(Strings.padBoth("foo", 10, 'x')).isEqualTo("xxxfooxxxx");
-		assertThat(Strings.padBoth("foo", 11, 'x')).isEqualTo("xxxxfooxxxx");
+		assertThat(Strings.padBoth("foo", 2)).isEqualTo("foo");
 		assertThat(Strings.padBoth("foo", 2, 'x')).isEqualTo("foo");
+		assertThat(Strings.padBoth("foo", 10)).isEqualTo("   foo    ");
+		assertThat(Strings.padBoth("foo", 10, 'x')).isEqualTo("xxxfooxxxx");
+		assertThat(Strings.padBoth("foo", 11)).isEqualTo("    foo    ");
+		assertThat(Strings.padBoth("foo", 11, 'x')).isEqualTo("xxxxfooxxxx");
 	}
 
 	@Test
 	void testPadBothCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(null, 1, 'x'));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth(STRING, -1));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth("foo", -1));
 	}
 
 	@Test
 	void testPadBothCharSequence() {
 		assertThat(Strings.padBoth(Strings.EMPTY, 2, "xX")).isEqualTo("xX");
-		assertThat(Strings.padBoth(Strings.EMPTY, 2, "xXx")).isEqualTo("xX");
-		assertThat(Strings.padBoth("foo", 10, "xX")).isEqualTo("xXxfooxXxX");
-		assertThat(Strings.padBoth("foo", 11, "xX")).isEqualTo("xXxXfooxXxX");
+		assertThat(Strings.padBoth(Strings.EMPTY, 2, "xXxX")).isEqualTo("xX");
+		assertThat(Strings.padBoth("foo", 2, Strings.EMPTY)).isEqualTo("foo");
 		assertThat(Strings.padBoth("foo", 2, "xX")).isEqualTo("foo");
 		assertThat(Strings.padBoth("foo", 10, Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.padBoth("foo", 10, "xX")).isEqualTo("xXxfooxXxX");
+		assertThat(Strings.padBoth("foo", 11, "xX")).isEqualTo("xXxXfooxXxX");
 	}
 
 	@Test
 	void testPadBothCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(null, 1, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(STRING, 1, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth(STRING, -1, STRING));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth(null, 1, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.padBoth("foo", 1, null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.padBoth("foo", -1, "xX"));
 	}
 
 	@Test
 	void testReplaceFirstChar() {
+		assertThat(Strings.replaceFirst(Strings.EMPTY, '1', '_')).isEmpty();
 		assertThat(Strings.replaceFirst("12345123450", '1', '_')).isEqualTo("_2345123450");
 		assertThat(Strings.replaceFirst("12345123450", '2', '_')).isEqualTo("1_345123450");
 		assertThat(Strings.replaceFirst("12345123450", '0', '_')).isEqualTo("1234512345_");
@@ -391,23 +408,25 @@ final class StringsTest {
 
 	@Test
 	void testReplaceFirstCharSequence() {
+		assertThat(Strings.replaceFirst(Strings.EMPTY, "123", "__")).isEmpty();
+		assertThat(Strings.replaceFirst("1", "123", "__")).isEqualTo("1");
+		assertThat(Strings.replaceFirst("12345123450", Strings.EMPTY, "__")).isEqualTo("12345123450");
 		assertThat(Strings.replaceFirst("12345123450", "123", "__")).isEqualTo("__45123450");
 		assertThat(Strings.replaceFirst("12345123450", "234", "__")).isEqualTo("1__5123450");
 		assertThat(Strings.replaceFirst("12345123450", "50", "__")).isEqualTo("123451234__");
 		assertThat(Strings.replaceFirst("12345123450", "xX", "__")).isEqualTo("12345123450");
-		assertThat(Strings.replaceFirst("12345123450", Strings.EMPTY, "__")).isEqualTo("12345123450");
-		assertThat(Strings.replaceFirst("1", "xX", "__")).isEqualTo("1");
 	}
 
 	@Test
 	void testReplaceFirstCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(null, STRING, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(STRING, null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(STRING, STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst(null, "xX", "__"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst("12345123450", null, "__"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceFirst("12345123450", "xX", null));
 	}
 
 	@Test
 	void testReplaceLastChar() {
+		assertThat(Strings.replaceLast(Strings.EMPTY, '1', '_')).isEmpty();
 		assertThat(Strings.replaceLast("01234512345", '1', '_')).isEqualTo("012345_2345");
 		assertThat(Strings.replaceLast("01234512345", '2', '_')).isEqualTo("0123451_345");
 		assertThat(Strings.replaceLast("01234512345", '0', '_')).isEqualTo("_1234512345");
@@ -421,168 +440,198 @@ final class StringsTest {
 
 	@Test
 	void testReplaceLastCharSequence() {
+		assertThat(Strings.replaceLast(Strings.EMPTY, "234", "__")).isEmpty();
+		assertThat(Strings.replaceLast("1", "234", "__")).isEqualTo("1");
+		assertThat(Strings.replaceLast("01234512345", Strings.EMPTY, "__")).isEqualTo("01234512345");
 		assertThat(Strings.replaceLast("01234512345", "234", "__")).isEqualTo("0123451__5");
 		assertThat(Strings.replaceLast("01234512345", "345", "__")).isEqualTo("01234512__");
 		assertThat(Strings.replaceLast("01234512345", "01", "__")).isEqualTo("__234512345");
 		assertThat(Strings.replaceLast("01234512345", "xX", "__")).isEqualTo("01234512345");
-		assertThat(Strings.replaceLast("01234512345", Strings.EMPTY, "__")).isEqualTo("01234512345");
-		assertThat(Strings.replaceLast("1", "xX", "__")).isEqualTo("1");
 	}
 
 	@Test
 	void testReplaceLastCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(null, STRING, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(STRING, null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(STRING, STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast(null, "xX", "__"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast("01234512345", null, "__"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.replaceLast("01234512345", "xX", null));
 	}
 
 	@Test
 	void testRemoveStartChar() {
-		assertThat(Strings.removeStart("abc", 'z')).isEqualTo("abc");
-		assertThat(Strings.removeStart("zabc", 'z')).isEqualTo("abc");
+		assertThat(Strings.removeStart(Strings.EMPTY, 'x')).isEmpty();
+		assertThat(Strings.removeStart("foo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeStart("xfoo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeStart("xfoo", 'X')).isEqualTo("xfoo");
+		assertThat(Strings.removeStart("Xfoo", 'x')).isEqualTo("Xfoo");
+		assertThat(Strings.removeStart("Xfoo", 'X')).isEqualTo("foo");
+		assertThat(Strings.removeStart("xxfoo", 'x')).isEqualTo("xfoo");
 	}
 
 	@Test
 	void testRemoveStartCharInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(null, 'z'));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(null, 'x'));
 	}
 
 	@Test
 	void testRemoveStartCharSequence() {
-		assertThat(Strings.removeStart("abc", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeStart("abc", Strings.EMPTY)).isEqualTo("abc");
-		assertThat(Strings.removeStart("abc", "zzzzzz")).isEqualTo("abc");
-		assertThat(Strings.removeStart("zzzabc", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeStart("zzzabc", "ZzZ")).isEqualTo("zzzabc");
+		assertThat(Strings.removeStart(Strings.EMPTY, "xX")).isEmpty();
+		assertThat(Strings.removeStart("foo", Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.removeStart("foo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeStart("foo", "xXxX")).isEqualTo("foo");
+		assertThat(Strings.removeStart("xXfoo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeStart("xXfoo", "Xx")).isEqualTo("xXfoo");
+		assertThat(Strings.removeStart("Xxfoo", "xX")).isEqualTo("Xxfoo");
+		assertThat(Strings.removeStart("Xxfoo", "Xx")).isEqualTo("foo");
+		assertThat(Strings.removeStart("xXxXfoo", "xX")).isEqualTo("xXfoo");
 	}
 
 	@Test
 	void testRemoveStartCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStart("foo", null));
 	}
 
 	@Test
 	void testRemoveStartIgnoreCase() {
-		assertThat(Strings.removeStartIgnoreCase("abc", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeStartIgnoreCase("abc", Strings.EMPTY)).isEqualTo("abc");
-		assertThat(Strings.removeStartIgnoreCase("abc", "zzzzzz")).isEqualTo("abc");
-		assertThat(Strings.removeStartIgnoreCase("zzzabc", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeStartIgnoreCase("zzzabc", "ZzZ")).isEqualTo("abc");
+		assertThat(Strings.removeStartIgnoreCase(Strings.EMPTY, "xX")).isEmpty();
+		assertThat(Strings.removeStartIgnoreCase("foo", Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("foo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("foo", "xXxX")).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("xXfoo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("xXfoo", "Xx")).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("Xxfoo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("Xxfoo", "Xx")).isEqualTo("foo");
+		assertThat(Strings.removeStartIgnoreCase("xXxXfoo", "xX")).isEqualTo("xXfoo");
 	}
 
 	@Test
 	void testRemoveStartIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeStartIgnoreCase("foo", null));
 	}
 
 	@Test
 	void testRemoveEndChar() {
-		assertThat(Strings.removeEnd("abc", 'z')).isEqualTo("abc");
-		assertThat(Strings.removeEnd("abcz", 'z')).isEqualTo("abc");
+		assertThat(Strings.removeEnd(Strings.EMPTY, 'x')).isEmpty();
+		assertThat(Strings.removeEnd("foo", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeEnd("foox", 'x')).isEqualTo("foo");
+		assertThat(Strings.removeEnd("foox", 'X')).isEqualTo("foox");
+		assertThat(Strings.removeEnd("fooX", 'x')).isEqualTo("fooX");
+		assertThat(Strings.removeEnd("fooX", 'X')).isEqualTo("foo");
+		assertThat(Strings.removeEnd("fooxx", 'x')).isEqualTo("foox");
 	}
 
 	@Test
 	void testRemoveEndCharInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(null, 'z'));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(null, 'x'));
 	}
 
 	@Test
 	void testRemoveEndCharSequence() {
-		assertThat(Strings.removeEnd("abc", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeEnd("abc", Strings.EMPTY)).isEqualTo("abc");
-		assertThat(Strings.removeEnd("abc", "zzzzzz")).isEqualTo("abc");
-		assertThat(Strings.removeEnd("abczzz", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeEnd("abczzz", "ZzZ")).isEqualTo("abczzz");
+		assertThat(Strings.removeEnd(Strings.EMPTY, "xX")).isEmpty();
+		assertThat(Strings.removeEnd("foo", Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.removeEnd("foo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeEnd("foo", "xXxX")).isEqualTo("foo");
+		assertThat(Strings.removeEnd("fooxX", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeEnd("fooxX", "Xx")).isEqualTo("fooxX");
+		assertThat(Strings.removeEnd("fooXx", "xX")).isEqualTo("fooXx");
+		assertThat(Strings.removeEnd("fooXx", "Xx")).isEqualTo("foo");
+		assertThat(Strings.removeEnd("fooxXxX", "xX")).isEqualTo("fooxX");
 	}
 
 	@Test
 	void testRemoveEndCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEnd("foo", null));
 	}
 
 	@Test
 	void testRemoveEndIgnoreCase() {
-		assertThat(Strings.removeEndIgnoreCase("abc", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeEndIgnoreCase("abc", Strings.EMPTY)).isEqualTo("abc");
-		assertThat(Strings.removeEndIgnoreCase("abc", "zzzzzz")).isEqualTo("abc");
-		assertThat(Strings.removeEndIgnoreCase("abczzz", "zzz")).isEqualTo("abc");
-		assertThat(Strings.removeEndIgnoreCase("abczzz", "ZzZ")).isEqualTo("abc");
+		assertThat(Strings.removeEndIgnoreCase(Strings.EMPTY, "xX")).isEmpty();
+		assertThat(Strings.removeEndIgnoreCase("foo", Strings.EMPTY)).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("foo", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("foo", "xXxX")).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooxX", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooxX", "Xx")).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooXx", "xX")).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooXx", "Xx")).isEqualTo("foo");
+		assertThat(Strings.removeEndIgnoreCase("fooxXxX", "xX")).isEqualTo("fooxX");
 	}
 
 	@Test
 	void testRemoveEndIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.removeEndIgnoreCase("foo", null));
 	}
 
 	@Test
 	void testConcatMerge() {
-		assertThat(Strings.concatMerge(Strings.EMPTY, "456789")).isEqualTo("456789");
-		assertThat(Strings.concatMerge("123456", "456789")).isEqualTo("123456789");
+		assertThat(Strings.concatMerge(Strings.EMPTY, "456")).isEqualTo("456");
+		assertThat(Strings.concatMerge("123", Strings.EMPTY)).isEqualTo("123");
 		assertThat(Strings.concatMerge("123", "456")).isEqualTo("123456");
+		assertThat(Strings.concatMerge("123456", "456789")).isEqualTo("123456789");
 		assertThat(Strings.concatMerge("1234560", "456123")).isEqualTo("1234560456123");
 		assertThat(Strings.concatMerge("1234567", "456")).isEqualTo("1234567456");
-		assertThat(Strings.concatMerge("123456", Strings.EMPTY)).isEqualTo("123456");
 	}
 
 	@Test
 	void testConcatMergeInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge(null, "456"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.concatMerge("123", null));
 	}
 
 	@Test
 	void testContainsIgnoreCase() {
+		assertThat(Strings.containsIgnoreCase(Strings.EMPTY, "xX")).isFalse();
 		assertThat(Strings.containsIgnoreCase("foo", Strings.EMPTY)).isTrue();
-		assertThat(Strings.containsIgnoreCase("foo", "fooo")).isFalse();
-		assertThat(Strings.containsIgnoreCase("foo", "ou")).isFalse();
-		assertThat(Strings.containsIgnoreCase("foo", "bar")).isFalse();
-		assertThat(Strings.containsIgnoreCase("foo", "fo")).isTrue();
-		assertThat(Strings.containsIgnoreCase("foo", "FO")).isTrue();
-		assertThat(Strings.containsIgnoreCase("foo", "FOO")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foo", "xX")).isFalse();
+		assertThat(Strings.containsIgnoreCase("foxXo", "xX")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foxXo", "Xx")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foXxo", "xX")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foXxo", "Xx")).isTrue();
+		assertThat(Strings.containsIgnoreCase("foxo", "xX")).isFalse();
+		assertThat(Strings.containsIgnoreCase("foox", "xX")).isFalse();
+		assertThat(Strings.containsIgnoreCase("fooxX", "xX")).isTrue();
 	}
 
 	@Test
 	void testContainsIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.containsIgnoreCase("foo", null));
 	}
 
 	@Test
 	void testStartsWithIgnoreCase() {
+		assertThat(Strings.startsWithIgnoreCase(Strings.EMPTY, "xX")).isFalse();
 		assertThat(Strings.startsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
-		assertThat(Strings.startsWithIgnoreCase("foo", "fooo")).isFalse();
-		assertThat(Strings.startsWithIgnoreCase("foo", "ou")).isFalse();
-		assertThat(Strings.startsWithIgnoreCase("foo", "bar")).isFalse();
-		assertThat(Strings.startsWithIgnoreCase("foo", "fo")).isTrue();
-		assertThat(Strings.startsWithIgnoreCase("foo", "FO")).isTrue();
-		assertThat(Strings.startsWithIgnoreCase("foo", "FOO")).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("foo", "xX")).isFalse();
+		assertThat(Strings.startsWithIgnoreCase("xXfoo", "xX")).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("xXfoo", "Xx")).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("Xxfoo", "xX")).isTrue();
+		assertThat(Strings.startsWithIgnoreCase("Xxfoo", "Xx")).isTrue();
 	}
 
 	@Test
 	void testStartsWithIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.startsWithIgnoreCase("foo", null));
 	}
 
 	@Test
 	void testEndsWithIgnoreCase() {
+		assertThat(Strings.endsWithIgnoreCase(Strings.EMPTY, "xX")).isFalse();
 		assertThat(Strings.endsWithIgnoreCase("foo", Strings.EMPTY)).isTrue();
-		assertThat(Strings.endsWithIgnoreCase("foo", "fooo")).isFalse();
-		assertThat(Strings.endsWithIgnoreCase("foo", "ou")).isFalse();
-		assertThat(Strings.endsWithIgnoreCase("foo", "bar")).isFalse();
-		assertThat(Strings.endsWithIgnoreCase("foo", "oo")).isTrue();
-		assertThat(Strings.endsWithIgnoreCase("foo", "OO")).isTrue();
-		assertThat(Strings.endsWithIgnoreCase("foo", "FOO")).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("foo", "xX")).isFalse();
+		assertThat(Strings.endsWithIgnoreCase("fooxX", "xX")).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("fooxX", "Xx")).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("fooXx", "xX")).isTrue();
+		assertThat(Strings.endsWithIgnoreCase("fooXx", "Xx")).isTrue();
 	}
 
 	@Test
 	void testEndsWithIgnoreCaseInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(STRING, null));
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.endsWithIgnoreCase("foo", null));
 	}
 
 	@Test
@@ -604,20 +653,20 @@ final class StringsTest {
 		assertThat(Strings.frequency("foo", "bar")).isZero();
 		assertThat(Strings.frequency("foo", "foo")).isEqualTo(1);
 		assertThat(Strings.frequency("foofoo", "foo")).isEqualTo(2);
-		assertThat(Strings.frequency("foofoo", "ou")).isZero();
+		assertThat(Strings.frequency("foofoo", "ox")).isZero();
 	}
 
 	@Test
 	void testFrequencyCharSequenceInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, STRING));
-		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(STRING, null));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.frequency(STRING, Strings.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency(null, "foo"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.frequency("foo", null));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.frequency("foo", Strings.EMPTY));
 	}
 
 	@Test
 	void testIsEmpty() {
 		assertThat(Strings.isEmpty(Strings.EMPTY)).isTrue();
-		assertThat(Strings.isEmpty(STRING)).isFalse();
+		assertThat(Strings.isEmpty("foo")).isFalse();
 	}
 
 	@Test
@@ -628,11 +677,11 @@ final class StringsTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	void testIsBlank() {
-		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
 		assertThat(Strings.isBlank(" ")).isTrue();
-		assertThat(Strings.isBlank(STRING)).isFalse();
 		assertThat(Strings.isBlank(" \t\n\r")).isTrue();
-		assertThat(Strings.isBlank(" \t\n\r" + STRING)).isFalse();
+		assertThat(Strings.isBlank(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBlank("foo")).isFalse();
+		assertThat(Strings.isBlank(" \t\n\r" + "foo")).isFalse();
 	}
 
 	@Test
@@ -643,10 +692,10 @@ final class StringsTest {
 
 	@Test
 	void testIsBoolean() {
-		assertThat(Strings.isBoolean(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isBoolean("foo")).isFalse();
 		assertThat(Strings.isBoolean("true")).isTrue();
 		assertThat(Strings.isBoolean("false")).isTrue();
+		assertThat(Strings.isBoolean(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBoolean("foo")).isFalse();
 	}
 
 	@Test
@@ -656,10 +705,10 @@ final class StringsTest {
 
 	@Test
 	void testIsShort() {
-		assertThat(Strings.isShort(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isShort("foo")).isFalse();
 		assertThat(Strings.isShort(Short.toString(Short.MAX_VALUE))).isTrue();
 		assertThat(Strings.isShort(Short.toString(Short.MIN_VALUE))).isTrue();
+		assertThat(Strings.isShort(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isShort("foo")).isFalse();
 		assertThat(Strings.isShort(Integer.toString(Short.MAX_VALUE + 1))).isFalse();
 		assertThat(Strings.isShort(Integer.toString(Short.MIN_VALUE - 1))).isFalse();
 	}
@@ -671,10 +720,10 @@ final class StringsTest {
 
 	@Test
 	void testIsInt() {
-		assertThat(Strings.isInt(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isInt("foo")).isFalse();
 		assertThat(Strings.isInt(Integer.toString(Integer.MAX_VALUE))).isTrue();
 		assertThat(Strings.isInt(Integer.toString(Integer.MIN_VALUE))).isTrue();
+		assertThat(Strings.isInt(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isInt("foo")).isFalse();
 		assertThat(Strings.isInt(Long.toString(Integer.MAX_VALUE + 1L))).isFalse();
 		assertThat(Strings.isInt(Long.toString(Integer.MIN_VALUE - 1L))).isFalse();
 	}
@@ -686,10 +735,10 @@ final class StringsTest {
 
 	@Test
 	void testIsLong() {
-		assertThat(Strings.isLong(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isLong("foo")).isFalse();
 		assertThat(Strings.isLong(Long.toString(Long.MAX_VALUE))).isTrue();
 		assertThat(Strings.isLong(Long.toString(Long.MIN_VALUE))).isTrue();
+		assertThat(Strings.isLong(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isLong("foo")).isFalse();
 		assertThat(Strings.isLong(Double.toString(Long.MAX_VALUE + 1.0d))).isFalse();
 		assertThat(Strings.isLong(Double.toString(Long.MIN_VALUE - 1.0d))).isFalse();
 	}
@@ -701,13 +750,13 @@ final class StringsTest {
 
 	@Test
 	void testIsFloat() {
-		assertThat(Strings.isFloat(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isFloat("foo")).isFalse();
 		assertThat(Strings.isFloat(Float.toString(Float.MAX_VALUE))).isTrue();
 		assertThat(Strings.isFloat(Float.toString(Float.MIN_VALUE))).isTrue();
 		assertThat(Strings.isFloat(Float.toString(Float.POSITIVE_INFINITY))).isTrue();
 		assertThat(Strings.isFloat(Float.toString(Float.NEGATIVE_INFINITY))).isTrue();
 		assertThat(Strings.isFloat(Float.toString(Float.NaN))).isTrue();
+		assertThat(Strings.isFloat(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isFloat("foo")).isFalse();
 	}
 
 	@Test
@@ -717,13 +766,13 @@ final class StringsTest {
 
 	@Test
 	void testIsDouble() {
-		assertThat(Strings.isDouble(Strings.EMPTY)).isFalse();
-		assertThat(Strings.isDouble("foo")).isFalse();
 		assertThat(Strings.isDouble(Double.toString(Double.MAX_VALUE))).isTrue();
 		assertThat(Strings.isDouble(Double.toString(Double.MIN_VALUE))).isTrue();
 		assertThat(Strings.isDouble(Double.toString(Double.POSITIVE_INFINITY))).isTrue();
 		assertThat(Strings.isDouble(Double.toString(Double.NEGATIVE_INFINITY))).isTrue();
 		assertThat(Strings.isDouble(Double.toString(Double.NaN))).isTrue();
+		assertThat(Strings.isDouble(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isDouble("foo")).isFalse();
 	}
 
 	@Test
@@ -849,30 +898,32 @@ final class StringsTest {
 
 	@Test
 	void testIsBase64() {
-		assertThat(Strings.isBase64(Strings.EMPTY)).isFalse();
-
-		// With padding
-		assertThat(Strings.isBase64("Zg")).isFalse();
-		assertThat(Strings.isBase64("Zg=")).isFalse();
 		assertThat(Strings.isBase64("Zg==")).isTrue();
-		assertThat(Strings.isBase64("Zg===")).isFalse();
-		assertThat(Strings.isBase64("ZgZg")).isTrue();
-
-		// Without padding
 		assertThat(Strings.isBase64("Zg", false)).isTrue();
-		assertThat(Strings.isBase64("Zg=", false)).isFalse();
-		assertThat(Strings.isBase64("Zg==", false)).isFalse();
-		assertThat(Strings.isBase64("Zg===", false)).isFalse();
+		assertThat(Strings.isBase64("ZgZg")).isTrue();
 		assertThat(Strings.isBase64("ZgZg", false)).isTrue();
-
-		assertThat(Strings.isBase64("Zg!?")).isFalse();
-		assertThat(Strings.isBase64("Zg|:")).isFalse();
-		assertThat(Strings.isBase64("==Zg")).isFalse();
-		assertThat(Strings.isBase64("Zg=+")).isFalse();
-		assertThat(Strings.isBase64("Zg==")).isTrue();
 		assertThat(Strings.isBase64("Zm8=")).isTrue();
+		assertThat(Strings.isBase64("Zm8", false)).isTrue();
 		assertThat(Strings.isBase64("+/==")).isTrue();
+		assertThat(Strings.isBase64("+/", false)).isTrue();
+		assertThat(Strings.isBase64(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBase64(Strings.EMPTY, false)).isFalse();
+		assertThat(Strings.isBase64("Zg")).isFalse();
+		assertThat(Strings.isBase64("Zg==", false)).isFalse();
+		assertThat(Strings.isBase64("Zg=")).isFalse();
+		assertThat(Strings.isBase64("Zg=", false)).isFalse();
+		assertThat(Strings.isBase64("Zg===")).isFalse();
+		assertThat(Strings.isBase64("Zg===", false)).isFalse();
+		assertThat(Strings.isBase64("Zg!?")).isFalse();
+		assertThat(Strings.isBase64("Zg!?", false)).isFalse();
+		assertThat(Strings.isBase64("Zg|:")).isFalse();
+		assertThat(Strings.isBase64("Zg|:", false)).isFalse();
+		assertThat(Strings.isBase64("==Zg")).isFalse();
+		assertThat(Strings.isBase64("==Zg", false)).isFalse();
+		assertThat(Strings.isBase64("Zg=+")).isFalse();
+		assertThat(Strings.isBase64("Zg=+", false)).isFalse();
 		assertThat(Strings.isBase64("-_==")).isFalse();
+		assertThat(Strings.isBase64("-_", false)).isFalse();
 	}
 
 	@Test
@@ -882,30 +933,32 @@ final class StringsTest {
 
 	@Test
 	void testIsBase64Url() {
-		assertThat(Strings.isBase64Url(Strings.EMPTY)).isFalse();
-
-		// With padding
-		assertThat(Strings.isBase64Url("Zg")).isFalse();
-		assertThat(Strings.isBase64Url("Zg=")).isFalse();
 		assertThat(Strings.isBase64Url("Zg==")).isTrue();
-		assertThat(Strings.isBase64Url("Zg===")).isFalse();
-		assertThat(Strings.isBase64Url("ZgZg")).isTrue();
-
-		// Without padding
 		assertThat(Strings.isBase64Url("Zg", false)).isTrue();
-		assertThat(Strings.isBase64Url("Zg=", false)).isFalse();
-		assertThat(Strings.isBase64Url("Zg==", false)).isFalse();
-		assertThat(Strings.isBase64Url("Zg===", false)).isFalse();
+		assertThat(Strings.isBase64Url("ZgZg")).isTrue();
 		assertThat(Strings.isBase64Url("ZgZg", false)).isTrue();
-
-		assertThat(Strings.isBase64Url("Zg!?")).isFalse();
-		assertThat(Strings.isBase64Url("Zg|:")).isFalse();
-		assertThat(Strings.isBase64Url("==Zg")).isFalse();
-		assertThat(Strings.isBase64Url("Zg=-")).isFalse();
-		assertThat(Strings.isBase64Url("Zg==")).isTrue();
 		assertThat(Strings.isBase64Url("Zm8=")).isTrue();
-		assertThat(Strings.isBase64Url("+/==")).isFalse();
+		assertThat(Strings.isBase64Url("Zm8", false)).isTrue();
 		assertThat(Strings.isBase64Url("-_==")).isTrue();
+		assertThat(Strings.isBase64Url("-_", false)).isTrue();
+		assertThat(Strings.isBase64Url(Strings.EMPTY)).isFalse();
+		assertThat(Strings.isBase64Url(Strings.EMPTY, false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg")).isFalse();
+		assertThat(Strings.isBase64Url("Zg==", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg=")).isFalse();
+		assertThat(Strings.isBase64Url("Zg=", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg===")).isFalse();
+		assertThat(Strings.isBase64Url("Zg===", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg!?")).isFalse();
+		assertThat(Strings.isBase64Url("Zg!?", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg|:")).isFalse();
+		assertThat(Strings.isBase64Url("Zg|:", false)).isFalse();
+		assertThat(Strings.isBase64Url("==Zg")).isFalse();
+		assertThat(Strings.isBase64Url("==Zg", false)).isFalse();
+		assertThat(Strings.isBase64Url("Zg=-")).isFalse();
+		assertThat(Strings.isBase64Url("Zg=-", false)).isFalse();
+		assertThat(Strings.isBase64Url("+/==")).isFalse();
+		assertThat(Strings.isBase64Url("+/", false)).isFalse();
 	}
 
 	@Test
@@ -916,23 +969,23 @@ final class StringsTest {
 	@Test
 	void testOfBytes() {
 		assertThat(Strings.of(ByteArrays.EMPTY)).isEmpty();
-		assertThat(Strings.of("abc".getBytes())).isEqualTo("abc");
-		assertThat(Strings.of(StandardCharsets.ISO_8859_1, "abc".getBytes(StandardCharsets.ISO_8859_1))).isEqualTo("abc");
+		assertThat(Strings.of("foo".getBytes())).isEqualTo("foo");
+		assertThat(Strings.of(StandardCharsets.ISO_8859_1, "foo".getBytes(StandardCharsets.ISO_8859_1))).isEqualTo("foo");
 
 		// Not the same charset
-		assertThat(Strings.of(StandardCharsets.ISO_8859_1, "abc".getBytes(StandardCharsets.UTF_16))).isNotEqualTo("abc");
+		assertThat(Strings.of(StandardCharsets.ISO_8859_1, "foo".getBytes(StandardCharsets.UTF_16))).isNotEqualTo("foo");
 	}
 
 	@Test
 	void testOfBytesInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.of((byte[]) null));
-		assertThatNullPointerException().isThrownBy(() -> Strings.of(null, "abc".getBytes()));
+		assertThatNullPointerException().isThrownBy(() -> Strings.of(null, "foo".getBytes()));
 	}
 
 	@Test
 	void testOfChars() {
 		assertThat(Strings.of(CharArrays.EMPTY)).isEmpty();
-		assertThat(Strings.of("abc".toCharArray())).isEqualTo("abc");
+		assertThat(Strings.of("foo".toCharArray())).isEqualTo("foo");
 	}
 
 	@Test
@@ -949,6 +1002,6 @@ final class StringsTest {
 	void testToCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Strings.toChar(null));
 		assertThatIllegalArgumentException().isThrownBy(() -> Strings.toChar(Strings.EMPTY));
-		assertThatIllegalArgumentException().isThrownBy(() -> Strings.toChar(STRING));
+		assertThatIllegalArgumentException().isThrownBy(() -> Strings.toChar("foo"));
 	}
 }
