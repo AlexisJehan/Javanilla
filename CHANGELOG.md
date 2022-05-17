@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.7.0 _(in progress)_
+## 1.8.0 _(in progress)_
+
+…
+
+## 1.7.0 _(2022-05-17)_
 
 **lang.Strings**
 - Added _removeStartIgnoreCase(CharSequence, char)_, _removeEndIgnoreCase(CharSequence, char)_, _contains(CharSequence, char)_, _containsIgnoreCase(CharSequence, char)_, _startsWith(CharSequence, char)_, _startsWithIgnoreCase(CharSequence, char)_, _endsWith(CharSequence, char)_ and _endsWithIgnoreCase(CharSequence, char)_
