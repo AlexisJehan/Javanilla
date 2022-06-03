@@ -2,7 +2,10 @@
 
 ## 1.8.0 _(in progress)_
 
-…
+**lang.array.IntArrays**
+- Added the _add(int[], int, int)_ method
+- Deprecated the _addTemporary(int[], int, int)_ method
+
 
 ## 1.7.0 _(2022-05-17)_
 

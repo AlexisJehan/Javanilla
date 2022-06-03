@@ -121,9 +121,9 @@ public final class IntArrays {
 	 * @return an {@code int} array with the added {@code int} value
 	 * @throws NullPointerException if the {@code int} array is {@code null}
 	 * @throws IllegalArgumentException if the index is not valid
-	 * @since 1.6.0
+	 * @since 1.8.0
 	 */
-	public static int[] addTemporary(final int[] array, final int value, final int index) {
+	public static int[] add(final int[] array, final int value, final int index) {
 		Ensure.notNull("array", array);
 		Ensure.between("index", index, 0, array.length);
 		final var result = new int[array.length + 1];
@@ -135,6 +135,22 @@ public final class IntArrays {
 			System.arraycopy(array, index, result, index + 1, array.length - index);
 		}
 		return result;
+	}
+
+	/**
+	 * <p>Add an {@code int} value at the provided index of the given {@code int} array.</p>
+	 * @param array the {@code int} array to add to
+	 * @param value the {@code int} value to add
+	 * @param index the index of the {@code int} value
+	 * @return an {@code int} array with the added {@code int} value
+	 * @throws NullPointerException if the {@code int} array is {@code null}
+	 * @throws IllegalArgumentException if the index is not valid
+	 * @deprecated since 1.8.0, use {@link #add(int[], int, int)} instead
+	 * @since 1.6.0
+	 */
+	@Deprecated(since = "1.8.0")
+	public static int[] addTemporary(final int[] array, final int value, final int index) {
+		return add(array, value, index);
 	}
 
 	/**
