@@ -24,6 +24,8 @@
 package examples;
 
 import com.github.alexisjehan.javanilla.lang.Throwables;
+import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableProcedure;
+import com.github.alexisjehan.javanilla.util.function.throwable.ThrowableSupplier;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
