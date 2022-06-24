@@ -50,6 +50,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -88,6 +89,40 @@ final class EnsureTest {
 		assertThatNullPointerException()
 				.isThrownBy(() -> Ensure.notNullAndNotNullElements("iterable", Iterables.singleton(null)))
 				.withMessage("Invalid iterable element at index 0 (not null expected)");
+	}
+
+	@Test
+	void testNotNullAndNotNullKeys() {
+		final var map = Map.of("foo", 1);
+		assertThat(Ensure.notNullAndNotNullKeys("map", map)).isSameAs(map);
+		assertThatNullPointerException()
+				.isThrownBy(() -> Ensure.notNullAndNotNullKeys("map", Collections.singletonMap(null, 1)))
+				.withMessage("Invalid map key (not null expected)");
+		assertThatCode(() -> Ensure.notNullAndNotNullKeys("map", Collections.singletonMap("foo", null)))
+				.doesNotThrowAnyException();
+	}
+
+	@Test
+	void testNotNullAndNotNullValues() {
+		final var map = Map.of("foo", 1);
+		assertThat(Ensure.notNullAndNotNullValues("map", map)).isSameAs(map);
+		assertThatCode(() -> Ensure.notNullAndNotNullValues("map", Collections.singletonMap(null, 1)))
+				.doesNotThrowAnyException();
+		assertThatNullPointerException()
+				.isThrownBy(() -> Ensure.notNullAndNotNullValues("map", Collections.singletonMap("foo", null)))
+				.withMessage("Invalid map value at key foo (not null expected)");
+	}
+
+	@Test
+	void testNotNullAndNotNullKeysAndValues() {
+		final var map = Map.of("foo", 1);
+		assertThat(Ensure.notNullAndNotNullKeysAndValues("map", map)).isSameAs(map);
+		assertThatNullPointerException()
+				.isThrownBy(() -> Ensure.notNullAndNotNullKeysAndValues("map", Collections.singletonMap(null, 1)))
+				.withMessage("Invalid map key (not null expected)");
+		assertThatNullPointerException()
+				.isThrownBy(() -> Ensure.notNullAndNotNullKeysAndValues("map", Collections.singletonMap("foo", null)))
+				.withMessage("Invalid map value at key foo (not null expected)");
 	}
 
 	@Test
@@ -227,7 +262,7 @@ final class EnsureTest {
 
 	@Test
 	void testNotNullAndMatches() {
-		final var pattern = Pattern.compile("^[0-9]$");
+		final var pattern = Pattern.compile("^\\d$");
 		final var charSequence = "1";
 		assertThat(Ensure.notNullAndMatches("charSequence", charSequence, pattern)).isSameAs(charSequence);
 		assertThatIllegalArgumentException()

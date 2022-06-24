@@ -116,6 +116,61 @@ public final class Ensure {
 	}
 
 	/**
+	 * <p>Ensure the {@link Map} and its keys are not {@code null}.</p>
+	 * @param name the name of the {@link Map}
+	 * @param map the {@link Map} to validate
+	 * @param <M> the {@link Map} type
+	 * @return the validated {@link Map}
+	 * @throws NullPointerException if the name, the {@link Map} or any of its keys is {@code null}
+	 * @since 1.8.0
+	 */
+	public static <M extends Map<?, ?>> M notNullAndNotNullKeys(final String name, final M map) {
+		notNull(name, map);
+		for (final var entry : map.entrySet()) {
+			final var key = entry.getKey();
+			notNull(name + " key", key);
+		}
+		return map;
+	}
+
+	/**
+	 * <p>Ensure the {@link Map} and its values are not {@code null}.</p>
+	 * @param name the name of the {@link Map}
+	 * @param map the {@link Map} to validate
+	 * @param <M> the {@link Map} type
+	 * @return the validated {@link Map}
+	 * @throws NullPointerException if the name, the {@link Map} or any of its values is {@code null}
+	 * @since 1.8.0
+	 */
+	public static <M extends Map<?, ?>> M notNullAndNotNullValues(final String name, final M map) {
+		notNull(name, map);
+		for (final var entry : map.entrySet()) {
+			final var key = entry.getKey();
+			notNull(name + " value at key " + ToString.toString(key), entry.getValue());
+		}
+		return map;
+	}
+
+	/**
+	 * <p>Ensure the {@link Map} and its keys and values are not {@code null}.</p>
+	 * @param name the name of the {@link Map}
+	 * @param map the {@link Map} to validate
+	 * @param <M> the {@link Map} type
+	 * @return the validated {@link Map}
+	 * @throws NullPointerException if the name, the {@link Map} or any of its keys or values is {@code null}
+	 * @since 1.8.0
+	 */
+	public static <M extends Map<?, ?>> M notNullAndNotNullKeysAndValues(final String name, final M map) {
+		notNull(name, map);
+		for (final var entry : map.entrySet()) {
+			final var key = entry.getKey();
+			notNull(name + " key", key);
+			notNull(name + " value at key " + ToString.toString(key), entry.getValue());
+		}
+		return map;
+	}
+
+	/**
 	 * <p>Ensure the {@link CharSequence} is not {@code null} and not empty.</p>
 	 * @param name the name of the {@link CharSequence}
 	 * @param charSequence the {@link CharSequence} to validate

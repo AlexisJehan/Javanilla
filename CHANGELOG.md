@@ -9,6 +9,9 @@
 **lang.Strings**
 - Added _substringBefore(CharSequence, char)_, _substringBefore(CharSequence, CharSequence)_, _substringAfter(CharSequence, char)_ and _substringAfter(CharSequence, CharSequence)_
 
+**misc.quality.Ensure**
+- Added _notNullAndNotNullKeys(String, Map)_, _notNullAndNotNullValues(String, Map)_ and _notNullAndNotNullKeysAndValues(String, Map)_
+
 
 ## 1.7.0 _(2022-05-17)_
 
