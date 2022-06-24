@@ -848,7 +848,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>>Return the substring before the first occurrence of the target {@link CharSequence} if found in the
+	 * <p>Return the substring before the first occurrence of the target {@link CharSequence} if found in the
 	 * {@link CharSequence}.</p>
 	 * @param charSequence the {@link CharSequence} to get the substring from
 	 * @param target the target {@link CharSequence}
@@ -905,7 +905,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>>Return the substring after the last occurrence of the target {@link CharSequence} if found in the
+	 * <p>Return the substring after the last occurrence of the target {@link CharSequence} if found in the
 	 * {@link CharSequence}.</p>
 	 * @param charSequence the {@link CharSequence} to get the substring from
 	 * @param target the target {@link CharSequence}
