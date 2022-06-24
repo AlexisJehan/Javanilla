@@ -825,6 +825,120 @@ public final class Strings {
 	}
 
 	/**
+	 * <p>Return the substring before the first occurrence of the target {@code char} if found in the
+	 * {@link CharSequence}.</p>
+	 * @param charSequence the {@link CharSequence} to get the substring from
+	 * @param target the target {@code char}
+	 * @return a substring {@link String} of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.8.0
+	 */
+	public static String substringBefore(final CharSequence charSequence, final char target) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		for (var i = 0; i < length; ++i) {
+			if (target == charSequence.charAt(i)) {
+				return charSequence.subSequence(0, i).toString();
+			}
+		}
+		return charSequence.toString();
+	}
+
+	/**
+	 * <p>>Return the substring before the first occurrence of the target {@link CharSequence} if found in the
+	 * {@link CharSequence}.</p>
+	 * @param charSequence the {@link CharSequence} to get the substring from
+	 * @param target the target {@link CharSequence}
+	 * @return a substring {@link String} of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} or the target is {@code null}
+	 * @since 1.8.0
+	 */
+	public static String substringBefore(final CharSequence charSequence, final CharSequence target) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("target", target);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		final var targetLength = target.length();
+		if (0 == targetLength || length < targetLength) {
+			return charSequence.toString();
+		}
+		for (var i = 0; i < length - targetLength + 1; ++i) {
+			if (target.charAt(0) == charSequence.charAt(i)) {
+				var j = 1;
+				while (i + j < length && j < targetLength && target.charAt(j) == charSequence.charAt(i + j)) {
+					++j;
+				}
+				if (j == targetLength) {
+					return charSequence.subSequence(0, i).toString();
+				}
+			}
+		}
+		return charSequence.toString();
+	}
+
+	/**
+	 * <p>Return the substring after the last occurrence of the target {@code char} if found in the
+	 * {@link CharSequence}.</p>
+	 * @param charSequence the {@link CharSequence} to get the substring from
+	 * @param target the target {@code char}
+	 * @return a substring {@link String} of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
+	 * @since 1.8.0
+	 */
+	public static String substringAfter(final CharSequence charSequence, final char target) {
+		Ensure.notNull("charSequence", charSequence);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		for (var i = length - 1; i >= 0; --i) {
+			if (target == charSequence.charAt(i)) {
+				return charSequence.subSequence(i + 1, length).toString();
+			}
+		}
+		return charSequence.toString();
+	}
+
+	/**
+	 * <p>>Return the substring after the last occurrence of the target {@link CharSequence} if found in the
+	 * {@link CharSequence}.</p>
+	 * @param charSequence the {@link CharSequence} to get the substring from
+	 * @param target the target {@link CharSequence}
+	 * @return a substring {@link String} of the {@link CharSequence}
+	 * @throws NullPointerException if the {@link CharSequence} or the target is {@code null}
+	 * @since 1.8.0
+	 */
+	public static String substringAfter(final CharSequence charSequence, final CharSequence target) {
+		Ensure.notNull("charSequence", charSequence);
+		Ensure.notNull("target", target);
+		final var length = charSequence.length();
+		if (0 == length) {
+			return EMPTY;
+		}
+		final var targetLength = target.length();
+		if (0 == targetLength || length < targetLength) {
+			return charSequence.toString();
+		}
+		for (var i = length - 1; i >= 0; --i) {
+			if (target.charAt(targetLength - 1) == charSequence.charAt(i)) {
+				var j = 1;
+				while (i - j >= 0 && j < targetLength && target.charAt(targetLength - j - 1) == charSequence.charAt(i - j)) {
+					++j;
+				}
+				if (j == targetLength) {
+					return charSequence.subSequence(i + 1, length).toString();
+				}
+			}
+		}
+		return charSequence.toString();
+	}
+
+	/**
 	 * <p>Remove the prefix {@code char} if the {@link CharSequence} starts with it.</p>
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param prefix the prefix {@code char}

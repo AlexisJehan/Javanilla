@@ -457,6 +457,68 @@ final class StringsTest {
 	}
 
 	@Test
+	void testSubstringBeforeChar() {
+		assertThat(Strings.substringBefore(Strings.EMPTY, '1')).isEmpty();
+		assertThat(Strings.substringBefore("12345123450", '1')).isEmpty();
+		assertThat(Strings.substringBefore("12345123450", '2')).isEqualTo("1");
+		assertThat(Strings.substringBefore("12345123450", '0')).isEqualTo("1234512345");
+		assertThat(Strings.substringBefore("12345123450", 'x')).isEqualTo("12345123450");
+	}
+
+	@Test
+	void testSubstringBeforeCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.substringBefore(null, 'x'));
+	}
+
+	@Test
+	void testSubstringBeforeCharSequence() {
+		assertThat(Strings.substringBefore(Strings.EMPTY, "123")).isEmpty();
+		assertThat(Strings.substringBefore("1", "123")).isEqualTo("1");
+		assertThat(Strings.substringBefore("12345123450", Strings.EMPTY)).isEqualTo("12345123450");
+		assertThat(Strings.substringBefore("12345123450", "123")).isEmpty();
+		assertThat(Strings.substringBefore("12345123450", "234")).isEqualTo("1");
+		assertThat(Strings.substringBefore("12345123450", "50")).isEqualTo("123451234");
+		assertThat(Strings.substringBefore("12345123450", "xX")).isEqualTo("12345123450");
+	}
+
+	@Test
+	void testSubstringBeforeCharSequenceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.substringBefore(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.substringBefore("12345123450", null));
+	}
+
+	@Test
+	void testSubstringAfterChar() {
+		assertThat(Strings.substringAfter(Strings.EMPTY, '1')).isEmpty();
+		assertThat(Strings.substringAfter("01234512345", '1')).isEqualTo("2345");
+		assertThat(Strings.substringAfter("01234512345", '2')).isEqualTo("345");
+		assertThat(Strings.substringAfter("01234512345", '0')).isEqualTo("1234512345");
+		assertThat(Strings.substringAfter("01234512345", 'x')).isEqualTo("01234512345");
+	}
+
+	@Test
+	void testSubstringAfterCharInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.substringAfter(null, 'x'));
+	}
+
+	@Test
+	void testSubstringAfterCharSequence() {
+		assertThat(Strings.substringAfter(Strings.EMPTY, "234")).isEmpty();
+		assertThat(Strings.substringAfter("1", "234")).isEqualTo("1");
+		assertThat(Strings.substringAfter("01234512345", Strings.EMPTY)).isEqualTo("01234512345");
+		assertThat(Strings.substringAfter("01234512345", "234")).isEqualTo("5");
+		assertThat(Strings.substringAfter("01234512345", "345")).isEmpty();
+		assertThat(Strings.substringAfter("01234512345", "01")).isEqualTo("234512345");
+		assertThat(Strings.substringAfter("01234512345", "xX")).isEqualTo("01234512345");
+	}
+
+	@Test
+	void testSubstringAfterCharSequenceInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Strings.substringAfter(null, "xX"));
+		assertThatNullPointerException().isThrownBy(() -> Strings.substringAfter("01234512345", null));
+	}
+
+	@Test
 	void testRemoveStartChar() {
 		assertThat(Strings.removeStart(Strings.EMPTY, 'x')).isEmpty();
 		assertThat(Strings.removeStart("foo", 'x')).isEqualTo("foo");

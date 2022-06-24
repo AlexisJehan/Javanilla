@@ -6,6 +6,9 @@
 - Added the _add(int[], int, int)_ method
 - Deprecated the _addTemporary(int[], int, int)_ method
 
+**lang.Strings**
+- Added _substringBefore(CharSequence, char)_, _substringBefore(CharSequence, CharSequence)_, _substringAfter(CharSequence, char)_ and _substringAfter(CharSequence, CharSequence)_
+
 
 ## 1.7.0 _(2022-05-17)_
 
