@@ -224,7 +224,7 @@ public final class HashCode {
 
 	/**
 	 * <p>Calculate the hash code of multiple ones.</p>
-	 * @param hashCodes the hash code array or {@code null}
+	 * @param hashCodes the hash code array
 	 * @return the calculated hash code
 	 * @throws NullPointerException if the hash code array is {@code null}
 	 * @throws IllegalArgumentException if the hash code array is empty
