@@ -9,13 +9,15 @@
 A _Java 10+_ lightweight utility library to enhance the Java standard API.
 
 ## Introduction
-**Javanilla** has been made to improve the developer experience with Java, in fact it provides lot of easy-to-use
-components for commons usages. Its goal is not to replace popular utility libraries such as _Apache Commons_ or
-_Google Guava_ because it is not as much complete or reliable, but Javanilla is composed of some original tools that
-could complete them.
+**Javanilla** has been made to improve the developer experience with Java, in fact it provides a lot of easy-to-use
+components for various usages. Its goal is not to replace popular utility libraries such as _Apache Commons_ or
+_Google Guava_ because it is not as complete or reliable, but Javanilla is composed of some original tools that could be
+used in complement of them.
 
 ## Getting started
-To include and use Javanilla, you need to add the following dependency into your _Maven_ _pom.xml_ file:
+To include and use Javanilla, you need to add the following dependency from the _Maven Central_:
+
+### Maven _(pom.xml)_
 ```xml
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
@@ -24,14 +26,37 @@ To include and use Javanilla, you need to add the following dependency into your
 </dependency>
 ```
 
-Or if you are using _Gradle_:
-```xml
+### Gradle Groovy _(build.gradle)_
+```groovy
+plugins {
+	id 'java-library'
+}
+
+repositories {
+	mavenCentral()
+}
+
 dependencies {
-	compile "com.github.alexisjehan:javanilla:1.7.0"
+	implementation 'com.github.alexisjehan:javanilla:1.7.0'
 }
 ```
 
-Also the Javadoc can be accessed [here](https://javadoc.io/doc/com.github.alexisjehan/javanilla).
+### Gradle Kotlin _(build.gradle.kts)_
+```kotlin
+plugins {
+	`java-library`
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation("com.github.alexisjehan:javanilla:1.7.0")
+}
+```
+
+Also, the Javadoc can be accessed [here](https://javadoc.io/doc/com.github.alexisjehan/javanilla).
 
 ## Examples
 Here are non-exhaustives examples of how you can use Javanilla.
@@ -242,30 +267,20 @@ System.out.println(countIterator.getCount()); // Prints 4
 | of             |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
 | ofOrdered      |          | &#x2713;    | &#x2713;    |          |           |           |
 
-## Maven phases and goals
-Compile, test and install the JAR in the local Maven repository:
-```
-mvn install
-```
-
-Run JUnit 5 tests:
-```
-mvn test
-```
-
+## Specific Maven goals
 Generate the Javadoc API documentation:
 ```
 mvn javadoc:javadoc
 ```
 
-Update sources license:
-```
-mvn license:format
-```
-
 Generate the Jacoco test coverage report:
 ```
 mvn jacoco:report
+```
+
+Update sources license:
+```
+mvn license:format
 ```
 
 ## License
