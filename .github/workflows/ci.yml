@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         distribution: ['temurin']
-        java-version: ['11', '16', '17', '18']
+        java-version: ['11', '16', '17', '18', '19']
         include:
 #        - distribution: 'adopt'
 #          java-version: '10'
