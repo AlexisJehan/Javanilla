@@ -23,8 +23,6 @@
  */
 /**
  * <p>Extras {@link java.sql} components.</p>
- * @deprecated since 1.6.0, should not be used anymore
  * @since 1.0.0
  */
-//@Deprecated(since = "1.6.0")
 package com.github.alexisjehan.javanilla.sql;

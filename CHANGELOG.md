@@ -150,7 +150,6 @@ _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(
 - Deprecated the _shuffle(short[])_ method
 
 **sql**
-- Deprecated the package
 - Deprecated the _UncheckedSQLException_ class
 
 **standard.crypto**

@@ -23,8 +23,6 @@
  */
 /**
  * <p>Extras {@link javax.crypto} and {@link java.security} components.</p>
- * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard} instead
  * @since 1.0.0
  */
-//@Deprecated(since = "1.6.0")
 package com.github.alexisjehan.javanilla.crypto;
