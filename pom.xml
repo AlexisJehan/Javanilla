@@ -5,7 +5,6 @@
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
 	<version>1.8.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<name>Javanilla</name>
 	<description>A Java 10+ lightweight utility library to enhance the Java standard API.</description>
@@ -72,7 +71,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.9.0</version>
+			<version>5.9.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
