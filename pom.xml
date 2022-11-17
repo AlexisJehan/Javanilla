@@ -99,6 +99,7 @@
 				<configuration>
 					<compilerArgs>
 						<compilerArg>-Xlint:all</compilerArg>
+						<!--<compilerArg>-Xlint:-strictfp</compilerArg>-->
 					</compilerArgs>
 					<excludes>
 						<exclude>**/examples/**</exclude>
