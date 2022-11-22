@@ -99,7 +99,7 @@
 				<configuration>
 					<compilerArgs>
 						<compilerArg>-Xlint:all</compilerArg>
-						<!--<compilerArg>-Xlint:-strictfp</compilerArg>-->
+						<!--<compilerArg>-Xlint:-strictfp</compilerArg>--> <!-- Since Java 17 -->
 					</compilerArgs>
 					<excludes>
 						<exclude>**/examples/**</exclude>
