@@ -1,7 +1,6 @@
 # Changelog
 
 ## 1.8.0 _(in progress)_
-
 **lang.array.IntArrays**
 - Added the _add(int[], int, int)_ method
 - Deprecated the _addTemporary(int[], int, int)_ method
@@ -12,9 +11,7 @@
 **misc.quality.Ensure**
 - Added _notNullAndNotNullKeys(String, Map)_, _notNullAndNotNullValues(String, Map)_ and _notNullAndNotNullKeysAndValues(String, Map)_
 
-
 ## 1.7.0 _(2022-05-17)_
-
 **lang.Strings**
 - Added _removeStartIgnoreCase(CharSequence, char)_, _removeEndIgnoreCase(CharSequence, char)_, _contains(CharSequence, char)_, _containsIgnoreCase(CharSequence, char)_, _startsWith(CharSequence, char)_, _startsWithIgnoreCase(CharSequence, char)_, _endsWith(CharSequence, char)_ and _endsWithIgnoreCase(CharSequence, char)_
 - Added _isBinary(CharSequence, boolean)_, _isOctal(CharSequence, boolean)_, _isDecimal(CharSequence, boolean)_ and _isHexadecimal(CharSequence, boolean)_ methods
@@ -65,9 +62,7 @@
 **util.function.throwable.ThrowableSupplier**
 - Added the _sneaky(ThrowableSupplier)_ method
 
-
 ## 1.6.0 _(2022-03-24)_
-
 **crypto**
 - Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_,
 _StandardMessageDigests_ and _StandardSignatures_ classes
@@ -186,9 +181,7 @@ _StandardCertStores_ classes
 - Deprecated _singletonInt(int)_, _singletonLong(long)_ and _singletonDouble(double)_ methods
 - Deprecated _ofInt(int...)_, _ofLong(long...)_ and _ofDouble(double...)_ methods
 
-
 ## 1.5.0 _(2020-01-23)_
-
 **lang.Strings**
 - Added the _capitalize()_ method
 
@@ -201,21 +194,15 @@ _StandardCertStores_ classes
 **misc.quality.Ensure**
 - Added _multipleOf()_ methods
 
-
 ## 1.4.2 _(2019-12-06)_
-
 **misc.StringFormatter**
 - Fixed the _formatBytes()_ method ([The most copied StackOverflow snippet of all time is flawed!](https://programming.guide/worlds-most-copied-so-snippet.html))
 
-
 ## 1.4.1 _(2019-04-19)_
-
 **util.collection.Sets**
 - Fixed _union()_ and _intersect()_ methods
 
-
 ## 1.4.0 _(2019-02-12)_
-
 **lang.Strings**
 - Added new _split()_ methods
 
@@ -269,9 +256,7 @@ _SerializableFunction_, _SerializablePredicate_, _SerializableRunnable_ and _Ser
 **util.function.throwable.ThrowablePredicate**
 - Added the _isEqual()_ method
 
-
 ## 1.3.1 _(2018-12-22)_
-
 **io.crypto**
 - Added _StandardKeyFactories_, _StandardKeyPairGenerators_ and _StandardSignatures_ classes
 
@@ -296,9 +281,7 @@ _notNullAndBetween()_ methods
 **util.NullableOptional**
 - Added the _orElseThrow()_ method
 
-
 ## 1.3.0 _(2018-11-18)_
-
 **io.bytes**
 - Removed _UncheckedInputStream_ and _UncheckedOutputStream_ classes
 
@@ -386,9 +369,7 @@ _notNullAndBetween()_ methods
 - Renamed the _getFirst()_ method to _getOptionalFirst()_
 - Renamed the _getLast()_ method to _getOptionalLast()_
 
-
 ## 1.2.0 _(2018-09-09)_
-
 **crypto**
 - Renamed the _security_ package to _crypto_
 
@@ -516,9 +497,7 @@ _unquoteChar(CharSequence, char, char)_  methods
 - Added _removeAll()_ and _removeIf()_ methods
 - Removed the _toEnumeration()_ method
 
-
 ## 1.1.0 _(2018-06-20)_
-
 **io.bytes.InputStreams**
 - Added the _nullToDefault()_ method
 - Added the _singleton()_ method
@@ -649,7 +628,5 @@ _unquoteChar(CharSequence, char, char)_  methods
 - Added the _length()_ method
 - Added multiple _singleton()_ method implementations
 
-
 ## 1.0.0 _(2018-04-24)_
-
-First release
+Initial release
