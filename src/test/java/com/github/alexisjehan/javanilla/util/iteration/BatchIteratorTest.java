@@ -32,9 +32,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link BatchIterator} unit tests.</p>
- */
 final class BatchIteratorTest {
 
 	@Test

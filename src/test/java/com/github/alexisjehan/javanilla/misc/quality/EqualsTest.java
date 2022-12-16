@@ -36,9 +36,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link Equals} unit tests.</p>
- */
 final class EqualsTest {
 
 	@Test

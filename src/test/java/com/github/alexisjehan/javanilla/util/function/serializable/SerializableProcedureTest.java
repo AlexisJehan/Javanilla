@@ -32,9 +32,6 @@ import java.util.concurrent.atomic.LongAdder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link SerializableProcedure} unit tests.</p>
- */
 final class SerializableProcedureTest {
 
 	private static final class FooProcedure implements Procedure {

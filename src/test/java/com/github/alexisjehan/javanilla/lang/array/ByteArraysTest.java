@@ -35,9 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link ByteArrays} unit tests.</p>
- */
 final class ByteArraysTest {
 
 	private static final byte[] VALUES = {(byte) 1, (byte) 2};

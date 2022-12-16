@@ -35,9 +35,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link ThrowableProcedure} unit tests.</p>
- */
 final class ThrowableProcedureTest {
 
 	private static final class FooProcedure implements Procedure {

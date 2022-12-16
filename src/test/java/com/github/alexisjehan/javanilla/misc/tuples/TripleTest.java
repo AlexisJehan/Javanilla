@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link Triple} unit tests.</p>
- */
 final class TripleTest {
 
 	private static final Integer FIRST = 1;

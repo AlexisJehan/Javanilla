@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link Single} unit tests.</p>
- */
 final class SingleTest {
 
 	private static final Integer UNIQUE = 1;

@@ -31,9 +31,6 @@ import java.util.Comparator;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Comparators} unit tests.</p>
- */
 final class ComparatorsTest {
 
 	@Test

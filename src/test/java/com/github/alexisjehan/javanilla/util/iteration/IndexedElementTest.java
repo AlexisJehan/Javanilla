@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link IndexedElement} unit tests.</p>
- */
 final class IndexedElementTest {
 
 	private static final long INDEX = 1L;

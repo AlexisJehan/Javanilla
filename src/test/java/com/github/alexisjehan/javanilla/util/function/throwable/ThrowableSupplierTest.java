@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link ThrowableSupplier} unit tests.</p>
- */
 final class ThrowableSupplierTest {
 
 	@Test

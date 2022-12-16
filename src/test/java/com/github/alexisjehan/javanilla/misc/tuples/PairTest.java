@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link Pair} unit tests.</p>
- */
 final class PairTest {
 
 	private static final Integer FIRST = 1;

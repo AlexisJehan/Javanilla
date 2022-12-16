@@ -55,9 +55,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Iterators} unit tests.</p>
- */
 final class IteratorsTest {
 
 	private static final int[] INT_ELEMENTS = IntArrays.of(1, 2, 3);

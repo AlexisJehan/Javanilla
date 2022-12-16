@@ -28,9 +28,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link SerializableTriple} unit tests.</p>
- */
 final class SerializableTripleTest {
 
 	private static final Integer FIRST = 1;

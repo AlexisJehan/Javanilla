@@ -31,9 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>Abstract class for {@link TreeNode} unit tests.</p>
- */
 abstract class AbstractTreeNodeTest {
 
 	abstract <V> TreeNode<V> newTreeNode(final V value);

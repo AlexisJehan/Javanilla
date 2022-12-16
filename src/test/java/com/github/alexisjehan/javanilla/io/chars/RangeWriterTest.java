@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link RangeWriter} unit tests.</p>
- */
 final class RangeWriterTest {
 
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');

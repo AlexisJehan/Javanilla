@@ -54,9 +54,6 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Ensure} unit tests.</p>
- */
 final class EnsureTest {
 
 	@Test

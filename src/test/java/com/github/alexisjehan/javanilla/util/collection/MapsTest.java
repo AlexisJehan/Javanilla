@@ -35,9 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Maps} unit tests.</p>
- */
 final class MapsTest {
 
 	private static final Map.Entry<String, Integer>[] ENTRIES = ObjectArrays.of(Map.entry("foo", 1), Map.entry("bar", 2));

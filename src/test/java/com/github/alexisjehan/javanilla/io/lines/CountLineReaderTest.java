@@ -32,9 +32,6 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link CountLineReader} unit tests.</p>
- */
 final class CountLineReaderTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");

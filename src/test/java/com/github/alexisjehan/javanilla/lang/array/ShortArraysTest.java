@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link ShortArrays} unit tests.</p>
- */
 final class ShortArraysTest {
 
 	private static final short[] VALUES = {(short) 1, (short) 2};

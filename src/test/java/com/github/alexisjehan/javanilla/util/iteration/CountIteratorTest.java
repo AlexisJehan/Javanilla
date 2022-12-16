@@ -34,9 +34,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link CountIterator} unit tests.</p>
- */
 final class CountIteratorTest {
 
 	private static final Integer[] ELEMENTS = ObjectArrays.of(1, 2, 3);

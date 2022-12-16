@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link CharArrays} unit tests.</p>
- */
 final class CharArraysTest {
 
 	private static final char[] VALUES = {'a', 'b'};

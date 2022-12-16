@@ -28,9 +28,6 @@ import com.github.alexisjehan.javanilla.util.NullableOptional;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * <p>{@link Bag} unit tests.</p>
- */
 final class BagTest extends AbstractBagTest {
 
 	@Override

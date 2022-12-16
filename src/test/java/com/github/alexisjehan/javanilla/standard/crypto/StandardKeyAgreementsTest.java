@@ -31,9 +31,6 @@ import java.security.NoSuchAlgorithmException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-/**
- * <p>{@link StandardKeyAgreements} unit tests.</p>
- */
 final class StandardKeyAgreementsTest {
 
 	@Test

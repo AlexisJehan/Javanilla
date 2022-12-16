@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link FloatArrays} unit tests.</p>
- */
 final class FloatArraysTest {
 
 	private static final float[] VALUES = {1.0f, 2.0f};

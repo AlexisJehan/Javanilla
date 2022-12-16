@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link StandardKeyFactories} unit tests.</p>
- */
 @SuppressWarnings("deprecation")
 final class StandardKeyFactoriesTest {
 

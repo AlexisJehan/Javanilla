@@ -30,9 +30,6 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-/**
- * <p>Abstract class for {@link Bag} unit tests.</p>
- */
 abstract class AbstractBagTest {
 
 	abstract <E> Bag<E> newBag();

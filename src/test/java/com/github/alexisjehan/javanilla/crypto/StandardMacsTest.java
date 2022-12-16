@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link StandardMacs} unit tests.</p>
- */
 @SuppressWarnings("deprecation")
 final class StandardMacsTest {
 

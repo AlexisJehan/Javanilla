@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link LongArrays} unit tests.</p>
- */
 final class LongArraysTest {
 
 	private static final long[] VALUES = {1L, 2L};

@@ -33,9 +33,6 @@ import java.util.function.Function;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Functions} unit tests.</p>
- */
 final class FunctionsTest {
 
 	@Test

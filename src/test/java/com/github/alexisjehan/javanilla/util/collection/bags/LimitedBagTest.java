@@ -30,9 +30,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-/**
- * <p>{@link LimitedBag} unit tests.</p>
- */
 final class LimitedBagTest extends AbstractBagTest {
 
 	private static final List<String> COLLECTION = List.of("foo", "bar");

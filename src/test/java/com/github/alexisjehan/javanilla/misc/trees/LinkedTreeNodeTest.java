@@ -28,9 +28,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link LinkedTreeNode} unit tests.</p>
- */
 final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 
 	@Override

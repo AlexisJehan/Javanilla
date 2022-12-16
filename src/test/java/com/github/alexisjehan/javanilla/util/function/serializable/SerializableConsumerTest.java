@@ -33,9 +33,6 @@ import java.util.function.Consumer;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link SerializableConsumer} unit tests.</p>
- */
 final class SerializableConsumerTest {
 
 	@Test

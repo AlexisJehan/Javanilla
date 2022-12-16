@@ -28,9 +28,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link SerializableSingle} unit tests.</p>
- */
 final class SerializableSingleTest {
 
 	private static final Integer UNIQUE = 1;

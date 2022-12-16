@@ -40,9 +40,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Serializables} unit tests.</p>
- */
 final class SerializablesTest {
 
 	private static final SerializablePair<String, Integer> SERIALIZABLE = SerializablePair.of("foo", 1);

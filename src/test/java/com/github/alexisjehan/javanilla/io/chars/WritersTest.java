@@ -42,9 +42,6 @@ import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link Writers} unit tests.</p>
- */
 final class WritersTest {
 
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');

@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link ObjectArrays} unit tests.</p>
- */
 final class ObjectArraysTest {
 
 	private static final Integer[] VALUES = {1, null};

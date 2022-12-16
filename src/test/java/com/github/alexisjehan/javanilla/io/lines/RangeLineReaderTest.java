@@ -33,9 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link RangeLineReader} unit tests.</p>
- */
 final class RangeLineReaderTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");

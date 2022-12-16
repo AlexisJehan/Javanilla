@@ -26,9 +26,6 @@ package com.github.alexisjehan.javanilla.misc.trees;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * <p>{@link TreeNode} unit tests.</p>
- */
 final class TreeNodeTest extends AbstractTreeNodeTest {
 
 	@Override

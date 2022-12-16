@@ -27,9 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * <p>{@link StandardCiphers} unit tests.</p>
- */
 @SuppressWarnings("deprecation")
 final class StandardCiphersTest {
 

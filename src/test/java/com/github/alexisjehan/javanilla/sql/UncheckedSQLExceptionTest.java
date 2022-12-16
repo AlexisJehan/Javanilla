@@ -31,9 +31,6 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link UncheckedSQLException} unit tests.</p>
- */
 @SuppressWarnings("deprecation")
 final class UncheckedSQLExceptionTest {
 

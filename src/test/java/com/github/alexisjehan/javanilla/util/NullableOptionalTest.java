@@ -36,9 +36,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-/**
- * <p>{@link NullableOptional} unit tests.</p>
- */
 final class NullableOptionalTest {
 
 	private static final Integer VALUE = null;
