@@ -3,7 +3,7 @@
 # Javanilla
 [![maven-central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla)
 [![javadoc](https://javadoc.io/badge/com.github.alexisjehan/javanilla.svg)](https://javadoc.io/doc/com.github.alexisjehan/javanilla)
-[![build](https://img.shields.io/github/workflow/status/AlexisJehan/Javanilla/CI)](https://github.com/AlexisJehan/Javanilla/actions/workflows/ci.yml)
+[![build](https://img.shields.io/github/actions/workflow/status/AlexisJehan/Javanilla/ci.yml?branch=main)](https://github.com/AlexisJehan/Javanilla/actions/workflows/ci.yml)
 [![coverage](https://img.shields.io/codecov/c/github/AlexisJehan/Javanilla)](https://codecov.io/gh/AlexisJehan/Javanilla)
 [![license](https://img.shields.io/github/license/AlexisJehan/Javanilla)](LICENSE.txt)
 
