@@ -86,7 +86,7 @@ for (final var i : Iterables.wrap(concatInputStream)) {
 teeOutputStream.flush();
 ```
 
-Convert line separators from an _Unix_ file to a _Windows_ one using _LineReader_ and _LineWriter_:
+Convert line separators from a _Unix_ file to a _Windows_ one using _LineReader_ and _LineWriter_:
 ```java
 // Convert a String with Unix line separators to the Windows format removing the extra new line
 final var unixFilePath = Readers.of("foo\nbar\n");
@@ -235,38 +235,38 @@ System.out.println(countIterator.getCount()); // Prints 4
 ```
 
 ## Recurrent functions availability
-|                | InputStreams | OutputStreams | Readers  | Writers       | Strings  | \*Arrays  |
-| :------------: | :----------: | :-----------: | :------: | :-----------: | :------: | :-------: |
-| EMPTY          | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
-| nullToEmpty    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
-| nullToDefault  | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
-| emptyToNull    |              |               |          |               | &#x2713; | &#x2713;  |
-| emptyToDefault |              |               |          |               | &#x2713; | &#x2713;  |
-| isEmpty        |              |               |          |               | &#x2713; | &#x2713;  |
-| buffered       | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |           |
-| uncloseable    | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      |          |           |
-| length         | &#x2713;     |               | &#x2713; |               |          |           |
-| concat         | &#x2713;     |               | &#x2713; |               |          | &#x2713;  |
-| join           | &#x2713;     |               | &#x2713; |               |          | &#x2713;  |
-| tee            |              | &#x2713;      |          | &#x2713;      |          |           |
-| singleton      | &#x2713;     |               | &#x2713; |               |          | &#x2713;  |
-| of             | &#x2713;     | &#x2713;      | &#x2713; | &#x2713;      | &#x2713; | &#x2713;  |
+|                | InputStreams | OutputStreams | Readers  | Writers  | Strings  | \*Arrays |
+|:--------------:|:------------:|:-------------:|:--------:|:--------:|:--------:|:--------:|
+|     EMPTY      |   &#x2713;   |   &#x2713;    | &#x2713; | &#x2713; | &#x2713; | &#x2713; |
+|  nullToEmpty   |   &#x2713;   |   &#x2713;    | &#x2713; | &#x2713; | &#x2713; | &#x2713; |
+| nullToDefault  |   &#x2713;   |   &#x2713;    | &#x2713; | &#x2713; | &#x2713; | &#x2713; |
+|  emptyToNull   |              |               |          |          | &#x2713; | &#x2713; |
+| emptyToDefault |              |               |          |          | &#x2713; | &#x2713; |
+|    isEmpty     |              |               |          |          | &#x2713; | &#x2713; |
+|    buffered    |   &#x2713;   |   &#x2713;    | &#x2713; | &#x2713; |          |          |
+|  uncloseable   |   &#x2713;   |   &#x2713;    | &#x2713; | &#x2713; |          |          |
+|     length     |   &#x2713;   |               | &#x2713; |          |          |          |
+|     concat     |   &#x2713;   |               | &#x2713; |          |          | &#x2713; |
+|      join      |   &#x2713;   |               | &#x2713; |          |          | &#x2713; |
+|      tee       |              |   &#x2713;    |          | &#x2713; |          |          |
+|   singleton    |   &#x2713;   |               | &#x2713; |          |          | &#x2713; |
+|       of       |   &#x2713;   |   &#x2713;    | &#x2713; | &#x2713; | &#x2713; | &#x2713; |
 
-|                | Lists    | Sets        | Maps        | Bags     | Iterables | Iterators |
-| :------------: | :------: | :---------: | :---------: | :------: | :-------: | :-------: |
-| empty          |          |             |             | &#x2713; | &#x2713;  |           |
-| nullToEmpty    | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; | &#x2713;  | &#x2713;  |
-| nullToDefault  | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; | &#x2713;  | &#x2713;  |
-| emptyToNull    | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; |           | &#x2713;  |
-| emptyToDefault | &#x2713; | &#x2713;    | &#x2713;    | &#x2713; |           | &#x2713;  |
-| isEmpty        |          |             |             |          |           | &#x2713;  |
-| unmodifiable   |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
-| length         |          |             |             |          | &#x2713;  | &#x2713;  |
-| concat         | &#x2713; |             |             |          | &#x2713;  | &#x2713;  |
-| join           | &#x2713; |             |             |          | &#x2713;  | &#x2713;  |
-| singleton      |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
-| of             |          |             |             | &#x2713; | &#x2713;  | &#x2713;  |
-| ofOrdered      |          | &#x2713;    | &#x2713;    |          |           |           |
+|                |  Lists   |   Sets   |   Maps   |   Bags   | Iterables | Iterators |
+|:--------------:|:--------:|:--------:|:--------:|:--------:|:---------:|:---------:|
+|     empty      |          |          |          | &#x2713; | &#x2713;  |           |
+|  nullToEmpty   | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;  | &#x2713;  |
+| nullToDefault  | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;  | &#x2713;  |
+|  emptyToNull   | &#x2713; | &#x2713; | &#x2713; | &#x2713; |           | &#x2713;  |
+| emptyToDefault | &#x2713; | &#x2713; | &#x2713; | &#x2713; |           | &#x2713;  |
+|    isEmpty     |          |          |          |          |           | &#x2713;  |
+|  unmodifiable  |          |          |          | &#x2713; | &#x2713;  | &#x2713;  |
+|     length     |          |          |          |          | &#x2713;  | &#x2713;  |
+|     concat     | &#x2713; |          |          |          | &#x2713;  | &#x2713;  |
+|      join      | &#x2713; |          |          |          | &#x2713;  | &#x2713;  |
+|   singleton    |          |          |          | &#x2713; | &#x2713;  | &#x2713;  |
+|       of       |          |          |          | &#x2713; | &#x2713;  | &#x2713;  |
+|   ofOrdered    |          | &#x2713; | &#x2713; |          |           |           |
 
 ## Specific Maven goals
 Generate the Javadoc API documentation:
