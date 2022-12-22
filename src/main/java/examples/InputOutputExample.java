@@ -23,9 +23,9 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
-import com.github.alexisjehan.javanilla.io.bytes.OutputStreams;
-import com.github.alexisjehan.javanilla.io.bytes.RangeOutputStream;
+import com.github.alexisjehan.javanilla.io.InputStreams;
+import com.github.alexisjehan.javanilla.io.OutputStreams;
+import com.github.alexisjehan.javanilla.io.RangeOutputStream;
 import com.github.alexisjehan.javanilla.util.iteration.Iterables;
 
 import java.io.IOException;
@@ -37,11 +37,8 @@ public final class InputOutputExample {
 	}
 
 	public static void main(final String... args) throws IOException {
-		@SuppressWarnings("deprecation")
 		final var optionalInputStream = InputStreams.EMPTY;
-		@SuppressWarnings("deprecation")
 		final var fileOutputStream = OutputStreams.EMPTY;
-		@SuppressWarnings("deprecation")
 		final var sampleOutputStream = OutputStreams.EMPTY;
 
 		// Read from an optional InputStream and then from another one which gives 0x00 and 0xff bytes

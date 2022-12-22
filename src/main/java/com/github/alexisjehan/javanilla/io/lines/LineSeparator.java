@@ -35,8 +35,10 @@ import java.util.stream.IntStream;
 /**
  * <p>Enumeration of line separator types used by {@link LineReader} and {@link LineWriter}.</p>
  * <p><b>Note</b>: This class implements its own {@link #toString()} method.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.LineSeparator} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public enum LineSeparator {
 
 	/**

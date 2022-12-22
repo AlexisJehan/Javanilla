@@ -26,7 +26,6 @@ package com.github.alexisjehan.javanilla.io.lines;
 import com.github.alexisjehan.javanilla.io.chars.Readers;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
-import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
@@ -35,9 +34,11 @@ import java.nio.file.Path;
 
 /**
  * <p>A {@link Reader} wrapper that allows to read lines based on a strict {@link LineSeparator} type <i>(unlike
- * {@link BufferedReader})</i>.</p>
+ * {@link java.io.BufferedReader})</i>.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.LineReader} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public class LineReader implements Closeable {
 
 	/**

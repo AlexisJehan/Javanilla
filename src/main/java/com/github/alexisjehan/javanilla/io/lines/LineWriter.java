@@ -26,7 +26,6 @@ package com.github.alexisjehan.javanilla.io.lines;
 import com.github.alexisjehan.javanilla.io.chars.Writers;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
-import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
@@ -35,9 +34,11 @@ import java.nio.file.Path;
 
 /**
  * <p>A {@link Writer} wrapper that allows to write lines based on a strict {@link LineSeparator} type <i>(unlike
- * {@link BufferedWriter})</i>.</p>
+ * {@link java.io.BufferedWriter})</i>.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.LineWriter} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public class LineWriter implements Closeable {
 
 	/**

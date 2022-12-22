@@ -43,12 +43,12 @@ import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class InputStreamsTest {
 
 	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testEmpty() throws IOException {
 		final var buffer = new byte[2];
 		try (final var emptyInputStream = InputStreams.EMPTY) {
@@ -77,7 +77,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNullToEmpty() {
 		assertThat(InputStreams.nullToEmpty(null)).isEmpty();
 		assertThat(InputStreams.nullToEmpty(InputStreams.EMPTY)).isEmpty();
@@ -85,7 +84,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNullToDefault() {
 		assertThat(InputStreams.nullToDefault(null, InputStreams.singleton((byte) 0))).hasBinaryContent(ByteArrays.singleton((byte) 0));
 		assertThat(InputStreams.nullToDefault(InputStreams.EMPTY, InputStreams.singleton((byte) 0))).isEmpty();
@@ -98,7 +96,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testBuffered() throws IOException {
 		try (final var inputStream = InputStreams.EMPTY) {
 			assertThat(inputStream).isNotInstanceOf(BufferedInputStream.class);
@@ -122,7 +119,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testMarkSupported() throws IOException {
 		try (final var inputStream = InputStreams.EMPTY) {
 			assertThat(inputStream.markSupported()).isFalse();
@@ -202,7 +198,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testLength() throws IOException {
 		assertThat(InputStreams.length(InputStreams.EMPTY)).isZero();
 		assertThat(InputStreams.length(InputStreams.of(BYTES))).isEqualTo(BYTES.length);
@@ -271,7 +266,6 @@ final class InputStreamsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testToReader() throws IOException {
 		assertThat(Readers.toString(InputStreams.toReader(InputStreams.EMPTY))).isEmpty();
 		assertThat(Readers.toString(InputStreams.toReader(InputStreams.of(new String(BYTES, StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1)))).isEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));

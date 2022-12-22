@@ -23,11 +23,11 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.io.chars.Readers;
-import com.github.alexisjehan.javanilla.io.chars.Writers;
-import com.github.alexisjehan.javanilla.io.lines.LineReader;
-import com.github.alexisjehan.javanilla.io.lines.LineSeparator;
-import com.github.alexisjehan.javanilla.io.lines.LineWriter;
+import com.github.alexisjehan.javanilla.io.Readers;
+import com.github.alexisjehan.javanilla.io.Writers;
+import com.github.alexisjehan.javanilla.io.line.LineReader;
+import com.github.alexisjehan.javanilla.io.line.LineSeparator;
+import com.github.alexisjehan.javanilla.io.line.LineWriter;
 
 import java.io.IOException;
 
@@ -38,7 +38,6 @@ public final class LineExample {
 	}
 
 	public static void main(final String... args) throws IOException {
-		@SuppressWarnings("deprecation")
 		final var windowsFilePath = Writers.EMPTY;
 
 		// Convert a String with Unix line separators to the Windows format removing the extra new line

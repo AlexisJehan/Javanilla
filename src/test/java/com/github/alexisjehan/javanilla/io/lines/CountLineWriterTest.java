@@ -32,6 +32,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class CountLineWriterTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
@@ -42,7 +43,6 @@ final class CountLineWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWrite() throws IOException {
 		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
 			assertThat(countLineWriter.getCount()).isZero();
@@ -57,7 +57,6 @@ final class CountLineWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNewLine() throws IOException {
 		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
 			assertThat(countLineWriter.getCount()).isZero();

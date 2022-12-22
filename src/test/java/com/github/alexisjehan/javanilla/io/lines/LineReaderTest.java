@@ -41,6 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class LineReaderTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
@@ -160,7 +161,6 @@ final class LineReaderTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testTransferTo() throws IOException {
 		try (final var writer = new StringWriter()) {
 			try (final var lineReader = new LineReader(Readers.EMPTY, LineSeparator.DEFAULT)) {

@@ -42,12 +42,12 @@ import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class WritersTest {
 
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testEmpty() throws IOException {
 		try (final var emptyWriter = Writers.EMPTY) {
 			emptyWriter.write(CHARS[0]);
@@ -87,27 +87,23 @@ final class WritersTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNullToEmpty() {
 		assertThat(Writers.nullToEmpty(null)).isSameAs(Writers.EMPTY);
 		assertThat(Writers.nullToEmpty(Writers.EMPTY)).isSameAs(Writers.EMPTY);
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNullToDefault() {
 		assertThat(Writers.nullToDefault(null, Writers.EMPTY)).isSameAs(Writers.EMPTY);
 		assertThat(Writers.nullToDefault(Writers.EMPTY, Writers.EMPTY)).isSameAs(Writers.EMPTY);
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNullToDefaultInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Writers.nullToDefault(Writers.EMPTY, null));
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testBuffered() throws IOException {
 		try (final var writer = Writers.EMPTY) {
 			assertThat(writer).isNotInstanceOf(BufferedWriter.class);
@@ -158,7 +154,6 @@ final class WritersTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testTee() throws IOException {
 		assertThat(Writers.tee()).isSameAs(Writers.EMPTY);
 		assertThat(Writers.tee(Writers.EMPTY)).isSameAs(Writers.EMPTY);

@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class CountWriterTest {
 
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');
@@ -42,7 +43,6 @@ final class CountWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteChar() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isZero();
@@ -56,7 +56,6 @@ final class CountWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteChars() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isZero();
@@ -68,7 +67,6 @@ final class CountWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteCharsInvalid() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((char[]) null, 0, 2));
@@ -80,7 +78,6 @@ final class CountWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteString() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isZero();
@@ -92,7 +89,6 @@ final class CountWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteStringInvalid() throws IOException {
 		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((String) null, 0, 2));

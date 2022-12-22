@@ -1,6 +1,21 @@
 # Changelog
 
 ## 1.8.0 _(in progress)_
+**io**
+- Added _CountInputStream_, _CountOutputStream_, _CountReader_, _CountWriter_, _InputStreams_, _OutputStreams_, _RangeInputStream_, _RangeOutputStream_, _RangeReader_, _RangeWriter_, _Readers_ and _Writers_ classes
+
+**io.bytes**
+- Deprecated _CountInputStream_, _CountOutputStream_, _InputStreams_, _OutputStreams_, _RangeInputStream_ and _RangeOutputStream_ classes
+
+**io.chars**
+- Deprecated _CountReader_, _CountWriter_, _RangeReader_, _RangeWriter_, _Readers_ and _Writers_ classes
+
+**io.line**
+- Added _CountLineReader_, _CountLineWriter_, _FilterLineReader_, _FilterLineWriter_, _LineReader_, _LineSeparator_, _LineWriter_, _RangeLineReader_ and _RangeLineWriter_ classes
+
+**io.lines**
+- Deprecated _CountLineReader_, _CountLineWriter_, _FilterLineReader_, _FilterLineWriter_, _LineReader_, _LineSeparator_, _LineWriter_, _RangeLineReader_ and _RangeLineWriter_ classes
+
 **lang.array.IntArrays**
 - Added the _add(int[], int, int)_ method
 - Deprecated the _addTemporary(int[], int, int)_ method
@@ -64,8 +79,7 @@
 
 ## 1.6.0 _(2022-03-24)_
 **crypto**
-- Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_,
-_StandardMessageDigests_ and _StandardSignatures_ classes
+- Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_, _StandardMessageDigests_ and _StandardSignatures_ classes
 
 **io.Serializables**
 - Added the _serialize(Serializable, OutputStream)_ method
@@ -93,14 +107,10 @@ _StandardMessageDigests_ and _StandardSignatures_ classes
 **lang.array.ByteArrays**
 - Added the _add(byte[], byte, int)_ method
 - Added the _shuffle(byte[], Random)_ method
-- Added _of(boolean)_, _of(short)_, _of(short, ByteOrder)_, _of(char)_, _of(char, ByteOrder)_, _of(int)_,
-  _of(int, ByteOrder)_, _of(long)_, _of(long, ByteOrder)_, _of(float)_, _of(float, ByteOrder)_, _of(double)_ and
-  _of(double, ByteOrder)_ methods
+- Added _of(boolean)_, _of(short)_, _of(short, ByteOrder)_, _of(char)_, _of(char, ByteOrder)_, _of(int)_, _of(int, ByteOrder)_, _of(long)_, _of(long, ByteOrder)_, _of(float)_, _of(float, ByteOrder)_, _of(double)_ and _of(double, ByteOrder)_ methods
 - Deprecated the _add(byte[], int, byte)_ method
 - Deprecated the _shuffle(byte[])_ method
-- Deprecated _ofBoolean(boolean)_, _ofShort(short)_, _ofShort(short, ByteOrder)_, _ofChar(char)_,
-_ofChar(char, ByteOrder)_, _ofInt(int)_, _ofInt(int, ByteOrder)_, _ofLong(long)_, _ofLong(long, ByteOrder)_,
-_ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(double, ByteOrder)_ methods
+- Deprecated _ofBoolean(boolean)_, _ofShort(short)_, _ofShort(short, ByteOrder)_, _ofChar(char)_, _ofChar(char, ByteOrder)_, _ofInt(int)_, _ofInt(int, ByteOrder)_, _ofLong(long)_, _ofLong(long, ByteOrder)_, _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(double, ByteOrder)_ methods
 
 **lang.array.CharArrays**
 - Added the _add(char[], char, int)_ method
@@ -148,19 +158,16 @@ _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(
 - Deprecated the _UncheckedSQLException_ class
 
 **standard.crypto**
-- Added _StandardCiphers_, _StandardKeyAgreements_, _StandardKeyGenerators_, _StandardMacs_ and
-_StandardSecretKeyFactories_ classes
+- Added _StandardCiphers_, _StandardKeyAgreements_, _StandardKeyGenerators_, _StandardMacs_ and _StandardSecretKeyFactories_ classes
 
 **standard.net.ssl**
 - Added _StandardSslContexts_ and _StandardTrustManagerFactories_ classes
 
 **standard.security**
-- Added _StandardAlgorithmParameterGenerators_, _StandardAlgorithmParameters_, _StandardKeyFactories_,
-_StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _StandardSignatures_ classes
+- Added _StandardAlgorithmParameterGenerators_, _StandardAlgorithmParameters_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _StandardSignatures_ classes
 
 **standard.security.cert**
-- Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and
-_StandardCertStores_ classes
+- Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and _StandardCertStores_ classes
 
 **util.collection.Sets**
 - Added _unify(Set[])_ and _unify(Collection)_ methods
@@ -247,8 +254,7 @@ _StandardCertStores_ classes
 - Added the _notNullAndMatches()_ method
 
 **util.function.serializable**
-- Added _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_,
-_SerializableFunction_, _SerializablePredicate_, _SerializableRunnable_ and _SerializableSupplier_ classes
+- Added _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_, _SerializableFunction_, _SerializablePredicate_, _SerializableRunnable_ and _SerializableSupplier_ classes
 
 **util.function.throwable.ThrowableFunction**
 - Added the _identity()_ method
@@ -274,9 +280,7 @@ _SerializableFunction_, _SerializablePredicate_, _SerializableRunnable_ and _Ser
 - Added _split()_ methods
 
 **misc.quality.Ensure**
-- Added _notNullAndEqualTo()_, _notEqualTo()_, _notNullAndNotEqualTo()_, _notNullAndLowerThan()_,
-_notNullAndLowerThanOrEqualTo()_, _notNullAndGreaterThan()_, _notNullAndGreaterThanOrEqualTo()_ and
-_notNullAndBetween()_ methods
+- Added _notNullAndEqualTo()_, _notEqualTo()_, _notNullAndNotEqualTo()_, _notNullAndLowerThan()_, _notNullAndLowerThanOrEqualTo()_, _notNullAndGreaterThan()_, _notNullAndGreaterThanOrEqualTo()_ and _notNullAndBetween()_ methods
 
 **util.NullableOptional**
 - Added the _orElseThrow()_ method
@@ -403,11 +407,9 @@ _notNullAndBetween()_ methods
 **lang.Strings**
 - Added _nullToEmpty(String)_, _emptyToNull(String)_, _blankToNull(String)_ and _blankToEmpty(String)_ methods
 - Added the _isEmpty()_ method
-- Added _isBoolean()_, _isShort()_, _isInt()_, _isLong()_, _isFloat()_, _isDouble()_, _isBinary()_, _isOctal()_ and
-_isDecimal()_ methods
+- Added _isBoolean()_, _isShort()_, _isInt()_, _isLong()_, _isFloat()_, _isDouble()_, _isBinary()_, _isOctal()_ and _isDecimal()_ methods
 - Changed _isBase64(CharSequence, boolean)_ and _isBase64Url(CharSequence, boolean)_ methods
-- Added _quote(char)_, _quote(char, char, char)_, _unquoteChar(CharSequence)_ and
-_unquoteChar(CharSequence, char, char)_  methods
+- Added _quote(char)_, _quote(char, char, char)_, _unquoteChar(CharSequence)_ and _unquoteChar(CharSequence, char, char)_ methods
 - Removed _quote(Object)_ and _quote(Object, char, char)_ methods
 
 **lang.array.BooleanArrays**
@@ -513,7 +515,7 @@ _unquoteChar(CharSequence, char, char)_  methods
 - Added the _nullToDefault()_ method
 
 **lang.Strings**
-- Added _blankToEmpty()_ and  _blankToDefault()_ methods
+- Added _blankToEmpty()_ and _blankToDefault()_ methods
 - Added multiple _quote()_ and _unquote()_ methods
 - Added the _of()_ method
 - Changed the _isBlank()_ method so that an empty _String_ is not blank anymore

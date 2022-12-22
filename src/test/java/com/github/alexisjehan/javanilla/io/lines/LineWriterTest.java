@@ -38,6 +38,7 @@ import java.nio.file.Path;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class LineWriterTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
@@ -62,7 +63,6 @@ final class LineWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new LineWriter((Writer) null));
 		assertThatNullPointerException().isThrownBy(() -> new LineWriter(Writers.EMPTY, null));
@@ -157,7 +157,6 @@ final class LineWriterTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new LineWriter(Writers.EMPTY).write(null));
 	}

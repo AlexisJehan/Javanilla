@@ -23,7 +23,6 @@
  */
 package com.github.alexisjehan.javanilla.io;
 
-import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.io.ByteArrayOutputStream;

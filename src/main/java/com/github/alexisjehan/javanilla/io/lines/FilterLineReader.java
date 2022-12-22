@@ -29,8 +29,10 @@ import java.io.IOException;
 
 /**
  * <p>An abstract {@link LineReader} filter to create decorators.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.FilterLineReader} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public abstract class FilterLineReader extends LineReader {
 
 	/**

@@ -38,10 +38,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class LineSeparatorTest {
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testReadLf() throws IOException {
 		final var lineSeparator = LineSeparator.LF;
 		try (final var reader = Readers.EMPTY) {
@@ -79,7 +79,6 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testReadCrLf() throws IOException {
 		final var lineSeparator = LineSeparator.CR_LF;
 		try (final var reader = Readers.EMPTY) {
@@ -128,7 +127,6 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testReadCr() throws IOException {
 		final var lineSeparator = LineSeparator.CR;
 		try (final var reader = Readers.EMPTY) {
@@ -166,7 +164,6 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testReadDefault() throws IOException {
 		final var lineSeparator = LineSeparator.DEFAULT;
 		try (final var reader = Readers.EMPTY) {
@@ -218,7 +215,6 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testDetect(@TempDir final Path tmpDirectory) throws IOException {
 		assertThat(LineSeparator.detect(new StringReader(Strings.EMPTY))).isEqualTo(LineSeparator.DEFAULT);
 		assertThat(LineSeparator.detect(new StringReader("\nfoobar"))).isEqualTo(LineSeparator.LF);
@@ -233,7 +229,6 @@ final class LineSeparatorTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testDetectInvalid(@TempDir final Path tmpDirectory) {
 		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect((Path) null));
 		assertThatNullPointerException().isThrownBy(() -> LineSeparator.detect(tmpDirectory.resolve("testDetectInvalid"), null));

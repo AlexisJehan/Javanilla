@@ -44,8 +44,10 @@ import java.util.List;
 
 /**
  * <p>An utility class that provides {@link Reader} tools.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.Readers} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class Readers {
 
 	/**

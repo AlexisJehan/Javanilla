@@ -31,8 +31,10 @@ import java.io.Writer;
 
 /**
  * <p>A {@link Writer} decorator that counts the number of chars written from the current position.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.CountWriter} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class CountWriter extends FilterWriter {
 
 	/**

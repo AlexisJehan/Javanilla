@@ -33,12 +33,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class RangeOutputStreamTest {
 
 	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new RangeOutputStream(null, 0L, 0L));
 		assertThatIllegalArgumentException().isThrownBy(() -> new RangeOutputStream(OutputStreams.EMPTY, -1L, 0L));
@@ -134,7 +134,6 @@ final class RangeOutputStreamTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteBytesInvalid() throws IOException {
 		try (final var rangeOutputStream = new RangeOutputStream(OutputStreams.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeOutputStream.write(null, 0, 2));

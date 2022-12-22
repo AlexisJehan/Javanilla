@@ -34,12 +34,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class RangeLineWriterTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testConstructorInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> new RangeLineWriter(null, 0L, 0L));
 		assertThatIllegalArgumentException().isThrownBy(() -> new RangeLineWriter(new LineWriter(Writers.EMPTY), -1L, 0L));

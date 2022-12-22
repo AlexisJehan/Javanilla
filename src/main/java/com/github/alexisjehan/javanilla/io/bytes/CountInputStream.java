@@ -31,8 +31,10 @@ import java.io.InputStream;
 
 /**
  * <p>An {@link InputStream} decorator that counts the number of bytes read from the current position.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.CountInputStream} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class CountInputStream extends FilterInputStream {
 
 	/**

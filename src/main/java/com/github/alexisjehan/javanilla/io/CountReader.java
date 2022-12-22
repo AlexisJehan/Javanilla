@@ -1,0 +1,106 @@
+package com.github.alexisjehan.javanilla.io;
+
+import com.github.alexisjehan.javanilla.misc.quality.Ensure;
+
+import java.io.FilterReader;
+import java.io.IOException;
+import java.io.Reader;
+
+/**
+ * <p>A {@link Reader} decorator that counts the number of chars read from the current position.</p>
+ * @since 1.8.0
+ */
+public final class CountReader extends FilterReader {
+
+	/**
+	 * <p>Number of chars read.</p>
+	 * @since 1.8.0
+	 */
+	private long count = 0L;
+
+	/**
+	 * <p>Number of chars read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
+	 * @since 1.8.0
+	 */
+	private long markedCount = 0L;
+
+	/**
+	 * <p>Constructor with a {@link Reader} to decorate.</p>
+	 * @param reader the {@link Reader} to decorate
+	 * @throws NullPointerException if the {@link Reader} is {@code null}
+	 * @since 1.8.0
+	 */
+	public CountReader(final Reader reader) {
+		super(Ensure.notNull("reader", reader));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int read() throws IOException {
+		final var next = in.read();
+		if (-1 != next) {
+			++count;
+		}
+		return next;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int read(final char[] buffer, final int offset, final int length) throws IOException {
+		Ensure.notNull("buffer", buffer);
+		Ensure.between("offset", offset, 0, buffer.length);
+		Ensure.between("length", length, 0, buffer.length - offset);
+		if (0 == length) {
+			return 0;
+		}
+		final var total = in.read(buffer, offset, length);
+		if (-1 != total) {
+			count += total;
+		}
+		return total;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public long skip(final long number) throws IOException {
+		if (0L >= number) {
+			return 0L;
+		}
+		final var actual = in.skip(number);
+		count += actual;
+		return actual;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void mark(final int limit) throws IOException {
+		in.mark(limit);
+		markedCount = count;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void reset() throws IOException {
+		in.reset();
+		count = markedCount;
+	}
+
+	/**
+	 * <p>Get the number of chars read.</p>
+	 * @return the number of chars read
+	 * @since 1.8.0
+	 */
+	public long getCount() {
+		return count;
+	}
+}

@@ -31,8 +31,10 @@ import java.io.OutputStream;
 
 /**
  * <p>An {@link OutputStream} decorator that writes only bytes within a range from the current position.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.RangeOutputStream} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class RangeOutputStream extends FilterOutputStream {
 
 	/**

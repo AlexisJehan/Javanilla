@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class CountInputStreamTest {
 
 	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);

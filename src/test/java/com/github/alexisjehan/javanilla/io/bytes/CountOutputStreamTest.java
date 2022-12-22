@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class CountOutputStreamTest {
 
 	private static final byte[] BYTES = ByteArrays.of((byte) 1, (byte) 2, (byte) 3);
@@ -42,7 +43,6 @@ final class CountOutputStreamTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteByte() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isZero();
@@ -56,7 +56,6 @@ final class CountOutputStreamTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteBytes() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isZero();
@@ -68,7 +67,6 @@ final class CountOutputStreamTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testWriteBytesInvalid() throws IOException {
 		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countOutputStream.write(null, 0, 2));

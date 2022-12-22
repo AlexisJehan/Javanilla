@@ -31,8 +31,10 @@ import java.io.Reader;
 
 /**
  * <p>A {@link Reader} decorator that counts the number of chars read from the current position.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.CountReader} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class CountReader extends FilterReader {
 
 	/**

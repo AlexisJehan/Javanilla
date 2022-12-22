@@ -31,8 +31,10 @@ import java.io.InputStream;
 
 /**
  * <p>An {@link InputStream} decorator that reads only bytes within a range from the current position.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.RangeInputStream} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class RangeInputStream extends FilterInputStream {
 
 	/**
