@@ -23,7 +23,7 @@ To include and use Javanilla, you need to add the following dependency from the 
 <dependency>
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.7.0</version>
+	<version>1.8.0</version>
 </dependency>
 ```
 
@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'com.github.alexisjehan:javanilla:1.7.0'
+	implementation 'com.github.alexisjehan:javanilla:1.8.0'
 }
 ```
 
@@ -53,7 +53,7 @@ repositories {
 }
 
 dependencies {
-	implementation("com.github.alexisjehan:javanilla:1.7.0")
+	implementation("com.github.alexisjehan:javanilla:1.8.0")
 }
 ```
 

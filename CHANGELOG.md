@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.8.0 _(in progress)_
+## 1.9.0 _(in progress)_
+…
+
+## 1.8.0 _(2022-12-23)_
 **crypto**
 - Added _StandardKeyAgreements_, _StandardKeyGenerators_ and _StandardSecretKeyFactories_ classes
 

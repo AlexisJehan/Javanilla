@@ -4,7 +4,7 @@
 
 	<groupId>com.github.alexisjehan</groupId>
 	<artifactId>javanilla</artifactId>
-	<version>1.8.0-SNAPSHOT</version>
+	<version>1.9.0-SNAPSHOT</version>
 
 	<name>Javanilla</name>
 	<description>A Java 10+ lightweight utility library to enhance the Java standard API.</description>
