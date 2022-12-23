@@ -23,10 +23,10 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.misc.distances.Distances;
-import com.github.alexisjehan.javanilla.misc.distances.EditDistances;
-import com.github.alexisjehan.javanilla.misc.distances.LevenshteinDistance;
-import com.github.alexisjehan.javanilla.misc.distances.MinkowskiDistance;
+import com.github.alexisjehan.javanilla.misc.distance.Distances;
+import com.github.alexisjehan.javanilla.misc.distance.EditDistances;
+import com.github.alexisjehan.javanilla.misc.distance.LevenshteinDistance;
+import com.github.alexisjehan.javanilla.misc.distance.MinkowskiDistance;
 
 public final class DistanceExample {
 

@@ -28,9 +28,11 @@ package com.github.alexisjehan.javanilla.misc.distances;
  * <p>This is a functional interface whose functional method is {@link #calculate(CharSequence, CharSequence)}.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Edit_distance">https://en.wikipedia.org/wiki/Edit_distance</a>
  * @see <a href="https://en.wikipedia.org/wiki/String_metric">https://en.wikipedia.org/wiki/String_metric</a>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.distance.EditDistance} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface EditDistance {
 
 	/**

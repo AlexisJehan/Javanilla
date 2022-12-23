@@ -35,15 +35,17 @@ import java.io.Serializable;
  * methods.</p>
  * @param <U> the type of the unique element
  * @see Single
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tuple.SerializableSingle} instead
  * @since 1.1.0
  */
+@Deprecated(since = "1.8.0")
 public final class SerializableSingle<U extends Serializable> implements Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.1.0
 	 */
-	private static final long serialVersionUID = 4040327707639074966L;
+	private static final long serialVersionUID = 1158249110499712760L;
 
 	/**
 	 * <p>Unique {@link Serializable} element.</p>

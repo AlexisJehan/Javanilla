@@ -384,7 +384,6 @@ public final class Readers {
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static long length(final Reader reader) throws IOException {
 		Ensure.notNull("reader", reader);
 		return reader.transferTo(Writers.EMPTY);

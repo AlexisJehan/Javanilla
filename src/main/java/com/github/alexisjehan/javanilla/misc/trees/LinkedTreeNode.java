@@ -38,8 +38,10 @@ import java.util.stream.Collectors;
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <V> the value type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tree.LinkedTreeNode} instead
  * @since 1.2.0
  */
+@Deprecated(since = "1.8.0")
 public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	/**

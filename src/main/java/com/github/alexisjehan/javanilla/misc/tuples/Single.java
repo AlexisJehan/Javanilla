@@ -31,8 +31,10 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <U> the type of the unique element
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tuple.Single} instead
  * @since 1.1.0
  */
+@Deprecated(since = "1.8.0")
 public final class Single<U> {
 
 	/**

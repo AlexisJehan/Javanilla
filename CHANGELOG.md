@@ -16,15 +16,33 @@
 **io.lines**
 - Deprecated _CountLineReader_, _CountLineWriter_, _FilterLineReader_, _FilterLineWriter_, _LineReader_, _LineSeparator_, _LineWriter_, _RangeLineReader_ and _RangeLineWriter_ classes
 
+**lang.Strings**
+- Added _substringBefore(CharSequence, char)_, _substringBefore(CharSequence, CharSequence)_, _substringAfter(CharSequence, char)_ and _substringAfter(CharSequence, CharSequence)_
+
 **lang.array.IntArrays**
 - Added the _add(int[], int, int)_ method
 - Deprecated the _addTemporary(int[], int, int)_ method
 
-**lang.Strings**
-- Added _substringBefore(CharSequence, char)_, _substringBefore(CharSequence, CharSequence)_, _substringAfter(CharSequence, char)_ and _substringAfter(CharSequence, CharSequence)_
+**misc.distance**
+- Added _Distance_, _Distances_, _EditDistance_, _EditDistances_, _LevenshteinDistance_ and _MinkowskiDistance_ classes
+
+**misc.distances**
+- Deprecated _Distance_, _Distances_, _EditDistance_, _EditDistances_, _LevenshteinDistance_ and _MinkowskiDistance_ classes
 
 **misc.quality.Ensure**
 - Added _notNullAndNotNullKeys(String, Map)_, _notNullAndNotNullValues(String, Map)_ and _notNullAndNotNullKeysAndValues(String, Map)_
+
+**misc.tree**
+- Added _LinkedTreeNode_ and _TreeNode_ classes
+
+**misc.trees**
+- Deprecated _LinkedTreeNode_ and _TreeNode_ classes
+
+**misc.tuple**
+- Added _Pair_, _SerializablePair_, _SerializableSingle_, _SerializableTriple_, _Single_ and _Triple_ classes
+
+**misc.tuples**
+- Deprecated _Pair_, _SerializablePair_, _SerializableSingle_, _SerializableTriple_, _Single_ and _Triple_ classes
 
 ## 1.7.0 _(2022-05-17)_
 **lang.Strings**

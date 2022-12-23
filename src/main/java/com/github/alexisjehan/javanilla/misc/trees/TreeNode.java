@@ -38,8 +38,10 @@ import java.util.Queue;
  * children nodes and a value.</p>
  * @param <V> the value type
  * @see <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)">https://en.wikipedia.org/wiki/Tree_(data_structure)</a>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tree.TreeNode} instead
  * @since 1.2.0
  */
+@Deprecated(since = "1.8.0")
 public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 
 	/**

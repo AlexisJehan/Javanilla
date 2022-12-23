@@ -37,15 +37,17 @@ import java.io.Serializable;
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Minkowski_distance">https://en.wikipedia.org/wiki/Minkowski_distance</a>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.distance.MinkowskiDistance} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class MinkowskiDistance implements Distance, Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = -5597952283768712559L;
+	private static final long serialVersionUID = 5196415401667280648L;
 
 	/**
 	 * <p>Distance order.</p>

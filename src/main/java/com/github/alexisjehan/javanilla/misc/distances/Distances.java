@@ -27,8 +27,10 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>Commons vectors {@link Distance}s implementations.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.distance.Distances} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public enum Distances implements Distance {
 
 	/**

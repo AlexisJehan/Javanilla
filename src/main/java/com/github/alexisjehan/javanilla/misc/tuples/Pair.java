@@ -32,8 +32,10 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
  * methods.</p>
  * @param <F> the type of the first element
  * @param <S> the type of the second element
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tuple.Pair} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class Pair<F, S> {
 
 	/**

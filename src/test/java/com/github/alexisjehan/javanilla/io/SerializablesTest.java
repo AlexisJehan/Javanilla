@@ -23,8 +23,8 @@
  */
 package com.github.alexisjehan.javanilla.io;
 
-import com.github.alexisjehan.javanilla.misc.tuples.SerializablePair;
-import com.github.alexisjehan.javanilla.misc.tuples.Single;
+import com.github.alexisjehan.javanilla.misc.tuple.SerializablePair;
+import com.github.alexisjehan.javanilla.misc.tuple.Single;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;

@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
-import com.github.alexisjehan.javanilla.misc.tuples.Pair;
+import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 
 import java.io.Serializable;
 import java.math.RoundingMode;

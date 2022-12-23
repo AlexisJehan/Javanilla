@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.assertj.core.api.Assertions.offset;
 
+@SuppressWarnings("deprecation")
 final class MinkowskiDistanceTest {
 
 	private static final int ORDER = 1;

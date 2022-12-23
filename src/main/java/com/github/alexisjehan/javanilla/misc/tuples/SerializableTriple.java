@@ -37,15 +37,17 @@ import java.io.Serializable;
  * @param <S> the type of the second serializable element
  * @param <T> the type of the third serializable element
  * @see Triple
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tuple.SerializableTriple} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class SerializableTriple<F extends Serializable, S extends Serializable, T extends Serializable> implements Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 2388194722678709538L;
+	private static final long serialVersionUID = 469812744457274711L;
 
 	/**
 	 * <p>First {@link Serializable} element.</p>

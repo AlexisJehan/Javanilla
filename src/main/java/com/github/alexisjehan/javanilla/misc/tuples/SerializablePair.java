@@ -36,15 +36,17 @@ import java.io.Serializable;
  * @param <F> the type of the first serializable element
  * @param <S> the type of the second serializable element
  * @see Pair
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tuple.SerializablePair} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class SerializablePair<F extends Serializable, S extends Serializable> implements Serializable {
 
 	/**
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 8271847837522821498L;
+	private static final long serialVersionUID = 1163725921494406534L;
 
 	/**
 	 * <p>First {@link Serializable} element.</p>

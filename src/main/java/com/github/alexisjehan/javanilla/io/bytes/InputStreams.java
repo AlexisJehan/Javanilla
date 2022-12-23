@@ -299,7 +299,6 @@ public final class InputStreams {
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static long length(final InputStream inputStream) throws IOException {
 		Ensure.notNull("inputStream", inputStream);
 		return inputStream.transferTo(OutputStreams.EMPTY);

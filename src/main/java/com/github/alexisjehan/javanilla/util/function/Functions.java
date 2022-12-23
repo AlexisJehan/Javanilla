@@ -24,7 +24,7 @@
 package com.github.alexisjehan.javanilla.util.function;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
-import com.github.alexisjehan.javanilla.misc.tuples.Single;
+import com.github.alexisjehan.javanilla.misc.tuple.Single;
 
 import java.util.HashMap;
 import java.util.Map;

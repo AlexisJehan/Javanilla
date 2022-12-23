@@ -33,8 +33,10 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
  * @param <F> the type of the first element
  * @param <S> the type of the second element
  * @param <T> the type of the third element
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.tuple.Triple} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class Triple<F, S, T> {
 
 	/**

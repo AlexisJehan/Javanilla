@@ -37,8 +37,10 @@ import java.io.Serializable;
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.distance.LevenshteinDistance} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class LevenshteinDistance implements EditDistance, Serializable {
 
 	/**
@@ -51,7 +53,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 1468319669636701640L;
+	private static final long serialVersionUID = 6503020018033255166L;
 
 	/**
 	 * <p>Insertion cost.</p>

@@ -31,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class LevenshteinDistanceTest {
 
 	private static final double INSERTION_COST = 1.0d;

@@ -24,7 +24,7 @@
 package com.github.alexisjehan.javanilla.misc.quality;
 
 import com.github.alexisjehan.javanilla.lang.Strings;
-import com.github.alexisjehan.javanilla.misc.tuples.Pair;
+import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 
 import java.util.Objects;
 
@@ -391,7 +391,46 @@ public final class ToString {
 	 * @return the created {@link String} representation
 	 * @throws NullPointerException if the {@link Object} or the {@link String} representation array or any of them is
 	 *         {@code null}
+	 * @deprecated since 1.8.0, use {@link #of(Object, Pair[])} instead
 	 * @since 1.3.0
+	 */
+	@SafeVarargs
+	@SuppressWarnings("varargs")
+	@Deprecated(since = "1.8.0")
+	public static String of(final Object object, final com.github.alexisjehan.javanilla.misc.tuples.Pair<String, String>... toStrings) {
+		Ensure.notNull("object", object);
+		Ensure.notNullAndNotNullElements("toStrings", toStrings);
+		final var builder = new StringBuilder();
+		final var classType = object.getClass();
+		builder.append(classType.getName().substring(classType.getPackageName().length() + 1));
+		if (0 < toStrings.length) {
+			builder.append('{')
+					.append(toStrings[0].getFirst())
+					.append('=')
+					.append(toStrings[0].getSecond());
+			for (var i = 1; i < toStrings.length; ++i) {
+				builder.append(", ")
+						.append(toStrings[i].getFirst())
+						.append('=')
+						.append(toStrings[i].getSecond());
+			}
+			builder.append('}');
+		} else {
+			builder.append('@')
+					.append(object.hashCode());
+		}
+		return builder.toString();
+	}
+
+	/**
+	 * <p>Create a {@link String} representing an {@link Object} and its attributes if any.</p>
+	 * @param object the {@link Object}
+	 * @param toStrings the {@link String} representation array with an attribute name and its {@link String}
+	 *        representation
+	 * @return the created {@link String} representation
+	 * @throws NullPointerException if the {@link Object} or the {@link String} representation array or any of them is
+	 *         {@code null}
+	 * @since 1.8.0
 	 */
 	@SafeVarargs
 	@SuppressWarnings("varargs")

@@ -27,8 +27,10 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>Commons {@link EditDistance}s implementations.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.distance.EditDistances} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public enum EditDistances implements EditDistance {
 
 	/**

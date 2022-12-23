@@ -25,7 +25,7 @@ package com.github.alexisjehan.javanilla.util.function;
 
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
-import com.github.alexisjehan.javanilla.misc.tuples.Single;
+import com.github.alexisjehan.javanilla.misc.tuple.Single;
 
 import java.time.Clock;
 import java.time.Duration;
