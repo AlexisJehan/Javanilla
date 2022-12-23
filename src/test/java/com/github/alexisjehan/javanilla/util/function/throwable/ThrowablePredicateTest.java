@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class ThrowablePredicateTest {
 
 	@Test

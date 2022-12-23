@@ -32,9 +32,11 @@ import java.util.function.Function;
  * <p>Interface for a {@link Function} that is {@link Serializable}.</p>
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableFunction} instead
  * @since 1.4.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableFunction<T, R> extends Function<T, R>, Serializable {
 
 	/**

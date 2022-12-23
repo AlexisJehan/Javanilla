@@ -28,16 +28,16 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import com.github.alexisjehan.javanilla.misc.quality.ToString;
 import com.github.alexisjehan.javanilla.misc.tuples.Pair;
 
-import java.util.Iterator;
-
 /**
- * <p>An element from an {@link Iterator} returned by {@link Iterables#index(Iterable)} or
- * {@link Iterators#index(Iterator)} which is associated to an index.</p>
+ * <p>An element from an {@link java.util.Iterator} returned by {@link Iterables#index(Iterable)} or
+ * {@link Iterators#index(java.util.Iterator)} which is associated to an index.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <E> the element type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.IndexedElement} instead
  * @since 1.2.0
  */
+@Deprecated(since = "1.8.0")
 public final class IndexedElement<E> {
 
 	/**

@@ -30,9 +30,11 @@ import java.io.Serializable;
 
 /**
  * <p>Interface for a {@link Procedure} that is {@link Serializable}.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableProcedure} instead
  * @since 1.7.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableProcedure extends Procedure, Serializable {
 
 	/**

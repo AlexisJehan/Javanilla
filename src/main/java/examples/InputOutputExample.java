@@ -26,7 +26,7 @@ package examples;
 import com.github.alexisjehan.javanilla.io.InputStreams;
 import com.github.alexisjehan.javanilla.io.OutputStreams;
 import com.github.alexisjehan.javanilla.io.RangeOutputStream;
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.util.Iterables;
 
 import java.io.IOException;
 

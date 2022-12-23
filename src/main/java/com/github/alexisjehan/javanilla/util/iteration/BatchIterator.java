@@ -33,8 +33,10 @@ import java.util.NoSuchElementException;
 /**
  * <p>An {@link Iterator} decorator that returns elements in batch from the current position.</p>
  * @param <E> the element type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.BatchIterator} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class BatchIterator<E> implements Iterator<List<E>> {
 
 	/**

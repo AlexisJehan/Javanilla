@@ -31,9 +31,11 @@ import internal.ExcludeFromJacocoGeneratedReport;
 /**
  * <p>Interface for a {@link Procedure} that may throw a {@link Throwable}.</p>
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableProcedure} instead
  * @since 1.7.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableProcedure<X extends Throwable> {
 
 	/**

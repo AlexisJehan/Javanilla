@@ -40,6 +40,7 @@ import java.util.stream.LongStream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class PrimitiveIterableTest {
 
 	private static final int[] INT_ELEMENTS = IntArrays.of(1, 2, 3);

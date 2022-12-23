@@ -31,9 +31,11 @@ import java.util.function.Consumer;
 /**
  * <p>Interface for a {@link Consumer} that is {@link Serializable}.</p>
  * @param <T> the type of the input to the operation
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableConsumer} instead
  * @since 1.4.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 
 	/**

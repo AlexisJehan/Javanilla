@@ -36,8 +36,10 @@ import java.util.function.LongConsumer;
  * <p><b>Note</b>: This class is in continuation of {@link PrimitiveIterator}.</p>
  * @param <T> the type of elements returned by the provided PrimitiveIterator
  * @param <C> the type of primitive consumer
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.PrimitiveIterable} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**

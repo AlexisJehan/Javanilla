@@ -23,8 +23,8 @@
  */
 package com.github.alexisjehan.javanilla.misc.quality;
 
-import com.github.alexisjehan.javanilla.io.bytes.InputStreams;
-import com.github.alexisjehan.javanilla.io.chars.Readers;
+import com.github.alexisjehan.javanilla.io.InputStreams;
+import com.github.alexisjehan.javanilla.io.Readers;
 import com.github.alexisjehan.javanilla.lang.Strings;
 import com.github.alexisjehan.javanilla.lang.array.BooleanArrays;
 import com.github.alexisjehan.javanilla.lang.array.ByteArrays;
@@ -35,9 +35,9 @@ import com.github.alexisjehan.javanilla.lang.array.IntArrays;
 import com.github.alexisjehan.javanilla.lang.array.LongArrays;
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import com.github.alexisjehan.javanilla.lang.array.ShortArrays;
-import com.github.alexisjehan.javanilla.util.collection.bags.Bags;
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
-import com.github.alexisjehan.javanilla.util.iteration.Iterators;
+import com.github.alexisjehan.javanilla.util.bag.Bags;
+import com.github.alexisjehan.javanilla.util.Iterables;
+import com.github.alexisjehan.javanilla.util.Iterators;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -231,6 +231,16 @@ final class EnsureTest {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
+	void testNotNullAndNotEmptyBagLegacy() {
+		final var bag = com.github.alexisjehan.javanilla.util.collection.bags.Bags.singleton("foo", 1);
+		assertThat(Ensure.notNullAndNotEmpty("bag", bag)).isSameAs(bag);
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> Ensure.notNullAndNotEmpty("bag", com.github.alexisjehan.javanilla.util.collection.bags.Bags.empty()))
+				.withMessage("Invalid bag: {} (not empty expected)");
+	}
+
+	@Test
 	void testNotNullAndNotEmptyBag() {
 		final var bag = Bags.singleton("foo", 1);
 		assertThat(Ensure.notNullAndNotEmpty("bag", bag)).isSameAs(bag);
@@ -273,7 +283,6 @@ final class EnsureTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNotNullAndMarkSupportedInputStream() {
 		final var inputStream = InputStreams.buffered(InputStreams.EMPTY);
 		assertThat(Ensure.notNullAndMarkSupported("inputStream", inputStream)).isSameAs(inputStream);
@@ -283,7 +292,6 @@ final class EnsureTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testNotNullAndMarkSupportedReader() {
 		final var reader = Readers.buffered(Readers.EMPTY);
 		assertThat(Ensure.notNullAndMarkSupported("reader", reader)).isSameAs(reader);

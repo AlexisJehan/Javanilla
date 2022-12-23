@@ -26,18 +26,19 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import com.github.alexisjehan.javanilla.util.NullableOptional;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * <p>A {@link Bag} also known as a multiset is a collection that associates a quantity to each distinct element. It
  * could be use for structures such as histograms or occurrence vectors.</p>
- * <p><b>Note</b>: {@link Bag} does not extend the {@link Collection} interface for API design reasons.</p>
+ * <p><b>Note</b>: {@link Bag} does not extend the {@link java.util.Collection} interface for API design reasons.</p>
  * @param <E> the element type
  * @see <a href="https://en.wikipedia.org/wiki/Multiset">https://en.wikipedia.org/wiki/Multiset</a>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.bag.Bag} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public interface Bag<E> {
 
 	/**

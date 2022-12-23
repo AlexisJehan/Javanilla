@@ -32,9 +32,11 @@ import java.util.function.BiConsumer;
  * <p>Interface for a {@link BiConsumer} that is {@link Serializable}.</p>
  * @param <T> the type of the first argument to the operation
  * @param <U> the type of the second argument to the operation
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableBiConsumer} instead
  * @since 1.4.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableBiConsumer<T, U> extends BiConsumer<T, U>, Serializable {
 
 	/**

@@ -52,6 +52,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class IterablesTest {
 
 	private static final int[] INT_ELEMENTS = IntArrays.of(1, 2, 3);
@@ -355,7 +356,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testSingletonIntLegacy() {
 		final var iterable = Iterables.singletonInt(INT_ELEMENTS[0]);
 		for (var i = 0; i < 2; ++i) {
@@ -372,7 +372,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testSingletonLongLegacy() {
 		final var iterable = Iterables.singletonLong(LONG_ELEMENTS[0]);
 		for (var i = 0; i < 2; ++i) {
@@ -389,7 +388,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testSingletonDoubleLegacy() {
 		final var iterable = Iterables.singletonDouble(DOUBLE_ELEMENTS[0]);
 		for (var i = 0; i < 2; ++i) {
@@ -414,7 +412,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfInt() {
 		assertThat(Iterables.ofInt()).isEmpty();
 		final var iterable = Iterables.ofInt(INT_ELEMENTS);
@@ -424,7 +421,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.ofInt((int[]) null));
 	}
@@ -444,7 +440,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfLong() {
 		assertThat(Iterables.ofLong()).isEmpty();
 		final var iterable = Iterables.ofLong(LONG_ELEMENTS);
@@ -454,7 +449,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.ofLong((long[]) null));
 	}
@@ -474,7 +468,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfDouble() {
 		assertThat(Iterables.ofDouble()).isEmpty();
 		final var iterable = Iterables.ofDouble(DOUBLE_ELEMENTS);
@@ -484,7 +477,6 @@ final class IterablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterables.ofDouble((double[]) null));
 	}

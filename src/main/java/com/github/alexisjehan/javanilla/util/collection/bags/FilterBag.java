@@ -34,8 +34,10 @@ import java.util.Set;
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <E> the element type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.bag.FilterBag} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public abstract class FilterBag<E> implements Bag<E> {
 
 	/**

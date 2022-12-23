@@ -36,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class SetsTest {
 
 	private static final Integer[] ELEMENTS = ObjectArrays.of(1, 2, 3);
@@ -93,7 +94,6 @@ final class SetsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testUnion() {
 		assertThat(Sets.union()).isEmpty();
 		assertThat(Sets.union(Set.of(ELEMENTS[0]))).containsExactlyInAnyOrder(ELEMENTS[0]);
@@ -102,7 +102,6 @@ final class SetsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testUnionInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Sets.union((Set<Integer>) null));

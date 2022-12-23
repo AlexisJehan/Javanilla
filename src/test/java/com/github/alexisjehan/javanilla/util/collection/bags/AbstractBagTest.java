@@ -30,6 +30,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
+@SuppressWarnings("deprecation")
 abstract class AbstractBagTest {
 
 	abstract <E> Bag<E> newBag();

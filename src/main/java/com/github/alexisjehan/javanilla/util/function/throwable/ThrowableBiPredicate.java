@@ -34,9 +34,11 @@ import java.util.function.BiPredicate;
  * @param <T> the type of the first argument to the predicate
  * @param <U> the type of the second argument the predicate
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableBiPredicate} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 
 	/**

@@ -30,6 +30,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
+@SuppressWarnings("deprecation")
 final class LimitedBagTest extends AbstractBagTest {
 
 	private static final List<String> COLLECTION = List.of("foo", "bar");

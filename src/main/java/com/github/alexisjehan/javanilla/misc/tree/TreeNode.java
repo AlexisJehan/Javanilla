@@ -23,7 +23,7 @@
  */
 package com.github.alexisjehan.javanilla.misc.tree;
 
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
+import com.github.alexisjehan.javanilla.util.Iterables;
 
 import java.util.Deque;
 import java.util.Iterator;

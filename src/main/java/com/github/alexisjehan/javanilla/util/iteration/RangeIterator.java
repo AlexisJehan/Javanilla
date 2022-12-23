@@ -32,8 +32,10 @@ import java.util.NoSuchElementException;
  * <p>An {@link Iterator} decorator that iterates only elements within a range from the current position.</p>
  * <p><b>Note</b>: A removed element is still considered in the index.</p>
  * @param <E> the element type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.RangeIterator} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class RangeIterator<E> extends FilterIterator<E> {
 
 	/**

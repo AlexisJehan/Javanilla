@@ -33,8 +33,10 @@ import java.util.SortedMap;
 
 /**
  * <p>An utility class that provides {@link Map} tools.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.Maps} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class Maps {
 
 	/**

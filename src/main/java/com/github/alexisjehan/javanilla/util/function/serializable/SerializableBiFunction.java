@@ -34,9 +34,11 @@ import java.util.function.Function;
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
  * @param <R> the type of the result of the function
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableBiFunction} instead
  * @since 1.4.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableBiFunction<T, U, R> extends BiFunction<T, U, R>, Serializable {
 
 	/**

@@ -34,9 +34,9 @@ import com.github.alexisjehan.javanilla.lang.array.IntArrays;
 import com.github.alexisjehan.javanilla.lang.array.LongArrays;
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import com.github.alexisjehan.javanilla.lang.array.ShortArrays;
-import com.github.alexisjehan.javanilla.util.collection.bags.Bag;
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
-import com.github.alexisjehan.javanilla.util.iteration.Iterators;
+import com.github.alexisjehan.javanilla.util.bag.Bag;
+import com.github.alexisjehan.javanilla.util.Iterables;
+import com.github.alexisjehan.javanilla.util.Iterators;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -379,6 +379,29 @@ public final class Ensure {
 	}
 
 	/**
+	 * <p>Ensure the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} is not {@code null} and not
+	 * empty.</p>
+	 * @param name the name of the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag}
+	 * @param bag the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} to validate
+	 * @param <B> the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} type
+	 * @return the validated {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag}
+	 * @throws NullPointerException if the name or the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag}
+	 *         is {@code null}
+	 * @throws IllegalArgumentException if the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} is
+	 *         empty
+	 * @deprecated since 1.8.0, use {@link #notNullAndNotEmpty(String, Bag)} instead
+	 * @since 1.3.0
+	 */
+	@Deprecated(since = "1.8.0")
+	public static <B extends com.github.alexisjehan.javanilla.util.collection.bags.Bag<?>> B notNullAndNotEmpty(final String name, final B bag) {
+		notNull(name, bag);
+		if (bag.isEmpty()) {
+			throw new IllegalArgumentException("Invalid " + name + ": " + ToString.toString(bag) + " (not empty expected)");
+		}
+		return bag;
+	}
+
+	/**
 	 * <p>Ensure the {@link Bag} is not {@code null} and not empty.</p>
 	 * @param name the name of the {@link Bag}
 	 * @param bag the {@link Bag} to validate
@@ -386,7 +409,7 @@ public final class Ensure {
 	 * @return the validated {@link Bag}
 	 * @throws NullPointerException if the name or the {@link Bag} is {@code null}
 	 * @throws IllegalArgumentException if the {@link Bag} is empty
-	 * @since 1.3.0
+	 * @since 1.8.0
 	 */
 	public static <B extends Bag<?>> B notNullAndNotEmpty(final String name, final B bag) {
 		notNull(name, bag);

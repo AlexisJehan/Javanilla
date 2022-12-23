@@ -34,9 +34,11 @@ import java.util.function.Predicate;
  * <p>Interface for a {@link Predicate} that may throw a {@link Throwable}.</p>
  * @param <T> the type of the input to the predicate
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowablePredicate} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowablePredicate<T, X extends Throwable> {
 
 	/**

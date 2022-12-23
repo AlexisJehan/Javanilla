@@ -31,6 +31,7 @@ import java.util.function.BiPredicate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class SerializableBiPredicateTest {
 
 	@Test

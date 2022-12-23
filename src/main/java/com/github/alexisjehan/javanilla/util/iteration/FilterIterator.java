@@ -31,8 +31,10 @@ import java.util.NoSuchElementException;
 /**
  * <p>An abstract {@link Iterator} filter to create decorators from the current position.</p>
  * @param <E> the element type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.FilterIterator} instead
  * @since 1.2.0
  */
+@Deprecated(since = "1.8.0")
 public abstract class FilterIterator<E> implements Iterator<E> {
 
 	/**

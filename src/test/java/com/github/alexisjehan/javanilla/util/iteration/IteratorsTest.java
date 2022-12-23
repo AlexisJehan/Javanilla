@@ -55,6 +55,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class IteratorsTest {
 
 	private static final int[] INT_ELEMENTS = IntArrays.of(1, 2, 3);
@@ -401,7 +402,6 @@ final class IteratorsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testSingletonIntLegacy() {
 		assertThat(Iterators.singletonInt(INT_ELEMENTS[0])).toIterable().containsExactly(INT_ELEMENTS[0]);
 	}
@@ -412,7 +412,6 @@ final class IteratorsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testSingletonLongLegacy() {
 		assertThat(Iterators.singletonLong(LONG_ELEMENTS[0])).toIterable().containsExactly(LONG_ELEMENTS[0]);
 	}
@@ -423,7 +422,6 @@ final class IteratorsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testSingletonDoubleLegacy() {
 		assertThat(Iterators.singletonDouble(DOUBLE_ELEMENTS[0])).toIterable().containsExactly(DOUBLE_ELEMENTS[0]);
 	}
@@ -439,14 +437,12 @@ final class IteratorsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfInt() {
 		assertThat(Iterators.ofInt()).toIterable().isEmpty();
 		assertThat(Iterators.ofInt(INT_ELEMENTS)).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofInt((int[]) null));
 	}
@@ -463,14 +459,12 @@ final class IteratorsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfLong() {
 		assertThat(Iterators.ofLong()).toIterable().isEmpty();
 		assertThat(Iterators.ofLong(LONG_ELEMENTS)).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofLong((long[]) null));
 	}
@@ -487,14 +481,12 @@ final class IteratorsTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfDouble() {
 		assertThat(Iterators.ofDouble()).toIterable().isEmpty();
 		assertThat(Iterators.ofDouble(DOUBLE_ELEMENTS)).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
 	void testOfDoubleInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Iterators.ofDouble((double[]) null));
 	}

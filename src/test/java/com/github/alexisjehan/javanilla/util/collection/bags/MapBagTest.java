@@ -35,6 +35,7 @@ import java.util.function.Supplier;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+@SuppressWarnings("deprecation")
 final class MapBagTest extends AbstractBagTest {
 
 	private static final List<String> COLLECTION = List.of("foo", "bar");

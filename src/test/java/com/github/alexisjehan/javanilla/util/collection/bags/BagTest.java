@@ -28,6 +28,7 @@ import com.github.alexisjehan.javanilla.util.NullableOptional;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings("deprecation")
 final class BagTest extends AbstractBagTest {
 
 	@Override

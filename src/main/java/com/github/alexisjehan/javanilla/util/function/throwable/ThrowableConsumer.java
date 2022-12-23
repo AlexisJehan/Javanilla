@@ -33,9 +33,11 @@ import java.util.function.Consumer;
  * <p>Interface for a {@link Consumer} that may throw a {@link Throwable}.</p>
  * @param <T> the type of the input to the operation
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableConsumer} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableConsumer<T, X extends Throwable> {
 
 	/**

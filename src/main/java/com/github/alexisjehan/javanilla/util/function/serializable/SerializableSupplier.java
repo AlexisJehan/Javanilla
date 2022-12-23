@@ -31,9 +31,11 @@ import java.util.function.Supplier;
 /**
  * <p>Interface for a {@link Supplier} that is {@link Serializable}.</p>
  * @param <T> the type of results supplied by this supplier
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableSupplier} instead
  * @since 1.4.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableSupplier<T> extends Supplier<T>, Serializable {
 
 	/**

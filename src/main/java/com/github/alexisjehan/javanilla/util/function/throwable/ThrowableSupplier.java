@@ -33,9 +33,11 @@ import java.util.function.Supplier;
  * <p>Interface for a {@link Supplier} that may throw a {@link Throwable}.</p>
  * @param <T> the type of results supplied by this supplier
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableSupplier} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableSupplier<T, X extends Throwable> {
 
 	/**

@@ -32,9 +32,11 @@ import java.util.function.BiPredicate;
  * <p>Interface for a {@link BiPredicate} that is {@link Serializable}.</p>
  * @param <T> the type of the first argument to the predicate
  * @param <U> the type of the second argument the predicate
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableBiPredicate} instead
  * @since 1.4.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serializable {
 
 	/**

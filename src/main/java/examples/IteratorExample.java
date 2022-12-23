@@ -23,10 +23,10 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.util.iteration.BatchIterator;
-import com.github.alexisjehan.javanilla.util.iteration.CountIterator;
-import com.github.alexisjehan.javanilla.util.iteration.Iterables;
-import com.github.alexisjehan.javanilla.util.iteration.Iterators;
+import com.github.alexisjehan.javanilla.util.BatchIterator;
+import com.github.alexisjehan.javanilla.util.CountIterator;
+import com.github.alexisjehan.javanilla.util.Iterables;
+import com.github.alexisjehan.javanilla.util.Iterators;
 
 public final class IteratorExample {
 

@@ -35,9 +35,11 @@ import java.util.function.BiFunction;
  * @param <U> the type of the second argument to the function
  * @param <R> the type of the result of the function
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableBiFunction} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 
 	/**

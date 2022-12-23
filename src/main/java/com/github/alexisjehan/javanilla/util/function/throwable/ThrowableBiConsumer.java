@@ -34,9 +34,11 @@ import java.util.function.BiConsumer;
  * @param <T> the type of the first argument to the operation
  * @param <U> the type of the second argument to the operation
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableBiConsumer} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 
 	/**

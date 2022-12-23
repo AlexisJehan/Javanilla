@@ -30,8 +30,10 @@ import java.util.NoSuchElementException;
  * <p>An {@link Iterator} whose next element is prepared when the last one is returned. The end is reached when the next
  * element is not valid based on {@link #isValid(Object)}.</p>
  * @param <E> the element type
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.PreparedIterator} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public abstract class PreparedIterator<E> implements Iterator<E> {
 
 	/**

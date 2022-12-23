@@ -44,6 +44,30 @@
 **misc.tuples**
 - Deprecated _Pair_, _SerializablePair_, _SerializableSingle_, _SerializableTriple_, _Single_ and _Triple_ classes
 
+**util.bag**
+- Added _BatchIterator_, _CountIterator_, _FilterIterator_, _IndexedElement_, _Iterables_, _Iterators_, _Lists_, _Maps_, _PreparedIterator_, _PrimitiveIterable_, _RangeIterator_ and _Sets_ classes
+
+**util.bag**
+- Added _Bag_, _Bags_, _FilterBag_, _LimitedBag_ and _MapBag_ classes
+
+**util.collection**
+- Deprecated _Lists_, _Maps_ and _Sets_ classes
+
+**util.collection.bags**
+- Deprecated _Bag_, _Bags_, _FilterBag_, _LimitedBag_ and _MapBag_ classes
+
+**util.function**
+- Added _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_, _SerializableFunction_, _SerializablePredicate_, _SerializableProcedure_, _SerializableSupplier_, _ThrowableBiConsumer_, _ThrowableBiFunction_, _ThrowableBiPredicate_, _ThrowableConsumer_, _ThrowableFunction_, _ThrowablePredicate_, _ThrowableProcedure_ and _ThrowableSupplier_ classes
+
+**util.function.serializable**
+- Deprecated _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_, _SerializableFunction_, _SerializablePredicate_, _SerializableProcedure_ and _SerializableSupplier_ classes
+
+**util.function.throwable**
+- Deprecated _ThrowableBiConsumer_, _ThrowableBiFunction_, _ThrowableBiPredicate_, _ThrowableConsumer_, _ThrowableFunction_, _ThrowablePredicate_, _ThrowableProcedure_ and _ThrowableSupplier_ classes
+
+**util.iteration**
+- Deprecated _BatchIterator_, _CountIterator_, _FilterIterator_, _IndexedElement_, _Iterables_, _Iterators_, _PreparedIterator_, _PrimitiveIterable_ and _RangeIterator_ classes
+
 ## 1.7.0 _(2022-05-17)_
 **lang.Strings**
 - Added _removeStartIgnoreCase(CharSequence, char)_, _removeEndIgnoreCase(CharSequence, char)_, _contains(CharSequence, char)_, _containsIgnoreCase(CharSequence, char)_, _startsWith(CharSequence, char)_, _startsWithIgnoreCase(CharSequence, char)_, _endsWith(CharSequence, char)_ and _endsWithIgnoreCase(CharSequence, char)_

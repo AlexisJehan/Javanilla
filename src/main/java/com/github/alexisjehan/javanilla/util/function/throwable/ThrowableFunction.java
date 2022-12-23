@@ -34,9 +34,11 @@ import java.util.function.Function;
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
  * @param <X> the type of the {@link Throwable}
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableFunction} instead
  * @since 1.0.0
  */
 @FunctionalInterface
+@Deprecated(since = "1.8.0")
 public interface ThrowableFunction<T, R, X extends Throwable> {
 
 	/**

@@ -36,8 +36,10 @@ import java.util.SortedSet;
 
 /**
  * <p>An utility class that provides {@link Set} tools.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.Sets} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class Sets {
 
 	/**

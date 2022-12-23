@@ -52,8 +52,10 @@ import java.util.function.Supplier;
 
 /**
  * <p>An utility class that provides {@link Iterator} and {@link PrimitiveIterator} tools.</p>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.Iterators} instead
  * @since 1.0.0
  */
+@Deprecated(since = "1.8.0")
 public final class Iterators {
 
 	/**
@@ -1033,7 +1035,6 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream toInputStream(final Iterator<Integer> iterator) {
 		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {
@@ -1061,7 +1062,6 @@ public final class Iterators {
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("deprecation")
 	public static Reader toReader(final Iterator<Integer> iterator) {
 		Ensure.notNull("iterator", iterator);
 		if (!iterator.hasNext()) {

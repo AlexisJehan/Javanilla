@@ -23,7 +23,7 @@
  */
 package examples;
 
-import com.github.alexisjehan.javanilla.util.collection.bags.MapBag;
+import com.github.alexisjehan.javanilla.util.bag.MapBag;
 
 public final class BagExample {
 
