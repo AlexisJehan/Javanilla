@@ -24,18 +24,18 @@
 package com.github.alexisjehan.javanilla.crypto;
 
 import javax.crypto.Mac;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * <p>A {@link Mac} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs} instead
- * @since 1.1.0
+ * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/crypto/Mac.html">https://docs.oracle.com/javase/10/docs/api/javax/crypto/Mac.html</a>
+ * @since 1.6.0
  */
-@Deprecated(since = "1.6.0")
 public final class StandardMacs {
 
 	/**
 	 * <p>Constructor not available.</p>
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
 	private StandardMacs() {
 		// Not available
@@ -44,33 +44,41 @@ public final class StandardMacs {
 	/**
 	 * <p>Get a new "HmacMD5" {@link Mac} instance.</p>
 	 * @return a "HmacMD5" {@link Mac} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacMd5Instance()} instead
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Mac getHmacMd5Instance() {
-		return com.github.alexisjehan.javanilla.standard.crypto.StandardMacs.getHmacMd5Instance();
+		return getInstance("HmacMD5");
 	}
 
 	/**
 	 * <p>Get a new "HmacSHA1" {@link Mac} instance.</p>
 	 * @return a "HmacSHA1" {@link Mac} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacSha1Instance()} instead
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Mac getHmacSha1Instance() {
-		return com.github.alexisjehan.javanilla.standard.crypto.StandardMacs.getHmacSha1Instance();
+		return getInstance("HmacSHA1");
 	}
 
 	/**
 	 * <p>Get a new "HmacSHA256" {@link Mac} instance.</p>
 	 * @return a "HmacSHA256" {@link Mac} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.crypto.StandardMacs#getHmacSha256Instance()} instead
-	 * @since 1.1.0
+	 * @since 1.6.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Mac getHmacSha256Instance() {
-		return com.github.alexisjehan.javanilla.standard.crypto.StandardMacs.getHmacSha256Instance();
+		return getInstance("HmacSHA256");
+	}
+
+	/**
+	 * <p>Get a new {@link Mac} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * @param algorithm the {@link Mac} algorithm
+	 * @return a {@link Mac} instance of the provided algorithm
+	 * @since 1.6.0
+	 */
+	private static Mac getInstance(final String algorithm) {
+		try {
+			return Mac.getInstance(algorithm);
+		} catch (final NoSuchAlgorithmException e) {
+			throw new AssertionError(e);
+		}
 	}
 }

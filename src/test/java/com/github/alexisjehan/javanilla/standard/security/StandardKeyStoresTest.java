@@ -31,6 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@SuppressWarnings("deprecation")
 final class StandardKeyStoresTest {
 
 	@Test

@@ -25,9 +25,12 @@ package com.github.alexisjehan.javanilla.crypto;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
 
-@SuppressWarnings("deprecation")
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 final class StandardMacsTest {
 
 	@Test
@@ -43,5 +46,15 @@ final class StandardMacsTest {
 	@Test
 	void testGetHmacSha256Instance() {
 		assertThat(StandardMacs.getHmacSha256Instance().getAlgorithm()).isEqualTo("HmacSHA256");
+	}
+
+	@Test
+	void testGetInstanceUnreachable() throws NoSuchMethodException {
+		final var method = StandardMacs.class.getDeclaredMethod("getInstance", String.class);
+		method.setAccessible(true);
+		assertThatExceptionOfType(InvocationTargetException.class)
+				.isThrownBy(() -> method.invoke(null, "?"))
+				.withCauseExactlyInstanceOf(AssertionError.class)
+				.withRootCauseExactlyInstanceOf(NoSuchAlgorithmException.class);
 	}
 }

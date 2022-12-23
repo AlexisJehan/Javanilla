@@ -1,6 +1,9 @@
 # Changelog
 
 ## 1.8.0 _(in progress)_
+**crypto**
+- Added _StandardKeyAgreements_, _StandardKeyGenerators_ and _StandardSecretKeyFactories_ classes
+
 **io**
 - Added _CountInputStream_, _CountOutputStream_, _CountReader_, _CountWriter_, _InputStreams_, _OutputStreams_, _RangeInputStream_, _RangeOutputStream_, _RangeReader_, _RangeWriter_, _Readers_ and _Writers_ classes
 
@@ -43,6 +46,15 @@
 
 **misc.tuples**
 - Deprecated _Pair_, _SerializablePair_, _SerializableSingle_, _SerializableTriple_, _Single_ and _Triple_ classes
+
+- **net.ssl**
+- Added _StandardSslContexts_ and _StandardTrustManagerFactories_ classes
+
+- **security**
+- Added _StandardAlgorithmParameterGenerators_, _StandardAlgorithmParameters_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _StandardSignatures_ classes
+
+- **security.cert**
+- Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and _StandardCertStores_ classes
 
 **util.bag**
 - Added _BatchIterator_, _CountIterator_, _FilterIterator_, _IndexedElement_, _Iterables_, _Iterators_, _Lists_, _Maps_, _PreparedIterator_, _PrimitiveIterable_, _RangeIterator_ and _Sets_ classes

@@ -29,8 +29,10 @@ import java.security.KeyStoreException;
 /**
  * <p>A {@link KeyStore} factory to get standard instances without throwing checked exceptions.</p>
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/KeyStore.html">https://docs.oracle.com/javase/10/docs/api/java/security/KeyStore.html</a>
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.security.StandardKeyStores} instead
  * @since 1.6.0
  */
+@Deprecated(since = "1.8.0")
 public final class StandardKeyStores {
 
 	/**

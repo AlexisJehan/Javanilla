@@ -33,6 +33,7 @@ import java.security.cert.CollectionCertStoreParameters;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@SuppressWarnings("deprecation")
 final class StandardCertStoresTest {
 
 	@Test
