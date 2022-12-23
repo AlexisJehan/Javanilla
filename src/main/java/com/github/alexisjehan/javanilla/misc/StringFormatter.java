@@ -115,7 +115,7 @@ public final class StringFormatter implements Serializable {
 	 * <p>Serial version unique ID.</p>
 	 * @since 1.0.0
 	 */
-	private static final long serialVersionUID = 5166986914751010839L;
+	private static final long serialVersionUID = -908532502532051210L;
 
 	/**
 	 * <p>{@link Locale} instance.</p>

@@ -34,9 +34,9 @@ import com.github.alexisjehan.javanilla.lang.array.IntArrays;
 import com.github.alexisjehan.javanilla.lang.array.LongArrays;
 import com.github.alexisjehan.javanilla.lang.array.ObjectArrays;
 import com.github.alexisjehan.javanilla.lang.array.ShortArrays;
-import com.github.alexisjehan.javanilla.util.bag.Bag;
 import com.github.alexisjehan.javanilla.util.Iterables;
 import com.github.alexisjehan.javanilla.util.Iterators;
+import com.github.alexisjehan.javanilla.util.bag.Bag;
 
 import java.io.InputStream;
 import java.io.Reader;

@@ -533,9 +533,9 @@ public final class ByteArrays {
 	 * <p>Shuffle values in the given {@code byte} array following the Fisher-Yates algorithm.</p>
 	 * @param array the {@code byte} array to shuffle
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
+	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @deprecated since 1.6.0, for security purposes, use {@link #shuffle(byte[], Random)} with
 	 *             {@link java.security.SecureRandom} instead
-	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
 	 * @since 1.2.0
 	 */
 	@Deprecated(since = "1.6.0")
