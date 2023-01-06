@@ -99,7 +99,7 @@ final class IntArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddTemporary() {
 		assertThat(IntArrays.addTemporary(IntArrays.of(1, 2, 3), 0, 0)).containsExactly(0, 1, 2, 3);
 		assertThat(IntArrays.addTemporary(IntArrays.of(1, 2, 3), 0, 1)).containsExactly(1, 0, 2, 3);
@@ -108,7 +108,7 @@ final class IntArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddTemporaryInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> IntArrays.addTemporary(null, 0, 0));
 		assertThatIllegalArgumentException().isThrownBy(() -> IntArrays.addTemporary(IntArrays.of(VALUES), 0, -1));
@@ -328,7 +328,7 @@ final class IntArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(IntArrays.singleton(1)).satisfies(array -> {
 			IntArrays.shuffle(array);
@@ -337,17 +337,17 @@ final class IntArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> IntArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(IntArrays.of(1, 2, 1, 2)).satisfies(array -> {
 			IntArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder(1, 2, 1, 2);
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> IntArrays.shuffle(null));
 	}
 
 	@Test

@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 final class LineSeparatorTest {
 
 	@Test

@@ -81,12 +81,20 @@ final class CharArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddLegacy() {
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 0, '-')).containsExactly('-', 'a', 'b', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 1, '-')).containsExactly('a', '-', 'b', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 2, '-')).containsExactly('a', 'b', '-', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), 3, '-')).containsExactly('a', 'b', 'c', '-');
+	}
+
+	@Test
+	@Deprecated
+	void testAddLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), -1, '-'));
+		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), 3, '-'));
 	}
 
 	@Test
@@ -97,14 +105,6 @@ final class CharArraysTest {
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-', 2)).containsExactly('a', 'b', '-', 'c');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-', 3)).containsExactly('a', 'b', 'c', '-');
 		assertThat(CharArrays.add(CharArrays.of('a', 'b', 'c'), '-')).containsExactly('a', 'b', 'c', '-');
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testAddInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.add(null, 0, '-'));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), -1, '-'));
-		assertThatIllegalArgumentException().isThrownBy(() -> CharArrays.add(CharArrays.of(VALUES), 3, '-'));
 	}
 
 	@Test
@@ -328,7 +328,7 @@ final class CharArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(CharArrays.singleton('a')).satisfies(array -> {
 			CharArrays.shuffle(array);
@@ -337,17 +337,17 @@ final class CharArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(CharArrays.of('a', 'b', 'a', 'b')).satisfies(array -> {
 			CharArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder('a', 'b', 'a', 'b');
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> CharArrays.shuffle(null));
 	}
 
 	@Test

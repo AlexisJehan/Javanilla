@@ -192,13 +192,14 @@ public final class Lists {
 	 * @throws NullPointerException if the {@link List} is {@code null}
 	 * @since 1.8.0
 	 */
-	public static <E> NullableOptional<E> getOptionalFirst(final List<E> list) {
+	@SuppressWarnings("unchecked")
+	public static <E> NullableOptional<E> getOptionalFirst(final List<? extends E> list) {
 		Ensure.notNull("list", list);
 		if (list.isEmpty()) {
 			return NullableOptional.empty();
 		}
 		if (list instanceof LinkedList) {
-			return NullableOptional.of(((LinkedList<E>) list).getFirst());
+			return NullableOptional.of(((LinkedList<? extends E>) list).getFirst());
 		}
 		return NullableOptional.of(list.get(0));
 	}
@@ -211,13 +212,14 @@ public final class Lists {
 	 * @throws NullPointerException if the {@link List} is {@code null}
 	 * @since 1.8.0
 	 */
-	public static <E> NullableOptional<E> getOptionalLast(final List<E> list) {
+	@SuppressWarnings("unchecked")
+	public static <E> NullableOptional<E> getOptionalLast(final List<? extends E> list) {
 		Ensure.notNull("list", list);
 		if (list.isEmpty()) {
 			return NullableOptional.empty();
 		}
 		if (list instanceof LinkedList) {
-			return NullableOptional.of(((LinkedList<E>) list).getLast());
+			return NullableOptional.of(((LinkedList<? extends E>) list).getLast());
 		}
 		return NullableOptional.of(list.get(list.size() - 1));
 	}

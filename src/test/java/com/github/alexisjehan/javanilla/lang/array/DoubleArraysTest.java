@@ -81,12 +81,20 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddLegacy() {
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0, 0.0d)).containsExactly(0.0d, 1.0d, 2.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 1, 0.0d)).containsExactly(1.0d, 0.0d, 2.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 2, 0.0d)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 3, 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
+	}
+
+	@Test
+	@Deprecated
+	void testAddLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), -1, 0.0d));
+		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 3, 0.0d));
 	}
 
 	@Test
@@ -97,14 +105,6 @@ final class DoubleArraysTest {
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d, 2)).containsExactly(1.0d, 2.0d, 0.0d, 3.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d, 3)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
 		assertThat(DoubleArrays.add(DoubleArrays.of(1.0d, 2.0d, 3.0d), 0.0d)).containsExactly(1.0d, 2.0d, 3.0d, 0.0d);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testAddInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.add(null, 0, 0.0d));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), -1, 0.0d));
-		assertThatIllegalArgumentException().isThrownBy(() -> DoubleArrays.add(DoubleArrays.of(VALUES), 3, 0.0d));
 	}
 
 	@Test
@@ -328,7 +328,7 @@ final class DoubleArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(DoubleArrays.singleton(1.0d)).satisfies(array -> {
 			DoubleArrays.shuffle(array);
@@ -337,17 +337,17 @@ final class DoubleArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(DoubleArrays.of(1.0d, 2.0d, 1.0d, 2.0d)).satisfies(array -> {
 			DoubleArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder(1.0d, 2.0d, 1.0d, 2.0d);
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> DoubleArrays.shuffle(null));
 	}
 
 	@Test

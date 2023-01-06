@@ -187,7 +187,8 @@ final class ToStringTest {
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked", "deprecation"})
+	@Deprecated
+	@SuppressWarnings({"serial", "unchecked"})
 	void testOfLegacy() {
 		assertThat(Integer.valueOf(1)).satisfies(object -> {
 			assertThat(ToString.of(object, com.github.alexisjehan.javanilla.misc.tuples.Pair.of("foo", ToString.toString(1)))).isEqualTo("Integer{foo=1}");
@@ -202,7 +203,7 @@ final class ToStringTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testOfLegacyInvalid() {
 		final var object = Integer.valueOf(1);
 		assertThatNullPointerException().isThrownBy(() -> ToString.of(null, com.github.alexisjehan.javanilla.misc.tuples.Pair.of("foo", ToString.toString(1))));

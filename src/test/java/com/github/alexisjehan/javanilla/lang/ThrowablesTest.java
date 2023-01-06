@@ -51,7 +51,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testUncheckThrowableRunnable() {
 		Throwables.uncheck(() -> {});
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck(() -> {
@@ -60,13 +60,13 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testUncheckThrowableRunnableInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableRunnable<IOException>) null));
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testUncheckThrowableSupplier() {
 		Throwables.uncheck(() -> true);
 		assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<?, IOException>) () -> {
@@ -75,7 +75,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testUncheckThrowableSupplierInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.uncheck((ThrowableSupplier<Integer, IOException>) null));
 	}
@@ -143,7 +143,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testIsChecked() {
 		assertThat(Throwables.isChecked(new Exception())).isTrue();
 		assertThat(Throwables.isChecked(new RuntimeException())).isFalse();
@@ -151,7 +151,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testIsCheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.isChecked(null));
 	}
@@ -169,7 +169,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testIsUnchecked() {
 		assertThat(Throwables.isUnchecked(new Exception())).isFalse();
 		assertThat(Throwables.isUnchecked(new RuntimeException())).isTrue();
@@ -177,7 +177,7 @@ final class ThrowablesTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testIsUncheckedInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Throwables.isUnchecked(null));
 	}

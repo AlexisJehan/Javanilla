@@ -328,7 +328,7 @@ public final class Iterables {
 	public static <E> NullableOptional<E> getOptionalFirst(final Iterable<? extends E> iterable) {
 		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
-			return Lists.getOptionalFirst((List<E>) iterable);
+			return Lists.getOptionalFirst((List<? extends E>) iterable);
 		}
 		return Iterators.getOptionalFirst(iterable.iterator());
 	}
@@ -346,7 +346,7 @@ public final class Iterables {
 	public static <E> NullableOptional<E> getOptionalLast(final Iterable<? extends E> iterable) {
 		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
-			return Lists.getOptionalLast((List<E>) iterable);
+			return Lists.getOptionalLast((List<? extends E>) iterable);
 		}
 		return Iterators.getOptionalLast(iterable.iterator());
 	}

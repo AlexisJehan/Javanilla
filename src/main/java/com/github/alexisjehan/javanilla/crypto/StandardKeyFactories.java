@@ -44,10 +44,8 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>
 	 * @return a "DiffieHellman" {@link KeyFactory} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDiffieHellmanInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyFactory getDiffieHellmanInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories.getDiffieHellmanInstance();
 	}
@@ -55,10 +53,8 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "DSA" {@link KeyFactory} instance.</p>
 	 * @return a "DSA" {@link KeyFactory} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getDsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyFactory getDsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories.getDsaInstance();
 	}
@@ -66,10 +62,8 @@ public final class StandardKeyFactories {
 	/**
 	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
 	 * @return a "RSA" {@link KeyFactory} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories#getRsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyFactory getRsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories.getRsaInstance();
 	}

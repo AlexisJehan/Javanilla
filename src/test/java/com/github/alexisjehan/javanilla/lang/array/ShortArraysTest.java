@@ -81,12 +81,20 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddLegacy() {
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 0, (short) 0)).containsExactly((short) 0, (short) 1, (short) 2, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 1, (short) 0)).containsExactly((short) 1, (short) 0, (short) 2, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 2, (short) 0)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), 3, (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
+	}
+
+	@Test
+	@Deprecated
+	void testAddLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), -1, (short) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), 3, (short) 0));
 	}
 
 	@Test
@@ -97,14 +105,6 @@ final class ShortArraysTest {
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0, 2)).containsExactly((short) 1, (short) 2, (short) 0, (short) 3);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0, 3)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
 		assertThat(ShortArrays.add(ShortArrays.of((short) 1, (short) 2, (short) 3), (short) 0)).containsExactly((short) 1, (short) 2, (short) 3, (short) 0);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testAddInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.add(null, 0, (short) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), -1, (short) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ShortArrays.add(ShortArrays.of(VALUES), 3, (short) 0));
 	}
 
 	@Test
@@ -328,7 +328,7 @@ final class ShortArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(ShortArrays.singleton((short) 1)).satisfies(array -> {
 			ShortArrays.shuffle(array);
@@ -337,17 +337,17 @@ final class ShortArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(ShortArrays.of((short) 1, (short) 2, (short) 1, (short) 2)).satisfies(array -> {
 			ShortArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder((short) 1, (short) 2, (short) 1, (short) 2);
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ShortArrays.shuffle(null));
 	}
 
 	@Test

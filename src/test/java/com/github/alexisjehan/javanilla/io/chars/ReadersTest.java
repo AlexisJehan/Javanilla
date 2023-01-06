@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThatIOException;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 final class ReadersTest {
 
 	private static final char[] CHARS = CharArrays.of('a', 'b', 'c');

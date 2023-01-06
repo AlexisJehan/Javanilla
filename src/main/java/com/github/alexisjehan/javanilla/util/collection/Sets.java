@@ -134,8 +134,8 @@ public final class Sets {
 	 * @since 1.3.0
 	 */
 	@SafeVarargs
-	@Deprecated(since = "1.6.0")
 	@SuppressWarnings("varargs")
+	@Deprecated(since = "1.6.0")
 	public static <E> Set<E> union(final Set<? extends E>... sets) {
 		return unify(sets);
 	}

@@ -81,12 +81,20 @@ final class BooleanArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddLegacy() {
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 0, false)).containsExactly(false, true, true, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 1, false)).containsExactly(true, false, true, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 2, false)).containsExactly(true, true, false, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), 3, false)).containsExactly(true, true, true, false);
+	}
+
+	@Test
+	@Deprecated
+	void testAddLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, 0, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), -1, false));
+		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), 3, false));
 	}
 
 	@Test
@@ -97,14 +105,6 @@ final class BooleanArraysTest {
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false, 2)).containsExactly(true, true, false, true);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false, 3)).containsExactly(true, true, true, false);
 		assertThat(BooleanArrays.add(BooleanArrays.of(true, true, true), false)).containsExactly(true, true, true, false);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testAddInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.add(null, 0, false));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), -1, false));
-		assertThatIllegalArgumentException().isThrownBy(() -> BooleanArrays.add(BooleanArrays.of(VALUES), 3, false));
 	}
 
 	@Test
@@ -328,7 +328,7 @@ final class BooleanArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(BooleanArrays.singleton(true)).satisfies(array -> {
 			BooleanArrays.shuffle(array);
@@ -337,17 +337,17 @@ final class BooleanArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(BooleanArrays.of(true, false, true, false)).satisfies(array -> {
 			BooleanArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder(true, false, true, false);
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> BooleanArrays.shuffle(null));
 	}
 
 	@Test

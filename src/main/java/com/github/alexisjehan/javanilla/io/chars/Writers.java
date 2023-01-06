@@ -45,10 +45,8 @@ public final class Writers {
 
 	/**
 	 * <p>An empty {@link Writer} that writes nothing.</p>
-	 * @deprecated since 1.4.0, on Java 11, use {@code Writer#nullWriter()} instead
 	 * @since 1.0.0
 	 */
-	@Deprecated(since = "1.4.0")
 	public static final Writer EMPTY = new Writer() {
 
 		/**

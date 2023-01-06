@@ -83,12 +83,20 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddLegacy() {
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 0, (byte) 0)).containsExactly((byte) 0, (byte) 1, (byte) 2, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 1, (byte) 0)).containsExactly((byte) 1, (byte) 0, (byte) 2, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 2, (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 0, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), 3, (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
+	}
+
+	@Test
+	@Deprecated
+	void testAddLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, 0, (byte) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), -1, (byte) 0));
+		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), 3, (byte) 0));
 	}
 
 	@Test
@@ -99,14 +107,6 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0, 2)).containsExactly((byte) 1, (byte) 2, (byte) 0, (byte) 3);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0, 3)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
 		assertThat(ByteArrays.add(ByteArrays.of((byte) 1, (byte) 2, (byte) 3), (byte) 0)).containsExactly((byte) 1, (byte) 2, (byte) 3, (byte) 0);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testAddInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.add(null, 0, (byte) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), -1, (byte) 0));
-		assertThatIllegalArgumentException().isThrownBy(() -> ByteArrays.add(ByteArrays.of(VALUES), 3, (byte) 0));
 	}
 
 	@Test
@@ -330,7 +330,7 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(ByteArrays.singleton((byte) 1)).satisfies(array -> {
 			ByteArrays.shuffle(array);
@@ -339,17 +339,17 @@ final class ByteArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(ByteArrays.of((byte) 1, (byte) 2, (byte) 1, (byte) 2)).satisfies(array -> {
 			ByteArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder((byte) 1, (byte) 2, (byte) 1, (byte) 2);
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.shuffle(null));
 	}
 
 	@Test
@@ -425,8 +425,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfBooleanAndToBooleanLegacy() {
+	@Deprecated
+	void testOfBooleanLegacy() {
 		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(false))).isFalse();
 		assertThat(ByteArrays.toBoolean(ByteArrays.ofBoolean(true))).isTrue();
 	}
@@ -444,8 +444,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfShortAndToShortLegacy() {
+	@Deprecated
+	void testOfShortLegacy() {
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0))).isEqualTo((short) 0);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo((short) 0);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort((short) 0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo((short) 0);
@@ -469,6 +469,12 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Short.MAX_VALUE);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
 		assertThat(ByteArrays.toShort(ByteArrays.ofShort(Short.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Short.MAX_VALUE);
+	}
+
+	@Test
+	@Deprecated
+	void testOfShortLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofShort((short) 0, null));
 	}
 
 	@Test
@@ -499,12 +505,6 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfShortInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofShort((short) 0, null));
-	}
-
-	@Test
 	void testOfShortInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((short) 0, null));
 	}
@@ -517,8 +517,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfCharAndToCharLegacy() {
+	@Deprecated
+	void testOfCharLegacy() {
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE))).isEqualTo(Character.MIN_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MIN_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MIN_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MIN_VALUE);
@@ -530,6 +530,12 @@ final class ByteArraysTest {
 
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isEqualTo(Character.MAX_VALUE);
 		assertThat(ByteArrays.toChar(ByteArrays.ofChar(Character.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Character.MAX_VALUE);
+	}
+
+	@Test
+	@Deprecated
+	void testOfCharLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofChar((char) 0, null));
 	}
 
 	@Test
@@ -548,12 +554,6 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfCharInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofChar((char) 0, null));
-	}
-
-	@Test
 	void testOfCharInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of((char) 0, null));
 	}
@@ -566,8 +566,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfIntAndToIntLegacy() {
+	@Deprecated
+	void testOfIntLegacy() {
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0))).isZero();
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(0, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -591,6 +591,12 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Integer.MAX_VALUE);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
 		assertThat(ByteArrays.toInt(ByteArrays.ofInt(Integer.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Integer.MAX_VALUE);
+	}
+
+	@Test
+	@Deprecated
+	void testOfIntLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofInt(0, null));
 	}
 
 	@Test
@@ -621,12 +627,6 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfIntInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofInt(0, null));
-	}
-
-	@Test
 	void testOfIntInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0, null));
 	}
@@ -639,8 +639,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfLongAndToLongLegacy() {
+	@Deprecated
+	void testOfLongLegacy() {
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L))).isZero();
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(0L, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -664,6 +664,12 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isEqualTo(Long.MAX_VALUE);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
 		assertThat(ByteArrays.toLong(ByteArrays.ofLong(Long.MAX_VALUE, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotEqualTo(Long.MAX_VALUE);
+	}
+
+	@Test
+	@Deprecated
+	void testOfLongLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofLong(0L, null));
 	}
 
 	@Test
@@ -694,12 +700,6 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfLongInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofLong(0L, null));
-	}
-
-	@Test
 	void testOfLongInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0L, null));
 	}
@@ -712,8 +712,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfFloatAndToFloatLegacy() {
+	@Deprecated
+	void testOfFloatLegacy() {
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f))).isZero();
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(0.0f, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -757,6 +757,12 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
 		assertThat(ByteArrays.toFloat(ByteArrays.ofFloat(Float.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
+	}
+
+	@Test
+	@Deprecated
+	void testOfFloatLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofFloat(0.0f, null));
 	}
 
 	@Test
@@ -807,12 +813,6 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfFloatInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofFloat(0.0f, null));
-	}
-
-	@Test
 	void testOfFloatInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> ByteArrays.of(0.0f, null));
 	}
@@ -825,8 +825,8 @@ final class ByteArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testOfDoubleAndToDoubleLegacy() {
+	@Deprecated
+	void testOfDoubleLegacy() {
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d))).isZero();
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.BIG_ENDIAN), ByteOrder.BIG_ENDIAN)).isZero();
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(0.0d, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isZero();
@@ -870,6 +870,12 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
 		assertThat(ByteArrays.toDouble(ByteArrays.ofDouble(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
+	}
+
+	@Test
+	@Deprecated
+	void testOfDoubleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofDouble(0.0d, null));
 	}
 
 	@Test
@@ -917,12 +923,6 @@ final class ByteArraysTest {
 		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNaN();
 		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.BIG_ENDIAN), ByteOrder.LITTLE_ENDIAN)).isNotNaN();
 		assertThat(ByteArrays.toDouble(ByteArrays.of(Double.NaN, ByteOrder.LITTLE_ENDIAN), ByteOrder.BIG_ENDIAN)).isNotNaN();
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testOfDoubleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> ByteArrays.ofDouble(0.0d, null));
 	}
 
 	@Test

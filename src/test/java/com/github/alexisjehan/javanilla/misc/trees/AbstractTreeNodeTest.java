@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 abstract class AbstractTreeNodeTest {
 
 	abstract <V> TreeNode<V> newTreeNode(final V value);

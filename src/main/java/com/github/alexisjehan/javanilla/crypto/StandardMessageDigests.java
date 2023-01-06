@@ -27,7 +27,8 @@ import java.security.MessageDigest;
 
 /**
  * <p>A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests} instead
+ * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests}
+ *             instead
  * @since 1.0.0
  */
 @Deprecated(since = "1.6.0")
@@ -44,10 +45,8 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "MD5" {@link MessageDigest} instance.</p>
 	 * @return a "MD5" {@link MessageDigest} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests#getMd5Instance()} instead
 	 * @since 1.0.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static MessageDigest getMd5Instance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests.getMd5Instance();
 	}
@@ -55,10 +54,8 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "SHA-1" {@link MessageDigest} instance.</p>
 	 * @return a "SHA-1" {@link MessageDigest} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests#getSha1Instance()} instead
 	 * @since 1.0.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static MessageDigest getSha1Instance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests.getSha1Instance();
 	}
@@ -66,10 +63,8 @@ public final class StandardMessageDigests {
 	/**
 	 * <p>Get a new "SHA-256" {@link MessageDigest} instance.</p>
 	 * @return a "SHA-256" {@link MessageDigest} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests#getSha256Instance()} instead
 	 * @since 1.0.0
 	 */
-	@Deprecated(since = "1.6.0")
 	public static MessageDigest getSha256Instance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests.getSha256Instance();
 	}

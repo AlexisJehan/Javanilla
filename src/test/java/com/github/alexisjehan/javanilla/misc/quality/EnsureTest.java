@@ -231,7 +231,7 @@ final class EnsureTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testNotNullAndNotEmptyBagLegacy() {
 		final var bag = com.github.alexisjehan.javanilla.util.collection.bags.Bags.singleton("foo", 1);
 		assertThat(Ensure.notNullAndNotEmpty("bag", bag)).isSameAs(bag);

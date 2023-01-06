@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.LongAdder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 final class SerializableProcedureTest {
 
 	private static final class FooProcedure implements Procedure {

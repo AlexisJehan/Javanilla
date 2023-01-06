@@ -51,7 +51,6 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 * @throws NullPointerException if the specified action is {@code null}
 	 * @since 1.0.0
 	 */
-	@SuppressWarnings("overloads")
 	void forEach(final C action);
 
 	/**

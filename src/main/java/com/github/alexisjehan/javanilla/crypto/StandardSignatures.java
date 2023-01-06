@@ -44,10 +44,8 @@ public final class StandardSignatures {
 	/**
 	 * <p>Get a new "SHA1withDSA" {@link Signature} instance.</p>
 	 * @return a "SHA1withDSA" {@link Signature} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha1WithDsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha1WithDsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha1WithDsaInstance();
 	}
@@ -55,10 +53,8 @@ public final class StandardSignatures {
 	/**
 	 * <p>Get a new "SHA256withDSA" {@link Signature} instance.</p>
 	 * @return a "SHA256withDSA" {@link Signature} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha256WithDsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha256WithDsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha256WithDsaInstance();
 	}
@@ -66,10 +62,8 @@ public final class StandardSignatures {
 	/**
 	 * <p>Get a new "SHA1withRSA" {@link Signature} instance.</p>
 	 * @return a "SHA1withRSA" {@link Signature} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha1WithRsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha1WithRsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha1WithRsaInstance();
 	}
@@ -77,10 +71,8 @@ public final class StandardSignatures {
 	/**
 	 * <p>Get a new "SHA256withRSA" {@link Signature} instance.</p>
 	 * @return a "SHA256withRSA" {@link Signature} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures#getSha256WithRsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static Signature getSha256WithRsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardSignatures.getSha256WithRsaInstance();
 	}

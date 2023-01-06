@@ -27,7 +27,8 @@ import java.security.KeyPairGenerator;
 
 /**
  * <p>A {@link KeyPairGenerator} factory to get standard instances without throwing checked exceptions.</p>
- * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators} instead
+ * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators}
+ *             instead
  * @since 1.3.1
  */
 @Deprecated(since = "1.6.0")
@@ -44,10 +45,8 @@ public final class StandardKeyPairGenerators {
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>
 	 * @return a "DiffieHellman" {@link KeyPairGenerator} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators#getDiffieHellmanInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyPairGenerator getDiffieHellmanInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators.getDiffieHellmanInstance();
 	}
@@ -55,10 +54,8 @@ public final class StandardKeyPairGenerators {
 	/**
 	 * <p>Get a new "DSA" {@link KeyPairGenerator} instance.</p>
 	 * @return a "DSA" {@link KeyPairGenerator} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators#getDsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyPairGenerator getDsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators.getDsaInstance();
 	}
@@ -66,10 +63,8 @@ public final class StandardKeyPairGenerators {
 	/**
 	 * <p>Get a new "RSA" {@link KeyPairGenerator} instance.</p>
 	 * @return a "RSA" {@link KeyPairGenerator} instance
-	 * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators#getRsaInstance()} instead
 	 * @since 1.3.1
 	 */
-	@Deprecated(since = "1.6.0")
 	public static KeyPairGenerator getRsaInstance() {
 		return com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators.getRsaInstance();
 	}

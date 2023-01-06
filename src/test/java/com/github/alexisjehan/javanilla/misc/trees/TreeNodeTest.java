@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.misc.trees;
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 final class TreeNodeTest extends AbstractTreeNodeTest {
 
 	@Override

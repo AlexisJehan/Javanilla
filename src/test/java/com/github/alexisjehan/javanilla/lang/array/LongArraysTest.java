@@ -81,12 +81,20 @@ final class LongArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testAddLegacy() {
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0, 0L)).containsExactly(0L, 1L, 2L, 3L);
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 1, 0L)).containsExactly(1L, 0L, 2L, 3L);
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 2, 0L)).containsExactly(1L, 2L, 0L, 3L);
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 3, 0L)).containsExactly(1L, 2L, 3L, 0L);
+	}
+
+	@Test
+	@Deprecated
+	void testAddLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), -1, 0L));
+		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), 3, 0L));
 	}
 
 	@Test
@@ -97,14 +105,6 @@ final class LongArraysTest {
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0L, 2)).containsExactly(1L, 2L, 0L, 3L);
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0L, 3)).containsExactly(1L, 2L, 3L, 0L);
 		assertThat(LongArrays.add(LongArrays.of(1L, 2L, 3L), 0L)).containsExactly(1L, 2L, 3L, 0L);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testAddInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.add(null, 0, 0L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), -1, 0L));
-		assertThatIllegalArgumentException().isThrownBy(() -> LongArrays.add(LongArrays.of(VALUES), 3, 0L));
 	}
 
 	@Test
@@ -328,7 +328,7 @@ final class LongArraysTest {
 	}
 
 	@Test
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	void testShuffleLegacy() {
 		assertThat(LongArrays.singleton(1L)).satisfies(array -> {
 			LongArrays.shuffle(array);
@@ -337,17 +337,17 @@ final class LongArraysTest {
 	}
 
 	@Test
+	@Deprecated
+	void testShuffleLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(null));
+	}
+
+	@Test
 	void testShuffle() {
 		assertThat(LongArrays.of(1L, 2L, 1L, 2L)).satisfies(array -> {
 			LongArrays.shuffle(array, ThreadLocalRandom.current());
 			assertThat(array).containsExactlyInAnyOrder(1L, 2L, 1L, 2L);
 		});
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testShuffleInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> LongArrays.shuffle(null));
 	}
 
 	@Test

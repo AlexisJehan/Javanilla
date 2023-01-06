@@ -54,6 +54,15 @@ public final class StandardCiphers {
 	}
 
 	/**
+	 * <p>Get a new "AES/CBC/NoPadding" {@link Cipher} instance.</p>
+	 * @return an "AES/CBC/NoPadding" {@link Cipher} instance
+	 * @since 1.8.0
+	 */
+	public static Cipher getAesCbcNoPaddingInstance() {
+		return getInstance("AES/CBC/NoPadding");
+	}
+
+	/**
 	 * <p>Get a new "AES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return an "AES/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @deprecated since 1.6.0, use {@link #getAesCbcPkcs5PaddingInstance()} instead
@@ -62,169 +71,6 @@ public final class StandardCiphers {
 	@Deprecated(since = "1.6.0")
 	public static Cipher getAesCbcPkcs5Instance() {
 		return getAesCbcPkcs5PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "AES/ECB/NoPadding" {@link Cipher} instance.</p>
-	 * @return an "AES/ECB/NoPadding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getAesEcbNoPaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getAesEcbInstance() {
-		return getAesEcbNoPaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "AES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return an "AES/ECB/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getAesEcbPkcs5PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getAesEcbPkcs5Instance() {
-		return getAesEcbPkcs5PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "AES/GCM/NoPadding" {@link Cipher} instance.</p>
-	 * @return an "AES/GCM/NoPadding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getAesGcmNoPaddingInstance()} instead
-	 * @since 1.3.1
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getAesGcmInstance() {
-		return getAesGcmNoPaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DES/CBC/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "DES/CBC/NoPadding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesCbcNoPaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getDesCbcInstance() {
-		return getDesCbcNoPaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return a "DES/CBC/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesCbcPkcs5PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getDesCbcPkcs5Instance() {
-		return getDesCbcPkcs5PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DES/ECB/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "DES/ECB/NoPadding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesEcbNoPaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getDesEcbInstance() {
-		return getDesEcbNoPaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return a "DES/ECB/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesEcbPkcs5PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getDesEcbPkcs5Instance() {
-		return getDesEcbPkcs5PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DESede/CBC/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "DESede/CBC/NoPadding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesedeCbcNoPaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getTripleDesCbcInstance() {
-		return getDesedeCbcNoPaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DESede/CBC/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return a "DESede/CBC/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesedeCbcPkcs5PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getTripleDesCbcPkcs5Instance() {
-		return getDesedeCbcPkcs5PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DESede/ECB/NoPadding" {@link Cipher} instance.</p>
-	 * @return a "DESede/ECB/NoPadding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesedeEcbNoPaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getTripleDesEcbInstance() {
-		return getDesedeEcbNoPaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "DESede/ECB/PKCS5Padding" {@link Cipher} instance.</p>
-	 * @return a "DESede/ECB/PKCS5Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getDesedeEcbPkcs5PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getTripleDesEcbPkcs5Instance() {
-		return getDesedeEcbPkcs5PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/PKCS1Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getRsaEcbPkcs1PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getRsaEcbPkcs1Instance() {
-		return getRsaEcbPkcs1PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getRsaEcbOaepWithSha1AndMgf1PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getRsaEcbOaepSha1AndMgf1Instance() {
-		return getRsaEcbOaepWithSha1AndMgf1PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
-	 * @deprecated since 1.6.0, use {@link #getRsaEcbOaepWithSha256AndMgf1PaddingInstance()} instead
-	 * @since 1.0.0
-	 */
-	@Deprecated(since = "1.6.0")
-	public static Cipher getRsaEcbOaepSha256AndMgf1Instance() {
-		return getRsaEcbOaepWithSha256AndMgf1PaddingInstance();
-	}
-
-	/**
-	 * <p>Get a new "AES/CBC/NoPadding" {@link Cipher} instance.</p>
-	 * @return an "AES/CBC/NoPadding" {@link Cipher} instance
-	 * @since 1.8.0
-	 */
-	public static Cipher getAesCbcNoPaddingInstance() {
-		return getInstance("AES/CBC/NoPadding");
 	}
 
 	/**
@@ -239,10 +85,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/ECB/NoPadding" {@link Cipher} instance.</p>
 	 * @return an "AES/ECB/NoPadding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getAesEcbNoPaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getAesEcbInstance() {
+		return getAesEcbNoPaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "AES/ECB/NoPadding" {@link Cipher} instance.</p>
+	 * @return an "AES/ECB/NoPadding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getAesEcbNoPaddingInstance() {
 		return getInstance("AES/ECB/NoPadding");
+	}
+
+	/**
+	 * <p>Get a new "AES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
+	 * @return an "AES/ECB/PKCS5Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getAesEcbPkcs5PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getAesEcbPkcs5Instance() {
+		return getAesEcbPkcs5PaddingInstance();
 	}
 
 	/**
@@ -257,10 +125,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "AES/GCM/NoPadding" {@link Cipher} instance.</p>
 	 * @return an "AES/GCM/NoPadding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getAesGcmNoPaddingInstance()} instead
+	 * @since 1.3.1
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getAesGcmInstance() {
+		return getAesGcmNoPaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "AES/GCM/NoPadding" {@link Cipher} instance.</p>
+	 * @return an "AES/GCM/NoPadding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getAesGcmNoPaddingInstance() {
 		return getInstance("AES/GCM/NoPadding");
+	}
+
+	/**
+	 * <p>Get a new "DES/CBC/NoPadding" {@link Cipher} instance.</p>
+	 * @return a "DES/CBC/NoPadding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesCbcNoPaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getDesCbcInstance() {
+		return getDesCbcNoPaddingInstance();
 	}
 
 	/**
@@ -275,10 +165,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DES/CBC/PKCS5Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesCbcPkcs5PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getDesCbcPkcs5Instance() {
+		return getDesCbcPkcs5PaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "DES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
+	 * @return a "DES/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getDesCbcPkcs5PaddingInstance() {
 		return getInstance("DES/CBC/PKCS5Padding");
+	}
+
+	/**
+	 * <p>Get a new "DES/ECB/NoPadding" {@link Cipher} instance.</p>
+	 * @return a "DES/ECB/NoPadding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesEcbNoPaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getDesEcbInstance() {
+		return getDesEcbNoPaddingInstance();
 	}
 
 	/**
@@ -293,10 +205,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DES/ECB/PKCS5Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesEcbPkcs5PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getDesEcbPkcs5Instance() {
+		return getDesEcbPkcs5PaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "DES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
+	 * @return a "DES/ECB/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getDesEcbPkcs5PaddingInstance() {
 		return getInstance("DES/ECB/PKCS5Padding");
+	}
+
+	/**
+	 * <p>Get a new "DESede/CBC/NoPadding" {@link Cipher} instance.</p>
+	 * @return a "DESede/CBC/NoPadding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesedeCbcNoPaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getTripleDesCbcInstance() {
+		return getDesedeCbcNoPaddingInstance();
 	}
 
 	/**
@@ -311,10 +245,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DESede/CBC/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DESede/CBC/PKCS5Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesedeCbcPkcs5PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getTripleDesCbcPkcs5Instance() {
+		return getDesedeCbcPkcs5PaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "DESede/CBC/PKCS5Padding" {@link Cipher} instance.</p>
+	 * @return a "DESede/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getDesedeCbcPkcs5PaddingInstance() {
 		return getInstance("DESede/CBC/PKCS5Padding");
+	}
+
+	/**
+	 * <p>Get a new "DESede/ECB/NoPadding" {@link Cipher} instance.</p>
+	 * @return a "DESede/ECB/NoPadding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesedeEcbNoPaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getTripleDesEcbInstance() {
+		return getDesedeEcbNoPaddingInstance();
 	}
 
 	/**
@@ -329,10 +285,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "DESede/ECB/PKCS5Padding" {@link Cipher} instance.</p>
 	 * @return a "DESede/ECB/PKCS5Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getDesedeEcbPkcs5PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getTripleDesEcbPkcs5Instance() {
+		return getDesedeEcbPkcs5PaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "DESede/ECB/PKCS5Padding" {@link Cipher} instance.</p>
+	 * @return a "DESede/ECB/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getDesedeEcbPkcs5PaddingInstance() {
 		return getInstance("DESede/ECB/PKCS5Padding");
+	}
+
+	/**
+	 * <p>Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.</p>
+	 * @return a "RSA/ECB/PKCS1Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getRsaEcbPkcs1PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getRsaEcbPkcs1Instance() {
+		return getRsaEcbPkcs1PaddingInstance();
 	}
 
 	/**
@@ -347,10 +325,32 @@ public final class StandardCiphers {
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
 	 * @return a "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getRsaEcbOaepWithSha1AndMgf1PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getRsaEcbOaepSha1AndMgf1Instance() {
+		return getRsaEcbOaepWithSha1AndMgf1PaddingInstance();
+	}
+
+	/**
+	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
+	 * @return a "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getRsaEcbOaepWithSha1AndMgf1PaddingInstance() {
 		return getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
+	}
+
+	/**
+	 * <p>Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.</p>
+	 * @return a "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
+	 * @deprecated since 1.6.0, use {@link #getRsaEcbOaepWithSha256AndMgf1PaddingInstance()} instead
+	 * @since 1.0.0
+	 */
+	@Deprecated(since = "1.6.0")
+	public static Cipher getRsaEcbOaepSha256AndMgf1Instance() {
+		return getRsaEcbOaepWithSha256AndMgf1PaddingInstance();
 	}
 
 	/**

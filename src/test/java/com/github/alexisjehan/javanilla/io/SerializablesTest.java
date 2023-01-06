@@ -45,8 +45,8 @@ final class SerializablesTest {
 	private static final SerializablePair<String, Integer> SERIALIZABLE = SerializablePair.of("foo", 1);
 
 	@Test
-	@SuppressWarnings("deprecation")
-	void testSerializeAndDeserializeLegacy() throws IOException {
+	@Deprecated
+	void testSerializeLegacy() throws IOException {
 		try (final var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(outputStream, SERIALIZABLE);
 			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
@@ -59,6 +59,12 @@ final class SerializablesTest {
 				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isNull();
 			}
 		}
+	}
+
+	@Test
+	@Deprecated
+	void testSerializeLegacyInvalid() {
+		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(null, SERIALIZABLE));
 	}
 
 	@Test
@@ -90,12 +96,6 @@ final class SerializablesTest {
 		assertThatExceptionOfType(SerializationException.class)
 				.isThrownBy(() -> Serializables.deserialize(exceptionSerialized))
 				.withRootCauseExactlyInstanceOf(StreamCorruptedException.class);
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	void testSerializeInvalidLegacy() {
-		assertThatNullPointerException().isThrownBy(() -> Serializables.serialize(null, SERIALIZABLE));
 	}
 
 	@Test

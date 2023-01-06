@@ -32,7 +32,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 final class CountLineReaderTest {
 
 	private static final String[] LINES = ObjectArrays.of("abc", "def", "ghi");

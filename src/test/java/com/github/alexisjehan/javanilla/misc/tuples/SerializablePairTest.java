@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SuppressWarnings("deprecation")
+@Deprecated
 final class SerializablePairTest {
 
 	private static final Integer FIRST = 1;
