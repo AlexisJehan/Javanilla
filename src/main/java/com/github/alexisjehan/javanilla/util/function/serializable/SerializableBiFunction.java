@@ -42,11 +42,11 @@ import java.util.function.Function;
 public interface SerializableBiFunction<T, U, R> extends BiFunction<T, U, R>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@link SerializableBiFunction} that first applies this function to its input, and then
+	 * <p>Returns a composed {@code SerializableBiFunction} that first applies this function to its input, and then
 	 * applies the after function to the result.</p>
 	 * @param after the {@link Function} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
-	 * @return a composed {@link SerializableBiFunction} that first applies this function and then applies the after
+	 * @return a composed {@code SerializableBiFunction} that first applies this function and then applies the after
 	 *         function
 	 * @throws NullPointerException if the after {@link Function} is {@code null}
 	 * @since 1.4.0
@@ -58,12 +58,12 @@ public interface SerializableBiFunction<T, U, R> extends BiFunction<T, U, R>, Se
 	}
 
 	/**
-	 * <p>Create a {@link SerializableBiFunction} from the given {@link BiFunction}.</p>
+	 * <p>Create a {@code SerializableBiFunction} from the given {@link BiFunction}.</p>
 	 * @param biFunction the {@link BiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
 	 * @param <R> the type of the result of the function
-	 * @return the created {@link SerializableBiFunction}
+	 * @return the created {@code SerializableBiFunction}
 	 * @throws NullPointerException if the {@link BiFunction} is {@code null}
 	 * @since 1.4.0
 	 */

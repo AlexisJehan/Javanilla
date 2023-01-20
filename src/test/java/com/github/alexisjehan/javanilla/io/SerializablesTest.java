@@ -47,15 +47,15 @@ final class SerializablesTest {
 	@Test
 	@Deprecated
 	void testSerializeLegacy() throws IOException {
-		try (final var outputStream = new ByteArrayOutputStream()) {
+		try (var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(outputStream, SERIALIZABLE);
-			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+			try (var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
 				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isEqualTo(SERIALIZABLE);
 			}
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
+		try (var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(outputStream, null);
-			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+			try (var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
 				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isNull();
 			}
 		}
@@ -71,15 +71,15 @@ final class SerializablesTest {
 	void testSerializeAndDeserialize() throws IOException {
 		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(SERIALIZABLE))).isEqualTo(SERIALIZABLE);
 		assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(Serializables.serialize(null))).isNull();
-		try (final var outputStream = new ByteArrayOutputStream()) {
+		try (var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(SERIALIZABLE, outputStream);
-			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+			try (var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
 				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isEqualTo(SERIALIZABLE);
 			}
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
+		try (var outputStream = new ByteArrayOutputStream()) {
 			Serializables.serialize(null, outputStream);
-			try (final var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+			try (var inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
 				assertThat(Serializables.<SerializablePair<String, Integer>>deserialize(inputStream)).isNull();
 			}
 		}
@@ -92,7 +92,7 @@ final class SerializablesTest {
 
 		// Serialized corrupted
 		final var exceptionSerialized = Serializables.serialize(SERIALIZABLE);
-		exceptionSerialized[0] = (byte) 1;
+		exceptionSerialized[0] = 1;
 		assertThatExceptionOfType(SerializationException.class)
 				.isThrownBy(() -> Serializables.deserialize(exceptionSerialized))
 				.withRootCauseExactlyInstanceOf(StreamCorruptedException.class);

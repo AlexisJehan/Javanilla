@@ -48,15 +48,15 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
-	boolean test(final T t) throws X;
+	boolean test(T t) throws X;
 
 	/**
-	 * <p>Returns a composed {@link ThrowablePredicate} that represents a short-circuiting logical AND of this predicate
+	 * <p>Returns a composed {@code ThrowablePredicate} that represents a short-circuiting logical AND of this predicate
 	 * and another.</p>
-	 * @param other a {@link ThrowablePredicate} that will be logically-ANDed with this predicate
-	 * @return a composed {@link ThrowablePredicate} that represents the short-circuiting logical AND of this predicate
+	 * @param other a {@code ThrowablePredicate} that will be logically-ANDed with this predicate
+	 * @return a composed {@code ThrowablePredicate} that represents the short-circuiting logical AND of this predicate
 	 *         and the other predicate
-	 * @throws NullPointerException if the other {@link ThrowablePredicate} is {@code null}
+	 * @throws NullPointerException if the other {@code ThrowablePredicate} is {@code null}
 	 * @since 1.0.0
 	 */
 	default ThrowablePredicate<T, X> and(final ThrowablePredicate<? super T, ? extends X> other) {
@@ -65,8 +65,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@link ThrowablePredicate} that represents the logical negation of this predicate.</p>
-	 * @return a {@link ThrowablePredicate} that represents the logical negation of this predicate
+	 * <p>Returns a {@code ThrowablePredicate} that represents the logical negation of this predicate.</p>
+	 * @return a {@code ThrowablePredicate} that represents the logical negation of this predicate
 	 * @since 1.0.0
 	 */
 	default ThrowablePredicate<T, X> negate() {
@@ -74,12 +74,12 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a composed {@link ThrowablePredicate} that represents a short-circuiting logical OR of this predicate
+	 * <p>Returns a composed {@code ThrowablePredicate} that represents a short-circuiting logical OR of this predicate
 	 * and another.</p>
-	 * @param other a {@link ThrowablePredicate} that will be logically-ORed with this predicate
-	 * @return a composed {@link ThrowablePredicate} that represents the short-circuiting logical OR of this predicate
+	 * @param other a {@code ThrowablePredicate} that will be logically-ORed with this predicate
+	 * @return a composed {@code ThrowablePredicate} that represents the short-circuiting logical OR of this predicate
 	 *         and the other predicate
-	 * @throws NullPointerException if the other {@link ThrowablePredicate} is {@code null}
+	 * @throws NullPointerException if the other {@code ThrowablePredicate} is {@code null}
 	 * @since 1.0.0
 	 */
 	default ThrowablePredicate<T, X> or(final ThrowablePredicate<? super T, ? extends X> other) {
@@ -88,11 +88,11 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@link ThrowablePredicate} that tests if two arguments are equal according to
+	 * <p>Returns a {@code ThrowablePredicate} that tests if two arguments are equal according to
 	 * {@link Objects#equals(Object, Object)}.</p>
 	 * @param <T> the type of arguments to the predicate
 	 * @param targetRef the object reference with which to compare for equality, which may be {@code null}
-	 * @return a {@link ThrowablePredicate} that tests if two arguments are equal according to
+	 * @return a {@code ThrowablePredicate} that tests if two arguments are equal according to
 	 *         {@link Objects#equals(Object, Object)}
 	 * @since 1.4.0
 	 */
@@ -103,13 +103,13 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@link ThrowablePredicate} to a {@link Predicate} that may throw an unchecked
+	 * <p>Converts the given {@code ThrowablePredicate} to a {@link Predicate} that may throw an unchecked
 	 * {@link Throwable}.</p>
-	 * @param throwablePredicate the {@link ThrowablePredicate} to convert
+	 * @param throwablePredicate the {@code ThrowablePredicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Predicate}
-	 * @throws NullPointerException if the {@link ThrowablePredicate} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowablePredicate} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, X extends Throwable> Predicate<T> unchecked(final ThrowablePredicate<? super T, ? extends X> throwablePredicate) {
@@ -124,13 +124,13 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@link ThrowablePredicate} to a {@link Predicate} that may throw a sneaky
+	 * <p>Converts the given {@code ThrowablePredicate} to a {@link Predicate} that may throw a sneaky
 	 * {@link Throwable}.</p>
-	 * @param throwablePredicate the {@link ThrowablePredicate} to convert
+	 * @param throwablePredicate the {@code ThrowablePredicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Predicate}
-	 * @throws NullPointerException if the {@link ThrowablePredicate} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowablePredicate} is {@code null}
 	 * @since 1.7.0
 	 */
 	static <T, X extends Throwable> Predicate<T> sneaky(final ThrowablePredicate<? super T, ? extends X> throwablePredicate) {
@@ -154,11 +154,11 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@link ThrowablePredicate} from the given {@link Predicate}.</p>
+	 * <p>Create a {@code ThrowablePredicate} from the given {@link Predicate}.</p>
 	 * @param predicate the {@link Predicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the created {@link ThrowablePredicate}
+	 * @return the created {@code ThrowablePredicate}
 	 * @throws NullPointerException if the {@link Predicate} is {@code null}
 	 * @since 1.0.0
 	 */

@@ -39,7 +39,6 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	MANHATTAN {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -59,7 +58,6 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	EUCLIDEAN {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -79,7 +77,6 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	SQUARED_EUCLIDEAN {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -100,7 +97,6 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	CHEBYSHEV {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -120,7 +116,6 @@ public enum Distances implements Distance {
 	 * @since 1.0.0
 	 */
 	HAMMING {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -154,5 +149,5 @@ public enum Distances implements Distance {
 	 * @return the calculated distance
 	 * @since 1.0.0
 	 */
-	protected abstract double calculateImpl(final double[] vector1, final double[] vector2);
+	protected abstract double calculateImpl(double[] vector1, double[] vector2);
 }

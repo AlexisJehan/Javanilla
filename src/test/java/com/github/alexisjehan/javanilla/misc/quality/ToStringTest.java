@@ -101,7 +101,7 @@ final class ToStringTest {
 	@Test
 	void testToStringObject() {
 		final var object = Integer.valueOf(1);
-		assertThat(ToString.toString(object)).isEqualTo(object.toString());
+		assertThat(ToString.toString(object)).isEqualTo("1");
 		assertThat(ToString.toString((Integer) null)).isEqualTo("null");
 	}
 
@@ -188,14 +188,14 @@ final class ToStringTest {
 
 	@Test
 	@Deprecated
-	@SuppressWarnings({"serial", "unchecked"})
+	@SuppressWarnings("unchecked")
 	void testOfLegacy() {
 		assertThat(Integer.valueOf(1)).satisfies(object -> {
 			assertThat(ToString.of(object, com.github.alexisjehan.javanilla.misc.tuples.Pair.of("foo", ToString.toString(1)))).isEqualTo("Integer{foo=1}");
 			assertThat(ToString.of(object, com.github.alexisjehan.javanilla.misc.tuples.Pair.of("foo", ToString.toString(1)), com.github.alexisjehan.javanilla.misc.tuples.Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo("Integer{foo=1, bar=null}");
 			assertThat(ToString.of(object, ObjectArrays.empty(com.github.alexisjehan.javanilla.misc.tuples.Pair.class))).isEqualTo("Integer@" + object.hashCode());
 		});
-		assertThat(new Exception() {}).satisfies(object -> {
+		assertThat(new Object() {}).satisfies(object -> {
 			assertThat(ToString.of(object, com.github.alexisjehan.javanilla.misc.tuples.Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "$1{foo=1}");
 			assertThat(ToString.of(object, com.github.alexisjehan.javanilla.misc.tuples.Pair.of("foo", ToString.toString(1)), com.github.alexisjehan.javanilla.misc.tuples.Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "$1{foo=1, bar=null}");
 			assertThat(ToString.of(object, ObjectArrays.empty(com.github.alexisjehan.javanilla.misc.tuples.Pair.class))).isEqualTo(getClass().getSimpleName() + "$1@" + object.hashCode());
@@ -212,14 +212,14 @@ final class ToStringTest {
 	}
 
 	@Test
-	@SuppressWarnings({"serial", "unchecked"})
+	@SuppressWarnings("unchecked")
 	void testOf() {
 		assertThat(Integer.valueOf(1)).satisfies(object -> {
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)))).isEqualTo("Integer{foo=1}");
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo("Integer{foo=1, bar=null}");
 			assertThat(ToString.of(object, ObjectArrays.empty(Pair.class))).isEqualTo("Integer@" + object.hashCode());
 		});
-		assertThat(new Exception() {}).satisfies(object -> {
+		assertThat(new Object() {}).satisfies(object -> {
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)))).isEqualTo(getClass().getSimpleName() + "$2{foo=1}");
 			assertThat(ToString.of(object, Pair.of("foo", ToString.toString(1)), Pair.of("bar", ToString.toString((Integer) null)))).isEqualTo(getClass().getSimpleName() + "$2{foo=1, bar=null}");
 			assertThat(ToString.of(object, ObjectArrays.empty(Pair.class))).isEqualTo(getClass().getSimpleName() + "$2@" + object.hashCode());

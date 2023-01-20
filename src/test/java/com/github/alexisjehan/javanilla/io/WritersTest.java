@@ -33,8 +33,8 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +48,7 @@ final class WritersTest {
 
 	@Test
 	void testEmpty() throws IOException {
-		try (final var emptyWriter = Writers.EMPTY) {
+		try (var emptyWriter = Writers.EMPTY) {
 			emptyWriter.write(CHARS[0]);
 			emptyWriter.write(CharArrays.EMPTY);
 			emptyWriter.write(CHARS);
@@ -104,16 +104,16 @@ final class WritersTest {
 
 	@Test
 	void testBuffered() throws IOException {
-		try (final var writer = Writers.EMPTY) {
+		try (var writer = Writers.EMPTY) {
 			assertThat(writer).isNotInstanceOf(BufferedWriter.class);
-			try (final var bufferedWriter = Writers.buffered(writer)) {
+			try (var bufferedWriter = Writers.buffered(writer)) {
 				assertThat(writer).isNotSameAs(bufferedWriter);
 				assertThat(bufferedWriter).isInstanceOf(BufferedWriter.class);
 			}
 		}
-		try (final var writer = new BufferedWriter(Writers.EMPTY)) {
+		try (var writer = new BufferedWriter(Writers.EMPTY)) {
 			assertThat(writer).isInstanceOf(BufferedWriter.class);
-			try (final var bufferedWriter = Writers.buffered(writer)) {
+			try (var bufferedWriter = Writers.buffered(writer)) {
 				assertThat(writer).isSameAs(bufferedWriter);
 				assertThat(bufferedWriter).isInstanceOf(BufferedWriter.class);
 			}
@@ -156,9 +156,9 @@ final class WritersTest {
 	void testTee() throws IOException {
 		assertThat(Writers.tee()).isSameAs(Writers.EMPTY);
 		assertThat(Writers.tee(Writers.EMPTY)).isSameAs(Writers.EMPTY);
-		try (final var fooWriter = new CharArrayWriter()) {
-			try (final var barWriter = new CharArrayWriter()) {
-				try (final var teeWriter = Writers.tee(fooWriter, barWriter)) {
+		try (var fooWriter = new CharArrayWriter()) {
+			try (var barWriter = new CharArrayWriter()) {
+				try (var teeWriter = Writers.tee(fooWriter, barWriter)) {
 					teeWriter.write(CHARS[0]);
 					teeWriter.write(CharArrays.EMPTY);
 					teeWriter.write(CHARS);
@@ -197,9 +197,9 @@ final class WritersTest {
 			}
 			assertThat(fooWriter.toCharArray()).containsExactly(CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0], CHARS[1], CHARS[2], CHARS[0], CHARS[0]);
 		}
-		try (final var fooWriter = new CharArrayWriter()) {
-			try (final var barWriter = new CharArrayWriter()) {
-				try (final var teeWriter = Writers.tee(Set.of(fooWriter, barWriter))) {
+		try (var fooWriter = new CharArrayWriter()) {
+			try (var barWriter = new CharArrayWriter()) {
+				try (var teeWriter = Writers.tee(Set.of(fooWriter, barWriter))) {
 					teeWriter.write(CHARS[0]);
 					teeWriter.write(CharArrays.EMPTY);
 					teeWriter.write(CHARS);
@@ -244,14 +244,14 @@ final class WritersTest {
 	void testTeeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> Writers.tee((Writer[]) null));
 		assertThatNullPointerException().isThrownBy(() -> Writers.tee((Writer) null));
-		assertThatNullPointerException().isThrownBy(() -> Writers.tee((List<Writer>) null));
+		assertThatNullPointerException().isThrownBy(() -> Writers.tee((Collection<Writer>) null));
 		assertThatNullPointerException().isThrownBy(() -> Writers.tee(Collections.singleton(null)));
 	}
 
 	@Test
 	void testOf(@TempDir final Path tmpDirectory) throws IOException {
 		final var tmpFile = tmpDirectory.resolve("testOf");
-		try (final var writer = Writers.of(tmpFile)) {
+		try (var writer = Writers.of(tmpFile)) {
 			writer.write(CHARS);
 		}
 		assertThat(tmpFile).hasContent(new String(CHARS));

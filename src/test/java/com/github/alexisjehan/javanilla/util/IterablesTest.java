@@ -62,7 +62,7 @@ final class IterablesTest {
 	@Test
 	void testEmptyInt() {
 		final var emptyIterable = Iterables.EMPTY_INT;
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var emptyIterator = emptyIterable.iterator();
 			assertThat(emptyIterator.hasNext()).isFalse();
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::nextInt);
@@ -73,7 +73,7 @@ final class IterablesTest {
 	@Test
 	void testEmptyLong() {
 		final var emptyIterable = Iterables.EMPTY_LONG;
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var emptyIterator = emptyIterable.iterator();
 			assertThat(emptyIterator.hasNext()).isFalse();
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::nextLong);
@@ -84,7 +84,7 @@ final class IterablesTest {
 	@Test
 	void testEmptyDouble() {
 		final var emptyIterable = Iterables.EMPTY_DOUBLE;
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var emptyIterator = emptyIterable.iterator();
 			assertThat(emptyIterator.hasNext()).isFalse();
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::nextDouble);
@@ -95,7 +95,7 @@ final class IterablesTest {
 	@Test
 	void testEmpty() {
 		final var emptyIterable = Iterables.empty();
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var emptyIterator = emptyIterable.iterator();
 			assertThat(emptyIterator.hasNext()).isFalse();
 			assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(emptyIterator::next);
@@ -152,7 +152,7 @@ final class IterablesTest {
 		iterator.remove();
 		assertThat(list).containsExactly(ELEMENTS[1], ELEMENTS[2]);
 		final var unmodifiableIterable = Iterables.unmodifiable(list);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var unmodifiableIterator = unmodifiableIterable.iterator();
 			while (unmodifiableIterator.hasNext()) {
 				unmodifiableIterator.next();
@@ -173,7 +173,7 @@ final class IterablesTest {
 		assertThat(Iterables.index(Iterables.empty())).isEmpty();
 		final var list = new ArrayList<>(List.of(ELEMENTS));
 		final var indexIterable = Iterables.index(list);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var indexIterator = indexIterable.iterator();
 			var index = 0;
 			while (indexIterator.hasNext()) {
@@ -198,7 +198,7 @@ final class IterablesTest {
 		assertThat(Iterables.filter(Iterables.empty(), element -> true)).isEmpty();
 		final var list = new ArrayList<>(List.of(ELEMENTS));
 		final var filterIterable = Iterables.filter(list, element -> ELEMENTS[0].equals(element));
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var filterIterator = filterIterable.iterator();
 			while (filterIterator.hasNext()) {
 				assertThat(ELEMENTS[0]).isEqualTo(filterIterator.next());
@@ -220,7 +220,7 @@ final class IterablesTest {
 		assertThat(Iterables.map(Iterables.empty(), Function.identity())).isEmpty();
 		final var list = new ArrayList<>(List.of(ELEMENTS));
 		final var mapIterable = Iterables.map(list, element -> -element);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			final var mapIterator = mapIterable.iterator();
 			while (mapIterator.hasNext()) {
 				assertThat(mapIterator.next()).isNegative();
@@ -279,7 +279,7 @@ final class IterablesTest {
 		assertThat(Iterables.length(Iterables.empty())).isZero();
 		assertThat(Iterables.length(Iterables.singleton(ELEMENTS[0]))).isEqualTo(1L);
 		final var iterable = Iterables.of(ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(Iterables.length(iterable)).isEqualTo(3L);
 		}
 	}
@@ -325,7 +325,7 @@ final class IterablesTest {
 		assertThat(Iterables.getOptionalFirst(Iterables.singleton(ELEMENTS[0])).get()).isEqualTo(ELEMENTS[0]);
 		assertThat(Iterables.getOptionalFirst(Iterables.singleton(null)).get()).isNull();
 		final var iterable = Iterables.of(ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(Iterables.getOptionalFirst(iterable).get()).isEqualTo(ELEMENTS[0]);
 		}
 	}
@@ -344,7 +344,7 @@ final class IterablesTest {
 		assertThat(Iterables.getOptionalLast(Iterables.singleton(ELEMENTS[0])).get()).isEqualTo(ELEMENTS[0]);
 		assertThat(Iterables.getOptionalLast(Iterables.singleton(null)).get()).isNull();
 		final var iterable = Iterables.of(ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(Iterables.getOptionalLast(iterable).get()).isEqualTo(ELEMENTS[2]);
 		}
 	}
@@ -357,7 +357,7 @@ final class IterablesTest {
 	@Test
 	void testSingletonInt() {
 		final var iterable = Iterables.singleton(INT_ELEMENTS[0]);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable).containsExactly(INT_ELEMENTS[0]);
 		}
 	}
@@ -365,7 +365,7 @@ final class IterablesTest {
 	@Test
 	void testSingletonLong() {
 		final var iterable = Iterables.singleton(LONG_ELEMENTS[0]);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable).containsExactly(LONG_ELEMENTS[0]);
 		}
 	}
@@ -373,7 +373,7 @@ final class IterablesTest {
 	@Test
 	void testSingletonDouble() {
 		final var iterable = Iterables.singleton(DOUBLE_ELEMENTS[0]);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable).containsExactly(DOUBLE_ELEMENTS[0]);
 		}
 	}
@@ -381,7 +381,7 @@ final class IterablesTest {
 	@Test
 	void testSingleton() {
 		final var iterable = Iterables.singleton(ELEMENTS[0]);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable).containsExactly(ELEMENTS[0]);
 		}
 	}
@@ -390,7 +390,7 @@ final class IterablesTest {
 	void testOfInts() {
 		assertThat(Iterables.ofInts()).isEmpty();
 		final var iterable = Iterables.ofInts(INT_ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable.iterator()).toIterable().containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 		}
 	}
@@ -404,7 +404,7 @@ final class IterablesTest {
 	void testOfLongs() {
 		assertThat(Iterables.ofLongs()).isEmpty();
 		final var iterable = Iterables.ofLongs(LONG_ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable.iterator()).toIterable().containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 		}
 	}
@@ -418,7 +418,7 @@ final class IterablesTest {
 	void testOfDoubles() {
 		assertThat(Iterables.ofDoubles()).isEmpty();
 		final var iterable = Iterables.ofDoubles(DOUBLE_ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable.iterator()).toIterable().containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 		}
 	}
@@ -432,7 +432,7 @@ final class IterablesTest {
 	void testOf() {
 		assertThat(Iterables.of()).isEmpty();
 		final var iterable = Iterables.of(ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(iterable.iterator()).toIterable().containsExactly(ELEMENTS);
 		}
 	}

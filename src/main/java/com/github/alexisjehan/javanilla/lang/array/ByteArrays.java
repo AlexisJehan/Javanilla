@@ -1037,8 +1037,9 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("binaryCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 9 : 8);
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 9 : 8)];
+		final var spacing = withSpacing ? 1 : 0;
+		Ensure.multipleOf("binaryCharSequence length", length + spacing, 8 + spacing);
+		final var bytes = new byte[(length + spacing) / (8 + spacing)];
 		for (var i = 0; i < length; ++i) {
 			final var c = binaryCharSequence.charAt(i);
 			if (withSpacing && 8 == i % 9) {
@@ -1051,8 +1052,7 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (binary expected)");
 			}
-			bytes[i / (withSpacing ? 9 : 8)] <<= 1;
-			bytes[i / (withSpacing ? 9 : 8)] |= b;
+			bytes[i / (8 + spacing)] = (byte) ((bytes[i / (8 + spacing)] << 1) | b);
 		}
 		return bytes;
 	}
@@ -1086,8 +1086,9 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("octalCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 4 : 3);
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 4 : 3)];
+		final var spacing = withSpacing ? 1 : 0;
+		Ensure.multipleOf("octalCharSequence length", length + spacing, 3 + spacing);
+		final var bytes = new byte[(length + spacing) / (3 + spacing)];
 		for (var i = 0; i < length; ++i) {
 			final var c = octalCharSequence.charAt(i);
 			if (withSpacing && 3 == i % 4) {
@@ -1100,8 +1101,7 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (octal expected)");
 			}
-			bytes[i / (withSpacing ? 4 : 3)] <<= 3;
-			bytes[i / (withSpacing ? 4 : 3)] |= b;
+			bytes[i / (3 + spacing)] = (byte) ((bytes[i / (3 + spacing)] << 3) | b);
 		}
 		return bytes;
 	}
@@ -1135,8 +1135,9 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("decimalCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 4 : 3);
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 4 : 3)];
+		final var spacing = withSpacing ? 1 : 0;
+		Ensure.multipleOf("decimalCharSequence length", length + spacing, 3 + spacing);
+		final var bytes = new byte[(length + spacing) / (3 + spacing)];
 		for (var i = 0; i < length; ++i) {
 			final var c = decimalCharSequence.charAt(i);
 			if (withSpacing && 3 == i % 4) {
@@ -1149,8 +1150,7 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (decimal expected)");
 			}
-			bytes[i / (withSpacing ? 4 : 3)] *= 10;
-			bytes[i / (withSpacing ? 4 : 3)] += b;
+			bytes[i / (3 + spacing)] = (byte) (bytes[i / (3 + spacing)] * 10 + b);
 		}
 		return bytes;
 	}
@@ -1186,8 +1186,9 @@ public final class ByteArrays {
 		if (0 == length) {
 			return EMPTY;
 		}
-		Ensure.multipleOf("hexadecimalCharSequence length", length + (withSpacing ? 1 : 0), withSpacing ? 3 : 2);
-		final var bytes = new byte[(length + (withSpacing ? 1 : 0)) / (withSpacing ? 3 : 2)];
+		final var spacing = withSpacing ? 1 : 0;
+		Ensure.multipleOf("hexadecimalCharSequence length", length + spacing, 2 + spacing);
+		final var bytes = new byte[(length + spacing) / (2 + spacing)];
 		for (var i = 0; i < length; ++i) {
 			final var c = hexadecimalCharSequence.charAt(i);
 			if (withSpacing && 2 == i % 3) {
@@ -1200,8 +1201,7 @@ public final class ByteArrays {
 			if (-1 == b) {
 				throw new IllegalArgumentException("Invalid char: " + ToString.toString(c) + " (hexadecimal expected)");
 			}
-			bytes[i / (withSpacing ? 3 : 2)] <<= 4;
-			bytes[i / (withSpacing ? 3 : 2)] |= b;
+			bytes[i / (2 + spacing)] = (byte) ((bytes[i / (2 + spacing)] << 4) | b);
 		}
 		return bytes;
 	}

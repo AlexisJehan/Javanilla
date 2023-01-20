@@ -43,7 +43,7 @@ final class CountWriterTest {
 
 	@Test
 	void testWriteChar() throws IOException {
-		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+		try (var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(CHARS[0]);
 			assertThat(countWriter.getCount()).isEqualTo(1L);
@@ -56,7 +56,7 @@ final class CountWriterTest {
 
 	@Test
 	void testWriteChars() throws IOException {
-		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+		try (var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(CHARS, 0, 0);
 			assertThat(countWriter.getCount()).isZero();
@@ -67,7 +67,7 @@ final class CountWriterTest {
 
 	@Test
 	void testWriteCharsInvalid() throws IOException {
-		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+		try (var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((char[]) null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(CHARS, -1, 3));
 			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(CHARS, 4, 3));
@@ -78,7 +78,7 @@ final class CountWriterTest {
 
 	@Test
 	void testWriteString() throws IOException {
-		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+		try (var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThat(countWriter.getCount()).isZero();
 			countWriter.write(new String(CHARS), 0, 0);
 			assertThat(countWriter.getCount()).isZero();
@@ -89,7 +89,7 @@ final class CountWriterTest {
 
 	@Test
 	void testWriteStringInvalid() throws IOException {
-		try (final var countWriter = new CountWriter(Writers.EMPTY)) {
+		try (var countWriter = new CountWriter(Writers.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countWriter.write((String) null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(new String(CHARS), -1, 3));
 			assertThatIllegalArgumentException().isThrownBy(() -> countWriter.write(new String(CHARS), 4, 3));

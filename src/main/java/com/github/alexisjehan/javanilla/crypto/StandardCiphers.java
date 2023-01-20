@@ -304,7 +304,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/PKCS1Padding" {@link Cipher} instance
+	 * @return an "RSA/ECB/PKCS1Padding" {@link Cipher} instance
 	 * @deprecated since 1.6.0, use {@link #getRsaEcbPkcs1PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
@@ -315,7 +315,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/PKCS1Padding" {@link Cipher} instance
+	 * @return an "RSA/ECB/PKCS1Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getRsaEcbPkcs1PaddingInstance() {
@@ -324,7 +324,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
+	 * @return an "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
 	 * @deprecated since 1.6.0, use {@link #getRsaEcbOaepWithSha1AndMgf1PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
@@ -335,7 +335,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
+	 * @return an "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getRsaEcbOaepWithSha1AndMgf1PaddingInstance() {
@@ -344,7 +344,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
+	 * @return an "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
 	 * @deprecated since 1.6.0, use {@link #getRsaEcbOaepWithSha256AndMgf1PaddingInstance()} instead
 	 * @since 1.0.0
 	 */
@@ -355,7 +355,7 @@ public final class StandardCiphers {
 
 	/**
 	 * <p>Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.</p>
-	 * @return a "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
+	 * @return an "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
 	 * @since 1.8.0
 	 */
 	public static Cipher getRsaEcbOaepWithSha256AndMgf1PaddingInstance() {

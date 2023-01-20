@@ -51,7 +51,7 @@ final class InputStreamsTest {
 	@Test
 	void testEmpty() throws IOException {
 		final var buffer = new byte[2];
-		try (final var emptyInputStream = InputStreams.EMPTY) {
+		try (var emptyInputStream = InputStreams.EMPTY) {
 			assertThat(emptyInputStream.read()).isEqualTo(-1);
 			assertThat(emptyInputStream.read(ByteArrays.EMPTY)).isZero();
 			assertThat(emptyInputStream.read(buffer)).isEqualTo(-1);
@@ -97,16 +97,16 @@ final class InputStreamsTest {
 
 	@Test
 	void testBuffered() throws IOException {
-		try (final var inputStream = InputStreams.EMPTY) {
+		try (var inputStream = InputStreams.EMPTY) {
 			assertThat(inputStream).isNotInstanceOf(BufferedInputStream.class);
-			try (final var bufferedInputStream = InputStreams.buffered(inputStream)) {
+			try (var bufferedInputStream = InputStreams.buffered(inputStream)) {
 				assertThat(inputStream).isNotSameAs(bufferedInputStream);
 				assertThat(bufferedInputStream).isInstanceOf(BufferedInputStream.class);
 			}
 		}
-		try (final var inputStream = new BufferedInputStream(InputStreams.EMPTY)) {
+		try (var inputStream = new BufferedInputStream(InputStreams.EMPTY)) {
 			assertThat(inputStream).isInstanceOf(BufferedInputStream.class);
-			try (final var bufferedInputStream = InputStreams.buffered(inputStream)) {
+			try (var bufferedInputStream = InputStreams.buffered(inputStream)) {
 				assertThat(inputStream).isSameAs(bufferedInputStream);
 				assertThat(bufferedInputStream).isInstanceOf(BufferedInputStream.class);
 			}
@@ -120,16 +120,16 @@ final class InputStreamsTest {
 
 	@Test
 	void testMarkSupported() throws IOException {
-		try (final var inputStream = InputStreams.EMPTY) {
+		try (var inputStream = InputStreams.EMPTY) {
 			assertThat(inputStream.markSupported()).isFalse();
-			try (final var markSupportedInputStream = InputStreams.markSupported(inputStream)) {
+			try (var markSupportedInputStream = InputStreams.markSupported(inputStream)) {
 				assertThat(inputStream).isNotSameAs(markSupportedInputStream);
 				assertThat(markSupportedInputStream.markSupported()).isTrue();
 			}
 		}
-		try (final var inputStream = new BufferedInputStream(InputStreams.EMPTY)) {
+		try (var inputStream = new BufferedInputStream(InputStreams.EMPTY)) {
 			assertThat(inputStream.markSupported()).isTrue();
-			try (final var markSupportedInputStream = InputStreams.markSupported(inputStream)) {
+			try (var markSupportedInputStream = InputStreams.markSupported(inputStream)) {
 				assertThat(inputStream).isSameAs(markSupportedInputStream);
 				assertThat(markSupportedInputStream.markSupported()).isTrue();
 			}
@@ -255,7 +255,7 @@ final class InputStreamsTest {
 	void testOfPath(@TempDir final Path tmpDirectory) throws IOException {
 		final var tmpFile = tmpDirectory.resolve("testOfPath");
 		Files.write(tmpFile, ByteArrays.of(BYTES));
-		try (final var inputStream = InputStreams.of(tmpFile)) {
+		try (var inputStream = InputStreams.of(tmpFile)) {
 			assertThat(inputStream).hasBinaryContent(BYTES);
 		}
 	}

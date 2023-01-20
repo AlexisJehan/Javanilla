@@ -92,7 +92,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Converts the current {@link SerializableSingle} to a {@link Single}.</p>
+	 * <p>Converts the current {@code SerializableSingle} to a {@link Single}.</p>
 	 * @return the converted {@link Single}
 	 * @since 1.8.0
 	 */
@@ -101,7 +101,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Get the unique {@link Serializable} element of the {@link SerializableSingle}.</p>
+	 * <p>Get the unique {@link Serializable} element of the {@code SerializableSingle}.</p>
 	 * @return the unique {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -113,7 +113,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	 * <p>Handy constructor.</p>
 	 * @param unique the unique {@link Serializable} element or {@code null}
 	 * @param <U> the type of the unique serializable element
-	 * @return the constructed {@link SerializableSingle}
+	 * @return the constructed {@code SerializableSingle}
 	 * @since 1.8.0
 	 */
 	public static <U extends Serializable> SerializableSingle<U> of(final U unique) {

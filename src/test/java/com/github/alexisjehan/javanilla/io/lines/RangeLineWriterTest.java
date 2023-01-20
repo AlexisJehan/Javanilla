@@ -48,8 +48,8 @@ final class RangeLineWriterTest {
 
 	@Test
 	void testWrite() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isZero();
 				assertThat(rangeLineWriter.getToIndex()).isZero();
 				rangeLineWriter.write(LINES[0]);
@@ -59,8 +59,8 @@ final class RangeLineWriterTest {
 			}
 			assertThat(writer).hasToString(LINES[0]);
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 1L, 1L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 1L, 1L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(1L);
 				rangeLineWriter.write(LINES[0]);
@@ -70,8 +70,8 @@ final class RangeLineWriterTest {
 			}
 			assertThat(writer).hasToString(LINES[1]);
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isZero();
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.write(LINES[0]);
@@ -81,8 +81,8 @@ final class RangeLineWriterTest {
 			}
 			assertThat(writer).hasToString(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 10L, 10L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 10L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.write(LINES[0]);
@@ -96,8 +96,8 @@ final class RangeLineWriterTest {
 
 	@Test
 	void testNewLine() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 0L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isZero();
 				assertThat(rangeLineWriter.getToIndex()).isZero();
 				rangeLineWriter.newLine();
@@ -107,8 +107,8 @@ final class RangeLineWriterTest {
 			}
 			assertThat(writer).hasToString(System.lineSeparator());
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 1L, 1L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 1L, 1L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(1L);
 				rangeLineWriter.newLine();
@@ -118,8 +118,8 @@ final class RangeLineWriterTest {
 			}
 			assertThat(writer).hasToString(System.lineSeparator());
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 0L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isZero();
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.newLine();
@@ -129,8 +129,8 @@ final class RangeLineWriterTest {
 			}
 			assertThat(writer).hasToString(System.lineSeparator() + System.lineSeparator() + System.lineSeparator());
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 10L, 10L)) {
+		try (var writer = new StringWriter()) {
+			try (var rangeLineWriter = new RangeLineWriter(new LineWriter(writer), 10L, 10L)) {
 				assertThat(rangeLineWriter.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeLineWriter.getToIndex()).isEqualTo(10L);
 				rangeLineWriter.newLine();

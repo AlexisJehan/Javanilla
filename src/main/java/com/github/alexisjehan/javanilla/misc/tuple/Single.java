@@ -82,7 +82,7 @@ public final class Single<U> {
 	}
 
 	/**
-	 * <p>Get the unique element of the {@link Single}.</p>
+	 * <p>Get the unique element of the {@code Single}.</p>
 	 * @return the unique element
 	 * @since 1.8.0
 	 */
@@ -94,7 +94,7 @@ public final class Single<U> {
 	 * <p>Handy constructor.</p>
 	 * @param unique the unique element or {@code null}
 	 * @param <U> the type of the unique element
-	 * @return the constructed {@link Single}
+	 * @return the constructed {@code Single}
 	 * @since 1.8.0
 	 */
 	public static <U> Single<U> of(final U unique) {

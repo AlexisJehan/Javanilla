@@ -61,7 +61,7 @@ public final class StandardKeyFactories {
 
 	/**
 	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
-	 * @return a "RSA" {@link KeyFactory} instance
+	 * @return an "RSA" {@link KeyFactory} instance
 	 * @since 1.8.0
 	 */
 	public static KeyFactory getRsaInstance() {

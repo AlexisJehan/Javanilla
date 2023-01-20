@@ -69,7 +69,7 @@ public class LineReader implements Closeable {
 	 * <p>Internal value to tell if the next line to read is the last one.</p>
 	 * @since 1.0.0
 	 */
-	private boolean lastLine = false;
+	private boolean lastLine;
 
 	/**
 	 * <p>A {@link StringBuilder} to build the read {@link String} line, filled by
@@ -258,7 +258,7 @@ public class LineReader implements Closeable {
 	/**
 	 * <p>Transfer all lines from the current position to the given {@link LineWriter}.</p>
 	 * <p><b>Warning</b>: Can produce a memory overflow if any line is too large.</p>
-	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link LineReader} does not end.</p>
+	 * <p><b>Warning</b>: Can produce an infinite loop if the {@code LineReader} does not end.</p>
 	 * @param lineWriter the {@link LineWriter} to write lines to
 	 * @return the number of lines transferred
 	 * @throws IOException might occur with I/O operations

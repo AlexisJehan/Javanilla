@@ -49,7 +49,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	 * @throws NullPointerException if the specified action is {@code null}
 	 * @since 1.8.0
 	 */
-	void forEach(final C action);
+	void forEach(C action);
 
 	/**
 	 * <p>An {@link Iterable} specialized for {@code int} values.</p>

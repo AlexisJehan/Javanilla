@@ -56,7 +56,7 @@ public final class MapBag<E> implements Bag<E> {
 	 * <p>Current size of the {@link Bag}.</p>
 	 * @since 1.0.0
 	 */
-	private long size = 0L;
+	private long size;
 
 	/**
 	 * <p>Default constructor, a {@link HashMap} is used.</p>

@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 @Deprecated
 abstract class AbstractTreeNodeTest {
 
-	abstract <V> TreeNode<V> newTreeNode(final V value);
+	abstract <V> TreeNode<V> newTreeNode(V value);
 
 	@Test
 	void testExtend() {

@@ -42,7 +42,7 @@ import java.util.Set;
 public interface Bag<E> {
 
 	/**
-	 * <p>Add the element to the {@link Bag} once.</p>
+	 * <p>Add the element to the {@code Bag} once.</p>
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
 	 * @since 1.0.0
@@ -52,17 +52,17 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Add the element to the {@link Bag} in the given quantity.</p>
+	 * <p>Add the element to the {@code Bag} in the given quantity.</p>
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
 	 * @param quantity the quantity of the element to add
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
-	void add(final E element, final long quantity);
+	void add(E element, long quantity);
 
 	/**
-	 * <p>Remove the element from the {@link Bag} once.</p>
+	 * <p>Remove the element from the {@code Bag} once.</p>
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
 	 * @since 1.0.0
@@ -72,7 +72,7 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Remove the element from the {@link Bag} in the given quantity. If the quantity is greater than the actual one
+	 * <p>Remove the element from the {@code Bag} in the given quantity. If the quantity is greater than the actual one
 	 * then the element is totally removed.</p>
 	 * @param element the element to remove
 	 * @param quantity the quantity of the element to remove
@@ -80,10 +80,10 @@ public interface Bag<E> {
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
-	boolean remove(final E element, final long quantity);
+	boolean remove(E element, long quantity);
 
 	/**
-	 * <p>Totally remove the element from the {@link Bag}.</p>
+	 * <p>Totally remove the element from the {@code Bag}.</p>
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
 	 * @since 1.0.0
@@ -93,14 +93,14 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Clear the {@link Bag} by removing all contained elements.</p>
+	 * <p>Clear the {@code Bag} by removing all contained elements.</p>
 	 * @since 1.0.0
 	 */
 	void clear();
 
 	/**
-	 * <p>Tell if the {@link Bag} is empty, in case it contains no element.</p>
-	 * @return {@code true} if the {@link Bag} is empty
+	 * <p>Tell if the {@code Bag} is empty, in case it contains no element.</p>
+	 * @return {@code true} if the {@code Bag} is empty
 	 * @since 1.0.0
 	 */
 	default boolean isEmpty() {
@@ -108,9 +108,9 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@link Bag} contains the element at least once.</p>
+	 * <p>Tell if the {@code Bag} contains the element at least once.</p>
 	 * @param element the element to test
-	 * @return {@code true} if the {@link Bag} contains the element at least once
+	 * @return {@code true} if the {@code Bag} contains the element at least once
 	 * @since 1.0.0
 	 */
 	default boolean containsAny(final E element) {
@@ -118,10 +118,10 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@link Bag} contains the element exactly in the given quantity.</p>
+	 * <p>Tell if the {@code Bag} contains the element exactly in the given quantity.</p>
 	 * @param element the element to test
 	 * @param quantity the quantity to test
-	 * @return {@code true} if the {@link Bag} contains the element exactly in the given quantity
+	 * @return {@code true} if the {@code Bag} contains the element exactly in the given quantity
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -131,10 +131,10 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@link Bag} contains the element at least in the given quantity.</p>
+	 * <p>Tell if the {@code Bag} contains the element at least in the given quantity.</p>
 	 * @param element the element to test
 	 * @param quantity the quantity to test
-	 * @return {@code true} if the {@link Bag} contains the element at least in the given quantity
+	 * @return {@code true} if the {@code Bag} contains the element at least in the given quantity
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -147,10 +147,10 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@link Bag} contains the element at most in the given quantity.</p>
+	 * <p>Tell if the {@code Bag} contains the element at most in the given quantity.</p>
 	 * @param element the element to test
 	 * @param quantity the quantity to test
-	 * @return {@code true} if the {@link Bag} contains the element at most in the given quantity
+	 * @return {@code true} if the {@code Bag} contains the element at most in the given quantity
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}
 	 * @since 1.0.0
 	 */
@@ -165,7 +165,7 @@ public interface Bag<E> {
 	 * @return the actual quantity of the element
 	 * @since 1.0.0
 	 */
-	long count(final E element);
+	long count(E element);
 
 	/**
 	 * <p>Get the number of distinct elements.</p>
@@ -175,8 +175,8 @@ public interface Bag<E> {
 	long distinct();
 
 	/**
-	 * <p>Get the total size of the {@link Bag}.</p>
-	 * @return the total size of the {@link Bag}
+	 * <p>Get the total size of the {@code Bag}.</p>
+	 * @return the total size of the {@code Bag}
 	 * @since 1.0.0
 	 */
 	long size();
@@ -196,14 +196,14 @@ public interface Bag<E> {
 	NullableOptional<E> max();
 
 	/**
-	 * <p>Create a {@link Set} with distinct elements from the {@link Bag}.</p>
+	 * <p>Create a {@link Set} with distinct elements from the {@code Bag}.</p>
 	 * @return the created {@link Set}
 	 * @since 1.0.0
 	 */
 	Set<E> toSet();
 
 	/**
-	 * <p>Create a {@link Map} which associates elements from the {@link Bag} to their quantity.</p>
+	 * <p>Create a {@link Map} which associates elements from the {@code Bag} to their quantity.</p>
 	 * @return the created {@link Map}
 	 * @since 1.0.0
 	 */

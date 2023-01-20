@@ -110,7 +110,7 @@ public final class IntArrays {
 	 */
 	public static int[] add(final int[] array, final int value) {
 		Ensure.notNull("array", array);
-		return addTemporary(array, value, array.length);
+		return add(array, value, array.length);
 	}
 
 	/**

@@ -74,9 +74,9 @@ public final class MinkowskiDistance implements Distance, Serializable {
 		Ensure.equalTo("vector2 length", vector2.length, vector1.length);
 		var distance = 0.0d;
 		for (var i = 0; i < vector1.length; ++i) {
-			distance += Math.pow(Math.abs(vector1[i] - vector2[i]), order);
+			distance += StrictMath.pow(Math.abs(vector1[i] - vector2[i]), order);
 		}
-		return Math.pow(distance, 1.0d / order);
+		return StrictMath.pow(distance, 1.0d / order);
 	}
 
 	/**

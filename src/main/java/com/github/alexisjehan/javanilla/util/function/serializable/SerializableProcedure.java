@@ -38,9 +38,9 @@ import java.io.Serializable;
 public interface SerializableProcedure extends Procedure, Serializable {
 
 	/**
-	 * <p>Create a {@link SerializableProcedure} from the given {@link Procedure}.</p>
+	 * <p>Create a {@code SerializableProcedure} from the given {@link Procedure}.</p>
 	 * @param procedure the {@link Procedure} to convert
-	 * @return the created {@link SerializableProcedure}
+	 * @return the created {@code SerializableProcedure}
 	 * @throws NullPointerException if the {@link Procedure} is {@code null}
 	 * @since 1.7.0
 	 */

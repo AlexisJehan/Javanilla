@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 @Deprecated
 final class SerializableRunnableTest {
 
-	private static final class FooRunnable implements Runnable {
+	static final class FooRunnable implements Runnable {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -43,13 +43,13 @@ final class SerializableRunnableTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}
 
 	@SuppressWarnings("serial")
-	private static final class FooSerializableRunnable implements SerializableRunnable {
+	static final class FooSerializableRunnable implements SerializableRunnable {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -58,7 +58,7 @@ final class SerializableRunnableTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}

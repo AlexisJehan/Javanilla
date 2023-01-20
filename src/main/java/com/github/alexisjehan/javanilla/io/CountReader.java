@@ -39,13 +39,13 @@ public final class CountReader extends FilterReader {
 	 * <p>Number of chars read.</p>
 	 * @since 1.8.0
 	 */
-	private long count = 0L;
+	private long count;
 
 	/**
 	 * <p>Number of chars read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
 	 * @since 1.8.0
 	 */
-	private long markedCount = 0L;
+	private long markedCount;
 
 	/**
 	 * <p>Constructor with a {@link Reader} to decorate.</p>

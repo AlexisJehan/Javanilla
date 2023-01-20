@@ -79,7 +79,7 @@ public final class Iterators {
 		 * @param iterator the {@link Iterator} of {@link Iterator}s
 		 * @since 1.8.0
 		 */
-		private SequenceIterator(final Iterator<? extends Iterator<? extends E>> iterator) {
+		SequenceIterator(final Iterator<? extends Iterator<? extends E>> iterator) {
 			this.iterator = iterator;
 			nextIterator();
 		}
@@ -364,7 +364,7 @@ public final class Iterators {
 			 * <p>Current index.</p>
 			 * @since 1.8.0
 			 */
-			private long index = 0L;
+			private long index;
 
 			/**
 			 * {@inheritDoc}

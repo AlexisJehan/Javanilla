@@ -46,8 +46,8 @@ final class RangeOutputStreamTest {
 
 	@Test
 	void testWriteByte() throws IOException {
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 0L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 0L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isZero();
 				assertThat(rangeOutputStream.getToIndex()).isZero();
 				rangeOutputStream.write(BYTES[0]);
@@ -56,8 +56,8 @@ final class RangeOutputStreamTest {
 			}
 			assertThat(outputStream.toByteArray()).containsExactly(BYTES[0]);
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 1L, 1L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 1L, 1L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(1L);
 				rangeOutputStream.write(BYTES[0]);
@@ -66,8 +66,8 @@ final class RangeOutputStreamTest {
 			}
 			assertThat(outputStream.toByteArray()).containsExactly(BYTES[1]);
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 10L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isZero();
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(BYTES[0]);
@@ -76,8 +76,8 @@ final class RangeOutputStreamTest {
 			}
 			assertThat(outputStream.toByteArray()).containsExactly(BYTES);
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 10L, 10L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 10L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(BYTES[0]);
@@ -90,8 +90,8 @@ final class RangeOutputStreamTest {
 
 	@Test
 	void testWriteBytes() throws IOException {
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 0L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 0L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isZero();
 				assertThat(rangeOutputStream.getToIndex()).isZero();
 				rangeOutputStream.write(BYTES, 0, 0);
@@ -100,8 +100,8 @@ final class RangeOutputStreamTest {
 			}
 			assertThat(outputStream.toByteArray()).containsExactly(BYTES[0]);
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 1L, 1L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 1L, 1L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(1L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(1L);
 				rangeOutputStream.write(BYTES, 0, 0);
@@ -110,8 +110,8 @@ final class RangeOutputStreamTest {
 			}
 			assertThat(outputStream.toByteArray()).containsExactly(BYTES[1]);
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 10L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 0L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isZero();
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(BYTES, 0, 0);
@@ -120,8 +120,8 @@ final class RangeOutputStreamTest {
 			}
 			assertThat(outputStream.toByteArray()).containsExactly(BYTES);
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var rangeOutputStream = new RangeOutputStream(outputStream, 10L, 10L)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var rangeOutputStream = new RangeOutputStream(outputStream, 10L, 10L)) {
 				assertThat(rangeOutputStream.getFromIndex()).isEqualTo(10L);
 				assertThat(rangeOutputStream.getToIndex()).isEqualTo(10L);
 				rangeOutputStream.write(BYTES, 0, 0);
@@ -134,7 +134,7 @@ final class RangeOutputStreamTest {
 
 	@Test
 	void testWriteBytesInvalid() throws IOException {
-		try (final var rangeOutputStream = new RangeOutputStream(OutputStreams.EMPTY, 0L, 0L)) {
+		try (var rangeOutputStream = new RangeOutputStream(OutputStreams.EMPTY, 0L, 0L)) {
 			assertThatNullPointerException().isThrownBy(() -> rangeOutputStream.write(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> rangeOutputStream.write(BYTES, -1, 3));
 			assertThatIllegalArgumentException().isThrownBy(() -> rangeOutputStream.write(BYTES, 4, 3));

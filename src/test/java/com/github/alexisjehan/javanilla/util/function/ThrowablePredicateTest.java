@@ -38,7 +38,7 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testTest() throws IOException {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
 		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
@@ -50,8 +50,8 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testAnd() throws IOException {
-		final var fooThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var barThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t <= 2;
+		final var fooThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
+		final var barThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 >= t;
 		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
@@ -71,13 +71,13 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testAndInvalid() {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
 		assertThatNullPointerException().isThrownBy(() -> throwablePredicate.and(null));
 	}
 
 	@Test
 	void testNegate() throws IOException {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
 		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
@@ -89,8 +89,8 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testOr() throws IOException {
-		final var fooThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
-		final var barThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t <= 2;
+		final var fooThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
+		final var barThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 >= t;
 		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
@@ -110,7 +110,7 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testOrInvalid() {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
 		assertThatNullPointerException().isThrownBy(() -> throwablePredicate.or(null));
 	}
 
@@ -126,7 +126,7 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testUnchecked() {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
 		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
@@ -145,7 +145,7 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testSneaky() {
-		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> t >= 2;
+		final var throwablePredicate = (ThrowablePredicate<Integer, IOException>) t -> 2 <= t;
 		final var exceptionThrowablePredicate = (ThrowablePredicate<Integer, IOException>) t -> {
 			throw new IOException();
 		};
@@ -164,7 +164,7 @@ final class ThrowablePredicateTest {
 
 	@Test
 	void testOf() throws Throwable {
-		final var throwablePredicate = ThrowablePredicate.of((Predicate<Integer>) t -> t >= 2);
+		final var throwablePredicate = ThrowablePredicate.of((Predicate<Integer>) t -> 2 <= t);
 		assertThat(throwablePredicate.test(1)).isFalse();
 		assertThat(throwablePredicate.test(3)).isTrue();
 	}

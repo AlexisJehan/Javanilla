@@ -49,7 +49,7 @@ final class ReadersTest {
 	@Test
 	void testEmpty() throws IOException {
 		final var buffer = new char[2];
-		try (final var emptyReader = Readers.EMPTY) {
+		try (var emptyReader = Readers.EMPTY) {
 			assertThat(emptyReader.read(CharBuffer.wrap(buffer))).isEqualTo(-1);
 			assertThatNullPointerException().isThrownBy(() -> emptyReader.read((CharBuffer) null));
 			assertThat(emptyReader.read()).isEqualTo(-1);
@@ -90,16 +90,16 @@ final class ReadersTest {
 
 	@Test
 	void testBuffered() throws IOException {
-		try (final var reader = Readers.EMPTY) {
+		try (var reader = Readers.EMPTY) {
 			assertThat(reader).isNotInstanceOf(BufferedReader.class);
-			try (final var bufferedReader = Readers.buffered(reader)) {
+			try (var bufferedReader = Readers.buffered(reader)) {
 				assertThat(reader).isNotSameAs(bufferedReader);
 				assertThat(bufferedReader).isInstanceOf(BufferedReader.class);
 			}
 		}
-		try (final var reader = new BufferedReader(Readers.EMPTY)) {
+		try (var reader = new BufferedReader(Readers.EMPTY)) {
 			assertThat(reader).isInstanceOf(BufferedReader.class);
-			try (final var bufferedReader = Readers.buffered(reader)) {
+			try (var bufferedReader = Readers.buffered(reader)) {
 				assertThat(reader).isSameAs(bufferedReader);
 				assertThat(bufferedReader).isInstanceOf(BufferedReader.class);
 			}
@@ -113,16 +113,16 @@ final class ReadersTest {
 
 	@Test
 	void testMarkSupported() throws IOException {
-		try (final var reader = Readers.EMPTY) {
+		try (var reader = Readers.EMPTY) {
 			assertThat(reader.markSupported()).isFalse();
-			try (final var markSupportedReader = Readers.markSupported(reader)) {
+			try (var markSupportedReader = Readers.markSupported(reader)) {
 				assertThat(reader).isNotSameAs(markSupportedReader);
 				assertThat(markSupportedReader.markSupported()).isTrue();
 			}
 		}
-		try (final var reader = new BufferedReader(Readers.EMPTY)) {
+		try (var reader = new BufferedReader(Readers.EMPTY)) {
 			assertThat(reader.markSupported()).isTrue();
-			try (final var markSupportedReader = Readers.markSupported(reader)) {
+			try (var markSupportedReader = Readers.markSupported(reader)) {
 				assertThat(reader).isSameAs(markSupportedReader);
 				assertThat(markSupportedReader.markSupported()).isTrue();
 			}
@@ -175,16 +175,14 @@ final class ReadersTest {
 	@Test
 	void testConcatSequenceReader() throws IOException {
 		final var buffer = new char[2];
-		try (final var concatReader = Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]))) {
+		try (var concatReader = Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]))) {
 			assertThat(concatReader.read(buffer, 0, 0)).isZero();
 			assertThatNullPointerException().isThrownBy(() -> concatReader.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, -1, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 3, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 0, -1));
 			assertThatIllegalArgumentException().isThrownBy(() -> concatReader.read(buffer, 0, 3));
-			while (-1 != concatReader.read()) {
-				// Nothing to do
-			}
+			concatReader.transferTo(Writers.EMPTY);
 			assertThat(concatReader.read(buffer, 0, 1)).isEqualTo(-1);
 		}
 		final var concatReader = Readers.concat(Readers.singleton(CHARS[0]), Readers.singleton(CHARS[1]), Readers.singleton(CHARS[2]));
@@ -261,7 +259,7 @@ final class ReadersTest {
 	void testOfPath(@TempDir final Path tmpDirectory) throws IOException {
 		final var tmpFile = tmpDirectory.resolve("testOfPath");
 		Files.write(tmpFile, new String(CHARS).getBytes());
-		try (final var reader = Readers.of(tmpFile)) {
+		try (var reader = Readers.of(tmpFile)) {
 			assertThat(Readers.toChars(reader)).containsExactly(CHARS);
 		}
 	}

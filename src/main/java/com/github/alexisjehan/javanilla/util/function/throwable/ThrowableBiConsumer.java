@@ -48,15 +48,15 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
-	void accept(final T t, final U u) throws X;
+	void accept(T t, U u) throws X;
 
 	/**
-	 * <p>Returns a composed {@link ThrowableBiConsumer} that performs, in sequence, this operation followed by the
+	 * <p>Returns a composed {@code ThrowableBiConsumer} that performs, in sequence, this operation followed by the
 	 * after operation.</p>
-	 * @param after the {@link ThrowableBiConsumer} operation to perform after this operation
-	 * @return a composed {@link ThrowableBiConsumer} that performs in sequence this operation followed by the after
+	 * @param after the {@code ThrowableBiConsumer} operation to perform after this operation
+	 * @return a composed {@code ThrowableBiConsumer} that performs in sequence this operation followed by the after
 	 *         operation
-	 * @throws NullPointerException if the after {@link ThrowableBiConsumer} is {@code null}
+	 * @throws NullPointerException if the after {@code ThrowableBiConsumer} is {@code null}
 	 * @since 1.0.0
 	 */
 	default ThrowableBiConsumer<T, U, X> andThen(final ThrowableBiConsumer<? super T, ? super U, ? extends X> after) {
@@ -68,14 +68,14 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@link ThrowableBiConsumer} to a {@link BiConsumer} that may throw an unchecked
+	 * <p>Converts the given {@code ThrowableBiConsumer} to a {@link BiConsumer} that may throw an unchecked
 	 * {@link Throwable}.</p>
-	 * @param throwableBiConsumer the {@link ThrowableBiConsumer} to convert
+	 * @param throwableBiConsumer the {@code ThrowableBiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link BiConsumer}
-	 * @throws NullPointerException if the {@link ThrowableBiConsumer} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableBiConsumer} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <T, U, X extends Throwable> BiConsumer<T, U> unchecked(final ThrowableBiConsumer<? super T, ? super U, ? extends X> throwableBiConsumer) {
@@ -90,14 +90,14 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@link ThrowableBiConsumer} to a {@link BiConsumer} that may throw a sneaky
+	 * <p>Converts the given {@code ThrowableBiConsumer} to a {@link BiConsumer} that may throw a sneaky
 	 * {@link Throwable}.</p>
-	 * @param throwableBiConsumer the {@link ThrowableBiConsumer} to convert
+	 * @param throwableBiConsumer the {@code ThrowableBiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link BiConsumer}
-	 * @throws NullPointerException if the {@link ThrowableBiConsumer} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableBiConsumer} is {@code null}
 	 * @since 1.7.0
 	 */
 	static <T, U, X extends Throwable> BiConsumer<T, U> sneaky(final ThrowableBiConsumer<? super T, ? super U, ? extends X> throwableBiConsumer) {
@@ -120,12 +120,12 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@link ThrowableBiConsumer} from the given {@link BiConsumer}.</p>
+	 * <p>Create a {@code ThrowableBiConsumer} from the given {@link BiConsumer}.</p>
 	 * @param biConsumer the {@link BiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the created {@link ThrowableBiConsumer}
+	 * @return the created {@code ThrowableBiConsumer}
 	 * @throws NullPointerException if the {@link BiConsumer} is {@code null}
 	 * @since 1.0.0
 	 */

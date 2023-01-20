@@ -35,7 +35,7 @@ public final class CountLineReader extends FilterLineReader {
 	 * <p>Number of lines read.</p>
 	 * @since 1.8.0
 	 */
-	private long count = 0L;
+	private long count;
 
 	/**
 	 * <p>Constructor with a {@link LineReader} to decorate.</p>

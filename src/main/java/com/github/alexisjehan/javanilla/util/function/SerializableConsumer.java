@@ -37,10 +37,10 @@ import java.util.function.Consumer;
 public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@link SerializableConsumer} that performs, in sequence, this operation followed by the
+	 * <p>Returns a composed {@code SerializableConsumer} that performs, in sequence, this operation followed by the
 	 * after operation.</p>
 	 * @param after the {@link Consumer} operation to perform after this operation
-	 * @return a composed {@link SerializableConsumer} that performs in sequence this operation followed by the after
+	 * @return a composed {@code SerializableConsumer} that performs in sequence this operation followed by the after
 	 *         operation
 	 * @throws NullPointerException if the after {@link Consumer} is {@code null}
 	 * @since 1.8.0
@@ -55,10 +55,10 @@ public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 	}
 
 	/**
-	 * <p>Create a {@link SerializableConsumer} from the given {@link Consumer}.</p>
+	 * <p>Create a {@code SerializableConsumer} from the given {@link Consumer}.</p>
 	 * @param consumer the {@link Consumer} to convert
 	 * @param <T> the type of the input to the operation
-	 * @return the created {@link SerializableConsumer}
+	 * @return the created {@code SerializableConsumer}
 	 * @throws NullPointerException if the {@link Consumer} is {@code null}
 	 * @since 1.8.0
 	 */

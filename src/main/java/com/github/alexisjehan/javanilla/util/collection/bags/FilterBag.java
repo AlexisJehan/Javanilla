@@ -38,7 +38,7 @@ import java.util.Set;
  * @since 1.0.0
  */
 @Deprecated(since = "1.8.0")
-public abstract class FilterBag<E> implements Bag<E> {
+public class FilterBag<E> implements Bag<E> {
 
 	/**
 	 * <p>Delegated {@link Bag}.</p>

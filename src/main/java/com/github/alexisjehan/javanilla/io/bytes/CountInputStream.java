@@ -41,13 +41,13 @@ public final class CountInputStream extends FilterInputStream {
 	 * <p>Number of bytes read.</p>
 	 * @since 1.0.0
 	 */
-	private long count = 0L;
+	private long count;
 
 	/**
 	 * <p>Number of bytes read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
 	 * @since 1.0.0
 	 */
-	private long markedCount = 0L;
+	private long markedCount;
 
 	/**
 	 * <p>Constructor with an {@link InputStream} to decorate.</p>

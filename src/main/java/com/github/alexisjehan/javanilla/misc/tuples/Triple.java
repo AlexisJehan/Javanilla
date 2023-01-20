@@ -108,7 +108,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the first element of the {@link Triple}.</p>
+	 * <p>Get the first element of the {@code Triple}.</p>
 	 * @return the first element
 	 * @since 1.0.0
 	 */
@@ -117,7 +117,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the second element of the {@link Triple}.</p>
+	 * <p>Get the second element of the {@code Triple}.</p>
 	 * @return the second element
 	 * @since 1.0.0
 	 */
@@ -126,7 +126,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the third element of the {@link Triple}.</p>
+	 * <p>Get the third element of the {@code Triple}.</p>
 	 * @return the third element
 	 * @since 1.0.0
 	 */
@@ -142,7 +142,7 @@ public final class Triple<F, S, T> {
 	 * @param <F> the type of the first element
 	 * @param <S> the type of the second element
 	 * @param <T> the type of the third element
-	 * @return the constructed {@link Triple}
+	 * @return the constructed {@code Triple}
 	 * @since 1.0.0
 	 */
 	public static <F, S, T> Triple<F, S, T> of(final F first, final S second, final T third) {

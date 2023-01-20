@@ -105,7 +105,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Converts the current {@link SerializablePair} to a {@link Pair}.</p>
+	 * <p>Converts the current {@code SerializablePair} to a {@link Pair}.</p>
 	 * @return the converted {@link Pair}
 	 * @since 1.8.0
 	 */
@@ -114,7 +114,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Get the first {@link Serializable} element of the {@link SerializablePair}.</p>
+	 * <p>Get the first {@link Serializable} element of the {@code SerializablePair}.</p>
 	 * @return the first {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -123,7 +123,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	}
 
 	/**
-	 * <p>Get the second {@link Serializable} element of the {@link SerializablePair}.</p>
+	 * <p>Get the second {@link Serializable} element of the {@code SerializablePair}.</p>
 	 * @return the second {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -137,7 +137,7 @@ public final class SerializablePair<F extends Serializable, S extends Serializab
 	 * @param second the second {@link Serializable} element or {@code null}
 	 * @param <F> the type of the first serializable element
 	 * @param <S> the type of the second serializable element
-	 * @return the constructed {@link SerializablePair}
+	 * @return the constructed {@code SerializablePair}
 	 * @since 1.8.0
 	 */
 	public static <F extends Serializable, S extends Serializable> SerializablePair<F, S> of(final F first, final S second) {

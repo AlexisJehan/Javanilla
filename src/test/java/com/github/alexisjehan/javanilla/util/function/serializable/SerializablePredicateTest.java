@@ -36,15 +36,15 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testTest() {
-		final var serializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
+		final var serializablePredicate = (SerializablePredicate<Integer>) t -> 2 <= t;
 		assertThat(serializablePredicate.test(1)).isFalse();
 		assertThat(serializablePredicate.test(3)).isTrue();
 	}
 
 	@Test
 	void testAnd() {
-		final var fooSerializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
-		final var barSerializablePredicate = (SerializablePredicate<Integer>) t -> t <= 2;
+		final var fooSerializablePredicate = (SerializablePredicate<Integer>) t -> 2 <= t;
+		final var barSerializablePredicate = (SerializablePredicate<Integer>) t -> 2 >= t;
 		assertThat(fooSerializablePredicate.and(barSerializablePredicate).test(1)).isFalse();
 		assertThat(fooSerializablePredicate.and(barSerializablePredicate).test(3)).isFalse();
 		assertThat(barSerializablePredicate.and(fooSerializablePredicate).test(1)).isFalse();
@@ -57,21 +57,21 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testAndInvalid() {
-		final var serializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
+		final var serializablePredicate = (SerializablePredicate<Integer>) t -> 2 <= t;
 		assertThatNullPointerException().isThrownBy(() -> serializablePredicate.and(null));
 	}
 
 	@Test
 	void testNegate() {
-		final var serializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
+		final var serializablePredicate = (SerializablePredicate<Integer>) t -> 2 <= t;
 		assertThat(serializablePredicate.negate().test(1)).isTrue();
 		assertThat(serializablePredicate.negate().test(3)).isFalse();
 	}
 
 	@Test
 	void testOr() {
-		final var fooSerializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
-		final var barSerializablePredicate = (SerializablePredicate<Integer>) t -> t <= 2;
+		final var fooSerializablePredicate = (SerializablePredicate<Integer>) t -> 2 <= t;
+		final var barSerializablePredicate = (SerializablePredicate<Integer>) t -> 2 >= t;
 		assertThat(fooSerializablePredicate.or(barSerializablePredicate).test(1)).isTrue();
 		assertThat(fooSerializablePredicate.or(barSerializablePredicate).test(3)).isTrue();
 		assertThat(barSerializablePredicate.or(fooSerializablePredicate).test(1)).isTrue();
@@ -84,7 +84,7 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testOrInvalid() {
-		final var serializablePredicate = (SerializablePredicate<Integer>) t -> t >= 2;
+		final var serializablePredicate = (SerializablePredicate<Integer>) t -> 2 <= t;
 		assertThatNullPointerException().isThrownBy(() -> serializablePredicate.or(null));
 	}
 
@@ -100,7 +100,7 @@ final class SerializablePredicateTest {
 
 	@Test
 	void testOf() {
-		final var serializablePredicate = SerializablePredicate.of((Predicate<Integer>) t -> t >= 2);
+		final var serializablePredicate = SerializablePredicate.of((Predicate<Integer>) t -> 2 <= t);
 		assertThat(serializablePredicate.test(1)).isFalse();
 		assertThat(serializablePredicate.test(3)).isTrue();
 	}
@@ -114,7 +114,7 @@ final class SerializablePredicateTest {
 	void testSerializable() {
 		final var deserializedSerializablePredicate = Serializables.<SerializablePredicate<Integer>>deserialize(
 				Serializables.serialize(
-						(SerializablePredicate<Integer>) t -> t >= 2
+						(SerializablePredicate<Integer>) t -> 2 <= t
 				)
 		);
 		assertThat(deserializedSerializablePredicate.test(1)).isFalse();

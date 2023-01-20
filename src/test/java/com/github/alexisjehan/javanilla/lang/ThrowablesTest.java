@@ -104,7 +104,7 @@ final class ThrowablesTest {
 			@SuppressWarnings("serial")
 			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
 				@Override
-				public Throwable getCause() {
+				public synchronized Throwable getCause() {
 					return this;
 				}
 			};
@@ -129,7 +129,7 @@ final class ThrowablesTest {
 			@SuppressWarnings("serial")
 			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
 				@Override
-				public Throwable getCause() {
+				public synchronized Throwable getCause() {
 					return this;
 				}
 			};

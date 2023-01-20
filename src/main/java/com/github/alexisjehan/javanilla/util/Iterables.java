@@ -573,7 +573,7 @@ public final class Iterables {
 			 * <p>Whether or not the {@link PrimitiveIterator.OfInt} has already been obtained.</p>
 			 * @since 1.8.0
 			 */
-			private boolean obtained = false;
+			private boolean obtained;
 
 			/**
 			 * {@inheritDoc}
@@ -607,7 +607,7 @@ public final class Iterables {
 			 * <p>Whether or not the {@link PrimitiveIterator.OfLong} has already been obtained.</p>
 			 * @since 1.8.0
 			 */
-			private boolean obtained = false;
+			private boolean obtained;
 
 			/**
 			 * {@inheritDoc}
@@ -641,7 +641,7 @@ public final class Iterables {
 			 * <p>Whether or not the {@link PrimitiveIterator.OfDouble} has already been obtained.</p>
 			 * @since 1.8.0
 			 */
-			private boolean obtained = false;
+			private boolean obtained;
 
 			/**
 			 * {@inheritDoc}
@@ -674,7 +674,7 @@ public final class Iterables {
 			 * <p>Whether or not the {@link Iterator} has already been obtained.</p>
 			 * @since 1.8.0
 			 */
-			private boolean obtained = false;
+			private boolean obtained;
 
 			/**
 			 * {@inheritDoc}

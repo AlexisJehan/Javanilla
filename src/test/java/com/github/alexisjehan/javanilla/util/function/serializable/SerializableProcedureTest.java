@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 @Deprecated
 final class SerializableProcedureTest {
 
-	private static final class FooProcedure implements Procedure {
+	static final class FooProcedure implements Procedure {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -44,13 +44,13 @@ final class SerializableProcedureTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}
 
 	@SuppressWarnings("serial")
-	private static final class FooSerializableProcedure implements SerializableProcedure {
+	static final class FooSerializableProcedure implements SerializableProcedure {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -59,7 +59,7 @@ final class SerializableProcedureTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}

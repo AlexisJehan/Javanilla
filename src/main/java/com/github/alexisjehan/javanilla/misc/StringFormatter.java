@@ -79,6 +79,15 @@ public final class StringFormatter implements Serializable {
 		BytePrefix(final int base) {
 			this.base = base;
 		}
+
+		/**
+		 * <p>Get the base.</p>
+		 * @return the base
+		 * @since 1.9.0
+		 */
+		int getBase() {
+			return base;
+		}
 	}
 
 	/**
@@ -272,23 +281,24 @@ public final class StringFormatter implements Serializable {
 	public strictfp String formatBytes(final long value, final BytePrefix bytePrefix) {
 		Ensure.notNull("bytePrefix", bytePrefix);
 		final var absValue = Long.MIN_VALUE != value ? Math.abs(value) : Long.MAX_VALUE;
-		if (bytePrefix.base > absValue) {
+		final var base = bytePrefix.getBase();
+		if (base > absValue) {
 			return format((double) value) + localeDelimiter + "B";
 		}
-		var exponent = (int) (Math.log(absValue) / Math.log(bytePrefix.base));
-		final var threshold = (long) (Math.pow(bytePrefix.base, exponent) * (bytePrefix.base - 5 / Math.pow(10.0d, floatPrecision + 1.0d)));
+		var exponent = (int) (StrictMath.log(absValue) / StrictMath.log(base));
+		final var threshold = (long) (StrictMath.pow(base, exponent) * (base - 5 / StrictMath.pow(10.0d, floatPrecision + 1.0d)));
 		if (6 > exponent && threshold <= absValue) {
 			++exponent;
 		}
 		final var unit = UNITS[exponent - 1];
 		final long fixedValue;
 		if (4 < exponent) {
-			fixedValue = value / bytePrefix.base;
+			fixedValue = value / base;
 			exponent -= 1;
 		} else {
 			fixedValue = value;
 		}
-		return format(fixedValue / Math.pow(bytePrefix.base, exponent))
+		return format(fixedValue / StrictMath.pow(base, exponent))
 				+ localeDelimiter
 				+ (BytePrefix.BINARY == bytePrefix ? Character.toUpperCase(unit) + "i" : unit)
 				+ "B";

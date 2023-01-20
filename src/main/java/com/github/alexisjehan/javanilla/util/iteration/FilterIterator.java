@@ -35,7 +35,7 @@ import java.util.NoSuchElementException;
  * @since 1.2.0
  */
 @Deprecated(since = "1.8.0")
-public abstract class FilterIterator<E> implements Iterator<E> {
+public class FilterIterator<E> implements Iterator<E> {
 
 	/**
 	 * <p>Delegated {@link Iterator}.</p>

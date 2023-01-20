@@ -44,7 +44,7 @@ final class CountInputStreamTest {
 
 	@Test
 	void testReadByte() throws IOException {
-		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
+		try (var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);
@@ -60,7 +60,7 @@ final class CountInputStreamTest {
 	@Test
 	void testReadBuffer() throws IOException {
 		final var buffer = new byte[2];
-		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
+		try (var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read(buffer, 0, 0)).isZero();
 			assertThat(countInputStream.getCount()).isZero();
@@ -76,7 +76,7 @@ final class CountInputStreamTest {
 	@Test
 	void testReadBufferInvalid() throws IOException {
 		final var buffer = new byte[2];
-		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
+		try (var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThatNullPointerException().isThrownBy(() -> countInputStream.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countInputStream.read(buffer, -1, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countInputStream.read(buffer, 3, 2));
@@ -87,7 +87,7 @@ final class CountInputStreamTest {
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
+		try (var countInputStream = new CountInputStream(InputStreams.of(BYTES))) {
 			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.skip(-1L)).isZero();
 			assertThat(countInputStream.skip(0L)).isZero();
@@ -101,7 +101,7 @@ final class CountInputStreamTest {
 
 	@Test
 	void testMarkAndReset() throws IOException {
-		try (final var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of(BYTES)))) {
+		try (var countInputStream = new CountInputStream(InputStreams.buffered(InputStreams.of(BYTES)))) {
 			assertThat(countInputStream.getCount()).isZero();
 			assertThat(countInputStream.read()).isEqualTo(BYTES[0]);
 			assertThat(countInputStream.getCount()).isEqualTo(1L);

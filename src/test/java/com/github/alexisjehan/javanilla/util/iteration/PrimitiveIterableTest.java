@@ -50,7 +50,7 @@ final class PrimitiveIterableTest {
 	@Test
 	void testOfInt() {
 		final var primitiveIterable = Iterables.ofInts(INT_ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(primitiveIterable).containsExactly(IntArrays.toBoxed(INT_ELEMENTS));
 		}
 	}
@@ -71,7 +71,7 @@ final class PrimitiveIterableTest {
 	@Test
 	void testOfLong() {
 		final var primitiveIterable = Iterables.ofLongs(LONG_ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(primitiveIterable).containsExactly(LongArrays.toBoxed(LONG_ELEMENTS));
 		}
 	}
@@ -92,7 +92,7 @@ final class PrimitiveIterableTest {
 	@Test
 	void testOfDouble() {
 		final var primitiveIterable = Iterables.ofDoubles(DOUBLE_ELEMENTS);
-		for (var i = 0; i < 2; ++i) {
+		for (var i = 0; 2 > i; ++i) {
 			assertThat(primitiveIterable).containsExactly(DoubleArrays.toBoxed(DOUBLE_ELEMENTS));
 		}
 	}

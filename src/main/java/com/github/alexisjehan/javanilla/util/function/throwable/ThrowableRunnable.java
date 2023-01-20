@@ -44,12 +44,12 @@ public interface ThrowableRunnable<X extends Throwable> {
 	void run() throws X;
 
 	/**
-	 * <p>Converts the given {@link ThrowableRunnable} to a {@link Runnable} that may throw an unchecked
+	 * <p>Converts the given {@code ThrowableRunnable} to a {@link Runnable} that may throw an unchecked
 	 * {@link Throwable}.</p>
-	 * @param throwableRunnable the {@link ThrowableRunnable} to convert
+	 * @param throwableRunnable the {@code ThrowableRunnable} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Runnable}
-	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableRunnable} is {@code null}
 	 * @since 1.0.0
 	 */
 	static <X extends Throwable> Runnable unchecked(final ThrowableRunnable<? extends X> throwableRunnable) {
@@ -64,10 +64,10 @@ public interface ThrowableRunnable<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@link ThrowableRunnable} from the given {@link Runnable}.</p>
+	 * <p>Create a {@code ThrowableRunnable} from the given {@link Runnable}.</p>
 	 * @param runnable the {@link Runnable} to convert
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the created {@link ThrowableRunnable}
+	 * @return the created {@code ThrowableRunnable}
 	 * @throws NullPointerException if the {@link Runnable} is {@code null}
 	 * @since 1.0.0
 	 */

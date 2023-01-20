@@ -51,7 +51,7 @@ public final class RangeLineReader extends FilterLineReader {
 	 * <p>Current index.</p>
 	 * @since 1.0.0
 	 */
-	private long index = 0L;
+	private long index;
 
 	/**
 	 * <p>Constructor with a {@link LineReader} to decorate and a range from an inclusive index to another one.</p>

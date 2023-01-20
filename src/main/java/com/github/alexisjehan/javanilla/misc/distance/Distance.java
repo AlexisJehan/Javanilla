@@ -82,5 +82,5 @@ public interface Distance {
 	 * @throws IllegalArgumentException if any {@code double} vector is empty or if both have different dimensions
 	 * @since 1.8.0
 	 */
-	double calculate(final double[] vector1, final double[] vector2);
+	double calculate(double[] vector1, double[] vector2);
 }

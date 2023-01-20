@@ -83,7 +83,7 @@ public final class Serializables {
 	 */
 	public static void serialize(final Serializable serializable, final OutputStream outputStream) {
 		Ensure.notNull("outputStream", outputStream);
-		try (final var objectOutputStream = new ObjectOutputStream(outputStream)) {
+		try (var objectOutputStream = new ObjectOutputStream(outputStream)) {
 			objectOutputStream.writeObject(serializable);
 		} catch (final Exception e) {
 			throw new SerializationException(e);
@@ -116,7 +116,7 @@ public final class Serializables {
 	@SuppressWarnings("unchecked")
 	public static <S extends Serializable> S deserialize(final InputStream inputStream) {
 		Ensure.notNull("inputStream", inputStream);
-		try (final var objectInputStream = new ObjectInputStream(inputStream)) {
+		try (var objectInputStream = new ObjectInputStream(inputStream)) {
 			return (S) objectInputStream.readObject();
 		} catch (final Exception e) {
 			throw new SerializationException(e);

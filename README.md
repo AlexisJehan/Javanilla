@@ -91,9 +91,9 @@ Convert line separators from a _Unix_ file to a _Windows_ one using _LineReader_
 // Convert a String with Unix line separators to the Windows format removing the extra new line
 final var unixFilePath = Readers.of("foo\nbar\n");
 final var ignoreTerminatingNewLine = true;
-try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
+try (var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
 	final var appendTerminatingNewLine = false;
-	try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
+	try (var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
 		// Transfers all lines from the LineReader to the LineWriter
 		final var transferred = lineReader.transferTo(lineWriter);
 		System.out.println(transferred); // Prints 2
@@ -132,16 +132,16 @@ _Throwable_ utility tools:
 ```java
 // Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required
 final var millis = 5_000L;
-Throwables.uncheck(() -> Thread.sleep(millis));
+ThrowableProcedure.unchecked(() -> Thread.sleep(millis)).execute();
 
-// Handle checked Exceptions in lambda converting them automatically to unchecked ones
-try {
-	Throwables.uncheck(() -> {
-		throw new IOException("A checked Exception inside a lambda");
-	});
-} catch (final UncheckedIOException e) {
-	System.out.println(Throwables.getOptionalRootCause(e).orElseThrow().getMessage()); // Prints A checked Exception inside a lambda
-}
+// Still no try/catch required, but this time keep the original checked exception
+ThrowableSupplier.sneaky(() -> {
+	throw new IOException("A checked Exception inside a lambda");
+});
+
+final var exception = new UncheckedIOException(new IOException());
+System.out.println(Throwables.isUncheckedException(exception)); // Prints true
+System.out.println(Throwables.getOptionalRootCause(exception).orElseThrow().getClass().getName()); // Prints java.io.IOException
 ```
 
 Primitive and generic arrays utility tools:

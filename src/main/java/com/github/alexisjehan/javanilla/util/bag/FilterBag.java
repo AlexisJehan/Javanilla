@@ -36,7 +36,7 @@ import java.util.Set;
  * @param <E> the element type
  * @since 1.8.0
  */
-public abstract class FilterBag<E> implements Bag<E> {
+public class FilterBag<E> implements Bag<E> {
 
 	/**
 	 * <p>Delegated {@link Bag}.</p>

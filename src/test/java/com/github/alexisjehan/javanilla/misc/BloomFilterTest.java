@@ -57,6 +57,16 @@ final class BloomFilterTest {
 	}
 
 	@Test
+	void testConstructorToIntFunctionImmutable() {
+		final var hashFunctions = ObjectArrays.<ToIntFunction<String>>of(String::hashCode);
+		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunctions);
+		bloomFilter.add("foo");
+		assertThat(bloomFilter.mightContains("foo")).isTrue();
+		hashFunctions[0] = string -> 0;
+		assertThat(bloomFilter.mightContains("foo")).isTrue();
+	}
+
+	@Test
 	@SuppressWarnings("unchecked")
 	void testConstructorToIntFunctionInvalid() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, String::hashCode));

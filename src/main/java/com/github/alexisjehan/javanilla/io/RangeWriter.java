@@ -51,7 +51,7 @@ public final class RangeWriter extends FilterWriter {
 	 * <p>Current index.</p>
 	 * @since 1.8.0
 	 */
-	private long index = 0L;
+	private long index;
 
 	/**
 	 * <p>Constructor with a {@link Writer} to decorate and a range from an inclusive index to another one.</p>
@@ -93,7 +93,7 @@ public final class RangeWriter extends FilterWriter {
 			return;
 		}
 		if (fromIndex <= index + length && toIndex >= index) {
-			out.write(chars, offset + (fromIndex > index ? (int) (fromIndex - index) : 0), Math.min(length, toIndex != index ? (int) (toIndex - index) : 1));
+			out.write(chars, offset + Math.toIntExact(fromIndex > index ? fromIndex - index : 0L), Math.toIntExact(Math.min(length, toIndex != index ? toIndex - index : 1L)));
 		}
 		index += length;
 	}
@@ -111,7 +111,7 @@ public final class RangeWriter extends FilterWriter {
 			return;
 		}
 		if (fromIndex <= index + length && toIndex >= index) {
-			out.write(string, offset + (fromIndex > index ? (int) (fromIndex - index) : 0), Math.min(length, toIndex != index ? (int) (toIndex - index) : 1));
+			out.write(string, offset + Math.toIntExact(fromIndex > index ? fromIndex - index : 0L), Math.toIntExact(Math.min(length, toIndex != index ? toIndex - index : 1L)));
 		}
 		index += length;
 	}

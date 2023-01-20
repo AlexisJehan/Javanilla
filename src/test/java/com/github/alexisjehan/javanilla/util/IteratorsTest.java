@@ -286,11 +286,11 @@ final class IteratorsTest {
 			public Integer get() {
 				final var i = adder.intValue();
 				adder.increment();
-				return ELEMENTS[i];
+				return i;
 			}
-		}, ELEMENTS[2]);
-		assertThat(untilIterator.next()).isEqualTo(ELEMENTS[0]);
-		assertThat(untilIterator.next()).isEqualTo(ELEMENTS[1]);
+		}, 2);
+		assertThat(untilIterator.next()).isZero();
+		assertThat(untilIterator.next()).isEqualTo(1);
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(untilIterator::next);
 	}
 
@@ -596,7 +596,7 @@ final class IteratorsTest {
 	@Test
 	void testToInputStream() throws IOException {
 		assertThat(Iterators.toInputStream(Collections.emptyIterator()).read()).isEqualTo(-1);
-		try (final var inputStream = Iterators.toInputStream(Iterators.of(1, 2, 3))) {
+		try (var inputStream = Iterators.toInputStream(Iterators.of(1, 2, 3))) {
 			assertThat(inputStream.read()).isEqualTo(1);
 			assertThat(inputStream.read()).isEqualTo(2);
 			assertThat(inputStream.read()).isEqualTo(3);
@@ -612,7 +612,7 @@ final class IteratorsTest {
 	@Test
 	void testToReader() throws IOException {
 		assertThat(Iterators.toReader(Collections.emptyIterator()).read()).isEqualTo(-1);
-		try (final var reader = Iterators.toReader(Iterators.of((int) 'a', (int) 'b', (int) 'c', (int) 'd'))) {
+		try (var reader = Iterators.toReader(Iterators.of((int) 'a', (int) 'b', (int) 'c', (int) 'd'))) {
 			assertThat(reader.read()).isEqualTo('a');
 			final var buffer = new char[2];
 			assertThat(reader.read(buffer, 0, 0)).isZero();

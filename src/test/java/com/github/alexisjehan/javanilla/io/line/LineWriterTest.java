@@ -45,14 +45,14 @@ final class LineWriterTest {
 	@Test
 	void testConstructor(@TempDir final Path tmpDirectory) throws IOException {
 		final var tmpFile = tmpDirectory.resolve("testConstructor");
-		try (final var lineWriter = new LineWriter(tmpFile)) {
+		try (var lineWriter = new LineWriter(tmpFile)) {
 			lineWriter.write(LINES[0]);
 			lineWriter.write(LINES[1]);
 			lineWriter.write(LINES[2]);
 			lineWriter.flush();
 		}
 		assertThat(new String(Files.readAllBytes(tmpFile))).isEqualTo(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
-		try (final var lineWriter = new LineWriter(tmpFile, StandardCharsets.ISO_8859_1)) {
+		try (var lineWriter = new LineWriter(tmpFile, StandardCharsets.ISO_8859_1)) {
 			lineWriter.write(LINES[0]);
 			lineWriter.write(LINES[1]);
 			lineWriter.write(LINES[2]);
@@ -69,8 +69,8 @@ final class LineWriterTest {
 
 	@Test
 	void testWriteLf() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.LF)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.LF)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -78,8 +78,8 @@ final class LineWriterTest {
 			}
 			assertThat(writer).hasToString(String.join("\n", LINES[0], LINES[1], LINES[2]));
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.LF, true)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.LF, true)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -91,8 +91,8 @@ final class LineWriterTest {
 
 	@Test
 	void testWriteCrLf() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR_LF)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.CR_LF)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -100,8 +100,8 @@ final class LineWriterTest {
 			}
 			assertThat(writer).hasToString(String.join("\r\n", LINES[0], LINES[1], LINES[2]));
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR_LF, true)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.CR_LF, true)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -113,8 +113,8 @@ final class LineWriterTest {
 
 	@Test
 	void testWriteCr() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.CR)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -122,8 +122,8 @@ final class LineWriterTest {
 			}
 			assertThat(writer).hasToString(String.join("\r", LINES[0], LINES[1], LINES[2]));
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR, true)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.CR, true)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -135,8 +135,8 @@ final class LineWriterTest {
 
 	@Test
 	void testWriteDefault() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -144,8 +144,8 @@ final class LineWriterTest {
 			}
 			assertThat(writer).hasToString(String.join(System.lineSeparator(), LINES[0], LINES[1], LINES[2]));
 		}
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.DEFAULT, true)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.DEFAULT, true)) {
 				lineWriter.write(LINES[0]);
 				lineWriter.write(LINES[1]);
 				lineWriter.write(LINES[2]);
@@ -162,8 +162,8 @@ final class LineWriterTest {
 
 	@Test
 	void testNewLineLf() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.LF)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.LF)) {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
@@ -173,8 +173,8 @@ final class LineWriterTest {
 
 	@Test
 	void testNewLineCrLf() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR_LF)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.CR_LF)) {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
@@ -184,8 +184,8 @@ final class LineWriterTest {
 
 	@Test
 	void testNewLineCr() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer, LineSeparator.CR)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer, LineSeparator.CR)) {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}
@@ -195,8 +195,8 @@ final class LineWriterTest {
 
 	@Test
 	void testNewLineDefault() throws IOException {
-		try (final var writer = new StringWriter()) {
-			try (final var lineWriter = new LineWriter(writer)) {
+		try (var writer = new StringWriter()) {
+			try (var lineWriter = new LineWriter(writer)) {
 				lineWriter.newLine();
 				lineWriter.flush();
 			}

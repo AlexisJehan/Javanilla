@@ -475,8 +475,7 @@ public final class Strings {
 			return Character.toString(c);
 		}
 		final var builder = new StringBuilder(times);
-		var i = 0;
-		while (i++ < times) {
+		for (var i = 0; i < times; ++i) {
 			builder.append(c);
 		}
 		return builder.toString();
@@ -569,8 +568,9 @@ public final class Strings {
 		if (size <= length || 0 == paddingLength) {
 			return charSequence.toString();
 		}
-		return repeat(padding, (size - length) / paddingLength)
-				+ padding.subSequence(0, (size - length) % paddingLength)
+		final var capacity = size - length;
+		return repeat(padding, capacity / paddingLength)
+				+ padding.subSequence(0, capacity % paddingLength)
 				+ charSequence;
 	}
 
@@ -632,9 +632,10 @@ public final class Strings {
 		if (size <= length || 0 == paddingLength) {
 			return charSequence.toString();
 		}
+		final var capacity = size - length;
 		return charSequence
-				+ repeat(padding, (size - length) / paddingLength)
-				+ padding.subSequence(0, (size - length) % paddingLength);
+				+ repeat(padding, capacity / paddingLength)
+				+ padding.subSequence(0, capacity % paddingLength);
 	}
 
 	/**
@@ -697,11 +698,12 @@ public final class Strings {
 		if (size <= length || 0 == paddingLength) {
 			return charSequence.toString();
 		}
-		return repeat(padding, (size - length) / 2 / paddingLength)
-				+ padding.subSequence(0, (size - length) / 2 % paddingLength)
+		final var capacity = size - length;
+		return repeat(padding, capacity / 2 / paddingLength)
+				+ padding.subSequence(0, capacity / 2 % paddingLength)
 				+ charSequence
-				+ repeat(padding, ((size - length) / 2 + (size - length) % 2) / paddingLength)
-				+ padding.subSequence(0, ((size - length) / 2 + (size - length) % 2) % paddingLength);
+				+ repeat(padding, (capacity / 2 + capacity % 2) / paddingLength)
+				+ padding.subSequence(0, (capacity / 2 + capacity % 2) % paddingLength);
 	}
 
 	/**
@@ -780,7 +782,7 @@ public final class Strings {
 		if (0 == length) {
 			return EMPTY;
 		}
-		for (var i = length - 1; i >= 0; --i) {
+		for (var i = length - 1; 0 <= i; --i) {
 			if (target == charSequence.charAt(i)) {
 				return charSequence.subSequence(0, i) + Character.toString(replacement) + charSequence.subSequence(i + 1, length);
 			}
@@ -810,10 +812,10 @@ public final class Strings {
 		if (0 == targetLength || length < targetLength) {
 			return charSequence.toString();
 		}
-		for (var i = length - 1; i >= 0; --i) {
+		for (var i = length - 1; 0 <= i; --i) {
 			if (target.charAt(targetLength - 1) == charSequence.charAt(i)) {
 				var j = 1;
-				while (i - j >= 0 && j < targetLength && target.charAt(targetLength - j - 1) == charSequence.charAt(i - j)) {
+				while (0 <= i - j && j < targetLength && target.charAt(targetLength - j - 1) == charSequence.charAt(i - j)) {
 					++j;
 				}
 				if (j == targetLength) {
@@ -896,7 +898,7 @@ public final class Strings {
 		if (0 == length) {
 			return EMPTY;
 		}
-		for (var i = length - 1; i >= 0; --i) {
+		for (var i = length - 1; 0 <= i; --i) {
 			if (target == charSequence.charAt(i)) {
 				return charSequence.subSequence(i + 1, length).toString();
 			}
@@ -924,10 +926,10 @@ public final class Strings {
 		if (0 == targetLength || length < targetLength) {
 			return charSequence.toString();
 		}
-		for (var i = length - 1; i >= 0; --i) {
+		for (var i = length - 1; 0 <= i; --i) {
 			if (target.charAt(targetLength - 1) == charSequence.charAt(i)) {
 				var j = 1;
-				while (i - j >= 0 && j < targetLength && target.charAt(targetLength - j - 1) == charSequence.charAt(i - j)) {
+				while (0 <= i - j && j < targetLength && target.charAt(targetLength - j - 1) == charSequence.charAt(i - j)) {
 					++j;
 				}
 				if (j == targetLength) {

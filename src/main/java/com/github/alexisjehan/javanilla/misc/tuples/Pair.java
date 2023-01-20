@@ -97,7 +97,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Get the first element of the {@link Pair}.</p>
+	 * <p>Get the first element of the {@code Pair}.</p>
 	 * @return the first element
 	 * @since 1.0.0
 	 */
@@ -106,7 +106,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Get the second element of the {@link Pair}.</p>
+	 * <p>Get the second element of the {@code Pair}.</p>
 	 * @return the second element
 	 * @since 1.0.0
 	 */
@@ -120,7 +120,7 @@ public final class Pair<F, S> {
 	 * @param second the second element or {@code null}
 	 * @param <F> the type of the first element
 	 * @param <S> the type of the second element
-	 * @return the constructed {@link Pair}
+	 * @return the constructed {@code Pair}
 	 * @since 1.0.0
 	 */
 	public static <F, S> Pair<F, S> of(final F first, final S second) {

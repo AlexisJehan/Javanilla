@@ -43,12 +43,12 @@ public interface ThrowableProcedure<X extends Throwable> {
 	void execute() throws X;
 
 	/**
-	 * <p>Converts the given {@link ThrowableProcedure} to a {@link Procedure} that may throw an unchecked
+	 * <p>Converts the given {@code ThrowableProcedure} to a {@link Procedure} that may throw an unchecked
 	 * {@link Throwable}.</p>
-	 * @param throwableProcedure the {@link ThrowableProcedure} to convert
+	 * @param throwableProcedure the {@code ThrowableProcedure} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Procedure}
-	 * @throws NullPointerException if the {@link ThrowableProcedure} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableProcedure} is {@code null}
 	 * @since 1.8.0
 	 */
 	static <X extends Throwable> Procedure unchecked(final ThrowableProcedure<? extends X> throwableProcedure) {
@@ -63,12 +63,12 @@ public interface ThrowableProcedure<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@link ThrowableProcedure} to a {@link Procedure} that may throw a sneaky
+	 * <p>Converts the given {@code ThrowableProcedure} to a {@link Procedure} that may throw a sneaky
 	 * {@link Throwable}.</p>
-	 * @param throwableProcedure the {@link ThrowableProcedure} to convert
+	 * @param throwableProcedure the {@code ThrowableProcedure} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Procedure}
-	 * @throws NullPointerException if the {@link ThrowableProcedure} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableProcedure} is {@code null}
 	 * @since 1.8.0
 	 */
 	static <X extends Throwable> Procedure sneaky(final ThrowableProcedure<? extends X> throwableProcedure) {
@@ -91,10 +91,10 @@ public interface ThrowableProcedure<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@link ThrowableProcedure} from the given {@link Procedure}.</p>
+	 * <p>Create a {@code ThrowableProcedure} from the given {@link Procedure}.</p>
 	 * @param procedure the {@link Procedure} to convert
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the created {@link ThrowableProcedure}
+	 * @return the created {@code ThrowableProcedure}
 	 * @throws NullPointerException if the {@link Procedure} is {@code null}
 	 * @since 1.8.0
 	 */

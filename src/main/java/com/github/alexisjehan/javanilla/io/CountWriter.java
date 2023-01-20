@@ -39,7 +39,7 @@ public final class CountWriter extends FilterWriter {
 	 * <p>Number of chars written.</p>
 	 * @since 1.8.0
 	 */
-	private long count = 0L;
+	private long count;
 
 	/**
 	 * <p>Constructor with a {@link Writer} to decorate.</p>

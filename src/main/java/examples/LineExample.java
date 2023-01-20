@@ -43,9 +43,9 @@ public final class LineExample {
 		// Convert a String with Unix line separators to the Windows format removing the extra new line
 		final var unixFilePath = Readers.of("foo\nbar\n");
 		final var ignoreTerminatingNewLine = true;
-		try (final var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
+		try (var lineReader = new LineReader(unixFilePath, LineSeparator.LF, ignoreTerminatingNewLine)) {
 			final var appendTerminatingNewLine = false;
-			try (final var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
+			try (var lineWriter = new LineWriter(windowsFilePath, LineSeparator.CR_LF, appendTerminatingNewLine)) {
 				// Transfers all lines from the LineReader to the LineWriter
 				final var transferred = lineReader.transferTo(lineWriter);
 				System.out.println(transferred); // Prints 2

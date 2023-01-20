@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 @Deprecated
 final class ThrowableProcedureTest {
 
-	private static final class FooProcedure implements Procedure {
+	static final class FooProcedure implements Procedure {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -47,12 +47,12 @@ final class ThrowableProcedureTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}
 
-	private static final class FooThrowableProcedure implements ThrowableProcedure<IOException> {
+	static final class FooThrowableProcedure implements ThrowableProcedure<IOException> {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -61,7 +61,7 @@ final class ThrowableProcedureTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}

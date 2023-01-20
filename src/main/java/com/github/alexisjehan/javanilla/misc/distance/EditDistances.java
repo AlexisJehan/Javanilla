@@ -37,7 +37,6 @@ public enum EditDistances implements EditDistance {
 	 * @since 1.8.0
 	 */
 	LCS {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -61,7 +60,6 @@ public enum EditDistances implements EditDistance {
 	 * @since 1.8.0
 	 */
 	HAMMING {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -100,5 +98,5 @@ public enum EditDistances implements EditDistance {
 	 * @return the calculated edit distance
 	 * @since 1.8.0
 	 */
-	protected abstract double calculateImpl(final CharSequence charSequence1, final int length1, final CharSequence charSequence2, final int length2);
+	protected abstract double calculateImpl(CharSequence charSequence1, int length1, CharSequence charSequence2, int length2);
 }

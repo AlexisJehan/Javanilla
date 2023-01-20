@@ -51,13 +51,13 @@ public final class RangeReader extends FilterReader {
 	 * <p>Current index.</p>
 	 * @since 1.8.0
 	 */
-	private long index = 0L;
+	private long index;
 
 	/**
 	 * <p>Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
 	 * @since 1.8.0
 	 */
-	private long markedIndex = 0L;
+	private long markedIndex;
 
 	/**
 	 * <p>Constructor with a {@link Reader} to decorate and a range from an inclusive index to another one.</p>
@@ -111,7 +111,7 @@ public final class RangeReader extends FilterReader {
 		if (toIndex < index) {
 			return -1;
 		}
-		final var total = in.read(buffer, offset, Math.min(length, (int) (toIndex - index + 1)));
+		final var total = in.read(buffer, offset, Math.toIntExact(Math.min(length, toIndex - index + 1L)));
 		if (-1 != total) {
 			index += total;
 		}

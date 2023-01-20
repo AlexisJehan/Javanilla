@@ -37,10 +37,10 @@ import java.util.function.Supplier;
 public interface SerializableSupplier<T> extends Supplier<T>, Serializable {
 
 	/**
-	 * <p>Create a {@link SerializableSupplier} from the given {@link Supplier}.</p>
+	 * <p>Create a {@code SerializableSupplier} from the given {@link Supplier}.</p>
 	 * @param supplier the {@link Supplier} to convert
 	 * @param <T> the type of results supplied by this supplier
-	 * @return the created {@link SerializableSupplier}
+	 * @return the created {@code SerializableSupplier}
 	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.8.0
 	 */

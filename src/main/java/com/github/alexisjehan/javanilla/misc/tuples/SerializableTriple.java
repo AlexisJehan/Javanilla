@@ -118,7 +118,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Converts the current {@link SerializableTriple} to a {@link Triple}.</p>
+	 * <p>Converts the current {@code SerializableTriple} to a {@link Triple}.</p>
 	 * @return the converted {@link Triple}
 	 * @since 1.0.0
 	 */
@@ -127,7 +127,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the first {@link Serializable} element of the {@link SerializableTriple}.</p>
+	 * <p>Get the first {@link Serializable} element of the {@code SerializableTriple}.</p>
 	 * @return the first {@link Serializable} element
 	 * @since 1.0.0
 	 */
@@ -136,7 +136,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the second {@link Serializable} element of the {@link SerializableTriple}.</p>
+	 * <p>Get the second {@link Serializable} element of the {@code SerializableTriple}.</p>
 	 * @return the second {@link Serializable} element
 	 * @since 1.0.0
 	 */
@@ -145,7 +145,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the third {@link Serializable} element of the {@link SerializableTriple}.</p>
+	 * <p>Get the third {@link Serializable} element of the {@code SerializableTriple}.</p>
 	 * @return the third {@link Serializable} element
 	 * @since 1.0.0
 	 */
@@ -161,7 +161,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	 * @param <F> the type of the first serializable element
 	 * @param <S> the type of the second serializable element
 	 * @param <T> the type of the third serializable element
-	 * @return the constructed {@link SerializableTriple}
+	 * @return the constructed {@code SerializableTriple}
 	 * @since 1.0.0
 	 */
 	public static <F extends Serializable, S extends Serializable, T extends Serializable> SerializableTriple<F, S, T> of(final F first, final S second, final T third) {

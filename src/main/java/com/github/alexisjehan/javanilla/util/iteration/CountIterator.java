@@ -40,7 +40,7 @@ public final class CountIterator<E> extends FilterIterator<E> {
 	 * <p>Number of elements iterated.</p>
 	 * @since 1.0.0
 	 */
-	private long count = 0L;
+	private long count;
 
 	/**
 	 * <p>Constructor with an {@link Iterator} to decorate.</p>

@@ -54,7 +54,7 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	 * <p>Current index.</p>
 	 * @since 1.0.0
 	 */
-	private long index = 0L;
+	private long index;
 
 	/**
 	 * <p>Constructor with an {@link Iterator} to decorate and a range from an inclusive index to another one.</p>

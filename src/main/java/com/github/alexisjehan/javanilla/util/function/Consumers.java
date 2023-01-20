@@ -60,17 +60,17 @@ public final class Consumers {
 			 * <p>Whether or not a value has already been consumed.</p>
 			 * @since 1.1.0
 			 */
-			private boolean isConsumed = false;
+			private boolean consumed;
 
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
 			public void accept(final T t) {
-				if (isConsumed) {
+				if (consumed) {
 					throw new IllegalStateException("An input cannot be consumed more than once");
 				}
-				isConsumed = true;
+				consumed = true;
 				consumer.accept(t);
 			}
 		};

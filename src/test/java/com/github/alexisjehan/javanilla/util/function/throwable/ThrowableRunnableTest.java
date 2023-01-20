@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 @Deprecated
 final class ThrowableRunnableTest {
 
-	private static final class FooRunnable implements Runnable {
+	static final class FooRunnable implements Runnable {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -46,12 +46,12 @@ final class ThrowableRunnableTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}
 
-	private static final class FooThrowableRunnable implements ThrowableRunnable<IOException> {
+	static final class FooThrowableRunnable implements ThrowableRunnable<IOException> {
 
 		private final LongAdder adder = new LongAdder();
 
@@ -60,7 +60,7 @@ final class ThrowableRunnableTest {
 			adder.increment();
 		}
 
-		private int getValue() {
+		int getValue() {
 			return adder.intValue();
 		}
 	}

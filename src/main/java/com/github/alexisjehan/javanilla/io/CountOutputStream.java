@@ -39,7 +39,7 @@ public final class CountOutputStream extends FilterOutputStream {
 	 * <p>Number of bytes written.</p>
 	 * @since 1.8.0
 	 */
-	private long count = 0L;
+	private long count;
 
 	/**
 	 * <p>Constructor with an {@link OutputStream} to decorate.</p>

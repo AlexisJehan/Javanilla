@@ -44,7 +44,7 @@ final class CountLineWriterTest {
 
 	@Test
 	void testWrite() throws IOException {
-		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
+		try (var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
 			assertThat(countLineWriter.getCount()).isZero();
 			countLineWriter.write(LINES[0]);
 			assertThat(countLineWriter.getCount()).isEqualTo(1L);
@@ -58,7 +58,7 @@ final class CountLineWriterTest {
 
 	@Test
 	void testNewLine() throws IOException {
-		try (final var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
+		try (var countLineWriter = new CountLineWriter(new LineWriter(Writers.EMPTY))) {
 			assertThat(countLineWriter.getCount()).isZero();
 			countLineWriter.newLine();
 			assertThat(countLineWriter.getCount()).isEqualTo(1L);

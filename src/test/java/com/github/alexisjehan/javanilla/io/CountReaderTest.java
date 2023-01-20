@@ -43,7 +43,7 @@ final class CountReaderTest {
 
 	@Test
 	void testReadChar() throws IOException {
-		try (final var countReader = new CountReader(Readers.of(CHARS))) {
+		try (var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isZero();
 			assertThat(countReader.read()).isEqualTo(CHARS[0]);
 			assertThat(countReader.getCount()).isEqualTo(1L);
@@ -59,7 +59,7 @@ final class CountReaderTest {
 	@Test
 	void testReadBuffer() throws IOException {
 		final var buffer = new char[2];
-		try (final var countReader = new CountReader(Readers.of(CHARS))) {
+		try (var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isZero();
 			assertThat(countReader.read(buffer, 0, 0)).isZero();
 			assertThat(countReader.getCount()).isZero();
@@ -75,7 +75,7 @@ final class CountReaderTest {
 	@Test
 	void testReadBufferInvalid() throws IOException {
 		final var buffer = new char[2];
-		try (final var countReader = new CountReader(Readers.of(CHARS))) {
+		try (var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThatNullPointerException().isThrownBy(() -> countReader.read(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countReader.read(buffer, -1, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countReader.read(buffer, 3, 2));
@@ -86,7 +86,7 @@ final class CountReaderTest {
 
 	@Test
 	void testSkip() throws IOException {
-		try (final var countReader = new CountReader(Readers.of(CHARS))) {
+		try (var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isZero();
 			assertThat(countReader.skip(-1L)).isZero();
 			assertThat(countReader.skip(0L)).isZero();
@@ -100,7 +100,7 @@ final class CountReaderTest {
 
 	@Test
 	void testMarkAndReset() throws IOException {
-		try (final var countReader = new CountReader(Readers.of(CHARS))) {
+		try (var countReader = new CountReader(Readers.of(CHARS))) {
 			assertThat(countReader.getCount()).isZero();
 			assertThat(countReader.read()).isEqualTo(CHARS[0]);
 			assertThat(countReader.getCount()).isEqualTo(1L);

@@ -33,8 +33,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,7 +49,7 @@ final class OutputStreamsTest {
 
 	@Test
 	void testEmpty() throws IOException {
-		try (final var emptyOutputStream = OutputStreams.EMPTY) {
+		try (var emptyOutputStream = OutputStreams.EMPTY) {
 			emptyOutputStream.write(BYTES[0]);
 			emptyOutputStream.write(ByteArrays.EMPTY);
 			emptyOutputStream.write(BYTES);
@@ -83,16 +83,16 @@ final class OutputStreamsTest {
 
 	@Test
 	void testBuffered() throws IOException {
-		try (final var outputStream = OutputStreams.EMPTY) {
+		try (var outputStream = OutputStreams.EMPTY) {
 			assertThat(outputStream).isNotInstanceOf(BufferedOutputStream.class);
-			try (final var bufferedOutputStream = OutputStreams.buffered(outputStream)) {
+			try (var bufferedOutputStream = OutputStreams.buffered(outputStream)) {
 				assertThat(outputStream).isNotSameAs(bufferedOutputStream);
 				assertThat(bufferedOutputStream).isInstanceOf(BufferedOutputStream.class);
 			}
 		}
-		try (final var outputStream = new BufferedOutputStream(OutputStreams.EMPTY)) {
+		try (var outputStream = new BufferedOutputStream(OutputStreams.EMPTY)) {
 			assertThat(outputStream).isInstanceOf(BufferedOutputStream.class);
-			try (final var bufferedOutputStream = OutputStreams.buffered(outputStream)) {
+			try (var bufferedOutputStream = OutputStreams.buffered(outputStream)) {
 				assertThat(outputStream).isSameAs(bufferedOutputStream);
 				assertThat(bufferedOutputStream).isInstanceOf(BufferedOutputStream.class);
 			}
@@ -130,9 +130,9 @@ final class OutputStreamsTest {
 	void testTee() throws IOException {
 		assertThat(OutputStreams.tee()).isSameAs(OutputStreams.EMPTY);
 		assertThat(OutputStreams.tee(OutputStreams.EMPTY)).isSameAs(OutputStreams.EMPTY);
-		try (final var fooOutputStream = new ByteArrayOutputStream()) {
-			try (final var barOutputStream = new ByteArrayOutputStream()) {
-				try (final var teeOutputStream = OutputStreams.tee(fooOutputStream, barOutputStream)) {
+		try (var fooOutputStream = new ByteArrayOutputStream()) {
+			try (var barOutputStream = new ByteArrayOutputStream()) {
+				try (var teeOutputStream = OutputStreams.tee(fooOutputStream, barOutputStream)) {
 					teeOutputStream.write(BYTES[0]);
 					teeOutputStream.write(ByteArrays.EMPTY);
 					teeOutputStream.write(BYTES);
@@ -150,9 +150,9 @@ final class OutputStreamsTest {
 			}
 			assertThat(fooOutputStream.toByteArray()).containsExactly(BYTES[0], BYTES[0], BYTES[1], BYTES[2], BYTES[0]);
 		}
-		try (final var fooOutputStream = new ByteArrayOutputStream()) {
-			try (final var barOutputStream = new ByteArrayOutputStream()) {
-				try (final var teeOutputStream = OutputStreams.tee(Set.of(fooOutputStream, barOutputStream))) {
+		try (var fooOutputStream = new ByteArrayOutputStream()) {
+			try (var barOutputStream = new ByteArrayOutputStream()) {
+				try (var teeOutputStream = OutputStreams.tee(Set.of(fooOutputStream, barOutputStream))) {
 					teeOutputStream.write(BYTES[0]);
 					teeOutputStream.write(ByteArrays.EMPTY);
 					teeOutputStream.write(BYTES);
@@ -176,14 +176,14 @@ final class OutputStreamsTest {
 	void testTeeInvalid() {
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((OutputStream[]) null));
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((OutputStream) null));
-		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((List<OutputStream>) null));
+		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee((Collection<OutputStream>) null));
 		assertThatNullPointerException().isThrownBy(() -> OutputStreams.tee(Collections.singleton(null)));
 	}
 
 	@Test
 	void testOf(@TempDir final Path tmpDirectory) throws IOException {
 		final var tmpFile = tmpDirectory.resolve("testOf");
-		try (final var outputStream = OutputStreams.of(tmpFile)) {
+		try (var outputStream = OutputStreams.of(tmpFile)) {
 			outputStream.write(BYTES);
 		}
 		assertThat(tmpFile).hasBinaryContent(BYTES);
@@ -196,22 +196,22 @@ final class OutputStreamsTest {
 
 	@Test
 	void testToWriter() throws IOException {
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var writer = OutputStreams.toWriter(outputStream)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var writer = OutputStreams.toWriter(outputStream)) {
 				writer.write(new String(BYTES));
 			}
 			assertThat(outputStream).hasToString(new String(BYTES));
 		}
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
 				writer.write(new String(BYTES));
 			}
 			assertThat(outputStream.toString(StandardCharsets.ISO_8859_1)).isEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));
 		}
 
 		// Not the same charset
-		try (final var outputStream = new ByteArrayOutputStream()) {
-			try (final var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
+		try (var outputStream = new ByteArrayOutputStream()) {
+			try (var writer = OutputStreams.toWriter(outputStream, StandardCharsets.ISO_8859_1)) {
 				writer.write(new String(BYTES));
 			}
 			assertThat(outputStream.toString(StandardCharsets.UTF_16)).isNotEqualTo(new String(BYTES, StandardCharsets.ISO_8859_1));

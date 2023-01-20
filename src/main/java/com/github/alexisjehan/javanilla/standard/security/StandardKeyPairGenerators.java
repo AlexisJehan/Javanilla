@@ -63,7 +63,7 @@ public final class StandardKeyPairGenerators {
 
 	/**
 	 * <p>Get a new "RSA" {@link KeyPairGenerator} instance.</p>
-	 * @return a "RSA" {@link KeyPairGenerator} instance
+	 * @return an "RSA" {@link KeyPairGenerator} instance
 	 * @since 1.6.0
 	 */
 	public static KeyPairGenerator getRsaInstance() {

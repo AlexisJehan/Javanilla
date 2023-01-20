@@ -71,7 +71,7 @@ public final class Readers {
 		 * @param iterator the {@link Iterator} of {@link Reader}s
 		 * @since 1.8.0
 		 */
-		private SequenceReader(final Iterator<? extends Reader> iterator) {
+		SequenceReader(final Iterator<? extends Reader> iterator) {
 			this.iterator = iterator;
 			peekNextReader();
 		}
@@ -464,7 +464,7 @@ public final class Readers {
 	 */
 	public static char[] toChars(final Reader reader) throws IOException {
 		Ensure.notNull("reader", reader);
-		try (final var writer = new CharArrayWriter()) {
+		try (var writer = new CharArrayWriter()) {
 			reader.transferTo(writer);
 			return writer.toCharArray();
 		}
@@ -482,7 +482,7 @@ public final class Readers {
 	 */
 	public static String toString(final Reader reader) throws IOException {
 		Ensure.notNull("reader", reader);
-		try (final var writer = new StringWriter()) {
+		try (var writer = new StringWriter()) {
 			reader.transferTo(writer);
 			return writer.toString();
 		}

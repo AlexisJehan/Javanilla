@@ -44,7 +44,6 @@ public enum LineSeparator {
 	 * @since 1.8.0
 	 */
 	LF("\n") {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -67,7 +66,6 @@ public enum LineSeparator {
 	 * @since 1.8.0
 	 */
 	CR_LF("\r\n") {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -79,11 +77,11 @@ public enum LineSeparator {
 				if ('\r' == i1) {
 					i2 = reader.read();
 					if ('\n' == i2) {
-						return i2;
+						return '\n';
 					}
-					builder.appendCodePoint(i1);
+					builder.appendCodePoint('\r');
 					if (-1 == i2) {
-						return i2;
+						return -1;
 					}
 					builder.appendCodePoint(i2);
 				} else {
@@ -99,7 +97,6 @@ public enum LineSeparator {
 	 * @since 1.8.0
 	 */
 	CR("\r") {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -122,7 +119,6 @@ public enum LineSeparator {
 	 * @since 1.8.0
 	 */
 	DEFAULT(System.lineSeparator()) {
-
 		/**
 		 * {@inheritDoc}
 		 */
@@ -162,14 +158,14 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Read the next line from the given {@link Reader} using the current {@link LineSeparator} strategy.</p>
+	 * <p>Read the next line from the given {@link Reader} using the current {@code LineSeparator} strategy.</p>
 	 * @param reader the {@link Reader} to read from
 	 * @param builder the {@link StringBuilder} to write the line to
 	 * @return the {@code int} value of the last read {@code char}
 	 * @throws IOException might occur with I/O operations
 	 * @since 1.8.0
 	 */
-	abstract int read(final Reader reader, final StringBuilder builder) throws IOException;
+	abstract int read(Reader reader, StringBuilder builder) throws IOException;
 
 	/**
 	 * <p>Return the {@link String} representation.</p>
@@ -182,10 +178,10 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@link LineSeparator} type of the given {@link Path} using a default {@link Charset}
+	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@link Path} using a default {@link Charset}
 	 * reading a sample.</p>
 	 * @param path the {@link Path} of the file to analyze
-	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
+	 * @return the detected {@code LineSeparator} if one has been found, {@link #DEFAULT} otherwise
 	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} is {@code null}
 	 * @since 1.8.0
@@ -195,11 +191,11 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@link LineSeparator} type of the given {@link Path} using the given {@link Charset}
+	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@link Path} using the given {@link Charset}
 	 * reading a sample.</p>
 	 * @param path the {@link Path} of the file to analyze
 	 * @param charset the {@link Charset} to use
-	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
+	 * @return the detected {@code LineSeparator} if one has been found, {@link #DEFAULT} otherwise
 	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Path} or the {@link Charset} is {@code null}
 	 * @since 1.8.0
@@ -207,16 +203,16 @@ public enum LineSeparator {
 	public static LineSeparator detect(final Path path, final Charset charset) throws IOException {
 		Ensure.notNull("path", path);
 		Ensure.notNull("charset", charset);
-		try (final var reader = Readers.of(path, charset)) {
+		try (var reader = Readers.of(path, charset)) {
 			return detect(reader);
 		}
 	}
 
 	/**
-	 * <p>Attempt to detect the {@link LineSeparator} type of the given {@link Reader} using a sample.</p>
+	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@link Reader} using a sample.</p>
 	 * <p><b>Note</b>: The {@link Reader} need to support {@link Reader#mark(int)}.</p>
 	 * @param reader the {@link Reader} to analyze
-	 * @return the detected {@link LineSeparator} if one has been found, {@link DEFAULT} otherwise
+	 * @return the detected {@code LineSeparator} if one has been found, {@link #DEFAULT} otherwise
 	 * @throws IOException might occur with I/O operations
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @throws IllegalArgumentException if the {@link Reader} does not support {@link Reader#mark(int)}

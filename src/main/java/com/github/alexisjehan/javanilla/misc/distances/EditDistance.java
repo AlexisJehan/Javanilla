@@ -43,5 +43,5 @@ public interface EditDistance {
 	 * @throws NullPointerException if any {@link CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
-	double calculate(final CharSequence charSequence1, final CharSequence charSequence2);
+	double calculate(CharSequence charSequence1, CharSequence charSequence2);
 }

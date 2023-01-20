@@ -64,17 +64,17 @@ public final class Suppliers {
 			 * <p>Whether or not a value has already been supplied.</p>
 			 * @since 1.0.0
 			 */
-			private boolean isSupplied = false;
+			private boolean supplied;
 
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
 			public T get() {
-				if (isSupplied) {
+				if (supplied) {
 					throw new IllegalStateException("A result cannot be supplied more than once");
 				}
-				isSupplied = true;
+				supplied = true;
 				return supplier.get();
 			}
 		};
@@ -249,16 +249,16 @@ public final class Suppliers {
 			 * <p>Whether or not a value has already been supplied.</p>
 			 * @since 1.1.0
 			 */
-			private boolean isSupplied = false;
+			private boolean supplied;
 
 			/**
 			 * {@inheritDoc}
 			 */
 			@Override
 			public T get() {
-				if (!isSupplied || booleanSupplier.getAsBoolean()) {
+				if (!supplied || booleanSupplier.getAsBoolean()) {
 					value = supplier.get();
-					isSupplied = true;
+					supplied = true;
 				}
 				return value;
 			}

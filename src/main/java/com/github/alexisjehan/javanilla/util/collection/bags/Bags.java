@@ -68,7 +68,7 @@ public final class Bags {
 		 * @param quantity the quantity of the element
 		 * @since 1.0.0
 		 */
-		private SingletonBag(final E element, final long quantity) {
+		SingletonBag(final E element, final long quantity) {
 			this.element = element;
 			this.quantity = quantity;
 		}

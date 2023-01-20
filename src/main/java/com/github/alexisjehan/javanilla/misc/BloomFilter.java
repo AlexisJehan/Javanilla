@@ -116,7 +116,7 @@ public final class BloomFilter<E> {
 		Ensure.notNullAndNotEmpty("hashFunctions", hashFunctions);
 		Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions);
 		this.length = length;
-		this.hashFunctions = hashFunctions;
+		this.hashFunctions = hashFunctions.clone();
 		bits = new BitSet(length);
 	}
 
@@ -188,7 +188,7 @@ public final class BloomFilter<E> {
 		Ensure.greaterThanOrEqualTo("length", length, 1);
 		Ensure.greaterThanOrEqualTo("numberOfHashFunctions", numberOfHashFunctions, 1);
 		Ensure.greaterThanOrEqualTo("expectedNumberOfElements", expectedNumberOfElements, 0);
-		return Math.pow(1.0d - Math.exp(-numberOfHashFunctions * expectedNumberOfElements / (double) length), numberOfHashFunctions);
+		return StrictMath.pow(1.0d - StrictMath.exp(-numberOfHashFunctions * expectedNumberOfElements / (double) length), numberOfHashFunctions);
 	}
 
 	/**
@@ -203,7 +203,7 @@ public final class BloomFilter<E> {
 	public static double calculateOptimalLength(final int expectedNumberOfElements, final double acceptableFalsePositiveRate) {
 		Ensure.greaterThanOrEqualTo("expectedNumberOfElements", expectedNumberOfElements, 0);
 		Ensure.between("acceptableFalsePositiveRate", acceptableFalsePositiveRate, 0.0d, 1.0d);
-		return Math.abs(-expectedNumberOfElements * Math.log(acceptableFalsePositiveRate) / Math.pow(Math.log(2.0d), 2.0d));
+		return StrictMath.abs(-expectedNumberOfElements * StrictMath.log(acceptableFalsePositiveRate) / StrictMath.pow(StrictMath.log(2.0d), 2.0d));
 	}
 
 	/**
@@ -220,6 +220,6 @@ public final class BloomFilter<E> {
 		if (0 == expectedNumberOfElements) {
 			return 0.0d;
 		}
-		return length / (double) expectedNumberOfElements * Math.log(2.0d);
+		return length / (double) expectedNumberOfElements * StrictMath.log(2.0d);
 	}
 }

@@ -43,23 +43,23 @@ import java.util.Queue;
 public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 
 	/**
-	 * <p>Extend the tree by creating a child {@link TreeNode} to the current node.</p>
+	 * <p>Extend the tree by creating a child {@code TreeNode} to the current node.</p>
 	 * <p><b>Note</b>: A {@code null} value may be restricted depending of the implementation.</p>
-	 * @param value the value of the child {@link TreeNode} to create
-	 * @return the created child {@link TreeNode}
+	 * @param value the value of the child {@code TreeNode} to create
+	 * @return the created child {@code TreeNode}
 	 * @since 1.8.0
 	 */
-	TreeNode<V> extend(final V value);
+	TreeNode<V> extend(V value);
 
 	/**
-	 * <p>Remove the descendant {@link TreeNode} of the current node from the tree.</p>
-	 * <p><b>Note</b>: The parent node of the descendant {@link TreeNode} will not be removed.</p>
-	 * @param descendant the descendant {@link TreeNode} to remove
-	 * @return {@code true} if the descendant {@link TreeNode} has been successfully removed
-	 * @throws NullPointerException if the descendant {@link TreeNode} is {@code null}
+	 * <p>Remove the descendant {@code TreeNode} of the current node from the tree.</p>
+	 * <p><b>Note</b>: The parent node of the descendant {@code TreeNode} will not be removed.</p>
+	 * @param descendant the descendant {@code TreeNode} to remove
+	 * @return {@code true} if the descendant {@code TreeNode} has been successfully removed
+	 * @throws NullPointerException if the descendant {@code TreeNode} is {@code null}
 	 * @since 1.8.0
 	 */
-	boolean remove(final TreeNode<V> descendant);
+	boolean remove(TreeNode<V> descendant);
 
 	/**
 	 * <p>Remove all children of the current node and their descendants from the tree.</p>
@@ -95,22 +95,22 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Optionally get the parent {@link TreeNode} of the current node.</p>
-	 * @return an {@link Optional} parent {@link TreeNode}
+	 * <p>Optionally get the parent {@code TreeNode} of the current node.</p>
+	 * @return an {@link Optional} parent {@code TreeNode}
 	 * @since 1.8.0
 	 */
 	Optional<TreeNode<V>> optionalParent();
 
 	/**
-	 * <p>Get a {@link List} of children {@link TreeNode}s of the current node.</p>
-	 * @return a {@link List} of children {@link TreeNode}s
+	 * <p>Get a {@link List} of children {@code TreeNode}s of the current node.</p>
+	 * @return a {@link List} of children {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	List<TreeNode<V>> children();
 
 	/**
-	 * <p>Create an {@link Iterable} of siblings {@link TreeNode}s of the current node.</p>
-	 * @return an {@link Iterable} of siblings {@link TreeNode}s
+	 * <p>Create an {@link Iterable} of siblings {@code TreeNode}s of the current node.</p>
+	 * @return an {@link Iterable} of siblings {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	default Iterable<TreeNode<V>> siblings() {
@@ -120,9 +120,9 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create an {@link Iterable} of branches {@link TreeNode}s of the current node.</p>
-	 * <p><b>Note</b>: {@link TreeNode}s will be breadth first iterated.</p>
-	 * @return an {@link Iterable} of branches {@link TreeNode}s
+	 * <p>Create an {@link Iterable} of branches {@code TreeNode}s of the current node.</p>
+	 * <p><b>Note</b>: {@code TreeNode}s will be breadth first iterated.</p>
+	 * @return an {@link Iterable} of branches {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	default Iterable<TreeNode<V>> branches() {
@@ -130,9 +130,9 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create an {@link Iterable} of leaves {@link TreeNode}s of the current node.</p>
-	 * <p><b>Note</b>: {@link TreeNode}s will be breadth first iterated.</p>
-	 * @return an {@link Iterable} of leaves {@link TreeNode}s
+	 * <p>Create an {@link Iterable} of leaves {@code TreeNode}s of the current node.</p>
+	 * <p><b>Note</b>: {@code TreeNode}s will be breadth first iterated.</p>
+	 * @return an {@link Iterable} of leaves {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	default Iterable<TreeNode<V>> leaves() {
@@ -140,8 +140,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create a depth first {@link Iterable} of descendants {@link TreeNode}s of the current node.</p>
-	 * @return a depth first {@link Iterable} of descendants {@link TreeNode}s
+	 * <p>Create a depth first {@link Iterable} of descendants {@code TreeNode}s of the current node.</p>
+	 * @return a depth first {@link Iterable} of descendants {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	default Iterable<TreeNode<V>> descendantsDepthFirst() {
@@ -164,10 +164,10 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 				 * <p>Prepare the next node.</p>
 				 * @since 1.8.0
 				 */
-				private void prepareNext() {
+				void prepareNext() {
 					next = deque.poll();
 					if (null != next) {
-						final var listIterator = next.children().listIterator((int) next.degree());
+						final var listIterator = next.children().listIterator(Math.toIntExact(next.degree()));
 						while (listIterator.hasPrevious()) {
 							deque.push(listIterator.previous());
 						}
@@ -201,8 +201,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create a breadth first {@link Iterable} of descendants {@link TreeNode}s of the current node.</p>
-	 * @return a breadth first {@link Iterable} of descendants {@link TreeNode}s
+	 * <p>Create a breadth first {@link Iterable} of descendants {@code TreeNode}s of the current node.</p>
+	 * @return a breadth first {@link Iterable} of descendants {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	default Iterable<TreeNode<V>> descendantsBreadthFirst() {
@@ -225,7 +225,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 				 * <p>Prepare the next node.</p>
 				 * @since 1.8.0
 				 */
-				private void prepareNext() {
+				void prepareNext() {
 					next = queue.poll();
 					if (null != next) {
 						queue.addAll(next.children());
@@ -259,8 +259,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create an {@link Iterable} of ancestors {@link TreeNode}s of the current node.</p>
-	 * @return an {@link Iterable} of ancestors {@link TreeNode}s
+	 * <p>Create an {@link Iterable} of ancestors {@code TreeNode}s of the current node.</p>
+	 * @return an {@link Iterable} of ancestors {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	default Iterable<TreeNode<V>> ancestors() {
@@ -347,5 +347,5 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	 * @param value the new value of the current node
 	 * @since 1.8.0
 	 */
-	void setValue(final V value);
+	void setValue(V value);
 }

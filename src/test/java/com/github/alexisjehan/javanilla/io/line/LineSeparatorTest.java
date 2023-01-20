@@ -43,12 +43,12 @@ final class LineSeparatorTest {
 	@Test
 	void testReadLf() throws IOException {
 		final var lineSeparator = LineSeparator.LF;
-		try (final var reader = Readers.EMPTY) {
+		try (var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\nfoo")) {
+		try (var reader = new StringReader("\nfoo")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -56,7 +56,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder).hasToString("foo");
 		}
-		try (final var reader = new StringReader("foo\n")) {
+		try (var reader = new StringReader("foo\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("foo");
@@ -64,7 +64,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\rfoo\n\nbar\r")) {
+		try (var reader = new StringReader("\rfoo\n\nbar\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("\rfoo");
@@ -80,12 +80,12 @@ final class LineSeparatorTest {
 	@Test
 	void testReadCrLf() throws IOException {
 		final var lineSeparator = LineSeparator.CR_LF;
-		try (final var reader = Readers.EMPTY) {
+		try (var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\r\nfoo")) {
+		try (var reader = new StringReader("\r\nfoo")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -93,7 +93,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder).hasToString("foo");
 		}
-		try (final var reader = new StringReader("foo\r\n")) {
+		try (var reader = new StringReader("foo\r\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("foo");
@@ -101,7 +101,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\rfoo\r\n\r\nbar\n")) {
+		try (var reader = new StringReader("\rfoo\r\n\r\nbar\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("\rfoo");
@@ -112,7 +112,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder).hasToString("bar\n");
 		}
-		try (final var reader = new StringReader("\nfoo\r\n\r\nbar\r")) {
+		try (var reader = new StringReader("\nfoo\r\n\r\nbar\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("\nfoo");
@@ -128,12 +128,12 @@ final class LineSeparatorTest {
 	@Test
 	void testReadCr() throws IOException {
 		final var lineSeparator = LineSeparator.CR;
-		try (final var reader = Readers.EMPTY) {
+		try (var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\rfoo")) {
+		try (var reader = new StringReader("\rfoo")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -141,7 +141,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder).hasToString("foo");
 		}
-		try (final var reader = new StringReader("foo\r")) {
+		try (var reader = new StringReader("foo\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("foo");
@@ -149,7 +149,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\nfoo\r\rbar\n")) {
+		try (var reader = new StringReader("\nfoo\r\rbar\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("\nfoo");
@@ -165,12 +165,12 @@ final class LineSeparatorTest {
 	@Test
 	void testReadDefault() throws IOException {
 		final var lineSeparator = LineSeparator.DEFAULT;
-		try (final var reader = Readers.EMPTY) {
+		try (var reader = Readers.EMPTY) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\rfoo")) {
+		try (var reader = new StringReader("\rfoo")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
@@ -178,7 +178,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder).hasToString("foo");
 		}
-		try (final var reader = new StringReader("foo\n")) {
+		try (var reader = new StringReader("foo\n")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder).hasToString("foo");
@@ -186,7 +186,7 @@ final class LineSeparatorTest {
 			assertThat(lineSeparator.read(reader, builder)).isEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();
 		}
-		try (final var reader = new StringReader("\nfoo\r\nbar\r")) {
+		try (var reader = new StringReader("\nfoo\r\nbar\r")) {
 			final var builder = new StringBuilder();
 			assertThat(lineSeparator.read(reader, builder)).isNotEqualTo(-1);
 			assertThat(builder.toString()).isEmpty();

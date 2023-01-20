@@ -43,7 +43,7 @@ final class CountOutputStreamTest {
 
 	@Test
 	void testWriteByte() throws IOException {
-		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
+		try (var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isZero();
 			countOutputStream.write(BYTES[0]);
 			assertThat(countOutputStream.getCount()).isEqualTo(1L);
@@ -56,7 +56,7 @@ final class CountOutputStreamTest {
 
 	@Test
 	void testWriteBytes() throws IOException {
-		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
+		try (var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThat(countOutputStream.getCount()).isZero();
 			countOutputStream.write(BYTES, 0, 0);
 			assertThat(countOutputStream.getCount()).isZero();
@@ -67,7 +67,7 @@ final class CountOutputStreamTest {
 
 	@Test
 	void testWriteBytesInvalid() throws IOException {
-		try (final var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
+		try (var countOutputStream = new CountOutputStream(OutputStreams.EMPTY)) {
 			assertThatNullPointerException().isThrownBy(() -> countOutputStream.write(null, 0, 2));
 			assertThatIllegalArgumentException().isThrownBy(() -> countOutputStream.write(BYTES, -1, 3));
 			assertThatIllegalArgumentException().isThrownBy(() -> countOutputStream.write(BYTES, 4, 3));

@@ -47,13 +47,13 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	T get() throws X;
 
 	/**
-	 * <p>Converts the given {@link ThrowableSupplier} to a {@link Supplier} that may throw an unchecked
+	 * <p>Converts the given {@code ThrowableSupplier} to a {@link Supplier} that may throw an unchecked
 	 * {@link Throwable}.</p>
-	 * @param throwableSupplier the {@link ThrowableSupplier} to convert
+	 * @param throwableSupplier the {@code ThrowableSupplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Supplier}
-	 * @throws NullPointerException if the {@link ThrowableSupplier} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableSupplier} is {@code null}
 	 * @since 1.8.0
 	 */
 	static <T, X extends Throwable> Supplier<T> unchecked(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
@@ -68,13 +68,13 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@link ThrowableSupplier} to a {@link Supplier} that may throw a sneaky
+	 * <p>Converts the given {@code ThrowableSupplier} to a {@link Supplier} that may throw a sneaky
 	 * {@link Throwable}.</p>
-	 * @param throwableSupplier the {@link ThrowableSupplier} to convert
+	 * @param throwableSupplier the {@code ThrowableSupplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Supplier}
-	 * @throws NullPointerException if the {@link ThrowableSupplier} is {@code null}
+	 * @throws NullPointerException if the {@code ThrowableSupplier} is {@code null}
 	 * @since 1.8.0
 	 */
 	static <T, X extends Throwable> Supplier<T> sneaky(final ThrowableSupplier<? extends T, ? extends X> throwableSupplier) {
@@ -98,11 +98,11 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@link ThrowableSupplier} from the given {@link Supplier}.</p>
+	 * <p>Create a {@code ThrowableSupplier} from the given {@link Supplier}.</p>
 	 * @param supplier the {@link Supplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@link Throwable}
-	 * @return the created {@link ThrowableSupplier}
+	 * @return the created {@code ThrowableSupplier}
 	 * @throws NullPointerException if the {@link Supplier} is {@code null}
 	 * @since 1.8.0
 	 */
