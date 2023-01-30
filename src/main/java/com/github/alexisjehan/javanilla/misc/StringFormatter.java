@@ -286,7 +286,7 @@ public final class StringFormatter implements Serializable {
 			return format((double) value) + localeDelimiter + "B";
 		}
 		var exponent = (int) (StrictMath.log(absValue) / StrictMath.log(base));
-		final var threshold = (long) (StrictMath.pow(base, exponent) * (base - 5 / StrictMath.pow(10.0d, floatPrecision + 1.0d)));
+		final var threshold = (long) (StrictMath.pow(base, exponent) * (base - 5.0d / StrictMath.pow(10.0d, floatPrecision + 1.0d)));
 		if (6 > exponent && threshold <= absValue) {
 			++exponent;
 		}

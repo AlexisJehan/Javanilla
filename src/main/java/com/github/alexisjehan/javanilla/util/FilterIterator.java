@@ -33,7 +33,7 @@ import java.util.NoSuchElementException;
  * @param <E> the element type
  * @since 1.8.0
  */
-public class FilterIterator<E> implements Iterator<E> {
+public abstract class FilterIterator<E> implements Iterator<E> {
 
 	/**
 	 * <p>Delegated {@link Iterator}.</p>
