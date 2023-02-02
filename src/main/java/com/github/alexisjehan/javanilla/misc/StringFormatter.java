@@ -280,7 +280,7 @@ public final class StringFormatter implements Serializable {
 	 */
 	public strictfp String formatBytes(final long value, final BytePrefix bytePrefix) {
 		Ensure.notNull("bytePrefix", bytePrefix);
-		final var absValue = Long.MIN_VALUE != value ? Math.abs(value) : Long.MAX_VALUE;
+		final var absValue = Long.MIN_VALUE != value ? StrictMath.abs(value) : Long.MAX_VALUE;
 		final var base = bytePrefix.getBase();
 		if (base > absValue) {
 			return format((double) value) + localeDelimiter + "B";

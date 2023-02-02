@@ -93,7 +93,7 @@ public final class RangeOutputStream extends FilterOutputStream {
 			return;
 		}
 		if (fromIndex <= index + length && toIndex >= index) {
-			out.write(bytes, offset + Math.toIntExact(fromIndex > index ? fromIndex - index : 0L), Math.toIntExact(Math.min(length, toIndex != index ? toIndex - index : 1L)));
+			out.write(bytes, offset + StrictMath.toIntExact(fromIndex > index ? fromIndex - index : 0L), StrictMath.toIntExact(StrictMath.min(length, toIndex != index ? toIndex - index : 1L)));
 		}
 		index += length;
 	}

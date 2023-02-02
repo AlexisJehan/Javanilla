@@ -167,7 +167,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 				void prepareNext() {
 					next = deque.poll();
 					if (null != next) {
-						final var listIterator = next.children().listIterator(Math.toIntExact(next.degree()));
+						final var listIterator = next.children().listIterator(StrictMath.toIntExact(next.degree()));
 						while (listIterator.hasPrevious()) {
 							deque.push(listIterator.previous());
 						}

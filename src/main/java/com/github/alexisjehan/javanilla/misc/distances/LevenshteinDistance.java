@@ -116,8 +116,8 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 		for (var i = 0; i < length1; ++i) {
 			cost2[0] = cost1[0] + deletionCost;
 			for (var j = 0; j < length2; ++j) {
-				cost2[j + 1] = Math.min(
-						Math.min(
+				cost2[j + 1] = StrictMath.min(
+						StrictMath.min(
 								cost2[j] + insertionCost,
 								cost1[j + 1] + deletionCost
 						),

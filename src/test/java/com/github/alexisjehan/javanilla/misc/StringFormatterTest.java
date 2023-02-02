@@ -262,7 +262,7 @@ final class StringFormatterTest {
 			assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66.66%");
 			assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99.9%");
 			assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100%");
-			assertThat(stringFormatter.formatPercent(Math.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99.99%");
+			assertThat(stringFormatter.formatPercent(StrictMath.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99.99%");
 			assertThat(stringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100%");
 		});
 		assertThat(new StringFormatter(Locale.FRANCE)).satisfies(stringFormatter -> {
@@ -272,7 +272,7 @@ final class StringFormatterTest {
 			assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66,66\u00a0%");
 			assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99,9\u00a0%");
 			assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100\u00a0%");
-			assertThat(stringFormatter.formatPercent(Math.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99,99\u00a0%");
+			assertThat(stringFormatter.formatPercent(StrictMath.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99,99\u00a0%");
 			assertThat(stringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100\u00a0%");
 		});
 		assertThat(new StringFormatter(Locale.US, 5)).satisfies(stringFormatter -> {
@@ -282,7 +282,7 @@ final class StringFormatterTest {
 			assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66.66666%");
 			assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99.9%");
 			assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100%");
-			assertThat(stringFormatter.formatPercent(Math.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99.99999%");
+			assertThat(stringFormatter.formatPercent(StrictMath.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99.99999%");
 			assertThat(stringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100%");
 		});
 		assertThat(new StringFormatter(Locale.US, StringFormatter.DEFAULT_FLOAT_PRECISION, true)).satisfies(stringFormatter -> {
@@ -292,7 +292,7 @@ final class StringFormatterTest {
 			assertThat(stringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66.66%");
 			assertThat(stringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99.90%");
 			assertThat(stringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100.00%");
-			assertThat(stringFormatter.formatPercent(Math.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99.99%");
+			assertThat(stringFormatter.formatPercent(StrictMath.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99.99%");
 			assertThat(stringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100.00%");
 		});
 	}

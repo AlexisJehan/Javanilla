@@ -113,7 +113,7 @@ public final class RangeInputStream extends FilterInputStream {
 		if (toIndex < index) {
 			return -1;
 		}
-		final var total = in.read(buffer, offset, Math.toIntExact(Math.min(length, toIndex - index + 1L)));
+		final var total = in.read(buffer, offset, StrictMath.toIntExact(StrictMath.min(length, toIndex - index + 1L)));
 		if (-1 != total) {
 			index += total;
 		}

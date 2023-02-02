@@ -128,7 +128,7 @@ public final class BloomFilter<E> {
 	 */
 	public void add(final E element) {
 		for (final var hashFunction : hashFunctions) {
-			bits.set(Math.abs(hashFunction.applyAsInt(element)) % length, true);
+			bits.set(StrictMath.abs(hashFunction.applyAsInt(element)) % length, true);
 		}
 	}
 
@@ -141,7 +141,7 @@ public final class BloomFilter<E> {
 	 */
 	public boolean mightContains(final E element) {
 		for (final var hashFunction : hashFunctions) {
-			if (!bits.get(Math.abs(hashFunction.applyAsInt(element)) % length)) {
+			if (!bits.get(StrictMath.abs(hashFunction.applyAsInt(element)) % length)) {
 				return false;
 			}
 		}

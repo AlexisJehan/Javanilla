@@ -47,7 +47,7 @@ final class DistancesTest {
 		assertThat(distance.calculate(0.0d, 0.0d)).isZero();
 		assertThat(distance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
 		assertThat(distance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
-		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(Math.sqrt(45.0d));
+		assertThat(distance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isEqualTo(StrictMath.sqrt(45.0d));
 	}
 
 	@Test

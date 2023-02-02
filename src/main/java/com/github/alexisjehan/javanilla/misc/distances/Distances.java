@@ -46,7 +46,7 @@ public enum Distances implements Distance {
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			var distance = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
-				distance += Math.abs(vector1[i] - vector2[i]);
+				distance += StrictMath.abs(vector1[i] - vector2[i]);
 			}
 			return distance;
 		}
@@ -64,9 +64,9 @@ public enum Distances implements Distance {
 		@Override
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			if (1 == vector1.length) {
-				return Math.abs(vector1[0] - vector2[0]);
+				return StrictMath.abs(vector1[0] - vector2[0]);
 			}
-			return Math.sqrt(SQUARED_EUCLIDEAN.calculateImpl(vector1, vector2));
+			return StrictMath.sqrt(SQUARED_EUCLIDEAN.calculateImpl(vector1, vector2));
 		}
 	},
 
@@ -104,7 +104,7 @@ public enum Distances implements Distance {
 		protected double calculateImpl(final double[] vector1, final double[] vector2) {
 			var distance = 0.0d;
 			for (var i = 0; i < vector1.length; ++i) {
-				distance = Math.max(distance, Math.abs(vector1[i] - vector2[i]));
+				distance = StrictMath.max(distance, StrictMath.abs(vector1[i] - vector2[i]));
 			}
 			return distance;
 		}

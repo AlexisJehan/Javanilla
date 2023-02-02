@@ -49,7 +49,7 @@ public enum EditDistances implements EditDistance {
 				for (var j = 0; j < length2; ++j) {
 					lengths[i + 1][j + 1] = charSequence1.charAt(i) == charSequence2.charAt(j)
 							? lengths[i][j] + 1
-							: Math.max(lengths[i + 1][j], lengths[i][j + 1]);
+							: StrictMath.max(lengths[i + 1][j], lengths[i][j + 1]);
 				}
 			}
 			return lengths[length1][length2];

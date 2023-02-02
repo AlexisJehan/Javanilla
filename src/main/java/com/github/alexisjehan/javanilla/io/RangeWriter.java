@@ -93,7 +93,7 @@ public final class RangeWriter extends FilterWriter {
 			return;
 		}
 		if (fromIndex <= index + length && toIndex >= index) {
-			out.write(chars, offset + Math.toIntExact(fromIndex > index ? fromIndex - index : 0L), Math.toIntExact(Math.min(length, toIndex != index ? toIndex - index : 1L)));
+			out.write(chars, offset + StrictMath.toIntExact(fromIndex > index ? fromIndex - index : 0L), StrictMath.toIntExact(StrictMath.min(length, toIndex != index ? toIndex - index : 1L)));
 		}
 		index += length;
 	}
@@ -111,7 +111,7 @@ public final class RangeWriter extends FilterWriter {
 			return;
 		}
 		if (fromIndex <= index + length && toIndex >= index) {
-			out.write(string, offset + Math.toIntExact(fromIndex > index ? fromIndex - index : 0L), Math.toIntExact(Math.min(length, toIndex != index ? toIndex - index : 1L)));
+			out.write(string, offset + StrictMath.toIntExact(fromIndex > index ? fromIndex - index : 0L), StrictMath.toIntExact(StrictMath.min(length, toIndex != index ? toIndex - index : 1L)));
 		}
 		index += length;
 	}
