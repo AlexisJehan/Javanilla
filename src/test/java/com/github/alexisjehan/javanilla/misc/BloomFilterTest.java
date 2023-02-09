@@ -38,19 +38,45 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class BloomFilterTest {
 
 	private static final int LENGTH = 10;
-	private static final Checksum hashFunction = new CRC32();
+	private static final Checksum[] CHECKSUM_HASH_FUNCTIONS = ObjectArrays.of(
+			new CRC32()
+	);
+	private static final IntUnaryOperator[] INT_UNARY_OPERATOR_HASH_FUNCTIONS = ObjectArrays.of(
+			IntUnaryOperator.identity()
+	);
+	private static final ToIntFunction<Object>[] TO_INT_FUNCTION_HASH_FUNCTIONS = ObjectArrays.of(
+			Object::hashCode
+	);
+
+	@Test
+	void testConstructorChecksumImmutable() {
+		final var hashFunctions = CHECKSUM_HASH_FUNCTIONS.clone();
+		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunctions);
+		bloomFilter.add("foo");
+		hashFunctions[0] = null;
+		assertThat(bloomFilter.mightContains("foo")).isTrue();
+	}
 
 	@Test
 	void testConstructorChecksumInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, hashFunction));
+		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, CHECKSUM_HASH_FUNCTIONS));
 		assertThatNullPointerException().isThrownBy(() -> new BloomFilter<>(LENGTH, (Checksum[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(LENGTH, ObjectArrays.empty(Checksum.class)));
 		assertThatNullPointerException().isThrownBy(() -> new BloomFilter<>(LENGTH, (Checksum) null));
 	}
 
 	@Test
+	void testConstructorIntUnaryOperatorImmutable() {
+		final var hashFunctions = INT_UNARY_OPERATOR_HASH_FUNCTIONS.clone();
+		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunctions);
+		bloomFilter.add("foo");
+		hashFunctions[0] = null;
+		assertThat(bloomFilter.mightContains("foo")).isTrue();
+	}
+
+	@Test
 	void testConstructorIntUnaryOperatorInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, IntUnaryOperator.identity()));
+		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, INT_UNARY_OPERATOR_HASH_FUNCTIONS));
 		assertThatNullPointerException().isThrownBy(() -> new BloomFilter<>(LENGTH, (IntUnaryOperator[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(LENGTH, ObjectArrays.empty(IntUnaryOperator.class)));
 		assertThatNullPointerException().isThrownBy(() -> new BloomFilter<>(LENGTH, (IntUnaryOperator) null));
@@ -58,18 +84,17 @@ final class BloomFilterTest {
 
 	@Test
 	void testConstructorToIntFunctionImmutable() {
-		final var hashFunctions = ObjectArrays.<ToIntFunction<String>>of(String::hashCode);
+		final var hashFunctions = TO_INT_FUNCTION_HASH_FUNCTIONS.clone();
 		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunctions);
 		bloomFilter.add("foo");
-		assertThat(bloomFilter.mightContains("foo")).isTrue();
-		hashFunctions[0] = string -> 0;
+		hashFunctions[0] = null;
 		assertThat(bloomFilter.mightContains("foo")).isTrue();
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
 	void testConstructorToIntFunctionInvalid() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, String::hashCode));
+		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(0, TO_INT_FUNCTION_HASH_FUNCTIONS));
 		assertThatNullPointerException().isThrownBy(() -> new BloomFilter<>(LENGTH, (ToIntFunction<String>[]) null));
 		assertThatIllegalArgumentException().isThrownBy(() -> new BloomFilter<>(LENGTH, ObjectArrays.empty(ToIntFunction.class)));
 		assertThatNullPointerException().isThrownBy(() -> new BloomFilter<>(LENGTH, (ToIntFunction<String>) null));
@@ -77,7 +102,7 @@ final class BloomFilterTest {
 
 	@Test
 	void testAddAndMightContains() {
-		assertThat(new BloomFilter<>(LENGTH, hashFunction)).satisfies(bloomFilter -> {
+		assertThat(new BloomFilter<>(LENGTH, CHECKSUM_HASH_FUNCTIONS)).satisfies(bloomFilter -> {
 			assertThat(bloomFilter.mightContains("foo")).isFalse();
 			assertThat(bloomFilter.mightContains("bar")).isFalse();
 			bloomFilter.add("foo");
@@ -89,7 +114,7 @@ final class BloomFilterTest {
 		});
 
 		// Collision
-		assertThat(new BloomFilter<>(LENGTH, (String value) -> 0)).satisfies(bloomFilter -> {
+		assertThat(new BloomFilter<>(LENGTH, (Object value) -> 0)).satisfies(bloomFilter -> {
 			assertThat(bloomFilter.mightContains("foo")).isFalse();
 			assertThat(bloomFilter.mightContains("bar")).isFalse();
 			bloomFilter.add("foo");
@@ -100,7 +125,7 @@ final class BloomFilterTest {
 
 	@Test
 	void testClear() {
-		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunction);
+		final var bloomFilter = new BloomFilter<>(LENGTH, CHECKSUM_HASH_FUNCTIONS);
 		assertThat(bloomFilter.mightContains("foo")).isFalse();
 		assertThat(bloomFilter.mightContains("bar")).isFalse();
 		bloomFilter.add("foo");
@@ -122,7 +147,7 @@ final class BloomFilterTest {
 
 	@Test
 	void testGetters() {
-		final var bloomFilter = new BloomFilter<>(LENGTH, hashFunction);
+		final var bloomFilter = new BloomFilter<>(LENGTH, CHECKSUM_HASH_FUNCTIONS);
 		assertThat(bloomFilter.getLength()).isEqualTo(LENGTH);
 		assertThat(bloomFilter.getNumberOfHashFunctions()).isEqualTo(1);
 	}

@@ -60,28 +60,29 @@ public final class BloomFilter<E> {
 	private final BitSet bits;
 
 	/**
-	 * <p>Constructor with a length and multiple {@link Checksum}s.</p>
+	 * <p>Constructor with a length and multiple {@link Checksum} hash functions.</p>
 	 * @param length the length of the Bloom Filter
-	 * @param checksums the {@link Checksum} array used by the Bloom Filter
-	 * @throws NullPointerException if the {@link Checksum} array or any of them is {@code null}
-	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link Checksum} array is empty
+	 * @param hashFunctions the {@link Checksum} hash functions array used by the Bloom Filter
+	 * @throws NullPointerException if the {@link Checksum} hash functions array or any of them is {@code null}
+	 * @throws IllegalArgumentException if the length is lower than {@code 1} or if the {@link Checksum} hash functions
+	 *         array is empty
 	 * @since 1.2.0
 	 */
-	public BloomFilter(final int length, final Checksum... checksums) {
+	public BloomFilter(final int length, final Checksum... hashFunctions) {
 		this(
 				length,
-				Arrays.stream(Ensure.notNullAndNotNullElements("checksums", checksums))
-						.map(checksum -> (IntUnaryOperator) value -> {
-							checksum.reset();
-							checksum.update(ByteArrays.of(value));
-							return (int) checksum.getValue();
+				Arrays.stream(Ensure.notNullAndNotNullElements("hashFunctions", hashFunctions))
+						.map(hashFunction -> (IntUnaryOperator) value -> {
+							hashFunction.reset();
+							hashFunction.update(ByteArrays.of(value));
+							return (int) hashFunction.getValue();
 						})
 						.toArray(IntUnaryOperator[]::new)
 		);
 	}
 
 	/**
-	 * <p>Constructor with a length and multiple {@link IntUnaryOperator} hash functions working with
+	 * <p>Constructor with a length and multiple {@link IntUnaryOperator} hash functions, working with
 	 * {@link Object#hashCode()}.</p>
 	 * @param length the length of the Bloom Filter
 	 * @param hashFunctions the {@link IntUnaryOperator} hash functions array used by the Bloom Filter
