@@ -195,7 +195,6 @@ public final class Lists {
 	 * @throws NullPointerException if the {@link List} is {@code null}
 	 * @since 1.1.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> NullableOptional<E> getOptionalFirst(final List<? extends E> list) {
 		Ensure.notNull("list", list);
 		if (list.isEmpty()) {
@@ -215,7 +214,6 @@ public final class Lists {
 	 * @throws NullPointerException if the {@link List} is {@code null}
 	 * @since 1.1.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> NullableOptional<E> getOptionalLast(final List<? extends E> list) {
 		Ensure.notNull("list", list);
 		if (list.isEmpty()) {

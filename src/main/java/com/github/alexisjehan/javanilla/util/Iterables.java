@@ -304,7 +304,6 @@ public final class Iterables {
 	 * @throws NullPointerException if the {@link Iterable} or the {@link Collection} is {@code null}
 	 * @since 1.8.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> long transferTo(final Iterable<? extends E> iterable, final Collection<? super E> collection) {
 		Ensure.notNull("iterable", iterable);
 		Ensure.notNull("collection", collection);
@@ -324,7 +323,6 @@ public final class Iterables {
 	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.8.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> NullableOptional<E> getOptionalFirst(final Iterable<? extends E> iterable) {
 		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
@@ -342,7 +340,6 @@ public final class Iterables {
 	 * @throws NullPointerException if the {@link Iterable} is {@code null}
 	 * @since 1.8.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> NullableOptional<E> getOptionalLast(final Iterable<? extends E> iterable) {
 		Ensure.notNull("iterable", iterable);
 		if (iterable instanceof List) {
