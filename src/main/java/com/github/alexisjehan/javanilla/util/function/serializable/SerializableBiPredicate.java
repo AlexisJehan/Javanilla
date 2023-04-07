@@ -30,6 +30,8 @@ import java.util.function.BiPredicate;
 
 /**
  * <p>Interface for a {@link BiPredicate} that is {@link Serializable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+ * {@link #test(Object, Object)}.</p>
  * @param <T> the type of the first argument to the predicate
  * @param <U> the type of the second argument the predicate
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableBiPredicate} instead

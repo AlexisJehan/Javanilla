@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 
 /**
  * <p>Interface for objects that return a {@link Stream}.</p>
- * <p>This is a functional interface whose functional method is {@link #stream()}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #stream()}.</p>
  * @param <E> the type of elements returned by the {@link Stream}
  * @since 1.0.0
  */

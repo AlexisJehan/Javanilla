@@ -31,6 +31,7 @@ import java.util.function.Predicate;
 
 /**
  * <p>Interface for a {@link Predicate} that is {@link Serializable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #test(Object)}.</p>
  * @param <T> the type of the input to the predicate
  * @since 1.8.0
  */

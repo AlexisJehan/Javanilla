@@ -27,7 +27,8 @@ import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 
 /**
  * <p>Interface for distance/heuristic/similarity functions that work on {@code double} vectors.</p>
- * <p>This is a functional interface whose functional method is {@link #calculate(double[], double[])}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+ * {@link #calculate(double[], double[])}.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Similarity_measure">https://en.wikipedia.org/wiki/Similarity_measure</a>
  * @since 1.8.0
  */

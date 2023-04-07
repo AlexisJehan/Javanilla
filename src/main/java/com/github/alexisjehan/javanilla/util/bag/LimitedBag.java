@@ -28,8 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 /**
  * <p>A {@link Bag} decorator that limits the maximum number of distinct elements contained. If the limit is reached
  * then an element with a minimum occurrence is totally removed.</p>
- * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
- * methods.</p>
+ * <p><b>Note</b>: This class implements its own {@link #toString()} method.</p>
  * @param <E> the element type
  * @since 1.8.0
  */

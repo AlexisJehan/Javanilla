@@ -30,6 +30,8 @@ import java.util.function.BiConsumer;
 
 /**
  * <p>Interface for a {@link BiConsumer} that is {@link Serializable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+ * {@link #accept(Object, Object)}.</p>
  * @param <T> the type of the first argument to the operation
  * @param <U> the type of the second argument to the operation
  * @since 1.8.0

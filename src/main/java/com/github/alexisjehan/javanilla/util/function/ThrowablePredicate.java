@@ -32,6 +32,7 @@ import java.util.function.Predicate;
 
 /**
  * <p>Interface for a {@link Predicate} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #test(Object)}.</p>
  * @param <T> the type of the input to the predicate
  * @param <X> the type of the {@link Throwable}
  * @since 1.8.0

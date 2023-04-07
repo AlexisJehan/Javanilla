@@ -28,6 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
  * <p>Interface for a {@link Runnable} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #run()}.</p>
  * @param <X> the type of the {@link Throwable}
  * @deprecated since 1.7.0, use {@link ThrowableProcedure} instead
  * @since 1.0.0

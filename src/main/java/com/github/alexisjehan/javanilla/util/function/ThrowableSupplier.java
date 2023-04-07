@@ -31,6 +31,7 @@ import java.util.function.Supplier;
 
 /**
  * <p>Interface for a {@link Supplier} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #get()}.</p>
  * @param <T> the type of results supplied by this supplier
  * @param <X> the type of the {@link Throwable}
  * @since 1.8.0

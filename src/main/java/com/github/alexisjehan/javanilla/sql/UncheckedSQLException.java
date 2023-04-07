@@ -29,7 +29,7 @@ import java.sql.SQLException;
 
 /**
  * <p>Wrapped {@link SQLException} as an unchecked exception.</p>
- * <p><b>Note</b>: This class is serializable.</p>
+ * <p><b>Note</b>: This class is {@link java.io.Serializable}.</p>
  * @deprecated since 1.6.0, should not be used anymore
  * @since 1.0.0
  */

@@ -30,7 +30,7 @@ import java.io.Serializable;
 
 /**
  * <p>A {@link SerializablePair} is an immutable tuple that is composed of two {@link Serializable} elements.</p>
- * <p><b>Note</b>: This class is serializable.</p>
+ * <p><b>Note</b>: This class is {@link Serializable}.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <F> the type of the first serializable element

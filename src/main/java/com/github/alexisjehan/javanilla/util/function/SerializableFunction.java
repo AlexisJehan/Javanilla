@@ -30,6 +30,7 @@ import java.util.function.Function;
 
 /**
  * <p>Interface for a {@link Function} that is {@link Serializable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #apply(Object)}.</p>
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
  * @since 1.8.0

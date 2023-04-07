@@ -31,6 +31,8 @@ import java.util.function.BiFunction;
 
 /**
  * <p>Interface for a {@link BiFunction} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+ * {@link #apply(Object, Object)}.</p>
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
  * @param <R> the type of the result of the function

@@ -30,6 +30,7 @@ import java.util.function.Supplier;
 
 /**
  * <p>Interface for a {@link Supplier} that is {@link Serializable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #get()}.</p>
  * @param <T> the type of results supplied by this supplier
  * @since 1.8.0
  */

@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 
 /**
  * <p>Interface for a {@link Consumer} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #accept(Object)}.</p>
  * @param <T> the type of the input to the operation
  * @param <X> the type of the {@link Throwable}
  * @since 1.8.0

@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 /**
  * <p>A {@link RuntimeException} wrapping any serialization {@link Exception} thrown while working with the
  * {@link Serializables} utility class.</p>
- * <p><b>Note</b>: This class is serializable.</p>
+ * <p><b>Note</b>: This class is {@link java.io.Serializable}.</p>
  * @since 1.0.0
  */
 public final class SerializationException extends RuntimeException {

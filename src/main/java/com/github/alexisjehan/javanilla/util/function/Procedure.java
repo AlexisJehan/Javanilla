@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.util.function;
 /**
  * <p>Represents an operation that takes no input argument and returns no result. Unlike {@link Runnable}, it is not
  * intended to be executed by a thread.</p>
- * <p>This is a functional interface whose functional method is {@link #execute()}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #execute()}.</p>
  * @since 1.7.0
  */
 @FunctionalInterface

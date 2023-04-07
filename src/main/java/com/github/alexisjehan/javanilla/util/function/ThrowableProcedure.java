@@ -29,6 +29,7 @@ import internal.ExcludeFromJacocoGeneratedReport;
 
 /**
  * <p>Interface for a {@link Procedure} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #execute()}.</p>
  * @param <X> the type of the {@link Throwable}
  * @since 1.8.0
  */

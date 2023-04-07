@@ -31,6 +31,7 @@ import java.util.function.Function;
 
 /**
  * <p>Interface for a {@link Function} that may throw a {@link Throwable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #apply(Object)}.</p>
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
  * @param <X> the type of the {@link Throwable}

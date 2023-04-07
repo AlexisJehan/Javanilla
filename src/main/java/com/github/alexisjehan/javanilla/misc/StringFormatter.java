@@ -39,7 +39,7 @@ import java.util.Locale;
 
 /**
  * <p>An immutable formatter to pretty display values of several types as {@link String}s.</p>
- * <p><b>Note</b>: This class is serializable.</p>
+ * <p><b>Note</b>: This class is {@link Serializable}.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @since 1.0.0

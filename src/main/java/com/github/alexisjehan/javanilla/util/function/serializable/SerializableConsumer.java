@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 
 /**
  * <p>Interface for a {@link Consumer} that is {@link Serializable}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #accept(Object)}.</p>
  * @param <T> the type of the input to the operation
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializableConsumer} instead
  * @since 1.4.0

@@ -33,7 +33,7 @@ import java.io.Serializable;
 
 /**
  * <p>The Minkowski {@link Distance} implementation.</p>
- * <p><b>Note</b>: This class is serializable.</p>
+ * <p><b>Note</b>: This class is {@link Serializable}.</p>
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Minkowski_distance">https://en.wikipedia.org/wiki/Minkowski_distance</a>

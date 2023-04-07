@@ -33,7 +33,9 @@ import java.util.function.LongConsumer;
 /**
  * <p>A base type for primitive specializations of {@link Iterable}. Specialized subtypes are provided for {@code int},
  * {@code long}, and {@code double} values.</p>
- * <p><b>Note</b>: This class is in continuation of {@link PrimitiveIterator}.</p>
+ * <p><b>Note</b>: This interface is based on {@link PrimitiveIterator}.</p>
+ * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+ * {@link #forEach(Object)}.</p>
  * @param <T> the type of elements returned by the provided PrimitiveIterator
  * @param <C> the type of primitive consumer
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.PrimitiveIterable} instead
