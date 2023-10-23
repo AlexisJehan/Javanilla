@@ -278,6 +278,7 @@ public final class StringFormatter implements Serializable {
 	 * @see <a href="https://stackoverflow.com/a/3758880">https://stackoverflow.com/a/3758880</a>
 	 * @since 1.0.0
 	 */
+	@SuppressWarnings("strictfp")
 	public strictfp String formatBytes(final long value, final BytePrefix bytePrefix) {
 		Ensure.notNull("bytePrefix", bytePrefix);
 		final var absValue = Long.MIN_VALUE != value ? StrictMath.abs(value) : Long.MAX_VALUE;

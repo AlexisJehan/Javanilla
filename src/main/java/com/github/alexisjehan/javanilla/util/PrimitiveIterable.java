@@ -70,6 +70,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 		 * {@inheritDoc}
 		 */
 		@Override
+		@SuppressWarnings("overloads")
 		default void forEach(final IntConsumer action) {
 			Ensure.notNull("action", action);
 			for (final var t : this) {
@@ -95,6 +96,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 		 * {@inheritDoc}
 		 */
 		@Override
+		@SuppressWarnings("overloads")
 		default void forEach(final LongConsumer action) {
 			Ensure.notNull("action", action);
 			for (final var t : this) {
@@ -120,6 +122,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 		 * {@inheritDoc}
 		 */
 		@Override
+		@SuppressWarnings("overloads")
 		default void forEach(final DoubleConsumer action) {
 			Ensure.notNull("action", action);
 			for (final var t : this) {
