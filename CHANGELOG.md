@@ -1,691 +1,784 @@
 # Changelog
 
-## 1.9.0 _(in progress)_
-…
+## 1.9.0 (unreleased)
 
-## 1.8.0 _(2022-12-23)_
-**crypto**
-- Added _StandardKeyAgreements_, _StandardKeyGenerators_ and _StandardSecretKeyFactories_ classes
+### Notes
+- Add the `maven-pmd-plugin` plugin with `pmd-core` and `pmd-java` dependencies
+- Update the `junit-jupiter` dependency to `5.10.0`
+- Update the `assertj-core` dependency to `3.24.2`
+- Update the `license-maven-plugin` plugin to `4.3`
+- Update the `maven-compiler-plugin` plugin to `3.11.0`
+- Update the `maven-surefire-plugin` plugin to `3.1.2`
+- Update the `jacoco-maven-plugin` plugin to `0.8.11`
+- Update the `maven-source-plugin` plugin to `3.3.0`
+- Update the `maven-javadoc-plugin` plugin to `3.6.0`
+- Update the `maven-gpg-plugin` plugin to `3.1.0`
 
-**io**
-- Added _CountInputStream_, _CountOutputStream_, _CountReader_, _CountWriter_, _InputStreams_, _OutputStreams_, _RangeInputStream_, _RangeOutputStream_, _RangeReader_, _RangeWriter_, _Readers_ and _Writers_ classes
+## [1.8.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.8.0) (2022-12-23)
 
-**io.bytes**
-- Deprecated _CountInputStream_, _CountOutputStream_, _InputStreams_, _OutputStreams_, _RangeInputStream_ and _RangeOutputStream_ classes
+### API changes
+<details>
 
-**io.chars**
-- Deprecated _CountReader_, _CountWriter_, _RangeReader_, _RangeWriter_, _Readers_ and _Writers_ classes
+#### `crypto`
+- Add `StandardKeyAgreements`, `StandardKeyGenerators` and `StandardSecretKeyFactories` classes
+
+#### `io`
+- Add `CountInputStream`, `CountOutputStream`, `InputStreams`, `OutputStreams`, `RangeInputStream` and
+  `RangeOutputStream` classes
+- Add `CountReader`, `CountWriter`, `RangeReader`, `RangeWriter`, `Readers` and `Writers` classes
 
-**io.line**
-- Added _CountLineReader_, _CountLineWriter_, _FilterLineReader_, _FilterLineWriter_, _LineReader_, _LineSeparator_, _LineWriter_, _RangeLineReader_ and _RangeLineWriter_ classes
+#### `io.bytes`
+- Deprecate `CountInputStream`, `CountOutputStream`, `InputStreams`, `OutputStreams`, `RangeInputStream` and
+  `RangeOutputStream` classes
 
-**io.lines**
-- Deprecated _CountLineReader_, _CountLineWriter_, _FilterLineReader_, _FilterLineWriter_, _LineReader_, _LineSeparator_, _LineWriter_, _RangeLineReader_ and _RangeLineWriter_ classes
+#### `io.chars`
+- Deprecate `CountReader`, `CountWriter`, `RangeReader`, `RangeWriter`, `Readers` and `Writers` classes
+
+#### `io.line`
+- Add `CountLineReader`, `CountLineWriter`, `FilterLineReader`, `FilterLineWriter`, `LineReader`, `LineSeparator`,
+  `LineWriter`, `RangeLineReader` and `RangeLineWriter` classes
+
+#### `io.lines`
+- Deprecate `CountLineReader`, `CountLineWriter`, `FilterLineReader`, `FilterLineWriter`, `LineReader`, `LineSeparator`,
+  `LineWriter`, `RangeLineReader` and `RangeLineWriter` classes
+
+#### `lang.Strings`
+- Add `substringBefore(CharSequence, char)`, `substringBefore(CharSequence, CharSequence)`,
+  `substringAfter(CharSequence, char)` and `substringAfter(CharSequence, CharSequence)` methods
+
+#### `lang.array.IntArrays`
+- Add the `add(int[], int, int)` method
+- Deprecate the `addTemporary(int[], int, int)` method
+
+#### `misc.distance`
+- Add `Distance`, `Distances`, `EditDistance`, `EditDistances`, `LevenshteinDistance` and `MinkowskiDistance` classes
 
-**lang.Strings**
-- Added _substringBefore(CharSequence, char)_, _substringBefore(CharSequence, CharSequence)_, _substringAfter(CharSequence, char)_ and _substringAfter(CharSequence, CharSequence)_
+#### `misc.distances`
+- Deprecate `Distance`, `Distances`, `EditDistance`, `EditDistances`, `LevenshteinDistance` and `MinkowskiDistance`
+  classes
 
-**lang.array.IntArrays**
-- Added the _add(int[], int, int)_ method
-- Deprecated the _addTemporary(int[], int, int)_ method
+#### `misc.quality.Ensure`
+- Add `notNullAndNotNullKeys(String, Map)`, `notNullAndNotNullValues(String, Map)` and
+  `notNullAndNotNullKeysAndValues(String, Map)` methods
 
-**misc.distance**
-- Added _Distance_, _Distances_, _EditDistance_, _EditDistances_, _LevenshteinDistance_ and _MinkowskiDistance_ classes
+#### `misc.tree`
+- Add `LinkedTreeNode` and `TreeNode` classes
 
-**misc.distances**
-- Deprecated _Distance_, _Distances_, _EditDistance_, _EditDistances_, _LevenshteinDistance_ and _MinkowskiDistance_ classes
+#### `misc.trees`
+- Deprecate `LinkedTreeNode` and `TreeNode` classes
 
-**misc.quality.Ensure**
-- Added _notNullAndNotNullKeys(String, Map)_, _notNullAndNotNullValues(String, Map)_ and _notNullAndNotNullKeysAndValues(String, Map)_
+#### `misc.tuple`
+- Add `Pair`, `SerializablePair`, `SerializableSingle`, `SerializableTriple`, `Single` and `Triple` classes
 
-**misc.tree**
-- Added _LinkedTreeNode_ and _TreeNode_ classes
+#### `misc.tuples`
+- Deprecate `Pair`, `SerializablePair`, `SerializableSingle`, `SerializableTriple`, `Single` and `Triple` classes
 
-**misc.trees**
-- Deprecated _LinkedTreeNode_ and _TreeNode_ classes
+#### `net.ssl`
+- Add `StandardSslContexts` and `StandardTrustManagerFactories` classes
 
-**misc.tuple**
-- Added _Pair_, _SerializablePair_, _SerializableSingle_, _SerializableTriple_, _Single_ and _Triple_ classes
+#### `security`
+- Add `StandardAlgorithmParameterGenerators`, `StandardAlgorithmParameters`, `StandardKeyFactories`,
+  `StandardKeyPairGenerators`, `StandardKeyStores`, `StandardMessageDigests` and `StandardSignatures` classes
 
-**misc.tuples**
-- Deprecated _Pair_, _SerializablePair_, _SerializableSingle_, _SerializableTriple_, _Single_ and _Triple_ classes
+#### `security.cert`
+- Add `StandardCertificateFactories`, `StandardCertPathBuilders`, `StandardCertPathValidators` and `StandardCertStores`
+  classes
 
-- **net.ssl**
-- Added _StandardSslContexts_ and _StandardTrustManagerFactories_ classes
+#### `util.bag`
+- Add `BatchIterator`, `CountIterator`, `FilterIterator`, `IndexedElement`, `Iterables`, `Iterators`,
+  `PreparedIterator`, `PrimitiveIterable` and `RangeIterator` classes
+- Add `Lists`, `Maps` and `Sets` classes
 
-- **security**
-- Added _StandardAlgorithmParameterGenerators_, _StandardAlgorithmParameters_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _StandardSignatures_ classes
+#### `util.bag`
+- Add `Bag`, `Bags`, `FilterBag`, `LimitedBag` and `MapBag` classes
 
-- **security.cert**
-- Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and _StandardCertStores_ classes
+#### `util.collection`
+- Deprecate `Lists`, `Maps` and `Sets` classes
 
-**util.bag**
-- Added _BatchIterator_, _CountIterator_, _FilterIterator_, _IndexedElement_, _Iterables_, _Iterators_, _Lists_, _Maps_, _PreparedIterator_, _PrimitiveIterable_, _RangeIterator_ and _Sets_ classes
+#### `util.collection.bags`
+- Deprecate `Bag`, `Bags`, `FilterBag`, `LimitedBag` and `MapBag` classes
 
-**util.bag**
-- Added _Bag_, _Bags_, _FilterBag_, _LimitedBag_ and _MapBag_ classes
+#### `util.function`
+- Add `SerializableBiConsumer`, `SerializableBiFunction`, `SerializableBiPredicate`, `SerializableConsumer`,
+  `SerializableFunction`, `SerializablePredicate`, `SerializableProcedure` and `SerializableSupplier` classes
+- Add `ThrowableBiConsumer`, `ThrowableBiFunction`, `ThrowableBiPredicate`, `ThrowableConsumer`, `ThrowableFunction`,
+  `ThrowablePredicate`, `ThrowableProcedure` and `ThrowableSupplier` classes
 
-**util.collection**
-- Deprecated _Lists_, _Maps_ and _Sets_ classes
+#### `util.function.serializable`
+- Deprecate `SerializableBiConsumer`, `SerializableBiFunction`, `SerializableBiPredicate`, `SerializableConsumer`,
+  `SerializableFunction`, `SerializablePredicate`, `SerializableProcedure` and `SerializableSupplier` classes
 
-**util.collection.bags**
-- Deprecated _Bag_, _Bags_, _FilterBag_, _LimitedBag_ and _MapBag_ classes
+#### `util.function.throwable`
+- Deprecate `ThrowableBiConsumer`, `ThrowableBiFunction`, `ThrowableBiPredicate`, `ThrowableConsumer`,
+  `ThrowableFunction`, `ThrowablePredicate`, `ThrowableProcedure` and `ThrowableSupplier` classes
 
-**util.function**
-- Added _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_, _SerializableFunction_, _SerializablePredicate_, _SerializableProcedure_, _SerializableSupplier_, _ThrowableBiConsumer_, _ThrowableBiFunction_, _ThrowableBiPredicate_, _ThrowableConsumer_, _ThrowableFunction_, _ThrowablePredicate_, _ThrowableProcedure_ and _ThrowableSupplier_ classes
+#### `util.iteration`
+- Deprecate `BatchIterator`, `CountIterator`, `FilterIterator`, `IndexedElement`, `Iterables`, `Iterators`,
+  `PreparedIterator`, `PrimitiveIterable` and `RangeIterator` classes
+</details>
 
-**util.function.serializable**
-- Deprecated _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_, _SerializableFunction_, _SerializablePredicate_, _SerializableProcedure_ and _SerializableSupplier_ classes
+### Notes
+- Update the `junit-jupiter` dependency to `5.9.1`
+- Update the `assertj-core` dependency to `3.23.1`
+- Update the `maven-javadoc-plugin` plugin to `3.4.1`
+
+## [1.7.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.7.0) (2022-05-17)
+
+### API changes
+<details>
+
+#### `lang.Strings`
+- Add `removeStartIgnoreCase(CharSequence, char)`, `removeEndIgnoreCase(CharSequence, char)`,
+  `contains(CharSequence, char)`, `containsIgnoreCase(CharSequence, char)`, `startsWith(CharSequence, char)`,
+  `startsWithIgnoreCase(CharSequence, char)`, `endsWith(CharSequence, char)`, `endsWithIgnoreCase(CharSequence, char)`,
+  `isBinary(CharSequence, boolean)`, `isOctal(CharSequence, boolean)`, `isDecimal(CharSequence, boolean)`,
+  `isHexadecimal(CharSequence, boolean)`, `isBase64(CharSequence)` and `isBase64Url(CharSequence)` methods
+
+#### `lang.Throwables`
+- Add the `sneakyThrow(Throwable)` method
+- Deprecate `uncheck(ThrowableRunnable)` and `uncheck(ThrowableSupplier)` methods
+
+#### `lang.array.ByteArrays`
+- Add `ofBinaryString(CharSequence, boolean)`, `ofOctalString(CharSequence)`, `ofOctalString(CharSequence, boolean)`,
+  `ofDecimalString(CharSequence)`, `ofDecimalString(CharSequence, boolean)`,
+  `ofHexadecimalString(CharSequence, boolean)`, `toBinaryString(CharSequence, boolean)`, `toOctalString(CharSequence)`,
+  `toOctalString(CharSequence, boolean)`, `toDecimalString(CharSequence)`, `toDecimalString(CharSequence, boolean)` and
+  `toHexadecimalString(CharSequence, boolean)` methods
 
-**util.function.throwable**
-- Deprecated _ThrowableBiConsumer_, _ThrowableBiFunction_, _ThrowableBiPredicate_, _ThrowableConsumer_, _ThrowableFunction_, _ThrowablePredicate_, _ThrowableProcedure_ and _ThrowableSupplier_ classes
+#### `lang.array.IntArrays`
+- Remove the `add(int[], int, int)` method
+
+#### `util.function`
+- Add the `Procedure` class
+
+#### `util.function.serializable`
+- Add the `SerializableProcedure` class
+- Deprecate the `SerializableRunnable` class
+
+#### `util.function.throwable`
+- Add the `ThrowableProcedure` class
+- Deprecate the `ThrowableRunnable` class
+
+#### `util.function.throwable.ThrowableBiConsumer`
+- Add the `sneaky(ThrowableBiConsumer)` method
+
+#### `util.function.throwable.ThrowableBiFunction`
+- Add the `sneaky(ThrowableBiFunction)` method
 
-**util.iteration**
-- Deprecated _BatchIterator_, _CountIterator_, _FilterIterator_, _IndexedElement_, _Iterables_, _Iterators_, _PreparedIterator_, _PrimitiveIterable_ and _RangeIterator_ classes
+#### `util.function.throwable.ThrowableBiPredicate`
+- Add the `sneaky(ThrowableBiPredicate)` method
 
-## 1.7.0 _(2022-05-17)_
-**lang.Strings**
-- Added _removeStartIgnoreCase(CharSequence, char)_, _removeEndIgnoreCase(CharSequence, char)_, _contains(CharSequence, char)_, _containsIgnoreCase(CharSequence, char)_, _startsWith(CharSequence, char)_, _startsWithIgnoreCase(CharSequence, char)_, _endsWith(CharSequence, char)_ and _endsWithIgnoreCase(CharSequence, char)_
-- Added _isBinary(CharSequence, boolean)_, _isOctal(CharSequence, boolean)_, _isDecimal(CharSequence, boolean)_ and _isHexadecimal(CharSequence, boolean)_ methods
-- Added _isBase64(CharSequence)_ and _isBase64Url(CharSequence)_ methods
+#### `util.function.throwable.ThrowableConsumer`
+- Add the `sneaky(ThrowableConsumer)` method
 
-**lang.Throwables**
-- Added the _sneakyThrow(Throwable)_ method
-- Deprecated _uncheck(ThrowableRunnable)_ and _uncheck(ThrowableSupplier)_ methods
+#### `util.function.throwable.ThrowableFunction`
+- Add the `sneaky(ThrowableFunction)` method
+
+#### `util.function.throwable.ThrowablePredicate`
+- Add the `sneaky(ThrowablePredicate)` method
 
-**lang.array.ByteArrays**
-- Added _ofOctalString(CharSequence)_ and _ofDecimalString(CharSequence)_ methods
-- Added _ofBinaryString(CharSequence, boolean)_, _ofOctalString(CharSequence, boolean)_, _ofDecimalString(CharSequence, boolean)_ and _ofHexadecimalString(CharSequence, boolean)_ methods
-- Added _toOctalString(CharSequence)_ and _toDecimalString(CharSequence)_ methods
-- Added _toBinaryString(CharSequence, boolean)_, _toOctalString(CharSequence, boolean)_, _toDecimalString(CharSequence, boolean)_ and _toHexadecimalString(CharSequence, boolean)_ methods
+#### `util.function.throwable.ThrowableSupplier`
+- Add the `sneaky(ThrowableSupplier)` method
+</details>
 
-**lang.array.IntArrays**
-- Removed the _add(int[], int, int)_ method
-
-**util.function**
-- Added the _Procedure_ class
-
-**util.function.serializable**
-- Added the _SerializableProcedure_ class
-- Deprecated the _SerializableRunnable_ class
-
-**util.function.throwable**
-- Added the _ThrowableProcedure_ class
-- Deprecated the _ThrowableRunnable_ class
-
-**util.function.throwable.ThrowableBiConsumer**
-- Added the _sneaky(ThrowableBiConsumer)_ method
-
-**util.function.throwable.ThrowableBiFunction**
-- Added the _sneaky(ThrowableBiFunction)_ method
-
-**util.function.throwable.ThrowableBiPredicate**
-- Added the _sneaky(ThrowableBiPredicate)_ method
-
-**util.function.throwable.ThrowableConsumer**
-- Added the _sneaky(ThrowableConsumer)_ method
-
-**util.function.throwable.ThrowableFunction**
-- Added the _sneaky(ThrowableFunction)_ method
-
-**util.function.throwable.ThrowablePredicate**
-- Added the _sneaky(ThrowablePredicate)_ method
-
-**util.function.throwable.ThrowableSupplier**
-- Added the _sneaky(ThrowableSupplier)_ method
-
-## 1.6.0 _(2022-03-24)_
-**crypto**
-- Deprecated _StandardCiphers_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardMacs_, _StandardMessageDigests_ and _StandardSignatures_ classes
-
-**io.Serializables**
-- Added the _serialize(Serializable, OutputStream)_ method
-- Deprecated the _serialize(OutputStream, Serializable)_ method
-
-**lang**
-- Deprecated the _UncheckedInterruptedException_ class
-
-**lang.Strings**
-- Added _of(byte...)_ and _of(Charset, byte...)_ methods
-
-**lang.Throwables**
-- Added the _isCheckedException(Throwable)_ method
-- Added the _isUncheckedException(Throwable)_ method
-- Modified the _unchecked(Throwable)_ method
-- Deprecated the _isChecked(Throwable)_ method
-- Deprecated the _isUnchecked(Throwable)_ method
-
-**lang.array.BooleanArrays**
-- Added the _add(boolean[], boolean, int)_ method
-- Added the _shuffle(boolean[], Random)_ method
-- Deprecated the _add(boolean[], int, boolean)_ method
-- Deprecated the _shuffle(boolean[])_ method
-
-**lang.array.ByteArrays**
-- Added the _add(byte[], byte, int)_ method
-- Added the _shuffle(byte[], Random)_ method
-- Added _of(boolean)_, _of(short)_, _of(short, ByteOrder)_, _of(char)_, _of(char, ByteOrder)_, _of(int)_, _of(int, ByteOrder)_, _of(long)_, _of(long, ByteOrder)_, _of(float)_, _of(float, ByteOrder)_, _of(double)_ and _of(double, ByteOrder)_ methods
-- Deprecated the _add(byte[], int, byte)_ method
-- Deprecated the _shuffle(byte[])_ method
-- Deprecated _ofBoolean(boolean)_, _ofShort(short)_, _ofShort(short, ByteOrder)_, _ofChar(char)_, _ofChar(char, ByteOrder)_, _ofInt(int)_, _ofInt(int, ByteOrder)_, _ofLong(long)_, _ofLong(long, ByteOrder)_, _ofFloat(float)_, _ofFloat(float, ByteOrder)_, _ofDouble(double)_ and _ofDouble(double, ByteOrder)_ methods
-
-**lang.array.CharArrays**
-- Added the _add(char[], char, int)_ method
-- Added the _shuffle(char[], Random)_ method
-- Deprecated the _add(char[], int, char)_ method
-- Deprecated the _shuffle(char[])_ method
-
-**lang.array.DoubleArrays**
-- Added the _add(double[], double, int)_ method
-- Added the _shuffle(double[], Random)_ method
-- Deprecated the _add(double[], int, double)_ method
-- Deprecated the _shuffle(double[])_ method
-
-**lang.array.FloatArrays**
-- Added the _add(float[], float, int)_ method
-- Added the _shuffle(float[], Random)_ method
-- Deprecated the _add(float[], int, float)_ method
-- Deprecated the _shuffle(float[])_ method
-
-**lang.array.IntArrays**
-- Added the _addTemporary(int[], int, int)_ method
-- Added the _shuffle(int[], Random)_ method
-- Deprecated the _add(int[], int, int)_ method
-- Deprecated the _shuffle(int[])_ method
-
-**lang.array.LongArrays**
-- Added the _add(long[], long, int)_ method
-- Added the _shuffle(long[], Random)_ method
-- Deprecated the _add(long[], int, long)_ method
-- Deprecated the _shuffle(long[])_ method
-
-**lang.array.ObjectArrays**
-- Added the _add(Object[], Object, int)_ method
-- Added the _shuffle(Object[], Random)_ method
-- Deprecated the _add(Object[], int, Object)_ method
-- Deprecated the _shuffle(Object[])_ method
-
-**lang.array.ShortArrays**
-- Added the _add(short[], short, int)_ method
-- Added the _shuffle(short[], Random)_ method
-- Deprecated the _add(short[], int, short)_ method
-- Deprecated the _shuffle(short[])_ method
-
-**sql**
-- Deprecated the _UncheckedSQLException_ class
-
-**standard.crypto**
-- Added _StandardCiphers_, _StandardKeyAgreements_, _StandardKeyGenerators_, _StandardMacs_ and _StandardSecretKeyFactories_ classes
-
-**standard.net.ssl**
-- Added _StandardSslContexts_ and _StandardTrustManagerFactories_ classes
-
-**standard.security**
-- Added _StandardAlgorithmParameterGenerators_, _StandardAlgorithmParameters_, _StandardKeyFactories_, _StandardKeyPairGenerators_, _StandardKeyStores_, _StandardMessageDigests_ and _StandardSignatures_ classes
-
-**standard.security.cert**
-- Added _StandardCertificateFactories_, _StandardCertPathBuilders_, _StandardCertPathValidators_ and _StandardCertStores_ classes
-
-**util.collection.Sets**
-- Added _unify(Set[])_ and _unify(Collection)_ methods
-- Deprecated _union(Set[])_ and _union(Collection)_ methods
-
-**util.collection.bags.LimitedBag**
-- Added the _getLimit()_ method
-
-**util.iteration.Iterables**
-- Added _singleton(int)_, _singleton(long)_ and _singleton(double)_ methods
-- Added _ofInts(int...)_, _ofLongs(long...)_ and _ofDoubles(double...)_ methods
-- Deprecated _singletonInt(int)_, _singletonLong(long)_ and _singletonDouble(double)_ methods
-- Deprecated _ofInt(int...)_, _ofLong(long...)_ and _ofDouble(double...)_ methods
-
-**util.iteration.Iterators**
-- Added _singleton(int)_, _singleton(long)_ and _singleton(double)_ methods
-- Added _ofInts(int...)_, _ofLongs(long...)_ and _ofDoubles(double...)_ methods
-- Deprecated _singletonInt(int)_, _singletonLong(long)_ and _singletonDouble(double)_ methods
-- Deprecated _ofInt(int...)_, _ofLong(long...)_ and _ofDouble(double...)_ methods
+### Notes
+- Update the `maven-javadoc-plugin` plugin to `3.4.0`
+- Update the `jacoco-maven-plugin` plugin to `0.8.8`
+- Migrate the continuous integration from _Travis CI_ to _GitHub Actions_
+
+## [1.6.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.6.0) (2022-03-24)
+
+### API changes
+<details>
+
+#### `crypto`
+- Deprecate `StandardCiphers`, `StandardKeyFactories`, `StandardKeyPairGenerators`, `StandardMacs`,
+  `StandardMessageDigests` and `StandardSignatures` classes
+
+#### `io.Serializables`
+- Add the `serialize(Serializable, OutputStream)` method
+- Deprecate the `serialize(OutputStream, Serializable)` method
+
+#### `lang`
+- Deprecate the `UncheckedInterruptedException` class
+
+#### `lang.Strings`
+- Add `of(byte...)` and `of(Charset, byte...)` methods
+
+#### `lang.Throwables`
+- Add `isCheckedException(Throwable)` and `isUncheckedException(Throwable)` methods
+- Change the `unchecked(Throwable)` method
+- Deprecate `isChecked(Throwable)` and `isUnchecked(Throwable)` methods
+
+#### `lang.array.BooleanArrays`
+- Add `add(boolean[], boolean, int)` and `shuffle(boolean[], Random)` methods
+- Deprecate `add(boolean[], int, boolean)` and `shuffle(boolean[])` methods
+
+#### `lang.array.ByteArrays`
+- Add `add(byte[], byte, int)` and `shuffle(byte[], Random)` methods
+- Add `of(boolean)`, `of(short)`, `of(short, ByteOrder)`, `of(char)`, `of(char, ByteOrder)`, `of(int)`,
+  `of(int, ByteOrder)`, `of(long)`, `of(long, ByteOrder)`, `of(float)`, `of(float, ByteOrder)`, `of(double)` and
+  `of(double, ByteOrder)` methods
+- Deprecate `add(byte[], int, byte)` and `shuffle(byte[])` methods
+- Deprecate `ofBoolean(boolean)`, `ofShort(short)`, `ofShort(short, ByteOrder)`, `ofChar(char)`,
+  `ofChar(char, ByteOrder)`, `ofInt(int)`, `ofInt(int, ByteOrder)`, `ofLong(long)`, `ofLong(long, ByteOrder)`,
+  `ofFloat(float)`, `ofFloat(float, ByteOrder)`, `ofDouble(double)` and `ofDouble(double, ByteOrder)` methods
+
+#### `lang.array.CharArrays`
+- Add `add(char[], char, int)` and `shuffle(char[], Random)` methods
+- Deprecate `add(char[], int, char)` and `shuffle(char[])` methods
+
+#### `lang.array.DoubleArrays`
+- Add `add(double[], double, int)` and `shuffle(double[], Random)` methods
+- Deprecate `add(double[], int, double)` and `shuffle(double[])` methods
+
+#### `lang.array.FloatArrays`
+- Add `add(float[], float, int)` and `shuffle(float[], Random)` methods
+- Deprecate `add(float[], int, float)` and `shuffle(float[])` methods
+
+#### `lang.array.IntArrays`
+- Add `addTemporary(int[], int, int)` and `shuffle(int[], Random)` methods
+- Deprecate `add(int[], int, int)` and `shuffle(int[])` methods
+
+#### `lang.array.LongArrays`
+- Add `add(long[], long, int)` and `shuffle(long[], Random)` methods
+- Deprecate `add(long[], int, long)` and `shuffle(long[])` methods
 
-## 1.5.0 _(2020-01-23)_
-**lang.Strings**
-- Added the _capitalize()_ method
+#### `lang.array.ObjectArrays`
+- Add `add(Object[], Object, int)` and `shuffle(Object[], Random)` methods
+- Deprecate `add(Object[], int, Object)` and `shuffle(Object[])` methods
 
-**misc**
-- Added the _CaseStyle_ class
+#### `lang.array.ShortArrays`
+- Add `add(short[], short, int)` and `shuffle(short[], Random)` methods
+- Deprecate `add(short[], int, short)` and `shuffle(short[])` methods
 
-**misc.StringFormatter**
-- Fixed the _formatPercent()_ method
+#### `sql`
+- Deprecate the `UncheckedSQLException` class
 
-**misc.quality.Ensure**
-- Added _multipleOf()_ methods
+#### `standard.crypto`
+- Add `StandardCiphers`, `StandardKeyAgreements`, `StandardKeyGenerators`, `StandardMacs` and
+  `StandardSecretKeyFactories` classes
 
-## 1.4.2 _(2019-12-06)_
-**misc.StringFormatter**
-- Fixed the _formatBytes()_ method ([The most copied StackOverflow snippet of all time is flawed!](https://programming.guide/worlds-most-copied-so-snippet.html))
+#### `standard.net.ssl`
+- Add `StandardSslContexts` and `StandardTrustManagerFactories` classes
 
-## 1.4.1 _(2019-04-19)_
-**util.collection.Sets**
-- Fixed _union()_ and _intersect()_ methods
+#### `standard.security`
+- Add `StandardAlgorithmParameterGenerators`, `StandardAlgorithmParameters`, `StandardKeyFactories`,
+  `StandardKeyPairGenerators`, `StandardKeyStores`, `StandardMessageDigests` and `StandardSignatures` classes
 
-## 1.4.0 _(2019-02-12)_
-**lang.Strings**
-- Added new _split()_ methods
+#### `standard.security.cert`
+- Add `StandardCertificateFactories`, `StandardCertPathBuilders`, `StandardCertPathValidators` and `StandardCertStores`
+  classes
 
-**lang.array.BooleanArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+#### `util.collection.Sets`
+- Add `unify(Set[])` and `unify(Collection)` methods
+- Deprecate `union(Set[])` and `union(Collection)` methods
 
-**lang.array.ByteArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+#### `util.collection.bags.LimitedBag`
+- Add the `getLimit()` method
 
-**lang.array.CharArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+#### `util.iteration.Iterables`
+- Add `singleton(int)`, `singleton(long)`, `singleton(double)`, `ofInts(int...)`, `ofLongs(long...)` and
+  `ofDoubles(double...)` methods
+- Deprecate `singletonInt(int)`, `singletonLong(long)`, `singletonDouble(double)`, `ofInt(int...)`, `ofLong(long...)`
+  and `ofDouble(double...)` methods
 
-**lang.array.DoubleArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+#### `util.iteration.Iterators`
+- Add `singleton(int)`, `singleton(long)`, `singleton(double)`, `ofInts(int...)`, `ofLongs(long...)` and
+  `ofDoubles(double...)` methods
+- Deprecate `singletonInt(int)`, `singletonLong(long)`, `singletonDouble(double)`, `ofInt(int...)`, `ofLong(long...)`
+  and `ofDouble(double...)` methods
+</details>
 
-**lang.array.FloatArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+### Notes
+- Update the `junit-jupiter` dependency to `5.8.2`
+- Update the `assertj-core` dependency to `3.22.0`
+- Update the `maven-compiler-plugin` plugin to `3.10.1`
+- Update the `maven-javadoc-plugin` plugin to `3.3.2`
+- Update the `maven-gpg-plugin` plugin to `3.0.1`
+- Update the `jacoco-maven-plugin` plugin to `0.8.7`
+- Update the `license-maven-plugin` plugin to `4.1`
 
-**lang.array.IntArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+## [1.5.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.5.0) (2020-01-23)
 
-**lang.array.LongArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+### API changes
+<details>
 
-**lang.array.ObjectArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
-- Changed _join()_ methods
+#### `lang.Strings`
+- Add the `capitalize()` method
 
-**lang.array.ShortArrays**
-- Added _add()_ methods
-- Added the _remove()_ method
+#### `misc`
+- Add the `CaseStyle` class
 
-**misc.quality.Ensure**
-- Added the _notNullAndMatches()_ method
+#### `misc.quality.Ensure`
+- Add multiple `multipleOf()` methods
+</details>
 
-**util.function.serializable**
-- Added _SerializableBiConsumer_, _SerializableBiFunction_, _SerializableBiPredicate_, _SerializableConsumer_, _SerializableFunction_, _SerializablePredicate_, _SerializableRunnable_ and _SerializableSupplier_ classes
+### Bug fixes
+- Fix the `misc.StringFormatter.formatPercent()` method
 
-**util.function.throwable.ThrowableFunction**
-- Added the _identity()_ method
+### Notes
+- Update the `junit-jupiter` dependency to `5.6.0`
+- Update the `assertj-core` dependency to `3.14.0`
+- Update the `maven-compiler-plugin` plugin to `3.8.1`
+- Update the `maven-source-plugin` plugin to `3.2.1`
+- Update the `maven-javadoc-plugin` plugin to `3.1.1`
+- Update the `maven-surefire-plugin` plugin to `2.22.2`
+- Update the `jacoco-maven-plugin` plugin to `0.8.5`
 
-**util.function.throwable.ThrowablePredicate**
-- Added the _isEqual()_ method
+## [1.4.2](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.4.2) (2019-12-06)
 
-## 1.3.1 _(2018-12-22)_
-**io.crypto**
-- Added _StandardKeyFactories_, _StandardKeyPairGenerators_ and _StandardSignatures_ classes
+### Bug fixes
+- Fix the `misc.StringFormatter.formatBytes()` method ([The most copied StackOverflow snippet of all time is flawed!](https://programming.guide/worlds-most-copied-so-snippet.html))
 
-**io.crypto.StandardCiphers**
-- Added the _getAesGcmInstance()_ method
+## [1.4.1](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.4.1) (2019-04-19)
 
-**lang.array.ByteArrays**
-- Renamed the _ofHexString()_ method to _ofHexadecimalString()_
-- Renamed the _toHexString()_ method to _toHexadecimalString()_
+### Bug fixes
+- Fix `util.collection.Sets.union()` and `util.collection.Sets.intersect()` methods
 
-**lang**
-- Added the _Comparables_ class
+### Notes
+- Update the `junit-jupiter` dependency to `5.4.2`
+- Update the `assertj-core` dependency to `3.12.2`
+- Update the `maven-javadoc-plugin` plugin to `3.1.0`
 
-**lang.Strings**
-- Added _split()_ methods
+## [1.4.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.4.0) (2019-02-12)
 
-**misc.quality.Ensure**
-- Added _notNullAndEqualTo()_, _notEqualTo()_, _notNullAndNotEqualTo()_, _notNullAndLowerThan()_, _notNullAndLowerThanOrEqualTo()_, _notNullAndGreaterThan()_, _notNullAndGreaterThanOrEqualTo()_ and _notNullAndBetween()_ methods
+### API changes
+<details>
 
-**util.NullableOptional**
-- Added the _orElseThrow()_ method
+#### `lang.Strings`
+- Add multiple `split()` methods
 
-## 1.3.0 _(2018-11-18)_
-**io.bytes**
-- Removed _UncheckedInputStream_ and _UncheckedOutputStream_ classes
+#### `lang.array.BooleanArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**io.chars**
-- Removed _UncheckedReader_ and _UncheckedWriter_ classes
+#### `lang.array.ByteArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**io.lines**
-- Removed _UncheckedLineReader_ and _UncheckedLineWriter_ classes
+#### `lang.array.CharArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**lang.Strings**
-- Added _containsIgnoreCase()_, _startsWithIgnoreCase()_ and _endsWithIgnoreCase()_ methods
-- Added the _frequency()_ method
-- Renamed the _isHex()_ method to _isHexadecimal()_
+#### `lang.array.DoubleArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**lang.array.BooleanArrays**
-- Added the _frequency()_ method
+#### `lang.array.FloatArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**lang.array.ByteArrays**
-- Added the _frequency()_ method
+#### `lang.array.IntArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**lang.array.CharArrays**
-- Added the _frequency()_ method
+#### `lang.array.LongArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**lang.array.DoubleArrays**
-- Added the _frequency()_ method
+#### `lang.array.ObjectArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
+- Change multiple `join()` methods
 
-**lang.array.FloatArrays**
-- Added the _frequency()_ method
+#### `lang.array.ShortArrays`
+- Add multiple `add()` methods
+- Add the `remove()` method
 
-**lang.array.IntArrays**
-- Added the _frequency()_ method
+#### `misc.quality.Ensure`
+- Add the `notNullAndMatches()` method
 
-**lang.array.LongArrays**
-- Added the _frequency()_ method
+#### `util.function.serializable`
+- Add `SerializableBiConsumer`, `SerializableBiFunction`, `SerializableBiPredicate`, `SerializableConsumer`,
+  `SerializableFunction`, `SerializablePredicate`, `SerializableRunnable` and `SerializableSupplier` classes
 
-**lang.array.ObjectArrays**
-- Added the _frequency()_ method
+#### `util.function.throwable.ThrowableFunction`
+- Add the `identity()` method
 
-**lang.array.ShortArrays**
-- Added the _frequency()_ method
+#### `util.function.throwable.ThrowablePredicate`
+- Add the `isEqual()` method
+</details>
 
-**misc.BloomFilter**
-- Renamed the _calculateOptionalNumberOfHashFunctions()_ method to _calculateOptimalNumberOfHashFunctions()_
+### Notes
+- Add the `license-maven-plugin` plugin
+- Migrate `junit-jupiter-api`, `junit-jupiter-engine` and `junit-pioneer` dependencies to `junit-jupiter`
+- Update the `jacoco-maven-plugin` plugin to `0.8.3`
 
-**misc.StringFormatter**
-- Added the _DEFAULT_ attribute
-- Added the _toString()_ method
+## [1.3.1](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.3.1) (2018-12-22)
 
-**misc.distances.LevenshteinDistance**
-- Added the _DEFAULT_ attribute
+### API changes
+<details>
 
-**misc.quality**
-- Added _Ensure_, _Equals_, _HashCode_ and _ToString_ classes
+#### `io.crypto`
+- Add `StandardKeyFactories`, `StandardKeyPairGenerators` and `StandardSignatures` classes
 
-**misc.trees.TreeNode**
-- Renamed the _parent()_ method to _optionalParent()_
+#### `io.crypto.StandardCiphers`
+- Add the `getAesGcmInstance()` method
 
-**misc.tuples.Pair**
-- Removed _toMutableEntry()_ and _toImmutableEntry()_ methods
+#### `lang.array.ByteArrays`
+- Rename the `ofHexString()` method to `ofHexadecimalString()`
+- Rename the `toHexString()` method to `toHexadecimalString()`
 
-**util.Comparators**
-- Added the _normalize()_ method
-- Removed _ARRAYS_ attributes
-- Removed _array()_ methods
+#### `lang`
+- Add the `Comparables` class
 
-**util.collection.Lists**
-- Renamed the _getFirst()_ method to _getOptionalFirst()_
-- Renamed the _getLast()_ method to _getOptionalLast()_
-- Added _concat()_ and _join()_ methods
+#### `lang.Strings`
+- Add multiple `split()` methods
 
-**util.collection.Maps**
-- Renamed the _ofEntriesOrdered()_ method to _ofOrdered()_
-
-**util.collection.Sets**
-- Added _union()_ and _intersect()_ methods
-
-**util.function**
-- Added the _Functions_ class
-
-**util.iteration.Iterables**
-- Renamed the _getFirst()_ method to _getOptionalFirst()_
-- Renamed the _getLast()_ method to _getOptionalLast()_
-
-**util.iteration.Iterables**
-- Renamed the _getFirst()_ method to _getOptionalFirst()_
-- Renamed the _getLast()_ method to _getOptionalLast()_
-
-## 1.2.0 _(2018-09-09)_
-**crypto**
-- Renamed the _security_ package to _crypto_
-
-**io.bytes**
-- Added _UncheckedInputStream_ and _UncheckedOutputStream_ classes
-
-**io.bytes.InputStreams**
-- Added the _of(Path)_ method
-- Removed the _ENDLESS_ attribute
-
-**io.bytes.OutputStreams**
-- Added the _of(Path)_ method
-- Renamed the _BLANK_ attribute to _EMPTY_
-- Renamed the _nullToBlank()_ method to _nullToEmpty()_
-
-**io.chars**
-- Added _UncheckedReader_ and _UncheckedWriter_ classes
-
-**io.chars.Readers**
-- Added _of(Path)_ and _of(Path, Charset)_ methods
-- Removed the _ENDLESS_ attribute
-
-**io.chars.Writers**
-- Added _of(Path)_ and _of(Path, Charset)_ methods
-- Renamed the _BLANK_ attribute to _EMPTY_
-- Renamed the _nullToBlank()_ method to _nullToEmpty()_
-
-**io.lines**
-- Added _UncheckedLineReader_ and _UncheckedLineWriter_ classes
-
-**lang.Strings**
-- Added _nullToEmpty(String)_, _emptyToNull(String)_, _blankToNull(String)_ and _blankToEmpty(String)_ methods
-- Added the _isEmpty()_ method
-- Added _isBoolean()_, _isShort()_, _isInt()_, _isLong()_, _isFloat()_, _isDouble()_, _isBinary()_, _isOctal()_ and _isDecimal()_ methods
-- Changed _isBase64(CharSequence, boolean)_ and _isBase64Url(CharSequence, boolean)_ methods
-- Added _quote(char)_, _quote(char, char, char)_, _unquoteChar(CharSequence)_ and _unquoteChar(CharSequence, char, char)_ methods
-- Removed _quote(Object)_ and _quote(Object, char, char)_ methods
-
-**lang.array.BooleanArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Boolean[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.ByteArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Byte[])_ and _toBoxed()_ methods
-- Added _ofBinaryString()_ and _toBinaryString()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.CharArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Char[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.DoubleArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Double[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.FloatArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Float[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.IntArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Integer[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.LongArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _of(Long[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.ObjectArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added _concat()_ and _join()_ methods
-- Added the _singleton(Class, Object)_ method
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**lang.array.ShortArrays**
-- Added the _isEmpty()_ method
-- Added _shuffle()_, _reverse()_, _reorder()_ and _swap()_ methods
-- Added the _singleton(Class, Object)_ method
-- Added _of(Short[])_ and _toBoxed()_ methods
-- Changed _containsAny()_, _containsAll()_, _containsOnce()_ and _containsOnly()_ methods
-
-**misc**
-- Added the _BloomFilter_ class
-
-**misc.trees**
-- Added _TreeNode_ and _LinkedTreeNode_ classes
-
-**util.function.Consumers**
-- Added the _distinct()_ method
-
-**util.function.Suppliers**
-- Renamed _cached()_ methods to _cache()_
-
-**util.iteration**
-- Added the _FilterIterator_ class
-- Added the _IndexedElement_ class
-
-**util.iteration.Iterables**
-- Added _nullToEmpty(PrimitiveIterable)_ methods
-- Added the _index()_ method
-- Added _getFirst()_ and _getLast()_ methods
-- Added the _wrap(Stream)_ method
-
-**util.iteration.Iterators**
-- Added _nullToEmpty(PrimitiveIterator)_ and _emptyToNull(PrimitiveIterator)_ methods
-- Added the _isEmpty()_ method
-- Added the _index()_ method
-- Added _getFirst()_ and _getLast()_ methods
-- Added _removeAll()_ and _removeIf()_ methods
-- Removed the _toEnumeration()_ method
-
-## 1.1.0 _(2018-06-20)_
-**io.bytes.InputStreams**
-- Added the _nullToDefault()_ method
-- Added the _singleton()_ method
-
-**io.bytes.OutputStreams**
-- Added the _nullToDefault()_ method
-
-**io.chars.Readers**
-- Added the _nullToDefault()_ method
-- Added the _singleton()_ method
-
-**io.chars.Writers**
-- Added the _nullToDefault()_ method
-
-**lang.Strings**
-- Added _blankToEmpty()_ and _blankToDefault()_ methods
-- Added multiple _quote()_ and _unquote()_ methods
-- Added the _of()_ method
-- Changed the _isBlank()_ method so that an empty _String_ is not blank anymore
-- Changed the _isHex()_ method so that it does not handle the "0x" prefix anymore
-- Fixed the _isBase64Url()_ method so that it does not require a padding anymore
-
-**lang.Throwables**
-- Added _isChecked()_ and _isUnchecked()_ methods
-- Changed the _getRootCause()_ method return type to an _Optional_
-
-**lang.array.BooleanArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.ByteArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-- Changed the _ofHexString()_ method so that it does not handle the "0x" prefix anymore
-
-**lang.array.CharArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.DoubleArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.FloatArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.IntArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.LongArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.ObjectArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**lang.array.ShortArrays**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added the _containsOnce()_ method
-- Added the _singleton()_ method
-
-**misc.tuples**
-- Added _Single_ and _SerializableSingle_ classes
-
-**security**
-- Added the _StandardMacs_ class
-
-**util**
-- Added the _NullableOptional_ class
-
-**util.collection.Lists**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added _getFirst()_ and _getLast()_ methods
-
-**util.collection.Maps**
-- Added multiple _nullToDefault()_ and _emptyToDefault()_ methods
-
-**util.collection.Sets**
-- Added multiple _nullToDefault()_ and _emptyToDefault()_ methods
-
-**util.collection.bags.Bag**
-- Changed _min()_ and _max()_ methods return type to _NullableOptional_
-
-**util.collection.bags.Bags**
-- Added _nullToDefault()_ and _emptyToDefault()_ methods
-- Added _equals()_, _hashCode()_ and _toString()_ implementations
-- Changed _min()_ and _max()_ methods return type to _NullableOptional_
-
-**util.collection.bags.FilterBag**
-- Changed _min()_ and _max()_ methods return type to _NullableOptional_
-- Fixed _equals()_ and _hashCode()_ implementations
-
-**util.collection.bags.LimitedBag**
-- Fixed _equals()_ and _hashCode()_ implementations
-
-**util.collection.bags.MapBag**
-- Changed _min()_ and _max()_ methods return type to _NullableOptional_
-- Fixed _equals()_ and _hashCode()_ implementations
-
-**util.function**
-- Added the _Consumers_ class
-- Removed the _Predicates_ class
-
-**util.function.Suppliers**
-- Added the _once()_ method
-- Added new _cached()_ methods
-
-**util.iteration.Iterables**
-- Added the _nullToDefault()_ method
-- Added the _filter()_ method
-- Added the _length()_ method
-- Added multiple _singleton()_ method implementations
-
-**util.iteration.Iterators**
-- Added multiple _nullToDefault()_, _emptyToNull()_ and _emptyToDefault()_ methods
-- Added the _filter()_ method
-- Added the _length()_ method
-- Added multiple _singleton()_ method implementations
-
-## 1.0.0 _(2018-04-24)_
+#### `misc.quality.Ensure`
+- Add `notNullAndEqualTo()`, `notEqualTo()`, `notNullAndNotEqualTo()`, `notNullAndLowerThan()`,
+  `notNullAndLowerThanOrEqualTo()`, `notNullAndGreaterThan()`, `notNullAndGreaterThanOrEqualTo()` and
+  `notNullAndBetween()` methods
+
+#### `util.NullableOptional`
+- Add the `orElseThrow()` method
+</details>
+
+### Notes
+- Update `junit-jupiter-api` and `junit-jupiter-engine` dependencies to `5.3.2`
+
+## [1.3.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.3.0) (2018-11-18)
+
+### API changes
+<details>
+
+#### `io.bytes`
+- Remove `UncheckedInputStream` and `UncheckedOutputStream` classes
+
+#### `io.chars`
+- Remove `UncheckedReader` and `UncheckedWriter` classes
+
+#### `io.lines`
+- Remove `UncheckedLineReader` and `UncheckedLineWriter` classes
+
+#### `lang.Strings`
+- Add `containsIgnoreCase()`, `startsWithIgnoreCase()`, `endsWithIgnoreCase()` and `frequency()` methods
+- Rename the `isHex()` method to `isHexadecimal()`
+
+#### `lang.array.BooleanArrays`
+- Add the `frequency()` method
+
+#### `lang.array.ByteArrays`
+- Add the `frequency()` method
+
+#### `lang.array.CharArrays`
+- Add the `frequency()` method
+
+#### `lang.array.DoubleArrays`
+- Add the `frequency()` method
+
+#### `lang.array.FloatArrays`
+- Add the `frequency()` method
+
+#### `lang.array.IntArrays`
+- Add the `frequency()` method
+
+#### `lang.array.LongArrays`
+- Add the `frequency()` method
+
+#### `lang.array.ObjectArrays`
+- Add the `frequency()` method
+
+#### `lang.array.ShortArrays`
+- Add the `frequency()` method
+
+#### `misc.BloomFilter`
+- Rename the `calculateOptionalNumberOfHashFunctions()` method to `calculateOptimalNumberOfHashFunctions()`
+
+#### `misc.StringFormatter`
+- Add the `DEFAULT` constant
+- Add the `toString()` method
+
+#### `misc.distances.LevenshteinDistance`
+- Add the `DEFAULT` constant
+
+#### `misc.quality`
+- Add `Ensure`, `Equals`, `HashCode` and `ToString` classes
+
+#### `misc.trees.TreeNode`
+- Rename the `parent()` method to `optionalParent()`
+
+#### `misc.tuples.Pair`
+- Remove `toMutableEntry()` and `toImmutableEntry()` methods
+
+#### `util.Comparators`
+- Add the `normalize()` method
+- Remove `BOOLEAN_ARRAYS`, `SIGNED_BYTE_ARRAYS`, `UNSIGNED_BYTE_ARRAYS`, `SHORT_ARRAYS`, `INT_ARRAYS`, `LONG_ARRAYS`,
+  `FLOAT_ARRAYS` and `DOUBLE_ARRAYS` constants
+- Remove multiple `array()` methods
+
+#### `util.collection.Lists`
+- Add `concat()` and `join()` methods
+- Rename the `getFirst()` method to `getOptionalFirst()`
+- Rename the `getLast()` method to `getOptionalLast()`
+
+#### `util.collection.Maps`
+- Rename the `ofEntriesOrdered()` method to `ofOrdered()`
+
+#### `util.collection.Sets`
+- Add `union()` and `intersect()` methods
+
+#### `util.function`
+- Add the `Functions` class
+
+#### `util.iteration.Iterables`
+- Rename the `getFirst()` method to `getOptionalFirst()`
+- Rename the `getLast()` method to `getOptionalLast()`
+
+#### `util.iteration.Iterables`
+- Rename the `getFirst()` method to `getOptionalFirst()`
+- Rename the `getLast()` method to `getOptionalLast()`
+</details>
+
+### Notes
+- Add the `junit-pioneer` dependency
+- Update `junit-jupiter-api` and `junit-jupiter-engine` dependencies to `5.3.1`
+- Update the `maven-surefire-plugin` plugin to `2.22.1`
+
+## [1.2.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.2.0) (2018-09-09)
+
+### API changes
+<details>
+
+#### `crypto`
+- Rename the `security` package to `crypto`
+
+#### `io.bytes`
+- Add `UncheckedInputStream` and `UncheckedOutputStream` classes
+
+#### `io.bytes.InputStreams`
+- Add the `of(Path)` method
+- Remove the `ENDLESS` constant
+
+#### `io.bytes.OutputStreams`
+- Add the `of(Path)` method
+- Rename the `BLANK` constant to `EMPTY`
+- Rename the `nullToBlank()` method to `nullToEmpty()`
+
+#### `io.chars`
+- Add `UncheckedReader` and `UncheckedWriter` classes
+
+#### `io.chars.Readers`
+- Add `of(Path)` and `of(Path, Charset)` methods
+- Remove the `ENDLESS` constant
+
+#### `io.chars.Writers`
+- Add `of(Path)` and `of(Path, Charset)` methods
+- Rename the `BLANK` constant to `EMPTY`
+- Rename the `nullToBlank()` method to `nullToEmpty()`
+
+#### `io.lines`
+- Add `UncheckedLineReader` and `UncheckedLineWriter` classes
+
+#### `lang.Strings`
+- Add `nullToEmpty(String)`, `emptyToNull(String)`, `blankToNull(String)`, `blankToEmpty(String)`, `quote(char)`,
+  `quote(char, char, char)`, `unquoteChar(CharSequence)`, `unquoteChar(CharSequence, char, char)`, `isEmpty()`,
+  `isBoolean()`, `isShort()`, `isInt()`, `isLong()`, `isFloat()`, `isDouble()`, `isBinary()`, `isOctal()` and
+  `isDecimal()` methods
+- Change `isBase64(CharSequence, boolean)` and `isBase64Url(CharSequence, boolean)` methods
+- Remove `quote(Object)` and `quote(Object, char, char)` methods
+
+#### `lang.array.BooleanArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Boolean[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.ByteArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Byte[])` and `toBoxed()` methods
+- Add `ofBinaryString()` and `toBinaryString()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.CharArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Char[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.DoubleArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Double[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.FloatArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Float[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.IntArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Integer[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.LongArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Long[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.ObjectArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `concat()`, `join()` and `singleton(Class, Object)` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `lang.array.ShortArrays`
+- Add `shuffle()`, `reverse()`, `reorder()`, `swap()` and `isEmpty()` methods
+- Add `of(Short[])` and `toBoxed()` methods
+- Change `containsAny()`, `containsAll()`, `containsOnce()` and `containsOnly()` methods
+
+#### `misc`
+- Add the `BloomFilter` class
+
+#### `misc.trees`
+- Add `TreeNode` and `LinkedTreeNode` classes
+
+#### `util.function.Consumers`
+- Add the `distinct()` method
+
+#### `util.function.Suppliers`
+- Rename multiple `cached()` methods to `cache()`
+
+#### `util.iteration`
+- Add `FilterIterator` and `IndexedElement` classes
+
+#### `util.iteration.Iterables`
+- Add multiple `nullToEmpty(PrimitiveIterable)` methods
+- Add `index()`, `getFirst()` and `getLast()` methods
+- Add the `wrap(Stream)` method
+
+#### `util.iteration.Iterators`
+- Add `nullToEmpty(PrimitiveIterator)` and `emptyToNull(PrimitiveIterator)` methods
+- Add `index()`, `getFirst()` and `getLast()` methods
+- Add `removeAll()`, `removeIf()` and `isEmpty()` methods
+- Remove the `toEnumeration()` method
+</details>
+
+### Notes
+- Update `junit-jupiter-api` and `junit-jupiter-engine` dependencies to `5.3.0`
+- Update the `assertj-core` dependency to `3.11.1`
+- Update the `maven-compiler-plugin` plugin to `3.8.0`
+- Update the `jacoco-maven-plugin` plugin to `0.8.2`
+- Remove the `annotations` dependency
+- Remove the `junit-platform-surefire-provider` dependency
+
+## [1.1.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.1.0) (2018-06-20)
+
+### API changes
+<details>
+
+#### `io.bytes.InputStreams`
+- Add `nullToDefault()` and `singleton()` methods
+
+#### `io.bytes.OutputStreams`
+- Add the `nullToDefault()` method
+
+#### `io.chars.Readers`
+- Add `nullToDefault()` and `singleton()` methods
+
+#### `io.chars.Writers`
+- Add the `nullToDefault()` method
+
+#### `lang.Strings`
+- Add `blankToEmpty()`, `blankToDefault()` and `of()` methods
+- Add multiple `quote()` and `unquote()` methods
+- Change the `isBlank()` method so that an empty `String` is not blank anymore
+- Change the `isHex()` method so that it does not handle the `0x` prefix anymore
+- Change the `isBase64Url()` method so that it does not require a padding anymore
+
+#### `lang.Throwables`
+- Add `isChecked()` and `isUnchecked()` methods
+- Change the `getRootCause()` method return type to an `Optional`
+
+#### `lang.array.BooleanArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.ByteArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+- Change the `ofHexString()` method so that it does not handle the `0x` prefix anymore
+
+#### `lang.array.CharArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.DoubleArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.FloatArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.IntArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.LongArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.ObjectArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `lang.array.ShortArrays`
+- Add `nullToDefault()`, `emptyToDefault()`, `containsOnce()` and `singleton()` methods
+
+#### `misc.tuples`
+- Add `Single` and `SerializableSingle` classes
+
+#### `security`
+- Add the `StandardMacs` class
+
+#### `util`
+- Add the `NullableOptional` class
+
+#### `util.collection.Lists`
+- Add `nullToDefault()`, `emptyToDefault()`, `getFirst()` and `getLast()` methods
+
+#### `util.collection.Maps`
+- Add multiple `nullToDefault()` and `emptyToDefault()` methods
+
+#### `util.collection.Sets`
+- Add multiple `nullToDefault()` and `emptyToDefault()` methods
+
+#### `util.collection.bags.Bag`
+- Change `min()` and `max()` methods return type to `NullableOptional`
+
+#### `util.collection.bags.Bags`
+- Add `nullToDefault()` and `emptyToDefault()`, `equals()`, `hashCode()` and `toString()` methods
+- Change `min()` and `max()` methods return type to `NullableOptional`
+
+#### `util.collection.bags.FilterBag`
+- Change `min()` and `max()` methods return type to `NullableOptional`
+
+#### `util.collection.bags.MapBag`
+- Change `min()` and `max()` methods return type to `NullableOptional`
+
+#### `util.function`
+- Add the `Consumers` class
+- Remove the `Predicates` class
+
+#### `util.function.Suppliers`
+- Add the `once()` method
+- Add multiple `cached()` methods
+
+#### `util.iteration.Iterables`
+- Add the `nullToDefault()` method
+- Add `filter()` and `length()` methods
+- Add multiple `singleton()` methods
+
+#### `util.iteration.Iterators`
+- Add multiple `nullToDefault()`, `emptyToNull()` and `emptyToDefault()` methods
+- Add `filter()` and `length()` methods
+- Add multiple `singleton()` methods
+</details>
+
+### Bug fixes
+- Fix `util.collection.bags.FilterBag.equals()` and `util.collection.bags.FilterBag.hashCode()` methods
+- Fix `util.collection.bags.LimitedBag.equals()` and `util.collection.bags.LimitedBag.hashCode()` methods
+- Fix `util.collection.bags.MapBag.equals()` and `util.collection.bags.MapBag.hashCode()` methods
+
+### Notes
+- Update the `annotations` dependency to `16.0.2`
+- Update the `junit-jupiter-api` dependency to `5.2.0`
+- Update the `assertj-core` dependency to `3.10.0`
+- Update the `maven-surefire-plugin` plugin to `2.22.0`
+- Update the `junit-platform-surefire-provider` dependency to `1.2.0`
+- Update the `junit-jupiter-engine` dependency to `5.2.0`
+- Update the `maven-javadoc-plugin` plugin to `3.0.1`
+
+## [1.0.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.0.0) (2018-04-24)
 Initial release
