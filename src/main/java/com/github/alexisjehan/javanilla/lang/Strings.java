@@ -1743,9 +1743,9 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames.</p>
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and file names.</p>
 	 * @param charSequence the {@link CharSequence} to test
-	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and filenames
+	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and file names
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
 	 * @since 1.7.0
 	 */
@@ -1754,10 +1754,10 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and filenames with padding or not.</p>
+	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and file names with padding or not.</p>
 	 * @param charSequence the {@link CharSequence} to test
-	 * @param withPadding {@code true} if the base 64 representation for URLs and filenames must have padding
-	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and filenames
+	 * @param withPadding {@code true} if the base 64 representation for URLs and file names must have padding
+	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and file names
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
 	 * @since 1.0.0
 	 */
