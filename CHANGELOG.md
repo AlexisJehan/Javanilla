@@ -11,7 +11,7 @@
 - Update the `maven-surefire-plugin` plugin to `3.2.2`
 - Update the `jacoco-maven-plugin` plugin to `0.8.11`
 - Update the `maven-source-plugin` plugin to `3.3.0`
-- Update the `maven-javadoc-plugin` plugin to `3.6.2`
+- Update the `maven-javadoc-plugin` plugin to `3.6.3`
 - Update the `maven-gpg-plugin` plugin to `3.1.0`
 
 ## [1.8.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.8.0) (2022-12-23)
