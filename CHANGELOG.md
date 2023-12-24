@@ -7,8 +7,8 @@
 - Update the `junit-jupiter` dependency to `5.10.1`
 - Update the `assertj-core` dependency to `3.24.2`
 - Update the `license-maven-plugin` plugin to `4.3`
-- Update the `maven-compiler-plugin` plugin to `3.11.0`
-- Update the `maven-surefire-plugin` plugin to `3.2.2`
+- Update the `maven-compiler-plugin` plugin to `3.12.1`
+- Update the `maven-surefire-plugin` plugin to `3.2.3`
 - Update the `jacoco-maven-plugin` plugin to `0.8.11`
 - Update the `maven-source-plugin` plugin to `3.3.0`
 - Update the `maven-javadoc-plugin` plugin to `3.6.3`
