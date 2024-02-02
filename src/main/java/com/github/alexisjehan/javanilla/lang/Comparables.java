@@ -32,12 +32,10 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 public final class Comparables {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.1
 	 */
-	private Comparables() {
-		// Not available
-	}
+	private Comparables() {}
 
 	/**
 	 * <p>Tell if a {@link Comparable} is equal to another one.</p>

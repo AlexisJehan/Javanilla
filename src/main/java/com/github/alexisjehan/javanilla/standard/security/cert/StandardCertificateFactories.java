@@ -36,12 +36,10 @@ import java.security.cert.CertificateFactory;
 public final class StandardCertificateFactories {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardCertificateFactories() {
-		// Not available
-	}
+	private StandardCertificateFactories() {}
 
 	/**
 	 * <p>Get a new "X.509" {@link CertificateFactory} instance.</p>

@@ -29,9 +29,7 @@ import java.util.Locale;
 
 public final class StringFormatterExample {
 
-	private StringFormatterExample() {
-		// Not available
-	}
+	private StringFormatterExample() {}
 
 	public static void main(final String... args) {
 		final var floatPrecision = 3;

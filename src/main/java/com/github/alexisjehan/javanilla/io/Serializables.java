@@ -39,12 +39,10 @@ import java.io.Serializable;
 public final class Serializables {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Serializables() {
-		// Not available
-	}
+	private Serializables() {}
 
 	/**
 	 * <p>Serialize the given {@link Serializable} to a {@code byte} array.</p>

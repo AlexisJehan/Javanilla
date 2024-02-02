@@ -32,9 +32,7 @@ import java.io.IOException;
 
 public final class InputOutputExample {
 
-	private InputOutputExample() {
-		// Not available
-	}
+	private InputOutputExample() {}
 
 	public static void main(final String... args) throws IOException {
 		final var optionalInputStream = InputStreams.EMPTY;

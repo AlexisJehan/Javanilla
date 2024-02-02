@@ -103,12 +103,10 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Comparators() {
-		// Not available
-	}
+	private Comparators() {}
 
 	/**
 	 * <p>Decorate a {@link Comparator} to replace negative and positive results respectively by {@code -1} and

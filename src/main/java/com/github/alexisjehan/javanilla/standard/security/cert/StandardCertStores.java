@@ -41,12 +41,10 @@ import java.security.cert.CollectionCertStoreParameters;
 public final class StandardCertStores {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardCertStores() {
-		// Not available
-	}
+	private StandardCertStores() {}
 
 	/**
 	 * <p>Get a new "Collection" {@link CertStore} instance.</p>

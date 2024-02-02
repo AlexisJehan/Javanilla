@@ -34,12 +34,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardSecretKeyFactories {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private StandardSecretKeyFactories() {
-		// Not available
-	}
+	private StandardSecretKeyFactories() {}
 
 	/**
 	 * <p>Get a new "DES" {@link SecretKeyFactory} instance.</p>

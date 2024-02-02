@@ -139,12 +139,10 @@ public final class Writers {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private Writers() {
-		// Not available
-	}
+	private Writers() {}
 
 	/**
 	 * <p>Wrap a {@link Writer} replacing {@code null} by an empty one.</p>

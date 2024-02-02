@@ -45,12 +45,10 @@ public final class IntArrays {
 	public static final int[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private IntArrays() {
-		// Not available
-	}
+	private IntArrays() {}
 
 	/**
 	 * <p>Wrap an {@code int} array replacing {@code null} by an empty one.</p>

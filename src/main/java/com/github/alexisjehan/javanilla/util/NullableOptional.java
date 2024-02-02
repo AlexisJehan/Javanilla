@@ -66,7 +66,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	private final boolean empty;
 
 	/**
-	 * <p>Private constructor for an empty instance.</p>
+	 * <p>Constructor for an empty instance.</p>
 	 * @since 1.1.0
 	 */
 	private NullableOptional() {
@@ -75,7 +75,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Private constructor for an instance with the given nullable value.</p>
+	 * <p>Constructor for an instance with the given nullable value.</p>
 	 * @param value the nullable value
 	 * @since 1.1.0
 	 */

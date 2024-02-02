@@ -45,12 +45,10 @@ public final class LongArrays {
 	public static final long[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private LongArrays() {
-		// Not available
-	}
+	private LongArrays() {}
 
 	/**
 	 * <p>Wrap a {@code long} array replacing {@code null} by an empty one.</p>

@@ -35,12 +35,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardCiphers {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardCiphers() {
-		// Not available
-	}
+	private StandardCiphers() {}
 
 	/**
 	 * <p>Get a new "AES/CBC/NoPadding" {@link Cipher} instance.</p>

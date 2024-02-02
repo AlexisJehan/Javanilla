@@ -36,12 +36,10 @@ import java.security.KeyStoreException;
 public final class StandardKeyStores {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardKeyStores() {
-		// Not available
-	}
+	private StandardKeyStores() {}
 
 	/**
 	 * <p>Get a new "PKCS12" {@link KeyStore} instance.</p>

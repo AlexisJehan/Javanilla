@@ -79,7 +79,7 @@ public class LineReader implements Closeable {
 	private final StringBuilder builder = new StringBuilder(80);
 
 	/**
-	 * <p>Package-private constructor used by {@link FilterLineReader#FilterLineReader(LineReader)}.</p>
+	 * <p>Constructor used by {@link FilterLineReader#FilterLineReader(LineReader)}.</p>
 	 * @since 1.0.0
 	 */
 	LineReader() {

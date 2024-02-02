@@ -45,12 +45,10 @@ public final class DoubleArrays {
 	public static final double[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private DoubleArrays() {
-		// Not available
-	}
+	private DoubleArrays() {}
 
 	/**
 	 * <p>Wrap a {@code double} array replacing {@code null} by an empty one.</p>

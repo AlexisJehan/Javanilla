@@ -356,12 +356,10 @@ public final class Bags {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Bags() {
-		// Not available
-	}
+	private Bags() {}
 
 	/**
 	 * <p>Return an immutable empty {@link Bag}.</p>

@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardMessageDigests {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardMessageDigests() {
-		// Not available
-	}
+	private StandardMessageDigests() {}
 
 	/**
 	 * <p>Get a new "MD5" {@link MessageDigest} instance.</p>

@@ -48,12 +48,10 @@ public final class ObjectArrays {
 	private static final Map<Class<?>, Object> cachedEmpties = new WeakHashMap<>();
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private ObjectArrays() {
-		// Not available
-	}
+	private ObjectArrays() {}
 
 	/**
 	 * <p>Return an empty {@link Object} array.</p>

@@ -35,12 +35,10 @@ import java.util.Objects;
 public final class HashCode {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.0
 	 */
-	private HashCode() {
-		// Not available
-	}
+	private HashCode() {}
 
 	/**
 	 * <p>Calculate the hash code of a {@code boolean} value.</p>

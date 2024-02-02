@@ -551,7 +551,7 @@ final class IteratorsTest {
 
 					@Override
 					public void close() {
-						// Nothing to do
+						// Do nothing
 					}
 				})
 		).satisfies(exceptionReaderIterator -> assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(exceptionReaderIterator::hasNext));
@@ -579,7 +579,7 @@ final class IteratorsTest {
 
 							@Override
 							public void close() {
-								// Nothing to do
+								// Do nothing
 							}
 						}
 				))
@@ -607,7 +607,7 @@ final class IteratorsTest {
 
 					@Override
 					public void close() {
-						// Nothing to do
+						// Do nothing
 					}
 				}, LineSeparator.DEFAULT))
 		).satisfies(exceptionLineReaderIterator -> assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(exceptionLineReaderIterator::hasNext));

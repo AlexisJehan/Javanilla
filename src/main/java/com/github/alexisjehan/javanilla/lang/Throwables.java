@@ -40,12 +40,10 @@ import java.util.Optional;
 public final class Throwables {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Throwables() {
-		// Not available
-	}
+	private Throwables() {}
 
 	/**
 	 * <p>Wrap and return a {@link Throwable} as an unchecked {@link Exception} if it was not already.</p>

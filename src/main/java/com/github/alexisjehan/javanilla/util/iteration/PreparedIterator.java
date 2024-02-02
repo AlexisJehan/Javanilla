@@ -52,9 +52,7 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	 * <p>Constructor.</p>
 	 * @since 1.7.0
 	 */
-	protected PreparedIterator() {
-
-	}
+	protected PreparedIterator() {}
 
 	/**
 	 * {@inheritDoc}

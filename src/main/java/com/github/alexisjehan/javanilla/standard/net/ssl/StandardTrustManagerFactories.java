@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardTrustManagerFactories {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardTrustManagerFactories() {
-		// Not available
-	}
+	private StandardTrustManagerFactories() {}
 
 	/**
 	 * <p>Get a new "PKIX" {@link TrustManagerFactory} instance.</p>

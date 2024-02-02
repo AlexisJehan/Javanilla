@@ -78,12 +78,10 @@ public final class Strings {
 	private static final boolean DEFAULT_WITH_PADDING = true;
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Strings() {
-		// Not available
-	}
+	private Strings() {}
 
 	/**
 	 * <p>Wrap a {@link CharSequence} replacing {@code null} by an empty one.</p>

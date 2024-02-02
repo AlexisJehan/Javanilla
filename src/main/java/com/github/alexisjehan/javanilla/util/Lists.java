@@ -38,12 +38,10 @@ import java.util.stream.Collectors;
 public final class Lists {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private Lists() {
-		// Not available
-	}
+	private Lists() {}
 
 	/**
 	 * <p>Wrap a {@link List} replacing {@code null} by an empty one.</p>

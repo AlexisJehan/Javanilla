@@ -27,9 +27,7 @@ import com.github.alexisjehan.javanilla.util.bag.MapBag;
 
 public final class BagExample {
 
-	private BagExample() {
-		// Not available
-	}
+	private BagExample() {}
 
 	public static void main(final String... args) {
 		final var bag = new MapBag<String>();

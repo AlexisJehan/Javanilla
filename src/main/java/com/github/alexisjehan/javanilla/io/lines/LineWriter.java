@@ -72,7 +72,7 @@ public class LineWriter implements Closeable {
 	private boolean firstLine = true;
 
 	/**
-	 * <p>Package-private constructor used by {@link FilterLineWriter#FilterLineWriter(LineWriter)}.</p>
+	 * <p>Constructor used by {@link FilterLineWriter#FilterLineWriter(LineWriter)}.</p>
 	 * @since 1.0.0
 	 */
 	LineWriter() {

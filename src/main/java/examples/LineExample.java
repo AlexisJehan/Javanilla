@@ -33,9 +33,7 @@ import java.io.IOException;
 
 public final class LineExample {
 
-	private LineExample() {
-		// Not available
-	}
+	private LineExample() {}
 
 	public static void main(final String... args) throws IOException {
 		final var windowsFilePath = Writers.EMPTY;

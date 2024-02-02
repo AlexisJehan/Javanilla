@@ -59,12 +59,10 @@ public final class ByteArrays {
 	private static final boolean DEFAULT_WITH_SPACING = false;
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private ByteArrays() {
-		// Not available
-	}
+	private ByteArrays() {}
 
 	/**
 	 * <p>Wrap a {@code byte} array replacing {@code null} by an empty one.</p>

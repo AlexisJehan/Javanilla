@@ -30,9 +30,7 @@ import com.github.alexisjehan.javanilla.util.Iterators;
 
 public final class IteratorExample {
 
-	private IteratorExample() {
-		// Not available
-	}
+	private IteratorExample() {}
 
 	public static void main(final String... args) {
 		// Iterator to iterate over elements grouping them

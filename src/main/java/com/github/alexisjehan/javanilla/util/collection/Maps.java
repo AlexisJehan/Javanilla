@@ -40,12 +40,10 @@ import java.util.SortedMap;
 public final class Maps {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Maps() {
-		// Not available
-	}
+	private Maps() {}
 
 	/**
 	 * <p>Wrap a {@link Map} replacing {@code null} by an empty one.</p>

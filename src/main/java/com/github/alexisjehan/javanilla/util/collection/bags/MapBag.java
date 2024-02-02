@@ -59,7 +59,7 @@ public final class MapBag<E> implements Bag<E> {
 	private long size;
 
 	/**
-	 * <p>Default constructor, a {@link HashMap} is used.</p>
+	 * <p>Constructor, a {@link HashMap} is used.</p>
 	 * @since 1.0.0
 	 */
 	public MapBag() {
@@ -77,7 +77,7 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Private constructor with the given {@link Map}, empty or not.</p>
+	 * <p>Constructor with the given {@link Map}, empty or not.</p>
 	 * @param map the {@link Map} to get elements and occurrences from
 	 * @throws NullPointerException if the {@link Map} is {@code null}
 	 * @since 1.0.0

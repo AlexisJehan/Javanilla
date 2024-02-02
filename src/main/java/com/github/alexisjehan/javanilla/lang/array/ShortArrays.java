@@ -45,12 +45,10 @@ public final class ShortArrays {
 	public static final short[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private ShortArrays() {
-		// Not available
-	}
+	private ShortArrays() {}
 
 	/**
 	 * <p>Wrap a {@code short} array replacing {@code null} by an empty one.</p>

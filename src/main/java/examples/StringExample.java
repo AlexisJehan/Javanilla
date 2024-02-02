@@ -30,9 +30,7 @@ import java.util.Base64;
 
 public final class StringExample {
 
-	private StringExample() {
-		// Not available
-	}
+	private StringExample() {}
 
 	public static void main(final String... args) {
 		System.out.println(Strings.blankToEmpty("   ")); // Prints an empty String

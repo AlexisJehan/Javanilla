@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardAlgorithmParameterGenerators {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardAlgorithmParameterGenerators() {
-		// Not available
-	}
+	private StandardAlgorithmParameterGenerators() {}
 
 	/**
 	 * <p>Get a new "DiffieHellman" {@link AlgorithmParameterGenerator} instance.</p>

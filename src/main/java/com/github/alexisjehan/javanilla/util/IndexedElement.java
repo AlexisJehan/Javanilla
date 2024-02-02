@@ -51,7 +51,7 @@ public final class IndexedElement<E> {
 	private final E element;
 
 	/**
-	 * <p>Package-private constructor with an index and an element.</p>
+	 * <p>Constructor with an index and an element.</p>
 	 * @param index the index of the element
 	 * @param element the element or {@code null}
 	 * @since 1.8.0

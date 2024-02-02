@@ -34,12 +34,10 @@ import java.security.KeyFactory;
 public final class StandardKeyFactories {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.1
 	 */
-	private StandardKeyFactories() {
-		// Not available
-	}
+	private StandardKeyFactories() {}
 
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>

@@ -77,12 +77,10 @@ public final class OutputStreams {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private OutputStreams() {
-		// Not available
-	}
+	private OutputStreams() {}
 
 	/**
 	 * <p>Wrap an {@link OutputStream} replacing {@code null} by an empty one.</p>

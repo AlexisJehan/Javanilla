@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardKeyPairGenerators {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardKeyPairGenerators() {
-		// Not available
-	}
+	private StandardKeyPairGenerators() {}
 
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>

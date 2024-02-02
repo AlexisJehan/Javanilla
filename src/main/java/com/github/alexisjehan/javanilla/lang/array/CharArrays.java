@@ -45,12 +45,10 @@ public final class CharArrays {
 	public static final char[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private CharArrays() {
-		// Not available
-	}
+	private CharArrays() {}
 
 	/**
 	 * <p>Wrap a {@code char} array replacing {@code null} by an empty one.</p>

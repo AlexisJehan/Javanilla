@@ -45,12 +45,10 @@ public final class FloatArrays {
 	public static final float[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private FloatArrays() {
-		// Not available
-	}
+	private FloatArrays() {}
 
 	/**
 	 * <p>Wrap a {@code float} array replacing {@code null} by an empty one.</p>

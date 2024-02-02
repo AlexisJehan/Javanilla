@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardKeyFactories {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardKeyFactories() {
-		// Not available
-	}
+	private StandardKeyFactories() {}
 
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>

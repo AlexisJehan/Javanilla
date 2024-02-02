@@ -126,12 +126,10 @@ public final class InputStreams {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private InputStreams() {
-		// Not available
-	}
+	private InputStreams() {}
 
 	/**
 	 * <p>Wrap an {@link InputStream} replacing {@code null} by an empty one.</p>

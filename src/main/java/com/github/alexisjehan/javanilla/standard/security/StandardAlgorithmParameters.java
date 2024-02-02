@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardAlgorithmParameters {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardAlgorithmParameters() {
-		// Not available
-	}
+	private StandardAlgorithmParameters() {}
 
 	/**
 	 * <p>Get a new "AES" {@link AlgorithmParameters} instance.</p>

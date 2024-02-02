@@ -34,12 +34,10 @@ import java.security.cert.CertPathValidator;
 public final class StandardCertPathValidators {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private StandardCertPathValidators() {
-		// Not available
-	}
+	private StandardCertPathValidators() {}
 
 	/**
 	 * <p>Get a new "PKIX" {@link CertPathValidator} instance.</p>

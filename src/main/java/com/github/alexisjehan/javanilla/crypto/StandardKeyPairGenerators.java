@@ -35,12 +35,10 @@ import java.security.KeyPairGenerator;
 public final class StandardKeyPairGenerators {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.1
 	 */
-	private StandardKeyPairGenerators() {
-		// Not available
-	}
+	private StandardKeyPairGenerators() {}
 
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>

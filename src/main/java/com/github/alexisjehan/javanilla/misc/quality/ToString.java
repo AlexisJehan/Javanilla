@@ -36,12 +36,10 @@ import java.util.Objects;
 public final class ToString {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.0
 	 */
-	private ToString() {
-		// Not available
-	}
+	private ToString() {}
 
 	/**
 	 * <p>Create a {@link String} representing the {@code boolean} value.</p>

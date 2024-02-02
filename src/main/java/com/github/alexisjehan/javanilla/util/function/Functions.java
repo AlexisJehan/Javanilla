@@ -37,12 +37,10 @@ import java.util.function.Function;
 public final class Functions {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.0
 	 */
-	private Functions() {
-		// Not available
-	}
+	private Functions() {}
 
 	/**
 	 * <p>Decorate a {@link Function} so that the result of each applied values is cached for next times.</p>

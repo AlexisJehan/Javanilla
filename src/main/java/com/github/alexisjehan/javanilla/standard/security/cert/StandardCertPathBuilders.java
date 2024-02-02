@@ -36,12 +36,10 @@ import java.security.cert.CertPathBuilder;
 public final class StandardCertPathBuilders {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardCertPathBuilders() {
-		// Not available
-	}
+	private StandardCertPathBuilders() {}
 
 	/**
 	 * <p>Get a new "PKIX" {@link CertPathBuilder} instance.</p>

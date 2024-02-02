@@ -36,12 +36,10 @@ import java.util.function.Consumer;
 public final class Consumers {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.1.0
 	 */
-	private Consumers() {
-		// Not available
-	}
+	private Consumers() {}
 
 	/**
 	 * <p>Decorate a {@link Consumer} so that it only accepts a value once. If the {@link Consumer} is consumed more

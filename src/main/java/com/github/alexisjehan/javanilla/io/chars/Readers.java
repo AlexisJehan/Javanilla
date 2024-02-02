@@ -69,7 +69,7 @@ public final class Readers {
 		private Reader current;
 
 		/**
-		 * <p>Private constructor.</p>
+		 * <p>Constructor.</p>
 		 * @param iterator the {@link Iterator} of {@link Reader}s
 		 * @since 1.0.0
 		 */
@@ -213,12 +213,10 @@ public final class Readers {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Readers() {
-		// Not available
-	}
+	private Readers() {}
 
 	/**
 	 * <p>Wrap a {@link Reader} replacing {@code null} by an empty one.</p>

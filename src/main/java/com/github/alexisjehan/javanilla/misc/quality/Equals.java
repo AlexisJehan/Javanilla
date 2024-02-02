@@ -36,12 +36,10 @@ import java.util.Objects;
 public final class Equals {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.0
 	 */
-	private Equals() {
-		// Not available
-	}
+	private Equals() {}
 
 	/**
 	 * <p>Check the equality between {@code boolean} values.</p>

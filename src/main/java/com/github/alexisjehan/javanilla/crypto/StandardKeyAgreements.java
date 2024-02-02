@@ -34,12 +34,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardKeyAgreements {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private StandardKeyAgreements() {
-		// Not available
-	}
+	private StandardKeyAgreements() {}
 
 	/**
 	 * <p>Get a new "DiffieHellman" {@link KeyAgreement} instance.</p>

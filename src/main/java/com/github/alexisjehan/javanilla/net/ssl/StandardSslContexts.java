@@ -34,12 +34,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardSslContexts {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.8.0
 	 */
-	private StandardSslContexts() {
-		// Not available
-	}
+	private StandardSslContexts() {}
 
 	/**
 	 * <p>Get a new "TLSv1" {@link SSLContext} instance.</p>

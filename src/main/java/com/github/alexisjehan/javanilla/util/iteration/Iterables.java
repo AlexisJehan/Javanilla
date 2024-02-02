@@ -69,12 +69,10 @@ public final class Iterables {
 	public static final PrimitiveIterable.OfDouble EMPTY_DOUBLE = () -> Iterators.EMPTY_DOUBLE;
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Iterables() {
-		// Not available
-	}
+	private Iterables() {}
 
 	/**
 	 * <p>Return an {@link Iterable} which gives empties {@link Iterator}s.</p>

@@ -72,7 +72,7 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	}
 
 	/**
-	 * <p>Private constructor of a {@link TreeNode}.</p>
+	 * <p>Constructor of a {@link TreeNode}.</p>
 	 * @param parent the parent of the {@link TreeNode} or {@code null}
 	 * @param value the value of the {@link TreeNode}
 	 * @since 1.2.0

@@ -40,12 +40,10 @@ import java.util.function.Supplier;
 public final class Suppliers {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Suppliers() {
-		// Not available
-	}
+	private Suppliers() {}
 
 	/**
 	 * <p>Decorate a {@link Supplier} so that it only returns a value once. If the {@link Supplier} is supplied more

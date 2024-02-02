@@ -32,9 +32,7 @@ import java.io.UncheckedIOException;
 
 public final class ThrowableExample {
 
-	private ThrowableExample() {
-		// Not available
-	}
+	private ThrowableExample() {}
 
 	public static void main(final String... args) {
 		// Sleep 5 seconds and throw an unchecked Exception if the thread is interrupted, no try/catch required

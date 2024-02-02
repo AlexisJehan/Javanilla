@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardMacs {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardMacs() {
-		// Not available
-	}
+	private StandardMacs() {}
 
 	/**
 	 * <p>Get a new "HmacMD5" {@link Mac} instance.</p>

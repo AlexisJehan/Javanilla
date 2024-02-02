@@ -36,12 +36,10 @@ import java.security.Signature;
 public final class StandardSignatures {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardSignatures() {
-		// Not available
-	}
+	private StandardSignatures() {}
 
 	/**
 	 * <p>Get a new "SHA1withDSA" {@link Signature} instance.</p>

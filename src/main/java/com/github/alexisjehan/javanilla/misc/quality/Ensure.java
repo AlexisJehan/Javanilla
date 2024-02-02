@@ -55,12 +55,10 @@ import java.util.regex.Pattern;
 public final class Ensure {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.3.0
 	 */
-	private Ensure() {
-		// Not available
-	}
+	private Ensure() {}
 
 	/**
 	 * <p>Ensure the value is not {@code null}.</p>

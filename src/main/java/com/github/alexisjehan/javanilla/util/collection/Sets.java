@@ -43,12 +43,10 @@ import java.util.SortedSet;
 public final class Sets {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Sets() {
-		// Not available
-	}
+	private Sets() {}
 
 	/**
 	 * <p>Wrap a {@link Set} replacing {@code null} by an empty one.</p>

@@ -30,9 +30,7 @@ import com.github.alexisjehan.javanilla.misc.distance.MinkowskiDistance;
 
 public final class DistanceExample {
 
-	private DistanceExample() {
-		// Not available
-	}
+	private DistanceExample() {}
 
 	public static void main(final String... args) {
 		final var x1 = 0.0d;

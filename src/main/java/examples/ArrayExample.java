@@ -35,9 +35,7 @@ import java.util.Arrays;
 
 public final class ArrayExample {
 
-	private ArrayExample() {
-		// Not available
-	}
+	private ArrayExample() {}
 
 	public static void main(final String... args) {
 		IntArrays.of(1, 2, 3); // Similar to new int[] {1, 2, 3};

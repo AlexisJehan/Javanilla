@@ -30,9 +30,7 @@ import java.util.stream.Stream;
 
 public final class ComparatorExample {
 
-	private ComparatorExample() {
-		// Not available
-	}
+	private ComparatorExample() {}
 
 	public static void main(final String... args) {
 		System.out.println(Stream.of("foo2", "foo1", "foo10").sorted().collect(Collectors.toList())); // Prints [foo1, foo10, foo2]

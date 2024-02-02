@@ -78,7 +78,7 @@ public final class Iterators {
 		private Iterator<? extends E> current;
 
 		/**
-		 * <p>Private constructor.</p>
+		 * <p>Constructor.</p>
 		 * @param iterator the {@link Iterator} of {@link Iterator}s
 		 * @since 1.0.0
 		 */
@@ -222,12 +222,10 @@ public final class Iterators {
 	};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private Iterators() {
-		// Not available
-	}
+	private Iterators() {}
 
 	/**
 	 * <p>Wrap a {@link PrimitiveIterator.OfInt} replacing {@code null} by an empty one.</p>
@@ -1106,7 +1104,7 @@ public final class Iterators {
 			 */
 			@Override
 			public void close() {
-				// Nothing to do
+				// Do nothing
 			}
 		};
 	}

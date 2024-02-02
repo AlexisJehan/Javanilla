@@ -36,12 +36,10 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardKeyGenerators {
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.6.0
 	 */
-	private StandardKeyGenerators() {
-		// Not available
-	}
+	private StandardKeyGenerators() {}
 
 	/**
 	 * <p>Get a new "AES" {@link KeyGenerator} instance.</p>

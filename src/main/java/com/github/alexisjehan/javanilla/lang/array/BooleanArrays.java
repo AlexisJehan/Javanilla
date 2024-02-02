@@ -45,12 +45,10 @@ public final class BooleanArrays {
 	public static final boolean[] EMPTY = {};
 
 	/**
-	 * <p>Constructor not available.</p>
+	 * <p>Constructor.</p>
 	 * @since 1.0.0
 	 */
-	private BooleanArrays() {
-		// Not available
-	}
+	private BooleanArrays() {}
 
 	/**
 	 * <p>Wrap a {@code boolean} array replacing {@code null} by an empty one.</p>
