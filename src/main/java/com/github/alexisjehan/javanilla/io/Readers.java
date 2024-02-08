@@ -197,7 +197,7 @@ public final class Readers {
 		 */
 		@Override
 		public void close() {
-			// Do nothing
+			// Empty
 		}
 
 		/**
@@ -286,7 +286,7 @@ public final class Readers {
 			 */
 			@Override
 			public void close() {
-				// Do nothing
+				// Empty
 			}
 		};
 	}

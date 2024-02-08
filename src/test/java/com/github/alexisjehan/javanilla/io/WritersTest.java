@@ -130,12 +130,12 @@ final class WritersTest {
 		final var writer = new Writer() {
 			@Override
 			public void write(final char[] chars, final int offset, final int length) {
-				// Do nothing
+				// Empty
 			}
 
 			@Override
 			public void flush() {
-				// Do nothing
+				// Empty
 			}
 
 			@Override

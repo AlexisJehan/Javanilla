@@ -56,7 +56,7 @@ public final class OutputStreams {
 		 */
 		@Override
 		public void write(final int i) {
-			// Do nothing
+			// Empty
 		}
 
 		/**
@@ -139,7 +139,7 @@ public final class OutputStreams {
 			 */
 			@Override
 			public void close() {
-				// Do nothing
+				// Empty
 			}
 		};
 	}

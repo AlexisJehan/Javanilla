@@ -1104,7 +1104,7 @@ public final class Iterators {
 			 */
 			@Override
 			public void close() {
-				// Do nothing
+				// Empty
 			}
 		};
 	}

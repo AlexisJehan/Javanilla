@@ -109,7 +109,7 @@ final class OutputStreamsTest {
 		final var outputStream = new OutputStream() {
 			@Override
 			public void write(final int i) {
-				// Do nothing
+				// Empty
 			}
 
 			@Override

@@ -52,7 +52,7 @@ public final class Writers {
 		 */
 		@Override
 		public void write(final int i) {
-			// Do nothing
+			// Empty
 		}
 
 		/**
@@ -126,7 +126,7 @@ public final class Writers {
 		 */
 		@Override
 		public void flush() {
-			// Do nothing
+			// Empty
 		}
 
 		/**
@@ -134,7 +134,7 @@ public final class Writers {
 		 */
 		@Override
 		public void close() {
-			// Do nothing
+			// Empty
 		}
 	};
 
@@ -199,7 +199,7 @@ public final class Writers {
 			 */
 			@Override
 			public void close() {
-				// Do nothing
+				// Empty
 			}
 		};
 	}

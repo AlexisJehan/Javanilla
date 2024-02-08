@@ -203,7 +203,7 @@ public final class InputStreams {
 			 */
 			@Override
 			public void close() {
-				// Do nothing
+				// Empty
 			}
 		};
 	}
