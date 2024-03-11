@@ -1,4 +1,6 @@
-<image src="logo.png" align="right" width="200"/>
+<p align="center">
+	<img src="logo.png" alt="Logo" width="200"/>
+</p>
 
 # Javanilla
 [![maven-central](https://img.shields.io/maven-central/v/com.github.alexisjehan/javanilla)](https://mvnrepository.com/artifact/com.github.alexisjehan/javanilla)
