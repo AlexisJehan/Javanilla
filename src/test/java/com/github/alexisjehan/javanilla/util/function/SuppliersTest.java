@@ -100,16 +100,16 @@ final class SuppliersTest {
 				},
 				Duration.ofMinutes(2L),
 				new Clock() {
-					private Instant nextInstant = Instant.now(Clock.systemUTC());
+					private Instant nextInstant = Instant.now(systemUTC());
 
 					@Override
 					public ZoneId getZone() {
-						return Clock.systemUTC().getZone();
+						return systemUTC().getZone();
 					}
 
 					@Override
 					public Clock withZone(final ZoneId zone) {
-						return Clock.systemUTC().withZone(zone);
+						return systemUTC().withZone(zone);
 					}
 
 					@Override
