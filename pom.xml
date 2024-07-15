@@ -124,7 +124,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.23.0</version>
+				<version>3.24.0</version>
 				<executions>
 					<execution>
 						<id>pmd-check</id>
@@ -170,7 +170,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>3.3.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
