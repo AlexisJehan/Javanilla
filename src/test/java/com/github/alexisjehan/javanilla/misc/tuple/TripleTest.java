@@ -40,28 +40,28 @@ final class TripleTest {
 		assertThat(triple.equals(triple)).isTrue();
 		assertThat(triple).isNotEqualTo(new Object());
 		assertThat(Triple.of(FIRST, SECOND, THIRD)).satisfies(otherTriple -> {
-			assertThat(triple).isNotSameAs(otherTriple);
-			assertThat(triple).isEqualTo(otherTriple);
-			assertThat(triple).hasSameHashCodeAs(otherTriple);
-			assertThat(triple).hasToString(otherTriple.toString());
+			assertThat(otherTriple).isNotSameAs(triple);
+			assertThat(otherTriple).isEqualTo(triple);
+			assertThat(otherTriple).hasSameHashCodeAs(triple);
+			assertThat(otherTriple).hasToString(triple.toString());
 		});
 		assertThat(Triple.of(null, SECOND, THIRD)).satisfies(otherTriple -> {
-			assertThat(triple).isNotSameAs(otherTriple);
-			assertThat(triple).isNotEqualTo(otherTriple);
-			assertThat(triple).doesNotHaveSameHashCodeAs(otherTriple);
-			assertThat(triple).doesNotHaveToString(otherTriple.toString());
+			assertThat(otherTriple).isNotSameAs(triple);
+			assertThat(otherTriple).isNotEqualTo(triple);
+			assertThat(otherTriple).doesNotHaveSameHashCodeAs(triple);
+			assertThat(otherTriple).doesNotHaveToString(triple.toString());
 		});
 		assertThat(Triple.of(FIRST, null, THIRD)).satisfies(otherTriple -> {
-			assertThat(triple).isNotSameAs(otherTriple);
-			assertThat(triple).isNotEqualTo(otherTriple);
-			assertThat(triple).doesNotHaveSameHashCodeAs(otherTriple);
-			assertThat(triple).doesNotHaveToString(otherTriple.toString());
+			assertThat(otherTriple).isNotSameAs(triple);
+			assertThat(otherTriple).isNotEqualTo(triple);
+			assertThat(otherTriple).doesNotHaveSameHashCodeAs(triple);
+			assertThat(otherTriple).doesNotHaveToString(triple.toString());
 		});
 		assertThat(Triple.of(FIRST, SECOND, 3)).satisfies(otherTriple -> {
-			assertThat(triple).isNotSameAs(otherTriple);
-			assertThat(triple).isNotEqualTo(otherTriple);
-			assertThat(triple).doesNotHaveSameHashCodeAs(otherTriple);
-			assertThat(triple).doesNotHaveToString(otherTriple.toString());
+			assertThat(otherTriple).isNotSameAs(triple);
+			assertThat(otherTriple).isNotEqualTo(triple);
+			assertThat(otherTriple).doesNotHaveSameHashCodeAs(triple);
+			assertThat(otherTriple).doesNotHaveToString(triple.toString());
 		});
 	}
 

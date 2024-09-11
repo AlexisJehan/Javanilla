@@ -39,22 +39,22 @@ final class PairTest {
 		assertThat(pair.equals(pair)).isTrue();
 		assertThat(pair).isNotEqualTo(new Object());
 		assertThat(Pair.of(FIRST, SECOND)).satisfies(otherPair -> {
-			assertThat(pair).isNotSameAs(otherPair);
-			assertThat(pair).isEqualTo(otherPair);
-			assertThat(pair).hasSameHashCodeAs(otherPair);
-			assertThat(pair).hasToString(otherPair.toString());
+			assertThat(otherPair).isNotSameAs(pair);
+			assertThat(otherPair).isEqualTo(pair);
+			assertThat(otherPair).hasSameHashCodeAs(pair);
+			assertThat(otherPair).hasToString(pair.toString());
 		});
 		assertThat(Pair.of(null, SECOND)).satisfies(otherPair -> {
-			assertThat(pair).isNotSameAs(otherPair);
-			assertThat(pair).isNotEqualTo(otherPair);
-			assertThat(pair).doesNotHaveSameHashCodeAs(otherPair);
-			assertThat(pair).doesNotHaveToString(otherPair.toString());
+			assertThat(otherPair).isNotSameAs(pair);
+			assertThat(otherPair).isNotEqualTo(pair);
+			assertThat(otherPair).doesNotHaveSameHashCodeAs(pair);
+			assertThat(otherPair).doesNotHaveToString(pair.toString());
 		});
 		assertThat(Pair.of(FIRST, 2)).satisfies(otherPair -> {
-			assertThat(pair).isNotSameAs(otherPair);
-			assertThat(pair).isNotEqualTo(otherPair);
-			assertThat(pair).doesNotHaveSameHashCodeAs(otherPair);
-			assertThat(pair).doesNotHaveToString(otherPair.toString());
+			assertThat(otherPair).isNotSameAs(pair);
+			assertThat(otherPair).isNotEqualTo(pair);
+			assertThat(otherPair).doesNotHaveSameHashCodeAs(pair);
+			assertThat(otherPair).doesNotHaveToString(pair.toString());
 		});
 	}
 

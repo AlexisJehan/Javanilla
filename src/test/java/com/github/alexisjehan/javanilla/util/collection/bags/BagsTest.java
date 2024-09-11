@@ -66,23 +66,23 @@ final class BagsTest {
 	void testEmptyEqualsAndHashCodeAndToString() {
 		assertThat(emptyBag.equals(emptyBag)).isTrue();
 		assertThat(emptyBag).isNotEqualTo(new Object());
-		assertThat(Bags.empty()).satisfies(otherBag -> {
-			assertThat(emptyBag).isSameAs(otherBag);
-			assertThat(emptyBag).isEqualTo(otherBag);
-			assertThat(emptyBag).hasSameHashCodeAs(otherBag);
-			assertThat(emptyBag).hasToString(otherBag.toString());
+		assertThat(Bags.empty()).satisfies(otherEmptyBag -> {
+			assertThat(otherEmptyBag).isSameAs(emptyBag);
+			assertThat(otherEmptyBag).isEqualTo(emptyBag);
+			assertThat(otherEmptyBag).hasSameHashCodeAs(emptyBag);
+			assertThat(otherEmptyBag).hasToString(emptyBag.toString());
 		});
-		assertThat(new MapBag<>()).satisfies(otherBag -> {
-			assertThat(emptyBag).isNotSameAs(otherBag);
-			assertThat(emptyBag).isEqualTo(otherBag);
-			assertThat(emptyBag).hasSameHashCodeAs(otherBag);
-			assertThat(emptyBag).hasToString(otherBag.toString());
+		assertThat(new MapBag<>()).satisfies(otherEmptyBag -> {
+			assertThat(otherEmptyBag).isNotSameAs(emptyBag);
+			assertThat(otherEmptyBag).isEqualTo(emptyBag);
+			assertThat(otherEmptyBag).hasSameHashCodeAs(emptyBag);
+			assertThat(otherEmptyBag).hasToString(emptyBag.toString());
 		});
-		assertThat(Bags.singleton("foo", 5L)).satisfies(otherBag -> {
-			assertThat(emptyBag).isNotSameAs(otherBag);
-			assertThat(emptyBag).isNotEqualTo(otherBag);
-			assertThat(emptyBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(emptyBag).doesNotHaveToString(otherBag.toString());
+		assertThat(Bags.singleton("foo", 5L)).satisfies(otherEmptyBag -> {
+			assertThat(otherEmptyBag).isNotSameAs(emptyBag);
+			assertThat(otherEmptyBag).isNotEqualTo(emptyBag);
+			assertThat(otherEmptyBag).doesNotHaveSameHashCodeAs(emptyBag);
+			assertThat(otherEmptyBag).doesNotHaveToString(emptyBag.toString());
 		});
 	}
 
@@ -144,60 +144,60 @@ final class BagsTest {
 
 	@Test
 	void testSingleton() {
-		assertThat(Bags.singleton("foo", 5L)).satisfies(singletonBag -> {
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo", 2L));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo", 2L));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.removeAll("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
-			assertThat(singletonBag.count("foo")).isEqualTo(5L);
-			assertThat(singletonBag.count("bar")).isZero();
-			assertThat(singletonBag.count(null)).isZero();
-			assertThat(singletonBag.distinct()).isEqualTo(1L);
-			assertThat(singletonBag.size()).isEqualTo(5L);
-			assertThat(singletonBag.min().get()).isEqualTo("foo");
-			assertThat(singletonBag.max().get()).isEqualTo("foo");
-			assertThat(singletonBag.toSet()).containsExactlyInAnyOrder("foo");
-			assertThat(singletonBag.toMap()).containsOnly(Map.entry("foo", 5L));
+		assertThat(Bags.singleton("foo", 5L)).satisfies(otherSingletonBag -> {
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.add("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.remove("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.removeAll("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(otherSingletonBag::clear);
+			assertThat(otherSingletonBag.count("foo")).isEqualTo(5L);
+			assertThat(otherSingletonBag.count("bar")).isZero();
+			assertThat(otherSingletonBag.count(null)).isZero();
+			assertThat(otherSingletonBag.distinct()).isEqualTo(1L);
+			assertThat(otherSingletonBag.size()).isEqualTo(5L);
+			assertThat(otherSingletonBag.min().get()).isEqualTo("foo");
+			assertThat(otherSingletonBag.max().get()).isEqualTo("foo");
+			assertThat(otherSingletonBag.toSet()).containsExactlyInAnyOrder("foo");
+			assertThat(otherSingletonBag.toMap()).containsOnly(Map.entry("foo", 5L));
 		});
 
 		// Zero
-		assertThat(Bags.singleton("foo", 0L)).satisfies(singletonBag -> {
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo", 2L));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo", 2L));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.removeAll("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
-			assertThat(singletonBag.count("foo")).isZero();
-			assertThat(singletonBag.count("bar")).isZero();
-			assertThat(singletonBag.count(null)).isZero();
-			assertThat(singletonBag.distinct()).isZero();
-			assertThat(singletonBag.size()).isZero();
-			assertThat(singletonBag.min().isEmpty()).isTrue();
-			assertThat(singletonBag.max().isEmpty()).isTrue();
-			assertThat(singletonBag.toSet()).isEmpty();
-			assertThat(singletonBag.toMap()).isEmpty();
+		assertThat(Bags.singleton("foo", 0L)).satisfies(otherSingletonBag -> {
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.add("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.remove("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.removeAll("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(otherSingletonBag::clear);
+			assertThat(otherSingletonBag.count("foo")).isZero();
+			assertThat(otherSingletonBag.count("bar")).isZero();
+			assertThat(otherSingletonBag.count(null)).isZero();
+			assertThat(otherSingletonBag.distinct()).isZero();
+			assertThat(otherSingletonBag.size()).isZero();
+			assertThat(otherSingletonBag.min().isEmpty()).isTrue();
+			assertThat(otherSingletonBag.max().isEmpty()).isTrue();
+			assertThat(otherSingletonBag.toSet()).isEmpty();
+			assertThat(otherSingletonBag.toMap()).isEmpty();
 		});
 
 		// Null
-		assertThat(Bags.singleton(null, 5L)).satisfies(singletonBag -> {
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.add("foo", 2L));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.remove("foo", 2L));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> singletonBag.removeAll("foo"));
-			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(singletonBag::clear);
-			assertThat(singletonBag.count("foo")).isZero();
-			assertThat(singletonBag.count("bar")).isZero();
-			assertThat(singletonBag.count(null)).isEqualTo(5L);
-			assertThat(singletonBag.distinct()).isEqualTo(1L);
-			assertThat(singletonBag.size()).isEqualTo(5L);
-			assertThat(singletonBag.min().get()).isNull();
-			assertThat(singletonBag.max().get()).isNull();
-			assertThat(singletonBag.toSet()).containsExactlyInAnyOrder((String) null);
-			assertThat(singletonBag.toMap()).containsOnly(new AbstractMap.SimpleImmutableEntry<>(null, 5L));
+		assertThat(Bags.singleton(null, 5L)).satisfies(otherSingletonBag -> {
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.add("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.add("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.remove("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.remove("foo", 2L));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> otherSingletonBag.removeAll("foo"));
+			assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(otherSingletonBag::clear);
+			assertThat(otherSingletonBag.count("foo")).isZero();
+			assertThat(otherSingletonBag.count("bar")).isZero();
+			assertThat(otherSingletonBag.count(null)).isEqualTo(5L);
+			assertThat(otherSingletonBag.distinct()).isEqualTo(1L);
+			assertThat(otherSingletonBag.size()).isEqualTo(5L);
+			assertThat(otherSingletonBag.min().get()).isNull();
+			assertThat(otherSingletonBag.max().get()).isNull();
+			assertThat(otherSingletonBag.toSet()).containsExactlyInAnyOrder((String) null);
+			assertThat(otherSingletonBag.toMap()).containsOnly(new AbstractMap.SimpleImmutableEntry<>(null, 5L));
 		});
 	}
 
@@ -210,29 +210,29 @@ final class BagsTest {
 	void testSingletonEqualsAndHashCodeAndToString() {
 		assertThat(singletonBag.equals(singletonBag)).isTrue();
 		assertThat(singletonBag).isNotEqualTo(new Object());
-		assertThat(Bags.singleton(ELEMENT, QUANTITY)).satisfies(otherBag -> {
-			assertThat(singletonBag).isNotSameAs(otherBag);
-			assertThat(singletonBag).isEqualTo(otherBag);
-			assertThat(singletonBag).hasSameHashCodeAs(otherBag);
-			assertThat(singletonBag).hasToString(otherBag.toString());
+		assertThat(Bags.singleton(ELEMENT, QUANTITY)).satisfies(otherSingletonBag -> {
+			assertThat(otherSingletonBag).isNotSameAs(singletonBag);
+			assertThat(otherSingletonBag).isEqualTo(singletonBag);
+			assertThat(otherSingletonBag).hasSameHashCodeAs(singletonBag);
+			assertThat(otherSingletonBag).hasToString(singletonBag.toString());
 		});
-		assertThat(new MapBag<>(List.of("foo", "foo", "foo", "foo", "foo"))).satisfies(otherBag -> {
-			assertThat(singletonBag).isNotSameAs(otherBag);
-			assertThat(singletonBag).isEqualTo(otherBag);
-			assertThat(singletonBag).hasSameHashCodeAs(otherBag);
-			assertThat(singletonBag).hasToString(otherBag.toString());
+		assertThat(new MapBag<>(List.of("foo", "foo", "foo", "foo", "foo"))).satisfies(otherSingletonBag -> {
+			assertThat(otherSingletonBag).isNotSameAs(singletonBag);
+			assertThat(otherSingletonBag).isEqualTo(singletonBag);
+			assertThat(otherSingletonBag).hasSameHashCodeAs(singletonBag);
+			assertThat(otherSingletonBag).hasToString(singletonBag.toString());
 		});
-		assertThat(Bags.singleton(null, QUANTITY)).satisfies(otherBag -> {
-			assertThat(singletonBag).isNotSameAs(otherBag);
-			assertThat(singletonBag).isNotEqualTo(otherBag);
-			assertThat(singletonBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(singletonBag).doesNotHaveToString(otherBag.toString());
+		assertThat(Bags.singleton(null, QUANTITY)).satisfies(otherSingletonBag -> {
+			assertThat(otherSingletonBag).isNotSameAs(singletonBag);
+			assertThat(otherSingletonBag).isNotEqualTo(singletonBag);
+			assertThat(otherSingletonBag).doesNotHaveSameHashCodeAs(singletonBag);
+			assertThat(otherSingletonBag).doesNotHaveToString(singletonBag.toString());
 		});
-		assertThat(Bags.singleton(ELEMENT, 0L)).satisfies(otherBag -> {
-			assertThat(singletonBag).isNotSameAs(otherBag);
-			assertThat(singletonBag).isNotEqualTo(otherBag);
-			assertThat(singletonBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(singletonBag).doesNotHaveToString(otherBag.toString());
+		assertThat(Bags.singleton(ELEMENT, 0L)).satisfies(otherSingletonBag -> {
+			assertThat(otherSingletonBag).isNotSameAs(singletonBag);
+			assertThat(otherSingletonBag).isNotEqualTo(singletonBag);
+			assertThat(otherSingletonBag).doesNotHaveSameHashCodeAs(singletonBag);
+			assertThat(otherSingletonBag).doesNotHaveToString(singletonBag.toString());
 		});
 	}
 

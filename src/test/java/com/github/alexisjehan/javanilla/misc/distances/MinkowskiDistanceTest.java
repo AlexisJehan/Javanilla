@@ -41,8 +41,9 @@ final class MinkowskiDistanceTest {
 
 	@Test
 	void testConstructor() {
-		final var minkowskiDistance = new MinkowskiDistance(ORDER);
-		assertThat(minkowskiDistance.getOrder()).isEqualTo(ORDER);
+		assertThat(new MinkowskiDistance(ORDER)).satisfies(otherMinkowskiDistance -> {
+			assertThat(otherMinkowskiDistance.getOrder()).isEqualTo(ORDER);
+		});
 	}
 
 	@Test
@@ -52,32 +53,32 @@ final class MinkowskiDistanceTest {
 
 	@Test
 	void testCalculate() {
-		assertThat(new MinkowskiDistance(1)).satisfies(minkowskiDistance -> {
-			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isZero();
-			assertThat(minkowskiDistance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
-			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
-			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0d)).isEqualTo(9.0d);
+		assertThat(new MinkowskiDistance(1)).satisfies(otherMinkowskiDistance -> {
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 0.0d)).isZero();
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0d)).isEqualTo(9.0d);
 		});
-		assertThat(new MinkowskiDistance(2)).satisfies(minkowskiDistance -> {
-			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isZero();
-			assertThat(minkowskiDistance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
-			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
-			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isCloseTo(6.708d, offset(0.001d));
+		assertThat(new MinkowskiDistance(2)).satisfies(otherMinkowskiDistance -> {
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 0.0d)).isZero();
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 10.0d)).isEqualTo(10.0d);
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isCloseTo(6.708d, offset(0.001d));
 		});
-		assertThat(new MinkowskiDistance(3)).satisfies(minkowskiDistance -> {
-			assertThat(minkowskiDistance.calculate(0.0d, 0.0d)).isZero();
-			assertThat(minkowskiDistance.calculate(0.0d, 10.0d)).isCloseTo(10.0d, offset(0.1d));
-			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
-			assertThat(minkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isCloseTo(6.240d, offset(0.001d));
+		assertThat(new MinkowskiDistance(3)).satisfies(otherMinkowskiDistance -> {
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 0.0d)).isZero();
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 10.0d)).isCloseTo(10.0d, offset(0.1d));
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 1.5d, 0.0d, -1.5d)).isEqualTo(3.0d);
+			assertThat(otherMinkowskiDistance.calculate(0.0d, 1.5d, 3.0d, 0.0d, -1.5d, -3.0)).isCloseTo(6.240d, offset(0.001d));
 		});
 	}
 
 	@Test
 	void testCalculateInvalid() {
-		assertThatNullPointerException().isThrownBy(() -> new MinkowskiDistance(ORDER).calculate(null, DoubleArrays.singleton(1.0d)));
-		assertThatNullPointerException().isThrownBy(() -> new MinkowskiDistance(ORDER).calculate(DoubleArrays.singleton(1.0d), null));
-		assertThatIllegalArgumentException().isThrownBy(() -> new MinkowskiDistance(ORDER).calculate(DoubleArrays.singleton(1.0d), DoubleArrays.of(1.0d, 2.0d)));
-		assertThatIllegalArgumentException().isThrownBy(() -> new MinkowskiDistance(ORDER).calculate(DoubleArrays.EMPTY, DoubleArrays.EMPTY));
+		assertThatNullPointerException().isThrownBy(() -> minkowskiDistance.calculate(null, DoubleArrays.singleton(1.0d)));
+		assertThatNullPointerException().isThrownBy(() -> minkowskiDistance.calculate(DoubleArrays.singleton(1.0d), null));
+		assertThatIllegalArgumentException().isThrownBy(() -> minkowskiDistance.calculate(DoubleArrays.singleton(1.0d), DoubleArrays.of(1.0d, 2.0d)));
+		assertThatIllegalArgumentException().isThrownBy(() -> minkowskiDistance.calculate(DoubleArrays.EMPTY, DoubleArrays.EMPTY));
 	}
 
 	@Test
@@ -85,16 +86,16 @@ final class MinkowskiDistanceTest {
 		assertThat(minkowskiDistance.equals(minkowskiDistance)).isTrue();
 		assertThat(minkowskiDistance).isNotEqualTo(new Object());
 		assertThat(new MinkowskiDistance(ORDER)).satisfies(otherMinkowskiDistance -> {
-			assertThat(minkowskiDistance).isNotSameAs(otherMinkowskiDistance);
-			assertThat(minkowskiDistance).isEqualTo(otherMinkowskiDistance);
-			assertThat(minkowskiDistance).hasSameHashCodeAs(otherMinkowskiDistance);
-			assertThat(minkowskiDistance).hasToString(otherMinkowskiDistance.toString());
+			assertThat(otherMinkowskiDistance).isNotSameAs(minkowskiDistance);
+			assertThat(otherMinkowskiDistance).isEqualTo(minkowskiDistance);
+			assertThat(otherMinkowskiDistance).hasSameHashCodeAs(minkowskiDistance);
+			assertThat(otherMinkowskiDistance).hasToString(minkowskiDistance.toString());
 		});
 		assertThat(new MinkowskiDistance(2)).satisfies(otherMinkowskiDistance -> {
-			assertThat(minkowskiDistance).isNotSameAs(otherMinkowskiDistance);
-			assertThat(minkowskiDistance).isNotEqualTo(otherMinkowskiDistance);
-			assertThat(minkowskiDistance).doesNotHaveSameHashCodeAs(otherMinkowskiDistance);
-			assertThat(minkowskiDistance).doesNotHaveToString(otherMinkowskiDistance.toString());
+			assertThat(otherMinkowskiDistance).isNotSameAs(minkowskiDistance);
+			assertThat(otherMinkowskiDistance).isNotEqualTo(minkowskiDistance);
+			assertThat(otherMinkowskiDistance).doesNotHaveSameHashCodeAs(minkowskiDistance);
+			assertThat(otherMinkowskiDistance).doesNotHaveToString(minkowskiDistance.toString());
 		});
 	}
 

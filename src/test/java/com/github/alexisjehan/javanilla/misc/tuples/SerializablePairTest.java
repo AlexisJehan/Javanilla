@@ -41,22 +41,22 @@ final class SerializablePairTest {
 		assertThat(serializablePair.equals(serializablePair)).isTrue();
 		assertThat(serializablePair).isNotEqualTo(new Object());
 		assertThat(SerializablePair.of(FIRST, SECOND)).satisfies(otherSerializablePair -> {
-			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
-			assertThat(serializablePair).isEqualTo(otherSerializablePair);
-			assertThat(serializablePair).hasSameHashCodeAs(otherSerializablePair);
-			assertThat(serializablePair).hasToString(otherSerializablePair.toString());
+			assertThat(otherSerializablePair).isNotSameAs(serializablePair);
+			assertThat(otherSerializablePair).isEqualTo(serializablePair);
+			assertThat(otherSerializablePair).hasSameHashCodeAs(serializablePair);
+			assertThat(otherSerializablePair).hasToString(serializablePair.toString());
 		});
 		assertThat(SerializablePair.of(null, SECOND)).satisfies(otherSerializablePair -> {
-			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
-			assertThat(serializablePair).isNotEqualTo(otherSerializablePair);
-			assertThat(serializablePair).doesNotHaveSameHashCodeAs(otherSerializablePair);
-			assertThat(serializablePair).doesNotHaveToString(otherSerializablePair.toString());
+			assertThat(otherSerializablePair).isNotSameAs(serializablePair);
+			assertThat(otherSerializablePair).isNotEqualTo(serializablePair);
+			assertThat(otherSerializablePair).doesNotHaveSameHashCodeAs(serializablePair);
+			assertThat(otherSerializablePair).doesNotHaveToString(serializablePair.toString());
 		});
 		assertThat(SerializablePair.of(FIRST, 2)).satisfies(otherSerializablePair -> {
-			assertThat(serializablePair).isNotSameAs(otherSerializablePair);
-			assertThat(serializablePair).isNotEqualTo(otherSerializablePair);
-			assertThat(serializablePair).doesNotHaveSameHashCodeAs(otherSerializablePair);
-			assertThat(serializablePair).doesNotHaveToString(otherSerializablePair.toString());
+			assertThat(otherSerializablePair).isNotSameAs(serializablePair);
+			assertThat(otherSerializablePair).isNotEqualTo(serializablePair);
+			assertThat(otherSerializablePair).doesNotHaveSameHashCodeAs(serializablePair);
+			assertThat(otherSerializablePair).doesNotHaveToString(serializablePair.toString());
 		});
 	}
 

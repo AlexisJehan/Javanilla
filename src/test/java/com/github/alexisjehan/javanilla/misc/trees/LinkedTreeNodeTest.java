@@ -44,31 +44,31 @@ final class LinkedTreeNodeTest extends AbstractTreeNodeTest {
 		assertThat(treeNode).isNotEqualTo(new Object());
 		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
 			otherTreeNode.extend("foo11");
-			assertThat(treeNode).isNotSameAs(otherTreeNode);
-			assertThat(treeNode).isEqualTo(otherTreeNode);
-			assertThat(treeNode).hasSameHashCodeAs(otherTreeNode);
-			assertThat(treeNode).hasToString(otherTreeNode.toString());
+			assertThat(otherTreeNode).isNotSameAs(treeNode);
+			assertThat(otherTreeNode).isEqualTo(treeNode);
+			assertThat(otherTreeNode).hasSameHashCodeAs(treeNode);
+			assertThat(otherTreeNode).hasToString(treeNode.toString());
 		});
 		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("bar1")).satisfies(otherTreeNode -> {
 			otherTreeNode.extend("foo11");
-			assertThat(treeNode).isNotSameAs(otherTreeNode);
-			assertThat(treeNode).isNotEqualTo(otherTreeNode);
-			assertThat(treeNode).doesNotHaveSameHashCodeAs(otherTreeNode);
-			assertThat(treeNode).doesNotHaveToString(otherTreeNode.toString());
+			assertThat(otherTreeNode).isNotSameAs(treeNode);
+			assertThat(otherTreeNode).isNotEqualTo(treeNode);
+			assertThat(otherTreeNode).doesNotHaveSameHashCodeAs(treeNode);
+			assertThat(otherTreeNode).doesNotHaveToString(treeNode.toString());
 		});
 		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
 			otherTreeNode.extend("bar11");
-			assertThat(treeNode).isNotSameAs(otherTreeNode);
-			assertThat(treeNode).isNotEqualTo(otherTreeNode);
-			assertThat(treeNode).doesNotHaveSameHashCodeAs(otherTreeNode);
-			assertThat(treeNode).doesNotHaveToString(otherTreeNode.toString());
+			assertThat(otherTreeNode).isNotSameAs(treeNode);
+			assertThat(otherTreeNode).isNotEqualTo(treeNode);
+			assertThat(otherTreeNode).doesNotHaveSameHashCodeAs(treeNode);
+			assertThat(otherTreeNode).doesNotHaveToString(treeNode.toString());
 		});
 		AssertionsForClassTypes.assertThat(new LinkedTreeNode<>("foo").extend("foo1")).satisfies(otherTreeNode -> {
 			otherTreeNode.extend("foo11").extend("foo111");
-			assertThat(treeNode).isNotSameAs(otherTreeNode);
-			assertThat(treeNode).isNotEqualTo(otherTreeNode);
-			assertThat(treeNode).doesNotHaveSameHashCodeAs(otherTreeNode);
-			assertThat(treeNode).doesNotHaveToString(otherTreeNode.toString());
+			assertThat(otherTreeNode).isNotSameAs(treeNode);
+			assertThat(otherTreeNode).isNotEqualTo(treeNode);
+			assertThat(otherTreeNode).doesNotHaveSameHashCodeAs(treeNode);
+			assertThat(otherTreeNode).doesNotHaveToString(treeNode.toString());
 		});
 	}
 }

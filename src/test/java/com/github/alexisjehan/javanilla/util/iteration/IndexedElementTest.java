@@ -40,22 +40,22 @@ final class IndexedElementTest {
 		assertThat(indexedElement.equals(indexedElement)).isTrue();
 		assertThat(indexedElement).isNotEqualTo(new Object());
 		assertThat(new IndexedElement<>(INDEX, ELEMENT)).satisfies(otherIndexedElement -> {
-			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
-			assertThat(indexedElement).isEqualTo(otherIndexedElement);
-			assertThat(indexedElement).hasSameHashCodeAs(otherIndexedElement);
-			assertThat(indexedElement).hasToString(otherIndexedElement.toString());
+			assertThat(otherIndexedElement).isNotSameAs(indexedElement);
+			assertThat(otherIndexedElement).isEqualTo(indexedElement);
+			assertThat(otherIndexedElement).hasSameHashCodeAs(indexedElement);
+			assertThat(otherIndexedElement).hasToString(indexedElement.toString());
 		});
 		assertThat(new IndexedElement<>(2L, ELEMENT)).satisfies(otherIndexedElement -> {
-			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
-			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
-			assertThat(indexedElement).doesNotHaveSameHashCodeAs(otherIndexedElement);
-			assertThat(indexedElement).doesNotHaveToString(otherIndexedElement.toString());
+			assertThat(otherIndexedElement).isNotSameAs(indexedElement);
+			assertThat(otherIndexedElement).isNotEqualTo(indexedElement);
+			assertThat(otherIndexedElement).doesNotHaveSameHashCodeAs(indexedElement);
+			assertThat(otherIndexedElement).doesNotHaveToString(indexedElement.toString());
 		});
 		assertThat(new IndexedElement<>(INDEX, "bar")).satisfies(otherIndexedElement -> {
-			assertThat(indexedElement).isNotSameAs(otherIndexedElement);
-			assertThat(indexedElement).isNotEqualTo(otherIndexedElement);
-			assertThat(indexedElement).doesNotHaveSameHashCodeAs(otherIndexedElement);
-			assertThat(indexedElement).doesNotHaveToString(otherIndexedElement.toString());
+			assertThat(otherIndexedElement).isNotSameAs(indexedElement);
+			assertThat(otherIndexedElement).isNotEqualTo(indexedElement);
+			assertThat(otherIndexedElement).doesNotHaveSameHashCodeAs(indexedElement);
+			assertThat(otherIndexedElement).doesNotHaveToString(indexedElement.toString());
 		});
 	}
 

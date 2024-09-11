@@ -47,7 +47,7 @@ final class NullableOptionalTest {
 		assertThat(NullableOptional.of(null).get()).isNull();
 		assertThat(NullableOptional.of(1).get()).isEqualTo(1);
 		assertThat(NullableOptional.empty()).satisfies(
-				nullableOptional -> assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(nullableOptional::get)
+				otherNullableOptional -> assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(otherNullableOptional::get)
 		);
 	}
 
@@ -67,19 +67,19 @@ final class NullableOptionalTest {
 
 	@Test
 	void testIfPresent() {
-		assertThat(NullableOptional.of(null)).satisfies(nullableOptional -> {
+		assertThat(NullableOptional.of(null)).satisfies(otherNullableOptional -> {
 			final var atomicBoolean = new AtomicBoolean(false);
-			nullableOptional.ifPresent(value -> atomicBoolean.set(true));
+			otherNullableOptional.ifPresent(value -> atomicBoolean.set(true));
 			assertThat(atomicBoolean.get()).isTrue();
 		});
-		assertThat(NullableOptional.of(1)).satisfies(nullableOptional -> {
+		assertThat(NullableOptional.of(1)).satisfies(otherNullableOptional -> {
 			final var atomicBoolean = new AtomicBoolean(false);
-			nullableOptional.ifPresent(value -> atomicBoolean.set(true));
+			otherNullableOptional.ifPresent(value -> atomicBoolean.set(true));
 			assertThat(atomicBoolean.get()).isTrue();
 		});
-		assertThat(NullableOptional.empty()).satisfies(nullableOptional -> {
+		assertThat(NullableOptional.empty()).satisfies(otherNullableOptional -> {
 			final var atomicBoolean = new AtomicBoolean(false);
-			nullableOptional.ifPresent(value -> atomicBoolean.set(true));
+			otherNullableOptional.ifPresent(value -> atomicBoolean.set(true));
 			assertThat(atomicBoolean.get()).isFalse();
 		});
 	}
@@ -91,19 +91,19 @@ final class NullableOptionalTest {
 
 	@Test
 	void testIfPresentOrElse() {
-		assertThat(NullableOptional.of(null)).satisfies(nullableOptional -> {
+		assertThat(NullableOptional.of(null)).satisfies(otherNullableOptional -> {
 			final var atomicInteger = new AtomicInteger(-1);
-			nullableOptional.ifPresentOrElse(value -> atomicInteger.set(1), () -> atomicInteger.set(0));
+			otherNullableOptional.ifPresentOrElse(value -> atomicInteger.set(1), () -> atomicInteger.set(0));
 			assertThat(atomicInteger).hasValue(1);
 		});
-		assertThat(NullableOptional.of(1)).satisfies(nullableOptional -> {
+		assertThat(NullableOptional.of(1)).satisfies(otherNullableOptional -> {
 			final var atomicInteger = new AtomicInteger(-1);
-			nullableOptional.ifPresentOrElse(value -> atomicInteger.set(1), () -> atomicInteger.set(0));
+			otherNullableOptional.ifPresentOrElse(value -> atomicInteger.set(1), () -> atomicInteger.set(0));
 			assertThat(atomicInteger).hasValue(1);
 		});
-		assertThat(NullableOptional.empty()).satisfies(nullableOptional -> {
+		assertThat(NullableOptional.empty()).satisfies(otherNullableOptional -> {
 			final var atomicInteger = new AtomicInteger(-1);
-			nullableOptional.ifPresentOrElse(value -> atomicInteger.set(1), () -> atomicInteger.set(0));
+			otherNullableOptional.ifPresentOrElse(value -> atomicInteger.set(1), () -> atomicInteger.set(0));
 			assertThat(atomicInteger).hasValue(0);
 		});
 	}
@@ -116,17 +116,17 @@ final class NullableOptionalTest {
 
 	@Test
 	void testFilter() {
-		assertThat(NullableOptional.of(null)).satisfies(nullableOptional -> {
-			assertThat(nullableOptional.filter(value -> true).get()).isNull();
-			assertThat(nullableOptional.filter(value -> false).isEmpty()).isTrue();
+		assertThat(NullableOptional.of(null)).satisfies(otherNullableOptional -> {
+			assertThat(otherNullableOptional.filter(value -> true).get()).isNull();
+			assertThat(otherNullableOptional.filter(value -> false).isEmpty()).isTrue();
 		});
-		assertThat(NullableOptional.of(1)).satisfies(nullableOptional -> {
-			assertThat(nullableOptional.filter(value -> true).get()).isEqualTo(1);
-			assertThat(nullableOptional.filter(value -> false).isEmpty()).isTrue();
+		assertThat(NullableOptional.of(1)).satisfies(otherNullableOptional -> {
+			assertThat(otherNullableOptional.filter(value -> true).get()).isEqualTo(1);
+			assertThat(otherNullableOptional.filter(value -> false).isEmpty()).isTrue();
 		});
-		assertThat(NullableOptional.empty()).satisfies(nullableOptional -> {
-			assertThat(nullableOptional.filter(value -> true).isEmpty()).isTrue();
-			assertThat(nullableOptional.filter(value -> false).isEmpty()).isTrue();
+		assertThat(NullableOptional.empty()).satisfies(otherNullableOptional -> {
+			assertThat(otherNullableOptional.filter(value -> true).isEmpty()).isTrue();
+			assertThat(otherNullableOptional.filter(value -> false).isEmpty()).isTrue();
 		});
 	}
 
@@ -164,20 +164,20 @@ final class NullableOptionalTest {
 
 	@Test
 	void testOr() {
-		assertThat(NullableOptional.of(null)).satisfies(nullableOptional -> {
-			assertThat(nullableOptional.or(() -> NullableOptional.of(1)).get()).isNull();
-			assertThat(nullableOptional.or(() -> NullableOptional.of(null)).get()).isNull();
-			assertThat(nullableOptional.or(NullableOptional::empty).get()).isNull();
+		assertThat(NullableOptional.of(null)).satisfies(otherNullableOptional -> {
+			assertThat(otherNullableOptional.or(() -> NullableOptional.of(1)).get()).isNull();
+			assertThat(otherNullableOptional.or(() -> NullableOptional.of(null)).get()).isNull();
+			assertThat(otherNullableOptional.or(NullableOptional::empty).get()).isNull();
 		});
-		assertThat(NullableOptional.of(1)).satisfies(nullableOptional -> {
-			assertThat(nullableOptional.or(() -> NullableOptional.of(1)).get()).isEqualTo(1);
-			assertThat(nullableOptional.or(() -> NullableOptional.of(null)).get()).isEqualTo(1);
-			assertThat(nullableOptional.or(NullableOptional::empty).get()).isEqualTo(1);
+		assertThat(NullableOptional.of(1)).satisfies(otherNullableOptional -> {
+			assertThat(otherNullableOptional.or(() -> NullableOptional.of(1)).get()).isEqualTo(1);
+			assertThat(otherNullableOptional.or(() -> NullableOptional.of(null)).get()).isEqualTo(1);
+			assertThat(otherNullableOptional.or(NullableOptional::empty).get()).isEqualTo(1);
 		});
-		assertThat(NullableOptional.empty()).satisfies(nullableOptional -> {
-			assertThat(nullableOptional.or(() -> NullableOptional.of(1)).get()).isEqualTo(1);
-			assertThat(nullableOptional.or(() -> NullableOptional.of(null)).get()).isNull();
-			assertThat(nullableOptional.or(NullableOptional::empty).isEmpty()).isTrue();
+		assertThat(NullableOptional.empty()).satisfies(otherNullableOptional -> {
+			assertThat(otherNullableOptional.or(() -> NullableOptional.of(1)).get()).isEqualTo(1);
+			assertThat(otherNullableOptional.or(() -> NullableOptional.of(null)).get()).isNull();
+			assertThat(otherNullableOptional.or(NullableOptional::empty).isEmpty()).isTrue();
 		});
 	}
 
@@ -218,7 +218,7 @@ final class NullableOptionalTest {
 		assertThat(NullableOptional.of(null).orElseThrow()).isNull();
 		assertThat(NullableOptional.of(1).orElseThrow()).isEqualTo(1);
 		assertThat(NullableOptional.empty()).satisfies(
-				nullableOptional -> assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(nullableOptional::orElseThrow)
+				otherNullableOptional -> assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(otherNullableOptional::orElseThrow)
 		);
 	}
 
@@ -239,22 +239,22 @@ final class NullableOptionalTest {
 		assertThat(nullableOptional.equals(nullableOptional)).isTrue();
 		assertThat(nullableOptional).isNotEqualTo(new Object());
 		assertThat(NullableOptional.of(VALUE)).satisfies(otherNullableOptional -> {
-			assertThat(nullableOptional).isNotSameAs(otherNullableOptional);
-			assertThat(nullableOptional).isEqualTo(otherNullableOptional);
-			assertThat(nullableOptional).hasSameHashCodeAs(otherNullableOptional);
-			assertThat(nullableOptional).hasToString(otherNullableOptional.toString());
+			assertThat(otherNullableOptional).isNotSameAs(nullableOptional);
+			assertThat(otherNullableOptional).isEqualTo(nullableOptional);
+			assertThat(otherNullableOptional).hasSameHashCodeAs(nullableOptional);
+			assertThat(otherNullableOptional).hasToString(nullableOptional.toString());
 		});
 		assertThat(NullableOptional.of(1)).satisfies(otherNullableOptional -> {
-			assertThat(nullableOptional).isNotSameAs(otherNullableOptional);
-			assertThat(nullableOptional).isNotEqualTo(otherNullableOptional);
-			assertThat(nullableOptional).doesNotHaveSameHashCodeAs(otherNullableOptional);
-			assertThat(nullableOptional).doesNotHaveToString(otherNullableOptional.toString());
+			assertThat(otherNullableOptional).isNotSameAs(nullableOptional);
+			assertThat(otherNullableOptional).isNotEqualTo(nullableOptional);
+			assertThat(otherNullableOptional).doesNotHaveSameHashCodeAs(nullableOptional);
+			assertThat(otherNullableOptional).doesNotHaveToString(nullableOptional.toString());
 		});
 		assertThat(NullableOptional.empty()).satisfies(otherNullableOptional -> {
-			assertThat(nullableOptional).isNotSameAs(otherNullableOptional);
-			assertThat(nullableOptional).isNotEqualTo(otherNullableOptional);
-			assertThat(nullableOptional).doesNotHaveSameHashCodeAs(otherNullableOptional);
-			assertThat(nullableOptional).doesNotHaveToString(otherNullableOptional.toString());
+			assertThat(otherNullableOptional).isNotSameAs(nullableOptional);
+			assertThat(otherNullableOptional).isNotEqualTo(nullableOptional);
+			assertThat(otherNullableOptional).doesNotHaveSameHashCodeAs(nullableOptional);
+			assertThat(otherNullableOptional).doesNotHaveToString(nullableOptional.toString());
 		});
 	}
 

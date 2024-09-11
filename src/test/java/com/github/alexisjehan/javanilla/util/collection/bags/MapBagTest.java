@@ -53,24 +53,19 @@ final class MapBagTest extends AbstractBagTest {
 		fooAdder.add(10);
 		final var barAdder = new LongAdder();
 		barAdder.add(-10);
-		final var mapBag = new MapBag<>(
-				() -> new HashMap<>(
-						Map.ofEntries(
-								Map.entry("foo", fooAdder),
-								Map.entry("bar", barAdder)
-						)
-				)
-		);
-		assertThat(mapBag.count("foo")).isEqualTo(10);
-		assertThat(mapBag.count("bar")).isZero();
+		assertThat(new MapBag<>(() -> new HashMap<>(Map.ofEntries(Map.entry("foo", fooAdder), Map.entry("bar", barAdder))))).satisfies(otherMapBag -> {
+			assertThat(otherMapBag.count("foo")).isEqualTo(10);
+			assertThat(otherMapBag.count("bar")).isZero();
+		});
 	}
 
 	@Test
 	void testConstructorCollection() {
 		assertThat(new MapBag<>(List.of()).isEmpty()).isTrue();
-		final var mapBag = new MapBag<>(List.of("foo", "foo", "bar"));
-		assertThat(mapBag.count("foo")).isEqualTo(2);
-		assertThat(mapBag.count("bar")).isEqualTo(1);
+		assertThat(new MapBag<>(List.of("foo", "foo", "bar"))).satisfies(otherMapBag -> {
+			assertThat(otherMapBag.count("foo")).isEqualTo(2);
+			assertThat(otherMapBag.count("bar")).isEqualTo(1);
+		});
 	}
 
 	@Test
@@ -84,35 +79,35 @@ final class MapBagTest extends AbstractBagTest {
 	void testEqualsAndHashCodeAndToString() {
 		assertThat(mapBag.equals(mapBag)).isTrue();
 		assertThat(mapBag).isNotEqualTo(new Object());
-		assertThat(new MapBag<>(COLLECTION)).satisfies(otherBag -> {
-			assertThat(mapBag).isNotSameAs(otherBag);
-			assertThat(mapBag).isEqualTo(otherBag);
-			assertThat(mapBag).hasSameHashCodeAs(otherBag);
-			assertThat(mapBag).hasToString(otherBag.toString());
+		assertThat(new MapBag<>(COLLECTION)).satisfies(otherMapBag -> {
+			assertThat(otherMapBag).isNotSameAs(mapBag);
+			assertThat(otherMapBag).isEqualTo(mapBag);
+			assertThat(otherMapBag).hasSameHashCodeAs(mapBag);
+			assertThat(otherMapBag).hasToString(mapBag.toString());
 		});
-		assertThat(new MapBag<>(List.of("foo", "bar", "bar"))).satisfies(otherBag -> {
-			assertThat(mapBag).isNotSameAs(otherBag);
-			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
+		assertThat(new MapBag<>(List.of("foo", "bar", "bar"))).satisfies(otherMapBag -> {
+			assertThat(otherMapBag).isNotSameAs(mapBag);
+			assertThat(otherMapBag).isNotEqualTo(mapBag);
+			assertThat(otherMapBag).doesNotHaveSameHashCodeAs(mapBag);
+			assertThat(otherMapBag).doesNotHaveToString(mapBag.toString());
 		});
-		assertThat(new MapBag<>(List.of("foo"))).satisfies(otherBag -> {
-			assertThat(mapBag).isNotSameAs(otherBag);
-			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
+		assertThat(new MapBag<>(List.of("foo"))).satisfies(otherMapBag -> {
+			assertThat(otherMapBag).isNotSameAs(mapBag);
+			assertThat(otherMapBag).isNotEqualTo(mapBag);
+			assertThat(otherMapBag).doesNotHaveSameHashCodeAs(mapBag);
+			assertThat(otherMapBag).doesNotHaveToString(mapBag.toString());
 		});
-		assertThat(new MapBag<>(List.of("fooo", "bar"))).satisfies(otherBag -> {
-			assertThat(mapBag).isNotSameAs(otherBag);
-			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
+		assertThat(new MapBag<>(List.of("fooo", "bar"))).satisfies(otherMapBag -> {
+			assertThat(otherMapBag).isNotSameAs(mapBag);
+			assertThat(otherMapBag).isNotEqualTo(mapBag);
+			assertThat(otherMapBag).doesNotHaveSameHashCodeAs(mapBag);
+			assertThat(otherMapBag).doesNotHaveToString(mapBag.toString());
 		});
-		assertThat(new MapBag<>(List.of("bar", "bar"))).satisfies(otherBag -> {
-			assertThat(mapBag).isNotSameAs(otherBag);
-			assertThat(mapBag).isNotEqualTo(otherBag);
-			assertThat(mapBag).doesNotHaveSameHashCodeAs(otherBag);
-			assertThat(mapBag).doesNotHaveToString(otherBag.toString());
+		assertThat(new MapBag<>(List.of("bar", "bar"))).satisfies(otherMapBag -> {
+			assertThat(otherMapBag).isNotSameAs(mapBag);
+			assertThat(otherMapBag).isNotEqualTo(mapBag);
+			assertThat(otherMapBag).doesNotHaveSameHashCodeAs(mapBag);
+			assertThat(otherMapBag).doesNotHaveToString(mapBag.toString());
 		});
 	}
 }

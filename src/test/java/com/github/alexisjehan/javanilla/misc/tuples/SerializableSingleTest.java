@@ -40,16 +40,16 @@ final class SerializableSingleTest {
 		assertThat(serializableSingle.equals(serializableSingle)).isTrue();
 		assertThat(serializableSingle).isNotEqualTo(new Object());
 		assertThat(SerializableSingle.of(UNIQUE)).satisfies(otherSerializableSingle -> {
-			assertThat(serializableSingle).isNotSameAs(otherSerializableSingle);
-			assertThat(serializableSingle).isEqualTo(otherSerializableSingle);
-			assertThat(serializableSingle).hasSameHashCodeAs(otherSerializableSingle);
-			assertThat(serializableSingle).hasToString(otherSerializableSingle.toString());
+			assertThat(otherSerializableSingle).isNotSameAs(serializableSingle);
+			assertThat(otherSerializableSingle).isEqualTo(serializableSingle);
+			assertThat(otherSerializableSingle).hasSameHashCodeAs(serializableSingle);
+			assertThat(otherSerializableSingle).hasToString(serializableSingle.toString());
 		});
 		assertThat(SerializableSingle.of(null)).satisfies(otherSerializableSingle -> {
-			assertThat(serializableSingle).isNotSameAs(otherSerializableSingle);
-			assertThat(serializableSingle).isNotEqualTo(otherSerializableSingle);
-			assertThat(serializableSingle).doesNotHaveSameHashCodeAs(otherSerializableSingle);
-			assertThat(serializableSingle).doesNotHaveToString(otherSerializableSingle.toString());
+			assertThat(otherSerializableSingle).isNotSameAs(serializableSingle);
+			assertThat(otherSerializableSingle).isNotEqualTo(serializableSingle);
+			assertThat(otherSerializableSingle).doesNotHaveSameHashCodeAs(serializableSingle);
+			assertThat(otherSerializableSingle).doesNotHaveToString(serializableSingle.toString());
 		});
 	}
 

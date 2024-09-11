@@ -39,16 +39,16 @@ final class SingleTest {
 		assertThat(single.equals(single)).isTrue();
 		assertThat(single).isNotEqualTo(new Object());
 		assertThat(Single.of(UNIQUE)).satisfies(otherSingle -> {
-			assertThat(single).isNotSameAs(otherSingle);
-			assertThat(single).isEqualTo(otherSingle);
-			assertThat(single).hasSameHashCodeAs(otherSingle);
-			assertThat(single).hasToString(otherSingle.toString());
+			assertThat(otherSingle).isNotSameAs(single);
+			assertThat(otherSingle).isEqualTo(single);
+			assertThat(otherSingle).hasSameHashCodeAs(single);
+			assertThat(otherSingle).hasToString(single.toString());
 		});
 		assertThat(Single.of(null)).satisfies(otherSingle -> {
-			assertThat(single).isNotSameAs(otherSingle);
-			assertThat(single).isNotEqualTo(otherSingle);
-			assertThat(single).doesNotHaveSameHashCodeAs(otherSingle);
-			assertThat(single).doesNotHaveToString(otherSingle.toString());
+			assertThat(otherSingle).isNotSameAs(single);
+			assertThat(otherSingle).isNotEqualTo(single);
+			assertThat(otherSingle).doesNotHaveSameHashCodeAs(single);
+			assertThat(otherSingle).doesNotHaveToString(single.toString());
 		});
 	}
 
