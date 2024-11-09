@@ -33,19 +33,19 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 /**
- * <p>An utility class that provides {@link Serializable} tools.</p>
+ * A utility class that provides {@link Serializable} tools.
  * @since 1.0.0
  */
 public final class Serializables {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private Serializables() {}
 
 	/**
-	 * <p>Serialize the given {@link Serializable} to a {@code byte} array.</p>
+	 * Serialize the given {@link Serializable} to a {@code byte} array.
 	 * @param serializable the {@link Serializable} or {@code null}
 	 * @return a {@code byte} array that contains the serialized data
 	 * @throws SerializationException might occur with serialization operations
@@ -58,7 +58,7 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Serialize the given {@link Serializable} to an {@link OutputStream}.</p>
+	 * Serialize the given {@link Serializable} to an {@link OutputStream}.
 	 * @param outputStream the {@link OutputStream} to write into
 	 * @param serializable the {@link Serializable} or {@code null}
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
@@ -72,7 +72,7 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Serialize the given {@link Serializable} to an {@link OutputStream}.</p>
+	 * Serialize the given {@link Serializable} to an {@link OutputStream}.
 	 * @param serializable the {@link Serializable} or {@code null}
 	 * @param outputStream the {@link OutputStream} to write into
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
@@ -89,7 +89,7 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Deserialize from the given {@code byte} array to a new {@link Serializable}.</p>
+	 * Deserialize from the given {@code byte} array to a new {@link Serializable}.
 	 * @param bytes the {@code byte} array that contains the serialized data
 	 * @param <S> the type of the {@link Serializable}
 	 * @return a new {@link Serializable} from the serialized data
@@ -103,7 +103,7 @@ public final class Serializables {
 	}
 
 	/**
-	 * <p>Deserialize from the given {@link InputStream} to a new {@link Serializable}.</p>
+	 * Deserialize from the given {@link InputStream} to a new {@link Serializable}.
 	 * @param inputStream the {@link InputStream} to read into
 	 * @param <S> the type of the {@link Serializable}
 	 * @return a new {@link Serializable} from the serialized data

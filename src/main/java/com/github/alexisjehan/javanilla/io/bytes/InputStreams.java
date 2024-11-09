@@ -43,7 +43,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <p>An utility class that provides {@link InputStream} tools.</p>
+ * A utility class that provides {@link InputStream} tools.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.InputStreams} instead
  * @since 1.0.0
  */
@@ -51,7 +51,7 @@ import java.util.List;
 public final class InputStreams {
 
 	/**
-	 * <p>An empty {@link InputStream} that returns no byte.</p>
+	 * An empty {@link InputStream} that returns no byte.
 	 * @since 1.0.0
 	 */
 	public static final InputStream EMPTY = new InputStream() {
@@ -128,13 +128,13 @@ public final class InputStreams {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private InputStreams() {}
 
 	/**
-	 * <p>Wrap an {@link InputStream} replacing {@code null} by an empty one.</p>
+	 * Wrap an {@link InputStream} replacing {@code null} by an empty one.
 	 * @param inputStream the {@link InputStream} or {@code null}
 	 * @return a non-{@code null} {@link InputStream}
 	 * @since 1.0.0
@@ -144,7 +144,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@link InputStream} replacing {@code null} by a default one.</p>
+	 * Wrap an {@link InputStream} replacing {@code null} by a default one.
 	 * @param inputStream the {@link InputStream} or {@code null}
 	 * @param defaultInputStream the default {@link InputStream}
 	 * @param <I> the {@link InputStream} type
@@ -158,7 +158,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@link InputStream} as a {@link BufferedInputStream} if it was not already.</p>
+	 * Decorate an {@link InputStream} as a {@link BufferedInputStream} if it was not already.
 	 * @param inputStream the {@link InputStream} to decorate
 	 * @return a {@link BufferedInputStream}
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
@@ -173,7 +173,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@link InputStream} so that it supports {@link InputStream#mark(int)} if it did not already.</p>
+	 * Decorate an {@link InputStream} so that it supports {@link InputStream#mark(int)} if it did not already.
 	 * @param inputStream the {@link InputStream} to decorate
 	 * @return an {@link InputStream} with mark supported
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
@@ -188,7 +188,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@link InputStream} so that its {@link InputStream#close()} method has no effect.</p>
+	 * Decorate an {@link InputStream} so that its {@link InputStream#close()} method has no effect.
 	 * @param inputStream the {@link InputStream} to decorate
 	 * @return an {@link InputStream} that cannot be closed
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
@@ -209,7 +209,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link InputStream}s.</p>
+	 * Concatenate multiple {@link InputStream}s.
 	 * @param inputStreams the {@link InputStream} array to concatenate
 	 * @return the concatenated {@link InputStream}
 	 * @throws NullPointerException if the {@link InputStream} array or any of them is {@code null}
@@ -221,7 +221,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link InputStream}s.</p>
+	 * Concatenate multiple {@link InputStream}s.
 	 * @param inputStreams the {@link InputStream} {@link List} to concatenate
 	 * @return the concatenated {@link InputStream}
 	 * @throws NullPointerException if the {@link InputStream} {@link List} or any of them is {@code null}
@@ -240,7 +240,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Join multiple {@link InputStream}s using a {@code byte} array separator.</p>
+	 * Join multiple {@link InputStream}s using a {@code byte} array separator.
 	 * @param separator the {@code byte} array separator
 	 * @param inputStreams the {@link InputStream} array to join
 	 * @return the joined {@link InputStream}
@@ -254,7 +254,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Join multiple {@link InputStream}s using a {@code byte} array separator.</p>
+	 * Join multiple {@link InputStream}s using a {@code byte} array separator.
 	 * @param separator the {@code byte} array separator
 	 * @param inputStreams the {@link InputStream} {@link List} to join
 	 * @return the joined {@link InputStream}
@@ -286,8 +286,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Read an {@link InputStream} from the current position to the end and return the length.</p>
+	 * Read an {@link InputStream} from the current position to the end and return the length.
+	 *
 	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link InputStream} does not end.</p>
 	 * @param inputStream the {@link InputStream} to read
 	 * @return the length from the current position
@@ -301,7 +303,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@link InputStream} from a single {@code byte}.</p>
+	 * Create an {@link InputStream} from a single {@code byte}.
 	 * @param b the {@code byte} to convert
 	 * @return the created {@link InputStream}
 	 * @since 1.1.0
@@ -311,7 +313,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@link InputStream} from multiple {@code byte}s.</p>
+	 * Create an {@link InputStream} from multiple {@code byte}s.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the created {@link InputStream}
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -326,7 +328,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@link InputStream} from a {@link String} using {@link Charset#defaultCharset()}.</p>
+	 * Create an {@link InputStream} from a {@link String} using {@link Charset#defaultCharset()}.
 	 * @param string the {@link String} to convert
 	 * @return the created {@link InputStream}
 	 * @throws NullPointerException if the {@link String} is {@code null}
@@ -337,7 +339,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create an {@link InputStream} from a {@link String} using a custom {@link Charset}.</p>
+	 * Create an {@link InputStream} from a {@link String} using a custom {@link Charset}.
 	 * @param string the {@link String} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link InputStream}
@@ -354,7 +356,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Create a {@link BufferedInputStream} from a {@link Path}.</p>
+	 * Create a {@link BufferedInputStream} from a {@link Path}.
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedInputStream}
 	 * @throws IOException might occur with I/O operations
@@ -367,8 +369,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link InputStream} to a {@code byte} array.</p>
+	 * Convert an {@link InputStream} to a {@code byte} array.
+	 *
 	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
 	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@code byte} array
@@ -382,8 +386,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link InputStream} to a {@link String} using {@link Charset#defaultCharset()}.</p>
+	 * Convert an {@link InputStream} to a {@link String} using {@link Charset#defaultCharset()}.
+	 *
 	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
 	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@link String}
@@ -396,8 +402,10 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link InputStream} to a {@link String} using a custom {@link Charset}.</p>
+	 * Convert an {@link InputStream} to a {@link String} using a custom {@link Charset}.
+	 *
 	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link InputStream} is too large.</p>
 	 * @param inputStream the {@link InputStream} to convert
 	 * @param charset the {@link Charset} to use
@@ -413,7 +421,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link InputStream} to a {@link Reader} using {@link Charset#defaultCharset()}.</p>
+	 * Convert an {@link InputStream} to a {@link Reader} using {@link Charset#defaultCharset()}.
 	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@link Reader}
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
@@ -424,7 +432,7 @@ public final class InputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link InputStream} to a {@link Reader} using a custom {@link Charset}.</p>
+	 * Convert an {@link InputStream} to a {@link Reader} using a custom {@link Charset}.
 	 * @param inputStream the {@link InputStream} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link Reader}

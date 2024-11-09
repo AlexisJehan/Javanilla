@@ -29,7 +29,8 @@ import java.io.Serializable;
 import java.util.function.BiConsumer;
 
 /**
- * <p>Interface for a {@link BiConsumer} that is {@link Serializable}.</p>
+ * Interface for a {@link BiConsumer} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #accept(Object, Object)}.</p>
  * @param <T> the type of the first argument to the operation
@@ -40,8 +41,8 @@ import java.util.function.BiConsumer;
 public interface SerializableBiConsumer<T, U> extends BiConsumer<T, U>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiConsumer} that performs, in sequence, this operation followed by the
-	 * after operation.</p>
+	 * Returns a composed {@code SerializableBiConsumer} that performs, in sequence, this operation followed by the
+	 * after operation.
 	 * @param after the {@link BiConsumer} operation to perform after this operation
 	 * @return a composed {@code SerializableBiConsumer} that performs in sequence this operation followed by the after
 	 *         operation
@@ -58,7 +59,7 @@ public interface SerializableBiConsumer<T, U> extends BiConsumer<T, U>, Serializ
 	}
 
 	/**
-	 * <p>Create a {@code SerializableBiConsumer} from the given {@link BiConsumer}.</p>
+	 * Create a {@code SerializableBiConsumer} from the given {@link BiConsumer}.
 	 * @param biConsumer the {@link BiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation

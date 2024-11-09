@@ -30,7 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>An abstract {@link Bag} filter to create decorators.</p>
+ * An abstract {@link Bag} filter to create decorators.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <E> the element type
@@ -39,13 +40,13 @@ import java.util.Set;
 public abstract class FilterBag<E> implements Bag<E> {
 
 	/**
-	 * <p>Delegated {@link Bag}.</p>
+	 * Delegated {@link Bag}.
 	 * @since 1.8.0
 	 */
 	protected final Bag<E> bag;
 
 	/**
-	 * <p>Constructor with a {@link Bag} to decorate.</p>
+	 * Constructor with a {@link Bag} to decorate.
 	 * @param bag the {@link Bag} to decorate
 	 * @throws NullPointerException if the {@link Bag} is {@code null}
 	 * @since 1.8.0

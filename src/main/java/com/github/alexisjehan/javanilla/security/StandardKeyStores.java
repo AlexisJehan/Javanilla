@@ -27,20 +27,20 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 
 /**
- * <p>A {@link KeyStore} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyStore} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/KeyStore.html">https://docs.oracle.com/javase/10/docs/api/java/security/KeyStore.html</a>
  * @since 1.8.0
  */
 public final class StandardKeyStores {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardKeyStores() {}
 
 	/**
-	 * <p>Get a new "PKCS12" {@link KeyStore} instance.</p>
+	 * Get a new "PKCS12" {@link KeyStore} instance.
 	 * @return a "PKCS12" {@link KeyStore} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardKeyStores {
 	}
 
 	/**
-	 * <p>Get a new {@link KeyStore} instance without throwing {@link KeyStoreException}.</p>
+	 * Get a new {@link KeyStore} instance without throwing {@link KeyStoreException}.
 	 * @param type the {@link KeyStore} type
 	 * @return a {@link KeyStore} instance of the provided type
 	 * @since 1.8.0

@@ -30,19 +30,19 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * <p>A {@link Writer} decorator that counts the number of chars written from the current position.</p>
+ * A {@link Writer} decorator that counts the number of chars written from the current position.
  * @since 1.8.0
  */
 public final class CountWriter extends FilterWriter {
 
 	/**
-	 * <p>Number of chars written.</p>
+	 * Number of chars written.
 	 * @since 1.8.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Constructor with a {@link Writer} to decorate.</p>
+	 * Constructor with a {@link Writer} to decorate.
 	 * @param writer the {@link Writer} to decorate
 	 * @throws NullPointerException if the {@link Writer} is {@code null}
 	 * @since 1.8.0
@@ -90,7 +90,7 @@ public final class CountWriter extends FilterWriter {
 	}
 
 	/**
-	 * <p>Get the number of chars written.</p>
+	 * Get the number of chars written.
 	 * @return the number of chars written
 	 * @since 1.8.0
 	 */

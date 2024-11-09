@@ -35,19 +35,19 @@ import java.util.Set;
 import java.util.SortedSet;
 
 /**
- * <p>An utility class that provides {@link Set} tools.</p>
+ * A utility class that provides {@link Set} tools.
  * @since 1.8.0
  */
 public final class Sets {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private Sets() {}
 
 	/**
-	 * <p>Wrap a {@link Set} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link Set} replacing {@code null} by an empty one.
 	 * @param set the {@link Set} or {@code null}
 	 * @param <E> the type of elements maintained by the set
 	 * @return a non-{@code null} {@link Set}
@@ -58,7 +58,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@link SortedSet} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link SortedSet} replacing {@code null} by an empty one.
 	 * @param sortedSet the {@link SortedSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
 	 * @return a non-{@code null} {@link SortedSet}
@@ -69,7 +69,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@link NavigableSet} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link NavigableSet} replacing {@code null} by an empty one.
 	 * @param navigableSet the {@link NavigableSet} or {@code null}
 	 * @param <E> the type of elements maintained by the set
 	 * @return a non-{@code null} {@link NavigableSet}
@@ -80,7 +80,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@link Set} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link Set} replacing {@code null} by a default one.
 	 * @param set the {@link Set} or {@code null}
 	 * @param defaultSet the default {@link Set}
 	 * @param <S> the {@link Set} type
@@ -94,7 +94,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@link Set} replacing an empty one by {@code null}.</p>
+	 * Wrap a {@link Set} replacing an empty one by {@code null}.
 	 * @param set the {@link Set} or {@code null}
 	 * @param <S> the {@link Set} type
 	 * @return a non-empty {@link Set} or {@code null}
@@ -105,7 +105,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Wrap a {@link Set} replacing an empty one by a default {@link Set}.</p>
+	 * Wrap a {@link Set} replacing an empty one by a default {@link Set}.
 	 * @param set the {@link Set} or {@code null}
 	 * @param defaultSet the default {@link Set} or {@code null}
 	 * @param <S> the {@link Set} type
@@ -121,7 +121,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Unify multiple {@link Set}s.</p>
+	 * Unify multiple {@link Set}s.
 	 * @param sets the {@link Set} array to unify
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
@@ -136,7 +136,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Unify multiple {@link Set}s.</p>
+	 * Unify multiple {@link Set}s.
 	 * @param sets the {@link Set} {@link Collection} to unify
 	 * @param <E> the type of elements maintained by the set
 	 * @return the union {@link Set}
@@ -161,7 +161,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Intersect multiple {@link Set}s.</p>
+	 * Intersect multiple {@link Set}s.
 	 * @param sets the {@link Set} array to intersect
 	 * @param <E> the type of elements maintained by the set
 	 * @return the intersection {@link Set}
@@ -176,7 +176,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Intersect multiple {@link Set}s.</p>
+	 * Intersect multiple {@link Set}s.
 	 * @param sets the {@link Set} {@link Collection} to intersect
 	 * @param <E> the type of elements maintained by the set
 	 * @return the intersection {@link Set}
@@ -202,7 +202,7 @@ public final class Sets {
 	}
 
 	/**
-	 * <p>Create an ordered {@link Set} from multiple elements.</p>
+	 * Create an ordered {@link Set} from multiple elements.
 	 * @param elements the elements array to convert
 	 * @param <E> the type of elements maintained by the set
 	 * @return the created ordered {@link Set}

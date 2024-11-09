@@ -30,8 +30,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>A {@link Bag} also known as a multiset is a collection that associates a quantity to each distinct element. It
- * could be use for structures such as histograms or occurrence vectors.</p>
+ * A {@link Bag} also known as a multiset is a collection that associates a quantity to each distinct element. It could
+ * be used for structures such as histograms or occurrence vectors.
+ *
  * <p><b>Note</b>: {@link Bag} does not extend the {@link java.util.Collection} interface for API design reasons.</p>
  * @param <E> the element type
  * @see <a href="https://en.wikipedia.org/wiki/Multiset">https://en.wikipedia.org/wiki/Multiset</a>
@@ -40,7 +41,8 @@ import java.util.Set;
 public interface Bag<E> {
 
 	/**
-	 * <p>Add the element to the {@code Bag} once.</p>
+	 * Add the element to the {@code Bag} once.
+	 *
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
 	 * @since 1.8.0
@@ -50,7 +52,8 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Add the element to the {@code Bag} in the given quantity.</p>
+	 * Add the element to the {@code Bag} in the given quantity.
+	 *
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
 	 * @param quantity the quantity of the element to add
@@ -60,7 +63,7 @@ public interface Bag<E> {
 	void add(E element, long quantity);
 
 	/**
-	 * <p>Remove the element from the {@code Bag} once.</p>
+	 * Remove the element from the {@code Bag} once.
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
 	 * @since 1.8.0
@@ -70,8 +73,8 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Remove the element from the {@code Bag} in the given quantity. If the quantity is greater than the actual one
-	 * then the element is totally removed.</p>
+	 * Remove the element from the {@code Bag} in the given quantity. If the quantity is greater than the actual one
+	 * then the element is totally removed.
 	 * @param element the element to remove
 	 * @param quantity the quantity of the element to remove
 	 * @return {@code true} if the element has been successfully removed
@@ -81,7 +84,7 @@ public interface Bag<E> {
 	boolean remove(E element, long quantity);
 
 	/**
-	 * <p>Totally remove the element from the {@code Bag}.</p>
+	 * Totally remove the element from the {@code Bag}.
 	 * @param element the element to remove
 	 * @return {@code true} if the element has been successfully removed
 	 * @since 1.8.0
@@ -91,13 +94,13 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Clear the {@code Bag} by removing all contained elements.</p>
+	 * Clear the {@code Bag} by removing all contained elements.
 	 * @since 1.8.0
 	 */
 	void clear();
 
 	/**
-	 * <p>Tell if the {@code Bag} is empty, in case it contains no element.</p>
+	 * Tell if the {@code Bag} is empty, in case it contains no element.
 	 * @return {@code true} if the {@code Bag} is empty
 	 * @since 1.8.0
 	 */
@@ -106,7 +109,7 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@code Bag} contains the element at least once.</p>
+	 * Tell if the {@code Bag} contains the element at least once.
 	 * @param element the element to test
 	 * @return {@code true} if the {@code Bag} contains the element at least once
 	 * @since 1.8.0
@@ -116,7 +119,7 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@code Bag} contains the element exactly in the given quantity.</p>
+	 * Tell if the {@code Bag} contains the element exactly in the given quantity.
 	 * @param element the element to test
 	 * @param quantity the quantity to test
 	 * @return {@code true} if the {@code Bag} contains the element exactly in the given quantity
@@ -129,7 +132,7 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@code Bag} contains the element at least in the given quantity.</p>
+	 * Tell if the {@code Bag} contains the element at least in the given quantity.
 	 * @param element the element to test
 	 * @param quantity the quantity to test
 	 * @return {@code true} if the {@code Bag} contains the element at least in the given quantity
@@ -145,7 +148,7 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Tell if the {@code Bag} contains the element at most in the given quantity.</p>
+	 * Tell if the {@code Bag} contains the element at most in the given quantity.
 	 * @param element the element to test
 	 * @param quantity the quantity to test
 	 * @return {@code true} if the {@code Bag} contains the element at most in the given quantity
@@ -158,7 +161,7 @@ public interface Bag<E> {
 	}
 
 	/**
-	 * <p>Count the actual quantity of the element.</p>
+	 * Count the actual quantity of the element.
 	 * @param element the element to count
 	 * @return the actual quantity of the element
 	 * @since 1.8.0
@@ -166,42 +169,42 @@ public interface Bag<E> {
 	long count(E element);
 
 	/**
-	 * <p>Get the number of distinct elements.</p>
+	 * Get the number of distinct elements.
 	 * @return the number of distinct elements
 	 * @since 1.8.0
 	 */
 	long distinct();
 
 	/**
-	 * <p>Get the total size of the {@code Bag}.</p>
+	 * Get the total size of the {@code Bag}.
 	 * @return the total size of the {@code Bag}
 	 * @since 1.8.0
 	 */
 	long size();
 
 	/**
-	 * <p>Get a {@link NullableOptional} of the element with the minimum quantity.</p>
+	 * Get a {@link NullableOptional} of the element with the minimum quantity.
 	 * @return a {@link NullableOptional} of the element with the minimum quantity
 	 * @since 1.8.0
 	 */
 	NullableOptional<E> min();
 
 	/**
-	 * <p>Get a {@link NullableOptional} of the element with the maximum quantity.</p>
+	 * Get a {@link NullableOptional} of the element with the maximum quantity.
 	 * @return a {@link NullableOptional} of the element with the maximum quantity
 	 * @since 1.8.0
 	 */
 	NullableOptional<E> max();
 
 	/**
-	 * <p>Create a {@link Set} with distinct elements from the {@code Bag}.</p>
+	 * Create a {@link Set} with distinct elements from the {@code Bag}.
 	 * @return the created {@link Set}
 	 * @since 1.8.0
 	 */
 	Set<E> toSet();
 
 	/**
-	 * <p>Create a {@link Map} which associates elements from the {@code Bag} to their quantity.</p>
+	 * Create a {@link Map} which associates elements from the {@code Bag} to their quantity.
 	 * @return the created {@link Map}
 	 * @since 1.8.0
 	 */

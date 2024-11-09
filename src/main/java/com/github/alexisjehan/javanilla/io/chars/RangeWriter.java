@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * <p>A {@link Writer} decorator that writes only chars within a range from the current position.</p>
+ * A {@link Writer} decorator that writes only chars within a range from the current position.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.RangeWriter} instead
  * @since 1.0.0
  */
@@ -38,25 +38,25 @@ import java.io.Writer;
 public final class RangeWriter extends FilterWriter {
 
 	/**
-	 * <p>Inclusive index of the first char to write.</p>
+	 * Inclusive index of the first char to write.
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last char to write.</p>
+	 * Inclusive index of the last char to write.
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.0.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Constructor with a {@link Writer} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with a {@link Writer} to decorate and a range from an inclusive index to another one.
 	 * @param writer the {@link Writer} to decorate
 	 * @param fromIndex the inclusive index of the first char to write
 	 * @param toIndex the inclusive index of the last char to write
@@ -119,7 +119,7 @@ public final class RangeWriter extends FilterWriter {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first char to write.</p>
+	 * Get the inclusive index of the first char to write.
 	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
@@ -128,7 +128,7 @@ public final class RangeWriter extends FilterWriter {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last char to write.</p>
+	 * Get the inclusive index of the last char to write.
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

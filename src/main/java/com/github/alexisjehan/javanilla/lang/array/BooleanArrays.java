@@ -33,25 +33,25 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code boolean} array tools.</p>
+ * A utility class that provides {@code boolean} array tools.
  * @since 1.0.0
  */
 public final class BooleanArrays {
 
 	/**
-	 * <p>An empty {@code boolean} array.</p>
+	 * An empty {@code boolean} array.
 	 * @since 1.0.0
 	 */
 	public static final boolean[] EMPTY = {};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private BooleanArrays() {}
 
 	/**
-	 * <p>Wrap a {@code boolean} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code boolean} array replacing {@code null} by an empty one.
 	 * @param array the {@code boolean} array or {@code null}
 	 * @return a non-{@code null} {@code boolean} array
 	 * @since 1.0.0
@@ -61,7 +61,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code boolean} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code boolean} array replacing {@code null} by a default one.
 	 * @param array the {@code boolean} array or {@code null}
 	 * @param defaultArray the default {@code boolean} array
 	 * @return a non-{@code null} {@code boolean} array
@@ -74,7 +74,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code boolean} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code boolean} array replacing an empty one by {@code null}.
 	 * @param array the {@code boolean} array or {@code null}
 	 * @return a non-empty {@code boolean} array or {@code null}
 	 * @since 1.0.0
@@ -84,7 +84,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code boolean} array replacing an empty one by a default {@code boolean} array.</p>
+	 * Wrap a {@code boolean} array replacing an empty one by a default {@code boolean} array.
 	 * @param array the {@code boolean} array or {@code null}
 	 * @param defaultArray the default {@code boolean} array or {@code null}
 	 * @return a non-empty {@code boolean} array or {@code null}
@@ -99,7 +99,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Add a {@code boolean} value at the end of the given {@code boolean} array.</p>
+	 * Add a {@code boolean} value at the end of the given {@code boolean} array.
 	 * @param array the {@code boolean} array to add to
 	 * @param value the {@code boolean} value to add
 	 * @return a {@code boolean} array with the added {@code boolean} value
@@ -112,7 +112,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Add a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
+	 * Add a {@code boolean} value at the provided index of the given {@code boolean} array.
 	 * @param array the {@code boolean} array to add to
 	 * @param index the index of the {@code boolean} value
 	 * @param value the {@code boolean} value to add
@@ -128,7 +128,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Add a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
+	 * Add a {@code boolean} value at the provided index of the given {@code boolean} array.
 	 * @param array the {@code boolean} array to add to
 	 * @param value the {@code boolean} value to add
 	 * @param index the index of the {@code boolean} value
@@ -152,7 +152,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code boolean} value at the provided index of the given {@code boolean} array.</p>
+	 * Remove a {@code boolean} value at the provided index of the given {@code boolean} array.
 	 * @param array the {@code boolean} array to remove from
 	 * @param index the index of the {@code boolean} value
 	 * @return a {@code boolean} array with the removed {@code boolean} value
@@ -174,7 +174,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code boolean} arrays.</p>
+	 * Concatenate multiple {@code boolean} arrays.
 	 * @param arrays {@code boolean} arrays to concatenate
 	 * @return the concatenated {@code boolean} array
 	 * @throws NullPointerException if {@code boolean} arrays or any of them is {@code null}
@@ -186,7 +186,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code boolean} arrays.</p>
+	 * Concatenate multiple {@code boolean} arrays.
 	 * @param arrays the {@code boolean} array {@link List} to concatenate
 	 * @return the concatenated {@code boolean} array
 	 * @throws NullPointerException if the {@code boolean} array {@link List} or any of them is {@code null}
@@ -211,7 +211,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
+	 * Join multiple {@code boolean} arrays using a {@code boolean} array separator.
 	 * @param separator the {@code boolean} array separator
 	 * @param arrays {@code boolean} arrays to join
 	 * @return the joined {@code boolean} array
@@ -225,7 +225,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code boolean} arrays using a {@code boolean} array separator.</p>
+	 * Join multiple {@code boolean} arrays using a {@code boolean} array separator.
 	 * @param separator the {@code boolean} array separator
 	 * @param arrays the {@code boolean} array {@link List} to join
 	 * @return the joined {@code boolean} array
@@ -262,7 +262,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code boolean} array contains any of given {@code boolean} values at least one.</p>
+	 * Tell if the {@code boolean} array contains any of given {@code boolean} values at least one.
 	 * @param array the {@code boolean} array to test
 	 * @param values {@code boolean} values to test
 	 * @return {@code true} if any of given {@code boolean} values is contained at least once by the {@code boolean}
@@ -288,7 +288,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code boolean} array contains all of given {@code boolean} values at least one.</p>
+	 * Tell if the {@code boolean} array contains all of given {@code boolean} values at least one.
 	 * @param array the {@code boolean} array to test
 	 * @param values {@code boolean} values to test
 	 * @return {@code true} if all of given {@code boolean} values are contained at least once by the {@code boolean}
@@ -319,7 +319,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code boolean} array contains each given {@code boolean} value only once.</p>
+	 * Tell if the {@code boolean} array contains each given {@code boolean} value only once.
 	 * @param array the {@code boolean} array to test
 	 * @param values {@code boolean} values to test
 	 * @return {@code true} if each of given {@code boolean} values are contained only once by the {@code boolean} array
@@ -351,7 +351,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code boolean} array contains only given {@code boolean} values at least one.</p>
+	 * Tell if the {@code boolean} array contains only given {@code boolean} values at least one.
 	 * @param array the {@code boolean} array to test
 	 * @param values {@code boolean} values to test
 	 * @return {@code true} if given {@code boolean} values are only values contained by the {@code boolean} array
@@ -381,7 +381,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code boolean} value in the {@code boolean} array.</p>
+	 * Get the first index of the {@code boolean} value in the {@code boolean} array.
 	 * @param array the {@code boolean} array to iterate
 	 * @param value the {@code boolean} value to search
 	 * @return the first index of the {@code boolean} value if found, {@code -1} otherwise
@@ -393,8 +393,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code boolean} value in the {@code boolean} array starting from the given
-	 * index.</p>
+	 * Get the first index of the {@code boolean} value in the {@code boolean} array starting from the given index.
 	 * @param array the {@code boolean} array to iterate
 	 * @param value the {@code boolean} value to search
 	 * @param fromIndex the starting index
@@ -417,7 +416,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code boolean} value in the {@code boolean} array.</p>
+	 * Get the last index of the {@code boolean} value in the {@code boolean} array.
 	 * @param array the {@code boolean} array to iterate
 	 * @param value the {@code boolean} value to search
 	 * @return the last index of the {@code boolean} value if found, {@code -1} otherwise
@@ -429,8 +428,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code boolean} value in the {@code boolean} array starting from the given
-	 * index.</p>
+	 * Get the last index of the {@code boolean} value in the {@code boolean} array starting from the given index.
 	 * @param array the {@code boolean} array to iterate
 	 * @param value the {@code boolean} value to search
 	 * @param fromIndex the starting index
@@ -453,7 +451,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code boolean} value in the {@code boolean} array.</p>
+	 * Calculate the number of occurrences of the {@code boolean} value in the {@code boolean} array.
 	 * @param array the {@code boolean} array to iterate
 	 * @param value the {@code boolean} value of the frequency to calculate
 	 * @return the frequency of the {@code boolean} value
@@ -475,7 +473,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code boolean} array.</p>
+	 * Reverse values in the given {@code boolean} array.
 	 * @param array the {@code boolean} array to reverse
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @since 1.2.0
@@ -490,7 +488,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code boolean} array using provided indexes.</p>
+	 * Reorder values in the given {@code boolean} array using provided indexes.
 	 * @param array the {@code boolean} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code boolean} array or the indexes array is {@code null}
@@ -518,7 +516,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code boolean} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code boolean} array following the Fisher-Yates algorithm.
 	 * @param array the {@code boolean} array to shuffle
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -532,8 +530,8 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code boolean} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code boolean} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code boolean} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code boolean} array or the {@code Random} object is {@code null}
@@ -551,7 +549,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code boolean} array using their indexes.</p>
+	 * Swap two values in the given {@code boolean} array using their indexes.
 	 * @param array the {@code boolean} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -571,7 +569,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code boolean} array is empty.</p>
+	 * Tell if a {@code boolean} array is empty.
 	 * @param array the {@code boolean} array to test
 	 * @return {@code true} if the {@code boolean} array is empty
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}
@@ -583,7 +581,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Create a {@code boolean} array from a single {@code boolean} value.</p>
+	 * Create a {@code boolean} array from a single {@code boolean} value.
 	 * @param value the {@code boolean} value to convert
 	 * @return the created {@code boolean} array
 	 * @since 1.1.0
@@ -593,7 +591,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Create a {@code boolean} array from multiple {@code boolean} values.</p>
+	 * Create a {@code boolean} array from multiple {@code boolean} values.
 	 * @param values {@code boolean} values to convert
 	 * @return the created {@code boolean} array
 	 * @throws NullPointerException if the {@code boolean} values array is {@code null}
@@ -608,7 +606,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Create a {@code boolean} array from a boxed {@link Boolean} array.</p>
+	 * Create a {@code boolean} array from a boxed {@link Boolean} array.
 	 * @param boxedArray the boxed {@link Boolean} array to convert
 	 * @return the created {@code boolean} array
 	 * @throws NullPointerException if the boxed {@link Boolean} array is {@code null}
@@ -627,7 +625,7 @@ public final class BooleanArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code boolean} array to a boxed {@link Boolean} array.</p>
+	 * Convert a {@code boolean} array to a boxed {@link Boolean} array.
 	 * @param array the {@code boolean} array to convert
 	 * @return the created boxed {@link Boolean} array
 	 * @throws NullPointerException if the {@code boolean} array is {@code null}

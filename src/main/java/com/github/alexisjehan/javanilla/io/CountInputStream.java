@@ -30,25 +30,25 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * <p>An {@link InputStream} decorator that counts the number of bytes read from the current position.</p>
+ * An {@link InputStream} decorator that counts the number of bytes read from the current position.
  * @since 1.8.0
  */
 public final class CountInputStream extends FilterInputStream {
 
 	/**
-	 * <p>Number of bytes read.</p>
+	 * Number of bytes read.
 	 * @since 1.8.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Number of bytes read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
+	 * Number of bytes read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.
 	 * @since 1.8.0
 	 */
 	private long markedCount;
 
 	/**
-	 * <p>Constructor with an {@link InputStream} to decorate.</p>
+	 * Constructor with an {@link InputStream} to decorate.
 	 * @param inputStream the {@link InputStream} to decorate
 	 * @throws NullPointerException if the {@link InputStream} is {@code null}
 	 * @since 1.8.0
@@ -119,7 +119,7 @@ public final class CountInputStream extends FilterInputStream {
 	}
 
 	/**
-	 * <p>Get the number of bytes read.</p>
+	 * Get the number of bytes read.
 	 * @return the number of bytes read
 	 * @since 1.8.0
 	 */

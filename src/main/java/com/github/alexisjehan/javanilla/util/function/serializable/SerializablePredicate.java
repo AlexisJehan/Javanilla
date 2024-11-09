@@ -30,7 +30,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * <p>Interface for a {@link Predicate} that is {@link Serializable}.</p>
+ * Interface for a {@link Predicate} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #test(Object)}.</p>
  * @param <T> the type of the input to the predicate
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.SerializablePredicate} instead
@@ -41,8 +42,8 @@ import java.util.function.Predicate;
 public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializablePredicate} that represents a short-circuiting logical AND of this
-	 * predicate and another.</p>
+	 * Returns a composed {@code SerializablePredicate} that represents a short-circuiting logical AND of this predicate
+	 * and another.
 	 * @param other a {@link Predicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code SerializablePredicate} that represents the short-circuiting logical AND of this
 	 *         predicate and the other predicate
@@ -56,7 +57,7 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Returns a {@code SerializablePredicate} that represents the logical negation of this predicate.</p>
+	 * Returns a {@code SerializablePredicate} that represents the logical negation of this predicate.
 	 * @return a {@code SerializablePredicate} that represents the logical negation of this predicate
 	 * @since 1.4.0
 	 */
@@ -66,8 +67,8 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Returns a composed {@code SerializablePredicate} that represents a short-circuiting logical OR of this
-	 * predicate and another.</p>
+	 * Returns a composed {@code SerializablePredicate} that represents a short-circuiting logical OR of this predicate
+	 * and another.
 	 * @param other a {@link Predicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code SerializablePredicate} that represents the short-circuiting logical OR of this
 	 *         predicate and the other predicate
@@ -81,8 +82,8 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Returns a {@code SerializablePredicate} that tests if two arguments are equal according to
-	 * {@link Objects#equals(Object, Object)}.</p>
+	 * Returns a {@code SerializablePredicate} that tests if two arguments are equal according to
+	 * {@link Objects#equals(Object, Object)}.
 	 * @param <T> the type of arguments to the predicate
 	 * @param targetRef the object reference with which to compare for equality, which may be {@code null}
 	 * @return a {@code SerializablePredicate} that tests if two arguments are equal according to
@@ -96,7 +97,7 @@ public interface SerializablePredicate<T> extends Predicate<T>, Serializable {
 	}
 
 	/**
-	 * <p>Create a {@code SerializablePredicate} from the given {@link Predicate}.</p>
+	 * Create a {@code SerializablePredicate} from the given {@link Predicate}.
 	 * @param predicate the {@link Predicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @return the created {@code SerializablePredicate}

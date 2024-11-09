@@ -27,22 +27,23 @@ import java.security.AlgorithmParameterGenerator;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link AlgorithmParameterGenerator} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link AlgorithmParameterGenerator} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/AlgorithmParameterGenerator.html">https://docs.oracle.com/javase/10/docs/api/java/security/AlgorithmParameterGenerator.html</a>
- * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.security.StandardAlgorithmParameterGenerators} instead
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.security.StandardAlgorithmParameterGenerators}
+ *             instead
  * @since 1.6.0
  */
 @Deprecated(since = "1.8.0")
 public final class StandardAlgorithmParameterGenerators {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardAlgorithmParameterGenerators() {}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link AlgorithmParameterGenerator} instance.</p>
+	 * Get a new "DiffieHellman" {@link AlgorithmParameterGenerator} instance.
 	 * @return a "DiffieHellman" {@link AlgorithmParameterGenerator} instance
 	 * @since 1.6.0
 	 */
@@ -51,7 +52,7 @@ public final class StandardAlgorithmParameterGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@link AlgorithmParameterGenerator} instance.</p>
+	 * Get a new "DSA" {@link AlgorithmParameterGenerator} instance.
 	 * @return a "DSA" {@link AlgorithmParameterGenerator} instance
 	 * @since 1.6.0
 	 */
@@ -60,7 +61,7 @@ public final class StandardAlgorithmParameterGenerators {
 	}
 
 	/**
-	 * <p>Get a new {@link AlgorithmParameterGenerator} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link AlgorithmParameterGenerator} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link AlgorithmParameterGenerator} algorithm
 	 * @return a {@link AlgorithmParameterGenerator} instance of the provided algorithm
 	 * @since 1.6.0

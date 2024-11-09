@@ -36,7 +36,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * <p>A {@link Bag} implementation which uses a {@link Map} to store elements and quantities.</p>
+ * A {@link Bag} implementation which uses a {@link Map} to store elements and quantities.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <E> the element type
@@ -47,19 +48,19 @@ import java.util.stream.Collectors;
 public final class MapBag<E> implements Bag<E> {
 
 	/**
-	 * <p>Delegated {@link Map}.</p>
+	 * Delegated {@link Map}.
 	 * @since 1.0.0
 	 */
 	private final Map<E, LongAdder> map;
 
 	/**
-	 * <p>Current size of the {@link Bag}.</p>
+	 * Current size of the {@link Bag}.
 	 * @since 1.0.0
 	 */
 	private long size;
 
 	/**
-	 * <p>Constructor, a {@link HashMap} is used.</p>
+	 * Constructor, a {@link HashMap} is used.
 	 * @since 1.0.0
 	 */
 	public MapBag() {
@@ -67,7 +68,7 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Constructor with a custom {@link Map} implementation.</p>
+	 * Constructor with a custom {@link Map} implementation.
 	 * @param mapSupplier the {@link Supplier} which provides the {@link Map}
 	 * @throws NullPointerException if the {@link Map} {@link Supplier} is {@code null}
 	 * @since 1.0.0
@@ -77,7 +78,7 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Constructor with the given {@link Map}, empty or not.</p>
+	 * Constructor with the given {@link Map}, empty or not.
 	 * @param map the {@link Map} to get elements and occurrences from
 	 * @throws NullPointerException if the {@link Map} is {@code null}
 	 * @since 1.0.0
@@ -100,7 +101,7 @@ public final class MapBag<E> implements Bag<E> {
 	}
 
 	/**
-	 * <p>Constructor with elements from an existing {@link Collection}, a {@link HashMap} is used.</p>
+	 * Constructor with elements from an existing {@link Collection}, a {@link HashMap} is used.
 	 * @param collection the {@link Collection} to get elements from
 	 * @throws NullPointerException if the {@link Collection} is {@code null}
 	 * @since 1.0.0

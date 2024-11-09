@@ -26,7 +26,8 @@ package com.github.alexisjehan.javanilla.util.stream;
 import java.util.stream.Stream;
 
 /**
- * <p>Interface for objects that return a {@link Stream}.</p>
+ * Interface for objects that return a {@link Stream}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #stream()}.</p>
  * @param <E> the type of elements returned by the {@link Stream}
  * @since 1.0.0
@@ -35,7 +36,7 @@ import java.util.stream.Stream;
 public interface Streamable<E> {
 
 	/**
-	 * <p>Returns a {@link Stream} of elements.</p>
+	 * Returns a {@link Stream} of elements.
 	 * @return a {@link Stream}
 	 * @since 1.0.0
 	 */

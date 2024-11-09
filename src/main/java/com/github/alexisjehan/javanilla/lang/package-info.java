@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Extras {@link java.lang} components.</p>
+ * Extras {@link java.lang} components.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.lang;

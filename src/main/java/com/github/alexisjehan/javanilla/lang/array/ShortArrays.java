@@ -33,25 +33,25 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code short} array tools.</p>
+ * A utility class that provides {@code short} array tools.
  * @since 1.0.0
  */
 public final class ShortArrays {
 
 	/**
-	 * <p>An empty {@code short} array.</p>
+	 * An empty {@code short} array.
 	 * @since 1.0.0
 	 */
 	public static final short[] EMPTY = {};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private ShortArrays() {}
 
 	/**
-	 * <p>Wrap a {@code short} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code short} array replacing {@code null} by an empty one.
 	 * @param array the {@code short} array or {@code null}
 	 * @return a non-{@code null} {@code short} array
 	 * @since 1.0.0
@@ -61,7 +61,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code short} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code short} array replacing {@code null} by a default one.
 	 * @param array the {@code short} array or {@code null}
 	 * @param defaultArray the default {@code short} array
 	 * @return a non-{@code null} {@code short} array
@@ -74,7 +74,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code short} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code short} array replacing an empty one by {@code null}.
 	 * @param array the {@code short} array or {@code null}
 	 * @return a non-empty {@code short} array or {@code null}
 	 * @since 1.0.0
@@ -84,7 +84,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code short} array replacing an empty one by a default {@code short} array.</p>
+	 * Wrap a {@code short} array replacing an empty one by a default {@code short} array.
 	 * @param array the {@code short} array or {@code null}
 	 * @param defaultArray the default {@code short} array or {@code null}
 	 * @return a non-empty {@code short} array or {@code null}
@@ -99,7 +99,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Add a {@code short} value at the end of the given {@code short} array.</p>
+	 * Add a {@code short} value at the end of the given {@code short} array.
 	 * @param array the {@code short} array to add to
 	 * @param value the {@code short} value to add
 	 * @return a {@code short} array with the added {@code short} value
@@ -112,7 +112,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Add a {@code short} value at the provided index of the given {@code short} array.</p>
+	 * Add a {@code short} value at the provided index of the given {@code short} array.
 	 * @param array the {@code short} array to add to
 	 * @param index the index of the {@code short} value
 	 * @param value the {@code short} value to add
@@ -128,7 +128,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Add a {@code short} value at the provided index of the given {@code short} array.</p>
+	 * Add a {@code short} value at the provided index of the given {@code short} array.
 	 * @param array the {@code short} array to add to
 	 * @param value the {@code short} value to add
 	 * @param index the index of the {@code short} value
@@ -152,7 +152,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code short} value at the provided index of the given {@code short} array.</p>
+	 * Remove a {@code short} value at the provided index of the given {@code short} array.
 	 * @param array the {@code short} array to remove from
 	 * @param index the index of the {@code short} value
 	 * @return a {@code short} array with the removed {@code short} value
@@ -174,7 +174,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code short} arrays.</p>
+	 * Concatenate multiple {@code short} arrays.
 	 * @param arrays {@code short} arrays to concatenate
 	 * @return the concatenated {@code short} array
 	 * @throws NullPointerException if {@code short} arrays or any of them is {@code null}
@@ -186,7 +186,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code short} arrays.</p>
+	 * Concatenate multiple {@code short} arrays.
 	 * @param arrays the {@code short} array {@link List} to concatenate
 	 * @return the concatenated {@code short} array
 	 * @throws NullPointerException if the {@code short} array {@link List} or any of them is {@code null}
@@ -211,7 +211,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code short} arrays using a {@code short} array separator.</p>
+	 * Join multiple {@code short} arrays using a {@code short} array separator.
 	 * @param separator the {@code short} array separator
 	 * @param arrays {@code short} arrays to join
 	 * @return the joined {@code short} array
@@ -225,7 +225,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code short} arrays using a {@code short} array separator.</p>
+	 * Join multiple {@code short} arrays using a {@code short} array separator.
 	 * @param separator the {@code short} array separator
 	 * @param arrays the {@code short} array {@link List} to join
 	 * @return the joined {@code short} array
@@ -262,7 +262,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code short} array contains any of given {@code short} values at least one.</p>
+	 * Tell if the {@code short} array contains any of given {@code short} values at least one.
 	 * @param array the {@code short} array to test
 	 * @param values {@code short} values to test
 	 * @return {@code true} if any of given {@code short} values is contained at least once by the {@code short} array
@@ -287,7 +287,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code short} array contains all of given {@code short} values at least one.</p>
+	 * Tell if the {@code short} array contains all of given {@code short} values at least one.
 	 * @param array the {@code short} array to test
 	 * @param values {@code short} values to test
 	 * @return {@code true} if all of given {@code short} values are contained at least once by the {@code short} array
@@ -317,7 +317,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code short} array contains each given {@code short} value only once.</p>
+	 * Tell if the {@code short} array contains each given {@code short} value only once.
 	 * @param array the {@code short} array to test
 	 * @param values {@code short} values to test
 	 * @return {@code true} if each of given {@code short} values are contained only once by the {@code short} array
@@ -349,7 +349,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code short} array contains only given {@code short} values at least one.</p>
+	 * Tell if the {@code short} array contains only given {@code short} values at least one.
 	 * @param array the {@code short} array to test
 	 * @param values {@code short} values to test
 	 * @return {@code true} if given {@code short} values are only values contained by the {@code short} array
@@ -379,7 +379,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code short} value in the {@code short} array.</p>
+	 * Get the first index of the {@code short} value in the {@code short} array.
 	 * @param array the {@code short} array to iterate
 	 * @param value the {@code short} value to search
 	 * @return the first index of the {@code short} value if found, {@code -1} otherwise
@@ -391,7 +391,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code short} value in the {@code short} array starting from the given index.</p>
+	 * Get the first index of the {@code short} value in the {@code short} array starting from the given index.
 	 * @param array the {@code short} array to iterate
 	 * @param value the {@code short} value to search
 	 * @param fromIndex the starting index
@@ -414,7 +414,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code short} value in the {@code short} array.</p>
+	 * Get the last index of the {@code short} value in the {@code short} array.
 	 * @param array the {@code short} array to iterate
 	 * @param value the {@code short} value to search
 	 * @return the last index of the {@code short} value if found, {@code -1} otherwise
@@ -426,7 +426,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code short} value in the {@code short} array starting from the given index.</p>
+	 * Get the last index of the {@code short} value in the {@code short} array starting from the given index.
 	 * @param array the {@code short} array to iterate
 	 * @param value the {@code short} value to search
 	 * @param fromIndex the starting index
@@ -449,7 +449,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code short} value in the {@code short} array.</p>
+	 * Calculate the number of occurrences of the {@code short} value in the {@code short} array.
 	 * @param array the {@code short} array to iterate
 	 * @param value the {@code short} value of the frequency to calculate
 	 * @return the frequency of the {@code short} value
@@ -471,7 +471,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code short} array.</p>
+	 * Reverse values in the given {@code short} array.
 	 * @param array the {@code short} array to reverse
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @since 1.2.0
@@ -486,7 +486,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code short} array using provided indexes.</p>
+	 * Reorder values in the given {@code short} array using provided indexes.
 	 * @param array the {@code short} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code short} array or the indexes array is {@code null}
@@ -514,7 +514,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code short} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code short} array following the Fisher-Yates algorithm.
 	 * @param array the {@code short} array to shuffle
 	 * @throws NullPointerException if the {@code short} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -528,8 +528,8 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code short} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code short} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code short} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code short} array or the {@code Random} object is {@code null}
@@ -547,7 +547,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code short} array using their indexes.</p>
+	 * Swap two values in the given {@code short} array using their indexes.
 	 * @param array the {@code short} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -567,7 +567,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code short} array is empty.</p>
+	 * Tell if a {@code short} array is empty.
 	 * @param array the {@code short} array to test
 	 * @return {@code true} if the {@code short} array is empty
 	 * @throws NullPointerException if the {@code short} array is {@code null}
@@ -579,7 +579,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Create a {@code short} array from a single {@code short} value.</p>
+	 * Create a {@code short} array from a single {@code short} value.
 	 * @param value the {@code short} value to convert
 	 * @return the created {@code short} array
 	 * @since 1.1.0
@@ -589,7 +589,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Create a {@code short} array from multiple {@code short} values.</p>
+	 * Create a {@code short} array from multiple {@code short} values.
 	 * @param values {@code short} values to convert
 	 * @return the created {@code short} array
 	 * @throws NullPointerException if the {@code short} values array is {@code null}
@@ -604,7 +604,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Create a {@code short} array from a boxed {@link Short} array.</p>
+	 * Create a {@code short} array from a boxed {@link Short} array.
 	 * @param boxedArray the boxed {@link Short} array to convert
 	 * @return the created {@code short} array
 	 * @throws NullPointerException if the boxed {@link Short} array is {@code null}
@@ -623,7 +623,7 @@ public final class ShortArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code short} array to a boxed {@link Short} array.</p>
+	 * Convert a {@code short} array to a boxed {@link Short} array.
 	 * @param array the {@code short} array to convert
 	 * @return the created boxed {@link Short} array
 	 * @throws NullPointerException if the {@code short} array is {@code null}

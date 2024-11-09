@@ -27,7 +27,8 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * <p>A {@link Single} is an immutable tuple that is composed of an unique element.</p>
+ * A {@link Single} is an immutable tuple that is composed of an unique element.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <U> the type of the unique element
@@ -38,13 +39,13 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 public final class Single<U> {
 
 	/**
-	 * <p>Unique element.</p>
+	 * Unique element.
 	 * @since 1.1.0
 	 */
 	private final U unique;
 
 	/**
-	 * <p>Standard constructor.</p>
+	 * Standard constructor.
 	 * @param unique the unique element or {@code null}
 	 * @since 1.1.0
 	 */
@@ -84,7 +85,7 @@ public final class Single<U> {
 	}
 
 	/**
-	 * <p>Get the unique element of the {@code Single}.</p>
+	 * Get the unique element of the {@code Single}.
 	 * @return the unique element
 	 * @since 1.1.0
 	 */
@@ -93,7 +94,7 @@ public final class Single<U> {
 	}
 
 	/**
-	 * <p>Handy constructor.</p>
+	 * Handy constructor.
 	 * @param unique the unique element or {@code null}
 	 * @param <U> the type of the unique element
 	 * @return the constructed {@code Single}

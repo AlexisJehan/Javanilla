@@ -28,13 +28,14 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.util.Comparator;
 
 /**
- * <p>An utility class that provides {@link Comparator} tools.</p>
+ * A utility class that provides {@link Comparator} tools.
  * @since 1.0.0
  */
 public final class Comparators {
 
 	/**
-	 * <p>A {@link CharSequence} {@link Comparator} that takes numbers into consideration.</p>
+	 * A {@link CharSequence} {@link Comparator} that takes numbers into consideration.
+	 *
 	 * <p><b>Example</b>: {@code ["example2", "example1", "example10"]} would be sorted like
 	 * {@code ["example1", "example2", "example10"]} and not {@code ["example1", "example10", "example2"]}.</p>
 	 * @since 1.0.0
@@ -103,14 +104,13 @@ public final class Comparators {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private Comparators() {}
 
 	/**
-	 * <p>Decorate a {@link Comparator} to replace negative and positive results respectively by {@code -1} and
-	 * {@code 1}.</p>
+	 * Decorate a {@link Comparator} to replace negative and positive results respectively by {@code -1} and {@code 1}.
 	 * @param comparator the {@link Comparator} to normalize
 	 * @param <T> the type of objects that may be compared by this comparator
 	 * @return a normalized {@link Comparator}

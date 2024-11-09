@@ -27,7 +27,8 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * <p>A {@link Triple} is an immutable tuple that is composed of three elements.</p>
+ * A {@link Triple} is an immutable tuple that is composed of three elements.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <F> the type of the first element
@@ -40,25 +41,25 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 public final class Triple<F, S, T> {
 
 	/**
-	 * <p>First element.</p>
+	 * First element.
 	 * @since 1.0.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second element.</p>
+	 * Second element.
 	 * @since 1.0.0
 	 */
 	private final S second;
 
 	/**
-	 * <p>Third element.</p>
+	 * Third element.
 	 * @since 1.0.0
 	 */
 	private final T third;
 
 	/**
-	 * <p>Standard constructor.</p>
+	 * Standard constructor.
 	 * @param first the first element or {@code null}
 	 * @param second the second element or {@code null}
 	 * @param third the third element or {@code null}
@@ -108,7 +109,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the first element of the {@code Triple}.</p>
+	 * Get the first element of the {@code Triple}.
 	 * @return the first element
 	 * @since 1.0.0
 	 */
@@ -117,7 +118,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the second element of the {@code Triple}.</p>
+	 * Get the second element of the {@code Triple}.
 	 * @return the second element
 	 * @since 1.0.0
 	 */
@@ -126,7 +127,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Get the third element of the {@code Triple}.</p>
+	 * Get the third element of the {@code Triple}.
 	 * @return the third element
 	 * @since 1.0.0
 	 */
@@ -135,7 +136,7 @@ public final class Triple<F, S, T> {
 	}
 
 	/**
-	 * <p>Handy constructor.</p>
+	 * Handy constructor.
 	 * @param first the first element or {@code null}
 	 * @param second the second element or {@code null}
 	 * @param third the third element or {@code null}

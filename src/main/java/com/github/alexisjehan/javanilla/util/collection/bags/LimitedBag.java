@@ -26,8 +26,9 @@ package com.github.alexisjehan.javanilla.util.collection.bags;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>A {@link Bag} decorator that limits the maximum number of distinct elements contained. If the limit is reached
- * then an element with a minimum occurrence is totally removed.</p>
+ * A {@link Bag} decorator that limits the maximum number of distinct elements contained. If the limit is reached then
+ * an element with a minimum occurrence is totally removed.
+ *
  * <p><b>Note</b>: This class implements its own {@link #toString()} method.</p>
  * @param <E> the element type
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.bag.LimitedBag} instead
@@ -37,13 +38,13 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 public final class LimitedBag<E> extends FilterBag<E> {
 
 	/**
-	 * <p>Maximum number of distinct elements to be contained.</p>
+	 * Maximum number of distinct elements to be contained.
 	 * @since 1.0.0
 	 */
 	private final int limit;
 
 	/**
-	 * <p>Constructor with a {@link Bag} to decorate and a limit.</p>
+	 * Constructor with a {@link Bag} to decorate and a limit.
 	 * @param bag the {@link Bag} to decorate
 	 * @param limit the maximum number of distinct elements to be contained
 	 * @throws IllegalArgumentException if the limit is lower than {@code 2}
@@ -59,8 +60,10 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	}
 
 	/**
-	 * <p>Add the element to the {@link Bag} in the given quantity.</p>
+	 * Add the element to the {@link Bag} in the given quantity.
+	 *
 	 * <p><b>Note</b>: If the limit is reached then an element with a minimum occurrence is totally removed.</p>
+	 *
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
 	 * @param element the element to add
 	 * @param quantity the quantity of the element to add
@@ -84,7 +87,7 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	}
 
 	/**
-	 * <p>Get the limit.</p>
+	 * Get the limit.
 	 * @return the limit
 	 * @since 1.6.0
 	 */

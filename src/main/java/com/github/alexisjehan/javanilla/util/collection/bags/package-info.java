@@ -22,8 +22,8 @@
  * SOFTWARE.
  */
 /**
- * <p>New {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} interface, implementations, tools and
- * decorators.</p>
+ * New {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} interface, implementations, tools and
+ * decorators.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.collection.bags;

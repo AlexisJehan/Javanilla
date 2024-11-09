@@ -29,8 +29,10 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import java.io.Serializable;
 
 /**
- * <p>A {@link SerializableTriple} is an immutable tuple that is composed of three {@link Serializable} elements.</p>
+ * A {@link SerializableTriple} is an immutable tuple that is composed of three {@link Serializable} elements.
+ *
  * <p><b>Note</b>: This class is {@link Serializable}.</p>
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <F> the type of the first serializable element
@@ -42,31 +44,31 @@ import java.io.Serializable;
 public final class SerializableTriple<F extends Serializable, S extends Serializable, T extends Serializable> implements Serializable {
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.8.0
 	 */
 	private static final long serialVersionUID = -5456025928605051531L;
 
 	/**
-	 * <p>First {@link Serializable} element.</p>
+	 * First {@link Serializable} element.
 	 * @since 1.8.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second {@link Serializable} element.</p>
+	 * Second {@link Serializable} element.
 	 * @since 1.8.0
 	 */
 	private final S second;
 
 	/**
-	 * <p>Third {@link Serializable} element.</p>
+	 * Third {@link Serializable} element.
 	 * @since 1.8.0
 	 */
 	private final T third;
 
 	/**
-	 * <p>Standard constructor.</p>
+	 * Standard constructor.
 	 * @param first the first {@link Serializable} element or {@code null}
 	 * @param second the second {@link Serializable} element or {@code null}
 	 * @param third the third {@link Serializable} element or {@code null}
@@ -116,7 +118,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Converts the current {@code SerializableTriple} to a {@link Triple}.</p>
+	 * Converts the current {@code SerializableTriple} to a {@link Triple}.
 	 * @return the converted {@link Triple}
 	 * @since 1.8.0
 	 */
@@ -125,7 +127,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the first {@link Serializable} element of the {@code SerializableTriple}.</p>
+	 * Get the first {@link Serializable} element of the {@code SerializableTriple}.
 	 * @return the first {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -134,7 +136,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the second {@link Serializable} element of the {@code SerializableTriple}.</p>
+	 * Get the second {@link Serializable} element of the {@code SerializableTriple}.
 	 * @return the second {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -143,7 +145,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Get the third {@link Serializable} element of the {@code SerializableTriple}.</p>
+	 * Get the third {@link Serializable} element of the {@code SerializableTriple}.
 	 * @return the third {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -152,7 +154,7 @@ public final class SerializableTriple<F extends Serializable, S extends Serializ
 	}
 
 	/**
-	 * <p>Handy constructor.</p>
+	 * Handy constructor.
 	 * @param first the first {@link Serializable} element or {@code null}
 	 * @param second the second {@link Serializable} element or {@code null}
 	 * @param third the third {@link Serializable} element or {@code null}

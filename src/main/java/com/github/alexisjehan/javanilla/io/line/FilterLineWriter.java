@@ -28,19 +28,19 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.io.IOException;
 
 /**
- * <p>An abstract {@link LineWriter} filter to create decorators.</p>
+ * An abstract {@link LineWriter} filter to create decorators.
  * @since 1.8.0
  */
 public abstract class FilterLineWriter extends LineWriter {
 
 	/**
-	 * <p>Delegated {@link LineWriter}.</p>
+	 * Delegated {@link LineWriter}.
 	 * @since 1.8.0
 	 */
 	protected final LineWriter lineWriter;
 
 	/**
-	 * <p>Constructor with a {@link LineWriter} to decorate.</p>
+	 * Constructor with a {@link LineWriter} to decorate.
 	 * @param lineWriter the {@link LineWriter} to decorate
 	 * @throws NullPointerException if the {@link LineWriter} is {@code null}
 	 * @since 1.8.0

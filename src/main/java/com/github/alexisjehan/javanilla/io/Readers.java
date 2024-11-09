@@ -43,31 +43,31 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <p>An utility class that provides {@link Reader} tools.</p>
+ * A utility class that provides {@link Reader} tools.
  * @since 1.8.0
  */
 public final class Readers {
 
 	/**
-	 * <p>A {@link Reader} that wraps multiple ones as a sequence.</p>
+	 * A {@link Reader} that wraps multiple ones as a sequence.
 	 * @since 1.8.0
 	 */
 	private static final class SequenceReader extends Reader {
 
 		/**
-		 * <p>{@link Iterator} of {@link Reader}s.</p>
+		 * {@link Iterator} of {@link Reader}s.
 		 * @since 1.8.0
 		 */
 		private final Iterator<? extends Reader> iterator;
 
 		/**
-		 * <p>Current {@link Reader}.</p>
+		 * Current {@link Reader}.
 		 * @since 1.8.0
 		 */
 		private Reader current;
 
 		/**
-		 * <p>Constructor.</p>
+		 * Constructor.
 		 * @param iterator the {@link Iterator} of {@link Reader}s
 		 * @since 1.8.0
 		 */
@@ -77,7 +77,7 @@ public final class Readers {
 		}
 
 		/**
-		 * <p>Close the current {@link Reader} if set then peek the next one.</p>
+		 * Close the current {@link Reader} if set then peek the next one.
 		 * @throws IOException might occur with I/O operations
 		 * @since 1.8.0
 		 */
@@ -89,7 +89,7 @@ public final class Readers {
 		}
 
 		/**
-		 * <p>Set the current {@link Reader} as the next one from the {@link Iterator}.</p>
+		 * Set the current {@link Reader} as the next one from the {@link Iterator}.
 		 * @since 1.8.0
 		 */
 		private void peekNextReader() {
@@ -136,7 +136,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>An empty {@link Reader} that returns no char.</p>
+	 * An empty {@link Reader} that returns no char.
 	 * @since 1.8.0
 	 */
 	public static final Reader EMPTY = new Reader() {
@@ -211,13 +211,13 @@ public final class Readers {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private Readers() {}
 
 	/**
-	 * <p>Wrap a {@link Reader} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link Reader} replacing {@code null} by an empty one.
 	 * @param reader the {@link Reader} or {@code null}
 	 * @return a non-{@code null} {@link Reader}
 	 * @since 1.8.0
@@ -227,7 +227,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Wrap a {@link Reader} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link Reader} replacing {@code null} by a default one.
 	 * @param reader the {@link Reader} or {@code null}
 	 * @param defaultReader the default {@link Reader}
 	 * @param <R> the {@link Reader} type
@@ -241,7 +241,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Reader} as a {@link BufferedReader} if it was not already.</p>
+	 * Decorate a {@link Reader} as a {@link BufferedReader} if it was not already.
 	 * @param reader the {@link Reader} to decorate
 	 * @return a {@link BufferedReader}
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
@@ -256,7 +256,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Reader} so that it supports {@link Reader#mark(int)} if it did not already.</p>
+	 * Decorate a {@link Reader} so that it supports {@link Reader#mark(int)} if it did not already.
 	 * @param reader the {@link Reader} to decorate
 	 * @return a {@link Reader} with mark supported
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
@@ -271,7 +271,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Reader} so that its {@link Reader#close()} method has no effect.</p>
+	 * Decorate a {@link Reader} so that its {@link Reader#close()} method has no effect.
 	 * @param reader the {@link Reader} to decorate
 	 * @return a {@link Reader} that cannot be closed
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
@@ -292,7 +292,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link Reader}s.</p>
+	 * Concatenate multiple {@link Reader}s.
 	 * @param readers the {@link Reader} array to concatenate
 	 * @return the concatenated {@link Reader}
 	 * @throws NullPointerException if the {@link Reader} array or any of them is {@code null}
@@ -304,7 +304,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link Reader}s.</p>
+	 * Concatenate multiple {@link Reader}s.
 	 * @param readers the {@link Reader} {@link List} to concatenate
 	 * @return the concatenated {@link Reader}
 	 * @throws NullPointerException if the {@link Reader} {@link List} or any of them is {@code null}
@@ -323,7 +323,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Join multiple {@link Reader}s using a {@code char} array separator.</p>
+	 * Join multiple {@link Reader}s using a {@code char} array separator.
 	 * @param separator the {@code char} array separator
 	 * @param readers the {@link Reader} array to join
 	 * @return the joined {@link Reader}
@@ -337,7 +337,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Join multiple {@link Reader}s using a {@code char} array separator.</p>
+	 * Join multiple {@link Reader}s using a {@code char} array separator.
 	 * @param separator the {@code char} array separator
 	 * @param readers the {@link Reader} {@link List} to join
 	 * @return the joined {@link Reader}
@@ -369,8 +369,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Read the {@link Reader} from the current position to the end and return the length.</p>
+	 * Read the {@link Reader} from the current position to the end and return the length.
+	 *
 	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Reader} does not end.</p>
 	 * @param reader the {@link Reader} to read
 	 * @return the length from the current position
@@ -384,7 +386,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@link Reader} from a single {@code char}.</p>
+	 * Create a {@link Reader} from a single {@code char}.
 	 * @param c the {@code char} to convert
 	 * @return the created {@link Reader}
 	 * @since 1.8.0
@@ -394,7 +396,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@link Reader} from multiple {@code char}s.</p>
+	 * Create a {@link Reader} from multiple {@code char}s.
 	 * @param chars the {@code char} array to convert
 	 * @return the created {@link Reader}
 	 * @throws NullPointerException if the {@code char} array is {@code null}
@@ -409,7 +411,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@link Reader} from a {@link String}.</p>
+	 * Create a {@link Reader} from a {@link String}.
 	 * @param string the {@link String} to convert
 	 * @return the created {@link Reader}
 	 * @throws NullPointerException if the {@link String} is {@code null}
@@ -424,7 +426,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@link BufferedReader} from a {@link Path} using {@link Charset#defaultCharset()}.</p>
+	 * Create a {@link BufferedReader} from a {@link Path} using {@link Charset#defaultCharset()}.
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedReader}
 	 * @throws IOException might occur with I/O operations
@@ -436,7 +438,7 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Create a {@link BufferedReader} from a {@link Path} using a custom {@link Charset}.</p>
+	 * Create a {@link BufferedReader} from a {@link Path} using a custom {@link Charset}.
 	 * @param path the {@link Path} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link BufferedReader}
@@ -451,8 +453,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Convert a {@link Reader} to a {@code char} array.</p>
+	 * Convert a {@link Reader} to a {@code char} array.
+	 *
 	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Reader} is too large.</p>
 	 * @param reader the {@link Reader} to convert
 	 * @return the created {@code char} array
@@ -469,8 +473,10 @@ public final class Readers {
 	}
 
 	/**
-	 * <p>Convert a {@link Reader} to a {@link String}.</p>
+	 * Convert a {@link Reader} to a {@link String}.
+	 *
 	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Reader} is too large.</p>
 	 * @param reader the {@link Reader} to convert
 	 * @return the created {@link String}

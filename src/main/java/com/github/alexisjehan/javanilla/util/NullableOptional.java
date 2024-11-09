@@ -38,8 +38,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * <p>A class based on {@link Optional} but which accepts nullable values. Empty and {@code null} are distinct, this is
- * useful for example to return optional values when {@code null} is allowed such a "get" method for a collection.</p>
+ * A class based on {@link Optional} but which accepts nullable values. Empty and {@code null} are distinct, this is
+ * useful for example to return optional values when {@code null} is allowed such a "get" method for a collection.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <T> the type of the value
@@ -48,25 +49,25 @@ import java.util.stream.Stream;
 public final class NullableOptional<T> implements Streamable<T> {
 
 	/**
-	 * <p>Common instance for {@link #empty()}.</p>
+	 * Common instance for {@link #empty()}.
 	 * @since 1.1.0
 	 */
 	private static final NullableOptional<?> EMPTY = new NullableOptional<>();
 
 	/**
-	 * <p>Nullable value or {@code null} if not present.</p>
+	 * Nullable value or {@code null} if not present.
 	 * @since 1.1.0
 	 */
 	private final T value;
 
 	/**
-	 * <p>Whether or not a value is present.</p>
+	 * Whether a value is present.
 	 * @since 1.1.0
 	 */
 	private final boolean empty;
 
 	/**
-	 * <p>Constructor for an empty instance.</p>
+	 * Constructor for an empty instance.
 	 * @since 1.1.0
 	 */
 	private NullableOptional() {
@@ -75,7 +76,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Constructor for an instance with the given nullable value.</p>
+	 * Constructor for an instance with the given nullable value.
 	 * @param value the nullable value
 	 * @since 1.1.0
 	 */
@@ -85,7 +86,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Get the nullable value or throw a {@link NoSuchElementException} if the value is not present.</p>
+	 * Get the nullable value or throw a {@link NoSuchElementException} if the value is not present.
 	 * @return the nullable value if present
 	 * @throws NoSuchElementException if no value is present
 	 * @since 1.1.0
@@ -98,7 +99,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Tell if a value is present.</p>
+	 * Tell if a value is present.
 	 * @return {@code true} if a value is present
 	 * @since 1.1.0
 	 */
@@ -107,7 +108,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Tell if no value is present.</p>
+	 * Tell if no value is present.
 	 * @return {@code true} if no value is present
 	 * @since 1.1.0
 	 */
@@ -116,7 +117,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, performs the given action with the value, otherwise does nothing.</p>
+	 * If a value is present, performs the given action with the value, otherwise does nothing.
 	 * @param action the action to be performed, if a value is present
 	 * @throws NullPointerException if the action is {@code null}
 	 * @since 1.1.0
@@ -129,8 +130,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, performs the given action with the value, otherwise performs the given empty-based
-	 * action.</p>
+	 * If a value is present, performs the given action with the value, otherwise performs the given empty-based action.
 	 * @param action the action to be performed, if a value is present
 	 * @param emptyAction the empty-based action to be performed, if no value is present
 	 * @throws NullPointerException if the action or the empty-based action is {@code null}
@@ -147,8 +147,8 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, and the value matches the given filter {@link Predicate}, returns a
-	 * {@code NullableOptional} describing the value, otherwise returns an empty {@code NullableOptional}.</p>
+	 * If a value is present, and the value matches the given filter {@link Predicate}, returns a
+	 * {@code NullableOptional} describing the value, otherwise returns an empty {@code NullableOptional}.
 	 * @param filter the filter {@link Predicate} to apply to a value, if present
 	 * @return a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is present
 	 *         and the value matches the given filter {@link Predicate}, otherwise an empty {@code NullableOptional}
@@ -164,8 +164,8 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns a {@code NullableOptional} describing the result of applying the given mapper
-	 * {@link Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
+	 * If a value is present, returns a {@code NullableOptional} describing the result of applying the given mapper
+	 * {@link Function} to the value, otherwise returns an empty {@code NullableOptional}.
 	 * @param mapper the mapper {@link Function} to apply to a value, if present
 	 * @param <U> the type of the value returned from the mapper {@link Function}
 	 * @return a {@code NullableOptional} describing the result of applying a mapper {@link Function} to the value of
@@ -182,11 +182,12 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the result of applying the given {@code NullableOptional}-bearing mapper
-	 * {@link Function} to the value, otherwise returns an empty {@code NullableOptional}.</p>
-	 * <p>This method is similar to {@link #map(Function)}, but the mapper {@link Function} is one whose result is
-	 * already a {@code NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an additional
-	 * {@code NullableOptional}.</p>
+	 * If a value is present, returns the result of applying the given {@code NullableOptional}-bearing mapper
+	 * {@link Function} to the value, otherwise returns an empty {@code NullableOptional}.
+	 *
+	 * <p><b>Note</b>: This method is similar to {@link #map(Function)}, but the mapper {@link Function} is one whose
+	 * result is  already a {@code NullableOptional}, and if invoked, {@code flatMap} does not wrap it within an
+	 * additional {@code NullableOptional}.</p>
 	 * @param mapper the mapper {@link Function} to apply to a value, if present
 	 * @param <U> the type of value of the {@code NullableOptional} returned by the mapper {@link Function}
 	 * @return the result of applying an {@code NullableOptional}-bearing mapper {@link Function} to the value of this
@@ -204,8 +205,8 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns a {@code NullableOptional} describing the value, otherwise returns an
-	 * {@code NullableOptional} produced by the {@link Supplier}.</p>
+	 * If a value is present, returns a {@code NullableOptional} describing the value, otherwise returns an
+	 * {@code NullableOptional} produced by the {@link Supplier}.
 	 * @param supplier the {@link Supplier} that produces an {@code NullableOptional} to be returned
 	 * @return returns a {@code NullableOptional} describing the value of this {@code NullableOptional}, if a value is
 	 *         present, otherwise a {@code NullableOptional} produced by the {@link Supplier}
@@ -222,8 +223,8 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns a sequential {@link Stream} containing only that value, otherwise returns an
-	 * empty {@link Stream}.</p>
+	 * If a value is present, returns a sequential {@link Stream} containing only that value, otherwise returns an empty
+	 * {@link Stream}.
 	 * @return the optional value as a {@link Stream}
 	 * @since 1.1.0
 	 */
@@ -236,7 +237,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise returns the given other value.</p>
+	 * If a value is present, returns the value, otherwise returns the given other value.
 	 * @param other the value to be returned, if no value is present or {@code null}
 	 * @return the value, if present, otherwise the given other value
 	 * @since 1.1.0
@@ -246,7 +247,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise returns the result produced by the {@link Supplier}.</p>
+	 * If a value is present, returns the value, otherwise returns the result produced by the {@link Supplier}.
 	 * @param supplier the {@link Supplier} that produces a value to be returned
 	 * @return the value, if present, otherwise the result produced by the {@link Supplier}
 	 * @throws NullPointerException if the {@link Supplier} is {@code null}
@@ -258,7 +259,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise throws {@link NoSuchElementException}.</p>
+	 * If a value is present, returns the value, otherwise throws {@link NoSuchElementException}.
 	 * @return the value, if present
 	 * @throws NoSuchElementException if no value is present
 	 * @since 1.3.1
@@ -268,8 +269,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>If a value is present, returns the value, otherwise throws a {@link Throwable} produced by the
-	 * {@link Supplier}.</p>
+	 * If a value is present, returns the value, otherwise throws a {@link Throwable} produced by the {@link Supplier}.
 	 * @param throwableSupplier the {@link Supplier} that produces a {@link Throwable} to be thrown
 	 * @param <X> type of the {@link Throwable} to be thrown
 	 * @return the value, if present
@@ -321,8 +321,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Converts the current {@code NullableOptional} to an {@link Optional} using
-	 * {@link Optional#ofNullable(Object)}.</p>
+	 * Converts the current {@code NullableOptional} to an {@link Optional} using {@link Optional#ofNullable(Object)}.
 	 * @return the created {@link Optional}
 	 * @since 1.1.0
 	 */
@@ -331,7 +330,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Returns an empty {@code NullableOptional} instance. No value is present for this {@code NullableOptional}.</p>
+	 * Returns an empty {@code NullableOptional} instance. No value is present for this {@code NullableOptional}.
 	 * @param <T> the type of the non-existent value
 	 * @return an empty {@code NullableOptional}
 	 * @since 1.1.0
@@ -342,7 +341,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Returns a {@code NullableOptional} describing the given nullable value.</p>
+	 * Returns a {@code NullableOptional} describing the given nullable value.
 	 * @param value the value to describe or {@code null}
 	 * @param <T> the type of the value
 	 * @return a {@code NullableOptional} with the value present
@@ -353,7 +352,7 @@ public final class NullableOptional<T> implements Streamable<T> {
 	}
 
 	/**
-	 * <p>Create a {@code NullableOptional} with an {@link Optional}.</p>
+	 * Create a {@code NullableOptional} with an {@link Optional}.
 	 * @param optional the {@link Optional} to convert
 	 * @param <T> the type of the value
 	 * @return the created {@code NullableOptional}

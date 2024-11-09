@@ -29,7 +29,8 @@ import java.io.Serializable;
 import java.util.function.Consumer;
 
 /**
- * <p>Interface for a {@link Consumer} that is {@link Serializable}.</p>
+ * Interface for a {@link Consumer} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #accept(Object)}.</p>
  * @param <T> the type of the input to the operation
  * @since 1.8.0
@@ -38,8 +39,8 @@ import java.util.function.Consumer;
 public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableConsumer} that performs, in sequence, this operation followed by the
-	 * after operation.</p>
+	 * Returns a composed {@code SerializableConsumer} that performs, in sequence, this operation followed by the after
+	 * operation.
 	 * @param after the {@link Consumer} operation to perform after this operation
 	 * @return a composed {@code SerializableConsumer} that performs in sequence this operation followed by the after
 	 *         operation
@@ -56,7 +57,7 @@ public interface SerializableConsumer<T> extends Consumer<T>, Serializable {
 	}
 
 	/**
-	 * <p>Create a {@code SerializableConsumer} from the given {@link Consumer}.</p>
+	 * Create a {@code SerializableConsumer} from the given {@link Consumer}.
 	 * @param consumer the {@link Consumer} to convert
 	 * @param <T> the type of the input to the operation
 	 * @return the created {@code SerializableConsumer}

@@ -27,7 +27,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@link Iterator} decorator that counts the number of elements iterated from the current position.</p>
+ * An {@link Iterator} decorator that counts the number of elements iterated from the current position.
+ *
  * <p><b>Note</b>: A removed element is still considered in the count.</p>
  * @param <E> the element type
  * @since 1.8.0
@@ -35,13 +36,13 @@ import java.util.NoSuchElementException;
 public final class CountIterator<E> extends FilterIterator<E> {
 
 	/**
-	 * <p>Number of elements iterated.</p>
+	 * Number of elements iterated.
 	 * @since 1.8.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Constructor with an {@link Iterator} to decorate.</p>
+	 * Constructor with an {@link Iterator} to decorate.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @since 1.8.0
@@ -63,7 +64,7 @@ public final class CountIterator<E> extends FilterIterator<E> {
 	}
 
 	/**
-	 * <p>Get the number of elements iterated.</p>
+	 * Get the number of elements iterated.
 	 * @return the number of elements iterated
 	 * @since 1.8.0
 	 */

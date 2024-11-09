@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Extras {@link java.security} components.</p>
+ * Extras {@link java.security} components.
  * @since 1.8.0
  */
 package com.github.alexisjehan.javanilla.security;

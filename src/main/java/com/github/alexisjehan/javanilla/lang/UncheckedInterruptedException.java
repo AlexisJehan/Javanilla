@@ -26,7 +26,8 @@ package com.github.alexisjehan.javanilla.lang;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>Wrapped {@link InterruptedException} as an unchecked exception.</p>
+ * Wrapped {@link InterruptedException} as an unchecked exception.
+ *
  * <p><b>Note</b>: This class is {@link java.io.Serializable}.</p>
  * @deprecated since 1.6.0, should not be used anymore
  * @since 1.0.0
@@ -35,13 +36,13 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 public final class UncheckedInterruptedException extends RuntimeException {
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.0.0
 	 */
 	private static final long serialVersionUID = -8171736130465480678L;
 
 	/**
-	 * <p>Constructor with a checked cause.</p>
+	 * Constructor with a checked cause.
 	 * @param cause the checked cause
 	 * @throws NullPointerException if the cause is {@code null}
 	 * @since 1.0.0

@@ -31,9 +31,11 @@ import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
 
 /**
- * <p>A base type for primitive specializations of {@link Iterable}. Specialized subtypes are provided for {@code int},
- * {@code long}, and {@code double} values.</p>
+ * A base type for primitive specializations of {@link Iterable}. Specialized subtypes are provided for {@code int},
+ * {@code long}, and {@code double} values.
+ *
  * <p><b>Note</b>: This interface is based on {@link PrimitiveIterator}.</p>
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #forEach(Object)}.</p>
  * @param <T> the type of elements returned by the provided PrimitiveIterator
@@ -45,10 +47,10 @@ import java.util.function.LongConsumer;
 public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
-	 * <p>Performs the given action for each element of the {@link Iterable} until all elements have been processed or
-	 * the action throws an {@link Exception}. Unless otherwise specified by the implementing class, actions are
-	 * performed in the order of iteration (if an iteration order is specified). {@link Exception}s thrown by the action
-	 * are relayed to the caller.</p>
+	 * Performs the given action for each element of the {@link Iterable} until all elements have been processed or the
+	 * action throws an {@link Exception}. Unless otherwise specified by the implementing class, actions are performed
+	 * in the order of iteration (if an iteration order is specified). {@link Exception}s thrown by the action are
+	 * relayed to the caller.
 	 * @param action the action to be performed for each element
 	 * @throws NullPointerException if the specified action is {@code null}
 	 * @since 1.0.0
@@ -56,7 +58,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	void forEach(C action);
 
 	/**
-	 * <p>An {@link Iterable} specialized for {@code int} values.</p>
+	 * An {@link Iterable} specialized for {@code int} values.
 	 * @since 1.0.0
 	 */
 	@FunctionalInterface
@@ -82,7 +84,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	}
 
 	/**
-	 * <p>An {@link Iterable} specialized for {@code long} values.</p>
+	 * An {@link Iterable} specialized for {@code long} values.
 	 * @since 1.0.0
 	 */
 	@FunctionalInterface
@@ -108,7 +110,7 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 	}
 
 	/**
-	 * <p>An {@link Iterable} specialized for {@code double} values.</p>
+	 * An {@link Iterable} specialized for {@code double} values.
 	 * @since 1.0.0
 	 */
 	@FunctionalInterface

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Standard {@link java.security} components available on every implementation of the Java platform.</p>
+ * Standard {@link java.security} components available on every implementation of the Java platform.
  * @since 1.6.0
  */
 package com.github.alexisjehan.javanilla.standard.security;

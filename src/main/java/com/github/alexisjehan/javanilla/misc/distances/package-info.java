@@ -22,8 +22,8 @@
  * SOFTWARE.
  */
 /**
- * <p>New {@link com.github.alexisjehan.javanilla.misc.distances.Distance}s and
- * {@link com.github.alexisjehan.javanilla.misc.distances.EditDistance}s interfaces and implementations.</p>
+ * New {@link com.github.alexisjehan.javanilla.misc.distances.Distance}s and
+ * {@link com.github.alexisjehan.javanilla.misc.distances.EditDistance}s interfaces and implementations.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.misc.distances;

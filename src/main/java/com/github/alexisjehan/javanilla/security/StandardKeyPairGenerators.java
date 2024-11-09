@@ -27,20 +27,20 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link KeyPairGenerator} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyPairGenerator} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/KeyPairGenerator.html">https://docs.oracle.com/javase/10/docs/api/java/security/KeyPairGenerator.html</a>
  * @since 1.8.0
  */
 public final class StandardKeyPairGenerators {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardKeyPairGenerators() {}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>
+	 * Get a new "DiffieHellman" {@link KeyPairGenerator} instance.
 	 * @return a "DiffieHellman" {@link KeyPairGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@link KeyPairGenerator} instance.</p>
+	 * Get a new "DSA" {@link KeyPairGenerator} instance.
 	 * @return a "DSA" {@link KeyPairGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "RSA" {@link KeyPairGenerator} instance.</p>
+	 * Get a new "RSA" {@link KeyPairGenerator} instance.
 	 * @return an "RSA" {@link KeyPairGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -67,7 +67,7 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new {@link KeyPairGenerator} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link KeyPairGenerator} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link KeyPairGenerator} algorithm
 	 * @return a {@link KeyPairGenerator} instance of the provided algorithm
 	 * @since 1.8.0

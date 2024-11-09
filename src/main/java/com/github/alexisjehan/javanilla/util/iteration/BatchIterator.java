@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@link Iterator} decorator that returns elements in batch from the current position.</p>
+ * An {@link Iterator} decorator that returns elements in batch from the current position.
  * @param <E> the element type
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.BatchIterator} instead
  * @since 1.0.0
@@ -40,26 +40,27 @@ import java.util.NoSuchElementException;
 public final class BatchIterator<E> implements Iterator<List<E>> {
 
 	/**
-	 * <p>Delegated {@link Iterator}.</p>
+	 * Delegated {@link Iterator}.
 	 * @since 1.0.0
 	 */
 	private final Iterator<? extends E> iterator;
 
 	/**
-	 * <p>Size of the batch.</p>
+	 * Size of the batch.
+	 *
 	 * <p><b>Note</b>: The last one could be smaller.</p>
 	 * @since 1.0.0
 	 */
 	private final int batchSize;
 
 	/**
-	 * <p>{@link List} that contains batch elements.</p>
+	 * {@link List} that contains batch elements.
 	 * @since 1.0.0
 	 */
 	private final List<E> batch;
 
 	/**
-	 * <p>Constructor with an {@link Iterator} to decorate and a batch size.</p>
+	 * Constructor with an {@link Iterator} to decorate and a batch size.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param batchSize the batch size
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
@@ -98,7 +99,7 @@ public final class BatchIterator<E> implements Iterator<List<E>> {
 	}
 
 	/**
-	 * <p>Get the batch size.</p>
+	 * Get the batch size.
 	 * @return the batch size
 	 * @since 1.0.0
 	 */

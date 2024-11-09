@@ -27,22 +27,23 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * <p>An utility class that provides an unique interface for equality check. Using it you don't have to take care of the
+ * A utility class that provides an unique interface for equality check. Using it you don't have to take care of the
  * type to choose a specific implementation. Unlike {@link Objects#equals(Object, Object)}, primitives are not boxed for
- * performance improvements.</p>
+ * performance improvements.
+ *
  * <p><b>Note</b>: Deep equality is not supported.</p>
  * @since 1.3.0
  */
 public final class Equals {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.0
 	 */
 	private Equals() {}
 
 	/**
-	 * <p>Check the equality between {@code boolean} values.</p>
+	 * Check the equality between {@code boolean} values.
 	 * @param value1 the first {@code boolean} value
 	 * @param value2 the second {@code boolean} value
 	 * @return {@code true} if both {@code boolean} values are equal
@@ -53,7 +54,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code byte} values.</p>
+	 * Check the equality between {@code byte} values.
 	 * @param value1 the first {@code byte} value
 	 * @param value2 the second {@code byte} value
 	 * @return {@code true} if both {@code byte} values are equal
@@ -64,7 +65,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code short} values.</p>
+	 * Check the equality between {@code short} values.
 	 * @param value1 the first {@code short} value
 	 * @param value2 the second {@code short} value
 	 * @return {@code true} if both {@code short} values are equal
@@ -75,7 +76,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code char} values.</p>
+	 * Check the equality between {@code char} values.
 	 * @param value1 the first {@code char} value
 	 * @param value2 the second {@code char} value
 	 * @return {@code true} if both {@code char} values are equal
@@ -86,7 +87,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code int} values.</p>
+	 * Check the equality between {@code int} values.
 	 * @param value1 the first {@code int} value
 	 * @param value2 the second {@code int} value
 	 * @return {@code true} if both {@code int} values are equal
@@ -97,7 +98,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code long} values.</p>
+	 * Check the equality between {@code long} values.
 	 * @param value1 the first {@code long} value
 	 * @param value2 the second {@code long} value
 	 * @return {@code true} if both {@code long} values are equal
@@ -108,7 +109,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code float} values.</p>
+	 * Check the equality between {@code float} values.
 	 * @param value1 the first {@code float} value
 	 * @param value2 the second {@code float} value
 	 * @return {@code true} if both {@code float} values are equal
@@ -119,7 +120,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code double} values.</p>
+	 * Check the equality between {@code double} values.
 	 * @param value1 the first {@code double} value
 	 * @param value2 the second {@code double} value
 	 * @return {@code true} if both {@code double} values are equal
@@ -130,7 +131,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@link Object} values.</p>
+	 * Check the equality between {@link Object} values.
 	 * @param value1 the first {@link Object} value or {@code null}
 	 * @param value2 the second {@link Object} value or {@code null}
 	 * @return {@code true} if both {@link Object} values are equal
@@ -141,7 +142,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code boolean} arrays.</p>
+	 * Check the equality between {@code boolean} arrays.
 	 * @param array1 the first {@code boolean} array or {@code null}
 	 * @param array2 the second {@code boolean} array or {@code null}
 	 * @return {@code true} if both {@code boolean} arrays are equal
@@ -152,7 +153,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code byte} arrays.</p>
+	 * Check the equality between {@code byte} arrays.
 	 * @param array1 the first {@code byte} array or {@code null}
 	 * @param array2 the second {@code byte} array or {@code null}
 	 * @return {@code true} if both {@code byte} arrays are equal
@@ -163,7 +164,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code short} arrays.</p>
+	 * Check the equality between {@code short} arrays.
 	 * @param array1 the first {@code short} array or {@code null}
 	 * @param array2 the second {@code short} array or {@code null}
 	 * @return {@code true} if both {@code short} arrays are equal
@@ -174,7 +175,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code char} arrays.</p>
+	 * Check the equality between {@code char} arrays.
 	 * @param array1 the first {@code char} array or {@code null}
 	 * @param array2 the second {@code char} array or {@code null}
 	 * @return {@code true} if both {@code char} arrays are equal
@@ -185,7 +186,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code int} arrays.</p>
+	 * Check the equality between {@code int} arrays.
 	 * @param array1 the first {@code int} array or {@code null}
 	 * @param array2 the second {@code int} array or {@code null}
 	 * @return {@code true} if both {@code int} arrays are equal
@@ -196,7 +197,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code long} arrays.</p>
+	 * Check the equality between {@code long} arrays.
 	 * @param array1 the first {@code long} array or {@code null}
 	 * @param array2 the second {@code long} array or {@code null}
 	 * @return {@code true} if both {@code long} arrays are equal
@@ -207,7 +208,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code float} arrays.</p>
+	 * Check the equality between {@code float} arrays.
 	 * @param array1 the first {@code float} array or {@code null}
 	 * @param array2 the second {@code float} array or {@code null}
 	 * @return {@code true} if both {@code float} arrays are equal
@@ -218,7 +219,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@code double} arrays.</p>
+	 * Check the equality between {@code double} arrays.
 	 * @param array1 the first {@code double} array or {@code null}
 	 * @param array2 the second {@code double} array or {@code null}
 	 * @return {@code true} if both {@code double} arrays are equal
@@ -229,7 +230,7 @@ public final class Equals {
 	}
 
 	/**
-	 * <p>Check the equality between {@link Object} arrays.</p>
+	 * Check the equality between {@link Object} arrays.
 	 * @param array1 the first {@link Object} array or {@code null}
 	 * @param array2 the second {@link Object} array or {@code null}
 	 * @return {@code true} if both {@link Object} arrays are equal

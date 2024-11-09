@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.crypto;
 import java.security.KeyPairGenerator;
 
 /**
- * <p>A {@link KeyPairGenerator} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyPairGenerator} factory to get standard instances without throwing checked exceptions.
  * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyPairGenerators}
  *             instead
  * @since 1.3.1
@@ -35,13 +35,13 @@ import java.security.KeyPairGenerator;
 public final class StandardKeyPairGenerators {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.1
 	 */
 	private StandardKeyPairGenerators() {}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link KeyPairGenerator} instance.</p>
+	 * Get a new "DiffieHellman" {@link KeyPairGenerator} instance.
 	 * @return a "DiffieHellman" {@link KeyPairGenerator} instance
 	 * @since 1.3.1
 	 */
@@ -50,7 +50,7 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@link KeyPairGenerator} instance.</p>
+	 * Get a new "DSA" {@link KeyPairGenerator} instance.
 	 * @return a "DSA" {@link KeyPairGenerator} instance
 	 * @since 1.3.1
 	 */
@@ -59,7 +59,7 @@ public final class StandardKeyPairGenerators {
 	}
 
 	/**
-	 * <p>Get a new "RSA" {@link KeyPairGenerator} instance.</p>
+	 * Get a new "RSA" {@link KeyPairGenerator} instance.
 	 * @return an "RSA" {@link KeyPairGenerator} instance
 	 * @since 1.3.1
 	 */

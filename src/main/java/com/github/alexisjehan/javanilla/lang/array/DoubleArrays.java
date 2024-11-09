@@ -33,25 +33,25 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code double} array tools.</p>
+ * A utility class that provides {@code double} array tools.
  * @since 1.0.0
  */
 public final class DoubleArrays {
 
 	/**
-	 * <p>An empty {@code double} array.</p>
+	 * An empty {@code double} array.
 	 * @since 1.0.0
 	 */
 	public static final double[] EMPTY = {};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private DoubleArrays() {}
 
 	/**
-	 * <p>Wrap a {@code double} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code double} array replacing {@code null} by an empty one.
 	 * @param array the {@code double} array or {@code null}
 	 * @return a non-{@code null} {@code double} array
 	 * @since 1.0.0
@@ -61,7 +61,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code double} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code double} array replacing {@code null} by a default one.
 	 * @param array the {@code double} array or {@code null}
 	 * @param defaultArray the default {@code double} array
 	 * @return a non-{@code null} {@code double} array
@@ -74,7 +74,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code double} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code double} array replacing an empty one by {@code null}.
 	 * @param array the {@code double} array or {@code null}
 	 * @return a non-empty {@code double} array or {@code null}
 	 * @since 1.0.0
@@ -84,7 +84,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code double} array replacing an empty one by a default {@code double} array.</p>
+	 * Wrap a {@code double} array replacing an empty one by a default {@code double} array.
 	 * @param array the {@code double} array or {@code null}
 	 * @param defaultArray the default {@code double} array or {@code null}
 	 * @return a non-empty {@code double} array or {@code null}
@@ -99,7 +99,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Add a {@code double} value at the end of the given {@code double} array.</p>
+	 * Add a {@code double} value at the end of the given {@code double} array.
 	 * @param array the {@code double} array to add to
 	 * @param value the {@code double} value to add
 	 * @return a {@code double} array with the added {@code double} value
@@ -112,7 +112,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Add a {@code double} value at the provided index of the given {@code double} array.</p>
+	 * Add a {@code double} value at the provided index of the given {@code double} array.
 	 * @param array the {@code double} array to add to
 	 * @param index the index of the {@code double} value
 	 * @param value the {@code double} value to add
@@ -128,7 +128,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Add a {@code double} value at the provided index of the given {@code double} array.</p>
+	 * Add a {@code double} value at the provided index of the given {@code double} array.
 	 * @param array the {@code double} array to add to
 	 * @param value the {@code double} value to add
 	 * @param index the index of the {@code double} value
@@ -152,7 +152,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code double} value at the provided index of the given {@code double} array.</p>
+	 * Remove a {@code double} value at the provided index of the given {@code double} array.
 	 * @param array the {@code double} array to remove from
 	 * @param index the index of the {@code double} value
 	 * @return a {@code double} array with the removed {@code double} value
@@ -174,7 +174,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code double} arrays.</p>
+	 * Concatenate multiple {@code double} arrays.
 	 * @param arrays {@code double} arrays to concatenate
 	 * @return the concatenated {@code double} array
 	 * @throws NullPointerException if {@code double} arrays or any of them is {@code null}
@@ -186,7 +186,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code double} arrays.</p>
+	 * Concatenate multiple {@code double} arrays.
 	 * @param arrays the {@code double} array {@link List} to concatenate
 	 * @return the concatenated {@code double} array
 	 * @throws NullPointerException if the {@code double} array {@link List} or any of them is {@code null}
@@ -211,7 +211,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code double} arrays using a {@code double} array separator.</p>
+	 * Join multiple {@code double} arrays using a {@code double} array separator.
 	 * @param separator the {@code double} array separator
 	 * @param arrays {@code double} arrays to join
 	 * @return the joined {@code double} array
@@ -225,7 +225,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code double} arrays using a {@code double} array separator.</p>
+	 * Join multiple {@code double} arrays using a {@code double} array separator.
 	 * @param separator the {@code double} array separator
 	 * @param arrays the {@code double} array {@link List} to join
 	 * @return the joined {@code double} array
@@ -262,7 +262,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code double} array contains any of given {@code double} values at least one.</p>
+	 * Tell if the {@code double} array contains any of given {@code double} values at least one.
 	 * @param array the {@code double} array to test
 	 * @param values {@code double} values to test
 	 * @return {@code true} if any of given {@code double} values is contained at least once by the {@code double} array
@@ -287,7 +287,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code double} array contains all of given {@code double} values at least one.</p>
+	 * Tell if the {@code double} array contains all of given {@code double} values at least one.
 	 * @param array the {@code double} array to test
 	 * @param values {@code double} values to test
 	 * @return {@code true} if all of given {@code double} values are contained at least once by the {@code double}
@@ -318,7 +318,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code double} array contains each given {@code double} value only once.</p>
+	 * Tell if the {@code double} array contains each given {@code double} value only once.
 	 * @param array the {@code double} array to test
 	 * @param values {@code double} values to test
 	 * @return {@code true} if each of given {@code double} values are contained only once by the {@code double} array
@@ -350,7 +350,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code double} array contains only given {@code double} values at least one.</p>
+	 * Tell if the {@code double} array contains only given {@code double} values at least one.
 	 * @param array the {@code double} array to test
 	 * @param values {@code double} values to test
 	 * @return {@code true} if given {@code double} values are only values contained by the {@code double} array
@@ -380,7 +380,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code double} value in the {@code double} array.</p>
+	 * Get the first index of the {@code double} value in the {@code double} array.
 	 * @param array the {@code double} array to iterate
 	 * @param value the {@code double} value to search
 	 * @return the first index of the {@code double} value if found, {@code -1} otherwise
@@ -392,7 +392,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code double} value in the {@code double} array starting from the given index.</p>
+	 * Get the first index of the {@code double} value in the {@code double} array starting from the given index.
 	 * @param array the {@code double} array to iterate
 	 * @param value the {@code double} value to search
 	 * @param fromIndex the starting index
@@ -415,7 +415,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code double} value in the {@code double} array.</p>
+	 * Get the last index of the {@code double} value in the {@code double} array.
 	 * @param array the {@code double} array to iterate
 	 * @param value the {@code double} value to search
 	 * @return the last index of the {@code double} value if found, {@code -1} otherwise
@@ -427,7 +427,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code double} value in the {@code double} array starting from the given index.</p>
+	 * Get the last index of the {@code double} value in the {@code double} array starting from the given index.
 	 * @param array the {@code double} array to iterate
 	 * @param value the {@code double} value to search
 	 * @param fromIndex the starting index
@@ -450,7 +450,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code double} value in the {@code double} array.</p>
+	 * Calculate the number of occurrences of the {@code double} value in the {@code double} array.
 	 * @param array the {@code double} array to iterate
 	 * @param value the {@code double} value of the frequency to calculate
 	 * @return the frequency of the {@code double} value
@@ -472,7 +472,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code double} array.</p>
+	 * Reverse values in the given {@code double} array.
 	 * @param array the {@code double} array to reverse
 	 * @throws NullPointerException if the {@code double} array is {@code null}
 	 * @since 1.2.0
@@ -487,7 +487,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code double} array using provided indexes.</p>
+	 * Reorder values in the given {@code double} array using provided indexes.
 	 * @param array the {@code double} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code double} array or the indexes array is {@code null}
@@ -515,7 +515,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code double} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code double} array following the Fisher-Yates algorithm.
 	 * @param array the {@code double} array to shuffle
 	 * @throws NullPointerException if the {@code double} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -529,8 +529,8 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code double} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code double} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code double} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code double} array or the {@code Random} object is {@code null}
@@ -548,7 +548,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code double} array using their indexes.</p>
+	 * Swap two values in the given {@code double} array using their indexes.
 	 * @param array the {@code double} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -568,7 +568,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code double} array is empty.</p>
+	 * Tell if a {@code double} array is empty.
 	 * @param array the {@code double} array to test
 	 * @return {@code true} if the {@code double} array is empty
 	 * @throws NullPointerException if the {@code double} array is {@code null}
@@ -580,7 +580,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Create a {@code double} array from a single {@code double} value.</p>
+	 * Create a {@code double} array from a single {@code double} value.
 	 * @param value the {@code double} value to convert
 	 * @return the created {@code double} array
 	 * @since 1.1.0
@@ -590,7 +590,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Create a {@code double} array from multiple {@code double} values.</p>
+	 * Create a {@code double} array from multiple {@code double} values.
 	 * @param values {@code double} values to convert
 	 * @return the created {@code double} array
 	 * @throws NullPointerException if the {@code double} values array is {@code null}
@@ -605,7 +605,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Create a {@code double} array from a boxed {@link Double} array.</p>
+	 * Create a {@code double} array from a boxed {@link Double} array.
 	 * @param boxedArray the boxed {@link Double} array to convert
 	 * @return the created {@code double} array
 	 * @throws NullPointerException if the boxed {@link Double} array is {@code null}
@@ -624,7 +624,7 @@ public final class DoubleArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code double} array to a boxed {@link Double} array.</p>
+	 * Convert a {@code double} array to a boxed {@link Double} array.
 	 * @param array the {@code double} array to convert
 	 * @return the created boxed {@link Double} array
 	 * @throws NullPointerException if the {@code double} array is {@code null}

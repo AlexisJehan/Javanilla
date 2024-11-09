@@ -29,7 +29,8 @@ import java.io.Serializable;
 import java.util.function.BiPredicate;
 
 /**
- * <p>Interface for a {@link BiPredicate} that is {@link Serializable}.</p>
+ * Interface for a {@link BiPredicate} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #test(Object, Object)}.</p>
  * @param <T> the type of the first argument to the predicate
@@ -42,8 +43,8 @@ import java.util.function.BiPredicate;
 public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiPredicate} that represents a short-circuiting logical AND of this
-	 * predicate and another.</p>
+	 * Returns a composed {@code SerializableBiPredicate} that represents a short-circuiting logical AND of this
+	 * predicate and another.
 	 * @param other a {@link BiPredicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code SerializableBiPredicate} that represents the short-circuiting logical AND of this
 	 *         predicate and the other predicate
@@ -57,7 +58,7 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	}
 
 	/**
-	 * <p>Returns a {@code SerializableBiPredicate} that represents the logical negation of this predicate.</p>
+	 * Returns a {@code SerializableBiPredicate} that represents the logical negation of this predicate.
 	 * @return a {@code SerializableBiPredicate} that represents the logical negation of this predicate
 	 * @since 1.4.0
 	 */
@@ -67,8 +68,8 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	}
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiPredicate} that represents a short-circuiting logical OR of this
-	 * predicate and another.</p>
+	 * Returns a composed {@code SerializableBiPredicate} that represents a short-circuiting logical OR of this
+	 * predicate and another.
 	 * @param other a {@link BiPredicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code SerializableBiPredicate} that represents the short-circuiting logical OR of this
 	 *         predicate and the other predicate
@@ -82,7 +83,7 @@ public interface SerializableBiPredicate<T, U> extends BiPredicate<T, U>, Serial
 	}
 
 	/**
-	 * <p>Create a {@code SerializableBiPredicate} from the given {@link BiPredicate}.</p>
+	 * Create a {@code SerializableBiPredicate} from the given {@link BiPredicate}.
 	 * @param biPredicate the {@link BiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate

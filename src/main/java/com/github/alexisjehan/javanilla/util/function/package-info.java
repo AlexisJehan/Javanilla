@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Extras {@link java.util.function} components.</p>
+ * Extras {@link java.util.function} components.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.function;

@@ -30,7 +30,8 @@ import internal.ExcludeFromJacocoGeneratedReport;
 import java.util.function.BiFunction;
 
 /**
- * <p>Interface for a {@link BiFunction} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link BiFunction} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #apply(Object, Object)}.</p>
  * @param <T> the type of the first argument to the function
@@ -43,7 +44,7 @@ import java.util.function.BiFunction;
 public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 
 	/**
-	 * <p>Applies this function to the given arguments.</p>
+	 * Applies this function to the given arguments.
 	 * @param t the first function argument
 	 * @param u the second function argument
 	 * @return the function result
@@ -53,8 +54,8 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	R apply(T t, U u) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableBiFunction} that first applies this function to its input, and then applies
-	 * the after function to the result.</p>
+	 * Returns a composed {@code ThrowableBiFunction} that first applies this function to its input, and then applies
+	 * the after function to the result.
 	 * @param after the {@link ThrowableFunction} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code ThrowableBiFunction} that first applies this function and then applies the after
@@ -68,8 +69,8 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiFunction} to a {@link BiFunction} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableBiFunction} to a {@link BiFunction} that may throw an unchecked
+	 * {@link Throwable}.
 	 * @param throwableBiFunction the {@code ThrowableBiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
@@ -91,8 +92,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiFunction} to a {@link BiFunction} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableBiFunction} to a {@link BiFunction} that may throw a sneaky {@link Throwable}.
 	 * @param throwableBiFunction the {@code ThrowableBiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function
@@ -123,7 +123,7 @@ public interface ThrowableBiFunction<T, U, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiFunction} from the given {@link BiFunction}.</p>
+	 * Create a {@code ThrowableBiFunction} from the given {@link BiFunction}.
 	 * @param biFunction the {@link BiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function

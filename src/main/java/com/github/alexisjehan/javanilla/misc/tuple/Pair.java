@@ -27,7 +27,8 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * <p>A {@link Pair} is an immutable tuple that is composed of two elements.</p>
+ * A {@link Pair} is an immutable tuple that is composed of two elements.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <F> the type of the first element
@@ -37,19 +38,19 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 public final class Pair<F, S> {
 
 	/**
-	 * <p>First element.</p>
+	 * First element.
 	 * @since 1.8.0
 	 */
 	private final F first;
 
 	/**
-	 * <p>Second element.</p>
+	 * Second element.
 	 * @since 1.8.0
 	 */
 	private final S second;
 
 	/**
-	 * <p>Standard constructor.</p>
+	 * Standard constructor.
 	 * @param first the first element or {@code null}
 	 * @param second the second element or {@code null}
 	 * @since 1.8.0
@@ -95,7 +96,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Get the first element of the {@code Pair}.</p>
+	 * Get the first element of the {@code Pair}.
 	 * @return the first element
 	 * @since 1.8.0
 	 */
@@ -104,7 +105,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Get the second element of the {@code Pair}.</p>
+	 * Get the second element of the {@code Pair}.
 	 * @return the second element
 	 * @since 1.8.0
 	 */
@@ -113,7 +114,7 @@ public final class Pair<F, S> {
 	}
 
 	/**
-	 * <p>Handy constructor.</p>
+	 * Handy constructor.
 	 * @param first the first element or {@code null}
 	 * @param second the second element or {@code null}
 	 * @param <F> the type of the first element

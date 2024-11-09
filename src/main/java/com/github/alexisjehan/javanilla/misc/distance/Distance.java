@@ -26,7 +26,8 @@ package com.github.alexisjehan.javanilla.misc.distance;
 import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 
 /**
- * <p>Interface for distance/heuristic/similarity functions that work on {@code double} vectors.</p>
+ * Interface for distance/heuristic/similarity functions that work on {@code double} vectors.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #calculate(double[], double[])}.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Similarity_measure">https://en.wikipedia.org/wiki/Similarity_measure</a>
@@ -36,7 +37,7 @@ import com.github.alexisjehan.javanilla.lang.array.DoubleArrays;
 public interface Distance {
 
 	/**
-	 * <p>Calculate a distance between unidimensional {@code double} vectors.</p>
+	 * Calculate a distance between unidimensional {@code double} vectors.
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param x2 the {@code x} coordinate of the second vector
 	 * @return the calculated distance
@@ -47,7 +48,7 @@ public interface Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between two-dimensional {@code double} vectors.</p>
+	 * Calculate a distance between two-dimensional {@code double} vectors.
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param y1 the {@code y} coordinate of the first vector
 	 * @param x2 the {@code x} coordinate of the second vector
@@ -60,7 +61,7 @@ public interface Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between three-dimensional {@code double} vectors.</p>
+	 * Calculate a distance between three-dimensional {@code double} vectors.
 	 * @param x1 the {@code x} coordinate of the first vector
 	 * @param y1 the {@code y} coordinate of the first vector
 	 * @param z1 the {@code z} coordinate of the first vector
@@ -75,7 +76,7 @@ public interface Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between both {@code double} vectors.</p>
+	 * Calculate a distance between both {@code double} vectors.
 	 * @param vector1 the first vector
 	 * @param vector2 the second vector
 	 * @return the calculated distance

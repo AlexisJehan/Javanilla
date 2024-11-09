@@ -22,8 +22,8 @@
  * SOFTWARE.
  */
 /**
- * <p>New quality tools for arguments validation and custom {@link java.lang.Object#equals(java.lang.Object)},
- * {@link java.lang.Object#hashCode()} and {@link java.lang.Object#toString()} implementations.</p>
+ * New quality tools for arguments validation and custom {@link java.lang.Object#equals(java.lang.Object)},
+ * {@link java.lang.Object#hashCode()} and {@link java.lang.Object#toString()} implementations.
  * @since 1.3.0
  */
 package com.github.alexisjehan.javanilla.misc.quality;

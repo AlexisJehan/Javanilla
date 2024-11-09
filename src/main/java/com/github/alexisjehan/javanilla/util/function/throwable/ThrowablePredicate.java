@@ -31,7 +31,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * <p>Interface for a {@link Predicate} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link Predicate} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #test(Object)}.</p>
  * @param <T> the type of the input to the predicate
  * @param <X> the type of the {@link Throwable}
@@ -43,7 +44,7 @@ import java.util.function.Predicate;
 public interface ThrowablePredicate<T, X extends Throwable> {
 
 	/**
-	 * <p>Evaluates this predicate on the given argument.</p>
+	 * Evaluates this predicate on the given argument.
 	 * @param t the input argument
 	 * @return {@code true} if the input argument matches the predicate, otherwise {@code false}
 	 * @throws X may throw a {@link Throwable}
@@ -52,8 +53,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	boolean test(T t) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowablePredicate} that represents a short-circuiting logical AND of this predicate
-	 * and another.</p>
+	 * Returns a composed {@code ThrowablePredicate} that represents a short-circuiting logical AND of this predicate
+	 * and another.
 	 * @param other a {@code ThrowablePredicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code ThrowablePredicate} that represents the short-circuiting logical AND of this predicate
 	 *         and the other predicate
@@ -66,7 +67,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@code ThrowablePredicate} that represents the logical negation of this predicate.</p>
+	 * Returns a {@code ThrowablePredicate} that represents the logical negation of this predicate.
 	 * @return a {@code ThrowablePredicate} that represents the logical negation of this predicate
 	 * @since 1.0.0
 	 */
@@ -75,8 +76,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a composed {@code ThrowablePredicate} that represents a short-circuiting logical OR of this predicate
-	 * and another.</p>
+	 * Returns a composed {@code ThrowablePredicate} that represents a short-circuiting logical OR of this predicate and
+	 * another.
 	 * @param other a {@code ThrowablePredicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code ThrowablePredicate} that represents the short-circuiting logical OR of this predicate
 	 *         and the other predicate
@@ -89,8 +90,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@code ThrowablePredicate} that tests if two arguments are equal according to
-	 * {@link Objects#equals(Object, Object)}.</p>
+	 * Returns a {@code ThrowablePredicate} that tests if two arguments are equal according to
+	 * {@link Objects#equals(Object, Object)}.
 	 * @param <T> the type of arguments to the predicate
 	 * @param targetRef the object reference with which to compare for equality, which may be {@code null}
 	 * @return a {@code ThrowablePredicate} that tests if two arguments are equal according to
@@ -104,8 +105,8 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowablePredicate} to a {@link Predicate} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowablePredicate} to a {@link Predicate} that may throw an unchecked
+	 * {@link Throwable}.
 	 * @param throwablePredicate the {@code ThrowablePredicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@link Throwable}
@@ -125,8 +126,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowablePredicate} to a {@link Predicate} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowablePredicate} to a {@link Predicate} that may throw a sneaky {@link Throwable}.
 	 * @param throwablePredicate the {@code ThrowablePredicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@link Throwable}
@@ -155,7 +155,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowablePredicate} from the given {@link Predicate}.</p>
+	 * Create a {@code ThrowablePredicate} from the given {@link Predicate}.
 	 * @param predicate the {@link Predicate} to convert
 	 * @param <T> the type of the input to the predicate
 	 * @param <X> the type of the {@link Throwable}

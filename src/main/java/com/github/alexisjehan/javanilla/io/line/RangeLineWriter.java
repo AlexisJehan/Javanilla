@@ -28,31 +28,31 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.io.IOException;
 
 /**
- * <p>A {@link LineWriter} decorator that writes only lines within a range from the current position.</p>
+ * A {@link LineWriter} decorator that writes only lines within a range from the current position.
  * @since 1.8.0
  */
 public final class RangeLineWriter extends FilterLineWriter {
 
 	/**
-	 * <p>Inclusive index of the first line to write.</p>
+	 * Inclusive index of the first line to write.
 	 * @since 1.8.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last line to write.</p>
+	 * Inclusive index of the last line to write.
 	 * @since 1.8.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.8.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Constructor with a {@link LineWriter} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with a {@link LineWriter} to decorate and a range from an inclusive index to another one.
 	 * @param lineWriter the {@link LineWriter} to decorate
 	 * @param fromIndex the inclusive index of the first line to write
 	 * @param toIndex the inclusive index of the last line to write
@@ -91,7 +91,7 @@ public final class RangeLineWriter extends FilterLineWriter {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first line to write.</p>
+	 * Get the inclusive index of the first line to write.
 	 * @return the inclusive starting index
 	 * @since 1.8.0
 	 */
@@ -100,7 +100,7 @@ public final class RangeLineWriter extends FilterLineWriter {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last line to write.</p>
+	 * Get the inclusive index of the last line to write.
 	 * @return the inclusive ending index
 	 * @since 1.8.0
 	 */

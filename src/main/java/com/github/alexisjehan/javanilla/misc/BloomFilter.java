@@ -33,8 +33,10 @@ import java.util.function.ToIntFunction;
 import java.util.zip.Checksum;
 
 /**
- * <p>A Bloom Filter implementation to test if an element might be in a set or if it does absolutely not.</p>
- * <p>Some static functions are also available to calculate the false positive rate and optimal parameters.</p>
+ * A Bloom Filter implementation to test if an element might be in a set or if it does absolutely not.
+ *
+ * <p><b>Note</b>: Some static functions are also available to calculate the false positive rate and optimal
+ * parameters.</p>
  * @param <E> the element type
  * @see <a href="https://en.wikipedia.org/wiki/Bloom_filter">https://en.wikipedia.org/wiki/Bloom_filter</a>
  * @since 1.2.0
@@ -42,25 +44,25 @@ import java.util.zip.Checksum;
 public final class BloomFilter<E> {
 
 	/**
-	 * <p>Fixed-length of the bit set.</p>
+	 * Fixed-length of the bit set.
 	 * @since 1.2.0
 	 */
 	private final int length;
 
 	/**
-	 * <p>Hash functions to transform a value to an {@code int} hash.</p>
+	 * Hash functions to transform a value to an {@code int} hash.
 	 * @since 1.2.0
 	 */
 	private final ToIntFunction<E>[] hashFunctions;
 
 	/**
-	 * <p>Delegated bit set.</p>
+	 * Delegated bit set.
 	 * @since 1.2.0
 	 */
 	private final BitSet bits;
 
 	/**
-	 * <p>Constructor with a length and multiple {@link Checksum} hash functions.</p>
+	 * Constructor with a length and multiple {@link Checksum} hash functions.
 	 * @param length the length of the Bloom Filter
 	 * @param hashFunctions the {@link Checksum} hash functions array used by the Bloom Filter
 	 * @throws NullPointerException if the {@link Checksum} hash functions array or any of them is {@code null}
@@ -82,8 +84,8 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Constructor with a length and multiple {@link IntUnaryOperator} hash functions, working with
-	 * {@link Object#hashCode()}.</p>
+	 * Constructor with a length and multiple {@link IntUnaryOperator} hash functions, working with
+	 * {@link Object#hashCode()}.
 	 * @param length the length of the Bloom Filter
 	 * @param hashFunctions the {@link IntUnaryOperator} hash functions array used by the Bloom Filter
 	 * @throws NullPointerException if the {@link IntUnaryOperator} hash functions array or any of them is {@code null}
@@ -102,7 +104,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Constructor with a length and multiple {@link ToIntFunction} hash functions.</p>
+	 * Constructor with a length and multiple {@link ToIntFunction} hash functions.
 	 * @param length the length of the Bloom Filter
 	 * @param hashFunctions the {@link ToIntFunction} hash functions array used by the Bloom Filter
 	 * @throws NullPointerException if the {@link ToIntFunction} hash functions array or any of them is {@code null}
@@ -122,7 +124,8 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Add an element to the Bloom Filter.</p>
+	 * Add an element to the Bloom Filter.
+	 *
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of hash functions implementations.</p>
 	 * @param element the element to add to the Bloom Filter
 	 * @since 1.2.0
@@ -134,7 +137,8 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Test if an element might be contained by the Bloom Filter or absolutely not.</p>
+	 * Test if an element might be contained by the Bloom Filter or absolutely not.
+	 *
 	 * <p><b>Note</b>: A {@code null} element may be restricted depending of hash functions implementations.</p>
 	 * @param element the element to test
 	 * @return {@code true} if the element might be contained by the Bloom Filter
@@ -150,7 +154,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Clear the Bloom Filter by setting all bits back to {@code 0}.</p>
+	 * Clear the Bloom Filter by setting all bits back to {@code 0}.
 	 * @since 1.2.0
 	 */
 	public void clear() {
@@ -158,7 +162,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Get the length of the Bloom Filter.</p>
+	 * Get the length of the Bloom Filter.
 	 * @return the length
 	 * @since 1.2.0
 	 */
@@ -167,7 +171,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Get the number of hash functions used by the Bloom Filter.</p>
+	 * Get the number of hash functions used by the Bloom Filter.
 	 * @return the number of hash functions
 	 * @since 1.2.0
 	 */
@@ -176,7 +180,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Calculate the false positive rate (p).</p>
+	 * Calculate the false positive rate (p).
 	 * @param length the length of the Bloom Filter
 	 * @param numberOfHashFunctions the number of hash functions used by the Bloom Filter
 	 * @param expectedNumberOfElements the expected number of elements to be added
@@ -193,7 +197,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Calculate the optimal length of the Bloom Filter (m).</p>
+	 * Calculate the optimal length of the Bloom Filter (m).
 	 * @param expectedNumberOfElements the expected number of elements to be added
 	 * @param acceptableFalsePositiveRate the acceptable false positive rate (between {@code 0} and {@code 1})
 	 * @return the optimal length (m)
@@ -208,7 +212,7 @@ public final class BloomFilter<E> {
 	}
 
 	/**
-	 * <p>Calculate the optimal number of hash functions used by the Bloom Filter (k).</p>
+	 * Calculate the optimal number of hash functions used by the Bloom Filter (k).
 	 * @param length the length of the Bloom Filter
 	 * @param expectedNumberOfElements the expected number of elements to be added
 	 * @return the optimal number of hash functions (k)

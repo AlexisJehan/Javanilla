@@ -27,7 +27,7 @@ import javax.net.ssl.TrustManagerFactory;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link TrustManagerFactory} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link TrustManagerFactory} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/net/ssl/TrustManagerFactory.html">https://docs.oracle.com/javase/10/docs/api/javax/net/ssl/TrustManagerFactory.html</a>
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.net.ssl.StandardTrustManagerFactories} instead
  * @since 1.6.0
@@ -36,13 +36,13 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardTrustManagerFactories {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardTrustManagerFactories() {}
 
 	/**
-	 * <p>Get a new "PKIX" {@link TrustManagerFactory} instance.</p>
+	 * Get a new "PKIX" {@link TrustManagerFactory} instance.
 	 * @return a "PKIX" {@link TrustManagerFactory} instance
 	 * @since 1.6.0
 	 */
@@ -51,7 +51,7 @@ public final class StandardTrustManagerFactories {
 	}
 
 	/**
-	 * <p>Get a new {@link TrustManagerFactory} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link TrustManagerFactory} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link TrustManagerFactory} algorithm
 	 * @return a {@link TrustManagerFactory} instance of the provided algorithm
 	 * @since 1.6.0

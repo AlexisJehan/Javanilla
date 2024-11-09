@@ -32,14 +32,15 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * <p>Enumeration to create or convert case stylized {@link String}s, usually used for naming conventions.</p>
+ * Enumeration to create or convert case stylized {@link String}s, usually used for naming conventions.
  * @see <a href="https://en.wikipedia.org/wiki/Letter_case#Special_case_styles">https://en.wikipedia.org/wiki/Letter_case#Special_case_styles</a>
  * @since 1.5.0
  */
 public enum CaseStyle {
 
 	/**
-	 * <p>The camel case (aka. lower camel case) style.</p>
+	 * The camel case (aka. lower camel case) style.
+	 *
 	 * <p>Example: {@code fooBar}</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Camel_case">https://en.wikipedia.org/wiki/Camel_case</a>
 	 * @since 1.5.0
@@ -69,7 +70,8 @@ public enum CaseStyle {
 	},
 
 	/**
-	 * <p>The Pascal case (aka. upper camel case) style.</p>
+	 * The Pascal case (aka. upper camel case) style.
+	 *
 	 * <p>Example: {@code FooBar}</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Pascal_case">https://en.wikipedia.org/wiki/Pascal_case</a>
 	 * @since 1.5.0
@@ -96,7 +98,8 @@ public enum CaseStyle {
 	},
 
 	/**
-	 * <p>The snake case (aka. pothole case) style.</p>
+	 * The snake case (aka. pothole case) style.
+	 *
 	 * <p>Example: {@code foo_bar}</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Snake_case">https://en.wikipedia.org/wiki/Snake_case</a>
 	 * @since 1.5.0
@@ -120,7 +123,8 @@ public enum CaseStyle {
 	},
 
 	/**
-	 * <p>The macro case (aka. screaming snake case) style.</p>
+	 * The macro case (aka. screaming snake case) style.
+	 *
 	 * <p>Example: {@code FOO_BAR}</p>
 	 * @since 1.5.0
 	 */
@@ -143,7 +147,8 @@ public enum CaseStyle {
 	},
 
 	/**
-	 * <p>The kebab case (aka. spinal case, param case, Lisp case or dash case) style.</p>
+	 * The kebab case (aka. spinal case, param case, Lisp case or dash case) style.
+	 *
 	 * <p>Example: {@code foo-bar}</p>
 	 * @see <a href="https://en.wikipedia.org/wiki/Kebab_case">https://en.wikipedia.org/wiki/Kebab_case</a>
 	 * @since 1.5.0
@@ -167,7 +172,8 @@ public enum CaseStyle {
 	},
 
 	/**
-	 * <p>The Cobol case (aka. train case) style.</p>
+	 * The Cobol case (aka. train case) style.
+	 *
 	 * <p>Example: {@code FOO-BAR}</p>
 	 * @since 1.5.0
 	 */
@@ -190,7 +196,7 @@ public enum CaseStyle {
 	};
 
 	/**
-	 * <p>Create a stylized {@link String} from the given {@link CharSequence} using the current case style.</p>
+	 * Create a stylized {@link String} from the given {@link CharSequence} using the current case style.
 	 * @param charSequence the {@link CharSequence} to convert
 	 * @return a stylized {@link String}
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -206,8 +212,8 @@ public enum CaseStyle {
 	}
 
 	/**
-	 * <p>Create a stylized {@link String} from the given already stylized {@link CharSequence} using the current case
-	 * style.</p>
+	 * Create a stylized {@link String} from the given already stylized {@link CharSequence} using the current case
+	 * style.
 	 * @param charSequence the stylized {@link CharSequence} to convert
 	 * @param caseStyle the {@code CaseStyle} of the given {@link CharSequence}
 	 * @return a stylized {@link String}
@@ -225,7 +231,7 @@ public enum CaseStyle {
 	}
 
 	/**
-	 * <p>Create a stylized {@link String} from the given {@link List} of tokens.</p>
+	 * Create a stylized {@link String} from the given {@link List} of tokens.
 	 * @param tokens the {@link List} of tokens
 	 * @return a stylized {@link String}
 	 * @since 1.5.0
@@ -233,7 +239,7 @@ public enum CaseStyle {
 	protected abstract String of(List<String> tokens);
 
 	/**
-	 * <p>Tokenize the given {@link CharSequence} using the current case style.</p>
+	 * Tokenize the given {@link CharSequence} using the current case style.
 	 * @param charSequence the {@link CharSequence} to tokenize
 	 * @return a {@link List} of tokens from the {@link CharSequence}
 	 * @since 1.5.0
@@ -241,7 +247,7 @@ public enum CaseStyle {
 	protected abstract List<String> tokenize(CharSequence charSequence);
 
 	/**
-	 * <p>Tokenize the given {@link CharSequence} using a delimiter {@link Predicate}.</p>
+	 * Tokenize the given {@link CharSequence} using a delimiter {@link Predicate}.
 	 * @param charSequence the {@link CharSequence} to tokenize
 	 * @param delimiterPredicate the delimiter {@link Predicate}
 	 * @param exclude {@code true} if the current delimiter should be excluded from the next token

@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.io.IOException;
 
 /**
- * <p>An abstract {@link LineReader} filter to create decorators.</p>
+ * An abstract {@link LineReader} filter to create decorators.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.FilterLineReader} instead
  * @since 1.0.0
  */
@@ -36,13 +36,13 @@ import java.io.IOException;
 public abstract class FilterLineReader extends LineReader {
 
 	/**
-	 * <p>Delegated {@link LineReader}.</p>
+	 * Delegated {@link LineReader}.
 	 * @since 1.0.0
 	 */
 	protected final LineReader lineReader;
 
 	/**
-	 * <p>Constructor with a {@link LineReader} to decorate.</p>
+	 * Constructor with a {@link LineReader} to decorate.
 	 * @param lineReader the {@link LineReader} to decorate
 	 * @throws NullPointerException if the {@link LineReader} is {@code null}
 	 * @since 1.0.0

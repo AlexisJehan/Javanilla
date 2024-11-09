@@ -35,37 +35,37 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code byte} array tools.</p>
+ * A utility class that provides {@code byte} array tools.
  * @since 1.0.0
  */
 public final class ByteArrays {
 
 	/**
-	 * <p>An empty {@code byte} array.</p>
+	 * An empty {@code byte} array.
 	 * @since 1.0.0
 	 */
 	public static final byte[] EMPTY = {};
 
 	/**
-	 * <p>{@code char} array used for binary, octal, decimal and hexadecimal {@link String} conversion.</p>
+	 * {@code char} array used for binary, octal, decimal and hexadecimal {@link String} conversion.
 	 * @since 1.7.0
 	 */
 	private static final char[] BASE_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
 	/**
-	 * <p>Default value for using spacing or not.</p>
+	 * Default value for using spacing or not.
 	 * @since 1.7.0
 	 */
 	private static final boolean DEFAULT_WITH_SPACING = false;
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private ByteArrays() {}
 
 	/**
-	 * <p>Wrap a {@code byte} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code byte} array replacing {@code null} by an empty one.
 	 * @param array the {@code byte} array or {@code null}
 	 * @return a non-{@code null} {@code byte} array
 	 * @since 1.0.0
@@ -75,7 +75,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code byte} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code byte} array replacing {@code null} by a default one.
 	 * @param array the {@code byte} array or {@code null}
 	 * @param defaultArray the default {@code byte} array
 	 * @return a non-{@code null} {@code byte} array
@@ -88,7 +88,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code byte} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code byte} array replacing an empty one by {@code null}.
 	 * @param array the {@code byte} array or {@code null}
 	 * @return a non-empty {@code byte} array or {@code null}
 	 * @since 1.0.0
@@ -98,7 +98,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code byte} array replacing an empty one by a default {@code byte} array.</p>
+	 * Wrap a {@code byte} array replacing an empty one by a default {@code byte} array.
 	 * @param array the {@code byte} array or {@code null}
 	 * @param defaultArray the default {@code byte} array or {@code null}
 	 * @return a non-empty {@code byte} array or {@code null}
@@ -113,7 +113,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Add a {@code byte} value at the end of the given {@code byte} array.</p>
+	 * Add a {@code byte} value at the end of the given {@code byte} array.
 	 * @param array the {@code byte} array to add to
 	 * @param value the {@code byte} value to add
 	 * @return a {@code byte} array with the added {@code byte} value
@@ -126,7 +126,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Add a {@code byte} value at the provided index of the given {@code byte} array.</p>
+	 * Add a {@code byte} value at the provided index of the given {@code byte} array.
 	 * @param array the {@code byte} array to add to
 	 * @param index the index of the {@code byte} value
 	 * @param value the {@code byte} value to add
@@ -142,7 +142,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Add a {@code byte} value at the provided index of the given {@code byte} array.</p>
+	 * Add a {@code byte} value at the provided index of the given {@code byte} array.
 	 * @param array the {@code byte} array to add to
 	 * @param value the {@code byte} value to add
 	 * @param index the index of the {@code byte} value
@@ -166,7 +166,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code byte} value at the provided index of the given {@code byte} array.</p>
+	 * Remove a {@code byte} value at the provided index of the given {@code byte} array.
 	 * @param array the {@code byte} array to remove from
 	 * @param index the index of the {@code byte} value
 	 * @return a {@code byte} array with the removed {@code byte} value
@@ -188,7 +188,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code byte} arrays.</p>
+	 * Concatenate multiple {@code byte} arrays.
 	 * @param arrays {@code byte} arrays to concatenate
 	 * @return the concatenated {@code byte} array
 	 * @throws NullPointerException if {@code byte} arrays or any of them is {@code null}
@@ -200,7 +200,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code byte} arrays.</p>
+	 * Concatenate multiple {@code byte} arrays.
 	 * @param arrays the {@code byte} array {@link List} to concatenate
 	 * @return the concatenated {@code byte} array
 	 * @throws NullPointerException if the {@code byte} array {@link List} or any of them is {@code null}
@@ -225,7 +225,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
+	 * Join multiple {@code byte} arrays using a {@code byte} array separator.
 	 * @param separator the {@code byte} array separator
 	 * @param arrays {@code byte} arrays to join
 	 * @return the joined {@code byte} array
@@ -239,7 +239,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code byte} arrays using a {@code byte} array separator.</p>
+	 * Join multiple {@code byte} arrays using a {@code byte} array separator.
 	 * @param separator the {@code byte} array separator
 	 * @param arrays the {@code byte} array {@link List} to join
 	 * @return the joined {@code byte} array
@@ -276,7 +276,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code byte} array contains any of given {@code byte} values at least one.</p>
+	 * Tell if the {@code byte} array contains any of given {@code byte} values at least one.
 	 * @param array the {@code byte} array to test
 	 * @param values {@code byte} values to test
 	 * @return {@code true} if any of given {@code byte} values is contained at least once by the {@code byte} array
@@ -301,7 +301,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code byte} array contains all of given {@code byte} values at least one.</p>
+	 * Tell if the {@code byte} array contains all of given {@code byte} values at least one.
 	 * @param array the {@code byte} array to test
 	 * @param values {@code byte} values to test
 	 * @return {@code true} if all of given {@code byte} values are contained at least once by the {@code byte} array
@@ -331,7 +331,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code byte} array contains each given {@code byte} value only once.</p>
+	 * Tell if the {@code byte} array contains each given {@code byte} value only once.
 	 * @param array the {@code byte} array to test
 	 * @param values {@code byte} values to test
 	 * @return {@code true} if each of given {@code byte} values are contained only once by the {@code byte} array
@@ -363,7 +363,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code byte} array contains only given {@code byte} values at least one.</p>
+	 * Tell if the {@code byte} array contains only given {@code byte} values at least one.
 	 * @param array the {@code byte} array to test
 	 * @param values {@code byte} values to test
 	 * @return {@code true} if given {@code byte} values are only values contained by the {@code byte} array
@@ -393,7 +393,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code byte} value in the {@code byte} array.</p>
+	 * Get the first index of the {@code byte} value in the {@code byte} array.
 	 * @param array the {@code byte} array to iterate
 	 * @param value the {@code byte} value to search
 	 * @return the first index of the {@code byte} value if found, {@code -1} otherwise
@@ -405,7 +405,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code byte} value in the {@code byte} array starting from the given index.</p>
+	 * Get the first index of the {@code byte} value in the {@code byte} array starting from the given index.
 	 * @param array the {@code byte} array to iterate
 	 * @param value the {@code byte} value to search
 	 * @param fromIndex the starting index
@@ -428,7 +428,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code byte} value in the {@code byte} array.</p>
+	 * Get the last index of the {@code byte} value in the {@code byte} array.
 	 * @param array the {@code byte} array to iterate
 	 * @param value the {@code byte} value to search
 	 * @return the last index of the {@code byte} value if found, {@code -1} otherwise
@@ -440,7 +440,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code byte} value in the {@code byte} array starting from the given index.</p>
+	 * Get the last index of the {@code byte} value in the {@code byte} array starting from the given index.
 	 * @param array the {@code byte} array to iterate
 	 * @param value the {@code byte} value to search
 	 * @param fromIndex the starting index
@@ -463,7 +463,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code byte} value in the {@code byte} array.</p>
+	 * Calculate the number of occurrences of the {@code byte} value in the {@code byte} array.
 	 * @param array the {@code byte} array to iterate
 	 * @param value the {@code byte} value of the frequency to calculate
 	 * @return the frequency of the {@code byte} value
@@ -485,7 +485,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code byte} array.</p>
+	 * Reverse values in the given {@code byte} array.
 	 * @param array the {@code byte} array to reverse
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @since 1.2.0
@@ -500,7 +500,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code byte} array using provided indexes.</p>
+	 * Reorder values in the given {@code byte} array using provided indexes.
 	 * @param array the {@code byte} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code byte} array or the indexes array is {@code null}
@@ -528,7 +528,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code byte} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code byte} array following the Fisher-Yates algorithm.
 	 * @param array the {@code byte} array to shuffle
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -542,8 +542,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code byte} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code byte} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code byte} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code byte} array or the {@code Random} object is {@code null}
@@ -561,7 +561,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code byte} array using their indexes.</p>
+	 * Swap two values in the given {@code byte} array using their indexes.
 	 * @param array the {@code byte} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -581,7 +581,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code byte} array is empty.</p>
+	 * Tell if a {@code byte} array is empty.
 	 * @param array the {@code byte} array to test
 	 * @return {@code true} if the {@code byte} array is empty
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -593,7 +593,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a single {@code byte} value.</p>
+	 * Create a {@code byte} array from a single {@code byte} value.
 	 * @param value the {@code byte} value to convert
 	 * @return the created {@code byte} array
 	 * @since 1.1.0
@@ -603,7 +603,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from multiple {@code byte} values.</p>
+	 * Create a {@code byte} array from multiple {@code byte} values.
 	 * @param values {@code byte} values to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the {@code byte} values array is {@code null}
@@ -618,7 +618,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a boxed {@link Byte} array.</p>
+	 * Create a {@code byte} array from a boxed {@link Byte} array.
 	 * @param boxedArray the boxed {@link Byte} array to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the boxed {@link Byte} array is {@code null}
@@ -637,7 +637,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code boolean}.</p>
+	 * Create a {@code byte} array from a {@code boolean}.
 	 * @param b the {@code boolean} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -647,7 +647,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.
 	 * @param s the {@code short} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -657,7 +657,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.
 	 * @param s the {@code short} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -680,7 +680,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.
 	 * @param c the {@code char} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -690,7 +690,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.
 	 * @param c the {@code char} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -713,7 +713,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.
 	 * @param i the {@code int} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -723,7 +723,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.
 	 * @param i the {@code int} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -750,7 +750,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.
 	 * @param l the {@code long} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -760,7 +760,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.
 	 * @param l the {@code long} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -795,7 +795,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.
 	 * @param f the {@code float} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -805,7 +805,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.
 	 * @param f the {@code float} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -817,7 +817,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.
 	 * @param d the {@code double} to convert
 	 * @return the created {@code byte} array
 	 * @since 1.6.0
@@ -827,7 +827,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.
 	 * @param d the {@code double} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -839,7 +839,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code boolean}.</p>
+	 * Create a {@code byte} array from a {@code boolean}.
 	 * @param b the {@code boolean} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(boolean)} instead
@@ -851,7 +851,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code short} using {@link ByteOrder#nativeOrder()}.
 	 * @param s the {@code short} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(short)} instead
@@ -863,7 +863,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code short} using a custom {@link ByteOrder}.
 	 * @param s the {@code short} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -877,7 +877,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code char} using {@link ByteOrder#nativeOrder()}.
 	 * @param c the {@code char} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(char)} instead
@@ -889,7 +889,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code char} using a custom {@link ByteOrder}.
 	 * @param c the {@code char} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -903,7 +903,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from an {@code int} using {@link ByteOrder#nativeOrder()}.
 	 * @param i the {@code int} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(int)} instead
@@ -915,7 +915,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from an {@code int} using a custom {@link ByteOrder}.
 	 * @param i the {@code int} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -929,7 +929,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code long} using {@link ByteOrder#nativeOrder()}.
 	 * @param l the {@code long} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(long)} instead
@@ -941,7 +941,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code long} using a custom {@link ByteOrder}.
 	 * @param l the {@code long} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -955,7 +955,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code float} using {@link ByteOrder#nativeOrder()}.
 	 * @param f the {@code float} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(float)} instead
@@ -967,7 +967,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code float} using a custom {@link ByteOrder}.
 	 * @param f the {@code float} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -981,7 +981,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.</p>
+	 * Create a {@code byte} array from a {@code double} using {@link ByteOrder#nativeOrder()}.
 	 * @param d the {@code double} to convert
 	 * @return the created {@code byte} array
 	 * @deprecated since 1.6.0, use {@link #of(double)} instead
@@ -993,7 +993,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.</p>
+	 * Create a {@code byte} array from a {@code double} using a custom {@link ByteOrder}.
 	 * @param d the {@code double} to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the created {@code byte} array
@@ -1007,7 +1007,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a binary {@link CharSequence}.</p>
+	 * Create a {@code byte} array from a binary {@link CharSequence}.
 	 * @param binaryCharSequence the binary {@link CharSequence} to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the binary {@link CharSequence} is {@code null}
@@ -1020,7 +1020,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a binary {@link CharSequence} with spacing or not.</p>
+	 * Create a {@code byte} array from a binary {@link CharSequence} with spacing or not.
 	 * @param binaryCharSequence the binary {@link CharSequence} to convert
 	 * @param withSpacing {@code true} if the binary {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
@@ -1056,7 +1056,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an octal {@link CharSequence}.</p>
+	 * Create a {@code byte} array from an octal {@link CharSequence}.
 	 * @param octalCharSequence the octal {@link CharSequence} to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the octal {@link CharSequence} is {@code null}
@@ -1069,7 +1069,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from an octal {@link CharSequence} with spacing or not.</p>
+	 * Create a {@code byte} array from an octal {@link CharSequence} with spacing or not.
 	 * @param octalCharSequence the octal {@link CharSequence} to convert
 	 * @param withSpacing {@code true} if the octal {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
@@ -1105,7 +1105,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a decimal {@link CharSequence}.</p>
+	 * Create a {@code byte} array from a decimal {@link CharSequence}.
 	 * @param decimalCharSequence the decimal {@link CharSequence} to convert
 	 * @return the created {@code byte} array
 	 * @throws NullPointerException if the decimal {@link CharSequence} is {@code null}
@@ -1118,7 +1118,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a decimal {@link CharSequence} with spacing or not.</p>
+	 * Create a {@code byte} array from a decimal {@link CharSequence} with spacing or not.
 	 * @param decimalCharSequence the decimal {@link CharSequence} to convert
 	 * @param withSpacing {@code true} if the decimal {@link CharSequence} value has spacing
 	 * @return the created {@code byte} array
@@ -1154,7 +1154,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence}.</p>
+	 * Create a {@code byte} array from a hexadecimal {@link CharSequence}.
+	 *
 	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
 	 * @return the created {@code byte} array
@@ -1168,7 +1169,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Create a {@code byte} array from a hexadecimal {@link CharSequence} with spacing or not.</p>
+	 * Create a {@code byte} array from a hexadecimal {@link CharSequence} with spacing or not.
+	 *
 	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param hexadecimalCharSequence the hexadecimal {@link CharSequence} to convert
 	 * @param withSpacing {@code true} if the hexadecimal {@link CharSequence} value has spacing
@@ -1205,7 +1207,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a boxed {@link Byte} array.</p>
+	 * Convert a {@code byte} array to a boxed {@link Byte} array.
 	 * @param array the {@code byte} array to convert
 	 * @return the created boxed {@link Byte} array
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1222,7 +1224,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code boolean} value.</p>
+	 * Convert a {@code byte} array back to a {@code boolean} value.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code boolean} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1236,8 +1238,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code short} value using {@link ByteOrder#nativeOrder()}
-	 * {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code short} value using {@link ByteOrder#nativeOrder()}
+	 * {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code short} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1249,7 +1251,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code short} value using the given {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code short} value using the given {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code short} value
@@ -1269,8 +1271,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code char} value using {@link ByteOrder#nativeOrder()}
-	 * {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code char} value using {@link ByteOrder#nativeOrder()}
+	 * {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code char} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1282,7 +1284,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code char} value using the given {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code char} value using the given {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code char} value
@@ -1302,8 +1304,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to an {@code int} value using {@link ByteOrder#nativeOrder()}
-	 * {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to an {@code int} value using {@link ByteOrder#nativeOrder()}
+	 * {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code int} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1315,7 +1317,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to an {@code int} value using the given {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to an {@code int} value using the given {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code int} value
@@ -1341,8 +1343,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code long} value using {@link ByteOrder#nativeOrder()}
-	 * {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code long} value using {@link ByteOrder#nativeOrder()}
+	 * {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code long} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1354,7 +1356,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code long} value using the given {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code long} value using the given {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code long} value
@@ -1388,8 +1390,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code float} value using {@link ByteOrder#nativeOrder()}
-	 * {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code float} value using {@link ByteOrder#nativeOrder()}
+	 * {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code float} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1401,7 +1403,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code float} value using the given {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code float} value using the given {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code float} value
@@ -1414,8 +1416,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code double} value using {@link ByteOrder#nativeOrder()}
-	 * {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code double} value using {@link ByteOrder#nativeOrder()}
+	 * {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted {@code double} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1427,7 +1429,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array back to a {@code double} value using the given {@link ByteOrder}.</p>
+	 * Convert a {@code byte} array back to a {@code double} value using the given {@link ByteOrder}.
 	 * @param bytes the {@code byte} array to convert
 	 * @param order the {@link ByteOrder} to use
 	 * @return the converted {@code double} value
@@ -1440,7 +1442,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a binary {@link String} value.</p>
+	 * Convert a {@code byte} array to a binary {@link String} value.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted binary {@link String} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1451,7 +1453,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a binary {@link String} value with spacing or not.</p>
+	 * Convert a {@code byte} array to a binary {@link String} value with spacing or not.
 	 * @param bytes the {@code byte} array to convert
 	 * @param withSpacing {@code true} if the binary {@link String} value must have spacing
 	 * @return the converted binary {@link String} value
@@ -1482,7 +1484,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to an octal {@link String} value.</p>
+	 * Convert a {@code byte} array to an octal {@link String} value.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted octal {@link String} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1493,7 +1495,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to an octal {@link String} value with spacing or not.</p>
+	 * Convert a {@code byte} array to an octal {@link String} value with spacing or not.
 	 * @param bytes the {@code byte} array to convert
 	 * @param withSpacing {@code true} if the octal {@link String} value must have spacing
 	 * @return the converted octal {@link String} value
@@ -1519,7 +1521,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a decimal {@link String} value.</p>
+	 * Convert a {@code byte} array to a decimal {@link String} value.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted decimal {@link String} value
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1530,7 +1532,7 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a decimal {@link String} value with spacing or not.</p>
+	 * Convert a {@code byte} array to a decimal {@link String} value with spacing or not.
 	 * @param bytes the {@code byte} array to convert
 	 * @param withSpacing {@code true} if the decimal {@link String} value must have spacing
 	 * @return the converted decimal {@link String} value
@@ -1556,7 +1558,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a hexadecimal {@link String} value.</p>
+	 * Convert a {@code byte} array to a hexadecimal {@link String} value.
+	 *
 	 * <p><b>Note</b>: The hexadecimal {@link String} value will be in lowercase.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @return the converted hexadecimal {@link String} value
@@ -1568,7 +1571,8 @@ public final class ByteArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code byte} array to a hexadecimal {@link String} value with spacing or not.</p>
+	 * Convert a {@code byte} array to a hexadecimal {@link String} value with spacing or not.
+	 *
 	 * <p><b>Note</b>: The hexadecimal {@link String} value will be in lowercase.</p>
 	 * @param bytes the {@code byte} array to convert
 	 * @param withSpacing {@code true} if the hexadecimal {@link String} value must have spacing

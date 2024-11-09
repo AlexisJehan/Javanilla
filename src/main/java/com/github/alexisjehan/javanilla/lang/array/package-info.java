@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>A set of primitive and generic array tools.</p>
+ * A set of primitive and generic array tools.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.lang.array;

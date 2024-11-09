@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Extras {@link javax.crypto} components.</p>
+ * Extras {@link javax.crypto} components.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.crypto;

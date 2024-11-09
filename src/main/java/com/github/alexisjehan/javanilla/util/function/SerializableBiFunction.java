@@ -30,7 +30,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * <p>Interface for a {@link BiFunction} that is {@link Serializable}.</p>
+ * Interface for a {@link BiFunction} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #apply(Object, Object)}.</p>
  * @param <T> the type of the first argument to the function
@@ -42,8 +43,8 @@ import java.util.function.Function;
 public interface SerializableBiFunction<T, U, R> extends BiFunction<T, U, R>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableBiFunction} that first applies this function to its input, and then
-	 * applies the after function to the result.</p>
+	 * Returns a composed {@code SerializableBiFunction} that first applies this function to its input, and then applies
+	 * the after function to the result.
 	 * @param after the {@link Function} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code SerializableBiFunction} that first applies this function and then applies the after
@@ -58,7 +59,7 @@ public interface SerializableBiFunction<T, U, R> extends BiFunction<T, U, R>, Se
 	}
 
 	/**
-	 * <p>Create a {@code SerializableBiFunction} from the given {@link BiFunction}.</p>
+	 * Create a {@code SerializableBiFunction} from the given {@link BiFunction}.
 	 * @param biFunction the {@link BiFunction} to convert
 	 * @param <T> the type of the first argument to the function
 	 * @param <U> the type of the second argument to the function

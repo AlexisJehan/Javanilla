@@ -28,7 +28,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link Cipher} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link Cipher} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/crypto/Cipher.html">https://docs.oracle.com/javase/10/docs/api/javax/crypto/Cipher.html</a>
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.crypto.StandardCiphers} instead
  * @since 1.6.0
@@ -37,13 +37,13 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardCiphers {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardCiphers() {}
 
 	/**
-	 * <p>Get a new "AES/CBC/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "AES/CBC/NoPadding" {@link Cipher} instance.
 	 * @return an "AES/CBC/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -52,7 +52,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "AES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
+	 * Get a new "AES/CBC/PKCS5Padding" {@link Cipher} instance.
 	 * @return an "AES/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -61,7 +61,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "AES/ECB/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "AES/ECB/NoPadding" {@link Cipher} instance.
 	 * @return an "AES/ECB/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -70,7 +70,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "AES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
+	 * Get a new "AES/ECB/PKCS5Padding" {@link Cipher} instance.
 	 * @return an "AES/ECB/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -79,7 +79,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "AES/GCM/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "AES/GCM/NoPadding" {@link Cipher} instance.
 	 * @return an "AES/GCM/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -88,7 +88,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DES/CBC/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "DES/CBC/NoPadding" {@link Cipher} instance.
 	 * @return a "DES/CBC/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -97,7 +97,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DES/CBC/PKCS5Padding" {@link Cipher} instance.</p>
+	 * Get a new "DES/CBC/PKCS5Padding" {@link Cipher} instance.
 	 * @return a "DES/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -106,7 +106,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DES/ECB/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "DES/ECB/NoPadding" {@link Cipher} instance.
 	 * @return a "DES/ECB/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -115,7 +115,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DES/ECB/PKCS5Padding" {@link Cipher} instance.</p>
+	 * Get a new "DES/ECB/PKCS5Padding" {@link Cipher} instance.
 	 * @return a "DES/ECB/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -124,7 +124,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DESede/CBC/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "DESede/CBC/NoPadding" {@link Cipher} instance.
 	 * @return a "DESede/CBC/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -133,7 +133,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DESede/CBC/PKCS5Padding" {@link Cipher} instance.</p>
+	 * Get a new "DESede/CBC/PKCS5Padding" {@link Cipher} instance.
 	 * @return a "DESede/CBC/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -142,7 +142,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DESede/ECB/NoPadding" {@link Cipher} instance.</p>
+	 * Get a new "DESede/ECB/NoPadding" {@link Cipher} instance.
 	 * @return a "DESede/ECB/NoPadding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -151,7 +151,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "DESede/ECB/PKCS5Padding" {@link Cipher} instance.</p>
+	 * Get a new "DESede/ECB/PKCS5Padding" {@link Cipher} instance.
 	 * @return a "DESede/ECB/PKCS5Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -160,7 +160,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.</p>
+	 * Get a new "RSA/ECB/PKCS1Padding" {@link Cipher} instance.
 	 * @return an "RSA/ECB/PKCS1Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -169,7 +169,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.</p>
+	 * Get a new "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance.
 	 * @return an "RSA/ECB/OAEPWithSHA-1AndMGF1Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -178,7 +178,7 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.</p>
+	 * Get a new "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance.
 	 * @return an "RSA/ECB/OAEPWithSHA-256AndMGF1Padding" {@link Cipher} instance
 	 * @since 1.6.0
 	 */
@@ -187,8 +187,8 @@ public final class StandardCiphers {
 	}
 
 	/**
-	 * <p>Get a new {@link Cipher} instance without throwing {@link NoSuchAlgorithmException} or
-	 * {@link NoSuchPaddingException}.</p>
+	 * Get a new {@link Cipher} instance without throwing {@link NoSuchAlgorithmException} or
+	 * {@link NoSuchPaddingException}.
 	 * @param transformation the {@link Cipher} transformation
 	 * @return a {@link Cipher} instance of the provided transformation
 	 * @since 1.6.0

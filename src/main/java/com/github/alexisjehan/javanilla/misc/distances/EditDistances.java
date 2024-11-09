@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.misc.distances;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>Commons {@link EditDistance}s implementations.</p>
+ * Commons {@link EditDistance}s implementations.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.misc.distance.EditDistances} instead
  * @since 1.0.0
  */
@@ -34,7 +34,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 public enum EditDistances implements EditDistance {
 
 	/**
-	 * <p>The Longest Common Subsequence (LCS) distance.</p>
+	 * The Longest Common Subsequence (LCS) distance.
 	 * @see <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">https://en.wikipedia.org/wiki/Longest_common_subsequence_problem</a>
 	 * @since 1.0.0
 	 */
@@ -57,7 +57,7 @@ public enum EditDistances implements EditDistance {
 	},
 
 	/**
-	 * <p>The Hamming distance.</p>
+	 * The Hamming distance.
 	 * @see <a href="https://en.wikipedia.org/wiki/Hamming_distance">https://en.wikipedia.org/wiki/Hamming_distance</a>
 	 * @since 1.0.0
 	 */
@@ -92,7 +92,7 @@ public enum EditDistances implements EditDistance {
 	}
 
 	/**
-	 * <p>Calculate an edit distance between both {@link CharSequence}s which have been validated.</p>
+	 * Calculate an edit distance between both {@link CharSequence}s which have been validated.
 	 * @param charSequence1 the first {@link CharSequence}
 	 * @param length1 the length of the first {@link CharSequence}
 	 * @param charSequence2 the second {@link CharSequence}

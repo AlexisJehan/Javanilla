@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>A set of {@link java.io.Reader}/{@link java.io.Writer} tools and decorators.</p>
+ * A set of {@link java.io.Reader}/{@link java.io.Writer} tools and decorators.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.io.chars;

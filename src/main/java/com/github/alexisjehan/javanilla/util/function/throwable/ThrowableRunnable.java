@@ -27,7 +27,8 @@ import com.github.alexisjehan.javanilla.lang.Throwables;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>Interface for a {@link Runnable} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link Runnable} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #run()}.</p>
  * @param <X> the type of the {@link Throwable}
  * @deprecated since 1.7.0, use {@link ThrowableProcedure} instead
@@ -38,15 +39,14 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 public interface ThrowableRunnable<X extends Throwable> {
 
 	/**
-	 * <p>Take any action whatsoever.</p>
+	 * Take any action whatsoever.
 	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
 	 */
 	void run() throws X;
 
 	/**
-	 * <p>Converts the given {@code ThrowableRunnable} to a {@link Runnable} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableRunnable} to a {@link Runnable} that may throw an unchecked {@link Throwable}.
 	 * @param throwableRunnable the {@code ThrowableRunnable} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Runnable}
@@ -65,7 +65,7 @@ public interface ThrowableRunnable<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableRunnable} from the given {@link Runnable}.</p>
+	 * Create a {@code ThrowableRunnable} from the given {@link Runnable}.
 	 * @param runnable the {@link Runnable} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the created {@code ThrowableRunnable}

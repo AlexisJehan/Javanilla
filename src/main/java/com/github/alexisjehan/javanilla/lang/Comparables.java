@@ -26,19 +26,19 @@ package com.github.alexisjehan.javanilla.lang;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>An utility class that provides {@link Comparable} tools.</p>
+ * A utility class that provides {@link Comparable} tools.
  * @since 1.3.1
  */
 public final class Comparables {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.1
 	 */
 	private Comparables() {}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is equal to another one.</p>
+	 * Tell if a {@link Comparable} is equal to another one.
 	 * @param comparable the {@link Comparable}
 	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
@@ -53,7 +53,7 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is not equal to another one.</p>
+	 * Tell if a {@link Comparable} is not equal to another one.
 	 * @param comparable the {@link Comparable}
 	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
@@ -68,7 +68,7 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is lower than another one.</p>
+	 * Tell if a {@link Comparable} is lower than another one.
 	 * @param comparable the {@link Comparable}
 	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
@@ -83,7 +83,7 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is lower than or equal to another one.</p>
+	 * Tell if a {@link Comparable} is lower than or equal to another one.
 	 * @param comparable the {@link Comparable}
 	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
@@ -98,7 +98,7 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is greater than another one.</p>
+	 * Tell if a {@link Comparable} is greater than another one.
 	 * @param comparable the {@link Comparable}
 	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
@@ -113,7 +113,7 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is greater than or equal to another one.</p>
+	 * Tell if a {@link Comparable} is greater than or equal to another one.
 	 * @param comparable the {@link Comparable}
 	 * @param other the other {@link Comparable}
 	 * @param <T> the type of objects that this object may be compared to
@@ -128,7 +128,7 @@ public final class Comparables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Comparable} is between both other ones.</p>
+	 * Tell if a {@link Comparable} is between both other ones.
 	 * @param comparable the {@link Comparable}
 	 * @param from the from {@link Comparable}
 	 * @param to the to {@link Comparable}

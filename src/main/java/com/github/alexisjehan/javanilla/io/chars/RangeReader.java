@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * <p>A {@link Reader} decorator that reads only chars within a range from the current position.</p>
+ * A {@link Reader} decorator that reads only chars within a range from the current position.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.RangeReader} instead
  * @since 1.0.0
  */
@@ -38,31 +38,31 @@ import java.io.Reader;
 public final class RangeReader extends FilterReader {
 
 	/**
-	 * <p>Inclusive index of the first char to read.</p>
+	 * Inclusive index of the first char to read.
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last char to read.</p>
+	 * Inclusive index of the last char to read.
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.0.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
+	 * Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.
 	 * @since 1.0.0
 	 */
 	private long markedIndex;
 
 	/**
-	 * <p>Constructor with a {@link Reader} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with a {@link Reader} to decorate and a range from an inclusive index to another one.
 	 * @param reader the {@link Reader} to decorate
 	 * @param fromIndex the inclusive index of the first char to read
 	 * @param toIndex the inclusive index of the last char to read
@@ -155,7 +155,7 @@ public final class RangeReader extends FilterReader {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first char to read.</p>
+	 * Get the inclusive index of the first char to read.
 	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
@@ -164,7 +164,7 @@ public final class RangeReader extends FilterReader {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last char to read.</p>
+	 * Get the inclusive index of the last char to read.
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

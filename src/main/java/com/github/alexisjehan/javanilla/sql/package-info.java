@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Extras {@link java.sql} components.</p>
+ * Extras {@link java.sql} components.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.sql;

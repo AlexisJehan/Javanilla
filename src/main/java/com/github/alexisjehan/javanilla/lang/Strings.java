@@ -30,61 +30,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>An utility class that provides {@link String} and {@link CharSequence} tools.</p>
+ * A utility class that provides {@link String} and {@link CharSequence} tools.
  * @since 1.0.0
  */
 public final class Strings {
 
 	/**
-	 * <p>An empty {@link String}.</p>
+	 * An empty {@link String}.
 	 * @since 1.0.0
 	 */
 	public static final String EMPTY = "";
 
 	/**
-	 * <p>Default {@code char} quote {@code char}.</p>
+	 * Default {@code char} quote {@code char}.
 	 * @since 1.2.0
 	 */
 	private static final char DEFAULT_CHAR_QUOTE = '\'';
 
 	/**
-	 * <p>Default {@link CharSequence} quote {@code char}.</p>
+	 * Default {@link CharSequence} quote {@code char}.
 	 * @since 1.1.0
 	 */
 	private static final char DEFAULT_CHAR_SEQUENCE_QUOTE = '"';
 
 	/**
-	 * <p>Default escape {@code char}.</p>
+	 * Default escape {@code char}.
 	 * @since 1.1.0
 	 */
 	private static final char DEFAULT_ESCAPE = '\\';
 
 	/**
-	 * <p>Default padding {@code char}.</p>
+	 * Default padding {@code char}.
 	 * @since 1.2.0
 	 */
 	private static final char DEFAULT_PADDING = ' ';
 
 	/**
-	 * <p>Default value for using spacing or not.</p>
+	 * Default value for using spacing or not.
 	 * @since 1.7.0
 	 */
 	private static final boolean DEFAULT_WITH_SPACING = false;
 
 	/**
-	 * <p>Default value for using padding or not.</p>
+	 * Default value for using padding or not.
 	 * @since 1.7.0
 	 */
 	private static final boolean DEFAULT_WITH_PADDING = true;
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private Strings() {}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link CharSequence} replacing {@code null} by an empty one.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @return a non-{@code null} {@link CharSequence}
 	 * @since 1.0.0
@@ -94,7 +94,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link String} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link String} replacing {@code null} by an empty one.
 	 * @param string the {@link String} or {@code null}
 	 * @return a non-{@code null} {@link String}
 	 * @since 1.2.0
@@ -104,7 +104,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link CharSequence} replacing {@code null} by a default one.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @param defaultCharSequence the default {@link CharSequence}
 	 * @param <C> the {@link CharSequence} type
@@ -118,7 +118,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing an empty one by {@code null}.</p>
+	 * Wrap a {@link CharSequence} replacing an empty one by {@code null}.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @param <C> the {@link CharSequence} type
 	 * @return a non-empty {@link CharSequence} or {@code null}
@@ -129,7 +129,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing an empty one by a default {@link CharSequence}.</p>
+	 * Wrap a {@link CharSequence} replacing an empty one by a default {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @param defaultCharSequence the default {@link CharSequence} or {@code null}
 	 * @param <C> the {@link CharSequence} type
@@ -145,7 +145,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing a blank one by {@code null}.</p>
+	 * Wrap a {@link CharSequence} replacing a blank one by {@code null}.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @param <C> the {@link CharSequence} type
 	 * @return a non-blank {@link CharSequence} or {@code null}
@@ -156,7 +156,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing a blank one by an empty {@link CharSequence}.</p>
+	 * Wrap a {@link CharSequence} replacing a blank one by an empty {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @return a non-blank {@link CharSequence} or {@code null}
 	 * @since 1.0.0
@@ -166,7 +166,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link String} replacing a blank one by an empty {@link String}.</p>
+	 * Wrap a {@link String} replacing a blank one by an empty {@link String}.
 	 * @param string the {@link String} or {@code null}
 	 * @return a non-blank {@link String} or {@code null}
 	 * @since 1.2.0
@@ -176,7 +176,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Wrap a {@link CharSequence} replacing a blank one by a default {@link CharSequence}.</p>
+	 * Wrap a {@link CharSequence} replacing a blank one by a default {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} or {@code null}
 	 * @param defaultCharSequence the default {@link CharSequence} or {@code null}
 	 * @param <C> the {@link CharSequence} type
@@ -192,8 +192,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Capitalize a {@link CharSequence} so that the first {@code char} is in uppercase and the others in
-	 * lowercase.</p>
+	 * Capitalize a {@link CharSequence} so that the first {@code char} is in uppercase and the others in lowercase.
 	 * @param charSequence the {@link CharSequence} to capitalize
 	 * @return a capitalized {@link String} of the {@link CharSequence}
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -212,7 +211,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Quote a {@code char} using default quote and escape {@code char}s.</p>
+	 * Quote a {@code char} using default quote and escape {@code char}s.
+	 *
 	 * <p><b>Note</b>: If the {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
 	 * @param c the {@code char} to quote
 	 * @return a quoted {@link String} of the {@code char}
@@ -223,7 +223,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Quote a {@code char} using custom quote and escape {@code char}s.</p>
+	 * Quote a {@code char} using custom quote and escape {@code char}s.
+	 *
 	 * <p><b>Note</b>: If the {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
 	 * @param c the {@code char} to quote
 	 * @param quote the quote {@code char}
@@ -239,7 +240,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Quote a {@link CharSequence} using default quote and escape {@code char}s.</p>
+	 * Quote a {@link CharSequence} using default quote and escape {@code char}s.
+	 *
 	 * <p><b>Note</b>: If any {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
 	 * @param charSequence the {@link CharSequence} to quote
 	 * @return a quoted {@link String} of the {@link CharSequence}
@@ -251,7 +253,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Quote a {@link CharSequence} using custom quote and escape {@code char}s.</p>
+	 * Quote a {@link CharSequence} using custom quote and escape {@code char}s.
+	 *
 	 * <p><b>Note</b>: If any {@code char} is whether the quote or the escape {@code char} it is escaped.</p>
 	 * @param charSequence the {@link CharSequence} to quote
 	 * @param quote the quote {@code char}
@@ -277,7 +280,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Unquote a {@code char} using default quote and escape {@code char}s.</p>
+	 * Unquote a {@code char} using default quote and escape {@code char}s.
 	 * @param charSequence the {@link CharSequence} of the quoted {@code char}
 	 * @return an unquoted {@code char}
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -289,7 +292,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Unquote a {@code char} using custom quote and escape {@code char}s.</p>
+	 * Unquote a {@code char} using custom quote and escape {@code char}s.
 	 * @param charSequence the {@link CharSequence} of the quoted {@code char}
 	 * @param quote the quote {@code char}
 	 * @param escape the escape {@code char}
@@ -312,7 +315,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Unquote a {@link CharSequence} using default quote and escape {@code char}s.</p>
+	 * Unquote a {@link CharSequence} using default quote and escape {@code char}s.
 	 * @param charSequence the {@link CharSequence} of the quoted {@link CharSequence}
 	 * @return an unquoted {@link String}
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -324,7 +327,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Unquote a {@link CharSequence} using custom quote and escape {@code char}s.</p>
+	 * Unquote a {@link CharSequence} using custom quote and escape {@code char}s.
 	 * @param charSequence the {@link CharSequence} of the quoted {@link CharSequence}
 	 * @param quote the quote {@code char}
 	 * @param escape the escape {@code char}
@@ -354,7 +357,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Split a {@link CharSequence} using a {@code char} separator.</p>
+	 * Split a {@link CharSequence} using a {@code char} separator.
 	 * @param separator the {@code char} separator
 	 * @param charSequence the {@link CharSequence} to split
 	 * @return a {@link List} of split {@link String}s
@@ -366,7 +369,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Split a {@link CharSequence} using a {@code char} separator with a limit.</p>
+	 * Split a {@link CharSequence} using a {@code char} separator with a limit.
 	 * @param separator the {@code char} separator
 	 * @param charSequence the {@link CharSequence} to split
 	 * @param limit the maximum number of split {@link String}s
@@ -398,7 +401,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Split a {@link CharSequence} using a {@link CharSequence} separator.</p>
+	 * Split a {@link CharSequence} using a {@link CharSequence} separator.
+	 *
 	 * <p><b>Note</b>: This implementation in not based on regular expressions unlike the standard Java one.</p>
 	 * @param separator the {@link CharSequence} separator
 	 * @param charSequence the {@link CharSequence} to split
@@ -411,7 +415,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Split a {@link CharSequence} using a {@link CharSequence} separator with a limit.</p>
+	 * Split a {@link CharSequence} using a {@link CharSequence} separator with a limit.
+	 *
 	 * <p><b>Note</b>: This implementation in not based on regular expressions unlike the standard Java one.</p>
 	 * @param separator the {@link CharSequence} separator
 	 * @param charSequence the {@link CharSequence} to split
@@ -455,7 +460,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Repeat a {@code char}.</p>
+	 * Repeat a {@code char}.
 	 * @param c the {@code char} to repeat
 	 * @param times the number of times to repeat
 	 * @return a {@link String} of the repeated {@code char}
@@ -480,7 +485,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Repeat a {@link CharSequence}.</p>
+	 * Repeat a {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to repeat
 	 * @param times the number of times to repeat
 	 * @return a {@link String} of the repeated {@link CharSequence}
@@ -509,7 +514,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on the left with the default padding {@code char}.</p>
+	 * Pad a {@link CharSequence} on the left with the default padding {@code char}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @return a left-padded {@link String} of the {@link CharSequence}
@@ -522,7 +527,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on the left with the given padding {@code char}.</p>
+	 * Pad a {@link CharSequence} on the left with the given padding {@code char}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @param padding the padding {@code char}
@@ -545,7 +550,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on the left with the given padding {@link CharSequence}.</p>
+	 * Pad a {@link CharSequence} on the left with the given padding {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @param padding the padding {@link CharSequence}
@@ -573,7 +578,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on the right with the default padding {@code char}.</p>
+	 * Pad a {@link CharSequence} on the right with the default padding {@code char}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @return a right-padded {@link String} of the {@link CharSequence}
@@ -586,7 +591,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on the right with the given padding {@code char}.</p>
+	 * Pad a {@link CharSequence} on the right with the given padding {@code char}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @param padding the padding {@code char}
@@ -609,7 +614,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on the right with the given padding {@link CharSequence}.</p>
+	 * Pad a {@link CharSequence} on the right with the given padding {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @param padding the padding {@link CharSequence}
@@ -637,7 +642,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on both left and right with the default padding {@code char}.</p>
+	 * Pad a {@link CharSequence} on both left and right with the default padding {@code char}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @return a left/right-padded {@link String} of the {@link CharSequence}
@@ -650,7 +655,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on both left and right with the given padding {@code char}.</p>
+	 * Pad a {@link CharSequence} on both left and right with the given padding {@code char}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @param padding the padding {@code char}
@@ -675,7 +680,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Pad a {@link CharSequence} on both left and right with the given padding {@link CharSequence}.</p>
+	 * Pad a {@link CharSequence} on both left and right with the given padding {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to pad
 	 * @param size the padding size
 	 * @param padding the padding {@link CharSequence}
@@ -705,8 +710,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the first occurrence of the target {@code char} by a replacement one if found in the
-	 * {@link CharSequence}.</p>
+	 * Replace the first occurrence of the target {@code char} by a replacement one if found in the
+	 * {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to replace from
 	 * @param target the target {@code char}
 	 * @param replacement the replacement {@code char}
@@ -729,8 +734,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the first occurrence of the target {@link CharSequence} by a replacement one if found in the
-	 * {@link CharSequence}.</p>
+	 * Replace the first occurrence of the target {@link CharSequence} by a replacement one if found in the
+	 * {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to replace from
 	 * @param target the target {@link CharSequence}
 	 * @param replacement the replacement {@link CharSequence}
@@ -765,8 +770,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the last occurrence of the target {@code char} by a replacement one if found in the
-	 * {@link CharSequence}.</p>
+	 * Replace the last occurrence of the target {@code char} by a replacement one if found in the {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to replace from
 	 * @param target the target {@code char}
 	 * @param replacement the replacement {@code char}
@@ -789,8 +793,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Replace the last occurrence of the target {@link CharSequence} by a replacement one if found in the
-	 * {@link CharSequence}.</p>
+	 * Replace the last occurrence of the target {@link CharSequence} by a replacement one if found in the
+	 * {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to replace from
 	 * @param target the target {@link CharSequence}
 	 * @param replacement the replacement {@link CharSequence}
@@ -825,8 +829,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Return the substring before the first occurrence of the target {@code char} if found in the
-	 * {@link CharSequence}.</p>
+	 * Return the substring before the first occurrence of the target {@code char} if found in the {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to get the substring from
 	 * @param target the target {@code char}
 	 * @return a substring {@link String} of the {@link CharSequence}
@@ -848,8 +851,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Return the substring before the first occurrence of the target {@link CharSequence} if found in the
-	 * {@link CharSequence}.</p>
+	 * Return the substring before the first occurrence of the target {@link CharSequence} if found in the
+	 * {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to get the substring from
 	 * @param target the target {@link CharSequence}
 	 * @return a substring {@link String} of the {@link CharSequence}
@@ -882,8 +885,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Return the substring after the last occurrence of the target {@code char} if found in the
-	 * {@link CharSequence}.</p>
+	 * Return the substring after the last occurrence of the target {@code char} if found in the {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to get the substring from
 	 * @param target the target {@code char}
 	 * @return a substring {@link String} of the {@link CharSequence}
@@ -905,8 +907,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Return the substring after the last occurrence of the target {@link CharSequence} if found in the
-	 * {@link CharSequence}.</p>
+	 * Return the substring after the last occurrence of the target {@link CharSequence} if found in the
+	 * {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to get the substring from
 	 * @param target the target {@link CharSequence}
 	 * @return a substring {@link String} of the {@link CharSequence}
@@ -939,7 +941,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the prefix {@code char} if the {@link CharSequence} starts with it.</p>
+	 * Remove the prefix {@code char} if the {@link CharSequence} starts with it.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param prefix the prefix {@code char}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -959,7 +961,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the prefix {@link CharSequence} if the {@link CharSequence} starts with it.</p>
+	 * Remove the prefix {@link CharSequence} if the {@link CharSequence} starts with it.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param prefix the prefix {@link CharSequence}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -986,7 +988,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the prefix {@code char} if the {@link CharSequence} starts with it ignoring the case.</p>
+	 * Remove the prefix {@code char} if the {@link CharSequence} starts with it ignoring the case.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param prefix the prefix {@code char}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -1006,7 +1008,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the prefix {@link CharSequence} if the {@link CharSequence} starts with it ignoring the case.</p>
+	 * Remove the prefix {@link CharSequence} if the {@link CharSequence} starts with it ignoring the case.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param prefix the prefix {@link CharSequence}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -1033,7 +1035,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the suffix {@code char} if the {@link CharSequence} ends with it.</p>
+	 * Remove the suffix {@code char} if the {@link CharSequence} ends with it.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param suffix the suffix {@code char}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -1053,7 +1055,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the suffix {@link CharSequence} if the {@link CharSequence} ends with it.</p>
+	 * Remove the suffix {@link CharSequence} if the {@link CharSequence} ends with it.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param suffix the suffix {@link CharSequence}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -1080,7 +1082,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the suffix {@code char} if the {@link CharSequence} ends with it ignoring the case.</p>
+	 * Remove the suffix {@code char} if the {@link CharSequence} ends with it ignoring the case.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param suffix the suffix {@code char}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -1100,7 +1102,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Remove the suffix {@link CharSequence} if the {@link CharSequence} ends with it ignoring the case.</p>
+	 * Remove the suffix {@link CharSequence} if the {@link CharSequence} ends with it ignoring the case.
 	 * @param charSequence the {@link CharSequence} to remove from
 	 * @param suffix the suffix {@link CharSequence}
 	 * @return a stripped {@link String} of the {@link CharSequence}
@@ -1127,8 +1129,9 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Concatenate two {@link CharSequence}s by merging their commons {@code char}s.</p>
-	 * <p><b>Example01</b>: {@code 123456} and {@code 456789} would result in {@code 123456789}.</p>
+	 * Concatenate two {@link CharSequence}s by merging their commons {@code char}s.
+	 *
+	 * <p><b>Example</b>: {@code 123456} and {@code 456789} would result in {@code 123456789}.</p>
 	 * @param start the start {@link CharSequence}
 	 * @param end the end {@link CharSequence}
 	 * @return a merged {@link String} of both {@link CharSequence}s
@@ -1161,7 +1164,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} contains a target {@code char}.</p>
+	 * Test if a {@link CharSequence} contains a target {@code char}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param target the target {@code char}
 	 * @return {@code true} if the {@link CharSequence} contains the target {@code char}
@@ -1180,7 +1183,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} contains a target {@code char} ignoring the case.</p>
+	 * Test if a {@link CharSequence} contains a target {@code char} ignoring the case.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param target the target {@code char}
 	 * @return {@code true} if the {@link CharSequence} contains the target {@code char} ignoring the case
@@ -1199,7 +1202,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} contains a target {@link CharSequence} ignoring the case.</p>
+	 * Test if a {@link CharSequence} contains a target {@link CharSequence} ignoring the case.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param target the target {@link CharSequence}
 	 * @return {@code true} if the {@link CharSequence} contains the target {@link CharSequence} ignoring the case
@@ -1232,7 +1235,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} starts with a prefix {@code char}.</p>
+	 * Test if a {@link CharSequence} starts with a prefix {@code char}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param prefix the prefix {@code char}
 	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@code char}
@@ -1248,7 +1251,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} starts with a prefix {@code char} ignoring the case.</p>
+	 * Test if a {@link CharSequence} starts with a prefix {@code char} ignoring the case.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param prefix the prefix {@code char}
 	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@code char} ignoring the case
@@ -1264,7 +1267,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} starts with a prefix {@link CharSequence} ignoring the case.</p>
+	 * Test if a {@link CharSequence} starts with a prefix {@link CharSequence} ignoring the case.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param prefix the prefix {@link CharSequence}
 	 * @return {@code true} if the {@link CharSequence} starts with the prefix {@link CharSequence} ignoring the case
@@ -1291,7 +1294,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} ends with a suffix {@code char}.</p>
+	 * Test if a {@link CharSequence} ends with a suffix {@code char}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param suffix the suffix {@code char}
 	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@code char}
@@ -1308,7 +1311,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} ends with a suffix {@code char} ignoring the case.</p>
+	 * Test if a {@link CharSequence} ends with a suffix {@code char} ignoring the case.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param suffix the suffix {@code char}
 	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@code char} ignoring the case
@@ -1325,7 +1328,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Test if a {@link CharSequence} ends with a suffix {@link CharSequence} ignoring the case.</p>
+	 * Test if a {@link CharSequence} ends with a suffix {@link CharSequence} ignoring the case.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param suffix the suffix {@link CharSequence}
 	 * @return {@code true} if the {@link CharSequence} ends with the suffix {@link CharSequence} ignoring the case
@@ -1353,7 +1356,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the target {@code char} in the {@link CharSequence}.</p>
+	 * Calculate the number of occurrences of the target {@code char} in the {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to iterate
 	 * @param target the target {@code char} of the frequency to calculate
 	 * @return the frequency of the {@code char}
@@ -1373,7 +1376,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the target {@link CharSequence} in the {@link CharSequence}.</p>
+	 * Calculate the number of occurrences of the target {@link CharSequence} in the {@link CharSequence}.
 	 * @param charSequence the {@link CharSequence} to iterate
 	 * @param target the target {@link CharSequence} of the frequency to calculate
 	 * @return the frequency of the {@link CharSequence}
@@ -1405,7 +1408,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is empty.</p>
+	 * Tell if a {@link CharSequence} is empty.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is empty
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1417,8 +1420,10 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is blank.</p>
+	 * Tell if a {@link CharSequence} is blank.
+	 *
 	 * <p><b>Note</b>: A {@code char} is blank or not based on {@link Character#isWhitespace(char)}.</p>
+	 *
 	 * <p><b>Note</b>: An empty {@link CharSequence} is not considered as blank.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is blank
@@ -1442,8 +1447,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code boolean} representation compatible with
-	 * {@link Boolean#toString(boolean)}.</p>
+	 * Tell if a {@link CharSequence} is a {@code boolean} representation compatible with
+	 * {@link Boolean#toString(boolean)}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a {@code boolean} representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1455,8 +1460,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code short} representation compatible with
-	 * {@link Short#toString(short)}.</p>
+	 * Tell if a {@link CharSequence} is a {@code short} representation compatible with {@link Short#toString(short)}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a {@code short} representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1476,8 +1480,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is an {@code int} representation compatible with
-	 * {@link Integer#toString(int)}.</p>
+	 * Tell if a {@link CharSequence} is an {@code int} representation compatible with {@link Integer#toString(int)}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is an {@code int} representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1498,8 +1501,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code long} representation compatible with
-	 * {@link Long#toString(long)}.</p>
+	 * Tell if a {@link CharSequence} is a {@code long} representation compatible with {@link Long#toString(long)}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a {@code long} representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1520,8 +1522,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code float} representation compatible with
-	 * {@link Float#toString(float)}.</p>
+	 * Tell if a {@link CharSequence} is a {@code float} representation compatible with {@link Float#toString(float)}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a {@code float} representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1541,8 +1542,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a {@code double} representation compatible with
-	 * {@link Double#toString(double)}.</p>
+	 * Tell if a {@link CharSequence} is a {@code double} representation compatible with
+	 * {@link Double#toString(double)}.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a {@code double} representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1562,7 +1563,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a binary representation.</p>
+	 * Tell if a {@link CharSequence} is a binary representation.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a binary representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1573,7 +1574,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a binary representation with spacing or not.</p>
+	 * Tell if a {@link CharSequence} is a binary representation with spacing or not.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withSpacing {@code true} if the binary representation must have spacing
 	 * @return {@code true} if the {@link CharSequence} is a binary representation
@@ -1596,7 +1597,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is an octal representation.</p>
+	 * Tell if a {@link CharSequence} is an octal representation.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is an octal representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1607,7 +1608,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is an octal representation with spacing or not.</p>
+	 * Tell if a {@link CharSequence} is an octal representation with spacing or not.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withSpacing {@code true} if the octal representation must have spacing
 	 * @return {@code true} if the {@link CharSequence} is an octal representation
@@ -1630,7 +1631,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a decimal representation.</p>
+	 * Tell if a {@link CharSequence} is a decimal representation.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a decimal representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1641,7 +1642,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a decimal representation with spacing or not.</p>
+	 * Tell if a {@link CharSequence} is a decimal representation with spacing or not.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withSpacing {@code true} if the decimal representation must have spacing
 	 * @return {@code true} if the {@link CharSequence} is a decimal representation
@@ -1664,7 +1665,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a hexadecimal representation.</p>
+	 * Tell if a {@link CharSequence} is a hexadecimal representation.
+	 *
 	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a hexadecimal representation
@@ -1676,7 +1678,8 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a hexadecimal representation with spacing or not.</p>
+	 * Tell if a {@link CharSequence} is a hexadecimal representation with spacing or not.
+	 *
 	 * <p><b>Note</b>: The case does not matter.</p>
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withSpacing {@code true} if the hexadecimal representation must have spacing
@@ -1700,7 +1703,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation.</p>
+	 * Tell if a {@link CharSequence} is a base 64 representation.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a base 64 representation
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1711,7 +1714,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation with padding or not.</p>
+	 * Tell if a {@link CharSequence} is a base 64 representation with padding or not.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withPadding {@code true} if the base 64 representation must have padding
 	 * @return {@code true} if the {@link CharSequence} is a base 64 representation
@@ -1741,7 +1744,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and file names.</p>
+	 * Tell if a {@link CharSequence} is a base 64 representation for URLs and file names.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and file names
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}
@@ -1752,7 +1755,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Tell if a {@link CharSequence} is a base 64 representation for URLs and file names with padding or not.</p>
+	 * Tell if a {@link CharSequence} is a base 64 representation for URLs and file names with padding or not.
 	 * @param charSequence the {@link CharSequence} to test
 	 * @param withPadding {@code true} if the base 64 representation for URLs and file names must have padding
 	 * @return {@code true} if the {@link CharSequence} is a base 64 representation for URLs and file names
@@ -1782,7 +1785,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@link String} from multiple {@code byte}s.</p>
+	 * Create a {@link String} from multiple {@code byte}s.
 	 * @param bytes the {@code byte} array to convert
 	 * @return the created {@link String}
 	 * @throws NullPointerException if the {@code byte} array is {@code null}
@@ -1793,7 +1796,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@link String} from multiple {@code byte}s using a custom {@link Charset}.</p>
+	 * Create a {@link String} from multiple {@code byte}s using a custom {@link Charset}.
 	 * @param charset the {@link Charset} to use
 	 * @param bytes the {@code byte} array to convert
 	 * @return the created {@link String}
@@ -1810,7 +1813,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Create a {@link String} from multiple {@code char}s.</p>
+	 * Create a {@link String} from multiple {@code char}s.
 	 * @param chars the {@code char} array to convert
 	 * @return the created {@link String}
 	 * @throws NullPointerException if the {@code char} array is {@code null}
@@ -1825,7 +1828,7 @@ public final class Strings {
 	}
 
 	/**
-	 * <p>Convert a {@link CharSequence} with a length of {@code 1} to a {@code char}.</p>
+	 * Convert a {@link CharSequence} with a length of {@code 1} to a {@code char}.
 	 * @param charSequence the {@link CharSequence} to convert
 	 * @return the converted {@code char}
 	 * @throws NullPointerException if the {@link CharSequence} is {@code null}

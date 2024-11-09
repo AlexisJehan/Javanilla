@@ -30,31 +30,31 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * <p>An {@link OutputStream} decorator that writes only bytes within a range from the current position.</p>
+ * An {@link OutputStream} decorator that writes only bytes within a range from the current position.
  * @since 1.8.0
  */
 public final class RangeOutputStream extends FilterOutputStream {
 
 	/**
-	 * <p>Inclusive index of the first byte to write.</p>
+	 * Inclusive index of the first byte to write.
 	 * @since 1.8.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last byte to write.</p>
+	 * Inclusive index of the last byte to write.
 	 * @since 1.8.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.8.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Constructor with an {@link OutputStream} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with an {@link OutputStream} to decorate and a range from an inclusive index to another one.
 	 * @param outputStream the {@link OutputStream} to decorate
 	 * @param fromIndex the inclusive index of the first byte to write
 	 * @param toIndex the inclusive index of the last byte to write
@@ -99,7 +99,7 @@ public final class RangeOutputStream extends FilterOutputStream {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first byte to write.</p>
+	 * Get the inclusive index of the first byte to write.
 	 * @return the inclusive starting index
 	 * @since 1.8.0
 	 */
@@ -108,7 +108,7 @@ public final class RangeOutputStream extends FilterOutputStream {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first last to write.</p>
+	 * Get the inclusive index of the first last to write.
 	 * @return the inclusive ending index
 	 * @since 1.8.0
 	 */

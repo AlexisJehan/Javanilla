@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>New {@link java.util.function} interfaces that may throw a {@link java.lang.Throwable}.</p>
+ * New {@link java.util.function} interfaces that may throw a {@link java.lang.Throwable}.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.function.throwable;

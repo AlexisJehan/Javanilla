@@ -27,20 +27,20 @@ import javax.net.ssl.SSLContext;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link SSLContext} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link SSLContext} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/net/ssl/SSLContext.html">https://docs.oracle.com/javase/10/docs/api/javax/net/ssl/SSLContext.html</a>
  * @since 1.8.0
  */
 public final class StandardSslContexts {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardSslContexts() {}
 
 	/**
-	 * <p>Get a new "TLSv1" {@link SSLContext} instance.</p>
+	 * Get a new "TLSv1" {@link SSLContext} instance.
 	 * @return a "TLSv1" {@link SSLContext} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardSslContexts {
 	}
 
 	/**
-	 * <p>Get a new "TLSv1.1" {@link SSLContext} instance.</p>
+	 * Get a new "TLSv1.1" {@link SSLContext} instance.
 	 * @return a "TLSv1.1" {@link SSLContext} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardSslContexts {
 	}
 
 	/**
-	 * <p>Get a new "TLSv1.2" {@link SSLContext} instance.</p>
+	 * Get a new "TLSv1.2" {@link SSLContext} instance.
 	 * @return a "TLSv1.2" {@link SSLContext} instance
 	 * @since 1.8.0
 	 */
@@ -67,7 +67,7 @@ public final class StandardSslContexts {
 	}
 
 	/**
-	 * <p>Get a new {@link SSLContext} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link SSLContext} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param protocol the {@link SSLContext} protocol
 	 * @return a {@link SSLContext} instance of the provided protocol
 	 * @since 1.8.0

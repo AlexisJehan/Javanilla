@@ -24,7 +24,8 @@
 package com.github.alexisjehan.javanilla.misc.distances;
 
 /**
- * <p>Interface for edit distance functions that work on {@link CharSequence}s.</p>
+ * Interface for edit distance functions that work on {@link CharSequence}s.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #calculate(CharSequence, CharSequence)}.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Edit_distance">https://en.wikipedia.org/wiki/Edit_distance</a>
@@ -37,7 +38,7 @@ package com.github.alexisjehan.javanilla.misc.distances;
 public interface EditDistance {
 
 	/**
-	 * <p>Calculate an edit distance between both {@link CharSequence}s.</p>
+	 * Calculate an edit distance between both {@link CharSequence}s.
 	 * @param charSequence1 the first {@link CharSequence}
 	 * @param charSequence2 the second {@link CharSequence}
 	 * @return the calculated edit distance

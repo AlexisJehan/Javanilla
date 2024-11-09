@@ -27,8 +27,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@link Iterator} whose next element is prepared when the last one is returned. The end is reached when the next
- * element is not valid based on {@link #isValid(Object)}.</p>
+ * An {@link Iterator} whose next element is prepared when the last one is returned. The end is reached when the next
+ * element is not valid based on {@link #isValid(Object)}.
  * @param <E> the element type
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.PreparedIterator} instead
  * @since 1.0.0
@@ -37,19 +37,19 @@ import java.util.NoSuchElementException;
 public abstract class PreparedIterator<E> implements Iterator<E> {
 
 	/**
-	 * <p>Whether the next element has been initialized or not.</p>
+	 * Whether the next element has been initialized.
 	 * @since 1.0.0
 	 */
 	private boolean initialized;
 
 	/**
-	 * <p>Prepared next element.</p>
+	 * Prepared next element.
 	 * @since 1.0.0
 	 */
 	private E next;
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.7.0
 	 */
 	protected PreparedIterator() {}
@@ -67,7 +67,7 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	}
 
 	/**
-	 * <p>Indicates if the prepared next element is valid, if not there is no more element.</p>
+	 * Indicates if the prepared next element is valid, if not there is no more element.
 	 * @param next the prepared next element
 	 * @return {@code true} if the prepared next element is valid
 	 * @since 1.0.0
@@ -88,7 +88,8 @@ public abstract class PreparedIterator<E> implements Iterator<E> {
 	}
 
 	/**
-	 * <p>Return the next element to be returned after the current one.</p>
+	 * Return the next element to be returned after the current one.
+	 *
 	 * <p><b>Note</b>: This method should not be called by the inherited class.</p>
 	 * @return the next element, valid or not
 	 * @since 1.0.0

@@ -27,20 +27,20 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertPathValidator;
 
 /**
- * <p>A {@link CertPathValidator} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link CertPathValidator} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertPathValidator.html">https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertPathValidator.html</a>
  * @since 1.8.0
  */
 public final class StandardCertPathValidators {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardCertPathValidators() {}
 
 	/**
-	 * <p>Get a new "PKIX" {@link CertPathValidator} instance.</p>
+	 * Get a new "PKIX" {@link CertPathValidator} instance.
 	 * @return a "PKIX" {@link CertPathValidator} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardCertPathValidators {
 	}
 
 	/**
-	 * <p>Get a new {@link CertPathValidator} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link CertPathValidator} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link CertPathValidator} algorithm
 	 * @return a {@link CertPathValidator} instance of the provided algorithm
 	 * @since 1.8.0

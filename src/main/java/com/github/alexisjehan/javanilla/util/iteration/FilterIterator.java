@@ -29,7 +29,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An abstract {@link Iterator} filter to create decorators from the current position.</p>
+ * An abstract {@link Iterator} filter to create decorators from the current position.
  * @param <E> the element type
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.FilterIterator} instead
  * @since 1.2.0
@@ -38,13 +38,13 @@ import java.util.NoSuchElementException;
 public abstract class FilterIterator<E> implements Iterator<E> {
 
 	/**
-	 * <p>Delegated {@link Iterator}.</p>
+	 * Delegated {@link Iterator}.
 	 * @since 1.2.0
 	 */
 	protected final Iterator<? extends E> iterator;
 
 	/**
-	 * <p>Constructor with an {@link Iterator} to decorate.</p>
+	 * Constructor with an {@link Iterator} to decorate.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
 	 * @since 1.2.0

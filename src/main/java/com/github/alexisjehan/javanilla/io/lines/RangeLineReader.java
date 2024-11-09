@@ -28,7 +28,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.io.IOException;
 
 /**
- * <p>A {@link LineReader} decorator that reads only lines within a range from the current position.</p>
+ * A {@link LineReader} decorator that reads only lines within a range from the current position.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.RangeLineReader} instead
  * @since 1.0.0
  */
@@ -36,25 +36,25 @@ import java.io.IOException;
 public final class RangeLineReader extends FilterLineReader {
 
 	/**
-	 * <p>Inclusive index of the first line to read.</p>
+	 * Inclusive index of the first line to read.
 	 * @since 1.0.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last line to read.</p>
+	 * Inclusive index of the last line to read.
 	 * @since 1.0.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.0.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Constructor with a {@link LineReader} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with a {@link LineReader} to decorate and a range from an inclusive index to another one.
 	 * @param lineReader the {@link LineReader} to decorate
 	 * @param fromIndex the inclusive index of the first line to read
 	 * @param toIndex the inclusive index of the last line to read
@@ -105,7 +105,7 @@ public final class RangeLineReader extends FilterLineReader {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first line to read.</p>
+	 * Get the inclusive index of the first line to read.
 	 * @return the inclusive starting index
 	 * @since 1.0.0
 	 */
@@ -114,7 +114,7 @@ public final class RangeLineReader extends FilterLineReader {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last line to read.</p>
+	 * Get the inclusive index of the last line to read.
 	 * @return the inclusive ending index
 	 * @since 1.0.0
 	 */

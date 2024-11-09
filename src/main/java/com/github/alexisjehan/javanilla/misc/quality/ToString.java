@@ -29,20 +29,20 @@ import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 import java.util.Objects;
 
 /**
- * <p>An utility class that provides an unique interface to create {@link String} representations. Using it you don't
- * have to take care of the type to choose a specific implementation.</p>
+ * A utility class that provides an unique interface to create {@link String} representations. Using it you don't have
+ * to take care of the type to choose a specific implementation.
  * @since 1.3.0
  */
 public final class ToString {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.0
 	 */
 	private ToString() {}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code boolean} value.</p>
+	 * Create a {@link String} representing the {@code boolean} value.
 	 * @param value the {@code boolean} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -52,7 +52,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code byte} value.</p>
+	 * Create a {@link String} representing the {@code byte} value.
 	 * @param value the {@code byte} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -62,7 +62,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code short} value.</p>
+	 * Create a {@link String} representing the {@code short} value.
 	 * @param value the {@code short} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -72,7 +72,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code char} value.</p>
+	 * Create a {@link String} representing the {@code char} value.
 	 * @param value the {@code char} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -82,7 +82,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code int} value.</p>
+	 * Create a {@link String} representing the {@code int} value.
 	 * @param value the {@code int} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -92,7 +92,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code long} value.</p>
+	 * Create a {@link String} representing the {@code long} value.
 	 * @param value the {@code long} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -102,7 +102,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code float} value.</p>
+	 * Create a {@link String} representing the {@code float} value.
 	 * @param value the {@code float} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -112,7 +112,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code double} value.</p>
+	 * Create a {@link String} representing the {@code double} value.
 	 * @param value the {@code double} value
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -122,7 +122,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@link CharSequence} value.</p>
+	 * Create a {@link String} representing the {@link CharSequence} value.
 	 * @param value the {@link CharSequence} value or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -132,7 +132,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@link Object} value.</p>
+	 * Create a {@link String} representing the {@link Object} value.
 	 * @param value the {@link Object} value or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -142,7 +142,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code boolean} array.</p>
+	 * Create a {@link String} representing the {@code boolean} array.
 	 * @param array the {@code boolean} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -166,7 +166,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code byte} array.</p>
+	 * Create a {@link String} representing the {@code byte} array.
 	 * @param array the {@code byte} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -190,7 +190,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code short} array.</p>
+	 * Create a {@link String} representing the {@code short} array.
 	 * @param array the {@code short} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -214,7 +214,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code char} array.</p>
+	 * Create a {@link String} representing the {@code char} array.
 	 * @param array the {@code char} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -238,7 +238,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code int} array.</p>
+	 * Create a {@link String} representing the {@code int} array.
 	 * @param array the {@code int} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -262,7 +262,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code long} array.</p>
+	 * Create a {@link String} representing the {@code long} array.
 	 * @param array the {@code long} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -286,7 +286,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code float} array.</p>
+	 * Create a {@link String} representing the {@code float} array.
 	 * @param array the {@code float} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -310,7 +310,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@code double} array.</p>
+	 * Create a {@link String} representing the {@code double} array.
 	 * @param array the {@code double} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -334,7 +334,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@link CharSequence} array.</p>
+	 * Create a {@link String} representing the {@link CharSequence} array.
 	 * @param array the {@link CharSequence} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -358,7 +358,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing the {@link Object} array.</p>
+	 * Create a {@link String} representing the {@link Object} array.
 	 * @param array the {@link Object} array or {@code null}
 	 * @return the created {@link String} representation
 	 * @since 1.3.0
@@ -382,7 +382,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing an {@link Object} and its attributes if any.</p>
+	 * Create a {@link String} representing an {@link Object} and its attributes if any.
 	 * @param object the {@link Object}
 	 * @param toStrings the {@link String} representation array with an attribute name and its {@link String}
 	 *        representation
@@ -421,7 +421,7 @@ public final class ToString {
 	}
 
 	/**
-	 * <p>Create a {@link String} representing an {@link Object} and its attributes if any.</p>
+	 * Create a {@link String} representing an {@link Object} and its attributes if any.
 	 * @param object the {@link Object}
 	 * @param toStrings the {@link String} representation array with an attribute name and its {@link String}
 	 *        representation

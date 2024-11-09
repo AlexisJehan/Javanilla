@@ -27,20 +27,20 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/MessageDigest.html">https://docs.oracle.com/javase/10/docs/api/java/security/MessageDigest.html</a>
  * @since 1.8.0
  */
 public final class StandardMessageDigests {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardMessageDigests() {}
 
 	/**
-	 * <p>Get a new "MD5" {@link MessageDigest} instance.</p>
+	 * Get a new "MD5" {@link MessageDigest} instance.
 	 * @return a "MD5" {@link MessageDigest} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "SHA-1" {@link MessageDigest} instance.</p>
+	 * Get a new "SHA-1" {@link MessageDigest} instance.
 	 * @return a "SHA-1" {@link MessageDigest} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "SHA-256" {@link MessageDigest} instance.</p>
+	 * Get a new "SHA-256" {@link MessageDigest} instance.
 	 * @return a "SHA-256" {@link MessageDigest} instance
 	 * @since 1.8.0
 	 */
@@ -67,7 +67,7 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new {@link MessageDigest} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link MessageDigest} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link MessageDigest} algorithm
 	 * @return a {@link MessageDigest} instance of the provided algorithm
 	 * @since 1.8.0

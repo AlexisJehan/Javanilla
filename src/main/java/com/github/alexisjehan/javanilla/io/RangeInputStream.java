@@ -30,37 +30,37 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * <p>An {@link InputStream} decorator that reads only bytes within a range from the current position.</p>
+ * An {@link InputStream} decorator that reads only bytes within a range from the current position.
  * @since 1.8.0
  */
 public final class RangeInputStream extends FilterInputStream {
 
 	/**
-	 * <p>Inclusive index of the first byte to read.</p>
+	 * Inclusive index of the first byte to read.
 	 * @since 1.8.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last byte to read.</p>
+	 * Inclusive index of the last byte to read.
 	 * @since 1.8.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.8.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
+	 * Index at the last call of {@link #mark(int)}, or {@code 0} if not called yet.
 	 * @since 1.8.0
 	 */
 	private long markedIndex;
 
 	/**
-	 * <p>Constructor with an {@link InputStream} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with an {@link InputStream} to decorate and a range from an inclusive index to another one.
 	 * @param inputStream the {@link InputStream} to decorate
 	 * @param fromIndex the inclusive index of the first byte to read
 	 * @param toIndex the inclusive index of the last byte to read
@@ -153,7 +153,7 @@ public final class RangeInputStream extends FilterInputStream {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first byte to read.</p>
+	 * Get the inclusive index of the first byte to read.
 	 * @return the inclusive starting index
 	 * @since 1.8.0
 	 */
@@ -162,7 +162,7 @@ public final class RangeInputStream extends FilterInputStream {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last byte to read.</p>
+	 * Get the inclusive index of the last byte to read.
 	 * @return the inclusive ending index
 	 * @since 1.8.0
 	 */

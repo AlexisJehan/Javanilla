@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.crypto;
 import java.security.Signature;
 
 /**
- * <p>A {@link Signature} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link Signature} factory to get standard instances without throwing checked exceptions.
  * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardSignatures} instead
  * @since 1.3.1
  */
@@ -34,13 +34,13 @@ import java.security.Signature;
 public final class StandardSignatures {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.1
 	 */
 	private StandardSignatures() {}
 
 	/**
-	 * <p>Get a new "SHA1withDSA" {@link Signature} instance.</p>
+	 * Get a new "SHA1withDSA" {@link Signature} instance.
 	 * @return a "SHA1withDSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
@@ -49,7 +49,7 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA256withDSA" {@link Signature} instance.</p>
+	 * Get a new "SHA256withDSA" {@link Signature} instance.
 	 * @return a "SHA256withDSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
@@ -58,7 +58,7 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA1withRSA" {@link Signature} instance.</p>
+	 * Get a new "SHA1withRSA" {@link Signature} instance.
 	 * @return a "SHA1withRSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */
@@ -67,7 +67,7 @@ public final class StandardSignatures {
 	}
 
 	/**
-	 * <p>Get a new "SHA256withRSA" {@link Signature} instance.</p>
+	 * Get a new "SHA256withRSA" {@link Signature} instance.
 	 * @return a "SHA256withRSA" {@link Signature} instance
 	 * @since 1.3.1
 	 */

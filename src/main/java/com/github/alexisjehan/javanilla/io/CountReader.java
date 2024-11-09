@@ -30,25 +30,25 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * <p>A {@link Reader} decorator that counts the number of chars read from the current position.</p>
+ * A {@link Reader} decorator that counts the number of chars read from the current position.
  * @since 1.8.0
  */
 public final class CountReader extends FilterReader {
 
 	/**
-	 * <p>Number of chars read.</p>
+	 * Number of chars read.
 	 * @since 1.8.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Number of chars read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.</p>
+	 * Number of chars read at the last call of {@link #mark(int)}, or {@code 0} if not called yet.
 	 * @since 1.8.0
 	 */
 	private long markedCount;
 
 	/**
-	 * <p>Constructor with a {@link Reader} to decorate.</p>
+	 * Constructor with a {@link Reader} to decorate.
 	 * @param reader the {@link Reader} to decorate
 	 * @throws NullPointerException if the {@link Reader} is {@code null}
 	 * @since 1.8.0
@@ -119,7 +119,7 @@ public final class CountReader extends FilterReader {
 	}
 
 	/**
-	 * <p>Get the number of chars read.</p>
+	 * Get the number of chars read.
 	 * @return the number of chars read
 	 * @since 1.8.0
 	 */

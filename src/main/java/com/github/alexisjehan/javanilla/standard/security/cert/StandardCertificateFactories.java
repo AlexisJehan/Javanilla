@@ -27,22 +27,23 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 
 /**
- * <p>A {@link CertificateFactory} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link CertificateFactory} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertificateFactory.html">https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertificateFactory.html</a>
- * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.security.cert.StandardCertificateFactories} instead
+ * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.security.cert.StandardCertificateFactories}
+ *             instead
  * @since 1.6.0
  */
 @Deprecated(since = "1.8.0")
 public final class StandardCertificateFactories {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardCertificateFactories() {}
 
 	/**
-	 * <p>Get a new "X.509" {@link CertificateFactory} instance.</p>
+	 * Get a new "X.509" {@link CertificateFactory} instance.
 	 * @return a "X.509" {@link CertificateFactory} instance
 	 * @since 1.6.0
 	 */
@@ -51,7 +52,7 @@ public final class StandardCertificateFactories {
 	}
 
 	/**
-	 * <p>Get a new {@link CertificateFactory} instance without throwing {@link CertificateException}.</p>
+	 * Get a new {@link CertificateFactory} instance without throwing {@link CertificateException}.
 	 * @param type the {@link CertificateFactory} type
 	 * @return a {@link CertificateFactory} instance of the provided type
 	 * @since 1.6.0

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>A set of {@link java.io.InputStream}/{@link java.io.OutputStream} tools and decorators.</p>
+ * A set of {@link java.io.InputStream}/{@link java.io.OutputStream} tools and decorators.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.io.bytes;

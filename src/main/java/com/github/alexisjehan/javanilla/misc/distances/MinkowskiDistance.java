@@ -32,8 +32,10 @@ import com.github.alexisjehan.javanilla.misc.tuples.Pair;
 import java.io.Serializable;
 
 /**
- * <p>The Minkowski {@link Distance} implementation.</p>
+ * The Minkowski {@link Distance} implementation.
+ *
  * <p><b>Note</b>: This class is {@link Serializable}.</p>
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Minkowski_distance">https://en.wikipedia.org/wiki/Minkowski_distance</a>
@@ -44,19 +46,19 @@ import java.io.Serializable;
 public final class MinkowskiDistance implements Distance, Serializable {
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.0.0
 	 */
 	private static final long serialVersionUID = -4031988672792022044L;
 
 	/**
-	 * <p>Distance order.</p>
+	 * Distance order.
 	 * @since 1.0.0
 	 */
 	private final int order;
 
 	/**
-	 * <p>Constructor with a custom order.</p>
+	 * Constructor with a custom order.
 	 * @param order the order
 	 * @throws IllegalArgumentException if the order is lower than {@code 1}
 	 * @since 1.0.0
@@ -116,7 +118,7 @@ public final class MinkowskiDistance implements Distance, Serializable {
 	}
 
 	/**
-	 * <p>Get the order.</p>
+	 * Get the order.
 	 * @return the order
 	 * @since 1.0.0
 	 */

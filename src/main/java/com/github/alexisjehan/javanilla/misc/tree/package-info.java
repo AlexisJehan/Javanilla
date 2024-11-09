@@ -22,8 +22,8 @@
  * SOFTWARE.
  */
 /**
- * <p>New {@link com.github.alexisjehan.javanilla.misc.tree.TreeNode} interface and implementations to work with tree
- * data structures.</p>
+ * New {@link com.github.alexisjehan.javanilla.misc.tree.TreeNode} interface and implementations to work with tree data
+ * structures.
  * @since 1.8.0
  */
 package com.github.alexisjehan.javanilla.misc.tree;

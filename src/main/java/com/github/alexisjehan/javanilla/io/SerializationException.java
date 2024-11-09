@@ -26,21 +26,22 @@ package com.github.alexisjehan.javanilla.io;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>A {@link RuntimeException} wrapping any serialization {@link Exception} thrown while working with the
- * {@link Serializables} utility class.</p>
+ * A {@link RuntimeException} wrapping any serialization {@link Exception} thrown while working with the
+ * {@link Serializables} utility class.
+ *
  * <p><b>Note</b>: This class is {@link java.io.Serializable}.</p>
  * @since 1.0.0
  */
 public final class SerializationException extends RuntimeException {
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.0.0
 	 */
 	private static final long serialVersionUID = -7322730015273496724L;
 
 	/**
-	 * <p>Constructor with a cause.</p>
+	 * Constructor with a cause.
 	 * @param cause the cause
 	 * @throws NullPointerException if the cause is {@code null}
 	 * @since 1.0.0

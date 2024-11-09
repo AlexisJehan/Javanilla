@@ -50,32 +50,32 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * <p>An utility class that provides {@link Iterator} and {@link PrimitiveIterator} tools.</p>
+ * A utility class that provides {@link Iterator} and {@link PrimitiveIterator} tools.
  * @since 1.8.0
  */
 public final class Iterators {
 
 	/**
-	 * <p>An {@link Iterator} that wraps multiple ones as a sequence.</p>
+	 * An {@link Iterator} that wraps multiple ones as a sequence.
 	 * @param <E> the element type
 	 * @since 1.8.0
 	 */
 	private static final class SequenceIterator<E> implements Iterator<E> {
 
 		/**
-		 * <p>{@link Iterator} of {@link Iterator}s.</p>
+		 * {@link Iterator} of {@link Iterator}s.
 		 * @since 1.8.0
 		 */
 		private final Iterator<? extends Iterator<? extends E>> iterator;
 
 		/**
-		 * <p>Current {@link Iterator}.</p>
+		 * Current {@link Iterator}.
 		 * @since 1.8.0
 		 */
 		private Iterator<? extends E> current;
 
 		/**
-		 * <p>Constructor.</p>
+		 * Constructor.
 		 * @param iterator the {@link Iterator} of {@link Iterator}s
 		 * @since 1.8.0
 		 */
@@ -85,7 +85,7 @@ public final class Iterators {
 		}
 
 		/**
-		 * <p>Set the current {@link Iterator} as the next one from the {@link Iterator}.</p>
+		 * Set the current {@link Iterator} as the next one from the {@link Iterator}.
 		 * @since 1.8.0
 		 */
 		private void nextIterator() {
@@ -126,7 +126,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>An empty {@link PrimitiveIterator.OfInt}.</p>
+	 * An empty {@link PrimitiveIterator.OfInt}.
 	 * @since 1.8.0
 	 */
 	public static final PrimitiveIterator.OfInt EMPTY_INT = new PrimitiveIterator.OfInt() {
@@ -157,7 +157,7 @@ public final class Iterators {
 	};
 
 	/**
-	 * <p>An empty {@link PrimitiveIterator.OfLong}.</p>
+	 * An empty {@link PrimitiveIterator.OfLong}.
 	 * @since 1.8.0
 	 */
 	public static final PrimitiveIterator.OfLong EMPTY_LONG = new PrimitiveIterator.OfLong() {
@@ -188,7 +188,7 @@ public final class Iterators {
 	};
 
 	/**
-	 * <p>An empty {@link PrimitiveIterator.OfDouble}.</p>
+	 * An empty {@link PrimitiveIterator.OfDouble}.
 	 * @since 1.8.0
 	 */
 	public static final PrimitiveIterator.OfDouble EMPTY_DOUBLE = new PrimitiveIterator.OfDouble() {
@@ -219,13 +219,13 @@ public final class Iterators {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private Iterators() {}
 
 	/**
-	 * <p>Wrap a {@link PrimitiveIterator.OfInt} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link PrimitiveIterator.OfInt} replacing {@code null} by an empty one.
 	 * @param primitiveIterator the {@link PrimitiveIterator.OfInt} or {@code null}
 	 * @return a non-{@code null} {@link PrimitiveIterator.OfInt}
 	 * @since 1.8.0
@@ -235,7 +235,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap a {@link PrimitiveIterator.OfLong} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link PrimitiveIterator.OfLong} replacing {@code null} by an empty one.
 	 * @param primitiveIterator the {@link PrimitiveIterator.OfLong} or {@code null}
 	 * @return a non-{@code null} {@link PrimitiveIterator.OfLong}
 	 * @since 1.8.0
@@ -245,7 +245,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap a {@link PrimitiveIterator.OfDouble} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link PrimitiveIterator.OfDouble} replacing {@code null} by an empty one.
 	 * @param primitiveIterator the {@link PrimitiveIterator.OfDouble} or {@code null}
 	 * @return a non-{@code null} {@link PrimitiveIterator.OfDouble}
 	 * @since 1.8.0
@@ -255,7 +255,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap an {@link Iterator} replacing {@code null} by an empty one.</p>
+	 * Wrap an {@link Iterator} replacing {@code null} by an empty one.
 	 * @param iterator the {@link Iterator} or {@code null}
 	 * @param <E> the element type
 	 * @return a non-{@code null} {@link Iterator}
@@ -266,7 +266,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap a {@link ListIterator} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link ListIterator} replacing {@code null} by an empty one.
 	 * @param listIterator the {@link ListIterator} or {@code null}
 	 * @param <E> the element type
 	 * @return a non-{@code null} {@link ListIterator}
@@ -277,7 +277,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap an {@link Iterator} replacing {@code null} by a default one.</p>
+	 * Wrap an {@link Iterator} replacing {@code null} by a default one.
 	 * @param iterator the {@link Iterator} or {@code null}
 	 * @param defaultIterator the default {@link Iterator}
 	 * @param <I> the {@link Iterator} type
@@ -291,7 +291,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap an {@link Iterator} replacing an empty one by {@code null}.</p>
+	 * Wrap an {@link Iterator} replacing an empty one by {@code null}.
 	 * @param iterator the {@link Iterator} or {@code null}
 	 * @param <I> the {@link Iterator} type
 	 * @return a non-empty {@link Iterator} or {@code null}
@@ -302,7 +302,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Wrap an {@link Iterator} replacing an empty one by a default one.</p>
+	 * Wrap an {@link Iterator} replacing an empty one by a default one.
 	 * @param iterator the {@link Iterator} or {@code null}
 	 * @param defaultIterator the default {@link Iterator} or {@code null}
 	 * @param <I> the {@link Iterator} type
@@ -318,7 +318,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Decorate an {@link Iterator} so that its {@link Iterator#remove()} method is not available.</p>
+	 * Decorate an {@link Iterator} so that its {@link Iterator#remove()} method is not available.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param <E> the element type
 	 * @return the unmodifiable {@link Iterator}
@@ -343,8 +343,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Decorate an {@link Iterator} so that it returns {@link IndexedElement}s composed of the index from the current
-	 * position and the element.</p>
+	 * Decorate an {@link Iterator} so that it returns {@link IndexedElement}s composed of the index from the current
+	 * position and the element.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param <E> the element type
 	 * @return the indexed {@link Iterator}
@@ -359,7 +359,7 @@ public final class Iterators {
 		return new Iterator<>() {
 
 			/**
-			 * <p>Current index.</p>
+			 * Current index.
 			 * @since 1.8.0
 			 */
 			private long index;
@@ -386,7 +386,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Decorate an {@link Iterator} so that its elements are filtered using the given {@link Predicate}.</p>
+	 * Decorate an {@link Iterator} so that its elements are filtered using the given {@link Predicate}.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param filter the filter {@link Predicate}
 	 * @param <E> the element type
@@ -403,13 +403,13 @@ public final class Iterators {
 		return new Iterator<>() {
 
 			/**
-			 * <p>{@link Single} of the current value.</p>
+			 * {@link Single} of the current value.
 			 * @since 1.8.0
 			 */
 			private Single<E> currentSingle;
 
 			/**
-			 * <p>Prepare the next value.</p>
+			 * Prepare the next value.
 			 * @since 1.8.0
 			 */
 			private void prepareNext() {
@@ -458,7 +458,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Decorate an {@link Iterator} so that its elements are mapped using the given {@link Function}.</p>
+	 * Decorate an {@link Iterator} so that its elements are mapped using the given {@link Function}.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param mapper the mapper {@link Function}
 	 * @param <I> the input element type
@@ -505,7 +505,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link Iterator}s.</p>
+	 * Concatenate multiple {@link Iterator}s.
 	 * @param iterators the {@link Iterator} array to concatenate
 	 * @param <E> the element type
 	 * @return the concatenated {@link Iterator}
@@ -520,7 +520,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link Iterator}s.</p>
+	 * Concatenate multiple {@link Iterator}s.
 	 * @param iterators the {@link Iterator} {@link List} to concatenate
 	 * @param <E> the element type
 	 * @return the concatenated {@link Iterator}
@@ -541,7 +541,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Join multiple {@link Iterator}s using an {@link Object} array separator.</p>
+	 * Join multiple {@link Iterator}s using an {@link Object} array separator.
 	 * @param separator the {@link Object} array separator
 	 * @param iterators the {@link Iterator} array to join
 	 * @param <E> the element type
@@ -558,7 +558,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Join multiple {@link Iterator}s using an {@link Object} array separator.</p>
+	 * Join multiple {@link Iterator}s using an {@link Object} array separator.
 	 * @param separator the {@link Object} array separator
 	 * @param iterators the {@link Iterator} {@link List} to join
 	 * @param <E> the element type
@@ -592,7 +592,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Decorate an {@link Iterator} from the given {@link Supplier} which iterates until an excluded element.</p>
+	 * Decorate an {@link Iterator} from the given {@link Supplier} which iterates until an excluded element.
+	 *
 	 * <p><b>Warning</b>: Could result in an infinite loop if the excluded element is never supplied.</p>
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param excludedElement the excluded element or {@code null}
@@ -624,7 +625,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Iterate and remove elements from an {@link Iterator} if they are contained by the {@link Collection}.</p>
+	 * Iterate and remove elements from an {@link Iterator} if they are contained by the {@link Collection}.
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
 	 * @param iterator the {@link Iterator} to remove elements from
 	 * @param collection the {@link Collection} that contains elements to remove
@@ -643,7 +645,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Iterate and remove elements from an {@link Iterator} based on the given filter {@link Predicate}.</p>
+	 * Iterate and remove elements from an {@link Iterator} based on the given filter {@link Predicate}.
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
 	 * @param iterator the {@link Iterator} to remove elements from
 	 * @param filter the filter {@link Predicate}
@@ -669,7 +672,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Iterate an {@link Iterator} from the current position to the end and return the length.</p>
+	 * Iterate an {@link Iterator} from the current position to the end and return the length.
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
 	 * @param iterator the {@link Iterator} to iterate
 	 * @return the length from the current position
@@ -687,7 +691,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Transfer {@link Iterator} elements from the current position to a {@link Collection}.</p>
+	 * Transfer {@link Iterator} elements from the current position to a {@link Collection}.
+	 *
 	 * <p><b>Warning</b>: Can produce a memory overflow if the {@link Iterator} is too large.</p>
 	 * @param iterator the {@link Iterator} to get elements from
 	 * @param collection the {@link Collection} to add elements to
@@ -708,7 +713,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Optionally get the first element of an {@link Iterator} from the current position.</p>
+	 * Optionally get the first element of an {@link Iterator} from the current position.
 	 * @param iterator the {@link Iterator} to get the first element from
 	 * @param <E> the element type
 	 * @return a {@link NullableOptional} containing the first element if the {@link Iterator} is not empty
@@ -724,7 +729,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Optionally get the last element of an {@link Iterator} from the current position.</p>
+	 * Optionally get the last element of an {@link Iterator} from the current position.
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if the {@link Iterator} does not end.</p>
 	 * @param iterator the {@link Iterator} to get the last element from
 	 * @param <E> the element type
@@ -745,7 +751,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Tell if an {@link Iterator} is empty.</p>
+	 * Tell if an {@link Iterator} is empty.
 	 * @param iterator the {@link Iterator} to test
 	 * @return {@code true} if the {@link Iterator} is empty
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
@@ -757,7 +763,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a {@link PrimitiveIterator.OfInt} from a single {@code int} element.</p>
+	 * Create a {@link PrimitiveIterator.OfInt} from a single {@code int} element.
 	 * @param element the {@code int} element to convert
 	 * @return the created {@link PrimitiveIterator.OfInt}
 	 * @since 1.8.0
@@ -767,7 +773,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a {@link PrimitiveIterator.OfLong} from a single {@code long} element.</p>
+	 * Create a {@link PrimitiveIterator.OfLong} from a single {@code long} element.
 	 * @param element the {@code long} element to convert
 	 * @return the created {@link PrimitiveIterator.OfLong}
 	 * @since 1.8.0
@@ -777,7 +783,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a singleton {@link PrimitiveIterator.OfDouble} from a single {@code double} element.</p>
+	 * Create a singleton {@link PrimitiveIterator.OfDouble} from a single {@code double} element.
 	 * @param element the {@code double} element to convert
 	 * @return the created {@link PrimitiveIterator.OfDouble}
 	 * @since 1.8.0
@@ -787,7 +793,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a singleton {@link Iterator} from a single element.</p>
+	 * Create a singleton {@link Iterator} from a single element.
 	 * @param element the element to convert
 	 * @param <E> the element type
 	 * @return the created {@link Iterator}
@@ -798,7 +804,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a {@link PrimitiveIterator.OfInt} from multiple {@code int} elements.</p>
+	 * Create a {@link PrimitiveIterator.OfInt} from multiple {@code int} elements.
 	 * @param elements the {@code int} elements array to convert
 	 * @return the created {@link PrimitiveIterator.OfInt}
 	 * @throws NullPointerException if the {@code int} elements array is {@code null}
@@ -813,7 +819,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a {@link PrimitiveIterator.OfLong} from multiple {@code long} elements.</p>
+	 * Create a {@link PrimitiveIterator.OfLong} from multiple {@code long} elements.
 	 * @param elements the {@code long} elements array to convert
 	 * @return the created {@link PrimitiveIterator.OfLong}
 	 * @throws NullPointerException if the {@code long} elements array is {@code null}
@@ -828,7 +834,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create a {@link PrimitiveIterator.OfDouble} from multiple {@code double} elements.</p>
+	 * Create a {@link PrimitiveIterator.OfDouble} from multiple {@code double} elements.
 	 * @param elements the {@code double} elements array to convert
 	 * @return the created {@link PrimitiveIterator.OfDouble}
 	 * @throws NullPointerException if the {@code double} elements array is {@code null}
@@ -843,7 +849,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create an {@link Iterator} from multiple elements.</p>
+	 * Create an {@link Iterator} from multiple elements.
 	 * @param elements the elements array to convert
 	 * @param <E> the element type
 	 * @return the created {@link Iterator}
@@ -861,7 +867,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create an {@link Iterator} with an {@link InputStream} from the current position.</p>
+	 * Create an {@link Iterator} with an {@link InputStream} from the current position.
+	 *
 	 * <p><b>Note</b>: The {@link InputStream} will not be closed.</p>
 	 * @param inputStream the {@link InputStream} to convert
 	 * @return the created {@link Iterator}
@@ -874,7 +881,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create an {@link Iterator} with a {@link Reader} from the current position.</p>
+	 * Create an {@link Iterator} with a {@link Reader} from the current position.
+	 *
 	 * <p><b>Note</b>: The {@link Reader} will not be closed.</p>
 	 * @param reader the {@link Reader} to convert
 	 * @return the created {@link Iterator}
@@ -887,7 +895,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create an {@link Iterator} with a {@link BufferedReader} from the current position.</p>
+	 * Create an {@link Iterator} with a {@link BufferedReader} from the current position.
+	 *
 	 * <p><b>Note</b>: The {@link BufferedReader} will not be closed.</p>
 	 * @param bufferedReader the {@link BufferedReader} to convert
 	 * @return the created {@link Iterator}
@@ -900,7 +909,8 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Create an {@link Iterator} with a {@link LineReader} from the current position.</p>
+	 * Create an {@link Iterator} with a {@link LineReader} from the current position.
+	 *
 	 * <p><b>Note</b>: The {@link LineReader} will not be closed.</p>
 	 * @param lineReader the {@link LineReader} to convert
 	 * @return the created {@link Iterator}
@@ -913,7 +923,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Convert an {@link Iterator} from the current position to a {@link Set}.</p>
+	 * Convert an {@link Iterator} from the current position to a {@link Set}.
 	 * @param iterator the {@link Iterator} to convert
 	 * @param <E> the element type
 	 * @return the created {@link Set}
@@ -931,7 +941,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Convert an {@link Iterator} from the current position to a {@link List}.</p>
+	 * Convert an {@link Iterator} from the current position to a {@link List}.
 	 * @param iterator the {@link Iterator} to convert
 	 * @param <E> the element type
 	 * @return the created {@link List}
@@ -949,7 +959,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Convert an {@link Iterator} from the current position to an {@link InputStream}.</p>
+	 * Convert an {@link Iterator} from the current position to an {@link InputStream}.
 	 * @param iterator the {@link Iterator} to convert
 	 * @return the created {@link InputStream}
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}
@@ -976,7 +986,7 @@ public final class Iterators {
 	}
 
 	/**
-	 * <p>Convert an {@link Iterator} from the current position to a {@link Reader}.</p>
+	 * Convert an {@link Iterator} from the current position to a {@link Reader}.
 	 * @param iterator the {@link Iterator} to convert
 	 * @return the created {@link Reader}
 	 * @throws NullPointerException if the {@link Iterator} is {@code null}

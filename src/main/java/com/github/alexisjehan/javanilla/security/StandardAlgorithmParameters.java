@@ -27,20 +27,20 @@ import java.security.AlgorithmParameters;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link AlgorithmParameters} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link AlgorithmParameters} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/AlgorithmParameters.html">https://docs.oracle.com/javase/10/docs/api/java/security/AlgorithmParameters.html</a>
  * @since 1.8.0
  */
 public final class StandardAlgorithmParameters {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardAlgorithmParameters() {}
 
 	/**
-	 * <p>Get a new "AES" {@link AlgorithmParameters} instance.</p>
+	 * Get a new "AES" {@link AlgorithmParameters} instance.
 	 * @return an "AES" {@link AlgorithmParameters} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardAlgorithmParameters {
 	}
 
 	/**
-	 * <p>Get a new "DES" {@link AlgorithmParameters} instance.</p>
+	 * Get a new "DES" {@link AlgorithmParameters} instance.
 	 * @return a "DES" {@link AlgorithmParameters} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardAlgorithmParameters {
 	}
 
 	/**
-	 * <p>Get a new "DESede" {@link AlgorithmParameters} instance.</p>
+	 * Get a new "DESede" {@link AlgorithmParameters} instance.
 	 * @return a "DESede" {@link AlgorithmParameters} instance
 	 * @since 1.8.0
 	 */
@@ -67,7 +67,7 @@ public final class StandardAlgorithmParameters {
 	}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link AlgorithmParameters} instance.</p>
+	 * Get a new "DiffieHellman" {@link AlgorithmParameters} instance.
 	 * @return a "DiffieHellman" {@link AlgorithmParameters} instance
 	 * @since 1.8.0
 	 */
@@ -76,7 +76,7 @@ public final class StandardAlgorithmParameters {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@link AlgorithmParameters} instance.</p>
+	 * Get a new "DSA" {@link AlgorithmParameters} instance.
 	 * @return a "DSA" {@link AlgorithmParameters} instance
 	 * @since 1.8.0
 	 */
@@ -85,7 +85,7 @@ public final class StandardAlgorithmParameters {
 	}
 
 	/**
-	 * <p>Get a new {@link AlgorithmParameters} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link AlgorithmParameters} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link AlgorithmParameters} algorithm
 	 * @return a {@link AlgorithmParameters} instance of the provided algorithm
 	 * @since 1.8.0

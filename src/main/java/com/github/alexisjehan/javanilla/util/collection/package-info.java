@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>A set of {@link java.util.List}/{@link java.util.Set}/{@link java.util.Map} tools.</p>
+ * A set of {@link java.util.List}/{@link java.util.Set}/{@link java.util.Map} tools.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.util.collection;

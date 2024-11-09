@@ -34,19 +34,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>An utility class that provides {@link Throwable}, {@link Exception} and {@link RuntimeException} tools.</p>
+ * A utility class that provides {@link Throwable}, {@link Exception} and {@link RuntimeException} tools.
  * @since 1.0.0
  */
 public final class Throwables {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private Throwables() {}
 
 	/**
-	 * <p>Wrap and return a {@link Throwable} as an unchecked {@link Exception} if it was not already.</p>
+	 * Wrap and return a {@link Throwable} as an unchecked {@link Exception} if it was not already.
 	 * @param throwable the {@link Throwable} to wrap
 	 * @return an unchecked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
@@ -63,8 +63,8 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Execute the given {@link ThrowableRunnable} converting any thrown {@link Throwable} to an unchecked
-	 * {@link Exception}.</p>
+	 * Execute the given {@link ThrowableRunnable} converting any thrown {@link Throwable} to an unchecked
+	 * {@link Exception}.
 	 * @param throwableRunnable the {@link ThrowableRunnable} to execute
 	 * @throws NullPointerException if the {@link ThrowableRunnable} is {@code null}
 	 * @deprecated since 1.7.0, should not be used anymore
@@ -77,8 +77,8 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Return a result from the given {@link ThrowableSupplier} converting any thrown {@link Throwable} to an
-	 * unchecked {@link Exception}.</p>
+	 * Return a result from the given {@link ThrowableSupplier} converting any thrown {@link Throwable} to an unchecked
+	 * {@link Exception}.
 	 * @param throwableSupplier the {@link ThrowableSupplier} to get the result from
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the supplied result
@@ -93,7 +93,7 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Sneaky throw the given {@link Throwable}.</p>
+	 * Sneaky throw the given {@link Throwable}.
 	 * @param throwable the {@link Throwable} to sneaky throw
 	 * @param <E> the type of the {@link Throwable}
 	 * @throws E the given {@link Throwable}
@@ -107,8 +107,8 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Optionally get the root cause of the given {@link Throwable} by calling {@link Throwable#getCause()}
-	 * recursively.</p>
+	 * Optionally get the root cause of the given {@link Throwable} by calling {@link Throwable#getCause()} recursively.
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if {@link Throwable} causes are making a cycle.</p>
 	 * @param throwable the {@link Throwable} to get the root cause from
 	 * @return an {@link Optional} {@link Throwable} root cause
@@ -127,9 +127,11 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Get the {@link List} of causes of the given {@link Throwable} by calling {@link Throwable#getCause()}
-	 * recursively.</p>
+	 * Get the {@link List} of causes of the given {@link Throwable} by calling {@link Throwable#getCause()}
+	 * recursively.
+	 *
 	 * <p><b>Note</b>: The {@link List} is ordered so that the root cause is at the end.</p>
+	 *
 	 * <p><b>Warning</b>: Can produce an infinite loop if {@link Throwable} causes are making a cycle.</p>
 	 * @param throwable the {@link Throwable} to get causes from
 	 * @return a {@link List} of {@link Throwable} causes
@@ -148,7 +150,7 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
+	 * Tell if a {@link Throwable} is a checked {@link Exception}.
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
@@ -161,7 +163,7 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Throwable} is a checked {@link Exception}.</p>
+	 * Tell if a {@link Throwable} is a checked {@link Exception}.
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is a checked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
@@ -173,7 +175,7 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
+	 * Tell if a {@link Throwable} is an unchecked {@link Exception}.
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}
@@ -186,7 +188,7 @@ public final class Throwables {
 	}
 
 	/**
-	 * <p>Tell if a {@link Throwable} is an unchecked {@link Exception}.</p>
+	 * Tell if a {@link Throwable} is an unchecked {@link Exception}.
 	 * @param throwable the {@link Throwable} to test
 	 * @return {@code true} if the {@link Throwable} is an unchecked {@link Exception}
 	 * @throws NullPointerException if the {@link Throwable} is {@code null}

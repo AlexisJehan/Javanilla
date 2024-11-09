@@ -30,19 +30,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * <p>An {@link OutputStream} decorator that counts the number of bytes written from the current position.</p>
+ * An {@link OutputStream} decorator that counts the number of bytes written from the current position.
  * @since 1.8.0
  */
 public final class CountOutputStream extends FilterOutputStream {
 
 	/**
-	 * <p>Number of bytes written.</p>
+	 * Number of bytes written.
 	 * @since 1.8.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Constructor with an {@link OutputStream} to decorate.</p>
+	 * Constructor with an {@link OutputStream} to decorate.
 	 * @param outputStream the {@link OutputStream} to decorate
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
 	 * @since 1.8.0
@@ -75,7 +75,7 @@ public final class CountOutputStream extends FilterOutputStream {
 	}
 
 	/**
-	 * <p>Get the number of bytes written.</p>
+	 * Get the number of bytes written.
 	 * @return the number of bytes written
 	 * @since 1.8.0
 	 */

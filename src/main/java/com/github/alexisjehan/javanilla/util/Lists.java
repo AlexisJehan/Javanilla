@@ -32,19 +32,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>An utility class that provides {@link List} tools.</p>
+ * A utility class that provides {@link List} tools.
  * @since 1.8.0
  */
 public final class Lists {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private Lists() {}
 
 	/**
-	 * <p>Wrap a {@link List} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link List} replacing {@code null} by an empty one.
 	 * @param list the {@link List} or {@code null}
 	 * @param <E> the type of elements in the list
 	 * @return a non-{@code null} {@link List}
@@ -55,7 +55,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@link List} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link List} replacing {@code null} by a default one.
 	 * @param list the {@link List} or {@code null}
 	 * @param defaultList the default {@link List}
 	 * @param <L> the {@link List} type
@@ -69,7 +69,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@link List} replacing an empty one by {@code null}.</p>
+	 * Wrap a {@link List} replacing an empty one by {@code null}.
 	 * @param list the {@link List} or {@code null}
 	 * @param <L> the {@link List} type
 	 * @return a non-empty {@link List} or {@code null}
@@ -80,7 +80,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Wrap a {@link List} replacing an empty one by a default {@link List}.</p>
+	 * Wrap a {@link List} replacing an empty one by a default {@link List}.
 	 * @param list the {@link List} or {@code null}
 	 * @param defaultList the default {@link List} or {@code null}
 	 * @param <L> the {@link List} type
@@ -96,7 +96,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link List}s.</p>
+	 * Concatenate multiple {@link List}s.
 	 * @param lists the {@link List} array to concatenate
 	 * @param <E> the type of elements in the list
 	 * @return the concatenated {@link List}
@@ -111,7 +111,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link List}s.</p>
+	 * Concatenate multiple {@link List}s.
 	 * @param lists the {@link List} {@link List} to concatenate
 	 * @param <E> the type of elements in the list
 	 * @return the concatenated {@link List}
@@ -132,7 +132,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Join multiple {@link List}s using an {@link Object} array separator.</p>
+	 * Join multiple {@link List}s using an {@link Object} array separator.
 	 * @param separator the {@link Object} array separator
 	 * @param lists the {@link List} array to join
 	 * @param <E> the type of elements in the list
@@ -149,7 +149,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Join multiple {@link List}s using an {@link Object} array separator.</p>
+	 * Join multiple {@link List}s using an {@link Object} array separator.
 	 * @param separator the {@link Object} array separator
 	 * @param lists the {@link List} {@link List} to join
 	 * @param <E> the type of elements in the list
@@ -183,7 +183,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Optionally get the first element of a {@link List}.</p>
+	 * Optionally get the first element of a {@link List}.
 	 * @param list the {@link List} to get the first element from
 	 * @param <E> the type of elements in the list
 	 * @return a {@link NullableOptional} containing the first element if the {@link List} is not empty
@@ -202,7 +202,7 @@ public final class Lists {
 	}
 
 	/**
-	 * <p>Optionally get the last element of a {@link List}.</p>
+	 * Optionally get the last element of a {@link List}.
 	 * @param list the {@link List} to get the last element from
 	 * @param <E> the type of elements in the list
 	 * @return a {@link NullableOptional} containing the last element if the {@link List} is not empty

@@ -27,20 +27,20 @@ import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link KeyFactory} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyFactory} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/KeyFactory.html">https://docs.oracle.com/javase/10/docs/api/java/security/KeyFactory.html</a>
  * @since 1.8.0
  */
 public final class StandardKeyFactories {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardKeyFactories() {}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>
+	 * Get a new "DiffieHellman" {@link KeyFactory} instance.
 	 * @return a "DiffieHellman" {@link KeyFactory} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@link KeyFactory} instance.</p>
+	 * Get a new "DSA" {@link KeyFactory} instance.
 	 * @return a "DSA" {@link KeyFactory} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
+	 * Get a new "RSA" {@link KeyFactory} instance.
 	 * @return an "RSA" {@link KeyFactory} instance
 	 * @since 1.8.0
 	 */
@@ -67,7 +67,7 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new {@link KeyFactory} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link KeyFactory} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link KeyFactory} algorithm
 	 * @return a {@link KeyFactory} instance of the provided algorithm
 	 * @since 1.8.0

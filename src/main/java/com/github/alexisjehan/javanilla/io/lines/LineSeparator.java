@@ -33,7 +33,8 @@ import java.nio.file.Path;
 import java.util.stream.IntStream;
 
 /**
- * <p>Enumeration of line separator types used by {@link LineReader} and {@link LineWriter}.</p>
+ * Enumeration of line separator types used by {@link LineReader} and {@link LineWriter}.
+ *
  * <p><b>Note</b>: This class implements its own {@link #toString()} method.</p>
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.LineSeparator} instead
  * @since 1.0.0
@@ -42,7 +43,7 @@ import java.util.stream.IntStream;
 public enum LineSeparator {
 
 	/**
-	 * <p>"Line Feed" char line separator type, used mainly on <i>Linux</i> and <i>MacOS</i> operating systems.</p>
+	 * "Line Feed" char line separator type, used mainly on <i>Linux</i> and <i>MacOS</i> operating systems.
 	 * @since 1.0.0
 	 */
 	LF("\n") {
@@ -63,8 +64,8 @@ public enum LineSeparator {
 	},
 
 	/**
-	 * <p>"Carriage Return" followed by "Line Feed" chars line separator type, used mainly on the <i>Windows</i>
-	 * operating system.</p>
+	 * "Carriage Return" followed by "Line Feed" chars line separator type, used mainly on the <i>Windows</i> operating
+	 * system.
 	 * @since 1.0.0
 	 */
 	CR_LF("\r\n") {
@@ -95,7 +96,7 @@ public enum LineSeparator {
 	},
 
 	/**
-	 * <p>"Carriage Return" char line separator type, used on old <i>MacOS</i> operating systems.</p>
+	 * "Carriage Return" char line separator type, used on old <i>MacOS</i> operating systems.
 	 * @since 1.0.0
 	 */
 	CR("\r") {
@@ -116,8 +117,8 @@ public enum LineSeparator {
 	},
 
 	/**
-	 * <p>"Line Feed" or "Carriage Return" char line separator type on read, system's default line separator
-	 * representation on write.</p>
+	 * "Line Feed" or "Carriage Return" char line separator type on read, system's default line separator representation
+	 * on write.
 	 * @since 1.0.0
 	 */
 	DEFAULT(System.lineSeparator()) {
@@ -138,20 +139,19 @@ public enum LineSeparator {
 	};
 
 	/**
-	 * <p>Limit on the characters sample to read while detecting the {@link LineSeparator} type over a
-	 * {@link Reader}.</p>
+	 * Limit on the characters sample to read while detecting the {@link LineSeparator} type over a {@link Reader}.
 	 * @since 1.0.0
 	 */
 	private static final int DETECTION_LIMIT = 8_000;
 
 	/**
-	 * <p>{@link String} representation of the current {@link LineSeparator} type.</p>
+	 * {@link String} representation of the current {@link LineSeparator} type.
 	 * @since 1.0.0
 	 */
 	private final String string;
 
 	/**
-	 * <p>Enumeration constructor.</p>
+	 * Enumeration constructor.
 	 * @param string the {@link String} representation
 	 * @since 1.0.0
 	 */
@@ -160,7 +160,7 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Read the next line from the given {@link Reader} using the current {@code LineSeparator} strategy.</p>
+	 * Read the next line from the given {@link Reader} using the current {@code LineSeparator} strategy.
 	 * @param reader the {@link Reader} to read from
 	 * @param builder the {@link StringBuilder} to write the line to
 	 * @return the {@code int} value of the last read {@code char}
@@ -170,7 +170,7 @@ public enum LineSeparator {
 	abstract int read(Reader reader, StringBuilder builder) throws IOException;
 
 	/**
-	 * <p>Return the {@link String} representation.</p>
+	 * Return the {@link String} representation.
 	 * @return the {@link String} representation
 	 * @since 1.0.0
 	 */
@@ -180,8 +180,8 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@link Path} using a default {@link Charset}
-	 * reading a sample.</p>
+	 * Attempt to detect the {@code LineSeparator} type of the given {@link Path} using a default {@link Charset}
+	 * reading a sample.
 	 * @param path the {@link Path} of the file to analyze
 	 * @return the detected {@code LineSeparator} if one has been found, {@link #DEFAULT} otherwise
 	 * @throws IOException might occur with I/O operations
@@ -193,8 +193,8 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@link Path} using the given {@link Charset}
-	 * reading a sample.</p>
+	 * Attempt to detect the {@code LineSeparator} type of the given {@link Path} using the given {@link Charset}
+	 * reading a sample.
 	 * @param path the {@link Path} of the file to analyze
 	 * @param charset the {@link Charset} to use
 	 * @return the detected {@code LineSeparator} if one has been found, {@link #DEFAULT} otherwise
@@ -211,7 +211,8 @@ public enum LineSeparator {
 	}
 
 	/**
-	 * <p>Attempt to detect the {@code LineSeparator} type of the given {@link Reader} using a sample.</p>
+	 * Attempt to detect the {@code LineSeparator} type of the given {@link Reader} using a sample.
+	 *
 	 * <p><b>Note</b>: The {@link Reader} need to support {@link Reader#mark(int)}.</p>
 	 * @param reader the {@link Reader} to analyze
 	 * @return the detected {@code LineSeparator} if one has been found, {@link #DEFAULT} otherwise

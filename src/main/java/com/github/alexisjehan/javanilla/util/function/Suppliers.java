@@ -34,20 +34,20 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
- * <p>An utility class that provides {@link Supplier} tools.</p>
+ * A utility class that provides {@link Supplier} tools.
  * @since 1.0.0
  */
 public final class Suppliers {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private Suppliers() {}
 
 	/**
-	 * <p>Decorate a {@link Supplier} so that it only returns a value once. If the {@link Supplier} is supplied more
-	 * than once an {@link IllegalStateException} is thrown.</p>
+	 * Decorate a {@link Supplier} so that it only returns a value once. If the {@link Supplier} is supplied more than
+	 * once an {@link IllegalStateException} is thrown.
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the {@link Supplier} which returns a value once
@@ -59,7 +59,7 @@ public final class Suppliers {
 		return new Supplier<>() {
 
 			/**
-			 * <p>Whether or not a value has already been supplied.</p>
+			 * Whether a value has already been supplied.
 			 * @since 1.0.0
 			 */
 			private boolean supplied;
@@ -79,7 +79,7 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Supplier} so that the first supplied value is cached for next times.</p>
+	 * Decorate a {@link Supplier} so that the first supplied value is cached for next times.
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param <T> the type of results supplied by this supplier
 	 * @return the cached {@link Supplier}
@@ -91,7 +91,7 @@ public final class Suppliers {
 		return new Supplier<>() {
 
 			/**
-			 * <p>{@link Single} of the cached value.</p>
+			 * {@link Single} of the cached value.
 			 * @since 1.0.0
 			 */
 			private Single<? extends T> cache;
@@ -110,8 +110,8 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Supplier} so that it caches the value supplied for the given {@link Duration} using
-	 * {@link Clock#systemUTC()} before to refresh it.</p>
+	 * Decorate a {@link Supplier} so that it caches the value supplied for the given {@link Duration} using
+	 * {@link Clock#systemUTC()} before to refresh it.
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param duration the cache {@link Duration}
 	 * @param <T> the type of results supplied by this supplier
@@ -125,8 +125,8 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Supplier} so that it caches the value supplied for the given {@link Duration} using the
-	 * provided {@link Clock} before to refresh it.</p>
+	 * Decorate a {@link Supplier} so that it caches the value supplied for the given {@link Duration} using the
+	 * provided {@link Clock} before to refresh it.
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param duration the cache {@link Duration}
 	 * @param clock the {@link Clock} to use
@@ -150,13 +150,13 @@ public final class Suppliers {
 		return new Supplier<>() {
 
 			/**
-			 * <p>Cached value.</p>
+			 * Cached value.
 			 * @since 1.1.0
 			 */
 			private T value;
 
 			/**
-			 * <p>{@link Instant} of the cached value.</p>
+			 * {@link Instant} of the cached value.
 			 * @since 1.1.0
 			 */
 			private Instant lastSupplied;
@@ -177,8 +177,8 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Supplier} so that it caches the value supplied for the given amount of times before to
-	 * refresh it.</p>
+	 * Decorate a {@link Supplier} so that it caches the value supplied for the given amount of times before to refresh
+	 * it.
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param times the cache amount of times
 	 * @param <T> the type of results supplied by this supplier
@@ -197,13 +197,13 @@ public final class Suppliers {
 		return new Supplier<>() {
 
 			/**
-			 * <p>Cached value.</p>
+			 * Cached value.
 			 * @since 1.1.0
 			 */
 			private T value;
 
 			/**
-			 * <p>Remaining amount of times.</p>
+			 * Remaining amount of times.
 			 * @since 1.1.0
 			 */
 			private int remaining = -1;
@@ -223,8 +223,8 @@ public final class Suppliers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Supplier} so that it caches the value supplied and refresh it when the
-	 * {@link BooleanSupplier} supplies {@code true}.</p>
+	 * Decorate a {@link Supplier} so that it caches the value supplied and refresh it when the {@link BooleanSupplier}
+	 * supplies {@code true}.
 	 * @param supplier the {@link Supplier} to decorate
 	 * @param booleanSupplier the {@link BooleanSupplier}
 	 * @param <T> the type of results supplied by this supplier
@@ -238,13 +238,13 @@ public final class Suppliers {
 		return new Supplier<>() {
 
 			/**
-			 * <p>Cached value.</p>
+			 * Cached value.
 			 * @since 1.1.0
 			 */
 			private T value;
 
 			/**
-			 * <p>Whether or not a value has already been supplied.</p>
+			 * Whether a value has already been supplied.
 			 * @since 1.1.0
 			 */
 			private boolean supplied;

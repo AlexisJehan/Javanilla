@@ -34,7 +34,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * <p>A {@link TreeNode} implementation which uses a {@link LinkedList} to store its children.</p>
+ * A {@link TreeNode} implementation which uses a {@link LinkedList} to store its children.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <V> the value type
@@ -45,25 +46,25 @@ import java.util.stream.Collectors;
 public final class LinkedTreeNode<V> implements TreeNode<V> {
 
 	/**
-	 * <p>Parent {@link TreeNode} or {@code null}.</p>
+	 * Parent {@link TreeNode} or {@code null}.
 	 * @since 1.2.0
 	 */
 	private final TreeNode<V> parent;
 
 	/**
-	 * <p>{@link List} of children {@link TreeNode}s.</p>
+	 * {@link List} of children {@link TreeNode}s.
 	 * @since 1.2.0
 	 */
 	private final List<TreeNode<V>> children = new LinkedList<>();
 
 	/**
-	 * <p>Mutable value.</p>
+	 * Mutable value.
 	 * @since 1.2.0
 	 */
 	private V value;
 
 	/**
-	 * <p>Constructor of a new tree with his root {@link TreeNode} having the given value.</p>
+	 * Constructor of a new tree with his root {@link TreeNode} having the given value.
 	 * @param value the value of the root {@link TreeNode}
 	 * @since 1.2.0
 	 */
@@ -72,7 +73,7 @@ public final class LinkedTreeNode<V> implements TreeNode<V> {
 	}
 
 	/**
-	 * <p>Constructor of a {@link TreeNode}.</p>
+	 * Constructor of a {@link TreeNode}.
 	 * @param parent the parent of the {@link TreeNode} or {@code null}
 	 * @param value the value of the {@link TreeNode}
 	 * @since 1.2.0

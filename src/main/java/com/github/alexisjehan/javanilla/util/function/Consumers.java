@@ -30,20 +30,20 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * <p>An utility class that provides {@link Consumer} tools.</p>
+ * A utility class that provides {@link Consumer} tools.
  * @since 1.1.0
  */
 public final class Consumers {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.1.0
 	 */
 	private Consumers() {}
 
 	/**
-	 * <p>Decorate a {@link Consumer} so that it only accepts a value once. If the {@link Consumer} is consumed more
-	 * than once an {@link IllegalStateException} is thrown.</p>
+	 * Decorate a {@link Consumer} so that it only accepts a value once. If the {@link Consumer} is consumed more than
+	 * once an {@link IllegalStateException} is thrown.
 	 * @param consumer the {@link Consumer} to decorate
 	 * @param <T> the type of the input to the operation
 	 * @return the {@link Consumer} which accepts a value once
@@ -55,7 +55,7 @@ public final class Consumers {
 		return new Consumer<>() {
 
 			/**
-			 * <p>Whether or not a value has already been consumed.</p>
+			 * Whether a value has already been consumed.
 			 * @since 1.1.0
 			 */
 			private boolean consumed;
@@ -75,7 +75,7 @@ public final class Consumers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Consumer} so that it only accepts distinct values.</p>
+	 * Decorate a {@link Consumer} so that it only accepts distinct values.
 	 * @param consumer the {@link Consumer} to decorate
 	 * @param <T> the type of the input to the operation
 	 * @return the {@link Consumer} which accepts distinct values
@@ -87,7 +87,7 @@ public final class Consumers {
 		return new Consumer<>() {
 
 			/**
-			 * <p>Set of distinct values.</p>
+			 * Set of distinct values.
 			 * @since 1.2.0
 			 */
 			private final Set<T> set = new HashSet<>();

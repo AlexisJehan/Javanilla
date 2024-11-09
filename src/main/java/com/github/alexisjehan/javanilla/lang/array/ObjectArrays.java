@@ -36,25 +36,25 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@link Object} array tools.</p>
+ * A utility class that provides {@link Object} array tools.
  * @since 1.0.0
  */
 public final class ObjectArrays {
 
 	/**
-	 * <p>Map that associates a {@link Class} type to a cached empty {@link Object} array.</p>
+	 * Map that associates a {@link Class} type to a cached empty {@link Object} array.
 	 * @since 1.2.0
 	 */
 	private static final Map<Class<?>, Object> cachedEmpties = new WeakHashMap<>();
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private ObjectArrays() {}
 
 	/**
-	 * <p>Return an empty {@link Object} array.</p>
+	 * Return an empty {@link Object} array.
 	 * @param classType the {@link Class} type
 	 * @param <E> the {@link Object} type
 	 * @return an empty {@link Object} array
@@ -68,7 +68,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@link Object} array replacing {@code null} by an empty one.</p>
+	 * Wrap an {@link Object} array replacing {@code null} by an empty one.
 	 * @param classType the {@link Class} type
 	 * @param array the {@link Object} array or {@code null}
 	 * @param <E> the {@link Object} type
@@ -81,7 +81,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@link Object} array replacing {@code null} by a default one.</p>
+	 * Wrap an {@link Object} array replacing {@code null} by a default one.
 	 * @param array the {@link Object} array or {@code null}
 	 * @param defaultArray the default {@link Object} array
 	 * @param <E> the {@link Object} type
@@ -95,7 +95,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@link Object} array replacing an empty one by {@code null}.</p>
+	 * Wrap an {@link Object} array replacing an empty one by {@code null}.
 	 * @param array the {@link Object} array or {@code null}
 	 * @param <E> the {@link Object} type
 	 * @return a non-empty {@link Object} array or {@code null}
@@ -106,7 +106,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Wrap an {@link Object} array replacing an empty one by a default {@link Object} array.</p>
+	 * Wrap an {@link Object} array replacing an empty one by a default {@link Object} array.
 	 * @param array the {@link Object} array or {@code null}
 	 * @param defaultArray the default {@link Object} array or {@code null}
 	 * @param <E> the {@link Object} type
@@ -122,7 +122,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Add an {@link Object} value at the end of the given {@link Object} array.</p>
+	 * Add an {@link Object} value at the end of the given {@link Object} array.
 	 * @param array the {@link Object} array to add to
 	 * @param value the {@link Object} value to add
 	 * @param <E> the {@link Object} type
@@ -136,7 +136,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Add an {@link Object} value at the provided index of the given {@link Object} array.</p>
+	 * Add an {@link Object} value at the provided index of the given {@link Object} array.
 	 * @param array the {@link Object} array to add to
 	 * @param index the index of the {@link Object} value
 	 * @param value the {@link Object} value to add
@@ -153,7 +153,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Add an {@link Object} value at the provided index of the given {@link Object} array.</p>
+	 * Add an {@link Object} value at the provided index of the given {@link Object} array.
 	 * @param array the {@link Object} array to add to
 	 * @param value the {@link Object} value to add
 	 * @param index the index of the {@link Object} value
@@ -179,7 +179,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Remove an {@link Object} value at the provided index of the given {@link Object} array.</p>
+	 * Remove an {@link Object} value at the provided index of the given {@link Object} array.
 	 * @param array the {@link Object} array to remove from
 	 * @param index the index of the {@link Object} value
 	 * @param <E> the {@link Object} type
@@ -203,7 +203,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link Object} arrays.</p>
+	 * Concatenate multiple {@link Object} arrays.
 	 * @param classType the {@link Class} type
 	 * @param arrays {@link Object} arrays to concatenate
 	 * @param <E> the {@link Object} type
@@ -220,7 +220,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@link Object} arrays.</p>
+	 * Concatenate multiple {@link Object} arrays.
 	 * @param classType the {@link Class} type
 	 * @param arrays the {@link Object} array {@link List} to concatenate
 	 * @param <E> the {@link Object} type
@@ -250,7 +250,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * Join multiple {@link Object} arrays using an {@link Object} array separator.
 	 * @param classType the {@link Class} type
 	 * @param separator the {@link Object} array separator
 	 * @param arrays {@link Object} arrays to join
@@ -270,7 +270,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * Join multiple {@link Object} arrays using an {@link Object} array separator.
 	 * @param classType the {@link Class} type
 	 * @param separator the {@link Object} array separator
 	 * @param arrays the {@link Object} array {@link List} to join
@@ -313,7 +313,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * Join multiple {@link Object} arrays using an {@link Object} array separator.
 	 * @param separator the {@link Object} array separator
 	 * @param arrays {@link Object} arrays to join
 	 * @param <E> the {@link Object} type
@@ -330,7 +330,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@link Object} arrays using an {@link Object} array separator.</p>
+	 * Join multiple {@link Object} arrays using an {@link Object} array separator.
 	 * @param separator the {@link Object} array separator
 	 * @param arrays the {@link Object} array {@link List} to join
 	 * @param <E> the {@link Object} type
@@ -370,7 +370,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@link Object} array contains any of given {@link Object} values at least one.</p>
+	 * Tell if the {@link Object} array contains any of given {@link Object} values at least one.
 	 * @param array the {@link Object} array to test
 	 * @param values {@link Object} values to test
 	 * @return {@code true} if any of given {@link Object} values is contained at least once by the {@link Object} array
@@ -395,7 +395,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@link Object} array contains all of given {@link Object} values at least one.</p>
+	 * Tell if the {@link Object} array contains all of given {@link Object} values at least one.
 	 * @param array the {@link Object} array to test
 	 * @param values {@link Object} values to test
 	 * @return {@code true} if all of given {@link Object} values are contained at least once by the {@link Object}
@@ -426,7 +426,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@link Object} array contains each given {@link Object} value only once.</p>
+	 * Tell if the {@link Object} array contains each given {@link Object} value only once.
 	 * @param array the {@link Object} array to test
 	 * @param values {@link Object} values to test
 	 * @return {@code true} if each of given {@link Object} values are contained only once by the {@link Object} array
@@ -458,7 +458,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@link Object} array contains only given {@link Object} values at least one.</p>
+	 * Tell if the {@link Object} array contains only given {@link Object} values at least one.
 	 * @param array the {@link Object} array to test
 	 * @param values {@link Object} values to test
 	 * @return {@code true} if given {@link Object} values are only values contained by the {@link Object} array
@@ -488,7 +488,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@link Object} value in the {@link Object} array.</p>
+	 * Get the first index of the {@link Object} value in the {@link Object} array.
 	 * @param array the {@link Object} array to iterate
 	 * @param value the {@link Object} value to search
 	 * @return the first index of the {@link Object} value if found, {@code -1} otherwise
@@ -500,7 +500,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
+	 * Get the first index of the {@link Object} value in the {@link Object} array starting from the given index.
 	 * @param array the {@link Object} array to iterate
 	 * @param value the {@link Object} value to search
 	 * @param fromIndex the starting index
@@ -523,7 +523,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@link Object} value in the {@link Object} array.</p>
+	 * Get the last index of the {@link Object} value in the {@link Object} array.
 	 * @param array the {@link Object} array to iterate
 	 * @param value the {@link Object} value to search
 	 * @return the last index of the {@link Object} value if found, {@code -1} otherwise
@@ -535,7 +535,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@link Object} value in the {@link Object} array starting from the given index.</p>
+	 * Get the last index of the {@link Object} value in the {@link Object} array starting from the given index.
 	 * @param array the {@link Object} array to iterate
 	 * @param value the {@link Object} value to search
 	 * @param fromIndex the starting index
@@ -558,7 +558,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@link Object} value in the {@link Object} array.</p>
+	 * Calculate the number of occurrences of the {@link Object} value in the {@link Object} array.
 	 * @param array the {@link Object} array to iterate
 	 * @param value the {@link Object} value of the frequency to calculate
 	 * @return the frequency of the {@link Object} value
@@ -580,7 +580,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@link Object} array.</p>
+	 * Reverse values in the given {@link Object} array.
 	 * @param array the {@link Object} array to reverse
 	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @since 1.2.0
@@ -595,7 +595,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@link Object} array using provided indexes.</p>
+	 * Reorder values in the given {@link Object} array using provided indexes.
 	 * @param array the {@link Object} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@link Object} array or the indexes array is {@code null}
@@ -623,7 +623,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@link Object} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@link Object} array following the Fisher-Yates algorithm.
 	 * @param array the {@link Object} array to shuffle
 	 * @throws NullPointerException if the {@link Object} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -637,8 +637,8 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@link Object} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@link Object} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@link Object} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@link Object} array or the {@code Random} object is {@code null}
@@ -656,7 +656,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@link Object} array using their indexes.</p>
+	 * Swap two values in the given {@link Object} array using their indexes.
 	 * @param array the {@link Object} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -676,7 +676,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Tell if an {@link Object} array is empty.</p>
+	 * Tell if an {@link Object} array is empty.
 	 * @param array the {@link Object} array to test
 	 * @return {@code true} if the {@link Object} array is empty
 	 * @throws NullPointerException if the {@link Object} array is {@code null}
@@ -688,7 +688,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@link Object} array from a single {@link Object} value.</p>
+	 * Create an {@link Object} array from a single {@link Object} value.
 	 * @param value the {@link Object} value to convert
 	 * @param <E> the {@link Object} type
 	 * @return the created {@link Object} array
@@ -702,7 +702,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@link Object} array from a single {@link Object} value or {@code null}.</p>
+	 * Create an {@link Object} array from a single {@link Object} value or {@code null}.
 	 * @param classType the {@link Class} type
 	 * @param value the {@link Object} value to convert or {@code null}
 	 * @param <E> the {@link Object} type
@@ -719,7 +719,7 @@ public final class ObjectArrays {
 	}
 
 	/**
-	 * <p>Create an {@link Object} array from multiple {@link Object} values.</p>
+	 * Create an {@link Object} array from multiple {@link Object} values.
 	 * @param values {@link Object} values to convert
 	 * @param <E> the {@link Object} type
 	 * @return the created {@link Object} array

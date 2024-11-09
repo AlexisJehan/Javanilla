@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.io.lines;
 import java.io.IOException;
 
 /**
- * <p>A {@link LineReader} decorator that counts the number of lines read from the current position.</p>
+ * A {@link LineReader} decorator that counts the number of lines read from the current position.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.CountLineReader} instead
  * @since 1.0.0
  */
@@ -34,13 +34,13 @@ import java.io.IOException;
 public final class CountLineReader extends FilterLineReader {
 
 	/**
-	 * <p>Number of lines read.</p>
+	 * Number of lines read.
 	 * @since 1.0.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Constructor with a {@link LineReader} to decorate.</p>
+	 * Constructor with a {@link LineReader} to decorate.
 	 * @param lineReader the {@link LineReader} to decorate
 	 * @throws NullPointerException if the {@link LineReader} is {@code null}
 	 * @since 1.0.0
@@ -75,7 +75,7 @@ public final class CountLineReader extends FilterLineReader {
 	}
 
 	/**
-	 * <p>Get the number of lines read.</p>
+	 * Get the number of lines read.
 	 * @return the number of lines read
 	 * @since 1.0.0
 	 */

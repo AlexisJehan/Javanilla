@@ -27,20 +27,20 @@ import javax.crypto.SecretKeyFactory;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link SecretKeyFactory} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link SecretKeyFactory} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/crypto/SecretKeyFactory.html">https://docs.oracle.com/javase/10/docs/api/javax/crypto/SecretKeyFactory.html</a>
  * @since 1.8.0
  */
 public final class StandardSecretKeyFactories {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardSecretKeyFactories() {}
 
 	/**
-	 * <p>Get a new "DES" {@link SecretKeyFactory} instance.</p>
+	 * Get a new "DES" {@link SecretKeyFactory} instance.
 	 * @return a "DES" {@link SecretKeyFactory} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardSecretKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "DESede" {@link SecretKeyFactory} instance.</p>
+	 * Get a new "DESede" {@link SecretKeyFactory} instance.
 	 * @return a "DESede" {@link SecretKeyFactory} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardSecretKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new {@link SecretKeyFactory} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link SecretKeyFactory} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link SecretKeyFactory} algorithm
 	 * @return a {@link SecretKeyFactory} instance of the provided algorithm
 	 * @since 1.8.0

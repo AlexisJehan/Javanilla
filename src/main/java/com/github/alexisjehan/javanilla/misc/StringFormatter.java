@@ -38,8 +38,10 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * <p>An immutable formatter to pretty display values of several types as {@link String}s.</p>
+ * An immutable formatter to pretty display values of several types as {@link String}s.
+ *
  * <p><b>Note</b>: This class is {@link Serializable}.</p>
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @since 1.0.0
@@ -47,32 +49,32 @@ import java.util.Locale;
 public final class StringFormatter implements Serializable {
 
 	/**
-	 * <p>Byte representation prefixes.</p>
+	 * Byte representation prefixes.
 	 * @since 1.0.0
 	 */
 	public enum BytePrefix {
 		/**
-		 * <p>SI prefix with a base of {@code 1000}.</p>
+		 * SI prefix with a base of {@code 1000}.
 		 * @see <a href="https://en.wikipedia.org/wiki/SI_prefix">https://en.wikipedia.org/wiki/SI_prefix</a>
 		 * @since 1.0.0
 		 */
 		SI(1_000),
 
 		/**
-		 * <p>Binary prefix with a base of {@code 1024}.</p>
+		 * Binary prefix with a base of {@code 1024}.
 		 * @see <a href="https://en.wikipedia.org/wiki/Binary_prefix">https://en.wikipedia.org/wiki/Binary_prefix</a>
 		 * @since 1.0.0
 		 */
 		BINARY(1_024);
 
 		/**
-		 * <p>Base value.</p>
+		 * Base value.
 		 * @since 1.0.0
 		 */
 		private final int base;
 
 		/**
-		 * <p>Enumeration constructor.</p>
+		 * Enumeration constructor.
 		 * @param base the base value
 		 * @since 1.0.0
 		 */
@@ -81,7 +83,7 @@ public final class StringFormatter implements Serializable {
 		}
 
 		/**
-		 * <p>Get the base.</p>
+		 * Get the base.
 		 * @return the base
 		 * @since 1.9.0
 		 */
@@ -91,91 +93,91 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>{@link StringFormatter} instance with default parameters.</p>
+	 * {@link StringFormatter} instance with default parameters.
 	 * @since 1.3.0
 	 */
 	public static final StringFormatter DEFAULT = new StringFormatter(Locale.getDefault());
 
 	/**
-	 * <p>Default float precision.</p>
+	 * Default float precision.
 	 * @since 1.0.0
 	 */
 	static final int DEFAULT_FLOAT_PRECISION = 2;
 
 	/**
-	 * <p>Default value to enable the strict precision or not.</p>
+	 * Default value to enable the strict precision or not.
 	 * @since 1.0.0
 	 */
 	static final boolean DEFAULT_STRICT_PRECISION = false;
 
 	/**
-	 * <p>Units suffixes.</p>
+	 * Units suffixes.
 	 * @since 1.0.0
 	 */
 	private static final char[] UNITS = {'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'};
 
 	/**
-	 * <p>Default {@link BytePrefix}.</p>
+	 * Default {@link BytePrefix}.
 	 * @since 1.0.0
 	 */
 	private static final BytePrefix DEFAULT_BYTE_PREFIX = BytePrefix.BINARY;
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.0.0
 	 */
 	private static final long serialVersionUID = -908532502532051210L;
 
 	/**
-	 * <p>{@link Locale} instance.</p>
+	 * {@link Locale} instance.
 	 * @since 1.0.0
 	 */
 	private final Locale locale;
 
 	/**
-	 * <p>Float precision.</p>
+	 * Float precision.
 	 * @since 1.0.0
 	 */
 	private final int floatPrecision;
 
 	/**
-	 * <p>Whether to enable the strict precision or not.</p>
+	 * Whether to enable the strict precision.
 	 * @since 1.0.0
 	 */
 	private final boolean strictPrecision;
 
 	/**
-	 * <p>Formatter for {@code long} values.</p>
+	 * Formatter for {@code long} values.
 	 * @since 1.0.0
 	 */
 	private final NumberFormat longFormatter;
 
 	/**
-	 * <p>Formatter for {@code double} values.</p>
+	 * Formatter for {@code double} values.
 	 * @since 1.0.0
 	 */
 	private final DecimalFormat doubleFormatter;
 
 	/**
-	 * <p>Formatter for percent values.</p>
+	 * Formatter for percent values.
 	 * @since 1.0.0
 	 */
 	private final NumberFormat percentFormatter;
 
 	/**
-	 * <p>Formatter for currency values.</p>
+	 * Formatter for currency values.
 	 * @since 1.0.0
 	 */
 	private final NumberFormat currencyFormatter;
 
 	/**
-	 * <p>{@link Locale} delimiter.</p>
+	 * {@link Locale} delimiter.
 	 * @since 1.0.0
 	 */
 	private final String localeDelimiter;
 
 	/**
-	 * <p>Constructor with a custom {@link Locale} and the default float precision.</p>
+	 * Constructor with a custom {@link Locale} and the default float precision.
 	 * @param locale the custom {@link Locale}
 	 * @throws NullPointerException if the {@link Locale} is {@code null}
 	 * @since 1.0.0
@@ -185,7 +187,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Constructor with custom {@link Locale} and float precision, and the default strict precision parameter.</p>
+	 * Constructor with custom {@link Locale} and float precision, and the default strict precision parameter.
 	 * @param locale the custom {@link Locale}
 	 * @param floatPrecision the custom float precision
 	 * @throws NullPointerException if the {@link Locale} is {@code null}
@@ -197,7 +199,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Complete constructor with custom {@link Locale}, float precision and strict precision parameter.</p>
+	 * Complete constructor with custom {@link Locale}, float precision and strict precision parameter.
 	 * @param locale the custom {@link Locale}
 	 * @param floatPrecision the custom float precision
 	 * @param strictPrecision the custom strict precision parameter
@@ -234,7 +236,8 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a {@code int}/{@code long} value as a pretty {@link String}.</p>
+	 * Format a {@code int}/{@code long} value as a pretty {@link String}.
+	 *
 	 * <p><b>Note</b>: The {@link Locale} attribute is used.</p>
 	 * @param value the {@code long} value
 	 * @return the {@code long} {@link String} representation
@@ -245,7 +248,8 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a {@code float}/{@code double} value as a pretty {@link String}.</p>
+	 * Format a {@code float}/{@code double} value as a pretty {@link String}.
+	 *
 	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the {@code double} value
 	 * @return the {@code double} {@link String} representation
@@ -256,8 +260,9 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a number of bytes value such as a file size as a pretty {@link String} using the default
-	 * {@link BytePrefix}.</p>
+	 * Format a number of bytes value such as a file size as a pretty {@link String} using the default
+	 * {@link BytePrefix}.
+	 *
 	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the number of bytes value
 	 * @return the number of bytes {@link String} representation
@@ -268,8 +273,8 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a number of bytes value such as a file size as a pretty {@link String} using a custom
-	 * {@link BytePrefix}.</p>
+	 * Format a number of bytes value such as a file size as a pretty {@link String} using a custom {@link BytePrefix}.
+	 *
 	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the number of bytes value
 	 * @param bytePrefix the {@link BytePrefix} to use
@@ -306,7 +311,8 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a percent value as a pretty {@link String}.</p>
+	 * Format a percent value as a pretty {@link String}.
+	 *
 	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param progression the progression value
 	 * @param total the total value
@@ -320,7 +326,8 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Format a currency value as a pretty {@link String}, the currency type is the one from the {@link Locale}.</p>
+	 * Format a currency value as a pretty {@link String}, the currency type is the one from the {@link Locale}.
+	 *
 	 * <p><b>Note</b>: {@link Locale}, float precision and strict precision parameter attributes are used.</p>
 	 * @param value the currency value
 	 * @return the currency {@link String} representation
@@ -373,7 +380,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Get the {@link Locale}.</p>
+	 * Get the {@link Locale}.
 	 * @return the {@link Locale}
 	 * @since 1.0.0
 	 */
@@ -382,7 +389,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Get the float precision.</p>
+	 * Get the float precision.
 	 * @return the float precision
 	 * @since 1.0.0
 	 */
@@ -391,7 +398,7 @@ public final class StringFormatter implements Serializable {
 	}
 
 	/**
-	 * <p>Whether the strict precision is enabled or not.</p>
+	 * Whether the strict precision is enabled.
 	 * @return {@code true} if the strict precision is enabled
 	 * @since 1.0.0
 	 */

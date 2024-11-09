@@ -32,8 +32,10 @@ import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 import java.io.Serializable;
 
 /**
- * <p>The Levenshtein {@link EditDistance} implementation.</p>
+ * The Levenshtein {@link EditDistance} implementation.
+ *
  * <p><b>Note</b>: This class is {@link Serializable}.</p>
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @see <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">https://en.wikipedia.org/wiki/Levenshtein_distance</a>
@@ -42,37 +44,37 @@ import java.io.Serializable;
 public final class LevenshteinDistance implements EditDistance, Serializable {
 
 	/**
-	 * <p>{@link LevenshteinDistance} instance with default parameters.</p>
+	 * {@link LevenshteinDistance} instance with default parameters.
 	 * @since 1.8.0
 	 */
 	public static final LevenshteinDistance DEFAULT = new LevenshteinDistance(1.0d, 1.0d, 1.0d);
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.8.0
 	 */
 	private static final long serialVersionUID = 4996498499916400857L;
 
 	/**
-	 * <p>Insertion cost.</p>
+	 * Insertion cost.
 	 * @since 1.8.0
 	 */
 	private final double insertionCost;
 
 	/**
-	 * <p>Deletion cost.</p>
+	 * Deletion cost.
 	 * @since 1.8.0
 	 */
 	private final double deletionCost;
 
 	/**
-	 * <p>Substitution cost.</p>
+	 * Substitution cost.
 	 * @since 1.8.0
 	 */
 	private final double substitutionCost;
 
 	/**
-	 * <p>Constructor with customs costs.</p>
+	 * Constructor with customs costs.
 	 * @param insertionCost the insertion cost
 	 * @param deletionCost the deletion cost
 	 * @param substitutionCost the substitution cost
@@ -172,7 +174,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	}
 
 	/**
-	 * <p>Get the insertion cost.</p>
+	 * Get the insertion cost.
 	 * @return the insertion cost
 	 * @since 1.8.0
 	 */
@@ -181,7 +183,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	}
 
 	/**
-	 * <p>Get the deletion cost.</p>
+	 * Get the deletion cost.
 	 * @return the deletion cost
 	 * @since 1.8.0
 	 */
@@ -190,7 +192,7 @@ public final class LevenshteinDistance implements EditDistance, Serializable {
 	}
 
 	/**
-	 * <p>Get the substitution cost.</p>
+	 * Get the substitution cost.
 	 * @return the substitution cost
 	 * @since 1.8.0
 	 */

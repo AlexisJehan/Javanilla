@@ -24,8 +24,9 @@
 package com.github.alexisjehan.javanilla.util.function;
 
 /**
- * <p>Represents an operation that takes no input argument and returns no result. Unlike {@link Runnable}, it is not
- * intended to be executed by a thread.</p>
+ * Represents an operation that takes no input argument and returns no result. Unlike {@link Runnable}, it is not
+ * intended to be executed by a thread.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #execute()}.</p>
  * @since 1.7.0
  */
@@ -33,7 +34,7 @@ package com.github.alexisjehan.javanilla.util.function;
 public interface Procedure {
 
 	/**
-	 * <p>Performs this operation.</p>
+	 * Performs this operation.
 	 * @since 1.7.0
 	 */
 	void execute();

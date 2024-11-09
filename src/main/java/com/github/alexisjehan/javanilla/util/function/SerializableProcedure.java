@@ -28,7 +28,8 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.io.Serializable;
 
 /**
- * <p>Interface for a {@link Procedure} that is {@link Serializable}.</p>
+ * Interface for a {@link Procedure} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #execute()}.</p>
  * @since 1.8.0
  */
@@ -36,7 +37,7 @@ import java.io.Serializable;
 public interface SerializableProcedure extends Procedure, Serializable {
 
 	/**
-	 * <p>Create a {@code SerializableProcedure} from the given {@link Procedure}.</p>
+	 * Create a {@code SerializableProcedure} from the given {@link Procedure}.
 	 * @param procedure the {@link Procedure} to convert
 	 * @return the created {@code SerializableProcedure}
 	 * @throws NullPointerException if the {@link Procedure} is {@code null}

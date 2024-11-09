@@ -29,7 +29,8 @@ import com.github.alexisjehan.javanilla.util.function.Procedure;
 import internal.ExcludeFromJacocoGeneratedReport;
 
 /**
- * <p>Interface for a {@link Procedure} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link Procedure} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #execute()}.</p>
  * @param <X> the type of the {@link Throwable}
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.function.ThrowableProcedure} instead
@@ -40,15 +41,15 @@ import internal.ExcludeFromJacocoGeneratedReport;
 public interface ThrowableProcedure<X extends Throwable> {
 
 	/**
-	 * <p>Performs this operation.</p>
+	 * Performs this operation.
 	 * @throws X may throw a {@link Throwable}
 	 * @since 1.7.0
 	 */
 	void execute() throws X;
 
 	/**
-	 * <p>Converts the given {@code ThrowableProcedure} to a {@link Procedure} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableProcedure} to a {@link Procedure} that may throw an unchecked
+	 * {@link Throwable}.
 	 * @param throwableProcedure the {@code ThrowableProcedure} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Procedure}
@@ -67,8 +68,7 @@ public interface ThrowableProcedure<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableProcedure} to a {@link Procedure} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableProcedure} to a {@link Procedure} that may throw a sneaky {@link Throwable}.
 	 * @param throwableProcedure the {@code ThrowableProcedure} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the converted {@link Procedure}
@@ -95,7 +95,7 @@ public interface ThrowableProcedure<X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableProcedure} from the given {@link Procedure}.</p>
+	 * Create a {@code ThrowableProcedure} from the given {@link Procedure}.
 	 * @param procedure the {@link Procedure} to convert
 	 * @param <X> the type of the {@link Throwable}
 	 * @return the created {@code ThrowableProcedure}

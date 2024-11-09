@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>New generic and serializable tuples implementations.</p>
+ * New generic and serializable tuples implementations.
  * @since 1.8.0
  */
 package com.github.alexisjehan.javanilla.misc.tuple;

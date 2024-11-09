@@ -30,7 +30,8 @@ import internal.ExcludeFromJacocoGeneratedReport;
 import java.util.function.Consumer;
 
 /**
- * <p>Interface for a {@link Consumer} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link Consumer} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #accept(Object)}.</p>
  * @param <T> the type of the input to the operation
  * @param <X> the type of the {@link Throwable}
@@ -42,7 +43,7 @@ import java.util.function.Consumer;
 public interface ThrowableConsumer<T, X extends Throwable> {
 
 	/**
-	 * <p>Performs this operation on the given argument.</p>
+	 * Performs this operation on the given argument.
 	 * @param t the input argument
 	 * @throws X may throw a {@link Throwable}
 	 * @since 1.0.0
@@ -50,8 +51,8 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	void accept(T t) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableConsumer} that performs, in sequence, this operation followed by the after
-	 * operation.</p>
+	 * Returns a composed {@code ThrowableConsumer} that performs, in sequence, this operation followed by the after
+	 * operation.
 	 * @param after the {@code ThrowableConsumer} operation to perform after this operation
 	 * @return a composed {@code ThrowableConsumer} that performs in sequence this operation followed by the after
 	 *         operation
@@ -67,8 +68,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableConsumer} to a {@link Consumer} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableConsumer} to a {@link Consumer} that may throw an unchecked {@link Throwable}.
 	 * @param throwableConsumer the {@code ThrowableConsumer} to convert
 	 * @param <T> the type of the input to the operation
 	 * @param <X> the type of the {@link Throwable}
@@ -88,8 +88,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableConsumer} to a {@link Consumer} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableConsumer} to a {@link Consumer} that may throw a sneaky {@link Throwable}.
 	 * @param throwableConsumer the {@code ThrowableConsumer} to convert
 	 * @param <T> the type of the input to the operation
 	 * @param <X> the type of the {@link Throwable}
@@ -117,7 +116,7 @@ public interface ThrowableConsumer<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableConsumer} from the given {@link Consumer}.</p>
+	 * Create a {@code ThrowableConsumer} from the given {@link Consumer}.
 	 * @param consumer the {@link Consumer} to convert
 	 * @param <T> the type of the input to the operation
 	 * @param <X> the type of the {@link Throwable}

@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.crypto;
 import java.security.MessageDigest;
 
 /**
- * <p>A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link MessageDigest} factory to get standard instances without throwing checked exceptions.
  * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardMessageDigests}
  *             instead
  * @since 1.0.0
@@ -35,13 +35,13 @@ import java.security.MessageDigest;
 public final class StandardMessageDigests {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private StandardMessageDigests() {}
 
 	/**
-	 * <p>Get a new "MD5" {@link MessageDigest} instance.</p>
+	 * Get a new "MD5" {@link MessageDigest} instance.
 	 * @return a "MD5" {@link MessageDigest} instance
 	 * @since 1.0.0
 	 */
@@ -50,7 +50,7 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "SHA-1" {@link MessageDigest} instance.</p>
+	 * Get a new "SHA-1" {@link MessageDigest} instance.
 	 * @return a "SHA-1" {@link MessageDigest} instance
 	 * @since 1.0.0
 	 */
@@ -59,7 +59,7 @@ public final class StandardMessageDigests {
 	}
 
 	/**
-	 * <p>Get a new "SHA-256" {@link MessageDigest} instance.</p>
+	 * Get a new "SHA-256" {@link MessageDigest} instance.
 	 * @return a "SHA-256" {@link MessageDigest} instance
 	 * @since 1.0.0
 	 */

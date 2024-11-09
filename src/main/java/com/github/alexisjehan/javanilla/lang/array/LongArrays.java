@@ -33,25 +33,25 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code long} array tools.</p>
+ * A utility class that provides {@code long} array tools.
  * @since 1.0.0
  */
 public final class LongArrays {
 
 	/**
-	 * <p>An empty {@code long} array.</p>
+	 * An empty {@code long} array.
 	 * @since 1.0.0
 	 */
 	public static final long[] EMPTY = {};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private LongArrays() {}
 
 	/**
-	 * <p>Wrap a {@code long} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code long} array replacing {@code null} by an empty one.
 	 * @param array the {@code long} array or {@code null}
 	 * @return a non-{@code null} {@code long} array
 	 * @since 1.0.0
@@ -61,7 +61,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code long} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code long} array replacing {@code null} by a default one.
 	 * @param array the {@code long} array or {@code null}
 	 * @param defaultArray the default {@code long} array
 	 * @return a non-{@code null} {@code long} array
@@ -74,7 +74,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code long} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code long} array replacing an empty one by {@code null}.
 	 * @param array the {@code long} array or {@code null}
 	 * @return a non-empty {@code long} array or {@code null}
 	 * @since 1.0.0
@@ -84,7 +84,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code long} array replacing an empty one by a default {@code long} array.</p>
+	 * Wrap a {@code long} array replacing an empty one by a default {@code long} array.
 	 * @param array the {@code long} array or {@code null}
 	 * @param defaultArray the default {@code long} array or {@code null}
 	 * @return a non-empty {@code long} array or {@code null}
@@ -99,7 +99,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Add a {@code long} value at the end of the given {@code long} array.</p>
+	 * Add a {@code long} value at the end of the given {@code long} array.
 	 * @param array the {@code long} array to add to
 	 * @param value the {@code long} value to add
 	 * @return a {@code long} array with the added {@code long} value
@@ -112,7 +112,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Add a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * Add a {@code long} value at the provided index of the given {@code long} array.
 	 * @param array the {@code long} array to add to
 	 * @param index the index of the {@code long} value
 	 * @param value the {@code long} value to add
@@ -128,7 +128,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Add a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * Add a {@code long} value at the provided index of the given {@code long} array.
 	 * @param array the {@code long} array to add to
 	 * @param value the {@code long} value to add
 	 * @param index the index of the {@code long} value
@@ -152,7 +152,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code long} value at the provided index of the given {@code long} array.</p>
+	 * Remove a {@code long} value at the provided index of the given {@code long} array.
 	 * @param array the {@code long} array to remove from
 	 * @param index the index of the {@code long} value
 	 * @return a {@code long} array with the removed {@code long} value
@@ -174,7 +174,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code long} arrays.</p>
+	 * Concatenate multiple {@code long} arrays.
 	 * @param arrays {@code long} arrays to concatenate
 	 * @return the concatenated {@code long} array
 	 * @throws NullPointerException if {@code long} arrays or any of them is {@code null}
@@ -186,7 +186,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code long} arrays.</p>
+	 * Concatenate multiple {@code long} arrays.
 	 * @param arrays the {@code long} array {@link List} to concatenate
 	 * @return the concatenated {@code long} array
 	 * @throws NullPointerException if the {@code long} array {@link List} or any of them is {@code null}
@@ -211,7 +211,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
+	 * Join multiple {@code long} arrays using a {@code long} array separator.
 	 * @param separator the {@code long} array separator
 	 * @param arrays {@code long} arrays to join
 	 * @return the joined {@code long} array
@@ -225,7 +225,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code long} arrays using a {@code long} array separator.</p>
+	 * Join multiple {@code long} arrays using a {@code long} array separator.
 	 * @param separator the {@code long} array separator
 	 * @param arrays the {@code long} array {@link List} to join
 	 * @return the joined {@code long} array
@@ -262,7 +262,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code long} array contains any of given {@code long} values at least one.</p>
+	 * Tell if the {@code long} array contains any of given {@code long} values at least one.
 	 * @param array the {@code long} array to test
 	 * @param values {@code long} values to test
 	 * @return {@code true} if any of given {@code long} values is contained at least once by the {@code long} array
@@ -287,7 +287,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code long} array contains all of given {@code long} values at least one.</p>
+	 * Tell if the {@code long} array contains all of given {@code long} values at least one.
 	 * @param array the {@code long} array to test
 	 * @param values {@code long} values to test
 	 * @return {@code true} if all of given {@code long} values are contained at least once by the {@code long} array
@@ -317,7 +317,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code long} array contains each given {@code long} value only once.</p>
+	 * Tell if the {@code long} array contains each given {@code long} value only once.
 	 * @param array the {@code long} array to test
 	 * @param values {@code long} values to test
 	 * @return {@code true} if each of given {@code long} values are contained only once by the {@code long} array
@@ -349,7 +349,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code long} array contains only given {@code long} values at least one.</p>
+	 * Tell if the {@code long} array contains only given {@code long} values at least one.
 	 * @param array the {@code long} array to test
 	 * @param values {@code long} values to test
 	 * @return {@code true} if given {@code long} values are only values contained by the {@code long} array
@@ -379,7 +379,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code long} value in the {@code long} array.</p>
+	 * Get the first index of the {@code long} value in the {@code long} array.
 	 * @param array the {@code long} array to iterate
 	 * @param value the {@code long} value to search
 	 * @return the first index of the {@code long} value if found, {@code -1} otherwise
@@ -391,7 +391,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code long} value in the {@code long} array starting from the given index.</p>
+	 * Get the first index of the {@code long} value in the {@code long} array starting from the given index.
 	 * @param array the {@code long} array to iterate
 	 * @param value the {@code long} value to search
 	 * @param fromIndex the starting index
@@ -414,7 +414,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code long} value in the {@code long} array.</p>
+	 * Get the last index of the {@code long} value in the {@code long} array.
 	 * @param array the {@code long} array to iterate
 	 * @param value the {@code long} value to search
 	 * @return the last index of the {@code long} value if found, {@code -1} otherwise
@@ -426,7 +426,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code long} value in the {@code long} array starting from the given index.</p>
+	 * Get the last index of the {@code long} value in the {@code long} array starting from the given index.
 	 * @param array the {@code long} array to iterate
 	 * @param value the {@code long} value to search
 	 * @param fromIndex the starting index
@@ -449,7 +449,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code long} value in the {@code long} array.</p>
+	 * Calculate the number of occurrences of the {@code long} value in the {@code long} array.
 	 * @param array the {@code long} array to iterate
 	 * @param value the {@code long} value of the frequency to calculate
 	 * @return the frequency of the {@code long} value
@@ -471,7 +471,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code long} array.</p>
+	 * Reverse values in the given {@code long} array.
 	 * @param array the {@code long} array to reverse
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @since 1.2.0
@@ -486,7 +486,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code long} array using provided indexes.</p>
+	 * Reorder values in the given {@code long} array using provided indexes.
 	 * @param array the {@code long} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code long} array or the indexes array is {@code null}
@@ -514,7 +514,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code long} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code long} array following the Fisher-Yates algorithm.
 	 * @param array the {@code long} array to shuffle
 	 * @throws NullPointerException if the {@code long} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -528,8 +528,8 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code long} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code long} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code long} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code long} array or the {@code Random} object is {@code null}
@@ -547,7 +547,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code long} array using their indexes.</p>
+	 * Swap two values in the given {@code long} array using their indexes.
 	 * @param array the {@code long} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -567,7 +567,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code long} array is empty.</p>
+	 * Tell if a {@code long} array is empty.
 	 * @param array the {@code long} array to test
 	 * @return {@code true} if the {@code long} array is empty
 	 * @throws NullPointerException if the {@code long} array is {@code null}
@@ -579,7 +579,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Create a {@code long} array from a single {@code long} value.</p>
+	 * Create a {@code long} array from a single {@code long} value.
 	 * @param value the {@code long} value to convert
 	 * @return the created {@code long} array
 	 * @since 1.1.0
@@ -589,7 +589,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Create a {@code long} array from multiple {@code long} values.</p>
+	 * Create a {@code long} array from multiple {@code long} values.
 	 * @param values {@code long} values to convert
 	 * @return the created {@code long} array
 	 * @throws NullPointerException if the {@code long} values array is {@code null}
@@ -604,7 +604,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Create a {@code long} array from a boxed {@link Long} array.</p>
+	 * Create a {@code long} array from a boxed {@link Long} array.
 	 * @param boxedArray the boxed {@link Long} array to convert
 	 * @return the created {@code long} array
 	 * @throws NullPointerException if the boxed {@link Long} array is {@code null}
@@ -623,7 +623,7 @@ public final class LongArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code long} array to a boxed {@link Long} array.</p>
+	 * Convert a {@code long} array to a boxed {@link Long} array.
 	 * @param array the {@code long} array to convert
 	 * @return the created boxed {@link Long} array
 	 * @throws NullPointerException if the {@code long} array is {@code null}

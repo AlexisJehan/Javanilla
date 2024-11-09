@@ -26,13 +26,13 @@ package com.github.alexisjehan.javanilla.misc.distance;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 /**
- * <p>Commons vectors {@link Distance}s implementations.</p>
+ * Commons vectors {@link Distance}s implementations.
  * @since 1.8.0
  */
 public enum Distances implements Distance {
 
 	/**
-	 * <p>The Manhattan distance also known as taxicab metric, rectilinear distance or L<sub>1</sub> distance.</p>
+	 * The Manhattan distance also known as taxicab metric, rectilinear distance or L<sub>1</sub> distance.
 	 * @see <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">https://en.wikipedia.org/wiki/Taxicab_geometry</a>
 	 * @since 1.8.0
 	 */
@@ -51,7 +51,7 @@ public enum Distances implements Distance {
 	},
 
 	/**
-	 * <p>The Euclidean distance also known as Pythagorean metric or L<sub>2</sub> distance.</p>
+	 * The Euclidean distance also known as Pythagorean metric or L<sub>2</sub> distance.
 	 * @see <a href="https://en.wikipedia.org/wiki/Euclidean_geometry">https://en.wikipedia.org/wiki/Euclidean_geometry</a>
 	 * @since 1.8.0
 	 */
@@ -69,9 +69,9 @@ public enum Distances implements Distance {
 	},
 
 	/**
-	 * <p>The squared Euclidean distance is different from the classical Euclidean distance in the fact it does not
-	 * perform the costly square root operation. It should be used for performance usages when distance only need to be
-	 * compared.</p>
+	 * The squared Euclidean distance is different from the classical Euclidean distance in the fact it does not perform
+	 * the costly square root operation. It should be used for performance usages when distance only need to be
+	 * compared.
 	 * @since 1.8.0
 	 */
 	SQUARED_EUCLIDEAN {
@@ -90,7 +90,7 @@ public enum Distances implements Distance {
 	},
 
 	/**
-	 * <p>The Chebyshev distance also known as Tchebychev distance, maximum metric or L<sub>&infin;</sub> distance.</p>
+	 * The Chebyshev distance also known as Tchebychev distance, maximum metric or L<sub>&infin;</sub> distance.
 	 * @see <a href="https://en.wikipedia.org/wiki/Chebyshev_distance">https://en.wikipedia.org/wiki/Chebyshev_distance</a>
 	 * @since 1.8.0
 	 */
@@ -109,7 +109,7 @@ public enum Distances implements Distance {
 	},
 
 	/**
-	 * <p>The Hamming distance.</p>
+	 * The Hamming distance.
 	 * @see <a href="https://en.wikipedia.org/wiki/Hamming_distance">https://en.wikipedia.org/wiki/Hamming_distance</a>
 	 * @since 1.8.0
 	 */
@@ -141,7 +141,7 @@ public enum Distances implements Distance {
 	}
 
 	/**
-	 * <p>Calculate a distance between both {@code double} vectors which have been validated.</p>
+	 * Calculate a distance between both {@code double} vectors which have been validated.
 	 * @param vector1 the first vector
 	 * @param vector2 the second vector
 	 * @return the calculated distance

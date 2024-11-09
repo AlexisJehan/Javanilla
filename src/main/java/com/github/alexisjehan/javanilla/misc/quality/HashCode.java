@@ -27,21 +27,21 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * <p>An utility class that provides an unique interface for hash code calculation. Using it you don't have to take care
- * of the type to choose a specific implementation. Unlike {@link Objects#hash(Object...)}, primitives are not boxed for
- * performance improvements.</p>
+ * A utility class that provides an unique interface for hash code calculation. Using it you don't have to take care of
+ * the type to choose a specific implementation. Unlike {@link Objects#hash(Object...)}, primitives are not boxed for
+ * performance improvements.
  * @since 1.3.0
  */
 public final class HashCode {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.0
 	 */
 	private HashCode() {}
 
 	/**
-	 * <p>Calculate the hash code of a {@code boolean} value.</p>
+	 * Calculate the hash code of a {@code boolean} value.
 	 * @param value the {@code boolean} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -51,7 +51,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code byte} value.</p>
+	 * Calculate the hash code of a {@code byte} value.
 	 * @param value the {@code byte} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -61,7 +61,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code short} value.</p>
+	 * Calculate the hash code of a {@code short} value.
 	 * @param value the {@code short} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -71,7 +71,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code char} value.</p>
+	 * Calculate the hash code of a {@code char} value.
 	 * @param value the {@code char} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -81,7 +81,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of an {@code int} value.</p>
+	 * Calculate the hash code of an {@code int} value.
 	 * @param value the {@code int} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -91,7 +91,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code long} value.</p>
+	 * Calculate the hash code of a {@code long} value.
 	 * @param value the {@code long} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -101,7 +101,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code float} value.</p>
+	 * Calculate the hash code of a {@code float} value.
 	 * @param value the {@code float} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -111,7 +111,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code double} value.</p>
+	 * Calculate the hash code of a {@code double} value.
 	 * @param value the {@code double} value
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -121,7 +121,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of an {@link Object} value.</p>
+	 * Calculate the hash code of an {@link Object} value.
 	 * @param value the {@link Object} value or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -131,7 +131,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code boolean} array.</p>
+	 * Calculate the hash code of a {@code boolean} array.
 	 * @param array the {@code boolean} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -141,7 +141,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code byte} array.</p>
+	 * Calculate the hash code of a {@code byte} array.
 	 * @param array the {@code byte} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -151,7 +151,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code short} array.</p>
+	 * Calculate the hash code of a {@code short} array.
 	 * @param array the {@code short} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -161,7 +161,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code char} array.</p>
+	 * Calculate the hash code of a {@code char} array.
 	 * @param array the {@code char} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -171,7 +171,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of an {@code int} array.</p>
+	 * Calculate the hash code of an {@code int} array.
 	 * @param array the {@code int} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -181,7 +181,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code long} array.</p>
+	 * Calculate the hash code of a {@code long} array.
 	 * @param array the {@code long} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -191,7 +191,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code float} array.</p>
+	 * Calculate the hash code of a {@code float} array.
 	 * @param array the {@code float} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -201,7 +201,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of a {@code double} array.</p>
+	 * Calculate the hash code of a {@code double} array.
 	 * @param array the {@code double} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -211,7 +211,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of an {@link Object} array.</p>
+	 * Calculate the hash code of an {@link Object} array.
 	 * @param array the {@link Object} array or {@code null}
 	 * @return the calculated hash code
 	 * @since 1.3.0
@@ -221,7 +221,7 @@ public final class HashCode {
 	}
 
 	/**
-	 * <p>Calculate the hash code of multiple ones.</p>
+	 * Calculate the hash code of multiple ones.
 	 * @param hashCodes the hash code array
 	 * @return the calculated hash code
 	 * @throws NullPointerException if the hash code array is {@code null}

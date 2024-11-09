@@ -27,7 +27,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertPathBuilder;
 
 /**
- * <p>A {@link CertPathBuilder} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link CertPathBuilder} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertPathBuilder.html">https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertPathBuilder.html</a>
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.security.cert.StandardCertPathBuilders} instead
  * @since 1.6.0
@@ -36,13 +36,13 @@ import java.security.cert.CertPathBuilder;
 public final class StandardCertPathBuilders {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardCertPathBuilders() {}
 
 	/**
-	 * <p>Get a new "PKIX" {@link CertPathBuilder} instance.</p>
+	 * Get a new "PKIX" {@link CertPathBuilder} instance.
 	 * @return a "PKIX" {@link CertPathBuilder} instance
 	 * @since 1.6.0
 	 */
@@ -51,7 +51,7 @@ public final class StandardCertPathBuilders {
 	}
 
 	/**
-	 * <p>Get a new {@link CertPathBuilder} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link CertPathBuilder} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link CertPathBuilder} algorithm
 	 * @return a {@link CertPathBuilder} instance of the provided algorithm
 	 * @since 1.6.0

@@ -27,7 +27,7 @@ import javax.crypto.Mac;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link Mac} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link Mac} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/crypto/Mac.html">https://docs.oracle.com/javase/10/docs/api/javax/crypto/Mac.html</a>
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.crypto.StandardMacs} instead
  * @since 1.6.0
@@ -36,13 +36,13 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardMacs {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardMacs() {}
 
 	/**
-	 * <p>Get a new "HmacMD5" {@link Mac} instance.</p>
+	 * Get a new "HmacMD5" {@link Mac} instance.
 	 * @return a "HmacMD5" {@link Mac} instance
 	 * @since 1.6.0
 	 */
@@ -51,7 +51,7 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new "HmacSHA1" {@link Mac} instance.</p>
+	 * Get a new "HmacSHA1" {@link Mac} instance.
 	 * @return a "HmacSHA1" {@link Mac} instance
 	 * @since 1.6.0
 	 */
@@ -60,7 +60,7 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new "HmacSHA256" {@link Mac} instance.</p>
+	 * Get a new "HmacSHA256" {@link Mac} instance.
 	 * @return a "HmacSHA256" {@link Mac} instance
 	 * @since 1.6.0
 	 */
@@ -69,7 +69,7 @@ public final class StandardMacs {
 	}
 
 	/**
-	 * <p>Get a new {@link Mac} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link Mac} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link Mac} algorithm
 	 * @return a {@link Mac} instance of the provided algorithm
 	 * @since 1.6.0

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Extras {@link javax.net.ssl} components.</p>
+ * Extras {@link javax.net.ssl} components.
  * @since 1.8.0
  */
 package com.github.alexisjehan.javanilla.net.ssl;

@@ -33,25 +33,25 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code char} array tools.</p>
+ * A utility class that provides {@code char} array tools.
  * @since 1.0.0
  */
 public final class CharArrays {
 
 	/**
-	 * <p>An empty {@code char} array.</p>
+	 * An empty {@code char} array.
 	 * @since 1.0.0
 	 */
 	public static final char[] EMPTY = {};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private CharArrays() {}
 
 	/**
-	 * <p>Wrap a {@code char} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code char} array replacing {@code null} by an empty one.
 	 * @param array the {@code char} array or {@code null}
 	 * @return a non-{@code null} {@code char} array
 	 * @since 1.0.0
@@ -61,7 +61,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code char} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code char} array replacing {@code null} by a default one.
 	 * @param array the {@code char} array or {@code null}
 	 * @param defaultArray the default {@code char} array
 	 * @return a non-{@code null} {@code char} array
@@ -74,7 +74,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code char} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code char} array replacing an empty one by {@code null}.
 	 * @param array the {@code char} array or {@code null}
 	 * @return a non-empty {@code char} array or {@code null}
 	 * @since 1.0.0
@@ -84,7 +84,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code char} array replacing an empty one by a default {@code char} array.</p>
+	 * Wrap a {@code char} array replacing an empty one by a default {@code char} array.
 	 * @param array the {@code char} array or {@code null}
 	 * @param defaultArray the default {@code char} array or {@code null}
 	 * @return a non-empty {@code char} array or {@code null}
@@ -99,7 +99,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Add a {@code char} value at the end of the given {@code char} array.</p>
+	 * Add a {@code char} value at the end of the given {@code char} array.
 	 * @param array the {@code char} array to add to
 	 * @param value the {@code char} value to add
 	 * @return a {@code char} array with the added {@code char} value
@@ -112,7 +112,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Add a {@code char} value at the provided index of the given {@code char} array.</p>
+	 * Add a {@code char} value at the provided index of the given {@code char} array.
 	 * @param array the {@code char} array to add to
 	 * @param index the index of the {@code char} value
 	 * @param value the {@code char} value to add
@@ -128,7 +128,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Add a {@code char} value at the provided index of the given {@code char} array.</p>
+	 * Add a {@code char} value at the provided index of the given {@code char} array.
 	 * @param array the {@code char} array to add to
 	 * @param value the {@code char} value to add
 	 * @param index the index of the {@code char} value
@@ -152,7 +152,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code char} value at the provided index of the given {@code char} array.</p>
+	 * Remove a {@code char} value at the provided index of the given {@code char} array.
 	 * @param array the {@code char} array to remove from
 	 * @param index the index of the {@code char} value
 	 * @return a {@code char} array with the removed {@code char} value
@@ -174,7 +174,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code char} arrays.</p>
+	 * Concatenate multiple {@code char} arrays.
 	 * @param arrays {@code char} arrays to concatenate
 	 * @return the concatenated {@code char} array
 	 * @throws NullPointerException if {@code char} arrays or any of them is {@code null}
@@ -186,7 +186,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code char} arrays.</p>
+	 * Concatenate multiple {@code char} arrays.
 	 * @param arrays the {@code char} array {@link List} to concatenate
 	 * @return the concatenated {@code char} array
 	 * @throws NullPointerException if the {@code char} array {@link List} or any of them is {@code null}
@@ -211,7 +211,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code char} arrays using a {@code char} array separator.</p>
+	 * Join multiple {@code char} arrays using a {@code char} array separator.
 	 * @param separator the {@code char} array separator
 	 * @param arrays {@code char} arrays to join
 	 * @return the joined {@code char} array
@@ -225,7 +225,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code char} arrays using a {@code char} array separator.</p>
+	 * Join multiple {@code char} arrays using a {@code char} array separator.
 	 * @param separator the {@code char} array separator
 	 * @param arrays the {@code char} array {@link List} to join
 	 * @return the joined {@code char} array
@@ -262,7 +262,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code char} array contains any of given {@code char} values at least one.</p>
+	 * Tell if the {@code char} array contains any of given {@code char} values at least one.
 	 * @param array the {@code char} array to test
 	 * @param values {@code char} values to test
 	 * @return {@code true} if any of given {@code char} values is contained at least once by the {@code char} array
@@ -287,7 +287,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code char} array contains all of given {@code char} values at least one.</p>
+	 * Tell if the {@code char} array contains all of given {@code char} values at least one.
 	 * @param array the {@code char} array to test
 	 * @param values {@code char} values to test
 	 * @return {@code true} if all of given {@code char} values are contained at least once by the {@code char} array
@@ -317,7 +317,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code char} array contains each given {@code char} value only once.</p>
+	 * Tell if the {@code char} array contains each given {@code char} value only once.
 	 * @param array the {@code char} array to test
 	 * @param values {@code char} values to test
 	 * @return {@code true} if each of given {@code char} values are contained only once by the {@code char} array
@@ -349,7 +349,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code char} array contains only given {@code char} values at least one.</p>
+	 * Tell if the {@code char} array contains only given {@code char} values at least one.
 	 * @param array the {@code char} array to test
 	 * @param values {@code char} values to test
 	 * @return {@code true} if given {@code char} values are only values contained by the {@code char} array
@@ -379,7 +379,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code char} value in the {@code char} array.</p>
+	 * Get the first index of the {@code char} value in the {@code char} array.
 	 * @param array the {@code char} array to iterate
 	 * @param value the {@code char} value to search
 	 * @return the first index of the {@code char} value if found, {@code -1} otherwise
@@ -391,7 +391,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code char} value in the {@code char} array starting from the given index.</p>
+	 * Get the first index of the {@code char} value in the {@code char} array starting from the given index.
 	 * @param array the {@code char} array to iterate
 	 * @param value the {@code char} value to search
 	 * @param fromIndex the starting index
@@ -414,7 +414,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code char} value in the {@code char} array.</p>
+	 * Get the last index of the {@code char} value in the {@code char} array.
 	 * @param array the {@code char} array to iterate
 	 * @param value the {@code char} value to search
 	 * @return the last index of the {@code char} value if found, {@code -1} otherwise
@@ -426,7 +426,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code char} value in the {@code char} array starting from the given index.</p>
+	 * Get the last index of the {@code char} value in the {@code char} array starting from the given index.
 	 * @param array the {@code char} array to iterate
 	 * @param value the {@code char} value to search
 	 * @param fromIndex the starting index
@@ -449,7 +449,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code char} value in the {@code char} array.</p>
+	 * Calculate the number of occurrences of the {@code char} value in the {@code char} array.
 	 * @param array the {@code char} array to iterate
 	 * @param value the {@code char} value of the frequency to calculate
 	 * @return the frequency of the {@code char} value
@@ -471,7 +471,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code char} array.</p>
+	 * Reverse values in the given {@code char} array.
 	 * @param array the {@code char} array to reverse
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @since 1.2.0
@@ -486,7 +486,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code char} array using provided indexes.</p>
+	 * Reorder values in the given {@code char} array using provided indexes.
 	 * @param array the {@code char} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code char} array or the indexes array is {@code null}
@@ -514,7 +514,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code char} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code char} array following the Fisher-Yates algorithm.
 	 * @param array the {@code char} array to shuffle
 	 * @throws NullPointerException if the {@code char} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -528,8 +528,8 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code char} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code char} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code char} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code char} array or the {@code Random} object is {@code null}
@@ -547,7 +547,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code char} array using their indexes.</p>
+	 * Swap two values in the given {@code char} array using their indexes.
 	 * @param array the {@code char} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -567,7 +567,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code char} array is empty.</p>
+	 * Tell if a {@code char} array is empty.
 	 * @param array the {@code char} array to test
 	 * @return {@code true} if the {@code char} array is empty
 	 * @throws NullPointerException if the {@code char} array is {@code null}
@@ -579,7 +579,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Create a {@code char} array from a single {@code char} value.</p>
+	 * Create a {@code char} array from a single {@code char} value.
 	 * @param value the {@code char} value to convert
 	 * @return the created {@code char} array
 	 * @since 1.1.0
@@ -589,7 +589,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Create a {@code char} array from multiple {@code char} values.</p>
+	 * Create a {@code char} array from multiple {@code char} values.
 	 * @param values {@code char} values to convert
 	 * @return the created {@code char} array
 	 * @throws NullPointerException if the {@code char} values array is {@code null}
@@ -604,7 +604,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Create a {@code char} array from a boxed {@link Character} array.</p>
+	 * Create a {@code char} array from a boxed {@link Character} array.
 	 * @param boxedArray the boxed {@link Character} array to convert
 	 * @return the created {@code char} array
 	 * @throws NullPointerException if the boxed {@link Character} array is {@code null}
@@ -623,7 +623,7 @@ public final class CharArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code char} array to a boxed {@link Character} array.</p>
+	 * Convert a {@code char} array to a boxed {@link Character} array.
 	 * @param array the {@code char} array to convert
 	 * @return the created boxed {@link Character} array
 	 * @throws NullPointerException if the {@code char} array is {@code null}

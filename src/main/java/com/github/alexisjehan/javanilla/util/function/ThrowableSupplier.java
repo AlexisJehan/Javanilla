@@ -30,7 +30,8 @@ import internal.ExcludeFromJacocoGeneratedReport;
 import java.util.function.Supplier;
 
 /**
- * <p>Interface for a {@link Supplier} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link Supplier} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #get()}.</p>
  * @param <T> the type of results supplied by this supplier
  * @param <X> the type of the {@link Throwable}
@@ -40,7 +41,7 @@ import java.util.function.Supplier;
 public interface ThrowableSupplier<T, X extends Throwable> {
 
 	/**
-	 * <p>Gets a result.</p>
+	 * Gets a result.
 	 * @return the result supplied
 	 * @throws X may throw a {@link Throwable}
 	 * @since 1.8.0
@@ -48,8 +49,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	T get() throws X;
 
 	/**
-	 * <p>Converts the given {@code ThrowableSupplier} to a {@link Supplier} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableSupplier} to a {@link Supplier} that may throw an unchecked {@link Throwable}.
 	 * @param throwableSupplier the {@code ThrowableSupplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@link Throwable}
@@ -69,8 +69,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableSupplier} to a {@link Supplier} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableSupplier} to a {@link Supplier} that may throw a sneaky {@link Throwable}.
 	 * @param throwableSupplier the {@code ThrowableSupplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@link Throwable}
@@ -99,7 +98,7 @@ public interface ThrowableSupplier<T, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableSupplier} from the given {@link Supplier}.</p>
+	 * Create a {@code ThrowableSupplier} from the given {@link Supplier}.
 	 * @param supplier the {@link Supplier} to convert
 	 * @param <T> the type of results supplied by this supplier
 	 * @param <X> the type of the {@link Throwable}

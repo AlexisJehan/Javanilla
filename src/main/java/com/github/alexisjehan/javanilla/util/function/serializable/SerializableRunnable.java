@@ -28,7 +28,8 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.io.Serializable;
 
 /**
- * <p>Interface for a {@link Runnable} that is {@link Serializable}.</p>
+ * Interface for a {@link Runnable} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #run()}.</p>
  * @deprecated since 1.7.0, use {@link SerializableProcedure} instead
  * @since 1.4.0
@@ -38,7 +39,7 @@ import java.io.Serializable;
 public interface SerializableRunnable extends Runnable, Serializable {
 
 	/**
-	 * <p>Create a {@code SerializableRunnable} from the given {@link Runnable}.</p>
+	 * Create a {@code SerializableRunnable} from the given {@link Runnable}.
 	 * @param runnable the {@link Runnable} to convert
 	 * @return the created {@code SerializableRunnable}
 	 * @throws NullPointerException if the {@link Runnable} is {@code null}

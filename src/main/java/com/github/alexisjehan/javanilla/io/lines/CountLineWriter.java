@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.io.lines;
 import java.io.IOException;
 
 /**
- * <p>A {@link LineWriter} decorator that counts the number of lines written from the current position.</p>
+ * A {@link LineWriter} decorator that counts the number of lines written from the current position.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.io.line.CountLineWriter} instead
  * @since 1.0.0
  */
@@ -34,13 +34,13 @@ import java.io.IOException;
 public final class CountLineWriter extends FilterLineWriter {
 
 	/**
-	 * <p>Number of lines written.</p>
+	 * Number of lines written.
 	 * @since 1.0.0
 	 */
 	private long count;
 
 	/**
-	 * <p>Constructor with a {@link LineWriter} to decorate.</p>
+	 * Constructor with a {@link LineWriter} to decorate.
 	 * @param lineWriter the {@link LineWriter} to decorate
 	 * @throws NullPointerException if the {@link LineWriter} is {@code null}
 	 * @since 1.0.0
@@ -68,7 +68,7 @@ public final class CountLineWriter extends FilterLineWriter {
 	}
 
 	/**
-	 * <p>Get the number of lines written.</p>
+	 * Get the number of lines written.
 	 * @return the number of lines written
 	 * @since 1.0.0
 	 */

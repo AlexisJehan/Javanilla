@@ -30,7 +30,8 @@ import internal.ExcludeFromJacocoGeneratedReport;
 import java.util.function.Function;
 
 /**
- * <p>Interface for a {@link Function} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link Function} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #apply(Object)}.</p>
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
@@ -41,7 +42,7 @@ import java.util.function.Function;
 public interface ThrowableFunction<T, R, X extends Throwable> {
 
 	/**
-	 * <p>Applies this function to the given argument.</p>
+	 * Applies this function to the given argument.
 	 * @param t the function argument
 	 * @return the function result
 	 * @throws X may throw a {@link Throwable}
@@ -50,8 +51,8 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	R apply(T t) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableFunction} that first applies the before function to its input, and then
-	 * applies this function to the result.</p>
+	 * Returns a composed {@code ThrowableFunction} that first applies the before function to its input, and then
+	 * applies this function to the result.
 	 * @param before the {@code ThrowableFunction} to apply before this function is applied
 	 * @param <V> the type of input to the before function, and to the composed function
 	 * @return a composed {@code ThrowableFunction} that first applies the before function and then applies this
@@ -65,8 +66,8 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a composed {@code ThrowableFunction} that first applies this function to its input, and then applies
-	 * the after function to the result.</p>
+	 * Returns a composed {@code ThrowableFunction} that first applies this function to its input, and then applies the
+	 * after function to the result.
 	 * @param after the {@code ThrowableFunction} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code ThrowableFunction} that first applies this function and then applies the after function
@@ -79,7 +80,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@code ThrowableFunction} that always returns its input argument.</p>
+	 * Returns a {@code ThrowableFunction} that always returns its input argument.
 	 * @param <T> the type of the input and output objects to the function
 	 * @param <X> the type of the {@link Throwable}
 	 * @return a {@code ThrowableFunction} that always returns its input argument
@@ -90,8 +91,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableFunction} to a {@link Function} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableFunction} to a {@link Function} that may throw an unchecked {@link Throwable}.
 	 * @param throwableFunction the {@code ThrowableFunction} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
@@ -112,8 +112,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableFunction} to a {@link Function} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableFunction} to a {@link Function} that may throw a sneaky {@link Throwable}.
 	 * @param throwableFunction the {@code ThrowableFunction} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
@@ -143,7 +142,7 @@ public interface ThrowableFunction<T, R, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableFunction} from the given {@link Function}.</p>
+	 * Create a {@code ThrowableFunction} from the given {@link Function}.
 	 * @param function the {@link Function} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function

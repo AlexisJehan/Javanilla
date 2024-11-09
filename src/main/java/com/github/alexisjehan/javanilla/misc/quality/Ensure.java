@@ -48,20 +48,20 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * <p>An utility class that provides multiple functions to validate arguments, throwing {@link NullPointerException} or
- * {@link IllegalArgumentException} if they are not valid.</p>
+ * A utility class that provides multiple functions to validate arguments, throwing {@link NullPointerException} or
+ * {@link IllegalArgumentException} if they are not valid.
  * @since 1.3.0
  */
 public final class Ensure {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.0
 	 */
 	private Ensure() {}
 
 	/**
-	 * <p>Ensure the value is not {@code null}.</p>
+	 * Ensure the value is not {@code null}.
 	 * @param name the name of the value
 	 * @param value the value to validate
 	 * @param <V> the value type
@@ -80,7 +80,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the array and its elements are not {@code null}.</p>
+	 * Ensure the array and its elements are not {@code null}.
 	 * @param name the name of the array
 	 * @param array the array to validate
 	 * @param <E> the element type
@@ -97,7 +97,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Iterable} and its elements are not {@code null}.</p>
+	 * Ensure the {@link Iterable} and its elements are not {@code null}.
 	 * @param name the name of the {@link Iterable}
 	 * @param iterable the {@link Iterable} to validate
 	 * @param <I> the {@link Iterable} type
@@ -114,7 +114,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Map} and its keys are not {@code null}.</p>
+	 * Ensure the {@link Map} and its keys are not {@code null}.
 	 * @param name the name of the {@link Map}
 	 * @param map the {@link Map} to validate
 	 * @param <M> the {@link Map} type
@@ -132,7 +132,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Map} and its values are not {@code null}.</p>
+	 * Ensure the {@link Map} and its values are not {@code null}.
 	 * @param name the name of the {@link Map}
 	 * @param map the {@link Map} to validate
 	 * @param <M> the {@link Map} type
@@ -150,7 +150,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Map} and its keys and values are not {@code null}.</p>
+	 * Ensure the {@link Map} and its keys and values are not {@code null}.
 	 * @param name the name of the {@link Map}
 	 * @param map the {@link Map} to validate
 	 * @param <M> the {@link Map} type
@@ -169,7 +169,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link CharSequence} is not {@code null} and not empty.</p>
+	 * Ensure the {@link CharSequence} is not {@code null} and not empty.
 	 * @param name the name of the {@link CharSequence}
 	 * @param charSequence the {@link CharSequence} to validate
 	 * @param <C> the {@link CharSequence} type
@@ -187,7 +187,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code boolean} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code boolean} array is not {@code null} and not empty.
 	 * @param name the name of the {@code boolean} array
 	 * @param array the {@code boolean} array to validate
 	 * @return the validated {@code boolean} array
@@ -204,7 +204,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code byte} array is not {@code null} and not empty.
 	 * @param name the name of the {@code byte} array
 	 * @param array the {@code byte} array to validate
 	 * @return the validated {@code byte} array
@@ -221,7 +221,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code short} array is not {@code null} and not empty.
 	 * @param name the name of the {@code short} array
 	 * @param array the {@code short} array to validate
 	 * @return the validated {@code short} array
@@ -238,7 +238,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code char} array is not {@code null} and not empty.
 	 * @param name the name of the {@code char} array
 	 * @param array the {@code char} array to validate
 	 * @return the validated {@code char} array
@@ -255,7 +255,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code int} array is not {@code null} and not empty.
 	 * @param name the name of the {@code int} array
 	 * @param array the {@code int} array to validate
 	 * @return the validated {@code int} array
@@ -272,7 +272,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code long} array is not {@code null} and not empty.
 	 * @param name the name of the {@code long} array
 	 * @param array the {@code long} array to validate
 	 * @return the validated {@code long} array
@@ -289,7 +289,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code float} array is not {@code null} and not empty.
 	 * @param name the name of the {@code float} array
 	 * @param array the {@code float} array to validate
 	 * @return the validated {@code float} array
@@ -306,7 +306,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} array is not {@code null} and not empty.</p>
+	 * Ensure the {@code double} array is not {@code null} and not empty.
 	 * @param name the name of the {@code double} array
 	 * @param array the {@code double} array to validate
 	 * @return the validated {@code double} array
@@ -323,7 +323,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Object} array is not {@code null} and not empty.</p>
+	 * Ensure the {@link Object} array is not {@code null} and not empty.
 	 * @param name the name of the {@link Object} array
 	 * @param array the {@link Object} array to validate
 	 * @param <E> the element type
@@ -341,7 +341,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Collection} is not {@code null} and not empty.</p>
+	 * Ensure the {@link Collection} is not {@code null} and not empty.
 	 * @param name the name of the {@link Collection}
 	 * @param collection the {@link Collection} to validate
 	 * @param <C> the {@link Collection} type
@@ -359,7 +359,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Map} is not {@code null} and not empty.</p>
+	 * Ensure the {@link Map} is not {@code null} and not empty.
 	 * @param name the name of the {@link Map}
 	 * @param map the {@link Map} to validate
 	 * @param <M> the {@link Map} type
@@ -377,8 +377,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} is not {@code null} and not
-	 * empty.</p>
+	 * Ensure the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} is not {@code null} and not empty.
 	 * @param name the name of the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag}
 	 * @param bag the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} to validate
 	 * @param <B> the {@link com.github.alexisjehan.javanilla.util.collection.bags.Bag} type
@@ -400,7 +399,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Bag} is not {@code null} and not empty.</p>
+	 * Ensure the {@link Bag} is not {@code null} and not empty.
 	 * @param name the name of the {@link Bag}
 	 * @param bag the {@link Bag} to validate
 	 * @param <B> the {@link Bag} type
@@ -418,7 +417,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Iterator} is not {@code null} and not empty.</p>
+	 * Ensure the {@link Iterator} is not {@code null} and not empty.
 	 * @param name the name of the {@link Iterator}
 	 * @param iterator the {@link Iterator} to validate
 	 * @param <I> the {@link Iterator} type
@@ -436,7 +435,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link CharSequence} is not {@code null} and not blank.</p>
+	 * Ensure the {@link CharSequence} is not {@code null} and not blank.
 	 * @param name the name of the {@link CharSequence}
 	 * @param charSequence the {@link CharSequence} to validate
 	 * @param <C> the {@link CharSequence} type
@@ -455,7 +454,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link CharSequence} is not {@code null} and matches the given {@link Pattern}.</p>
+	 * Ensure the {@link CharSequence} is not {@code null} and matches the given {@link Pattern}.
 	 * @param name the name of the {@link CharSequence}
 	 * @param charSequence the {@link CharSequence} to validate
 	 * @param pattern the {@link Pattern}
@@ -475,7 +474,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link InputStream} is not {@code null} and has mark supported.</p>
+	 * Ensure the {@link InputStream} is not {@code null} and has mark supported.
 	 * @param name the name of the {@link InputStream}
 	 * @param inputStream the {@link InputStream} to validate
 	 * @param <I> the {@link InputStream} type
@@ -493,7 +492,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Reader} is not {@code null} and has mark supported.</p>
+	 * Ensure the {@link Reader} is not {@code null} and has mark supported.
 	 * @param name the name of the {@link Reader}
 	 * @param reader the {@link Reader} to validate
 	 * @param <R> the {@link Reader} type
@@ -511,7 +510,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Path} is not {@code null} and exists.</p>
+	 * Ensure the {@link Path} is not {@code null} and exists.
 	 * @param name the name of the {@link Path}
 	 * @param path the {@link Path} to validate
 	 * @param <P> the {@link Path} type
@@ -529,7 +528,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Path} is not {@code null}, exists and is a file.</p>
+	 * Ensure the {@link Path} is not {@code null}, exists and is a file.
 	 * @param name the name of the {@link Path}
 	 * @param path the {@link Path} to validate
 	 * @param <P> the {@link Path} type
@@ -547,7 +546,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Path} is not {@code null}, exists and is a directory.</p>
+	 * Ensure the {@link Path} is not {@code null}, exists and is a directory.
 	 * @param name the name of the {@link Path}
 	 * @param path the {@link Path} to validate
 	 * @param <P> the {@link Path} type
@@ -565,7 +564,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code boolean} value is equal to the other one.</p>
+	 * Ensure the {@code boolean} value is equal to the other one.
 	 * @param name the name of the {@code boolean} value
 	 * @param value the {@code boolean} value to validate
 	 * @param other the other {@code boolean} value
@@ -583,7 +582,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is equal to the other one.</p>
+	 * Ensure the {@code byte} value is equal to the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -601,7 +600,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is equal to the other one.</p>
+	 * Ensure the {@code short} value is equal to the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -619,7 +618,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is equal to the other one.</p>
+	 * Ensure the {@code char} value is equal to the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -637,7 +636,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is equal to the other one.</p>
+	 * Ensure the {@code int} value is equal to the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -655,7 +654,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is equal to the other one.</p>
+	 * Ensure the {@code long} value is equal to the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -673,7 +672,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is equal to the other one.</p>
+	 * Ensure the {@code float} value is equal to the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -691,7 +690,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is equal to the other one.</p>
+	 * Ensure the {@code double} value is equal to the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
@@ -709,7 +708,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the value is not {@code null} and equal to the other one.</p>
+	 * Ensure the value is not {@code null} and equal to the other one.
 	 * @param name the name of the value
 	 * @param value the value to validate
 	 * @param other the other value
@@ -729,7 +728,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code boolean} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code boolean} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code boolean} array
 	 * @param array the {@code boolean} array to validate
 	 * @param other the other {@code boolean} array
@@ -748,7 +747,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code byte} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code byte} array
 	 * @param array the {@code byte} array to validate
 	 * @param other the other {@code byte} array
@@ -767,7 +766,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code short} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code short} array
 	 * @param array the {@code short} array to validate
 	 * @param other the other {@code short} array
@@ -786,7 +785,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code char} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code char} array
 	 * @param array the {@code char} array to validate
 	 * @param other the other {@code char} array
@@ -805,7 +804,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code int} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code int} array
 	 * @param array the {@code int} array to validate
 	 * @param other the other {@code int} array
@@ -824,7 +823,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code long} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code long} array
 	 * @param array the {@code long} array to validate
 	 * @param other the other {@code long} array
@@ -843,7 +842,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code float} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code float} array
 	 * @param array the {@code float} array to validate
 	 * @param other the other {@code float} array
@@ -862,7 +861,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} array is not {@code null} and equal to the other one.</p>
+	 * Ensure the {@code double} array is not {@code null} and equal to the other one.
 	 * @param name the name of the {@code double} array
 	 * @param array the {@code double} array to validate
 	 * @param other the other {@code double} array
@@ -881,7 +880,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the array is not {@code null} and equal to the other one.</p>
+	 * Ensure the array is not {@code null} and equal to the other one.
 	 * @param name the name of the array
 	 * @param array the array to validate
 	 * @param other the other array
@@ -901,7 +900,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code boolean} value is not equal to the other one.</p>
+	 * Ensure the {@code boolean} value is not equal to the other one.
 	 * @param name the name of the {@code boolean} value
 	 * @param value the {@code boolean} value to validate
 	 * @param other the other {@code boolean} value
@@ -919,7 +918,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is not equal to the other one.</p>
+	 * Ensure the {@code byte} value is not equal to the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -937,7 +936,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is not equal to the other one.</p>
+	 * Ensure the {@code short} value is not equal to the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -955,7 +954,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is not equal to the other one.</p>
+	 * Ensure the {@code char} value is not equal to the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -973,7 +972,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is not equal to the other one.</p>
+	 * Ensure the {@code int} value is not equal to the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -991,7 +990,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is not equal to the other one.</p>
+	 * Ensure the {@code long} value is not equal to the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -1009,7 +1008,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is not equal to the other one.</p>
+	 * Ensure the {@code float} value is not equal to the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -1027,7 +1026,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is not equal to the other one.</p>
+	 * Ensure the {@code double} value is not equal to the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
@@ -1045,7 +1044,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the value is not {@code null} and not equal to the other one.</p>
+	 * Ensure the value is not {@code null} and not equal to the other one.
 	 * @param name the name of the value
 	 * @param value the value to validate
 	 * @param other the other value
@@ -1065,7 +1064,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code boolean} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code boolean} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code boolean} array
 	 * @param array the {@code boolean} array to validate
 	 * @param other the other {@code boolean} array
@@ -1084,7 +1083,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code byte} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code byte} array
 	 * @param array the {@code byte} array to validate
 	 * @param other the other {@code byte} array
@@ -1103,7 +1102,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code short} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code short} array
 	 * @param array the {@code short} array to validate
 	 * @param other the other {@code short} array
@@ -1122,7 +1121,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code char} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code char} array
 	 * @param array the {@code char} array to validate
 	 * @param other the other {@code char} array
@@ -1141,7 +1140,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code int} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code int} array
 	 * @param array the {@code int} array to validate
 	 * @param other the other {@code int} array
@@ -1160,7 +1159,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code long} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code long} array
 	 * @param array the {@code long} array to validate
 	 * @param other the other {@code long} array
@@ -1179,7 +1178,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code float} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code float} array
 	 * @param array the {@code float} array to validate
 	 * @param other the other {@code float} array
@@ -1198,7 +1197,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the {@code double} array is not {@code null} and not equal to the other one.
 	 * @param name the name of the {@code double} array
 	 * @param array the {@code double} array to validate
 	 * @param other the other {@code double} array
@@ -1217,7 +1216,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the array is not {@code null} and not equal to the other one.</p>
+	 * Ensure the array is not {@code null} and not equal to the other one.
 	 * @param name the name of the array
 	 * @param array the array to validate
 	 * @param other the other array
@@ -1237,7 +1236,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is lower than the other one.</p>
+	 * Ensure the {@code byte} value is lower than the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -1255,7 +1254,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is lower than the other one.</p>
+	 * Ensure the {@code short} value is lower than the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -1273,7 +1272,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is lower than the other one.</p>
+	 * Ensure the {@code char} value is lower than the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -1291,7 +1290,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is lower than the other one.</p>
+	 * Ensure the {@code int} value is lower than the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -1309,7 +1308,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is lower than the other one.</p>
+	 * Ensure the {@code long} value is lower than the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -1327,7 +1326,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is lower than the other one.</p>
+	 * Ensure the {@code float} value is lower than the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -1345,7 +1344,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is lower than the other one.</p>
+	 * Ensure the {@code double} value is lower than the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
@@ -1363,7 +1362,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Comparable} value is not {@code null} and lower than the other one.</p>
+	 * Ensure the {@link Comparable} value is not {@code null} and lower than the other one.
 	 * @param name the name of the {@link Comparable} value
 	 * @param value the {@link Comparable} value to validate
 	 * @param other the other {@link Comparable} value
@@ -1383,7 +1382,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code byte} value is lower than or equal to the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -1401,7 +1400,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code short} value is lower than or equal to the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -1419,7 +1418,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code char} value is lower than or equal to the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -1437,7 +1436,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code int} value is lower than or equal to the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -1455,7 +1454,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code long} value is lower than or equal to the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -1473,7 +1472,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code float} value is lower than or equal to the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -1491,7 +1490,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is lower than or equal to the other one.</p>
+	 * Ensure the {@code double} value is lower than or equal to the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
@@ -1509,7 +1508,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Comparable} value is not {@code null} and lower than or equal to the other one.</p>
+	 * Ensure the {@link Comparable} value is not {@code null} and lower than or equal to the other one.
 	 * @param name the name of the {@link Comparable} value
 	 * @param value the {@link Comparable} value to validate
 	 * @param other the other {@link Comparable} value
@@ -1529,7 +1528,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is greater than the other one.</p>
+	 * Ensure the {@code byte} value is greater than the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -1547,7 +1546,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is greater than the other one.</p>
+	 * Ensure the {@code short} value is greater than the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -1565,7 +1564,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is greater than the other one.</p>
+	 * Ensure the {@code char} value is greater than the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -1583,7 +1582,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is greater than the other one.</p>
+	 * Ensure the {@code int} value is greater than the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -1601,7 +1600,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is greater than the other one.</p>
+	 * Ensure the {@code long} value is greater than the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -1619,7 +1618,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is greater than the other one.</p>
+	 * Ensure the {@code float} value is greater than the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -1637,7 +1636,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is greater than the other one.</p>
+	 * Ensure the {@code double} value is greater than the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
@@ -1655,7 +1654,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Comparable} value is not {@code null} and greater than the other one.</p>
+	 * Ensure the {@link Comparable} value is not {@code null} and greater than the other one.
 	 * @param name the name of the {@link Comparable} value
 	 * @param value the {@link Comparable} value to validate
 	 * @param other the other {@link Comparable} value
@@ -1675,7 +1674,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code byte} value is greater than or equal to the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -1693,7 +1692,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code short} value is greater than or equal to the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -1711,7 +1710,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code char} value is greater than or equal to the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -1729,7 +1728,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code int} value is greater than or equal to the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -1747,7 +1746,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code long} value is greater than or equal to the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -1765,7 +1764,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code float} value is greater than or equal to the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -1783,7 +1782,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is greater than or equal to the other one.</p>
+	 * Ensure the {@code double} value is greater than or equal to the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value
@@ -1801,7 +1800,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Comparable} value is not {@code null} and greater than or equal to the other one.</p>
+	 * Ensure the {@link Comparable} value is not {@code null} and greater than or equal to the other one.
 	 * @param name the name of the {@link Comparable} value
 	 * @param value the {@link Comparable} value to validate
 	 * @param other the other {@link Comparable} value
@@ -1821,7 +1820,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is between both other ones.</p>
+	 * Ensure the {@code byte} value is between both other ones.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param from the from {@code byte} value
@@ -1840,7 +1839,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is between both other ones.</p>
+	 * Ensure the {@code short} value is between both other ones.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param from the from {@code short} value
@@ -1859,7 +1858,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is between both other ones.</p>
+	 * Ensure the {@code char} value is between both other ones.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param from the from {@code char} value
@@ -1878,7 +1877,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is between both other ones.</p>
+	 * Ensure the {@code int} value is between both other ones.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param from the from {@code int} value
@@ -1897,7 +1896,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is between both other ones.</p>
+	 * Ensure the {@code long} value is between both other ones.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param from the from {@code long} value
@@ -1916,7 +1915,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is between both other ones.</p>
+	 * Ensure the {@code float} value is between both other ones.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param from the from {@code float} value
@@ -1935,7 +1934,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is between both other ones.</p>
+	 * Ensure the {@code double} value is between both other ones.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param from the from {@code double} value
@@ -1954,7 +1953,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@link Comparable} value is not {@code null} and between both other ones.</p>
+	 * Ensure the {@link Comparable} value is not {@code null} and between both other ones.
 	 * @param name the name of the {@link Comparable} value
 	 * @param value the {@link Comparable} value to validate
 	 * @param from the from {@link Comparable} value
@@ -1976,7 +1975,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code byte} value is a multiple of the other one.</p>
+	 * Ensure the {@code byte} value is a multiple of the other one.
 	 * @param name the name of the {@code byte} value
 	 * @param value the {@code byte} value to validate
 	 * @param other the other {@code byte} value
@@ -1994,7 +1993,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code short} value is a multiple of the other one.</p>
+	 * Ensure the {@code short} value is a multiple of the other one.
 	 * @param name the name of the {@code short} value
 	 * @param value the {@code short} value to validate
 	 * @param other the other {@code short} value
@@ -2012,7 +2011,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code char} value is a multiple of the other one.</p>
+	 * Ensure the {@code char} value is a multiple of the other one.
 	 * @param name the name of the {@code char} value
 	 * @param value the {@code char} value to validate
 	 * @param other the other {@code char} value
@@ -2030,7 +2029,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code int} value is a multiple of the other one.</p>
+	 * Ensure the {@code int} value is a multiple of the other one.
 	 * @param name the name of the {@code int} value
 	 * @param value the {@code int} value to validate
 	 * @param other the other {@code int} value
@@ -2048,7 +2047,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code long} value is a multiple of the other one.</p>
+	 * Ensure the {@code long} value is a multiple of the other one.
 	 * @param name the name of the {@code long} value
 	 * @param value the {@code long} value to validate
 	 * @param other the other {@code long} value
@@ -2066,7 +2065,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code float} value is a multiple of the other one.</p>
+	 * Ensure the {@code float} value is a multiple of the other one.
 	 * @param name the name of the {@code float} value
 	 * @param value the {@code float} value to validate
 	 * @param other the other {@code float} value
@@ -2084,7 +2083,7 @@ public final class Ensure {
 	}
 
 	/**
-	 * <p>Ensure the {@code double} value is a multiple of the other one.</p>
+	 * Ensure the {@code double} value is a multiple of the other one.
 	 * @param name the name of the {@code double} value
 	 * @param value the {@code double} value to validate
 	 * @param other the other {@code double} value

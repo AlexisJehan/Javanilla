@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 /**
- * <p>Miscellaneous components that can be used for many purposes.</p>
+ * Miscellaneous components that can be used for many purposes.
  * @since 1.0.0
  */
 package com.github.alexisjehan.javanilla.misc;

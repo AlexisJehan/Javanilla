@@ -28,7 +28,8 @@ import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 import java.sql.SQLException;
 
 /**
- * <p>Wrapped {@link SQLException} as an unchecked exception.</p>
+ * Wrapped {@link SQLException} as an unchecked exception.
+ *
  * <p><b>Note</b>: This class is {@link java.io.Serializable}.</p>
  * @deprecated since 1.6.0, should not be used anymore
  * @since 1.0.0
@@ -37,13 +38,13 @@ import java.sql.SQLException;
 public final class UncheckedSQLException extends RuntimeException {
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.0.0
 	 */
 	private static final long serialVersionUID = -6005743741728805844L;
 
 	/**
-	 * <p>Constructor with a checked cause.</p>
+	 * Constructor with a checked cause.
 	 * @param cause the checked cause
 	 * @throws NullPointerException if the cause is {@code null}
 	 * @since 1.0.0

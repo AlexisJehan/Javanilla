@@ -27,20 +27,20 @@ import javax.crypto.KeyGenerator;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link KeyGenerator} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyGenerator} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/crypto/KeyGenerator.html">https://docs.oracle.com/javase/10/docs/api/javax/crypto/KeyGenerator.html</a>
  * @since 1.8.0
  */
 public final class StandardKeyGenerators {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardKeyGenerators() {}
 
 	/**
-	 * <p>Get a new "AES" {@link KeyGenerator} instance.</p>
+	 * Get a new "AES" {@link KeyGenerator} instance.
 	 * @return an "AES" {@link KeyGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -49,7 +49,7 @@ public final class StandardKeyGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DES" {@link KeyGenerator} instance.</p>
+	 * Get a new "DES" {@link KeyGenerator} instance.
 	 * @return a "DES" {@link KeyGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -58,7 +58,7 @@ public final class StandardKeyGenerators {
 	}
 
 	/**
-	 * <p>Get a new "DESede" {@link KeyGenerator} instance.</p>
+	 * Get a new "DESede" {@link KeyGenerator} instance.
 	 * @return a "DESede" {@link KeyGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -67,7 +67,7 @@ public final class StandardKeyGenerators {
 	}
 
 	/**
-	 * <p>Get a new "HmacSHA1" {@link KeyGenerator} instance.</p>
+	 * Get a new "HmacSHA1" {@link KeyGenerator} instance.
 	 * @return a "HmacSHA1" {@link KeyGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -76,7 +76,7 @@ public final class StandardKeyGenerators {
 	}
 
 	/**
-	 * <p>Get a new "HmacSHA256" {@link KeyGenerator} instance.</p>
+	 * Get a new "HmacSHA256" {@link KeyGenerator} instance.
 	 * @return a "HmacSHA256" {@link KeyGenerator} instance
 	 * @since 1.8.0
 	 */
@@ -85,7 +85,7 @@ public final class StandardKeyGenerators {
 	}
 
 	/**
-	 * <p>Get a new {@link KeyGenerator} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link KeyGenerator} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link KeyGenerator} algorithm
 	 * @return a {@link KeyGenerator} instance of the provided algorithm
 	 * @since 1.8.0

@@ -29,7 +29,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * <p>An {@link Iterator} decorator that iterates only elements within a range from the current position.</p>
+ * An {@link Iterator} decorator that iterates only elements within a range from the current position.
+ *
  * <p><b>Note</b>: A removed element is still considered in the index.</p>
  * @param <E> the element type
  * @since 1.8.0
@@ -37,25 +38,25 @@ import java.util.NoSuchElementException;
 public final class RangeIterator<E> extends FilterIterator<E> {
 
 	/**
-	 * <p>Inclusive index of the first element to iterate.</p>
+	 * Inclusive index of the first element to iterate.
 	 * @since 1.8.0
 	 */
 	private final long fromIndex;
 
 	/**
-	 * <p>Inclusive index of the last element to iterate.</p>
+	 * Inclusive index of the last element to iterate.
 	 * @since 1.8.0
 	 */
 	private final long toIndex;
 
 	/**
-	 * <p>Current index.</p>
+	 * Current index.
 	 * @since 1.8.0
 	 */
 	private long index;
 
 	/**
-	 * <p>Constructor with an {@link Iterator} to decorate and a range from an inclusive index to another one.</p>
+	 * Constructor with an {@link Iterator} to decorate and a range from an inclusive index to another one.
 	 * @param iterator the {@link Iterator} to decorate
 	 * @param fromIndex the inclusive index of the first element to iterate
 	 * @param toIndex the inclusive index of the last element to iterate
@@ -99,7 +100,7 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the first element to iterate.</p>
+	 * Get the inclusive index of the first element to iterate.
 	 * @return the inclusive starting index
 	 * @since 1.8.0
 	 */
@@ -108,7 +109,7 @@ public final class RangeIterator<E> extends FilterIterator<E> {
 	}
 
 	/**
-	 * <p>Get the inclusive index of the last element to iterate.</p>
+	 * Get the inclusive index of the last element to iterate.
 	 * @return the inclusive ending index
 	 * @since 1.8.0
 	 */

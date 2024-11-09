@@ -34,8 +34,8 @@ import java.util.Optional;
 import java.util.Queue;
 
 /**
- * <p>A {@link TreeNode} represents a single node in a whole tree data structure which contains optional parent and
- * children nodes and a value.</p>
+ * A {@link TreeNode} represents a single node in a whole tree data structure which contains optional parent and
+ * children nodes and a value.
  * @param <V> the value type
  * @see <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)">https://en.wikipedia.org/wiki/Tree_(data_structure)</a>
  * @since 1.8.0
@@ -43,7 +43,8 @@ import java.util.Queue;
 public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 
 	/**
-	 * <p>Extend the tree by creating a child {@code TreeNode} to the current node.</p>
+	 * Extend the tree by creating a child {@code TreeNode} to the current node.
+	 *
 	 * <p><b>Note</b>: A {@code null} value may be restricted depending of the implementation.</p>
 	 * @param value the value of the child {@code TreeNode} to create
 	 * @return the created child {@code TreeNode}
@@ -52,7 +53,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	TreeNode<V> extend(V value);
 
 	/**
-	 * <p>Remove the descendant {@code TreeNode} of the current node from the tree.</p>
+	 * Remove the descendant {@code TreeNode} of the current node from the tree.
+	 *
 	 * <p><b>Note</b>: The parent node of the descendant {@code TreeNode} will not be removed.</p>
 	 * @param descendant the descendant {@code TreeNode} to remove
 	 * @return {@code true} if the descendant {@code TreeNode} has been successfully removed
@@ -62,13 +64,13 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	boolean remove(TreeNode<V> descendant);
 
 	/**
-	 * <p>Remove all children of the current node and their descendants from the tree.</p>
+	 * Remove all children of the current node and their descendants from the tree.
 	 * @since 1.8.0
 	 */
 	void clear();
 
 	/**
-	 * <p>Tell if the current node is the root of the tree.</p>
+	 * Tell if the current node is the root of the tree.
 	 * @return {@code true} if the current node is the root
 	 * @since 1.8.0
 	 */
@@ -77,7 +79,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Tell if the current node is a branch in the tree.</p>
+	 * Tell if the current node is a branch in the tree.
 	 * @return {@code true} if the current node is a branch
 	 * @since 1.8.0
 	 */
@@ -86,7 +88,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Tell if the current node is a leaf in the tree.</p>
+	 * Tell if the current node is a leaf in the tree.
 	 * @return {@code true} if the current node is a leaf
 	 * @since 1.8.0
 	 */
@@ -95,21 +97,21 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Optionally get the parent {@code TreeNode} of the current node.</p>
+	 * Optionally get the parent {@code TreeNode} of the current node.
 	 * @return an {@link Optional} parent {@code TreeNode}
 	 * @since 1.8.0
 	 */
 	Optional<TreeNode<V>> optionalParent();
 
 	/**
-	 * <p>Get a {@link List} of children {@code TreeNode}s of the current node.</p>
+	 * Get a {@link List} of children {@code TreeNode}s of the current node.
 	 * @return a {@link List} of children {@code TreeNode}s
 	 * @since 1.8.0
 	 */
 	List<TreeNode<V>> children();
 
 	/**
-	 * <p>Create an {@link Iterable} of siblings {@code TreeNode}s of the current node.</p>
+	 * Create an {@link Iterable} of siblings {@code TreeNode}s of the current node.
 	 * @return an {@link Iterable} of siblings {@code TreeNode}s
 	 * @since 1.8.0
 	 */
@@ -120,7 +122,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create an {@link Iterable} of branches {@code TreeNode}s of the current node.</p>
+	 * Create an {@link Iterable} of branches {@code TreeNode}s of the current node.
+	 *
 	 * <p><b>Note</b>: {@code TreeNode}s will be breadth first iterated.</p>
 	 * @return an {@link Iterable} of branches {@code TreeNode}s
 	 * @since 1.8.0
@@ -130,7 +133,8 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create an {@link Iterable} of leaves {@code TreeNode}s of the current node.</p>
+	 * Create an {@link Iterable} of leaves {@code TreeNode}s of the current node.
+	 *
 	 * <p><b>Note</b>: {@code TreeNode}s will be breadth first iterated.</p>
 	 * @return an {@link Iterable} of leaves {@code TreeNode}s
 	 * @since 1.8.0
@@ -140,7 +144,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create a depth first {@link Iterable} of descendants {@code TreeNode}s of the current node.</p>
+	 * Create a depth first {@link Iterable} of descendants {@code TreeNode}s of the current node.
 	 * @return a depth first {@link Iterable} of descendants {@code TreeNode}s
 	 * @since 1.8.0
 	 */
@@ -149,19 +153,19 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 			final var iterator = new Iterator<TreeNode<V>>() {
 
 				/**
-				 * <p>Queue of descendants nodes.</p>
+				 * Queue of descendants nodes.
 				 * @since 1.8.0
 				 */
 				private final Deque<TreeNode<V>> deque = new LinkedList<>(children());
 
 				/**
-				 * <p>Next node or {@code null}.</p>
+				 * Next node or {@code null}.
 				 * @since 1.8.0
 				 */
 				private TreeNode<V> next;
 
 				/**
-				 * <p>Prepare the next node.</p>
+				 * Prepare the next node.
 				 * @since 1.8.0
 				 */
 				void prepareNext() {
@@ -201,7 +205,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create a breadth first {@link Iterable} of descendants {@code TreeNode}s of the current node.</p>
+	 * Create a breadth first {@link Iterable} of descendants {@code TreeNode}s of the current node.
 	 * @return a breadth first {@link Iterable} of descendants {@code TreeNode}s
 	 * @since 1.8.0
 	 */
@@ -210,19 +214,19 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 			final var iterator = new Iterator<TreeNode<V>>() {
 
 				/**
-				 * <p>Queue of descendants nodes.</p>
+				 * Queue of descendants nodes.
 				 * @since 1.8.0
 				 */
 				private final Queue<TreeNode<V>> queue = new LinkedList<>(children());
 
 				/**
-				 * <p>Next node or {@code null}.</p>
+				 * Next node or {@code null}.
 				 * @since 1.8.0
 				 */
 				private TreeNode<V> next;
 
 				/**
-				 * <p>Prepare the next node.</p>
+				 * Prepare the next node.
 				 * @since 1.8.0
 				 */
 				void prepareNext() {
@@ -259,7 +263,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Create an {@link Iterable} of ancestors {@code TreeNode}s of the current node.</p>
+	 * Create an {@link Iterable} of ancestors {@code TreeNode}s of the current node.
 	 * @return an {@link Iterable} of ancestors {@code TreeNode}s
 	 * @since 1.8.0
 	 */
@@ -267,13 +271,13 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 		return () -> new Iterator<>() {
 
 			/**
-			 * <p>Next node or {@code null}.</p>
+			 * Next node or {@code null}.
 			 * @since 1.8.0
 			 */
 			private TreeNode<V> next = optionalParent().orElse(null);
 
 			/**
-			 * <p>Prepare the next node.</p>
+			 * Prepare the next node.
 			 * @since 1.8.0
 			 */
 			private void prepareNext() {
@@ -304,7 +308,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Get the degree of the current node.</p>
+	 * Get the degree of the current node.
 	 * @return the degree of the current node
 	 * @since 1.8.0
 	 */
@@ -313,7 +317,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Get the depth of the current node.</p>
+	 * Get the depth of the current node.
 	 * @return the depth of the current node
 	 * @since 1.8.0
 	 */
@@ -336,14 +340,14 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	}
 
 	/**
-	 * <p>Get the value of the current node.</p>
+	 * Get the value of the current node.
 	 * @return the value of the current node
 	 * @since 1.8.0
 	 */
 	V getValue();
 
 	/**
-	 * <p>Set the value of the current node.</p>
+	 * Set the value of the current node.
 	 * @param value the new value of the current node
 	 * @since 1.8.0
 	 */

@@ -30,7 +30,8 @@ import internal.ExcludeFromJacocoGeneratedReport;
 import java.util.function.BiPredicate;
 
 /**
- * <p>Interface for a {@link BiPredicate} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link BiPredicate} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #test(Object, Object)}.</p>
  * @param <T> the type of the first argument to the predicate
@@ -44,7 +45,7 @@ import java.util.function.BiPredicate;
 public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 
 	/**
-	 * <p>Evaluates this predicate on the given arguments.</p>
+	 * Evaluates this predicate on the given arguments.
 	 * @param t the first input argument
 	 * @param u the second input argument
 	 * @return {@code true} if the input arguments match the predicate, otherwise {@code false}
@@ -54,8 +55,8 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	boolean test(T t, U u) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableBiPredicate} that represents a short-circuiting logical AND of this
-	 * predicate and another.</p>
+	 * Returns a composed {@code ThrowableBiPredicate} that represents a short-circuiting logical AND of this predicate
+	 * and another.
 	 * @param other a {@code ThrowableBiPredicate} that will be logically-ANDed with this predicate
 	 * @return a composed {@code ThrowableBiPredicate} that represents the short-circuiting logical AND of this
 	 *         predicate and the other predicate
@@ -68,7 +69,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a {@code ThrowableBiPredicate} that represents the logical negation of this predicate.</p>
+	 * Returns a {@code ThrowableBiPredicate} that represents the logical negation of this predicate.
 	 * @return a {@code ThrowableBiPredicate} that represents the logical negation of this predicate
 	 * @since 1.0.0
 	 */
@@ -77,8 +78,8 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Returns a composed {@code ThrowableBiPredicate} that represents a short-circuiting logical OR of this
-	 * predicate and another.</p>
+	 * Returns a composed {@code ThrowableBiPredicate} that represents a short-circuiting logical OR of this predicate
+	 * and another.
 	 * @param other a {@code ThrowableBiPredicate} that will be logically-ORed with this predicate
 	 * @return a composed {@code ThrowableBiPredicate} that represents the short-circuiting logical OR of this predicate
 	 *         and the other predicate
@@ -91,8 +92,8 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiPredicate} to a {@link BiPredicate} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableBiPredicate} to a {@link BiPredicate} that may throw an unchecked
+	 * {@link Throwable}.
 	 * @param throwableBiPredicate the {@code ThrowableBiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate
@@ -113,8 +114,8 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiPredicate} to a {@link BiPredicate} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableBiPredicate} to a {@link BiPredicate} that may throw a sneaky
+	 * {@link Throwable}.
 	 * @param throwableBiPredicate the {@code ThrowableBiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate
@@ -144,7 +145,7 @@ public interface ThrowableBiPredicate<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiPredicate} from the given {@link BiPredicate}.</p>
+	 * Create a {@code ThrowableBiPredicate} from the given {@link BiPredicate}.
 	 * @param biPredicate the {@link BiPredicate} to convert
 	 * @param <T> the type of the first argument to the predicate
 	 * @param <U> the type of the second argument the predicate

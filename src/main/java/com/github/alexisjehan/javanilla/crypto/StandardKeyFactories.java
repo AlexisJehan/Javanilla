@@ -26,7 +26,7 @@ package com.github.alexisjehan.javanilla.crypto;
 import java.security.KeyFactory;
 
 /**
- * <p>A {@link KeyFactory} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyFactory} factory to get standard instances without throwing checked exceptions.
  * @deprecated since 1.6.0, use {@link com.github.alexisjehan.javanilla.standard.security.StandardKeyFactories} instead
  * @since 1.3.1
  */
@@ -34,13 +34,13 @@ import java.security.KeyFactory;
 public final class StandardKeyFactories {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.1
 	 */
 	private StandardKeyFactories() {}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link KeyFactory} instance.</p>
+	 * Get a new "DiffieHellman" {@link KeyFactory} instance.
 	 * @return a "DiffieHellman" {@link KeyFactory} instance
 	 * @since 1.3.1
 	 */
@@ -49,7 +49,7 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "DSA" {@link KeyFactory} instance.</p>
+	 * Get a new "DSA" {@link KeyFactory} instance.
 	 * @return a "DSA" {@link KeyFactory} instance
 	 * @since 1.3.1
 	 */
@@ -58,7 +58,7 @@ public final class StandardKeyFactories {
 	}
 
 	/**
-	 * <p>Get a new "RSA" {@link KeyFactory} instance.</p>
+	 * Get a new "RSA" {@link KeyFactory} instance.
 	 * @return an "RSA" {@link KeyFactory} instance
 	 * @since 1.3.1
 	 */

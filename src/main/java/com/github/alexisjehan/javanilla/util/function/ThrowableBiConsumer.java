@@ -30,7 +30,8 @@ import internal.ExcludeFromJacocoGeneratedReport;
 import java.util.function.BiConsumer;
 
 /**
- * <p>Interface for a {@link BiConsumer} that may throw a {@link Throwable}.</p>
+ * Interface for a {@link BiConsumer} that may throw a {@link Throwable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
  * {@link #accept(Object, Object)}.</p>
  * @param <T> the type of the first argument to the operation
@@ -42,7 +43,7 @@ import java.util.function.BiConsumer;
 public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 
 	/**
-	 * <p>Performs this operation on the given arguments.</p>
+	 * Performs this operation on the given arguments.
 	 * @param t the first input argument
 	 * @param u the second input argument
 	 * @throws X may throw a {@link Throwable}
@@ -51,8 +52,8 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	void accept(T t, U u) throws X;
 
 	/**
-	 * <p>Returns a composed {@code ThrowableBiConsumer} that performs, in sequence, this operation followed by the
-	 * after operation.</p>
+	 * Returns a composed {@code ThrowableBiConsumer} that performs, in sequence, this operation followed by the after
+	 * operation.
 	 * @param after the {@code ThrowableBiConsumer} operation to perform after this operation
 	 * @return a composed {@code ThrowableBiConsumer} that performs in sequence this operation followed by the after
 	 *         operation
@@ -68,8 +69,8 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiConsumer} to a {@link BiConsumer} that may throw an unchecked
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableBiConsumer} to a {@link BiConsumer} that may throw an unchecked
+	 * {@link Throwable}.
 	 * @param throwableBiConsumer the {@code ThrowableBiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
@@ -90,8 +91,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Converts the given {@code ThrowableBiConsumer} to a {@link BiConsumer} that may throw a sneaky
-	 * {@link Throwable}.</p>
+	 * Converts the given {@code ThrowableBiConsumer} to a {@link BiConsumer} that may throw a sneaky {@link Throwable}.
 	 * @param throwableBiConsumer the {@code ThrowableBiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation
@@ -120,7 +120,7 @@ public interface ThrowableBiConsumer<T, U, X extends Throwable> {
 	}
 
 	/**
-	 * <p>Create a {@code ThrowableBiConsumer} from the given {@link BiConsumer}.</p>
+	 * Create a {@code ThrowableBiConsumer} from the given {@link BiConsumer}.
 	 * @param biConsumer the {@link BiConsumer} to convert
 	 * @param <T> the type of the first argument to the operation
 	 * @param <U> the type of the second argument to the operation

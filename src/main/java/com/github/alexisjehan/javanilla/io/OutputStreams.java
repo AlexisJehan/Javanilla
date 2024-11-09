@@ -38,13 +38,13 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * <p>An utility class that provides {@link OutputStream} tools.</p>
+ * A utility class that provides {@link OutputStream} tools.
  * @since 1.8.0
  */
 public final class OutputStreams {
 
 	/**
-	 * <p>An empty {@link OutputStream} that writes nothing.</p>
+	 * An empty {@link OutputStream} that writes nothing.
 	 * @since 1.8.0
 	 */
 	public static final OutputStream EMPTY = new OutputStream() {
@@ -77,13 +77,13 @@ public final class OutputStreams {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private OutputStreams() {}
 
 	/**
-	 * <p>Wrap an {@link OutputStream} replacing {@code null} by an empty one.</p>
+	 * Wrap an {@link OutputStream} replacing {@code null} by an empty one.
 	 * @param outputStream the {@link OutputStream} or {@code null}
 	 * @return a non-{@code null} {@link OutputStream}
 	 * @since 1.8.0
@@ -93,7 +93,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap an {@link OutputStream} replacing {@code null} by a default one.</p>
+	 * Wrap an {@link OutputStream} replacing {@code null} by a default one.
 	 * @param outputStream the {@link OutputStream} or {@code null}
 	 * @param defaultOutputStream the default {@link OutputStream}
 	 * @param <O> the {@link OutputStream} type
@@ -107,7 +107,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@link OutputStream} as a {@link BufferedOutputStream} if it was not already.</p>
+	 * Decorate an {@link OutputStream} as a {@link BufferedOutputStream} if it was not already.
 	 * @param outputStream the {@link OutputStream} to decorate
 	 * @return a {@link BufferedOutputStream}
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
@@ -122,7 +122,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Decorate an {@link OutputStream} so that its {@link OutputStream#close()} method has no effect.</p>
+	 * Decorate an {@link OutputStream} so that its {@link OutputStream#close()} method has no effect.
 	 * @param outputStream the {@link OutputStream} to decorate
 	 * @return an {@link OutputStream} that cannot be closed
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
@@ -143,7 +143,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap multiple {@link OutputStream}s into a single one.</p>
+	 * Wrap multiple {@link OutputStream}s into a single one.
 	 * @param outputStreams the {@link OutputStream} array to wrap
 	 * @return the "tee-ed" {@link OutputStream}
 	 * @throws NullPointerException if the {@link OutputStream} array or any of them is {@code null}
@@ -155,7 +155,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Wrap multiple {@link OutputStream}s into a single one.</p>
+	 * Wrap multiple {@link OutputStream}s into a single one.
 	 * @param outputStreams the {@link OutputStream} {@link Collection} to wrap
 	 * @return the "tee-ed" {@link OutputStream}
 	 * @throws NullPointerException if the {@link OutputStream} {@link Collection} or any of them is {@code null}
@@ -233,7 +233,8 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Create a {@link BufferedOutputStream} from a {@link Path}.</p>
+	 * Create a {@link BufferedOutputStream} from a {@link Path}.
+	 *
 	 * <p><b>Warning</b>: If the file of the {@link Path} already exists its content is erased.</p>
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedOutputStream}
@@ -247,7 +248,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link OutputStream} to a {@link Writer} using {@link Charset#defaultCharset()}.</p>
+	 * Convert an {@link OutputStream} to a {@link Writer} using {@link Charset#defaultCharset()}.
 	 * @param outputStream the {@link OutputStream} to convert
 	 * @return the created {@link Writer}
 	 * @throws NullPointerException if the {@link OutputStream} is {@code null}
@@ -258,7 +259,7 @@ public final class OutputStreams {
 	}
 
 	/**
-	 * <p>Convert an {@link OutputStream} to a {@link Writer} using a custom {@link Charset}.</p>
+	 * Convert an {@link OutputStream} to a {@link Writer} using a custom {@link Charset}.
 	 * @param outputStream the {@link OutputStream} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link Writer}

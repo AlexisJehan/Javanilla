@@ -33,25 +33,25 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * <p>An utility class that provides {@code float} array tools.</p>
+ * A utility class that provides {@code float} array tools.
  * @since 1.0.0
  */
 public final class FloatArrays {
 
 	/**
-	 * <p>An empty {@code float} array.</p>
+	 * An empty {@code float} array.
 	 * @since 1.0.0
 	 */
 	public static final float[] EMPTY = {};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private FloatArrays() {}
 
 	/**
-	 * <p>Wrap a {@code float} array replacing {@code null} by an empty one.</p>
+	 * Wrap a {@code float} array replacing {@code null} by an empty one.
 	 * @param array the {@code float} array or {@code null}
 	 * @return a non-{@code null} {@code float} array
 	 * @since 1.0.0
@@ -61,7 +61,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code float} array replacing {@code null} by a default one.</p>
+	 * Wrap a {@code float} array replacing {@code null} by a default one.
 	 * @param array the {@code float} array or {@code null}
 	 * @param defaultArray the default {@code float} array
 	 * @return a non-{@code null} {@code float} array
@@ -74,7 +74,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code float} array replacing an empty one by {@code null}.</p>
+	 * Wrap a {@code float} array replacing an empty one by {@code null}.
 	 * @param array the {@code float} array or {@code null}
 	 * @return a non-empty {@code float} array or {@code null}
 	 * @since 1.0.0
@@ -84,7 +84,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Wrap a {@code float} array replacing an empty one by a default {@code float} array.</p>
+	 * Wrap a {@code float} array replacing an empty one by a default {@code float} array.
 	 * @param array the {@code float} array or {@code null}
 	 * @param defaultArray the default {@code float} array or {@code null}
 	 * @return a non-empty {@code float} array or {@code null}
@@ -99,7 +99,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Add a {@code float} value at the end of the given {@code float} array.</p>
+	 * Add a {@code float} value at the end of the given {@code float} array.
 	 * @param array the {@code float} array to add to
 	 * @param value the {@code float} value to add
 	 * @return a {@code float} array with the added {@code float} value
@@ -112,7 +112,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Add a {@code float} value at the provided index of the given {@code float} array.</p>
+	 * Add a {@code float} value at the provided index of the given {@code float} array.
 	 * @param array the {@code float} array to add to
 	 * @param index the index of the {@code float} value
 	 * @param value the {@code float} value to add
@@ -128,7 +128,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Add a {@code float} value at the provided index of the given {@code float} array.</p>
+	 * Add a {@code float} value at the provided index of the given {@code float} array.
 	 * @param array the {@code float} array to add to
 	 * @param value the {@code float} value to add
 	 * @param index the index of the {@code float} value
@@ -152,7 +152,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Remove a {@code float} value at the provided index of the given {@code float} array.</p>
+	 * Remove a {@code float} value at the provided index of the given {@code float} array.
 	 * @param array the {@code float} array to remove from
 	 * @param index the index of the {@code float} value
 	 * @return a {@code float} array with the removed {@code float} value
@@ -174,7 +174,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code float} arrays.</p>
+	 * Concatenate multiple {@code float} arrays.
 	 * @param arrays {@code float} arrays to concatenate
 	 * @return the concatenated {@code float} array
 	 * @throws NullPointerException if {@code float} arrays or any of them is {@code null}
@@ -186,7 +186,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Concatenate multiple {@code float} arrays.</p>
+	 * Concatenate multiple {@code float} arrays.
 	 * @param arrays the {@code float} array {@link List} to concatenate
 	 * @return the concatenated {@code float} array
 	 * @throws NullPointerException if the {@code float} array {@link List} or any of them is {@code null}
@@ -211,7 +211,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code float} arrays using a {@code float} array separator.</p>
+	 * Join multiple {@code float} arrays using a {@code float} array separator.
 	 * @param separator the {@code float} array separator
 	 * @param arrays {@code float} arrays to join
 	 * @return the joined {@code float} array
@@ -225,7 +225,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Join multiple {@code float} arrays using a {@code float} array separator.</p>
+	 * Join multiple {@code float} arrays using a {@code float} array separator.
 	 * @param separator the {@code float} array separator
 	 * @param arrays the {@code float} array {@link List} to join
 	 * @return the joined {@code float} array
@@ -262,7 +262,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code float} array contains any of given {@code float} values at least one.</p>
+	 * Tell if the {@code float} array contains any of given {@code float} values at least one.
 	 * @param array the {@code float} array to test
 	 * @param values {@code float} values to test
 	 * @return {@code true} if any of given {@code float} values is contained at least once by the {@code float} array
@@ -287,7 +287,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code float} array contains all of given {@code float} values at least one.</p>
+	 * Tell if the {@code float} array contains all of given {@code float} values at least one.
 	 * @param array the {@code float} array to test
 	 * @param values {@code float} values to test
 	 * @return {@code true} if all of given {@code float} values are contained at least once by the {@code float} array
@@ -317,7 +317,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code float} array contains each given {@code float} value only once.</p>
+	 * Tell if the {@code float} array contains each given {@code float} value only once.
 	 * @param array the {@code float} array to test
 	 * @param values {@code float} values to test
 	 * @return {@code true} if each of given {@code float} values are contained only once by the {@code float} array
@@ -349,7 +349,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Tell if the {@code float} array contains only given {@code float} values at least one.</p>
+	 * Tell if the {@code float} array contains only given {@code float} values at least one.
 	 * @param array the {@code float} array to test
 	 * @param values {@code float} values to test
 	 * @return {@code true} if given {@code float} values are only values contained by the {@code float} array
@@ -379,7 +379,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code float} value in the {@code float} array.</p>
+	 * Get the first index of the {@code float} value in the {@code float} array.
 	 * @param array the {@code float} array to iterate
 	 * @param value the {@code float} value to search
 	 * @return the first index of the {@code float} value if found, {@code -1} otherwise
@@ -391,7 +391,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Get the first index of the {@code float} value in the {@code float} array starting from the given index.</p>
+	 * Get the first index of the {@code float} value in the {@code float} array starting from the given index.
 	 * @param array the {@code float} array to iterate
 	 * @param value the {@code float} value to search
 	 * @param fromIndex the starting index
@@ -414,7 +414,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code float} value in the {@code float} array.</p>
+	 * Get the last index of the {@code float} value in the {@code float} array.
 	 * @param array the {@code float} array to iterate
 	 * @param value the {@code float} value to search
 	 * @return the last index of the {@code float} value if found, {@code -1} otherwise
@@ -426,7 +426,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Get the last index of the {@code float} value in the {@code float} array starting from the given index.</p>
+	 * Get the last index of the {@code float} value in the {@code float} array starting from the given index.
 	 * @param array the {@code float} array to iterate
 	 * @param value the {@code float} value to search
 	 * @param fromIndex the starting index
@@ -449,7 +449,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Calculate the number of occurrences of the {@code float} value in the {@code float} array.</p>
+	 * Calculate the number of occurrences of the {@code float} value in the {@code float} array.
 	 * @param array the {@code float} array to iterate
 	 * @param value the {@code float} value of the frequency to calculate
 	 * @return the frequency of the {@code float} value
@@ -471,7 +471,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Reverse values in the given {@code float} array.</p>
+	 * Reverse values in the given {@code float} array.
 	 * @param array the {@code float} array to reverse
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @since 1.2.0
@@ -486,7 +486,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Reorder values in the given {@code float} array using provided indexes.</p>
+	 * Reorder values in the given {@code float} array using provided indexes.
 	 * @param array the {@code float} array to reorder
 	 * @param indexes indexes to use
 	 * @throws NullPointerException if the {@code float} array or the indexes array is {@code null}
@@ -514,7 +514,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code float} array following the Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code float} array following the Fisher-Yates algorithm.
 	 * @param array the {@code float} array to shuffle
 	 * @throws NullPointerException if the {@code float} array is {@code null}
 	 * @see <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle</a>
@@ -528,8 +528,8 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Shuffle values in the given {@code float} array using the provided {@code Random} object following the
-	 * Fisher-Yates algorithm.</p>
+	 * Shuffle values in the given {@code float} array using the provided {@code Random} object following the
+	 * Fisher-Yates algorithm.
 	 * @param array the {@code float} array to shuffle
 	 * @param random the {@code Random} object to use
 	 * @throws NullPointerException if the {@code float} array or the {@code Random} object is {@code null}
@@ -547,7 +547,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Swap two values in the given {@code float} array using their indexes.</p>
+	 * Swap two values in the given {@code float} array using their indexes.
 	 * @param array the {@code float} array to swap
 	 * @param index1 the index of the first value
 	 * @param index2 the index of the second value
@@ -567,7 +567,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Tell if a {@code float} array is empty.</p>
+	 * Tell if a {@code float} array is empty.
 	 * @param array the {@code float} array to test
 	 * @return {@code true} if the {@code float} array is empty
 	 * @throws NullPointerException if the {@code float} array is {@code null}
@@ -579,7 +579,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Create a {@code float} array from a single {@code float} value.</p>
+	 * Create a {@code float} array from a single {@code float} value.
 	 * @param value the {@code float} value to convert
 	 * @return the created {@code float} array
 	 * @since 1.1.0
@@ -589,7 +589,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Create a {@code float} array from multiple {@code float} values.</p>
+	 * Create a {@code float} array from multiple {@code float} values.
 	 * @param values {@code float} values to convert
 	 * @return the created {@code float} array
 	 * @throws NullPointerException if the {@code float} values array is {@code null}
@@ -604,7 +604,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Create a {@code float} array from a boxed {@link Float} array.</p>
+	 * Create a {@code float} array from a boxed {@link Float} array.
 	 * @param boxedArray the boxed {@link Float} array to convert
 	 * @return the created {@code float} array
 	 * @throws NullPointerException if the boxed {@link Float} array is {@code null}
@@ -623,7 +623,7 @@ public final class FloatArrays {
 	}
 
 	/**
-	 * <p>Convert a {@code float} array to a boxed {@link Float} array.</p>
+	 * Convert a {@code float} array to a boxed {@link Float} array.
 	 * @param array the {@code float} array to convert
 	 * @return the created boxed {@link Float} array
 	 * @throws NullPointerException if the {@code float} array is {@code null}

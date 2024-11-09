@@ -36,13 +36,13 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * <p>An utility class that provides {@link Writer} tools.</p>
+ * A utility class that provides {@link Writer} tools.
  * @since 1.8.0
  */
 public final class Writers {
 
 	/**
-	 * <p>An empty {@link Writer} that writes nothing.</p>
+	 * An empty {@link Writer} that writes nothing.
 	 * @since 1.8.0
 	 */
 	public static final Writer EMPTY = new Writer() {
@@ -139,13 +139,13 @@ public final class Writers {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private Writers() {}
 
 	/**
-	 * <p>Wrap a {@link Writer} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link Writer} replacing {@code null} by an empty one.
 	 * @param writer the {@link Writer} or {@code null}
 	 * @return a non-{@code null} {@link Writer}
 	 * @since 1.8.0
@@ -155,7 +155,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap a {@link Writer} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link Writer} replacing {@code null} by a default one.
 	 * @param writer the {@link Writer} or {@code null}
 	 * @param defaultWriter the default {@link Writer}
 	 * @param <W> the {@link Writer} type
@@ -169,7 +169,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Writer} as a {@link BufferedWriter} if it was not already.</p>
+	 * Decorate a {@link Writer} as a {@link BufferedWriter} if it was not already.
 	 * @param writer the {@link Writer} to decorate
 	 * @return a {@link BufferedWriter}
 	 * @throws NullPointerException if the {@link Writer} is {@code null}
@@ -184,7 +184,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Decorate a {@link Writer} so that its {@link Writer#close()} method has no effect.</p>
+	 * Decorate a {@link Writer} so that its {@link Writer#close()} method has no effect.
 	 * @param writer the {@link Writer} to decorate
 	 * @return a {@link Writer} that cannot be closed
 	 * @throws NullPointerException if the {@link Writer} is {@code null}
@@ -205,7 +205,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap multiple {@link Writer}s into a single one.</p>
+	 * Wrap multiple {@link Writer}s into a single one.
 	 * @param writers the {@link Writer} array to wrap
 	 * @return the "tee-ed" {@link Writer}
 	 * @throws NullPointerException if the {@link Writer} array or any of them is {@code null}
@@ -217,7 +217,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Wrap multiple {@link Writer}s into a single one.</p>
+	 * Wrap multiple {@link Writer}s into a single one.
 	 * @param writers the {@link Writer} {@link Collection} to wrap
 	 * @return the "tee-ed" {@link Writer}
 	 * @throws NullPointerException if the {@link Writer} {@link Collection} or any of them is {@code null}
@@ -366,7 +366,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Create a {@link BufferedWriter} from a {@link Path} using {@link Charset#defaultCharset()}.</p>
+	 * Create a {@link BufferedWriter} from a {@link Path} using {@link Charset#defaultCharset()}.
 	 * @param path the {@link Path} to convert
 	 * @return the created {@link BufferedWriter}
 	 * @throws IOException might occur with I/O operations
@@ -378,7 +378,7 @@ public final class Writers {
 	}
 
 	/**
-	 * <p>Create a {@link BufferedWriter} from a {@link Path} using a custom {@link Charset}.</p>
+	 * Create a {@link BufferedWriter} from a {@link Path} using a custom {@link Charset}.
 	 * @param path the {@link Path} to convert
 	 * @param charset the {@link Charset} to use
 	 * @return the created {@link BufferedWriter}

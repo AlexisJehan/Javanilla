@@ -32,20 +32,20 @@ import java.security.cert.CertStoreParameters;
 import java.security.cert.CollectionCertStoreParameters;
 
 /**
- * <p>A {@link CertStore} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link CertStore} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertStore.html">https://docs.oracle.com/javase/10/docs/api/java/security/cert/CertStore.html</a>
  * @since 1.8.0
  */
 public final class StandardCertStores {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private StandardCertStores() {}
 
 	/**
-	 * <p>Get a new "Collection" {@link CertStore} instance.</p>
+	 * Get a new "Collection" {@link CertStore} instance.
 	 * @param params {@link CertStore} parameters
 	 * @return a "Collection" {@link CertStore} instance of provided parameters
 	 * @throws NullPointerException if {@link CertStore} parameters are {@code null}
@@ -57,8 +57,8 @@ public final class StandardCertStores {
 	}
 
 	/**
-	 * <p>Get a new {@link CertStore} instance without throwing {@link InvalidAlgorithmParameterException} or
-	 * {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link CertStore} instance without throwing {@link InvalidAlgorithmParameterException} or
+	 * {@link NoSuchAlgorithmException}.
 	 * @param type the {@link CertStore} type
 	 * @param params {@link CertStore} parameters
 	 * @return a {@link CertStore} instance of provided type and parameters

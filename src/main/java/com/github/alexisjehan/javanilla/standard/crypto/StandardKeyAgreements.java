@@ -27,7 +27,7 @@ import javax.crypto.KeyAgreement;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>A {@link KeyAgreement} factory to get standard instances without throwing checked exceptions.</p>
+ * A {@link KeyAgreement} factory to get standard instances without throwing checked exceptions.
  * @see <a href="https://docs.oracle.com/javase/10/docs/api/javax/crypto/KeyAgreement.html">https://docs.oracle.com/javase/10/docs/api/javax/crypto/KeyAgreement.html</a>
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.crypto.StandardKeyAgreements} instead
  * @since 1.6.0
@@ -36,13 +36,13 @@ import java.security.NoSuchAlgorithmException;
 public final class StandardKeyAgreements {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.6.0
 	 */
 	private StandardKeyAgreements() {}
 
 	/**
-	 * <p>Get a new "DiffieHellman" {@link KeyAgreement} instance.</p>
+	 * Get a new "DiffieHellman" {@link KeyAgreement} instance.
 	 * @return a "DiffieHellman" {@link KeyAgreement} instance
 	 * @since 1.6.0
 	 */
@@ -51,7 +51,7 @@ public final class StandardKeyAgreements {
 	}
 
 	/**
-	 * <p>Get a new {@link KeyAgreement} instance without throwing {@link NoSuchAlgorithmException}.</p>
+	 * Get a new {@link KeyAgreement} instance without throwing {@link NoSuchAlgorithmException}.
 	 * @param algorithm the {@link KeyAgreement} algorithm
 	 * @return a {@link KeyAgreement} instance of the provided algorithm
 	 * @since 1.6.0

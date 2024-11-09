@@ -29,8 +29,9 @@ import com.github.alexisjehan.javanilla.misc.quality.ToString;
 import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 
 /**
- * <p>An element from an {@link java.util.Iterator} returned by {@link Iterables#index(Iterable)} or
- * {@link Iterators#index(java.util.Iterator)} which is associated to an index.</p>
+ * An element from an {@link java.util.Iterator} returned by {@link Iterables#index(Iterable)} or
+ * {@link Iterators#index(java.util.Iterator)} which is associated to an index.
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <E> the element type
@@ -39,19 +40,19 @@ import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 public final class IndexedElement<E> {
 
 	/**
-	 * <p>Associated index.</p>
+	 * Associated index.
 	 * @since 1.8.0
 	 */
 	private final long index;
 
 	/**
-	 * <p>Nullable element.</p>
+	 * Nullable element.
 	 * @since 1.8.0
 	 */
 	private final E element;
 
 	/**
-	 * <p>Constructor with an index and an element.</p>
+	 * Constructor with an index and an element.
 	 * @param index the index of the element
 	 * @param element the element or {@code null}
 	 * @since 1.8.0
@@ -101,7 +102,7 @@ public final class IndexedElement<E> {
 	}
 
 	/**
-	 * <p>Get the index of the element.</p>
+	 * Get the index of the element.
 	 * @return the index
 	 * @since 1.8.0
 	 */
@@ -110,7 +111,7 @@ public final class IndexedElement<E> {
 	}
 
 	/**
-	 * <p>Get the element.</p>
+	 * Get the element.
 	 * @return the element or {@code null}
 	 * @since 1.8.0
 	 */

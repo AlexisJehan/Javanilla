@@ -34,13 +34,14 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>An utility class that provides {@link Bag} tools.</p>
+ * A utility class that provides {@link Bag} tools.
  * @since 1.8.0
  */
 public final class Bags {
 
 	/**
-	 * <p>Class for an immutable singleton {@link Bag} with only one element in any quantity.</p>
+	 * Class for an immutable singleton {@link Bag} with only one element in any quantity.
+	 *
 	 * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and
 	 * {@link #toString()} methods.</p>
 	 * @param <E> the element type
@@ -49,19 +50,19 @@ public final class Bags {
 	private static final class SingletonBag<E> implements Bag<E> {
 
 		/**
-		 * <p>Single element of the {@link Bag}.</p>
+		 * Single element of the {@link Bag}.
 		 * @since 1.8.0
 		 */
 		private final E element;
 
 		/**
-		 * <p>Quantity of the element.</p>
+		 * Quantity of the element.
 		 * @since 1.8.0
 		 */
 		private final long quantity;
 
 		/**
-		 * <p>Constructor with an element and its quantity.</p>
+		 * Constructor with an element and its quantity.
 		 * @param element the single element
 		 * @param quantity the quantity of the element
 		 * @since 1.8.0
@@ -213,7 +214,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>An immutable empty {@link Bag}.</p>
+	 * An immutable empty {@link Bag}.
 	 * @since 1.8.0
 	 */
 	private static final Bag<?> EMPTY = new Bag<>() {
@@ -354,13 +355,13 @@ public final class Bags {
 	};
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.8.0
 	 */
 	private Bags() {}
 
 	/**
-	 * <p>Return an immutable empty {@link Bag}.</p>
+	 * Return an immutable empty {@link Bag}.
 	 * @param <E> the element type
 	 * @return an immutable empty {@link Bag}
 	 * @since 1.8.0
@@ -371,7 +372,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@link Bag} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link Bag} replacing {@code null} by an empty one.
 	 * @param bag the {@link Bag} or {@code null}
 	 * @param <E> the element type
 	 * @return a non-{@code null} {@link Bag}
@@ -382,7 +383,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@link Bag} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link Bag} replacing {@code null} by a default one.
 	 * @param bag the {@link Bag} or {@code null}
 	 * @param defaultBag the default {@link Bag}
 	 * @param <B> the {@link Bag} type
@@ -396,7 +397,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@link Bag} replacing an empty one by {@code null}.</p>
+	 * Wrap a {@link Bag} replacing an empty one by {@code null}.
 	 * @param bag the {@link Bag} or {@code null}
 	 * @param <B> the {@link Bag} type
 	 * @return a non-empty {@link Bag} or {@code null}
@@ -407,7 +408,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Wrap a {@link Bag} replacing an empty one by a default {@link Bag}.</p>
+	 * Wrap a {@link Bag} replacing an empty one by a default {@link Bag}.
 	 * @param bag the {@link Bag} or {@code null}
 	 * @param defaultBag the default {@link Bag} or {@code null}
 	 * @param <B> the {@link Bag} type
@@ -423,7 +424,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Decorate a {@link Bag} by returning an immutable view of it.</p>
+	 * Decorate a {@link Bag} by returning an immutable view of it.
 	 * @param bag the {@link Bag} to decorate
 	 * @param <E> the element type
 	 * @return an immutable view of the {@link Bag}
@@ -485,7 +486,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create a {@link Bag} from a single element and a quantity of {@code 1}.</p>
+	 * Create a {@link Bag} from a single element and a quantity of {@code 1}.
 	 * @param element the element to convert
 	 * @param <E> the element type
 	 * @return the created {@link Bag}
@@ -496,7 +497,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create a {@link Bag} from a single element in the given quantity.</p>
+	 * Create a {@link Bag} from a single element in the given quantity.
 	 * @param element the element to convert
 	 * @param quantity the quantity of the element
 	 * @param <E> the element type
@@ -513,7 +514,7 @@ public final class Bags {
 	}
 
 	/**
-	 * <p>Create an immutable {@link Bag} from multiple elements.</p>
+	 * Create an immutable {@link Bag} from multiple elements.
 	 * @param elements the elements array to convert
 	 * @param <E> the element type
 	 * @return the created immutable {@link Bag}

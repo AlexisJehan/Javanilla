@@ -29,8 +29,10 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import java.io.Serializable;
 
 /**
- * <p>A {@link SerializableSingle} is an immutable tuple that is composed of an unique {@link Serializable} element.</p>
+ * A {@link SerializableSingle} is an immutable tuple that is composed of an unique {@link Serializable} element.
+ *
  * <p><b>Note</b>: This class is {@link Serializable}.</p>
+ *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
  * @param <U> the type of the unique element
@@ -40,19 +42,19 @@ import java.io.Serializable;
 public final class SerializableSingle<U extends Serializable> implements Serializable {
 
 	/**
-	 * <p>Serial version unique ID.</p>
+	 * Serial version unique ID.
 	 * @since 1.8.0
 	 */
 	private static final long serialVersionUID = 1310408426151033922L;
 
 	/**
-	 * <p>Unique {@link Serializable} element.</p>
+	 * Unique {@link Serializable} element.
 	 * @since 1.8.0
 	 */
 	private final U unique;
 
 	/**
-	 * <p>Standard constructor.</p>
+	 * Standard constructor.
 	 * @param unique the unique {@link Serializable} element or {@code null}
 	 * @since 1.8.0
 	 */
@@ -92,7 +94,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Converts the current {@code SerializableSingle} to a {@link Single}.</p>
+	 * Converts the current {@code SerializableSingle} to a {@link Single}.
 	 * @return the converted {@link Single}
 	 * @since 1.8.0
 	 */
@@ -101,7 +103,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Get the unique {@link Serializable} element of the {@code SerializableSingle}.</p>
+	 * Get the unique {@link Serializable} element of the {@code SerializableSingle}.
 	 * @return the unique {@link Serializable} element
 	 * @since 1.8.0
 	 */
@@ -110,7 +112,7 @@ public final class SerializableSingle<U extends Serializable> implements Seriali
 	}
 
 	/**
-	 * <p>Handy constructor.</p>
+	 * Handy constructor.
 	 * @param unique the unique {@link Serializable} element or {@code null}
 	 * @param <U> the type of the unique serializable element
 	 * @return the constructed {@code SerializableSingle}

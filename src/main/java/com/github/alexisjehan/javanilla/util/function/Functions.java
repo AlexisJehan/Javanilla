@@ -31,19 +31,19 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * <p>An utility class that provides {@link Function} tools.</p>
+ * A utility class that provides {@link Function} tools.
  * @since 1.3.0
  */
 public final class Functions {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.3.0
 	 */
 	private Functions() {}
 
 	/**
-	 * <p>Decorate a {@link Function} so that the result of each applied values is cached for next times.</p>
+	 * Decorate a {@link Function} so that the result of each applied values is cached for next times.
 	 * @param function the {@link Function} to decorate
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
@@ -56,7 +56,7 @@ public final class Functions {
 		return new Function<>() {
 
 			/**
-			 * <p>Map of cached values.</p>
+			 * Map of cached values.
 			 * @since 1.3.0
 			 */
 			private final Map<T, Single<? extends R>> cache = new HashMap<>();

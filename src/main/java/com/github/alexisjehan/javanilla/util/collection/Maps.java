@@ -32,7 +32,7 @@ import java.util.NavigableMap;
 import java.util.SortedMap;
 
 /**
- * <p>An utility class that provides {@link Map} tools.</p>
+ * A utility class that provides {@link Map} tools.
  * @deprecated since 1.8.0, use {@link com.github.alexisjehan.javanilla.util.Maps} instead
  * @since 1.0.0
  */
@@ -40,13 +40,13 @@ import java.util.SortedMap;
 public final class Maps {
 
 	/**
-	 * <p>Constructor.</p>
+	 * Constructor.
 	 * @since 1.0.0
 	 */
 	private Maps() {}
 
 	/**
-	 * <p>Wrap a {@link Map} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link Map} replacing {@code null} by an empty one.
 	 * @param map the {@link Map} or {@code null}
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
@@ -58,7 +58,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@link SortedMap} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link SortedMap} replacing {@code null} by an empty one.
 	 * @param sortedMap the {@link SortedMap} or {@code null}
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
@@ -70,7 +70,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@link NavigableMap} replacing {@code null} by an empty one.</p>
+	 * Wrap a {@link NavigableMap} replacing {@code null} by an empty one.
 	 * @param navigableMap the {@link NavigableMap} or {@code null}
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values
@@ -82,7 +82,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@link Map} replacing {@code null} by a default one.</p>
+	 * Wrap a {@link Map} replacing {@code null} by a default one.
 	 * @param map the {@link Map} or {@code null}
 	 * @param defaultMap the default {@link Map}
 	 * @param <M> the {@link Map} type
@@ -96,7 +96,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@link Map} replacing an empty one by {@code null}.</p>
+	 * Wrap a {@link Map} replacing an empty one by {@code null}.
 	 * @param map the {@link Map} or {@code null}
 	 * @param <M> the {@link Map} type
 	 * @return a non-empty {@link Map} or {@code null}
@@ -107,7 +107,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Wrap a {@link Map} replacing an empty one by a default {@link Map}.</p>
+	 * Wrap a {@link Map} replacing an empty one by a default {@link Map}.
 	 * @param map the {@link Map} or {@code null}
 	 * @param defaultMap the default {@link Map} or {@code null}
 	 * @param <M> the {@link Map} type
@@ -123,7 +123,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Put all of the entries to the specified {@link Map}.</p>
+	 * Put all the entries to the specified {@link Map}.
 	 * @param map the {@link Map} to put entries to
 	 * @param entries the entries array
 	 * @param <K> the type of keys maintained by the map
@@ -146,7 +146,7 @@ public final class Maps {
 	}
 
 	/**
-	 * <p>Create an ordered {@link Map} from multiple entries.</p>
+	 * Create an ordered {@link Map} from multiple entries.
 	 * @param entries the entries array to convert
 	 * @param <K> the type of keys maintained by the map
 	 * @param <V> the type of mapped values

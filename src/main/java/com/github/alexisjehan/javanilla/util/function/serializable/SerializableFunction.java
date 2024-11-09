@@ -29,7 +29,8 @@ import java.io.Serializable;
 import java.util.function.Function;
 
 /**
- * <p>Interface for a {@link Function} that is {@link Serializable}.</p>
+ * Interface for a {@link Function} that is {@link Serializable}.
+ *
  * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is {@link #apply(Object)}.</p>
  * @param <T> the type of the input to the function
  * @param <R> the type of the result of the function
@@ -41,8 +42,8 @@ import java.util.function.Function;
 public interface SerializableFunction<T, R> extends Function<T, R>, Serializable {
 
 	/**
-	 * <p>Returns a composed {@code SerializableFunction} that first applies the before function to its input, and then
-	 * applies this function to the result.</p>
+	 * Returns a composed {@code SerializableFunction} that first applies the before function to its input, and then
+	 * applies this function to the result.
 	 * @param before the {@link Function} to apply before this function is applied
 	 * @param <V> the type of input to the before function, and to the composed function
 	 * @return a composed {@code SerializableFunction} that first applies the before function and then applies this
@@ -57,8 +58,8 @@ public interface SerializableFunction<T, R> extends Function<T, R>, Serializable
 	}
 
 	/**
-	 * <p>Returns a composed {@code SerializableFunction} that first applies this function to its input, and then
-	 * applies the after function to the result.</p>
+	 * Returns a composed {@code SerializableFunction} that first applies this function to its input, and then applies
+	 * the after function to the result.
 	 * @param after the {@link Function} to apply after this function is applied
 	 * @param <V> the type of output of the after function, and of the composed function
 	 * @return a composed {@code SerializableFunction} that first applies this function and then applies the after
@@ -73,7 +74,7 @@ public interface SerializableFunction<T, R> extends Function<T, R>, Serializable
 	}
 
 	/**
-	 * <p>Returns a {@code SerializableFunction} that always returns its input argument.</p>
+	 * Returns a {@code SerializableFunction} that always returns its input argument.
 	 * @param <T> the type of the input and output objects to the function
 	 * @return a {@code SerializableFunction} that always returns its input argument
 	 * @since 1.4.0
@@ -83,7 +84,7 @@ public interface SerializableFunction<T, R> extends Function<T, R>, Serializable
 	}
 
 	/**
-	 * <p>Create a {@code SerializableFunction} from the given {@link Function}.</p>
+	 * Create a {@code SerializableFunction} from the given {@link Function}.
 	 * @param function the {@link Function} to convert
 	 * @param <T> the type of the input to the function
 	 * @param <R> the type of the result of the function
