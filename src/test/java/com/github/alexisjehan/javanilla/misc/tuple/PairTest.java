@@ -30,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 final class PairTest {
 
 	private static final Integer FIRST = 1;
+
 	private static final Integer SECOND = null;
 
 	private final Pair<Integer, Integer> pair = new Pair<>(FIRST, SECOND);

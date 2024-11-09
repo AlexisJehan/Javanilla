@@ -35,7 +35,9 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class LevenshteinDistanceTest {
 
 	private static final double INSERTION_COST = 1.0d;
+
 	private static final double DELETION_COST = 2.0d;
+
 	private static final double SUBSTITUTION_COST = 3.0d;
 
 	private final LevenshteinDistance levenshteinDistance = new LevenshteinDistance(INSERTION_COST, DELETION_COST, SUBSTITUTION_COST);

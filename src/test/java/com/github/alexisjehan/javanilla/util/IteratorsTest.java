@@ -58,8 +58,11 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class IteratorsTest {
 
 	private static final int[] INT_ELEMENTS = IntArrays.of(1, 2, 3);
+
 	private static final long[] LONG_ELEMENTS = LongArrays.of(1L, 2L, 3L);
+
 	private static final double[] DOUBLE_ELEMENTS = DoubleArrays.of(1.0d, 2.0d, 3.0d);
+
 	private static final Integer[] ELEMENTS = ObjectArrays.of(1, 2, 3);
 
 	@Test

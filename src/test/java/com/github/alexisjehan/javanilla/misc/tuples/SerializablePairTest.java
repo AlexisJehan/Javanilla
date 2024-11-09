@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 final class SerializablePairTest {
 
 	private static final Integer FIRST = 1;
+
 	private static final Integer SECOND = null;
 
 	private final SerializablePair<Integer, Integer> serializablePair = new SerializablePair<>(FIRST, SECOND);

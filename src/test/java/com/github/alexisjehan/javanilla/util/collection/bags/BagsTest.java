@@ -38,9 +38,11 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class BagsTest {
 
 	private static final String ELEMENT = "foo";
+
 	private static final long QUANTITY = 5L;
 
 	private final Bag<String> emptyBag = Bags.empty();
+
 	private final Bag<String> singletonBag = Bags.singleton(ELEMENT, QUANTITY);
 
 	@Test

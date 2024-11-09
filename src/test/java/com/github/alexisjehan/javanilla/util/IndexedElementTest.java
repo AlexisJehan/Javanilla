@@ -30,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 final class IndexedElementTest {
 
 	private static final long INDEX = 1L;
+
 	private static final String ELEMENT = "foo";
 
 	private final IndexedElement<String> indexedElement = new IndexedElement<>(INDEX, ELEMENT);

@@ -35,7 +35,9 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class StringFormatterTest {
 
 	private static final Locale LOCALE = Locale.US;
+
 	private static final int FLOAT_PRECISION = StringFormatter.DEFAULT_FLOAT_PRECISION;
+
 	private static final boolean STRICT_PRECISION = StringFormatter.DEFAULT_STRICT_PRECISION;
 
 	private final StringFormatter stringFormatter = new StringFormatter(LOCALE, FLOAT_PRECISION, STRICT_PRECISION);

@@ -34,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 final class LimitedBagTest extends AbstractBagTest {
 
 	private static final List<String> COLLECTION = List.of("foo", "bar");
+
 	private static final int LIMIT = 2;
 
 	private final LimitedBag<String> limitedBag = new LimitedBag<>(new MapBag<>(COLLECTION), LIMIT);

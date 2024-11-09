@@ -38,12 +38,15 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 final class BloomFilterTest {
 
 	private static final int LENGTH = 10;
+
 	private static final Checksum[] CHECKSUM_HASH_FUNCTIONS = ObjectArrays.of(
 			new CRC32()
 	);
+
 	private static final IntUnaryOperator[] INT_UNARY_OPERATOR_HASH_FUNCTIONS = ObjectArrays.of(
 			IntUnaryOperator.identity()
 	);
+
 	private static final ToIntFunction<Object>[] TO_INT_FUNCTION_HASH_FUNCTIONS = ObjectArrays.of(
 			Object::hashCode
 	);
