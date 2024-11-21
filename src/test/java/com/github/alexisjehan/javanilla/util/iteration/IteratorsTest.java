@@ -284,6 +284,7 @@ final class IteratorsTest {
 	@Test
 	void testUntil() {
 		final var untilIterator = Iterators.until(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override

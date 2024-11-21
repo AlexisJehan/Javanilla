@@ -56,6 +56,7 @@ final class SuppliersTest {
 	@Test
 	void testCache() {
 		final var cacheSupplier = Suppliers.cache(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override
@@ -76,6 +77,7 @@ final class SuppliersTest {
 	@Test
 	void testCacheDuration() {
 		assertThat(Suppliers.cache(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override
@@ -90,6 +92,7 @@ final class SuppliersTest {
 		});
 		assertThat(Suppliers.cache(
 				new Supplier<>() {
+
 					private final LongAdder adder = new LongAdder();
 
 					@Override
@@ -100,6 +103,7 @@ final class SuppliersTest {
 				},
 				Duration.ofMinutes(2L),
 				new Clock() {
+
 					private Instant nextInstant = Instant.now(systemUTC());
 
 					@Override
@@ -140,6 +144,7 @@ final class SuppliersTest {
 	@Test
 	void testCacheInt() {
 		assertThat(Suppliers.cache(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override
@@ -153,6 +158,7 @@ final class SuppliersTest {
 			assertThat(cacheSupplier.get()).isEqualTo(3);
 		});
 		assertThat(Suppliers.cache(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override
@@ -180,6 +186,7 @@ final class SuppliersTest {
 	@Test
 	void testCacheBooleanSupplier() {
 		assertThat(Suppliers.cache(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override
@@ -193,6 +200,7 @@ final class SuppliersTest {
 			assertThat(cacheSupplier.get()).isEqualTo(3);
 		});
 		assertThat(Suppliers.cache(new Supplier<>() {
+
 			private final LongAdder adder = new LongAdder();
 
 			@Override

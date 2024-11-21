@@ -32,6 +32,7 @@ final class TreeNodeTest extends AbstractTreeNodeTest {
 	@Override
 	<V> TreeNode<V> newTreeNode(final V value) {
 		return new TreeNode<>() {
+
 			private final TreeNode<V> delegate = new LinkedTreeNode<>(value);
 
 			@Override

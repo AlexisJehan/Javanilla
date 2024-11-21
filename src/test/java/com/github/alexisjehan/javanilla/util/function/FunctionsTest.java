@@ -38,6 +38,7 @@ final class FunctionsTest {
 	@Test
 	void testCache() {
 		final var cacheFunction = Functions.cache(new Function<Integer, Integer>() {
+
 			private final Map<Integer, LongAdder> map = new HashMap<>();
 
 			@Override

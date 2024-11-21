@@ -34,6 +34,7 @@ final class BagTest extends AbstractBagTest {
 	@Override
 	<E> Bag<E> newBag() {
 		return new Bag<>() {
+
 			private final Bag<E> delegate = new MapBag<>();
 
 			@Override
