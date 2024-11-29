@@ -142,6 +142,7 @@ final class InputStreamsTest {
 	@Test
 	void testUncloseable() throws IOException {
 		final var inputStream = new InputStream() {
+
 			@Override
 			public int read() {
 				return -1;

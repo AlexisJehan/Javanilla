@@ -526,6 +526,7 @@ final class IteratorsTest {
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(inputStreamIterator::next);
 		assertThat(
 				Iterators.of(new InputStream() {
+
 					@Override
 					public int read() throws IOException {
 						throw new IOException();
@@ -548,6 +549,7 @@ final class IteratorsTest {
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(readerIterator::next);
 		assertThat(
 				Iterators.of(new Reader() {
+
 					@Override
 					public int read(final char[] buffer, final int offset, final int length) throws IOException {
 						throw new IOException();
@@ -576,6 +578,7 @@ final class IteratorsTest {
 		assertThat(
 				Iterators.of(Readers.buffered(
 						new Reader() {
+
 							@Override
 							public int read(final char[] buffer, final int offset, final int length) throws IOException {
 								throw new IOException();
@@ -604,6 +607,7 @@ final class IteratorsTest {
 		assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(lineReaderIterator::next);
 		assertThat(
 				Iterators.of(new LineReader(new Reader() {
+
 					@Override
 					public int read(final char[] buffer, final int offset, final int length) throws IOException {
 						throw new IOException();

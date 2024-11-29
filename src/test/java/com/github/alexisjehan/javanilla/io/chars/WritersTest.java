@@ -129,6 +129,7 @@ final class WritersTest {
 	@Test
 	void testUncloseable() throws IOException {
 		final var writer = new Writer() {
+
 			@Override
 			public void write(final char[] chars, final int offset, final int length) {
 				// Empty

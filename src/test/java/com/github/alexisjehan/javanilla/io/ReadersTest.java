@@ -137,6 +137,7 @@ final class ReadersTest {
 	@Test
 	void testUncloseable() throws IOException {
 		final var reader = new Reader() {
+
 			@Override
 			public int read(final char[] buffer, final int offset, final int length) {
 				return -1;

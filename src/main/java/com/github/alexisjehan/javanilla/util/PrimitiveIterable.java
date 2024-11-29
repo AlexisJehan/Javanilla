@@ -35,9 +35,6 @@ import java.util.function.LongConsumer;
  * {@code long}, and {@code double} values.
  *
  * <p><b>Note</b>: This interface is based on {@link PrimitiveIterator}.</p>
- *
- * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
- * {@link #forEach(Object)}.</p>
  * @param <T> the type of elements returned by the provided PrimitiveIterator
  * @param <C> the type of primitive consumer
  * @since 1.8.0
@@ -57,6 +54,9 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
 	 * An {@link Iterable} specialized for {@code int} values.
+	 *
+	 * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+	 * {@link #forEach(IntConsumer)}.</p>
 	 * @since 1.8.0
 	 */
 	@FunctionalInterface
@@ -83,6 +83,9 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
 	 * An {@link Iterable} specialized for {@code long} values.
+	 *
+	 * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+	 * {@link #forEach(LongConsumer)}.</p>
 	 * @since 1.8.0
 	 */
 	@FunctionalInterface
@@ -109,6 +112,9 @@ public interface PrimitiveIterable<T, C> extends Iterable<T> {
 
 	/**
 	 * An {@link Iterable} specialized for {@code double} values.
+	 *
+	 * <p><b>Note</b>: This interface is a {@link FunctionalInterface} whose abstract method is
+	 * {@link #forEach(DoubleConsumer)}.</p>
 	 * @since 1.8.0
 	 */
 	@FunctionalInterface

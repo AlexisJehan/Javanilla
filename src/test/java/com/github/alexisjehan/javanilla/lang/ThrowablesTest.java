@@ -103,6 +103,7 @@ final class ThrowablesTest {
 		assertThat(new IOException()).satisfies(rootException -> {
 			@SuppressWarnings("serial")
 			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
+
 				@Override
 				public synchronized Throwable getCause() {
 					return this;
@@ -128,6 +129,7 @@ final class ThrowablesTest {
 		assertThat(new IOException()).satisfies(rootException -> {
 			@SuppressWarnings("serial")
 			final var exception = new RuntimeException(new UncheckedIOException(rootException)) {
+
 				@Override
 				public synchronized Throwable getCause() {
 					return this;

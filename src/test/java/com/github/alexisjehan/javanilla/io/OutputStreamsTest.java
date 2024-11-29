@@ -106,6 +106,7 @@ final class OutputStreamsTest {
 	@Test
 	void testUncloseable() throws IOException {
 		final var outputStream = new OutputStream() {
+
 			@Override
 			public void write(final int i) {
 				// Empty
