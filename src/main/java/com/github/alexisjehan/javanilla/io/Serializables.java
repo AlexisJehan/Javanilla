@@ -26,6 +26,7 @@ package com.github.alexisjehan.javanilla.io;
 import com.github.alexisjehan.javanilla.misc.quality.Ensure;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -83,7 +84,7 @@ public final class Serializables {
 		Ensure.notNull("outputStream", outputStream);
 		try (var objectOutputStream = new ObjectOutputStream(outputStream)) {
 			objectOutputStream.writeObject(serializable);
-		} catch (final Exception e) {
+		} catch (final IOException e) {
 			throw new SerializationException(e);
 		}
 	}
@@ -116,7 +117,7 @@ public final class Serializables {
 		Ensure.notNull("inputStream", inputStream);
 		try (var objectInputStream = new ObjectInputStream(inputStream)) {
 			return (S) objectInputStream.readObject();
-		} catch (final Exception e) {
+		} catch (final ClassNotFoundException | IOException e) {
 			throw new SerializationException(e);
 		}
 	}
