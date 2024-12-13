@@ -98,15 +98,6 @@
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>4.6</version>
-				<executions>
-					<execution>
-						<id>license-check</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<licenseSets>
 						<licenseSet>
@@ -120,11 +111,26 @@
 						<java>SLASHSTAR_STYLE</java>
 					</mapping>
 				</configuration>
+				<executions>
+					<execution>
+						<id>license-check</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>3.26.0</version>
+				<configuration>
+					<excludeFromFailureFile>${project.basedir}/exclude-pmd.properties</excludeFromFailureFile>
+					<linkXRef>false</linkXRef>
+					<includeTests>true</includeTests>
+					<verbose>true</verbose>
+				</configuration>
 				<executions>
 					<execution>
 						<id>pmd-check</id>
@@ -146,12 +152,6 @@
 						<version>7.8.0</version>
 					</dependency>
 				</dependencies>
-				<configuration>
-					<excludeFromFailureFile>${project.basedir}/exclude-pmd.properties</excludeFromFailureFile>
-					<linkXRef>false</linkXRef>
-					<includeTests>true</includeTests>
-					<verbose>true</verbose>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -176,6 +176,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>**/examples/**</exclude>
+						<exclude>**/internal/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>jacoco-prepare-agent</id>
@@ -192,12 +198,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<excludes>
-						<exclude>**/examples/**</exclude>
-						<exclude>**/internal/**</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -222,6 +222,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.11.2</version>
+				<configuration>
+					<additionalOptions>-html5</additionalOptions>
+					<excludePackageNames>examples,internal</excludePackageNames>
+				</configuration>
 				<executions>
 					<execution>
 						<id>javadoc-jar</id>
@@ -230,10 +234,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<additionalOptions>-html5</additionalOptions>
-					<excludePackageNames>examples,internal</excludePackageNames>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
