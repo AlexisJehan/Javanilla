@@ -92,10 +92,10 @@ final class StringFormatterTest {
 			assertThat(otherStringFormatter.format(-10L)).isEqualTo("-10");
 			if (13 > Runtime.version().feature()) {
 				// Before Java 13
-				assertThat(otherStringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1\u00a0234\u00a0567\u00a0890\u00a0123\u00a0456\u00a0789");
+				assertThat(otherStringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1 234 567 890 123 456 789");
 			} else {
 				// Since Java 13
-				assertThat(otherStringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1\u202f234\u202f567\u202f890\u202f123\u202f456\u202f789");
+				assertThat(otherStringFormatter.format(1_234_567_890_123_456_789L)).isEqualTo("1 234 567 890 123 456 789");
 			}
 		});
 	}
@@ -120,10 +120,10 @@ final class StringFormatterTest {
 			assertThat(otherStringFormatter.format(10.015d)).isEqualTo("10,02");
 			if (13 > Runtime.version().feature()) {
 				// Before Java 13
-				assertThat(otherStringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12");
+				assertThat(otherStringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1 234 567 890,12");
 			} else {
 				// Since Java 13
-				assertThat(otherStringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1\u202f234\u202f567\u202f890,12");
+				assertThat(otherStringFormatter.format(-1_234_567_890.123456789d)).isEqualTo("-1 234 567 890,12");
 			}
 		});
 		assertThat(new StringFormatter(Locale.US, 5)).satisfies(otherStringFormatter -> {
@@ -167,28 +167,28 @@ final class StringFormatterTest {
 			assertThat(otherStringFormatter.formatBytes(1_234_567_890_123_456_789L, StringFormatter.BytePrefix.SI)).isEqualTo("1.23EB");
 		});
 		assertThat(new StringFormatter(Locale.FRANCE)).satisfies(otherStringFormatter -> {
-			assertThat(otherStringFormatter.formatBytes(10L)).isEqualTo("10\u00a0B");
-			assertThat(otherStringFormatter.formatBytes(-10L)).isEqualTo("-10\u00a0B");
+			assertThat(otherStringFormatter.formatBytes(10L)).isEqualTo("10 B");
+			assertThat(otherStringFormatter.formatBytes(-10L)).isEqualTo("-10 B");
 			if (13 > Runtime.version().feature()) {
 				// Before Java 13
-				assertThat(otherStringFormatter.formatBytes(1_023L)).isEqualTo("1\u00a0023\u00a0B");
+				assertThat(otherStringFormatter.formatBytes(1_023L)).isEqualTo("1 023 B");
 			} else {
 				// Since Java 13
-				assertThat(otherStringFormatter.formatBytes(1_023L)).isEqualTo("1\u202f023\u00a0B");
+				assertThat(otherStringFormatter.formatBytes(1_023L)).isEqualTo("1 023 B");
 			}
-			assertThat(otherStringFormatter.formatBytes(1_024L)).isEqualTo("1\u00a0KiB");
-			assertThat(otherStringFormatter.formatBytes(1_024L + 512L)).isEqualTo("1,5\u00a0KiB");
-			assertThat(otherStringFormatter.formatBytes(31_141_888L)).isEqualTo("29,7\u00a0MiB");
-			assertThat(otherStringFormatter.formatBytes(1_288_802_304L)).isEqualTo("1,2\u00a0GiB");
-			assertThat(otherStringFormatter.formatBytes(1_234_567_890_123_456_789L)).isEqualTo("1,07\u00a0EiB");
-			assertThat(otherStringFormatter.formatBytes(10L, StringFormatter.BytePrefix.SI)).isEqualTo("10\u00a0B");
-			assertThat(otherStringFormatter.formatBytes(-10L, StringFormatter.BytePrefix.SI)).isEqualTo("-10\u00a0B");
-			assertThat(otherStringFormatter.formatBytes(999L, StringFormatter.BytePrefix.SI)).isEqualTo("999\u00a0B");
-			assertThat(otherStringFormatter.formatBytes(1_000L, StringFormatter.BytePrefix.SI)).isEqualTo("1\u00a0kB");
-			assertThat(otherStringFormatter.formatBytes(1_024L + 512L, StringFormatter.BytePrefix.SI)).isEqualTo("1,54\u00a0kB");
-			assertThat(otherStringFormatter.formatBytes(31_141_888L, StringFormatter.BytePrefix.SI)).isEqualTo("31,14\u00a0MB");
-			assertThat(otherStringFormatter.formatBytes(1_288_802_304L, StringFormatter.BytePrefix.SI)).isEqualTo("1,29\u00a0GB");
-			assertThat(otherStringFormatter.formatBytes(1_234_567_890_123_456_789L, StringFormatter.BytePrefix.SI)).isEqualTo("1,23\u00a0EB");
+			assertThat(otherStringFormatter.formatBytes(1_024L)).isEqualTo("1 KiB");
+			assertThat(otherStringFormatter.formatBytes(1_024L + 512L)).isEqualTo("1,5 KiB");
+			assertThat(otherStringFormatter.formatBytes(31_141_888L)).isEqualTo("29,7 MiB");
+			assertThat(otherStringFormatter.formatBytes(1_288_802_304L)).isEqualTo("1,2 GiB");
+			assertThat(otherStringFormatter.formatBytes(1_234_567_890_123_456_789L)).isEqualTo("1,07 EiB");
+			assertThat(otherStringFormatter.formatBytes(10L, StringFormatter.BytePrefix.SI)).isEqualTo("10 B");
+			assertThat(otherStringFormatter.formatBytes(-10L, StringFormatter.BytePrefix.SI)).isEqualTo("-10 B");
+			assertThat(otherStringFormatter.formatBytes(999L, StringFormatter.BytePrefix.SI)).isEqualTo("999 B");
+			assertThat(otherStringFormatter.formatBytes(1_000L, StringFormatter.BytePrefix.SI)).isEqualTo("1 kB");
+			assertThat(otherStringFormatter.formatBytes(1_024L + 512L, StringFormatter.BytePrefix.SI)).isEqualTo("1,54 kB");
+			assertThat(otherStringFormatter.formatBytes(31_141_888L, StringFormatter.BytePrefix.SI)).isEqualTo("31,14 MB");
+			assertThat(otherStringFormatter.formatBytes(1_288_802_304L, StringFormatter.BytePrefix.SI)).isEqualTo("1,29 GB");
+			assertThat(otherStringFormatter.formatBytes(1_234_567_890_123_456_789L, StringFormatter.BytePrefix.SI)).isEqualTo("1,23 EB");
 		});
 		assertThat(new StringFormatter(Locale.US, 5)).satisfies(otherStringFormatter -> {
 			assertThat(otherStringFormatter.formatBytes(10L)).isEqualTo("10B");
@@ -269,14 +269,14 @@ final class StringFormatterTest {
 			assertThat(otherStringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100%");
 		});
 		assertThat(new StringFormatter(Locale.FRANCE)).satisfies(otherStringFormatter -> {
-			assertThat(otherStringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(1.0d, 10.0d)).isEqualTo("10\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(1.0d, 3.0d)).isEqualTo("33,33\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66,66\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99,9\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(StrictMath.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99,99\u00a0%");
-			assertThat(otherStringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100\u00a0%");
+			assertThat(otherStringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0 %");
+			assertThat(otherStringFormatter.formatPercent(1.0d, 10.0d)).isEqualTo("10 %");
+			assertThat(otherStringFormatter.formatPercent(1.0d, 3.0d)).isEqualTo("33,33 %");
+			assertThat(otherStringFormatter.formatPercent(2.0d, 3.0d)).isEqualTo("66,66 %");
+			assertThat(otherStringFormatter.formatPercent(9.99d, 10.0d)).isEqualTo("99,9 %");
+			assertThat(otherStringFormatter.formatPercent(10.0d, 10.0d)).isEqualTo("100 %");
+			assertThat(otherStringFormatter.formatPercent(StrictMath.nextDown(Double.MAX_VALUE), Double.MAX_VALUE)).isEqualTo("99,99 %");
+			assertThat(otherStringFormatter.formatPercent(Double.MAX_VALUE, Double.MAX_VALUE)).isEqualTo("100 %");
 		});
 		assertThat(new StringFormatter(Locale.US, 5)).satisfies(otherStringFormatter -> {
 			assertThat(otherStringFormatter.formatPercent(0.0d, 1.0d)).isEqualTo("0%");
@@ -318,18 +318,18 @@ final class StringFormatterTest {
 			assertThat(otherStringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-$1,234,567,890.12");
 		});
 		assertThat(new StringFormatter(Locale.FRANCE)).satisfies(otherStringFormatter -> {
-			assertThat(otherStringFormatter.formatCurrency(0.0d)).isEqualTo("0\u00a0€");
-			assertThat(otherStringFormatter.formatCurrency(-0.0d)).isEqualTo("-0\u00a0€");
-			assertThat(otherStringFormatter.formatCurrency(10.0d)).isEqualTo("10\u00a0€");
-			assertThat(otherStringFormatter.formatCurrency(-10.0d)).isEqualTo("-10\u00a0€");
-			assertThat(otherStringFormatter.formatCurrency(10.014d)).isEqualTo("10,01\u00a0€");
-			assertThat(otherStringFormatter.formatCurrency(10.015d)).isEqualTo("10,02\u00a0€");
+			assertThat(otherStringFormatter.formatCurrency(0.0d)).isEqualTo("0 €");
+			assertThat(otherStringFormatter.formatCurrency(-0.0d)).isEqualTo("-0 €");
+			assertThat(otherStringFormatter.formatCurrency(10.0d)).isEqualTo("10 €");
+			assertThat(otherStringFormatter.formatCurrency(-10.0d)).isEqualTo("-10 €");
+			assertThat(otherStringFormatter.formatCurrency(10.014d)).isEqualTo("10,01 €");
+			assertThat(otherStringFormatter.formatCurrency(10.015d)).isEqualTo("10,02 €");
 			if (13 > Runtime.version().feature()) {
 				// Before Java 13
-				assertThat(otherStringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1\u00a0234\u00a0567\u00a0890,12\u00a0€");
+				assertThat(otherStringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1 234 567 890,12 €");
 			} else {
 				// Since Java 13
-				assertThat(otherStringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1\u202f234\u202f567\u202f890,12\u00a0€");
+				assertThat(otherStringFormatter.formatCurrency(-1_234_567_890.123456789d)).isEqualTo("-1 234 567 890,12 €");
 			}
 		});
 		assertThat(new StringFormatter(Locale.US, 5)).satisfies(otherStringFormatter -> {
