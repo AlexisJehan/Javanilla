@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.11.4</version>
+			<version>5.12.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -95,68 +95,9 @@
 		</testResources>
 		<plugins>
 			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>4.6</version>
-				<configuration>
-					<licenseSets>
-						<licenseSet>
-							<header>LICENSE.txt</header>
-							<includes>
-								<includes>src/**/*.java</includes>
-							</includes>
-						</licenseSet>
-					</licenseSets>
-					<mapping>
-						<java>SLASHSTAR_STYLE</java>
-					</mapping>
-				</configuration>
-				<executions>
-					<execution>
-						<id>license-check</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.26.0</version>
-				<configuration>
-					<excludeFromFailureFile>${project.basedir}/exclude-pmd.properties</excludeFromFailureFile>
-					<linkXRef>false</linkXRef>
-					<includeTests>true</includeTests>
-					<verbose>true</verbose>
-				</configuration>
-				<executions>
-					<execution>
-						<id>pmd-check</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>net.sourceforge.pmd</groupId>
-						<artifactId>pmd-core</artifactId>
-						<version>7.10.0</version>
-					</dependency>
-					<dependency>
-						<groupId>net.sourceforge.pmd</groupId>
-						<artifactId>pmd-java</artifactId>
-						<version>7.9.0</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.13.0</version>
+				<version>3.14.0</version>
 				<configuration>
 					<showDeprecation>true</showDeprecation>
 					<compilerArgs>
@@ -234,6 +175,63 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>4.6</version>
+				<configuration>
+					<licenseSets>
+						<licenseSet>
+							<header>LICENSE.txt</header>
+							<includes>
+								<includes>src/**/*.java</includes>
+							</includes>
+						</licenseSet>
+					</licenseSets>
+					<mapping>
+						<java>SLASHSTAR_STYLE</java>
+					</mapping>
+				</configuration>
+				<executions>
+					<execution>
+						<id>license-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.26.0</version>
+				<configuration>
+					<excludeFromFailureFile>${project.basedir}/exclude-pmd.properties</excludeFromFailureFile>
+					<linkXRef>false</linkXRef>
+					<includeTests>true</includeTests>
+					<verbose>true</verbose>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pmd-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-core</artifactId>
+						<version>7.10.0</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-java</artifactId>
+						<version>7.10.0</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
