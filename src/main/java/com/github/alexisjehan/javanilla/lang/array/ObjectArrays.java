@@ -229,7 +229,6 @@ public final class ObjectArrays {
 	 *         {@code null}
 	 * @since 1.2.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> E[] concat(final Class<E> classType, final List<E[]> arrays) {
 		Ensure.notNull("classType", classType);
 		Ensure.notNullAndNotNullElements("arrays", arrays);
@@ -240,6 +239,7 @@ public final class ObjectArrays {
 		if (1 == size) {
 			return arrays.get(0);
 		}
+		@SuppressWarnings("unchecked")
 		final var result = (E[]) Array.newInstance(classType, arrays.stream().mapToInt(array -> array.length).sum());
 		var offset = 0;
 		for (final var array : arrays) {
@@ -281,7 +281,6 @@ public final class ObjectArrays {
 	 * @deprecated since 1.4.0, use {@link #join(Object[], List)} instead
 	 * @since 1.2.0
 	 */
-	@SuppressWarnings("unchecked")
 	@Deprecated(since = "1.4.0")
 	public static <E> E[] join(final Class<E> classType, final E[] separator, final List<E[]> arrays) {
 		Ensure.notNull("classType", classType);
@@ -297,6 +296,7 @@ public final class ObjectArrays {
 		if (1 == size) {
 			return arrays.get(0);
 		}
+		@SuppressWarnings("unchecked")
 		final var result = (E[]) Array.newInstance(classType, arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length);
 		final var iterator = arrays.iterator();
 		var array = iterator.next();
@@ -339,10 +339,10 @@ public final class ObjectArrays {
 	 *         of them is {@code null}
 	 * @since 1.4.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> E[] join(final E[] separator, final List<E[]> arrays) {
 		Ensure.notNull("separator", separator);
 		Ensure.notNullAndNotNullElements("arrays", arrays);
+		@SuppressWarnings("unchecked")
 		final var classType = (Class<E>) separator.getClass().getComponentType();
 		if (isEmpty(separator)) {
 			return concat(classType, arrays);
@@ -354,6 +354,7 @@ public final class ObjectArrays {
 		if (1 == size) {
 			return arrays.get(0);
 		}
+		@SuppressWarnings("unchecked")
 		final var result = (E[]) Array.newInstance(classType, arrays.stream().mapToInt(array -> array.length).sum() + (arrays.size() - 1) * separator.length);
 		final var iterator = arrays.iterator();
 		var array = iterator.next();
@@ -710,9 +711,9 @@ public final class ObjectArrays {
 	 * @throws NullPointerException if the {@link Class} type is {@code null}
 	 * @since 1.2.0
 	 */
-	@SuppressWarnings("unchecked")
 	public static <E> E[] singleton(final Class<E> classType, final E value) {
 		Ensure.notNull("classType", classType);
+		@SuppressWarnings("unchecked")
 		final var array = (E[]) Array.newInstance(classType, 1);
 		array[0] = value;
 		return array;

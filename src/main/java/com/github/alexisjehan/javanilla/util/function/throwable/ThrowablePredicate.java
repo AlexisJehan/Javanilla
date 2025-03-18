@@ -99,9 +99,7 @@ public interface ThrowablePredicate<T, X extends Throwable> {
 	 * @since 1.4.0
 	 */
 	static <T> Predicate<T> isEqual(final Object targetRef) {
-		return null == targetRef
-				? Objects::isNull
-				: targetRef::equals;
+		return null == targetRef ? Objects::isNull : targetRef::equals;
 	}
 
 	/**

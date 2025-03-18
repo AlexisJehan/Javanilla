@@ -121,9 +121,7 @@ public final class Throwables {
 		while (cause != cause.getCause() && null != cause.getCause()) {
 			cause = cause.getCause();
 		}
-		return cause != throwable
-				? Optional.of(cause)
-				: Optional.empty();
+		return cause != throwable ? Optional.of(cause) : Optional.empty();
 	}
 
 	/**
