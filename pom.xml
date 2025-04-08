@@ -111,12 +111,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.2</version>
+				<version>3.5.3</version>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.12</version>
+				<version>0.8.13</version>
 				<configuration>
 					<excludes>
 						<exclude>**/examples/**</exclude>
@@ -179,7 +179,7 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>4.6</version>
+				<version>5.0.0</version>
 				<configuration>
 					<licenseSets>
 						<licenseSet>
@@ -224,12 +224,12 @@
 					<dependency>
 						<groupId>net.sourceforge.pmd</groupId>
 						<artifactId>pmd-core</artifactId>
-						<version>7.11.0</version>
+						<version>7.12.0</version>
 					</dependency>
 					<dependency>
 						<groupId>net.sourceforge.pmd</groupId>
 						<artifactId>pmd-java</artifactId>
-						<version>7.11.0</version>
+						<version>7.12.0</version>
 					</dependency>
 				</dependencies>
 			</plugin>
