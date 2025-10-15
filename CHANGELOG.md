@@ -329,7 +329,8 @@
 ## [1.4.2](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.4.2) (2019-12-06)
 
 ### Bug fixes
-- Fix the `misc.StringFormatter.formatBytes()` method ([The most copied StackOverflow snippet of all time is flawed!](https://programming.guide/worlds-most-copied-so-snippet.html))
+- Fix the `misc.StringFormatter.formatBytes()`
+  method ([The most copied StackOverflow snippet of all time is flawed!](https://programming.guide/worlds-most-copied-so-snippet.html))
 
 ## [1.4.1](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.4.1) (2019-04-19)
 
