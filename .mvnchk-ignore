@@ -1,0 +1,2 @@
+# 6.x.x: Not compatible with Java 11
+org.junit.jupiter:junit-jupiter:6.*
