@@ -29,7 +29,7 @@ import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 import java.io.Serializable;
 
 /**
- * A {@link SerializableSingle} is an immutable tuple that is composed of an unique {@link Serializable} element.
+ * A {@link SerializableSingle} is an immutable tuple that is composed of a unique {@link Serializable} element.
  *
  * <p><b>Note</b>: This class is {@link Serializable}.</p>
  *

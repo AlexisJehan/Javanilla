@@ -126,7 +126,7 @@ public final class BloomFilter<E> {
 	/**
 	 * Add an element to the Bloom Filter.
 	 *
-	 * <p><b>Note</b>: A {@code null} element may be restricted depending of hash functions implementations.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending on hash functions implementations.</p>
 	 * @param element the element to add to the Bloom Filter
 	 * @since 1.2.0
 	 */
@@ -139,7 +139,7 @@ public final class BloomFilter<E> {
 	/**
 	 * Test if an element might be contained by the Bloom Filter or absolutely not.
 	 *
-	 * <p><b>Note</b>: A {@code null} element may be restricted depending of hash functions implementations.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending on hash functions implementations.</p>
 	 * @param element the element to test
 	 * @return {@code true} if the element might be contained by the Bloom Filter
 	 * @since 1.2.0

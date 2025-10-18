@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A utility class that provides an unique interface for hash code calculation. Using it you don't have to take care of
+ * A utility class that provides a unique interface for hash code calculation. Using it you don't have to take care of
  * the type to choose a specific implementation. Unlike {@link Objects#hash(Object...)}, primitives are not boxed for
  * performance improvements.
  * @since 1.3.0

@@ -41,7 +41,7 @@ import java.util.stream.IntStream;
 public enum LineSeparator {
 
 	/**
-	 * "Line Feed" char line separator type, used mainly on <i>Linux</i> and <i>MacOS</i> operating systems.
+	 * "Line Feed" char line separator type, used mainly on <i>Linux</i> and <i>macOS</i> operating systems.
 	 * @since 1.8.0
 	 */
 	LF("\n") {
@@ -94,7 +94,7 @@ public enum LineSeparator {
 	},
 
 	/**
-	 * "Carriage Return" char line separator type, used on old <i>MacOS</i> operating systems.
+	 * "Carriage Return" char line separator type, used on old <i>macOS</i> operating systems.
 	 * @since 1.8.0
 	 */
 	CR("\r") {

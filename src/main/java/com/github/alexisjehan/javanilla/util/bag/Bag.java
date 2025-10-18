@@ -43,7 +43,7 @@ public interface Bag<E> {
 	/**
 	 * Add the element to the {@code Bag} once.
 	 *
-	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending on the implementation.</p>
 	 * @param element the element to add
 	 * @since 1.8.0
 	 */
@@ -54,7 +54,7 @@ public interface Bag<E> {
 	/**
 	 * Add the element to the {@code Bag} in the given quantity.
 	 *
-	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending on the implementation.</p>
 	 * @param element the element to add
 	 * @param quantity the quantity of the element to add
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}

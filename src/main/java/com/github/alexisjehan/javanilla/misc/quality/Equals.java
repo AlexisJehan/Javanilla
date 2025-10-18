@@ -27,8 +27,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * A utility class that provides an unique interface for equality check. Using it you don't have to take care of the
- * type to choose a specific implementation. Unlike {@link Objects#equals(Object, Object)}, primitives are not boxed for
+ * A utility class that provides a unique interface for equality check. Using it you don't have to take care of the type
+ * to choose a specific implementation. Unlike {@link Objects#equals(Object, Object)}, primitives are not boxed for
  * performance improvements.
  *
  * <p><b>Note</b>: Deep equality is not supported.</p>

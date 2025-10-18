@@ -29,8 +29,8 @@ import com.github.alexisjehan.javanilla.misc.tuple.Pair;
 import java.util.Objects;
 
 /**
- * A utility class that provides an unique interface to create {@link String} representations. Using it you don't have
- * to take care of the type to choose a specific implementation.
+ * A utility class that provides a unique interface to create {@link String} representations. Using it you don't have to
+ * take care of the type to choose a specific implementation.
  * @since 1.3.0
  */
 public final class ToString {

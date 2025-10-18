@@ -47,7 +47,7 @@ public interface TreeNode<V> extends Iterable<TreeNode<V>> {
 	/**
 	 * Extend the tree by creating a child {@code TreeNode} to the current node.
 	 *
-	 * <p><b>Note</b>: A {@code null} value may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} value may be restricted depending on the implementation.</p>
 	 * @param value the value of the child {@code TreeNode} to create
 	 * @return the created child {@code TreeNode}
 	 * @since 1.2.0

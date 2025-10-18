@@ -62,7 +62,7 @@ public final class LimitedBag<E> extends FilterBag<E> {
 	 *
 	 * <p><b>Note</b>: If the limit is reached then an element with a minimum occurrence is totally removed.</p>
 	 *
-	 * <p><b>Note</b>: A {@code null} element may be restricted depending of the implementation.</p>
+	 * <p><b>Note</b>: A {@code null} element may be restricted depending on the implementation.</p>
 	 * @param element the element to add
 	 * @param quantity the quantity of the element to add
 	 * @throws IllegalArgumentException if the quantity is lower than {@code 0}

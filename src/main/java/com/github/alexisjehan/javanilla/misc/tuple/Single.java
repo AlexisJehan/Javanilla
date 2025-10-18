@@ -27,7 +27,7 @@ import com.github.alexisjehan.javanilla.misc.quality.Equals;
 import com.github.alexisjehan.javanilla.misc.quality.HashCode;
 
 /**
- * A {@link Single} is an immutable tuple that is composed of an unique element.
+ * A {@link Single} is an immutable tuple that is composed of a unique element.
  *
  * <p><b>Note</b>: This class implements its own {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()}
  * methods.</p>
