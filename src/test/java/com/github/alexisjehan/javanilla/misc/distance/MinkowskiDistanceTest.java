@@ -40,9 +40,7 @@ final class MinkowskiDistanceTest {
 
 	@Test
 	void testConstructor() {
-		assertThat(new MinkowskiDistance(ORDER)).satisfies(otherMinkowskiDistance -> {
-			assertThat(otherMinkowskiDistance.getOrder()).isEqualTo(ORDER);
-		});
+		assertThat(new MinkowskiDistance(ORDER)).satisfies(otherMinkowskiDistance -> assertThat(otherMinkowskiDistance.getOrder()).isEqualTo(ORDER));
 	}
 
 	@Test
