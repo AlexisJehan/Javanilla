@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.14.1</version> <!-- "6.*" is not compatible with Java 11 -->
+			<version>5.14.2</version> <!-- "6.*" is not compatible with Java 11 -->
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -222,12 +222,12 @@
 					<dependency>
 						<groupId>net.sourceforge.pmd</groupId>
 						<artifactId>pmd-core</artifactId>
-						<version>7.19.0</version>
+						<version>7.20.0</version>
 					</dependency>
 					<dependency>
 						<groupId>net.sourceforge.pmd</groupId>
 						<artifactId>pmd-java</artifactId>
-						<version>7.19.0</version>
+						<version>7.20.0</version>
 					</dependency>
 				</dependencies>
 			</plugin>
