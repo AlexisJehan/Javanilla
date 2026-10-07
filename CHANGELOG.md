@@ -6,12 +6,12 @@
 - Add the `maven-pmd-plugin` plugin with `pmd-core` and `pmd-java` dependencies
 - Update the `junit-jupiter` dependency to `5.14.4`
 - Update the `assertj-core` dependency to `3.27.7`
-- Update the `maven-compiler-plugin` plugin to `3.15.0`
-- Update the `maven-surefire-plugin` plugin to `3.5.6`
+- Update the `maven-compiler-plugin` plugin to `3.16.0`
+- Update the `maven-surefire-plugin` plugin to `3.6.0`
 - Update the `jacoco-maven-plugin` plugin to `0.8.15`
 - Update the `maven-source-plugin` plugin to `3.4.0`
 - Update the `maven-javadoc-plugin` plugin to `3.12.0`
-- Update the `license-maven-plugin` plugin to `5.0.0`
+- Update the `license-maven-plugin` plugin to `5.1.2`
 - Update the `maven-gpg-plugin` plugin to `3.2.8`
 
 ## [1.8.0](https://github.com/AlexisJehan/Javanilla/releases/tag/v1.8.0) (2022-12-23)
